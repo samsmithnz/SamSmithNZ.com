@@ -50,6 +50,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="GlobalAchievementUnitTest.cs" />
+    <Compile Include="GameDetailUnitTest.cs" />
+    <Compile Include="PlayerDetailUnitTest.cs" />
+    <Compile Include="PlayerAchievementsForAppUnitTest.cs" />
+    <Compile Include="OwnedGamesTest.cs" />
     <Compile Include="FriendUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

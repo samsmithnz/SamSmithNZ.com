@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Global.cs" />
+    <Compile Include="SteamGameDetailDA.cs" />
+    <Compile Include="SteamPlayerDetailDA.cs" />
+    <Compile Include="SteamOwnedGamesDA.cs" />
+    <Compile Include="SteamGlobalAchievementPercentagesForAppDA.cs" />
+    <Compile Include="SteamPlayerAchievementsForAppDA.cs" />
     <Compile Include="SteamFriendDA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

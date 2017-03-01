@@ -11,9 +11,14 @@ namespace SSNZ.Steam.UnitTests
         [TestMethod]
         public void FriendsExistTest()
         {
-            SteamFriendDA da = new SteamFriendDA();
-            RootObject result = da.GetData();
+            //Arrange
+            string steamId = "76561197971691578";
 
+            //Act
+            SteamFriendDA da = new SteamFriendDA();
+            RootObject result = da.GetData(steamId);
+
+            //Asset
             Assert.IsTrue(result != null);
             Assert.IsTrue(result.friendslist != null);
             Assert.IsTrue(result.friendslist.friends != null);
