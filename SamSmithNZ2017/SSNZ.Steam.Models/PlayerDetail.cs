@@ -31,19 +31,19 @@ namespace SSNZ.Steam.Models
 
     public class PlayerDetail
     {
-        PlayerResponse response { get; set; }
+        public PlayerResponse response { get; set; }
     }
 
     public class PlayerResponse
     {
-        List<Player> players { get; set; }
+        public List<Player> players { get; set; }
     }
 
     public class Player
     {
         public string steamid { get; set; }
         public int communityvisibilitystate { get; set; }
-        public int profilestate { get; set; } 
+        public int profilestate { get; set; }
         public string personaname { get; set; }
         public int lastlogoff { get; set; }
         public int commentpermission { get; set; }
@@ -52,10 +52,8 @@ namespace SSNZ.Steam.Models
         public string avatarmedium { get; set; }
         public string avatarfull { get; set; }
         public int personastate { get; set; }
-        public int primaryclanid { get; set; }
+        public string primaryclanid { get; set; }
         public int timecreated { get; set; }
         public int personastateflags { get; set; }
-        public string loccountrycode { get; set; }
-        public int locstatecode { get; set; }
     }
 }

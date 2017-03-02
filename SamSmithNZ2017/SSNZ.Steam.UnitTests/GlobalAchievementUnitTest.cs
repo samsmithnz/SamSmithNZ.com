@@ -20,13 +20,21 @@ namespace SSNZ.Steam.UnitTests
 
             //Asset
             Assert.IsTrue(result != null);
-            //Assert.IsTrue(result.friendslist != null);
-            //Assert.IsTrue(result.friendslist.friends != null);
-            //Assert.IsTrue(result.friendslist.friends.Count >= 0);
-            //Assert.IsTrue(result.friendslist.friends.Count >= 1);
-            //Assert.IsTrue(result.friendslist.friends[0].steamid != "");
-            //Assert.IsTrue(result.friendslist.friends[0].relationship != "");
-            //Assert.IsTrue(result.friendslist.friends[0].friend_since >= 0);
+            Assert.IsTrue(result.achievementpercentages != null);
+            Assert.IsTrue(result.achievementpercentages.achievements != null);
+            Assert.IsTrue(result.achievementpercentages.achievements.Count >= 1);
+            Assert.IsTrue(result.achievementpercentages.achievements[0].name == "ACHIEVEMENT_28");
+            Assert.IsTrue(result.achievementpercentages.achievements[0].percent > 0m);
+            Assert.IsTrue(result.achievementpercentages.achievements[0].percent < 100m);
+
+            //<achievementpercentages> 
+            //  <achievements> 
+            //      <achievement> 
+            //          <name>ACHIEVEMENT_28</name> 
+            //          <percent>80.6781005859375</percent> 
+            //      </achievement>
+            //  <achievements>
+            //<achievementpercentages>
         }
     }
 }

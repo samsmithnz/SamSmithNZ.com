@@ -21,13 +21,30 @@ namespace SSNZ.Steam.UnitTests
 
             //Asset
             Assert.IsTrue(result != null);
-            //Assert.IsTrue(result.friendslist != null);
-            //Assert.IsTrue(result.friendslist.friends != null);
-            //Assert.IsTrue(result.friendslist.friends.Count >= 0);
-            //Assert.IsTrue(result.friendslist.friends.Count >= 1);
-            //Assert.IsTrue(result.friendslist.friends[0].steamid != "");
-            //Assert.IsTrue(result.friendslist.friends[0].relationship != "");
-            //Assert.IsTrue(result.friendslist.friends[0].friend_since >= 0);
+            Assert.IsTrue(result.playerstats != null);
+            Assert.IsTrue(result.playerstats.steamID == "76561197971691578");
+            Assert.IsTrue(result.playerstats.gameName == "XCOM: Enemy Unknown");
+            Assert.IsTrue(result.playerstats.achievements != null);
+            Assert.IsTrue(result.playerstats.achievements.Count >= 1);
+            Assert.IsTrue(result.playerstats.achievements[0].apiname == "ACHIEVEMENT_0");
+            Assert.IsTrue(result.playerstats.achievements[0].achieved == 1);
+            Assert.IsTrue(result.playerstats.achievements[0].name == "No Looking Back");
+            Assert.IsTrue(result.playerstats.achievements[0].description == "Beat the game in Ironman mode on Classic or Impossible Difficulty.");
+            Assert.IsTrue(result.playerstats.success == true);
+
+            //<playerstats>
+            //    <steamID>76561197971691578</steamID>
+            //    <gameName>XCOM: Enemy Unknown</gameName>
+            //    <achievements>
+            //      <achievement>
+            //          <apiname>ACHIEVEMENT_0</apiname>
+            //          <achieved>1</achieved>
+            //          <name>No Looking Back</name>
+            //          <description>Beat the game in Ironman mode on Classic or Impossible Difficulty.</description>
+            //      </achievement>
+            //    </achievements>
+            //    <success>true</success>
+            //</playerstats>
         }
     }
 }
