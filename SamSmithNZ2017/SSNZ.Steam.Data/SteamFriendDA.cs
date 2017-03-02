@@ -13,12 +13,12 @@ namespace SSNZ.Steam.Data
     {
 
         //http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=35D42236AAC777BEDB12CDEB625EF289&steamid=76561197971691578&relationship=friend&format=xml      
-        public RootObject GetData(string steamID)
+        public FriendList GetData(string steamID)
         {
             string jsonRequestString = "http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=" + Global.MySteamWebAPIKey + "&steamid=" + steamID + "&relationship=friend";
             string jsonData = new WebClient().DownloadString(jsonRequestString);
 
-            RootObject root = JsonConvert.DeserializeObject<RootObject>(jsonData);
+            FriendList root = JsonConvert.DeserializeObject<FriendList>(jsonData);
             return root;
         }
     }
