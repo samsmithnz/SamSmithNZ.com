@@ -50,12 +50,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="GlobalAchievementUnitTest.cs" />
-    <Compile Include="GameDetailUnitTest.cs" />
-    <Compile Include="PlayerDetailUnitTest.cs" />
-    <Compile Include="PlayerAchievementsForAppUnitTest.cs" />
-    <Compile Include="OwnedGamesTest.cs" />
-    <Compile Include="FriendUnitTest.cs" />
+    <Compile Include="SteamGlobalAchievementUnitTest.cs" />
+    <Compile Include="SteamGameDetailUnitTest.cs" />
+    <Compile Include="SteamPlayerDetailUnitTest.cs" />
+    <Compile Include="SteamPlayerAchievementsForAppUnitTest.cs" />
+    <Compile Include="SteamOwnedGamesTest.cs" />
+    <Compile Include="SteamFriendUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

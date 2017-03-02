@@ -6,7 +6,7 @@ using SSNZ.Steam.Models;
 namespace SSNZ.Steam.UnitTests
 {
     [TestClass]
-    public class OwnedGamesTest
+    public class SteamOwnedGamesTest
     {
         [TestMethod]
         public void OwnedGamesExistTest()

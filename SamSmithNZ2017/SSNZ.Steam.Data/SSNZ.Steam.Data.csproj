@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FriendsList.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="SteamGameDetailDA.cs" />
     <Compile Include="SteamPlayerDetailDA.cs" />

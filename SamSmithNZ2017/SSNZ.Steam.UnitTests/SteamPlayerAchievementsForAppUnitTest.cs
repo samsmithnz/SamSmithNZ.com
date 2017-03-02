@@ -6,7 +6,7 @@ using SSNZ.Steam.Models;
 namespace SSNZ.Steam.UnitTests
 {
     [TestClass]
-    public class PlayerAchievementsForAppUnitTest
+    public class SteamPlayerAchievementsForAppUnitTest
     {
         [TestMethod]
         public void PlayerAchievementsForAppExistUnitTest()

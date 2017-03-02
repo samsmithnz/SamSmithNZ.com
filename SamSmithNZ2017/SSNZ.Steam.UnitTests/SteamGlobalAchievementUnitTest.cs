@@ -6,7 +6,7 @@ using SSNZ.Steam.Models;
 namespace SSNZ.Steam.UnitTests
 {
     [TestClass]
-    public class GlobalAchievementUnitTest
+    public class SteamGlobalAchievementUnitTest
     {
         [TestMethod]
         public void GlobalAchievementUnitExistTest()
