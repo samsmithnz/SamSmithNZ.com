@@ -14,7 +14,7 @@ namespace SSNZ.Steam.Models
     //      </achievement>
     //  <achievements>
     //<achievementpercentages>
-    public class GlobalAchievementsForApp
+    public class SteamGlobalAchievementsForApp
     {
         public Achievements achievementpercentages { get; set; }
 

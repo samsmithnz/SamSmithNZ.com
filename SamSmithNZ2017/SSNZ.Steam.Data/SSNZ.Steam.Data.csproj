@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -44,8 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FriendsList.cs" />
+    <Compile Include="FriendsListDA.cs" />
+    <Compile Include="AchievementsDA.cs" />
     <Compile Include="Global.cs" />
+    <Compile Include="PlayerDA.cs" />
+    <Compile Include="PlayerGamesDA.cs" />
     <Compile Include="SteamGameDetailDA.cs" />
     <Compile Include="SteamPlayerDetailDA.cs" />
     <Compile Include="SteamOwnedGamesDA.cs" />
@@ -53,6 +57,7 @@
     <Compile Include="SteamPlayerAchievementsForAppDA.cs" />
     <Compile Include="SteamFriendDA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

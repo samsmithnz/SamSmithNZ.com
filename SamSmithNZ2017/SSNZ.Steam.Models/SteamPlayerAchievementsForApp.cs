@@ -19,7 +19,7 @@ namespace SSNZ.Steam.Models
     //    </achievements>
     //    <success>true</success>
     //</playerstats>
-    public class PlayerAchievementsForApp
+    public class SteamPlayerAchievementsForApp
     {
         public PlayerStats playerstats { get; set; }
     }

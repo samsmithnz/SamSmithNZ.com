@@ -19,7 +19,7 @@ namespace SSNZ.Steam.Models
     //      </message>
     //    </games>
     //</response>
-    public class OwnedGames
+    public class SteamOwnedGames
     {
         public OwnedGamesResponse response { get; set; }
     }

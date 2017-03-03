@@ -12,12 +12,12 @@ namespace SSNZ.Steam.Data
     public class SteamPlayerDetailDA
     {
         //http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=35D42236AAC777BEDB12CDEB625EF289&steamids=76561197971691578&format=xml
-        public PlayerDetail GetData(string commaSeperatedSteamIDs)
+        public SteamPlayerDetail GetData(string commaSeperatedSteamIDs)
         {
             string jsonRequestString = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + Global.MySteamWebAPIKey + "&steamids=" + commaSeperatedSteamIDs;
             string jsonData = new WebClient().DownloadString(jsonRequestString);
 
-            PlayerDetail result = JsonConvert.DeserializeObject<PlayerDetail>(jsonData);
+            SteamPlayerDetail result = JsonConvert.DeserializeObject<SteamPlayerDetail>(jsonData);
             return result;
         }
     }

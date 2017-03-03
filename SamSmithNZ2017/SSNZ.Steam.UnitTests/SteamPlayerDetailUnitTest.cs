@@ -16,7 +16,7 @@ namespace SSNZ.Steam.UnitTests
 
             //Act
             SteamPlayerDetailDA da = new SteamPlayerDetailDA();
-            PlayerDetail result = da.GetData(steamId);
+            SteamPlayerDetail result = da.GetData(steamId);
 
             //Asset
             Assert.IsTrue(result != null);

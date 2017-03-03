@@ -16,7 +16,7 @@ namespace SSNZ.Steam.Models
     //    </friends> 
     //</friendslist>
 
-    public class FriendList
+    public class SteamFriendList
     {
         public Friendslist friendslist { get; set; }
     }

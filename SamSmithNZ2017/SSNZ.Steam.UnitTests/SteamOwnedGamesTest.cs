@@ -16,7 +16,7 @@ namespace SSNZ.Steam.UnitTests
 
             //Act
             SteamOwnedGamesDA da = new SteamOwnedGamesDA();
-            OwnedGames result = da.GetData(steamId);
+            SteamOwnedGames result = da.GetData(steamId);
 
             //Asset
             Assert.IsTrue(result != null);

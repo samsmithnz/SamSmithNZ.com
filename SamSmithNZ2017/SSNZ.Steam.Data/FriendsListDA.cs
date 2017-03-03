@@ -36,7 +36,7 @@ namespace SSNZ.Steam.Data
         public static List<FriendsListDetail> LoadFriendsList(string steamID)
         {
             SteamFriendDA da = new SteamFriendDA();
-            FriendList friendList = da.GetData(steamID);
+            SteamFriendList friendList = da.GetData(steamID);
 
             //Don't forget to add ME! :)
             string commaSeperatedSteamIDs = steamID.ToString();
@@ -49,7 +49,7 @@ namespace SSNZ.Steam.Data
             }
 
             SteamPlayerDetailDA da2 = new SteamPlayerDetailDA();
-            PlayerDetail playerDetails = da2.GetData(commaSeperatedSteamIDs);
+            SteamPlayerDetail playerDetails = da2.GetData(commaSeperatedSteamIDs);
 
             List<FriendsListDetail> processedFriendList = new List<FriendsListDetail>();
             if (playerDetails != null)
