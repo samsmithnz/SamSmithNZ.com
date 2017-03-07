@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arhievement.cs" />
+    <Compile Include="Achievement.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="SteamFriendList.cs" />
     <Compile Include="SteamGameDetail.cs" />

@@ -7,10 +7,13 @@ using SSNZ.Steam.Models;
 
 namespace SSNZ.Steam.Data
 {
-    public class AchievementsDA
+    public class GlobalAchievementsDA
     {
         public Game GetData(string steamID, string appID)
         {
+
+            SteamGlobalAchievementPercentagesForAppDA da = new SteamGlobalAchievementPercentagesForAppDA();
+            SteamGlobalAchievementsForApp globalData = da.GetData(appID);
             return null;
         }
     }

@@ -46,7 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FriendsListDA.cs" />
-    <Compile Include="AchievementsDA.cs" />
+    <Compile Include="GlobalAchievementsDA.cs" />
+    <Compile Include="PlayerAchievementsDA.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="PlayerDA.cs" />
     <Compile Include="PlayerGamesDA.cs" />

@@ -28,11 +28,11 @@ namespace SSNZ.Steam.Models
     {
         public string steamID { get; set; }
         public string gameName { get; set; }
-        public List<Achievement> achievements { get; set; }
+        public List<SteamPlayerAchievement> achievements { get; set; }
         public bool success { get; set; }
     }
 
-    public class Achievement
+    public class SteamPlayerAchievement
     {
         public string apiname { get; set; }
         public int achieved { get; set; }

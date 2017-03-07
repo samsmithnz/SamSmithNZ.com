@@ -16,16 +16,16 @@ namespace SSNZ.Steam.Models
     //<achievementpercentages>
     public class SteamGlobalAchievementsForApp
     {
-        public Achievements achievementpercentages { get; set; }
+        public SteamGlobalAchievements achievementpercentages { get; set; }
 
     }
 
-    public class Achievements
+    public class SteamGlobalAchievements
     {
-        public List<achievement> achievements { get; set; }
+        public List<SteamGlobalAchievement> achievements { get; set; }
     }
 
-    public class achievement
+    public class SteamGlobalAchievement
     {
         public string name { get; set; }
         public decimal percent { get; set; }

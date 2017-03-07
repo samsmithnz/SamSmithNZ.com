@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace SSNZ.Steam.Models
 {
- public   class PlayerGame
+    public class Achievement
     {
-        public int APICounter { get; set; }
         public long AppID { get; set; }
         public string GameName { get; set; }
         public long TotalMinutesPlayed { get; set; }

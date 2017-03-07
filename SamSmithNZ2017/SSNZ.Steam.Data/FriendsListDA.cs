@@ -54,7 +54,7 @@ namespace SSNZ.Steam.Data
             List<FriendsListDetail> processedFriendList = new List<FriendsListDetail>();
             if (playerDetails != null)
             {
-                foreach (Player item in playerDetails.response.players)
+                foreach (SteamPlayer item in playerDetails.response.players)
                 {
                     long friendSince;
                     if (friendList != null)

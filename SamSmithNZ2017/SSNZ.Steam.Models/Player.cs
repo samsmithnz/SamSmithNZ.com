@@ -12,7 +12,7 @@ namespace SSNZ.Steam.Models
         public string PlayerName { get; set; }
         public bool IsPublic { get; set; }
         public double SecondsToRunQuery { get; set; }
-        public List<PlayerGame> Games { get; set; }
+        public List<Game> Games { get; set; }
     }
 }
 
