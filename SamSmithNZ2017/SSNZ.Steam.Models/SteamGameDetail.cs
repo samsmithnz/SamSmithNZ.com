@@ -28,12 +28,12 @@ namespace SSNZ.Steam.Models
     //  </availableGameStats>
     //</game>
 
-    public class GameDetail
+    public class SteamGameDetail
     {
-        public Game game { get; set; }
+        public SteamGame game { get; set; }
     }
 
-    public class Game
+    public class SteamGame
     {
         public string gameName { get; set; }
         public int gameVersion { get; set; }

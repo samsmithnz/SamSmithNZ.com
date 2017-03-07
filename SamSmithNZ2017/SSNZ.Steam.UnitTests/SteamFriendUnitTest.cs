@@ -16,7 +16,7 @@ namespace SSNZ.Steam.UnitTests
 
             //Act
             SteamFriendDA da = new SteamFriendDA();
-            FriendList result = da.GetData(steamId);
+            SteamFriendList result = da.GetData(steamId);
 
             //Asset
             Assert.IsTrue(result != null);

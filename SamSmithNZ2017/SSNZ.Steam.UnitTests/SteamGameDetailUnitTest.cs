@@ -16,7 +16,7 @@ namespace SSNZ.Steam.UnitTests
 
             //Act
             SteamGameDetailDA da = new SteamGameDetailDA();
-            GameDetail result = da.GetData(appId);
+            SteamGameDetail result = da.GetData(appId);
 
             //Asset
             Assert.IsTrue(result != null);

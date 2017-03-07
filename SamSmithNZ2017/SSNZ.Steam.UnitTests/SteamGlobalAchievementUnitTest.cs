@@ -16,7 +16,7 @@ namespace SSNZ.Steam.UnitTests
 
             //Act
             SteamGlobalAchievementPercentagesForAppDA da = new SteamGlobalAchievementPercentagesForAppDA();
-            GlobalAchievementsForApp result = da.GetData(appId);
+            SteamGlobalAchievementsForApp result = da.GetData(appId);
 
             //Asset
             Assert.IsTrue(result != null);

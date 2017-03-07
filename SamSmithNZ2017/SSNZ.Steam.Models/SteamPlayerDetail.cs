@@ -29,17 +29,17 @@ namespace SSNZ.Steam.Models
     //    </playesr>
     //</response>
 
-    public class PlayerDetail
+    public class SteamPlayerDetail
     {
         public PlayerResponse response { get; set; }
     }
 
     public class PlayerResponse
     {
-        public List<Player> players { get; set; }
+        public List<SteamPlayer> players { get; set; }
     }
 
-    public class Player
+    public class SteamPlayer
     {
         public string steamid { get; set; }
         public int communityvisibilitystate { get; set; }

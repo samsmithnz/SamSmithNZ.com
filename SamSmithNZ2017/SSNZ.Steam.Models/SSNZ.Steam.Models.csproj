@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -40,12 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FriendList.cs" />
-    <Compile Include="GameDetail.cs" />
-    <Compile Include="GlobalAchievementsForApp.cs" />
-    <Compile Include="OwnedGames.cs" />
-    <Compile Include="PlayerAchievementsForApp.cs" />
-    <Compile Include="PlayerDetail.cs" />
+    <Compile Include="Achievement.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="SteamFriendList.cs" />
+    <Compile Include="SteamGameDetail.cs" />
+    <Compile Include="SteamGlobalAchievementsForApp.cs" />
+    <Compile Include="SteamOwnedGames.cs" />
+    <Compile Include="SteamPlayerAchievementsForApp.cs" />
+    <Compile Include="SteamPlayerDetail.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
