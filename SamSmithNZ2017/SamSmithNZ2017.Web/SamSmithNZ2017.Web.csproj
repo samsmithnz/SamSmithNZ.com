@@ -174,6 +174,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SteamController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1012,6 +1013,7 @@
     <Content Include="Scripts\3rdParty\angular-cookies.min.js.map" />
     <Content Include="Scripts\3rdParty\angular-aria.min.js.map" />
     <Content Include="Scripts\3rdParty\angular-animate.min.js.map" />
+    <Content Include="Views\Steam\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
