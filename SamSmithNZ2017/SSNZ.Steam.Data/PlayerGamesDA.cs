@@ -20,6 +20,7 @@ namespace SSNZ.Steam.Data
             foreach (Message item in ownedGames.response.games)
             {
                 Game newItem = new Game();
+                newItem.AppID = item.appid;
                 newItem.GameName = item.name;
                 newItem.IconURL = item.img_icon_url;
                 newItem.LogoURL = item.img_logo_url;

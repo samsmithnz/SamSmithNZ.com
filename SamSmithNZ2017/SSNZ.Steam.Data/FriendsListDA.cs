@@ -7,33 +7,9 @@ using SSNZ.Steam.Models;
 
 namespace SSNZ.Steam.Data
 {
-    public class FriendsListDetail
+    public class FriendsListDA
     {
-        public FriendsListDetail(string steamid, string personaname, long lastlogoff, string profileurl, string avatar, string avatarmedium, string avatarfull, long timecreated, long friend_since)
-        {
-            this.Steamid = steamid;
-            this.Name = personaname;
-            this.LastLogoff = lastlogoff;
-            this.ProfileURL = profileurl;
-            this.Avatar = avatar;
-            this.AvatarMedium = avatarmedium;
-            this.AvatarFull = avatarfull;
-            this.TimeCreated = timecreated;
-            this.FriendSince = friend_since;
-        }
-
-        public string Steamid { get; set; }
-        public string Name { get; set; }
-        public long LastLogoff { get; set; }
-        public string ProfileURL { get; set; }
-        public string Avatar { get; set; }
-        public string AvatarMedium { get; set; }
-        public string AvatarFull { get; set; }
-        public long TimeCreated { get; set; }
-        public long FriendSince { get; set; }
-        //public List<OwnedGames> { get; set; }
-
-        public static List<FriendsListDetail> LoadFriendsList(string steamID)
+        public List<Friend> GetFriendsList(string steamID)
         {
             SteamFriendDA da = new SteamFriendDA();
             SteamFriendList friendList = da.GetData(steamID);
@@ -42,7 +18,7 @@ namespace SSNZ.Steam.Data
             string commaSeperatedSteamIDs = steamID.ToString();
             if (friendList != null)
             {
-                foreach (Friend item in friendList.friendslist.friends)
+                foreach (SteamFriend item in friendList.friendslist.friends)
                 {
                     commaSeperatedSteamIDs += "," + item.steamid.ToString();
                 }
@@ -51,7 +27,7 @@ namespace SSNZ.Steam.Data
             SteamPlayerDetailDA da2 = new SteamPlayerDetailDA();
             SteamPlayerDetail playerDetails = da2.GetData(commaSeperatedSteamIDs);
 
-            List<FriendsListDetail> processedFriendList = new List<FriendsListDetail>();
+            List<Friend> processedFriendList = new List<Friend>();
             if (playerDetails != null)
             {
                 foreach (SteamPlayer item in playerDetails.response.players)
@@ -59,17 +35,26 @@ namespace SSNZ.Steam.Data
                     long friendSince;
                     if (friendList != null)
                     {
-                        friendSince = FriendsListDetail.GetFriendSince(item.steamid, friendList.friendslist.friends);
+                        friendSince = GetFriendSince(item.steamid, friendList.friendslist.friends);
                     }
                     else
                     {
                         friendSince = 0;
                     }
-                    FriendsListDetail friend = new FriendsListDetail(item.steamid, item.personaname, item.lastlogoff, item.profileurl, item.avatar, item.avatarmedium, item.avatarfull, item.timecreated, friendSince);
+                    Friend friend = new Friend();
+                    friend.SteamId = item.steamid;
+                    friend.Name = item.personaname;
+                    friend.LastLogoff = item.lastlogoff;
+                    friend.ProfileURL = item.profileurl;
+                    friend.Avatar = item.avatar;
+                    friend.AvatarMedium = item.avatarmedium;
+                    friend.AvatarFull = item.avatarfull;
+                    friend.TimeCreated = item.timecreated;
+                    friend.FriendSince = friendSince;
                     processedFriendList.Add(friend);
                 }
             }
-            processedFriendList.Sort(delegate (FriendsListDetail p1, FriendsListDetail p2)
+            processedFriendList.Sort(delegate (Friend p1, Friend p2)
             {
                 return p1.Name.CompareTo(p2.Name);
             });
@@ -77,9 +62,9 @@ namespace SSNZ.Steam.Data
             return processedFriendList;
         }
 
-        private static long GetFriendSince(string steamID, List<Friend> friends)
+        private long GetFriendSince(string steamID, List<SteamFriend> friends)
         {
-            foreach (Friend item in friends)
+            foreach (SteamFriend item in friends)
             {
                 if (item.steamid == steamID)
                 {

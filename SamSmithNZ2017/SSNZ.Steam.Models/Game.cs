@@ -8,7 +8,6 @@ namespace SSNZ.Steam.Models
 {
     public class Game
     {
-        public int APICounter { get; set; }
         public long AppID { get; set; }
         public string GameName { get; set; }
         public long TotalMinutesPlayed { get; set; }

@@ -9,12 +9,12 @@ namespace SSNZ.Steam.Data
 {
     public class PlayerAchievementsDA
     {
-        public Game GetData(string steamID, string appID)
+        public SteamPlayerAchievementsForApp GetData(string steamID, string appID)
         {
 
             SteamPlayerAchievementsForAppDA da = new SteamPlayerAchievementsForAppDA();
             SteamPlayerAchievementsForApp playerData = da.GetData(steamID, appID);
-            return null;
+            return playerData;
         }
     }
 }
