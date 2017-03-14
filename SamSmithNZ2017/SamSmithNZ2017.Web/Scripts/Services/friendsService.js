@@ -13,7 +13,7 @@
         var baseUrl = 'http://ssnzsteamservice.azurewebsites.net/';
 
         this.getFriends = function (steamId) {
-            var url = baseUrl + 'api/FriendsList/GetFriendList?steamId=' + steamId;
+            var url = baseUrl + 'api/Friends/GetFriends?steamId=' + steamId;
             return $http.get(url);
         }
 

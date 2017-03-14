@@ -15,7 +15,9 @@ namespace SSNZ.Steam.Data
         public SteamPlayerDetail GetData(string commaSeperatedSteamIDs)
         {
             string jsonRequestString = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + Global.MySteamWebAPIKey + "&steamids=" + commaSeperatedSteamIDs;
-            string jsonData = new WebClient().DownloadString(jsonRequestString);
+            WebClient newClient = new WebClient();
+            newClient.Encoding = UTF8Encoding.UTF8;
+            string jsonData = newClient.DownloadString(jsonRequestString);
 
             SteamPlayerDetail result = JsonConvert.DeserializeObject<SteamPlayerDetail>(jsonData);
             return result;

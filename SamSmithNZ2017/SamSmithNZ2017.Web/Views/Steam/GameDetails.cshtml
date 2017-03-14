@@ -1,108 +1,107 @@
-﻿@*@model SamSmithNZ2015.Models.Steam.PlayerGameDetailsViewModel
-    @{
-        ViewBag.Title = "Home Page";
-        Layout = "~/Views/Shared/_LayoutSteam.cshtml";
-
-        string allBold = "font-weight: normal;";
-        string logoURL = "";
-        if (Model != null && Model.GameInfo != null)
-        {
-            logoURL = "http://media.steampowered.com/steamcommunity/public/images/apps/" + Model.AppID.ToString() + "/" + Model.GameInfo.LogoURL + ".jpg";
-        }
-
-        if (Model.GameInfo == null || Model.GameInfo.LogoURL == "")
-        {
-            logoURL = "/Content/images/steam32by32.png";
-        }
-    }*@
-
-@*@if (Model.GameInfo != null)
-    {*@
-<h2 class="sectionTitle"><b>[Model.PlayerName]'s Statistics for [Model.GameInfo.GameName]</b></h2>
-<span>(Processed in [Model.SecondsToRunQuery.ToString("0.00")] seconds)</span>
-<br />
-@*@Html.ActionLink(@Model.PlayerName + "'s Game List", "Index", new { steamID = Model.SteamID }, new { @style = "font-weight: bold;" })*@ <span>&nbsp;&gt;&nbsp;</span>[Model.GameInfo.GameName]
-<br />
-<br />
-<img src="~/Content/Steam/steam32by32.png" />
-<br />
-
-    //if (Model.GameStatistics.AchievementStats.Count > 0 || Model.GameStatistics.CompletedCount > 0)
-    //{
-    //    using (Html.BeginForm("GameDetails", "Steam", new { steamID = Model.SteamID, appID = Model.AppID, isPostingResponse = true }, FormMethod.Post))
-    //    {
-<table>
-    <tr>
-        <td>Achievements Completed:</td>
-        <td>[Model.GameStatistics.CompletedCount] ([Model.GameStatistics.PercentComplete.ToString("0.00")]%)</td>
-        <td rowspan="4" style="width: 300px;">
-            @*<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- SteamBanner2 -->
-                <ins class="adsbygoogle"
-                     style="display:inline-block;width:320px;height:100px"
-                     data-ad-client="ca-pub-2315986579277492"
-                     data-ad-slot="6826309967"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>*@
-        </td>
-    </tr>
-    <tr>
-        <td>Completion Filter:</td>
-        <td>@*@Html.DropDownList("cboCompletedFilter", new SelectList(Model.CompletedFilters, "Value", "Key", Model.CurrentCompletedFilter), new { onchange = "this.form.submit();" })*@</td>
-    </tr>
-    @*@if (Model.InclusionFilters.Count > 0 && Model.ExclusionFilters.Count > 0)
-        {
-            <tr>
-                <td>Include achievements with term:</td>
-                <td>@Html.DropDownList("cboIncludeFilter", new SelectList(Model.InclusionFilters, "Value", "Key", Model.CurrentIncludeFilter), new { onchange = "this.form.submit();" })</td>
-            </tr>
-            <tr>
-                <td>Exclude achievements with term:</td>
-                <td>@Html.DropDownList("cboExcludeFilter", new SelectList(Model.ExclusionFilters, "Value", "Key", Model.CurrentExcludeFilter), new { onchange = "this.form.submit();" })</td>
-            </tr>
-        }*@
-</table>
-        }
-<br />
-<span>Achievements ([Model.GameStatistics.AchievementStats.Count.ToString()]):</span>
-<table class="tableborders">
-    <tr>
-        <th class="headerborders">#</th>
-        <th class="headerborders"></th>
-        <th class="headerborders">Global Completion %</th>
-        <th class="headerborders">Description</th>
-        <th class="headerborders">API Name</th>
-    </tr>
-    @*@{
-            int counter = Model.GameStatistics.AchievementStats.Count;
-        }
-        @foreach (SamSmithNZ2015.Core.SteamWebAPI.PlayerGameStatistics.PlayerGameAchievement item in Model.GameStatistics.AchievementStats)
-        {
-            if (item != null)
-            {
-                <tr class="alternatingColors">
-                    <td class="cellborders">@counter</td>
-                    <td class="cellborders">
-                        <img src="@item.IconURL" />
-                    </td>
-                    <td class="cellborders">@item.GlobalPercent.ToString("0.00")%</td>
-                    <td class="cellborders">@item.Name: @item.Description</td>
-                    <td class="cellborders">@item.APIName</td>
-                </tr>
-            }
-            counter--;
-        }*@
-</table>
-    @*}
-    else
-    {
-<span>Achievements not found</span>
-    }
+﻿@{
+    ViewBag.Title = "Game Details";
+    Layout = "~/Views/Shared/_LayoutSteam.cshtml";
 }
-else
-{
-<h2 class="sectionTitle"><b>Found no games for [Model.PlayerName]</b></h2>
-}*@
 
-<br />
+<div ng-controller="gameDetailsController">
+
+    @*@model SamSmithNZ2015.Models.Steam.PlayerGameDetailsViewModel
+        @{
+            ViewBag.Title = "Home Page";
+            Layout = "~/Views/Shared/_LayoutSteam.cshtml";
+
+            string allBold = "font-weight: normal;";
+            string logoURL = "";
+            if (Model != null && Model.GameInfo != null)
+            {
+                logoURL = "http://media.steampowered.com/steamcommunity/public/images/apps/" + Model.AppID.ToString() + "/" + Model.GameInfo.LogoURL + ".jpg";
+            }
+
+            if (Model.GameInfo == null || Model.GameInfo.LogoURL == "")
+            {
+                logoURL = "/Content/images/steam32by32.png";
+            }
+        }*@
+
+    @*@if (Model.GameInfo != null)
+        {*@
+    <h2 class="sectionTitle"><b>[Model.PlayerName]'s Statistics for {{gameDetails.GameName}}</b></h2>
+    <br />
+    @*@Html.ActionLink(@Model.PlayerName + "'s Game List", "Index", new { steamID = Model.SteamID }, new { @style = "font-weight: bold;" })*@ <span>&nbsp;&gt;&nbsp;</span>{{gameDetails.GameName}}
+    <br />
+    <br />
+    <img src="~/Content/Steam/steam32by32.png" />
+    <br />
+
+    @*if (Model.GameStatistics.AchievementStats.Count > 0 || Model.GameStatistics.CompletedCount > 0)
+        {
+            using (Html.BeginForm("GameDetails", "Steam", new { steamID = Model.SteamID, appID = Model.AppID, isPostingResponse = true }, FormMethod.Post))
+            {*@
+    <table>
+        <tr>
+            <td>Achievements Completed:</td>
+            <td>{{gameDetails.TotalArchieved}} ({{gameDetails.PercentAchieved | number : 2}}%)</td>
+            <td rowspan="4" style="width: 300px;">
+                @*<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- SteamBanner2 -->
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:320px;height:100px"
+                         data-ad-client="ca-pub-2315986579277492"
+                         data-ad-slot="6826309967"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>*@
+            </td>
+        </tr>
+        <tr>
+            <td>@*Completion Filter:*@</td>
+            <td>@*@Html.DropDownList("cboCompletedFilter", new SelectList(Model.CompletedFilters, "Value", "Key", Model.CurrentCompletedFilter), new { onchange = "this.form.submit();" })*@</td>
+        </tr>
+        @*@if (Model.InclusionFilters.Count > 0 && Model.ExclusionFilters.Count > 0)
+            {
+                <tr>
+                    <td>Include achievements with term:</td>
+                    <td>@Html.DropDownList("cboIncludeFilter", new SelectList(Model.InclusionFilters, "Value", "Key", Model.CurrentIncludeFilter), new { onchange = "this.form.submit();" })</td>
+                </tr>
+                <tr>
+                    <td>Exclude achievements with term:</td>
+                    <td>@Html.DropDownList("cboExcludeFilter", new SelectList(Model.ExclusionFilters, "Value", "Key", Model.CurrentExcludeFilter), new { onchange = "this.form.submit();" })</td>
+                </tr>
+            }*@
+    </table>
+    @*  }*@
+
+    <br />
+    <span>Achievements ({{gameDetails.Achievements.length}}):</span>
+    <table class="tableborders">
+        <tr>
+            <th class="headerborders">#</th>
+            <th class="headerborders"></th>
+            <th class="headerborders">Global Completion %</th>
+            <th class="headerborders">Description</th>
+            <th class="headerborders">API Name</th>
+        </tr>
+        <tr ng-repeat="item in gameDetails.Achievements" class="alternatingColors">
+            <td class="cellborders">{{$index + 1}}</td>
+            <td class="cellborders">
+                <img ng-show="item.Achieved" ng-src="{{item.IconURL}}" />
+                <img ng-show="!item.Achieved" ng-src="{{item.IconGrayURL}}" />
+            </td>
+            <td class="cellborders">{{item.GlobalPercent | number : 2}}%</td>
+            <td class="cellborders">{{item.Name}}: {{item.Description}}</td>
+            <td class="cellborders">{{item.ApiName}}</td>
+        </tr>
+    </table>
+    @*}
+            else
+            {
+        <span>Achievements not found</span>
+            }
+        }
+        else
+        {
+        <h2 class="sectionTitle"><b>Found no games for [Model.PlayerName]</b></h2>
+        }*@
+
+    <br />
+</div>

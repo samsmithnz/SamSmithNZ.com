@@ -7,9 +7,9 @@ using SSNZ.Steam.Models;
 
 namespace SSNZ.Steam.Data
 {
-    public class FriendsListDA
+    public class FriendsDA
     {
-        public List<Friend> GetFriendsList(string steamID)
+        public List<Friend> GetFriends(string steamID)
         {
             SteamFriendDA da = new SteamFriendDA();
             SteamFriendList friendList = da.GetData(steamID);

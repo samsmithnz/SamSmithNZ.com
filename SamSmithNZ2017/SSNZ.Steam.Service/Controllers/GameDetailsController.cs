@@ -9,12 +9,12 @@ using SSNZ.Steam.Models;
 
 namespace SSNZ.Steam.Service.Controllers
 {
-    public class FriendsListController : ApiController
+    public class GameDetailsController : ApiController
     {
-        public List<Friend> GetFriendList(string steamId)
+        public GameDetail GetGameDetails(string steamID, string appID)
         {
-            FriendsListDA da = new FriendsListDA();
-            return da.GetFriendsList(steamId);
+            GameDetailsDA da = new GameDetailsDA();
+            return da.GetData(steamID, appID);
         }
     }
 }

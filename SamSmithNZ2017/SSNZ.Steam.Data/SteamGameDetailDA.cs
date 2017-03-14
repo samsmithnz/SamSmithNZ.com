@@ -15,7 +15,9 @@ namespace SSNZ.Steam.Data
         public SteamGameDetail GetData(string appID)
         {
             string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=" + Global.MySteamWebAPIKey + "&appid=" + appID.ToString() + "&l=en";
-            string jsonData = new WebClient().DownloadString(jsonRequestString);
+            WebClient newClient = new WebClient();
+            newClient.Encoding = UTF8Encoding.UTF8;
+            string jsonData = newClient.DownloadString(jsonRequestString);
 
             SteamGameDetail result = JsonConvert.DeserializeObject<SteamGameDetail>(jsonData);
             return result;

@@ -23,9 +23,10 @@
                         <img ng-src="http://media.steampowered.com/steamcommunity/public/images/apps/{{item.AppID}}/{{item.IconURL}}.jpg" style="width:32px; height:32px;" />
                         <span ng-hide="item.CommunityIsVisible">{{item.GameName}}</span>
                         <span ng-show="item.CommunityIsVisible">
-                            <a href="GameDetails?steamid={{steamId}}&appId={{item.AppID}}">{{item.GameName}}</a>
+                            <a href="GameDetails?Steamid={{steamId}}&AppId={{item.AppID}}">{{item.GameName}}</a>
                         </span>
-                        <span> (Time played: {{item.TotalTimeString}})</span>
+                        <span ng-show="item.TotalMinutesPlayed >= 60"> (Time played: {{item.TotalTimeString}})</span>
+                        <span ng-show="item.TotalMinutesPlayed <= 60"> (Time played: {{item.TotalMinutesPlayed}} minutes)</span>
                     </li>
                 </ul>
             </td>

@@ -27,6 +27,7 @@ namespace SSNZ.Steam.Data
                 newItem.TotalMinutesPlayed = item.playtime_forever;
                 newItem.TotalTimeString = Utility.ConvertMinutesToFriendlyTime(item.playtime_forever);
                 newItem.CommunityIsVisible = item.has_community_visible_stats;
+
                 games.Add(newItem);
             }
 

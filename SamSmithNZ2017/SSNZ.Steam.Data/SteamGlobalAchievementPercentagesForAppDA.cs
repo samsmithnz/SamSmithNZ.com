@@ -16,7 +16,9 @@ namespace SSNZ.Steam.Data
         public SteamGlobalAchievementsForApp GetData(string appID)
         {
             string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=" + appID.ToString();
-            string jsonData = new WebClient().DownloadString(jsonRequestString);
+            WebClient newClient = new WebClient();
+            newClient.Encoding = UTF8Encoding.UTF8;
+            string jsonData = newClient.DownloadString(jsonRequestString);
 
             SteamGlobalAchievementsForApp result = JsonConvert.DeserializeObject<SteamGlobalAchievementsForApp>(jsonData);
             return result;

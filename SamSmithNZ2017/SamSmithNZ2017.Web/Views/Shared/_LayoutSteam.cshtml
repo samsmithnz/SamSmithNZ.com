@@ -2,6 +2,7 @@
 
 <html>
 <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width" />
     <title>Steam Stats</title>
     @Styles.Render("~/Content/globalCSS")
@@ -47,7 +48,7 @@
                     <b>Friends list for [Model.PlayerName]:</b>
                     <br />
                     <br />
-                    <div class="PlaylistSideBar" ng-controller="friendListController">
+                    <div class="PlaylistSideBar" ng-controller="friendsController">
                         <div ng-repeat="item in friends">
                             <img ng-src="{{item.Avatar}}" /> <a href="Index?SteamId={{item.SteamId}}">{{item.Name}}</a><br />
                         </div>
