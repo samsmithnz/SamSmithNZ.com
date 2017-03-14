@@ -58,6 +58,7 @@
     <Compile Include="SteamOwnedGamesTest.cs" />
     <Compile Include="SteamFriendUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GameDetailTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SSNZ.Steam.Data\SSNZ.Steam.Data.csproj">

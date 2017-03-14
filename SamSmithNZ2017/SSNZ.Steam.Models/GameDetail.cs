@@ -10,7 +10,9 @@ namespace SSNZ.Steam.Models
     {
         public string AppID { get; set; }
         public string GameName { get; set; }
-        public int TotalArchieved { get; set; }
+        public string IconURL { get; set; }
+        public string LogoURL { get; set; }
+        public int TotalAchieved { get; set; }
         public decimal PercentAchieved { get; set; }
         public List<Achievement> Achievements { get; set; }
     }

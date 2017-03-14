@@ -11,38 +11,41 @@ namespace SSNZ.Steam.Data
     {
         public List<Achievement> GetData(string steamID, string appID, SteamGameDetail steamGameDetails)
         {
-            SteamGameDetailDA da3 = new SteamGameDetailDA();
-            SteamGameDetail gameDetail = da3.GetData(appID);
-
             SteamPlayerAchievementsForAppDA da = new SteamPlayerAchievementsForAppDA();
             SteamPlayerAchievementsForApp playerData = da.GetData(steamID, appID);
 
-            SteamGlobalAchievementPercentagesForAppDA da2 = new SteamGlobalAchievementPercentagesForAppDA();
-            SteamGlobalAchievementsForApp globalData = da2.GetData(appID);
-
             List<Achievement> results = new List<Achievement>();
-            foreach (SteamPlayerAchievement item in playerData.playerstats.achievements)
+            if (playerData != null)
             {
-                Achievement newItem = new Achievement();
-                newItem.ApiName = item.apiname;
-                newItem.Name = item.name;
-                newItem.Description = item.description;
-                newItem.Achieved = item.achieved;
-                newItem.GlobalPercent = GetGlobalAchievement(item.apiname, globalData.achievementpercentages.achievements);
-                if (steamGameDetails != null && steamGameDetails.game != null && steamGameDetails.game.availableGameStats != null && steamGameDetails.game.availableGameStats.achievements != null)
+                SteamGlobalAchievementPercentagesForAppDA da2 = new SteamGlobalAchievementPercentagesForAppDA();
+                SteamGlobalAchievementsForApp globalData = da2.GetData(appID);
+
+                if (playerData.playerstats.achievements != null)
                 {
-                    newItem.IconURL = GetIconURL(newItem.ApiName, steamGameDetails.game.availableGameStats.achievements);
-                    newItem.IconGrayURL = GetIconGrayURL(newItem.ApiName, steamGameDetails.game.availableGameStats.achievements);
+                    foreach (SteamPlayerAchievement item in playerData.playerstats.achievements)
+                    {
+                        Achievement newItem = new Achievement();
+                        newItem.ApiName = item.apiname;
+                        newItem.Name = item.name;
+                        newItem.Description = item.description;
+                        newItem.Achieved = item.achieved;
+                        newItem.GlobalPercent = GetGlobalAchievement(item.apiname, globalData.achievementpercentages.achievements);
+                        if (steamGameDetails != null && steamGameDetails.game != null && steamGameDetails.game.availableGameStats != null && steamGameDetails.game.availableGameStats.achievements != null)
+                        {
+                            newItem.IconURL = GetIconURL(newItem.ApiName, steamGameDetails.game.availableGameStats.achievements);
+                            newItem.IconGrayURL = GetIconGrayURL(newItem.ApiName, steamGameDetails.game.availableGameStats.achievements);
+                        }
+                        newItem.FriendAchieved = 0;
+
+                        results.Add(newItem);
+                    }
                 }
-                newItem.FriendAchieved = 0;
 
-                results.Add(newItem);
+                results.Sort(delegate (Achievement p1, Achievement p2)
+                {
+                    return p2.GlobalPercent.CompareTo(p1.GlobalPercent);
+                });
             }
-
-            results.Sort(delegate (Achievement p1, Achievement p2)
-            {
-                return p2.GlobalPercent.CompareTo(p1.GlobalPercent);
-            });
 
             return results;
         }

@@ -40,17 +40,17 @@
             </tr>
         </table>
     </div>
-    <div class="contentFrame">
+    <div class="contentFrame" ng-controller="layoutController">
         <table class="PercentWidth100">
             <tr class="toptr">
                 <td class="sideBar">
                     <br />
-                    <b>Friends list for [Model.PlayerName]:</b>
+                    <b>Friends list for {{player.PlayerName}}:</b>
                     <br />
                     <br />
-                    <div class="PlaylistSideBar" ng-controller="friendsController">
+                    <div class="PlaylistSideBar">
                         <div ng-repeat="item in friends">
-                            <img ng-src="{{item.Avatar}}" /> <a href="Index?SteamId={{item.SteamId}}">{{item.Name}}</a><br />
+                            <img ng-src="{{item.Avatar}}" /> <a href="~/Steam/Index?SteamId={{item.SteamId}}">{{item.Name}}</a><br />
                         </div>
                         @*@if (Model.FriendList == null || Model.FriendList.Count == 0)
                             {
@@ -64,7 +64,6 @@
                                 }
                             }*@
                     </div>
-                    @*@Html.Action("FriendlistSideBar", "Steam", new { steamID = ViewBag.SteamID })*@
                 </td>
                 <td class="contentMain">
                     @RenderBody()
@@ -80,8 +79,6 @@
             Powered by <a href="http://steampowered.com" target="_blank">Steam</a>.
             This site is not affiliated with Valve, Steam, or any of their partners. All copyrights reserved to their respective owners. All times are in UTC.
         </p>
-        <br />
-        <br />
         <hr />
         Copyright &copy;2000 - @DateTime.Now.Year SamSmithNZ.com
     </div>

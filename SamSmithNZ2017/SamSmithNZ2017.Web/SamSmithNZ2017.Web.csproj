@@ -964,9 +964,10 @@
     <Content Include="Scripts\3rdParty\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\3rdParty\i18n\angular-locale_zu.js" />
     <Content Include="Scripts\app.js" />
-    <Content Include="Scripts\Controllers\friendsController.js" />
+    <Content Include="Scripts\Controllers\layoutController.js" />
     <Content Include="Scripts\Controllers\gameDetailsController.js" />
     <Content Include="Scripts\Controllers\indexController.js" />
+    <Content Include="Scripts\Services\playerService.js" />
     <Content Include="Scripts\Services\gameDetailsService.js" />
     <Content Include="Scripts\Services\playerGamesService.js" />
     <Content Include="Scripts\Services\friendsService.js" />

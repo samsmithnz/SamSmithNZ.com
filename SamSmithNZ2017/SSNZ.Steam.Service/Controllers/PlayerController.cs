@@ -9,7 +9,7 @@ using SSNZ.Steam.Models;
 
 namespace SSNZ.Steam.Service.Controllers
 {
-    public class PlayersController : ApiController
+    public class PlayerController : ApiController
     {
         public Player GetPlayer(string steamID)
         {

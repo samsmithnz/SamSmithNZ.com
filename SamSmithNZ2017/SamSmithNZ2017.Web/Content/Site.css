@@ -23,6 +23,9 @@ textarea {
     max-width: 280px;
 }
 
+/* Custom Styles for all sub-sites
+-----------------------------------------------------------*/
+
 .tableborders {
     border-color: #a9a9a9;
     border-width: 1px;
@@ -48,9 +51,15 @@ textarea {
     background-color: #ddd;
 }
 
-/* Custom Styles for all sub-sites
------------------------------------------------------------*/
-
+.sectionTitle {
+    border-bottom-color: #aaa;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    font-size: 150%;
+    padding-top: 0.5em;
+    padding-bottom: 0.17em;
+    margin-bottom: 0.6em;
+}
 
 .PercentWidth100 {
     width: 100%;
@@ -90,6 +99,15 @@ textarea {
 .contentFrame {
     background-color: #F3F3F3;
     outline-offset: 0px;
+}
+
+a
+{
+    color:blue;
+}
+a:hover
+{
+    color:darkblue;
 }
 
 .toptr {

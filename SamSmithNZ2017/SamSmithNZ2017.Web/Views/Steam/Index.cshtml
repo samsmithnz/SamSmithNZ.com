@@ -4,17 +4,11 @@
 }
 
 <div ng-controller="indexController">
-
-    <h2 class="sectionTitle"><b>[Model.PlayerName]'s Games</b></h2>
-    @*@if (Model.IsPublic == false)
-        {
-            <span>This profile is private</span>
-        }*@
+    <h2 class="sectionTitle"><b>{{player.PlayerName}}'s Games</b></h2>
+    <span ng-hide="player.IsPublic">This profile is private</span>
     <br />
 
-    @*@if (Model.IsPublic == true)
-        {*@
-    <table class="tableofcontents" padding="0" cellspacing="0">
+    <table ng-show="player.IsPublic" class="tableofcontents" padding="0" cellspacing="0">
         <tr>
             <td style="width: 50%;">
                 <ul ng-repeat="item in games" style="text-align: left; padding: 0px;">
@@ -23,7 +17,7 @@
                         <img ng-src="http://media.steampowered.com/steamcommunity/public/images/apps/{{item.AppID}}/{{item.IconURL}}.jpg" style="width:32px; height:32px;" />
                         <span ng-hide="item.CommunityIsVisible">{{item.GameName}}</span>
                         <span ng-show="item.CommunityIsVisible">
-                            <a href="GameDetails?Steamid={{steamId}}&AppId={{item.AppID}}">{{item.GameName}}</a>
+                            <a href="~/Steam/GameDetails?Steamid={{steamId}}&AppId={{item.AppID}}">{{item.GameName}}</a>
                         </span>
                         <span ng-show="item.TotalMinutesPlayed >= 60"> (Time played: {{item.TotalTimeString}})</span>
                         <span ng-show="item.TotalMinutesPlayed <= 60"> (Time played: {{item.TotalMinutesPlayed}} minutes)</span>

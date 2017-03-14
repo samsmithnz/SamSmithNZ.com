@@ -20,12 +20,13 @@
             $scope.gameDetails = response.data;
         }
 
-        $scope.steamId = $('#txtSteamId').val();
+        $scope.steamId = getUrlParameter('SteamId');
         if ($scope.steamId == '' || $scope.steamId == null) {
             $scope.steamId = '76561197971691578';
+            console.log("Steam Id not found");
         }
 
-        var appId = getUrlParameter('AppId')
+        var appId = getUrlParameter('AppId');
         if (appId == '' || appId == null) {
             appId = '420';
             console.log("Error in app id!");

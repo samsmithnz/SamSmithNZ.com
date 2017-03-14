@@ -11,7 +11,6 @@ namespace SSNZ.Steam.Models
         public string SteamID { get; set; }
         public string PlayerName { get; set; }
         public bool IsPublic { get; set; }
-        public double SecondsToRunQuery { get; set; }
         public List<Game> Games { get; set; }
     }
 }
