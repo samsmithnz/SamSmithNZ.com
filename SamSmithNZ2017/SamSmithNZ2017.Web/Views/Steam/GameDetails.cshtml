@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Game Details";
+    Layout = "~/Views/Shared/_LayoutSteam.cshtml";
+}
+
+<div ng-controller="gameDetailsController">
+
+    <h2 class="sectionTitle"><b>{{player.PlayerName}}'s Statistics for {{gameDetails.GameName}}</b></h2>
+    <br />
+    <a href="~/Steam/Index?SteamId={{steamId}}">{{player.PlayerName}}'s Game List</a> <span>&nbsp;&gt;&nbsp;</span> {{gameDetails.GameName}}
+    <br />
+    <br />
+    <img ng-show="gameDetails != null" src="http://media.steampowered.com/steamcommunity/public/images/apps/{{gameDetails.AppID}}/{{gameDetails.LogoURL}}.jpg" />
+    <img ng-show="gameDetails == null" src="~/Content/Steam/steam32by32.png" />
+    <br />
+
+    @*if (Model.GameStatistics.AchievementStats.Count > 0 || Model.GameStatistics.CompletedCount > 0)
+        {
+            using (Html.BeginForm("GameDetails", "Steam", new { steamID = Model.SteamID, appID = Model.AppID, isPostingResponse = true }, FormMethod.Post))
+            {*@
+
+    <div ng-show="gameDetails.Achievements.length > 0">
+        <table>
+            <tr>
+                <td>Achievements Completed:</td>
+                <td>{{gameDetails.TotalAchieved}} ({{gameDetails.PercentAchieved | number : 2}}%)</td>
+                <td rowspan="4" style="width: 300px;">
+                    @*<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- SteamBanner2 -->
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:320px;height:100px"
+                             data-ad-client="ca-pub-2315986579277492"
+                             data-ad-slot="6826309967"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>*@
+                </td>
+            </tr>
+            <tr>
+                <td>@*Completion Filter:*@</td>
+                <td>@*@Html.DropDownList("cboCompletedFilter", new SelectList(Model.CompletedFilters, "Value", "Key", Model.CurrentCompletedFilter), new { onchange = "this.form.submit();" })*@</td>
+            </tr>
+            @*@if (Model.InclusionFilters.Count > 0 && Model.ExclusionFilters.Count > 0)
+                {
+                    <tr>
+                        <td>Include achievements with term:</td>
+                        <td>@Html.DropDownList("cboIncludeFilter", new SelectList(Model.InclusionFilters, "Value", "Key", Model.CurrentIncludeFilter), new { onchange = "this.form.submit();" })</td>
+                    </tr>
+                    <tr>
+                        <td>Exclude achievements with term:</td>
+                        <td>@Html.DropDownList("cboExcludeFilter", new SelectList(Model.ExclusionFilters, "Value", "Key", Model.CurrentExcludeFilter), new { onchange = "this.form.submit();" })</td>
+                    </tr>
+                }*@
+        </table>
+
+        <br />
+        <span>Achievements ({{gameDetails.Achievements.length}}):</span>
+        <table class="tableborders">
+            <tr>
+                <th class="headerborders">#</th>
+                <th class="headerborders"></th>
+                <th class="headerborders">Global Completion %</th>
+                <th class="headerborders">Description</th>
+                <th class="headerborders">API Name</th>
+            </tr>
+            <tr ng-repeat="item in gameDetails.Achievements" class="alternatingColors">
+                <td class="cellborders">{{$index + 1}}</td>
+                <td class="cellborders">
+                    <img ng-show="item.Achieved" ng-src="{{item.IconURL}}" />
+                    <img ng-show="!item.Achieved" ng-src="{{item.IconGrayURL}}" />
+                </td>
+                <td class="cellborders">{{item.GlobalPercent | number : 2}}%</td>
+                <td class="cellborders">{{item.Name}}: {{item.Description}}</td>
+                <td class="cellborders">{{item.ApiName}}</td>
+            </tr>
+        </table>
+    </div>
+    <span ng-show="gameDetails.Achievements.length == 0">No achievements found for this game</span>
+    @*<h2 class="sectionTitle"><b>Found no games for [Model.PlayerName]</b></h2>*@
+
+    <br />
+</div>

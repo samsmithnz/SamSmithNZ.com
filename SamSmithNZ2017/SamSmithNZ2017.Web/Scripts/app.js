@@ -10,11 +10,11 @@
 //    }
 //}];
 
-//var app = angular.module("PartnerDBApp", ['PartnerDBApp.settings', 'ui.bootstrap', 'ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.pinning', 'ui.grid.edit',
-//    'ui.grid.cellNav', 'ui.grid.autoResize', 'checklist-model', 'toaster', 'ui.grid.selection', 'angular-svg-round-progress', 'blockUI', 'ui.tree', 'kendo.directives'])
-//    .config(["$httpProvider", function ($httpProvider) {
-//        $httpProvider.interceptors.push(interceptor);
-//    }]);
+var app = angular.module("SteamApp", []);//, ['PartnerDBApp.settings', 'ui.bootstrap', 'ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.pinning', 'ui.grid.edit',
+    //'ui.grid.cellNav', 'ui.grid.autoResize', 'checklist-model', 'toaster', 'ui.grid.selection', 'angular-svg-round-progress', 'blockUI', 'ui.tree', 'kendo.directives'])
+    //.config(["$httpProvider", function ($httpProvider) {
+    //    $httpProvider.interceptors.push(interceptor);
+    //}]);
 
 //app.run(["$rootScope", function ($rootScope) {
 //    $rootScope.popup = "Ari Lerner";

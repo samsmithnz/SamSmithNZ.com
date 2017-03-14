@@ -1,19 +1,40 @@
 ﻿@{
-    ViewBag.Title = "Steam Home Page";
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_LayoutSteam.cshtml";
 }
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-    </div>
+<div ng-controller="indexController">
+    <h2 class="sectionTitle"><b>{{player.PlayerName}}'s Games</b></h2>
+    <span ng-hide="player.IsPublic">This profile is private</span>
+    <br />
+
+    <table ng-show="player.IsPublic" class="tableofcontents" padding="0" cellspacing="0">
+        <tr>
+            <td style="width: 50%;">
+                <ul ng-repeat="item in games" style="text-align: left; padding: 0px;">
+                    <li class="tableofcontentsitem">
+                        <span>{{$index + 1}}.</span>
+                        <img ng-src="http://media.steampowered.com/steamcommunity/public/images/apps/{{item.AppID}}/{{item.IconURL}}.jpg" style="width:32px; height:32px;" />
+                        <span ng-hide="item.CommunityIsVisible">{{item.GameName}}</span>
+                        <span ng-show="item.CommunityIsVisible">
+                            <a href="~/Steam/GameDetails?Steamid={{steamId}}&AppId={{item.AppID}}">{{item.GameName}}</a>
+                        </span>
+                        <span ng-show="item.TotalMinutesPlayed >= 60"> (Time played: {{item.TotalTimeString}})</span>
+                        <span ng-show="item.TotalMinutesPlayed <= 60"> (Time played: {{item.TotalMinutesPlayed}} minutes)</span>
+                    </li>
+                </ul>
+            </td>
+            <td ng-show="games.Length > 3" rowspan="{{games.length}}" style="vertical-align:top;">
+                @* <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                    <!-- SteamIndexSkyscraper -->
+                                    <ins class="adsbygoogle"
+                                         style="display:inline-block;width:300px;height:600px"
+                                         data-ad-client="ca-pub-2315986579277492"
+                                         data-ad-slot="8303043164"></ins>
+                                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                    </script>*@
+            </td>
+        </tr>
+    </table>
 </div>

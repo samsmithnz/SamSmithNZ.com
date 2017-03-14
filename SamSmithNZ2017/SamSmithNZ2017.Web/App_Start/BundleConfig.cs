@@ -14,7 +14,8 @@ namespace SamSmithNZ2017
                         "~/Scripts/3rdParty/modernizr-*",
                         "~/Scripts/3rdParty/bootstrap.js",
                         "~/Scripts/3rdParty/respond.js",
-                        "~/Scripts/3rdParty/angular.js"
+                        "~/Scripts/3rdParty/angular.js",
+                        "~/Scripts/app.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/servicesJS").IncludeDirectory(
@@ -24,6 +25,11 @@ namespace SamSmithNZ2017
             bundles.Add(new ScriptBundle("~/bundles/controllersJS").IncludeDirectory(
                         "~/Scripts/Controllers/", "*.js", searchSubdirectories: true
                 ));
+
+            // Use the development version of Modernizr to develop with and learn from. Then, when you're
+            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
+            //bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+            //            "~/Scripts/3rdParty/modernizr-*"));
 
             //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
             //            "~/Scripts/3rdParty/jquery-{version}.js"));
@@ -40,7 +46,7 @@ namespace SamSmithNZ2017
             //          "~/Scripts/3rdParty/bootstrap.js",
             //          "~/Scripts/3rdParty/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Content/globalCSS").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
         }

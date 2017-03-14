@@ -17,7 +17,7 @@ namespace SSNZ.Steam.UnitTests
 
             //Act
             SteamPlayerAchievementsForAppDA da = new SteamPlayerAchievementsForAppDA();
-            SteamPlayerAchievementsForApp result = da.GetData(appId, steamId);
+            SteamPlayerAchievementsForApp result = da.GetData(steamId, appId);
 
             //Asset
             Assert.IsTrue(result != null);

@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Steam Stats</title>
+    @Styles.Render("~/Content/globalCSS")
+    @Scripts.Render("~/bundles/globalJS")
+    @Scripts.Render("~/bundles/servicesJS")
+    @Scripts.Render("~/bundles/controllersJS")
+</head>
+<body ng-app="SteamApp">
+    <div class="headerandlogo">
+        <table class="PercentWidth100">
+            <tr>
+                <td class="PercentWidth50">
+                    <a href="@Url.Action("Index", "Steam", new { steamID = "76561197971691578" })" class="headerText">
+                        <img src="@Url.Content("~/Content/Steam/steam.png")" alt="" class="headerImg" />
+                        <span class="headerText">Steam Stats</span>
+                    </a>
+                </td>
+                <td style="width: auto;">
+                    @*
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- SteamBanner2 -->
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:320px;height:100px"
+                             data-ad-client="ca-pub-2315986579277492"
+                             data-ad-slot="6826309967"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>*@
+                </td>
+                <td>
+                    <div>
+                        <a href="@Url.Action("About", "Steam", new { steamID = "76561197971691578" })">About</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="contentFrame" ng-controller="layoutController">
+        <table class="PercentWidth100">
+            <tr class="toptr">
+                <td class="sideBar">
+                    <br />
+                    <b>Friends list for {{player.PlayerName}}:</b>
+                    <br />
+                    <br />
+                    <div class="PlaylistSideBar">
+                        <div ng-repeat="item in friends">
+                            <img ng-src="{{item.Avatar}}" /> <a href="~/Steam/Index?SteamId={{item.SteamId}}">{{item.Name}}</a><br />
+                        </div>
+                        @*@if (Model.FriendList == null || Model.FriendList.Count == 0)
+                            {
+                                <span>No friends found...</span>
+                            }
+                            else
+                            {
+                                foreach (SamSmithNZ2015.Core.SteamWebAPI.FriendsListDetail.FriendsListDetail item in Model.FriendList)
+                                {
+                                    <img src="@item.Avatar" /> @Html.ActionLink(item.Name, "Index", new { steamID = item.Steamid }, new { @style = "font-weight: bold;" })<br />
+                                }
+                            }*@
+                    </div>
+                </td>
+                <td class="contentMain">
+                    @RenderBody()
+                </td>
+            </tr>
+        </table>
+        <input id="txtSteamId" type="hidden" value="76561197971691578" />
+    </div>
+    <div class="footer">
+        <br />
+        <hr />
+        <p>
+            Powered by <a href="http://steampowered.com" target="_blank">Steam</a>.
+            This site is not affiliated with Valve, Steam, or any of their partners. All copyrights reserved to their respective owners. All times are in UTC.
+        </p>
+        <hr />
+        Copyright &copy;2000 - @DateTime.Now.Year SamSmithNZ.com
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

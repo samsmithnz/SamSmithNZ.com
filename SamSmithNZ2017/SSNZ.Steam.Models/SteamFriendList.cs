@@ -23,10 +23,10 @@ namespace SSNZ.Steam.Models
 
     public class Friendslist
     {
-        public List<Friend> friends { get; set; }
+        public List<SteamFriend> friends { get; set; }
     }
 
-    public class Friend
+    public class SteamFriend
     {
         public string steamid { get; set; }
         public string relationship { get; set; }
