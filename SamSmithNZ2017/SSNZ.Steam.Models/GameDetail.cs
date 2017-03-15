@@ -14,6 +14,8 @@ namespace SSNZ.Steam.Models
         public string LogoURL { get; set; }
         public int TotalAchieved { get; set; }
         public decimal PercentAchieved { get; set; }
+        public int FriendTotalAchieved { get; set; }
+        public decimal FriendPercentAchieved { get; set; }
         public List<Achievement> Achievements { get; set; }
     }
 }

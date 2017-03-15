@@ -22,7 +22,14 @@ namespace SSNZ.Steam.Data
                 Game newItem = new Game();
                 newItem.AppID = item.appid;
                 newItem.GameName = item.name;
-                newItem.IconURL = item.img_icon_url;
+                if (string.IsNullOrEmpty(item.img_icon_url))
+                {
+                    newItem.IconURL = null;
+                }
+                else
+                {
+                    newItem.IconURL = item.img_icon_url;
+                }
                 newItem.LogoURL = item.img_logo_url;
                 newItem.TotalMinutesPlayed = item.playtime_forever;
                 newItem.TotalTimeString = Utility.ConvertMinutesToFriendlyTime(item.playtime_forever);

@@ -17,7 +17,7 @@ namespace SSNZ.Steam.Data
             //Get Player Details
             SteamPlayerDetailDA da = new SteamPlayerDetailDA();
             SteamPlayerDetail playerDetail = da.GetData(steamID);
-            if (playerDetail == null) 
+            if (playerDetail == null)
             {
                 return null; // RedirectToAction("SteamIsDown", "Steam");
             }
@@ -32,9 +32,10 @@ namespace SSNZ.Steam.Data
                         result.IsPublic = true;
                     }
                 }
-            
+
                 return result;
             }
         }
+
     }
 }

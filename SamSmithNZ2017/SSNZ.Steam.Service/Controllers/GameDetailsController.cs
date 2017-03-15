@@ -16,5 +16,11 @@ namespace SSNZ.Steam.Service.Controllers
             GameDetailsDA da = new GameDetailsDA();
             return da.GetData(steamID, appID);
         }
+
+        public GameDetail GetGameWithFriendDetails(string steamID, string appID, string friendSteamId)
+        {
+            GameDetailsDA da = new GameDetailsDA();
+            return da.GetDataWithFriend(steamID, appID, friendSteamId);
+        }
     }
 }

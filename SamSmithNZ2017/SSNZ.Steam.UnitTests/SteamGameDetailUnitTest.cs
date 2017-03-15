@@ -6,12 +6,13 @@ using SSNZ.Steam.Models;
 namespace SSNZ.Steam.UnitTests
 {
     [TestClass]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class SteamGameDetailUnitTest
     {
         [TestMethod]
         public void GameDetailExistUnitTest()
         {
-            //ArrangeC:\Projects\SSNZTFSGit\SamSmithNZ2017\SSNZ.Steam.Data\SteamGlobalAchievementPercentagesForAppDA.cs
+            //Arrange
             string appId = "200510"; //XCOM
 
             //Act

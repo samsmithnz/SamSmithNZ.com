@@ -14,6 +14,13 @@
 
         this.getFriends = function (steamId) {
             var url = baseUrl + 'api/Friends/GetFriends?steamId=' + steamId;
+            console.log(url);
+            return $http.get(url);
+        }
+
+        this.getFriendsWithSameGame = function (steamId, appId) {
+            var url = baseUrl + 'api/Friends/GetFriendsWithSameGame?steamId=' + steamId + '&appId=' + appId;
+            console.log(url);
             return $http.get(url);
         }
 

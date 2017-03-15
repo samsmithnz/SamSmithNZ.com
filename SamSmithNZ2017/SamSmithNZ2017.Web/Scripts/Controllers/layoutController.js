@@ -29,11 +29,10 @@
         var steamId = getUrlParameter('SteamId');
         if (steamId == '' || steamId == null) {
             steamId = '76561197971691578';
-            console.log("Steam Id not found");
+            //console.log("Steam Id not found");
         }
 
         friendsService.getFriends(steamId).then(onGetFriendsEventComplete, onError);
-
         playerService.getPlayer(steamId).then(onGetPlayerEventComplete, onError);
     }
 
@@ -46,11 +45,14 @@
             var paramName = sURLVariables[i],
                 sParameterName = (paramName || '').split('=');
 
-            if (sParameterName[0] === param) {
+            //console.log(sParameterName[0].toLowerCase() + ' : ' + param.toLowerCase());
+            if (sParameterName[0].toLowerCase() === param.toLowerCase()) {
                 res = sParameterName[1];
+                //console.log(sParameterName[0] + ' : ' + sParameterName[1]);
             }
         }
 
         return res;
     }
+
 })();

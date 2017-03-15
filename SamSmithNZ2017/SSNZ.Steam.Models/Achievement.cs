@@ -9,12 +9,12 @@ namespace SSNZ.Steam.Models
     public class Achievement
     {
         public string ApiName { get; set; }
-        public int Achieved { get; set; }
+        public bool Achieved { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal GlobalPercent { get; set; }
         public string IconURL { get; set; }
         public string IconGrayURL { get; set; }
-        public int FriendAchieved { get; set; }
+        public bool FriendAchieved { get; set; }
     }
 }

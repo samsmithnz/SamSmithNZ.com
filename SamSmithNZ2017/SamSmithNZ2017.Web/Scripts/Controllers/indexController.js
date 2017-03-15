@@ -24,10 +24,19 @@
         $scope.steamId = getUrlParameter('SteamId');
         if ($scope.steamId == '' || $scope.steamId == null) {
             $scope.steamId = '76561197971691578';
-            console.log("Steam Id not found");
+            //console.log("Steam Id not found");
         }
 
         playerGamesService.getPlayerGames($scope.steamId).then(onGetPlayerGamesEventComplete, onError);
+
+        $scope.GetImagePath = function (appID, iconURL) {
+            if (iconURL == null) {
+                return null;
+            }
+            else {
+                return 'http://media.steampowered.com/steamcommunity/public/images/apps/' + appID + '/' + iconURL + '.jpg';
+            }
+        }
 
     }
 
@@ -40,8 +49,10 @@
             var paramName = sURLVariables[i],
                 sParameterName = (paramName || '').split('=');
 
-            if (sParameterName[0] === param) {
+            //console.log(sParameterName[0].toLowerCase() + ' : ' + param.toLowerCase());
+            if (sParameterName[0].toLowerCase() === param.toLowerCase()) {
                 res = sParameterName[1];
+                //console.log(sParameterName[0] + ' : ' + sParameterName[1]);
             }
         }
 
