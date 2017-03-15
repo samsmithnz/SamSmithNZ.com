@@ -66,12 +66,15 @@ namespace SSNZ.Steam.Data
                 {
                     SteamOwnedGamesDA da3 = new SteamOwnedGamesDA();
                     SteamOwnedGames friendGames = da3.GetData(item.steamid);
-                    foreach (Message item2 in friendGames.response.games)
+                    if (friendGames.response.games != null)
                     {
-                        if (item2.appid == appId)
+                        foreach (Message item2 in friendGames.response.games)
                         {
-                            commaSeperatedSteamIDs += "," + item.steamid.ToString();
-                            break;
+                            if (item2.appid == appId)
+                            {
+                                commaSeperatedSteamIDs += "," + item.steamid.ToString();
+                                break;
+                            }
                         }
                     }
                 }

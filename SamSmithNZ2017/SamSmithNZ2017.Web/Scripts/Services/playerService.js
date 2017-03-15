@@ -14,6 +14,7 @@
 
         this.getPlayer = function (steamId) {
             var url = baseUrl + 'api/Player/GetPlayer?steamId=' + steamId;
+            console.log(url);
             return $http.get(url);
         }
 

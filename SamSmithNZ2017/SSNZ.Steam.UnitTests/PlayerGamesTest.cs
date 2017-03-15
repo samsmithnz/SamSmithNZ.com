@@ -22,7 +22,7 @@ namespace SSNZ.Steam.UnitTests
             List<Game> results = da.GetData(steamId);
 
             //Assert
-            Assert.IsTrue(results!= null);
+            Assert.IsTrue(results != null);
             Assert.IsTrue(results.Count >= 0);
             Assert.IsTrue(results[0].AppID == "15100");
             Assert.IsTrue(results[0].GameName == "Assassin's Creed");
@@ -33,49 +33,36 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(results[0].TotalTimeString == "3 hrs");
         }
 
-        //[TestMethod]
-        //public void SamSmithCastleStoryTest()
-        //{
-        //    //Arrange
-        //    GameDetailsDA da = new GameDetailsDA();
-        //    string steamId = "76561197971691578";
-        //    string appId = "227860"; //castle Story
+        [TestMethod]
+        public void SamPlayerGamesWithNoIconTest()
+        {
+            //Arrange
+            PlayerGamesDA da = new PlayerGamesDA();
+            string steamId = "76561197971691578";
+            string appId = "223530";
 
-        //    //Act
-        //    GameDetail result = da.GetData(steamId, appId);
+            //Act
+            List<Game> results = da.GetData(steamId);
 
-        //    //Assert
-        //    Assert.IsTrue(result != null);
-        //    Assert.IsTrue(result.AppID == "227860");
-        //    Assert.IsTrue(result.GameName == "Castle Story");
-        //    Assert.IsTrue(result.IconURL == "5ba78b0a0b8197fcbef037b3ad0cc526fb5da4a1");
-        //    Assert.IsTrue(result.LogoURL == "8456e045dd5f0311b71246c0c80b21b9b58c968e");
-        //    Assert.IsTrue(result.PercentAchieved == 0m);
-        //    Assert.IsTrue(result.TotalAchieved == 0m);
-        //    Assert.IsTrue(result.Achievements.Count == 0);
-        //}
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count >= 0);
+            foreach (Game item in results)
+            {
+                if (item.AppID == appId)
+                {
+                    Assert.IsTrue(item.AppID == "223530");
+                    Assert.IsTrue(item.GameName == "Left 4 Dead 2 Beta");
+                    Assert.IsTrue(item.CommunityIsVisible == false);
+                    Assert.IsTrue(item.IconURL == null);
+                    Assert.IsTrue(item.LogoURL == "");
+                    Assert.IsTrue(item.TotalMinutesPlayed == 0);
+                    Assert.IsTrue(item.TotalTimeString == "0 hrs");
+                    break;
+                }
+            }
 
-        //[TestMethod]
-        //public void SamSmithGodusTest()
-        //{
-        //    //Arrange
-        //    GameDetailsDA da = new GameDetailsDA();
-        //    string steamId = "76561197971691578";
-        //    string appId = "232810"; //Godus
-
-        //    //Act
-        //    GameDetail result = da.GetData(steamId, appId);
-
-        //    //Assert
-        //    Assert.IsTrue(result != null);
-        //    Assert.IsTrue(result.AppID == "232810");
-        //    Assert.IsTrue(result.GameName == "Godus");
-        //    Assert.IsTrue(result.IconURL == "4ee4e78811f8600fa39bc4377129b124b63e42a1");
-        //    Assert.IsTrue(result.LogoURL == "e2a7637399293a7d2406157e6e4b833d519526ec");
-        //    Assert.IsTrue(result.PercentAchieved == 0m);
-        //    Assert.IsTrue(result.TotalAchieved == 0m);
-        //    Assert.IsTrue(result.Achievements.Count == 0);
-        //}
+        }
 
     }
 }

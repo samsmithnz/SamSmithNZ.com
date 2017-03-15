@@ -10,8 +10,7 @@
     <a href="~/Steam/Index?SteamId={{steamId}}">{{player.PlayerName}}'s Game List</a> <span>&nbsp;&gt;&nbsp;</span> {{gameDetails.GameName}}
     <br />
     <br />
-    <img ng-show="gameDetails != null" src="http://media.steampowered.com/steamcommunity/public/images/apps/{{gameDetails.AppID}}/{{gameDetails.LogoURL}}.jpg" />
-    <img ng-show="gameDetails == null" src="~/Content/Steam/steam32by32.png" />
+    <img ng-show="gameDetails != null" ng-src="http://media.steampowered.com/steamcommunity/public/images/apps/{{gameDetails.AppID}}/{{gameDetails.LogoURL}}.jpg" src="~/Content/Steam/steam32by32.png" />
     <br />
 
     @*if (Model.GameStatistics.AchievementStats.Count > 0 || Model.GameStatistics.CompletedCount > 0)
@@ -23,7 +22,9 @@
         <table>
             <tr>
                 <td>Achievements Completed:</td>
-                <td>{{gameDetails.TotalAchieved}} ({{gameDetails.PercentAchieved | number : 2}}%)</td>
+                <td>
+                    <span>{{gameDetails.TotalAchieved}} ({{gameDetails.PercentAchieved * 100 | number : 2}}%)</span>
+                </td>
                 <td rowspan="4" style="width: 300px;">
                     @*<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                         <!-- SteamBanner2 -->
@@ -36,10 +37,33 @@
                         </script>*@
                 </td>
             </tr>
+            <tr ng-show="selectedFriend">
+                <td>Friend achievements Completed:</td>
+                <td>
+                    <span>{{gameDetails.FriendTotalAchieved}} ({{gameDetails.FriendPercentAchieved * 100 | number : 2}}%)</span>
+                </td>
+            </tr>
             <tr>
                 <td>@*Completion Filter:*@</td>
                 <td>@*@Html.DropDownList("cboCompletedFilter", new SelectList(Model.CompletedFilters, "Value", "Key", Model.CurrentCompletedFilter), new { onchange = "this.form.submit();" })*@</td>
             </tr>
+            <tr ng-hide="appFriends || error">
+                <td colspan="2">
+                    <img id="spinner1" src="~/Content/Images/spinner_small.gif" />
+                </td>
+            </tr>
+            <tr ng-show="appFriends">
+                <td>
+                    Compare your achievements with a friend:
+                </td>
+                <td>
+                    <select ng-show="appFriends.length > 0" class="form-control" ng-model="selectedFriend" ng-options="friend.SteamId as friend.Name for friend in appFriends">
+                        <option value="">[Please select friend]</option>
+                    </select>
+                    <span ng-show="appFriends.length == 0">None of your Steam friends have this app :(</span>
+                </td>
+            </tr>
+
             @*@if (Model.InclusionFilters.Count > 0 && Model.ExclusionFilters.Count > 0)
                 {
                     <tr>
@@ -62,6 +86,7 @@
                 <th class="headerborders">Global Completion %</th>
                 <th class="headerborders">Description</th>
                 <th class="headerborders">API Name</th>
+                <th class="headerborders" ng-show="selectedFriend">Friend has Achieved this?</th>
             </tr>
             <tr ng-repeat="item in gameDetails.Achievements" class="alternatingColors">
                 <td class="cellborders">{{$index + 1}}</td>
@@ -72,6 +97,10 @@
                 <td class="cellborders">{{item.GlobalPercent | number : 2}}%</td>
                 <td class="cellborders">{{item.Name}}: {{item.Description}}</td>
                 <td class="cellborders">{{item.ApiName}}</td>
+                <td class="cellborders" ng-show="selectedFriend">
+                    <img ng-show="item.FriendAchieved" ng-src="{{item.IconURL}}" />
+                    <img ng-show="!item.FriendAchieved" ng-src="{{item.IconGrayURL}}" />
+                </td>
             </tr>
         </table>
     </div>

@@ -28,7 +28,7 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.IconURL == "48be2fee1d0d511b5c7313e1359beafd36ea92ed");
             Assert.IsTrue(result.LogoURL == "eaa298d2b0d908b2c4f5370d2c8c59a8eff887c6");
             Assert.IsTrue(result.PercentAchieved == 1m);
-            Assert.IsTrue(result.TotalAchieved == 85m);
+            Assert.IsTrue(result.TotalAchieved == 85);
             Assert.IsTrue(result.Achievements.Count == 85);
             Assert.IsTrue(result.Achievements[0].ApiName == "ACHIEVEMENT_28");
             Assert.IsTrue(result.Achievements[0].Name == "We Happy Few ");
@@ -60,8 +60,10 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.IconURL == "48be2fee1d0d511b5c7313e1359beafd36ea92ed");
             Assert.IsTrue(result.LogoURL == "eaa298d2b0d908b2c4f5370d2c8c59a8eff887c6");
             Assert.IsTrue(result.PercentAchieved == 1m);
-            Assert.IsTrue(result.TotalAchieved == 85m);
+            Assert.IsTrue(result.TotalAchieved == 85);
             Assert.IsTrue(result.Achievements.Count == 85);
+            Assert.IsTrue(result.FriendPercentAchieved >= 0.8m);
+            Assert.IsTrue(result.FriendTotalAchieved >= 68);
             bool foundAPI1 = false;
             bool foundAPI2 = false;
             foreach (Achievement item in result.Achievements)

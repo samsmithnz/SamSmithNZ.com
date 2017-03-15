@@ -23,12 +23,18 @@ namespace SSNZ.Steam.Data
                 {
                     result.AppID = appID;
                     result.GameName = item.name;
-                    result.IconURL = item.img_icon_url;
+                    if (string.IsNullOrEmpty(item.img_icon_url))
+                    {
+                        result.IconURL = null;
+                    }
+                    else
+                    {
+                        result.IconURL = item.img_icon_url;
+                    }
                     result.LogoURL = item.img_logo_url;
                     break;
                 }
             }
-
 
             result.Achievements = GetAchievementData(steamID, appID, gameDetail);
 
@@ -61,6 +67,8 @@ namespace SSNZ.Steam.Data
             }
             else
             {
+                details.FriendPercentAchieved = friendDetails.PercentAchieved;
+                details.FriendTotalAchieved = friendDetails.TotalAchieved;
                 foreach (Achievement item in details.Achievements)
                 {
                     Achievement friendItem = FindFriendItem(item.ApiName, friendDetails.Achievements);

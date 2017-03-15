@@ -73,7 +73,36 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.Name == "Captain Datsun");
             
         }
-            
+
+        [TestMethod]
+        public void StewXcomFriendsTest()
+        {
+            //Arrange
+            FriendsDA da = new FriendsDA();
+            string steamId = "76561197990013217";
+            string appId = "200510"; //Xcom
+
+            //Act
+            List<Friend> results = da.GetFriendsWithSameGame(steamId, appId);
+
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count >= 0);
+            Friend result = null;
+            foreach (Friend item in results)
+            {
+                if (item.SteamId == "76561197971691578") //Sam
+                {
+                    result = item;
+                    break;
+                }
+            }
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.SteamId == "76561197971691578");
+            Assert.IsTrue(result.Name == "Sam");
+
+        }
+
 
     }
 }
