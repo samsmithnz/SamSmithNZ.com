@@ -50,6 +50,23 @@ namespace SSNZ.Steam.Data
             return result;
         }
 
+        public GameDetail GetDataWithFriend(string steamID, string appID, string friendSteamId)
+        {
+            GameDetail details = GetData(steamID, appID);
+            GameDetail friendDetails = GetData(friendSteamId, appID);
+
+            if (friendDetails == null || friendDetails.Achievements == null || friendDetails.Achievements.Count == 0)
+            {
+                details = null;
+            }
+            else
+            {
+
+            }
+
+            return details;
+        }
+
         private List<Achievement> GetAchievementData(string steamID, string appID, SteamGameDetail steamGameDetails)
         {
             SteamPlayerAchievementsForAppDA da = new SteamPlayerAchievementsForAppDA();

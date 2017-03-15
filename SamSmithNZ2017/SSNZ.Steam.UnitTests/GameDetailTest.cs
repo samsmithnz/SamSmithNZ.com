@@ -39,6 +39,65 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.Achievements[0].FriendAchieved == false);
         }
 
+
+        [TestMethod]
+        public void SamSmithXCOMFriendWithStewTest()
+        {
+            //Arrange
+            GameDetailsDA da = new GameDetailsDA();
+            string steamId = "76561197971691578"; //Sam
+            string friendSteamId = "76561197990013217"; //Stew
+            string appId = "200510"; //Xcom
+
+            //Act
+            GameDetail result = da.GetDataWithFriend(steamId, appId, friendSteamId);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.AppID == "200510");
+            Assert.IsTrue(result.GameName == "XCOM: Enemy Unknown");
+            Assert.IsTrue(result.IconURL == "48be2fee1d0d511b5c7313e1359beafd36ea92ed");
+            Assert.IsTrue(result.LogoURL == "eaa298d2b0d908b2c4f5370d2c8c59a8eff887c6");
+            Assert.IsTrue(result.PercentAchieved == 1m);
+            Assert.IsTrue(result.TotalAchieved == 85m);
+            Assert.IsTrue(result.Achievements.Count == 85);
+            bool foundAPI1 = false;
+            bool foundAPI2 = false;
+            foreach (Achievement item in result.Achievements)
+            {
+                if (item.ApiName == "ACHIEVEMENT_28")
+                {
+                    foundAPI1 = true;
+                    Assert.IsTrue(item.ApiName == "ACHIEVEMENT_28");
+                    Assert.IsTrue(item.Name == "We Happy Few ");
+                    Assert.IsTrue(item.Description == "Complete a mission without losing a soldier.");
+                    Assert.IsTrue(item.Achieved == true);
+                    Assert.IsTrue(item.IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/9ef3538334062eceed71992328e6b1a6b577b5d7.jpg");
+                    Assert.IsTrue(item.IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/8cb928ad8be98984f1c739fa6f9b4f34ae0ea17e.jpg");
+                    Assert.IsTrue(item.GlobalPercent >= 0);
+                    Assert.IsTrue(item.FriendAchieved == false);
+                }
+                else if (item.ApiName == "ACHIEVEMENT_38")
+                {
+                    foundAPI2 = true;
+                    Assert.IsTrue(item.ApiName == "ACHIEVEMENT_38");
+                    Assert.IsTrue(item.Name == "A Continental Fellow");
+                    Assert.IsTrue(item.Description == "Win the game from each of the 5 starting locations.");
+                    Assert.IsTrue(item.Achieved == true);
+                    Assert.IsTrue(item.IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/1efdb8b427c628de17a49a55ad5afb495dd35cf0.jpg");
+                    Assert.IsTrue(item.IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/3d74016b994db08005c2aafe05db4740f22f5876.jpg");
+                    Assert.IsTrue(item.GlobalPercent >= 0);
+                    Assert.IsTrue(item.FriendAchieved == false);
+                }
+                if (foundAPI2 == true && foundAPI1 == true)
+                {
+                    break;
+                }
+            }
+            Assert.IsTrue(foundAPI1 == true);
+            Assert.IsTrue(foundAPI2 == true);
+        }
+
         [TestMethod]
         public void SamSmithCOH2Test()
         {
