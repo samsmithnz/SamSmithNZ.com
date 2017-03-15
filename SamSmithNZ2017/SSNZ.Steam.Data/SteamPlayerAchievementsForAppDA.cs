@@ -62,7 +62,7 @@ namespace SSNZ.Steam.Data
                         {
                             string text = reader.ReadToEnd();
                             Console.WriteLine(text);
-                            return text;
+                            result = text;
                         }
                     }
                 }

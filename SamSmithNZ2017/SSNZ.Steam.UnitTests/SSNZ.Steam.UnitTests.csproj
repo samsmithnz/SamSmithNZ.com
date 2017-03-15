@@ -51,6 +51,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="PlayerTest.cs" />
+    <Compile Include="PlayerGamesTest.cs" />
+    <Compile Include="FriendsTest.cs" />
     <Compile Include="SteamGlobalAchievementUnitTest.cs" />
     <Compile Include="SteamGameDetailUnitTest.cs" />
     <Compile Include="SteamPlayerDetailUnitTest.cs" />

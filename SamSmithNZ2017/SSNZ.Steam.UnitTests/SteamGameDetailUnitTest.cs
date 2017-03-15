@@ -11,7 +11,7 @@ namespace SSNZ.Steam.UnitTests
         [TestMethod]
         public void GameDetailExistUnitTest()
         {
-            //ArrangeC:\Projects\SSNZTFSGit\SamSmithNZ2017\SSNZ.Steam.Data\SteamGlobalAchievementPercentagesForAppDA.cs
+            //Arrange
             string appId = "200510"; //XCOM
 
             //Act
