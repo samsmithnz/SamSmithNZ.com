@@ -61,10 +61,31 @@ namespace SSNZ.Steam.Data
             }
             else
             {
-
+                foreach (Achievement item in details.Achievements)
+                {
+                    Achievement friendItem = FindFriendItem(item.ApiName, friendDetails.Achievements);
+                    if (friendItem != null)
+                    {
+                        item.FriendAchieved = friendItem.Achieved;
+                    }
+                }
             }
 
             return details;
+        }
+
+        private Achievement FindFriendItem(string apiName, List<Achievement> friendAchievements)
+        {
+            Achievement result = null;
+            foreach (Achievement item in friendAchievements)
+            {
+                if (item.ApiName == apiName)
+                {
+                    result = item;
+                    break;
+                }
+            }
+            return result;
         }
 
         private List<Achievement> GetAchievementData(string steamID, string appID, SteamGameDetail steamGameDetails)

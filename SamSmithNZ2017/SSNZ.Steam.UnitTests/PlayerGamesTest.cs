@@ -7,6 +7,7 @@ using System.Collections.Generic;
 namespace SSNZ.Steam.UnitTests
 {
     [TestClass]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class PlayerGamesTest
     {
 

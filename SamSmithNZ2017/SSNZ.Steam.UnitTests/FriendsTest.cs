@@ -7,6 +7,7 @@ using System.Collections.Generic;
 namespace SSNZ.Steam.UnitTests
 {
     [TestClass]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class FriendsTest
     {
 
@@ -43,6 +44,36 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.ProfileURL == "http://steamcommunity.com/profiles/76561198034342716/");
             Assert.IsTrue(result.TimeCreated >= 0);
         }
-        
+
+        [TestMethod]
+        public void SamXcomFriendsTest()
+        {
+            //Arrange
+            FriendsDA da = new FriendsDA();
+            string steamId = "76561197971691578";
+            string appId = "200510"; //Xcom
+
+            //Act
+            List<Friend> results = da.GetFriendsWithSameGame(steamId, appId);
+
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count >= 0);
+            Friend result = null;
+            foreach (Friend item in results)
+            {
+                if (item.SteamId == "76561197990013217") //Stew
+                {
+                    result = item;
+                    break;
+                }
+            }
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.SteamId == "76561197990013217");
+            Assert.IsTrue(result.Name == "Captain Datsun");
+            
+        }
+            
+
     }
 }

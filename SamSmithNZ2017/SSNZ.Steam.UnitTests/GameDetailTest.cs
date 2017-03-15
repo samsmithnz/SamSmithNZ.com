@@ -6,6 +6,7 @@ using SSNZ.Steam.Models;
 namespace SSNZ.Steam.UnitTests
 {
     [TestClass]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class GameDetailTest
     {
 
@@ -75,7 +76,7 @@ namespace SSNZ.Steam.UnitTests
                     Assert.IsTrue(item.IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/9ef3538334062eceed71992328e6b1a6b577b5d7.jpg");
                     Assert.IsTrue(item.IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/8cb928ad8be98984f1c739fa6f9b4f34ae0ea17e.jpg");
                     Assert.IsTrue(item.GlobalPercent >= 0);
-                    Assert.IsTrue(item.FriendAchieved == false);
+                    Assert.IsTrue(item.FriendAchieved == true);
                 }
                 else if (item.ApiName == "ACHIEVEMENT_38")
                 {
@@ -97,6 +98,24 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(foundAPI1 == true);
             Assert.IsTrue(foundAPI2 == true);
         }
+
+        [TestMethod]
+        public void SamSmithCiv6FriendWithStewTest()
+        {
+            //Arrange
+            GameDetailsDA da = new GameDetailsDA();
+            string steamId = "76561197971691578"; //Sam
+            string friendSteamId = "76561197990013217"; //Stew
+            string appId = "289070"; //Civ 6
+
+            //Act
+            GameDetail result = da.GetDataWithFriend(steamId, appId, friendSteamId);
+
+            //Assert
+            Assert.IsTrue(result == null);
+           
+        }
+            
 
         [TestMethod]
         public void SamSmithCOH2Test()

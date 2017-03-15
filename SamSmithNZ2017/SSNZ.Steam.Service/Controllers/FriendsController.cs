@@ -16,5 +16,11 @@ namespace SSNZ.Steam.Service.Controllers
             FriendsDA da = new FriendsDA();
             return da.GetFriends(steamId);
         }
+
+        public List<Friend> GetFriendsWithSameGame(string steamId, string appId)
+        {
+            FriendsDA da = new FriendsDA();
+            return da.GetFriendsWithSameGame(steamId, appId);
+        }
     }
 }
