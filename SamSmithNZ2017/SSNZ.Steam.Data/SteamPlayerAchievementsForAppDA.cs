@@ -41,30 +41,29 @@ namespace SSNZ.Steam.Data
             // Get response  
             try
             {
-                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
-                {
-                    // Get the response stream  
-                    StreamReader reader = new StreamReader(response.GetResponseStream());
-                    // Read the whole contents and return as a string  
-                    result = reader.ReadToEnd();
-                }
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                // Get the response stream  
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+                // Read the whole contents and return as a string  
+                result = reader.ReadToEnd();
+
             }
             catch (WebException e)
             {
-                using (WebResponse response = e.Response)
+                WebResponse response = e.Response;
+
+                HttpWebResponse httpResponse = (HttpWebResponse)response;
+                if (httpResponse != null)
                 {
-                    HttpWebResponse httpResponse = (HttpWebResponse)response;
-                    if (httpResponse != null)
-                    {
-                        System.Diagnostics.Debug.WriteLine("Error code: {0}", httpResponse.StatusCode);
-                        using (Stream data = response.GetResponseStream())
-                        using (StreamReader reader = new StreamReader(data))
-                        {
-                            string text = reader.ReadToEnd();
-                            Console.WriteLine(text);
-                            result = text;
-                        }
-                    }
+                    System.Diagnostics.Debug.WriteLine("Error code: {0}", httpResponse.StatusCode);
+                    Stream data = null;
+
+                    data = response.GetResponseStream();
+                    StreamReader reader = new StreamReader(data);
+
+                    string text = reader.ReadToEnd();
+                    Console.WriteLine(text);
+                    result = text;
                 }
             }
             return result;
