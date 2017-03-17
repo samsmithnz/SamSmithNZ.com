@@ -39,4 +39,15 @@ namespace SSNZ.Steam.Models
         public string name { get; set; }
         public string description { get; set; }
     }
+
+    public class SteamPlayerAchievementsForAppError
+    {
+        public PlayerStatsError playerstats { get; set; }
+    }
+
+    public class PlayerStatsError
+    {
+        public string error { get; set; }
+        public bool success { get; set; }
+    }
 }

@@ -11,21 +11,22 @@
         $scope.gameDetails = [];
         $scope.appFriends = null;
         $scope.error = null;
+        $scope.onlyShowFriendChanges = null;
 
         var onError = function (data) {
             //errorHandlerService.errorHandler(data);
             console.log("Error!!");
             console.log(data);
-            error = data;
+            $scope.error = data;
         };
 
         var onGetGameDetailsEventComplete = function (response) {
             $scope.gameDetails = response.data;
-        }
+        };
 
         var onGetFriendsWithSameGameEventComplete = function (response) {
             $scope.appFriends = response.data;
-        }
+        };
 
         $scope.steamId = getUrlParameter('SteamId');
         if ($scope.steamId == '' || $scope.steamId == null) {
@@ -40,13 +41,13 @@
         }
 
         //console.log('$scope.steamId: ' + $scope.steamId + ', appId: ' + appId);
-
+        $scope.onlyShowFriendChanges = false;
         gameDetailsService.getGameDetails($scope.steamId, appId).then(onGetGameDetailsEventComplete, onError);
         friendsService.getFriendsWithSameGame($scope.steamId, appId).then(onGetFriendsWithSameGameEventComplete, onError);
 
         $scope.$watchGroup(['selectedFriend'], function (newValues, oldValues, scope) {
             if (newValues[0] != oldValues[0]) {
-                console.log("newValue:" + newValues[0]);
+                //console.log("newValue:" + newValues[0]);
                 console.log("selectedFriend:" + $scope.selectedFriend);
                 if (newValues[0] == null) {
                     gameDetailsService.getGameDetails($scope.steamId, appId).then(onGetGameDetailsEventComplete, onError);
@@ -57,6 +58,41 @@
             }
         });
 
+        $scope.showFriendChanges = function () {
+            //$scope.onlyShowFriendChanges = !$scope.onlyShowFriendChanges;
+            //console.log($scope.onlyShowFriendChanges);
+            //gameDetailsService.getGameWithFriendDetails($scope.steamId, appId, $scope.selectedFriend).then(onGetGameDetailsEventComplete, onError);
+        };
+
+        $scope.filterFunction = function (item) {
+            //return item.FriendsAchieved == true;
+            if ($scope.showFriendChanges == true) {
+                return item.FriendsAchieved != item.Achieved;
+            }
+            else {
+                return true;
+            }
+        };
+
+        $scope.getFriendStyle = function (selectedFriend, achieved, friendAchieved) {
+
+            if (selectedFriend) {
+                if (achieved == true && friendAchieved == false) {
+                    return "lightgreen";
+                }
+                else if (achieved == false && friendAchieved == true) {
+                    return "#F75D59";
+                }
+                //else
+                //{
+                //    return "transparent"
+                //}
+            }
+            //else {
+            //    return "transparent";
+            //}
+        };
+        
     }
 
     function getUrlParameter(param, dummyPath) {
