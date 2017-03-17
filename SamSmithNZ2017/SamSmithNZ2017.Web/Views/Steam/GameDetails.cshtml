@@ -5,13 +5,16 @@
 
 <div ng-controller="gameDetailsController">
 
-    <h2 class="sectionTitle"><b>{{player.PlayerName}}'s Statistics for {{gameDetails.GameName}}</b></h2>
-    <br />
-    <a href="~/Steam/Index?SteamId={{steamId}}">{{player.PlayerName}}'s Game List</a> <span>&nbsp;&gt;&nbsp;</span> {{gameDetails.GameName}}
-    <br />
-    <br />
-    <img ng-show="gameDetails != null" ng-src="http://media.steampowered.com/steamcommunity/public/images/apps/{{gameDetails.AppID}}/{{gameDetails.LogoURL}}.jpg" src="~/Content/Steam/steam32by32.png" />
-    <br />
+    <img ng-hide="player" src="~/Content/Images/spinner_small.gif" />
+    <div ng-cloak>
+        <h2 class="sectionTitle" ng-show="player"><b>{{player.PlayerName}}'s Statistics for {{gameDetails.GameName}}</b></h2>
+        <br />
+        <a href="~/Steam/Index?SteamId={{steamId}}" ng-show="player">{{player.PlayerName}}'s Game List</a> <span>&nbsp;&gt;&nbsp;</span> {{gameDetails.GameName}}
+        <br />
+        <br />
+        <img ng-show="gameDetails != null" ng-src="http://media.steampowered.com/steamcommunity/public/images/apps/{{gameDetails.AppID}}/{{gameDetails.LogoURL}}.jpg" src="~/Content/Steam/steam32by32.png" />
+        <br />
+    </div>
 
     @*if (Model.GameStatistics.AchievementStats.Count > 0 || Model.GameStatistics.CompletedCount > 0)
         {
