@@ -11,7 +11,7 @@ namespace SSNZ.Steam.UnitTests
     {
 
         [TestMethod]
-        public void SamSmithXCOMTest()
+        public void SamXCOMTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -40,6 +40,58 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.Achievements[0].FriendAchieved == false);
         }
 
+        [TestMethod]
+        public void SamCiv6Test()
+        {
+            //Arrange
+            GameDetailsDA da = new GameDetailsDA();
+            string steamId = "76561197971691578";
+            string appId = "289070"; //Civ 6
+
+            //Act
+            GameDetail result = da.GetData(steamId, appId);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.AppID == "289070");
+            Assert.IsTrue(result.GameName == "Sid Meier's Civilization VI");
+            Assert.IsTrue(result.IconURL == "9dc914132fec244adcede62fb8e7524a72a7398c");
+            Assert.IsTrue(result.LogoURL == "356443a094f8e20ce21293039d7226eac3d3b4d9");
+            Assert.IsTrue(result.PercentAchieved >= 0m);
+            Assert.IsTrue(result.TotalAchieved >= 0);
+            Assert.IsTrue(result.Achievements.Count >= 0);
+            Assert.IsTrue(result.Achievements[0].ApiName == "NEW_ACHIEVEMENT_4_14");
+            Assert.IsTrue(result.Achievements[0].Name == "If You Build It, They Will Come");
+            Assert.IsTrue(result.Achievements[0].Description == "Have 6 Improvements at one time.");
+            Assert.IsTrue(result.Achievements[0].Achieved == true);
+            Assert.IsTrue(result.Achievements[0].IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/289070/6858293f2952c7fb17a94667b0d823e67445dc4c.jpg");
+            Assert.IsTrue(result.Achievements[0].IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/289070/c29e93fd82f9033ea2029b866c5bc29f1813d649.jpg");
+            Assert.IsTrue(result.Achievements[0].GlobalPercent >= 0);
+            Assert.IsTrue(result.Achievements[0].FriendAchieved == false);
+        }
+
+        [TestMethod]
+        public void AlexCiv6Test()
+        {
+            //Arrange
+            GameDetailsDA da = new GameDetailsDA();
+            string steamId = "76561198034342716";
+            string appId = "289070"; //Civ 6
+
+            //Act
+            GameDetail result = da.GetData(steamId, appId);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.AppID == "289070");
+            Assert.IsTrue(result.GameName == "Sid Meier's Civilization VI");
+            Assert.IsTrue(result.IconURL == "9dc914132fec244adcede62fb8e7524a72a7398c");
+            Assert.IsTrue(result.LogoURL == "356443a094f8e20ce21293039d7226eac3d3b4d9");
+            Assert.IsTrue(result.PercentAchieved >= 0m);
+            Assert.IsTrue(result.TotalAchieved >= 0);
+            Assert.IsTrue(result.Achievements.Count == 0);
+            Assert.IsTrue(result.ErrorMessage != null);
+        }
 
         [TestMethod]
         public void SamSmithXCOMFriendWithStewTest()
@@ -102,6 +154,85 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
+        public void SamSmithCiv6FriendWithAlexTest()
+        {
+            //Arrange
+            GameDetailsDA da = new GameDetailsDA();
+            string steamId = "76561197971691578"; //Sam
+            string friendSteamId = "76561198034342716"; //Alex
+            string appId = "289070"; //Civ 6
+
+            //Act
+            GameDetail result = da.GetDataWithFriend(steamId, appId, friendSteamId);
+
+            //Assert
+            Assert.IsTrue(result == null);
+            //Assert.IsTrue(result.AppID == "289070");
+            //Assert.IsTrue(result.GameName == "Sid Meier's Civilization VI");
+            //Assert.IsTrue(result.IconURL == "9dc914132fec244adcede62fb8e7524a72a7398c");
+            //Assert.IsTrue(result.LogoURL == "356443a094f8e20ce21293039d7226eac3d3b4d9");
+            //Assert.IsTrue(result.PercentAchieved >= 0m);
+            //Assert.IsTrue(result.TotalAchieved >= 0);
+            //Assert.IsTrue(result.Achievements.Count >= 0);
+            //Assert.IsTrue(result.FriendPercentAchieved >= 0.0m);
+            //Assert.IsTrue(result.FriendTotalAchieved >= 0);
+            //bool foundAPI1 = false;
+            //bool foundAPI2 = false;
+            //foreach (Achievement item in result.Achievements)
+            //{
+            //    if (item.ApiName == "ACHIEVEMENT_28")
+            //    {
+            //        foundAPI1 = true;
+            //        Assert.IsTrue(item.ApiName == "ACHIEVEMENT_28");
+            //        Assert.IsTrue(item.Name == "We Happy Few ");
+            //        Assert.IsTrue(item.Description == "Complete a mission without losing a soldier.");
+            //        Assert.IsTrue(item.Achieved == true);
+            //        Assert.IsTrue(item.IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/9ef3538334062eceed71992328e6b1a6b577b5d7.jpg");
+            //        Assert.IsTrue(item.IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/8cb928ad8be98984f1c739fa6f9b4f34ae0ea17e.jpg");
+            //        Assert.IsTrue(item.GlobalPercent >= 0);
+            //        Assert.IsTrue(item.FriendAchieved == true);
+            //    }
+            //    else if (item.ApiName == "ACHIEVEMENT_38")
+            //    {
+            //        foundAPI2 = true;
+            //        Assert.IsTrue(item.ApiName == "ACHIEVEMENT_38");
+            //        Assert.IsTrue(item.Name == "A Continental Fellow");
+            //        Assert.IsTrue(item.Description == "Win the game from each of the 5 starting locations.");
+            //        Assert.IsTrue(item.Achieved == true);
+            //        Assert.IsTrue(item.IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/1efdb8b427c628de17a49a55ad5afb495dd35cf0.jpg");
+            //        Assert.IsTrue(item.IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/3d74016b994db08005c2aafe05db4740f22f5876.jpg");
+            //        Assert.IsTrue(item.GlobalPercent >= 0);
+            //        Assert.IsTrue(item.FriendAchieved == false);
+            //    }
+            //    if (foundAPI2 == true && foundAPI1 == true)
+            //    {
+            //        break;
+            //    }
+            //}
+            //Assert.IsTrue(foundAPI1 == true);
+            //Assert.IsTrue(foundAPI2 == true);
+        }
+
+        [TestMethod]
+        public void SamSmithNoIconTest()
+        {
+            //Arrange
+            GameDetailsDA da = new GameDetailsDA();
+            string steamId = "76561197971691578";
+            string appId = "223530"; //Left For Dead 2 Beta
+
+            //Act
+            GameDetail result = da.GetData(steamId, appId);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.AppID == "223530");
+            Assert.IsTrue(result.GameName == "Left 4 Dead 2 Beta");
+            Assert.IsTrue(result.IconURL == null);
+            Assert.IsTrue(result.LogoURL == "");
+        }
+
+        [TestMethod]
         public void SamSmithCiv6FriendWithStewTest()
         {
             //Arrange
@@ -115,9 +246,9 @@ namespace SSNZ.Steam.UnitTests
 
             //Assert
             Assert.IsTrue(result == null);
-           
+
         }
-            
+
 
         [TestMethod]
         public void SamSmithCOH2Test()

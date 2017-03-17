@@ -16,12 +16,21 @@ namespace SSNZ.Steam.Data
         public SteamFriendList GetData(string steamID)
         {
             string jsonRequestString = "http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=" + Global.MySteamWebAPIKey + "&steamid=" + steamID + "&relationship=friend";
-            WebClient newClient = new WebClient();
-            newClient.Encoding = UTF8Encoding.UTF8;
-            string jsonData = newClient.DownloadString(jsonRequestString);
+            //WebClient newClient = new WebClient();
+            //newClient.Encoding = UTF8Encoding.UTF8;
+            //string jsonData = newClient.DownloadString(jsonRequestString);
+            string jsonData = Utility.GetPageAsString(new Uri(jsonRequestString));
 
-            SteamFriendList root = JsonConvert.DeserializeObject<SteamFriendList>(jsonData);
-            return root;
+            if (jsonData =="{\n\n}")
+            {
+                return null;
+            }
+            else
+            {
+                SteamFriendList result = JsonConvert.DeserializeObject<SteamFriendList>(jsonData);
+                return result;
+            }
+            
         }
     }
 }

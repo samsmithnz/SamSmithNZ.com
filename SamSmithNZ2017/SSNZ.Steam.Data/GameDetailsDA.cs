@@ -36,7 +36,10 @@ namespace SSNZ.Steam.Data
                 }
             }
 
-            result.Achievements = GetAchievementData(steamID, appID, gameDetail);
+            Tuple<List<Achievement>, string> tempResults = GetAchievementData(steamID, appID, gameDetail);
+
+            result.Achievements = tempResults.Item1;
+            result.ErrorMessage = tempResults.Item2;
 
             //Calculate the total achieved items
             int totalAchieved = 0;
@@ -96,20 +99,20 @@ namespace SSNZ.Steam.Data
             return result;
         }
 
-        private List<Achievement> GetAchievementData(string steamID, string appID, SteamGameDetail steamGameDetails)
+        public Tuple<List<Achievement>, string> GetAchievementData(string steamID, string appID, SteamGameDetail steamGameDetails)
         {
             SteamPlayerAchievementsForAppDA da = new SteamPlayerAchievementsForAppDA();
-            SteamPlayerAchievementsForApp playerData = da.GetData(steamID, appID);
+            Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> playerData = da.GetData(steamID, appID);
 
             List<Achievement> results = new List<Achievement>();
-            if (playerData != null)
+            if (playerData != null && playerData.Item1 != null)
             {
                 SteamGlobalAchievementPercentagesForAppDA da2 = new SteamGlobalAchievementPercentagesForAppDA();
                 SteamGlobalAchievementsForApp globalData = da2.GetData(appID);
 
-                if (playerData.playerstats.achievements != null)
+                if (playerData.Item1.playerstats.achievements != null)
                 {
-                    foreach (SteamPlayerAchievement item in playerData.playerstats.achievements)
+                    foreach (SteamPlayerAchievement item in playerData.Item1.playerstats.achievements)
                     {
                         Achievement newItem = new Achievement();
                         newItem.ApiName = item.apiname;
@@ -141,7 +144,13 @@ namespace SSNZ.Steam.Data
                 });
             }
 
-            return results;
+            string error = null;
+            if (playerData != null && playerData.Item2 != null && playerData.Item2.playerstats != null && playerData.Item2.playerstats.success == false)
+            {
+                error = playerData.Item2.playerstats.error;
+            }
+
+            return new Tuple<List<Achievement>, string>(results, error);
         }
 
         private string GetIconURL(string apiName, List<GameAchievement> steamGameDetails)

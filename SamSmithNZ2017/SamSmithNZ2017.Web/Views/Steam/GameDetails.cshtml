@@ -37,16 +37,28 @@
                         </script>*@
                 </td>
             </tr>
+            @*@if (Model.InclusionFilters.Count > 0 && Model.ExclusionFilters.Count > 0)
+                 {
+                <tr>
+                    <td>Include achievements with term:</td>
+                    <td>@Html.DropDownList("cboIncludeFilter", new SelectList(Model.InclusionFilters, "Value", "Key", Model.CurrentIncludeFilter), new { onchange = "this.form.submit();" })</td>
+                </tr>
+                <tr>
+                    <td>Exclude achievements with term:</td>
+                    <td>@Html.DropDownList("cboExcludeFilter", new SelectList(Model.ExclusionFilters, "Value", "Key", Model.CurrentExcludeFilter), new { onchange = "this.form.submit();" })</td>
+                </tr>
+                <tr>
+                    <td>@*Completion Filter:</td>
+                    <td>@Html.DropDownList("cboCompletedFilter", new SelectList(Model.CompletedFilters, "Value", "Key", Model.CurrentCompletedFilter), new { onchange = "this.form.submit();" })</td>
+                </tr>
+                }*@
             <tr ng-show="selectedFriend">
                 <td>Friend achievements Completed:</td>
                 <td>
                     <span>{{gameDetails.FriendTotalAchieved}} ({{gameDetails.FriendPercentAchieved * 100 | number : 2}}%)</span>
                 </td>
             </tr>
-            <tr>
-                <td>@*Completion Filter:*@</td>
-                <td>@*@Html.DropDownList("cboCompletedFilter", new SelectList(Model.CompletedFilters, "Value", "Key", Model.CurrentCompletedFilter), new { onchange = "this.form.submit();" })*@</td>
-            </tr>
+
             <tr ng-hide="appFriends || error">
                 <td colspan="2">
                     <img id="spinner1" src="~/Content/Images/spinner_small.gif" />
@@ -60,21 +72,10 @@
                     <select ng-show="appFriends.length > 0" class="form-control" ng-model="selectedFriend" ng-options="friend.SteamId as friend.Name for friend in appFriends">
                         <option value="">[Please select friend]</option>
                     </select>
-                    <span ng-show="appFriends.length == 0">None of your Steam friends have this app :(</span>
+                    @*<label ng-show="appFriends.length > 0 && selectedFriend != null"><input type="checkbox" ng-model="onlyShowFriendChanges" ng-checked="showFriendChanges()" />Only show differences</label>*@
+                    <span ng-show="appFriends.length == 0">None of your Steam friends have this app</span>
                 </td>
             </tr>
-
-            @*@if (Model.InclusionFilters.Count > 0 && Model.ExclusionFilters.Count > 0)
-                {
-                    <tr>
-                        <td>Include achievements with term:</td>
-                        <td>@Html.DropDownList("cboIncludeFilter", new SelectList(Model.InclusionFilters, "Value", "Key", Model.CurrentIncludeFilter), new { onchange = "this.form.submit();" })</td>
-                    </tr>
-                    <tr>
-                        <td>Exclude achievements with term:</td>
-                        <td>@Html.DropDownList("cboExcludeFilter", new SelectList(Model.ExclusionFilters, "Value", "Key", Model.CurrentExcludeFilter), new { onchange = "this.form.submit();" })</td>
-                    </tr>
-                }*@
         </table>
 
         <br />
@@ -85,10 +86,11 @@
                 <th class="headerborders"></th>
                 <th class="headerborders">Global Completion %</th>
                 <th class="headerborders">Description</th>
-                <th class="headerborders">API Name</th>
-                <th class="headerborders" ng-show="selectedFriend">Friend has Achieved this?</th>
+                <th class="headerborders" ng-hide="selectedFriend">API Name</th>
+                <th class="headerborders" ng-show="selectedFriend">Friend has achieved this?</th>
             </tr>
-            <tr ng-repeat="item in gameDetails.Achievements" class="alternatingColors">
+            @* | filter: {Achieved : !FriendAchieved} *@
+            <tr ng-repeat="item in gameDetails.Achievements " class="alternatingColors" ng-style="{'background-color': getFriendStyle(selectedFriend, item.Achieved, item.FriendAchieved)}">
                 <td class="cellborders">{{$index + 1}}</td>
                 <td class="cellborders">
                     <img ng-show="item.Achieved" ng-src="{{item.IconURL}}" />
@@ -96,7 +98,7 @@
                 </td>
                 <td class="cellborders">{{item.GlobalPercent | number : 2}}%</td>
                 <td class="cellborders">{{item.Name}}: {{item.Description}}</td>
-                <td class="cellborders">{{item.ApiName}}</td>
+                <td class="cellborders" ng-hide="selectedFriend">{{item.ApiName}}</td>
                 <td class="cellborders" ng-show="selectedFriend">
                     <img ng-show="item.FriendAchieved" ng-src="{{item.IconURL}}" />
                     <img ng-show="!item.FriendAchieved" ng-src="{{item.IconGrayURL}}" />
@@ -105,6 +107,7 @@
         </table>
     </div>
     <span ng-show="gameDetails.Achievements.length == 0">No achievements found for this game</span>
+    <span ng-show="gameDetails.Achievements.length == 0 && gameDetails.ErrorMessage">({{gameDetails.ErrorMessage}})</span>
     @*<h2 class="sectionTitle"><b>Found no games for [Model.PlayerName]</b></h2>*@
 
     <br />

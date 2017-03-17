@@ -41,7 +41,10 @@ namespace SSNZ.Steam.Data
                     friend.AvatarMedium = item.avatarmedium;
                     friend.AvatarFull = item.avatarfull;
                     friend.TimeCreated = item.timecreated;
-                    friend.FriendSince = GetFriendSince(item.steamid, friendList.friendslist.friends);
+                    if (friendList != null)
+                    {
+                        friend.FriendSince = GetFriendSince(item.steamid, friendList.friendslist.friends);
+                    }
                     processedFriendList.Add(friend);
                 }
             }
@@ -53,10 +56,10 @@ namespace SSNZ.Steam.Data
             return processedFriendList;
         }
 
-        public List<Friend> GetFriendsWithSameGame(string steamID, string appId)
+        public List<Friend> GetFriendsWithSameGame(string steamId, string appId)
         {
             SteamFriendDA da = new SteamFriendDA();
-            SteamFriendList friendList = da.GetData(steamID);
+            SteamFriendList friendList = da.GetData(steamId);
 
             //Search my friends to see if they have the game we are searching for
             string commaSeperatedSteamIDs = "";
@@ -89,17 +92,22 @@ namespace SSNZ.Steam.Data
             {
                 foreach (SteamPlayer item in playerDetails.response.players)
                 {
-                    Friend friend = new Friend();
-                    friend.SteamId = item.steamid;
-                    friend.Name = item.personaname;
-                    friend.LastLogoff = item.lastlogoff;
-                    friend.ProfileURL = item.profileurl;
-                    friend.Avatar = item.avatar;
-                    friend.AvatarMedium = item.avatarmedium;
-                    friend.AvatarFull = item.avatarfull;
-                    friend.TimeCreated = item.timecreated;
-                    friend.FriendSince = GetFriendSince(item.steamid, friendList.friendslist.friends);
-                    processedFriendList.Add(friend);
+                    GameDetailsDA da4 = new GameDetailsDA();
+                    Tuple<List<Achievement>, string> tempResults = da4.GetAchievementData(item.steamid, appId, null);
+                    if (tempResults.Item2 == null)
+                    {
+                        Friend friend = new Friend();
+                        friend.SteamId = item.steamid;
+                        friend.Name = item.personaname;
+                        friend.LastLogoff = item.lastlogoff;
+                        friend.ProfileURL = item.profileurl;
+                        friend.Avatar = item.avatar;
+                        friend.AvatarMedium = item.avatarmedium;
+                        friend.AvatarFull = item.avatarfull;
+                        friend.TimeCreated = item.timecreated;
+                        friend.FriendSince = GetFriendSince(item.steamid, friendList.friendslist.friends);
+                        processedFriendList.Add(friend);
+                    }
                 }
             }
             processedFriendList.Sort(delegate (Friend p1, Friend p2)
