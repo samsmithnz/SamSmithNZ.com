@@ -10,7 +10,14 @@ namespace SamSmithNZ2017.Controllers
     {
         public ActionResult Index()
         {
-            return Redirect("http://samsmithnz.com");
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                return RedirectToAction("Index", "Steam");
+            }
+            else
+            { 
+                return Redirect("http://samsmithnz.com");
+            }
             //return View();
         }
 
