@@ -4,10 +4,11 @@
 }
 
 <div ng-controller="indexController">
-    <h2 class="sectionTitle"><b>{{player.PlayerName}}'s Games</b></h2>
-    <span ng-hide="player.IsPublic">This profile is private</span>
+    <h2 ng-show="player" class="sectionTitle"><b>{{player.PlayerName}}'s Games</b></h2>
+    <span ng-show="player.IsPublic == false">This profile is private</span>
     <br />
 
+    <img ng-hide="player" id="spinner1" src="~/Content/Images/spinner_small.gif" />
     <table ng-show="player.IsPublic" class="tableofcontents" padding="0" cellspacing="0">
         <tr>
             <td style="width: 50%;">
