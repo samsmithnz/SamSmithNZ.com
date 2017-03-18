@@ -5,19 +5,16 @@
 
 <div ng-controller="gameDetailsController">
 
-    <h2 class="sectionTitle"><b>{{player.PlayerName}}'s Statistics for {{gameDetails.GameName}}</b></h2>
-    <br />
-    <a href="~/Steam/Index?SteamId={{steamId}}">{{player.PlayerName}}'s Game List</a> <span>&nbsp;&gt;&nbsp;</span> {{gameDetails.GameName}}
-    <br />
-    <br />
-    <img ng-show="gameDetails != null" ng-src="http://media.steampowered.com/steamcommunity/public/images/apps/{{gameDetails.AppID}}/{{gameDetails.LogoURL}}.jpg" src="~/Content/Steam/steam32by32.png" />
-    <br />
-
-    @*if (Model.GameStatistics.AchievementStats.Count > 0 || Model.GameStatistics.CompletedCount > 0)
-        {
-            using (Html.BeginForm("GameDetails", "Steam", new { steamID = Model.SteamID, appID = Model.AppID, isPostingResponse = true }, FormMethod.Post))
-            {*@
-
+    <img ng-hide="player" src="~/Content/Images/spinner_small.gif" />
+    <div ng-cloak>
+        <h2 class="sectionTitle" ng-show="player"><b>{{player.PlayerName}}'s Statistics for {{gameDetails.GameName}}</b></h2>
+        <br />
+        <a href="~/Steam/Index?SteamId={{steamId}}" ng-show="player">{{player.PlayerName}}'s Game List</a> <span>&nbsp;&gt;&nbsp;</span> {{gameDetails.GameName}}
+        <br />
+        <br />
+        <img ng-show="gameDetails != null" ng-src="http://media.steampowered.com/steamcommunity/public/images/apps/{{gameDetails.AppID}}/{{gameDetails.LogoURL}}.jpg" src="~/Content/Steam/steam32by32.png" />
+        <br />
+    </div>
     <div ng-show="gameDetails.Achievements.length > 0">
         <table>
             <tr>
@@ -26,7 +23,7 @@
                     <span>{{gameDetails.TotalAchieved}} ({{gameDetails.PercentAchieved * 100 | number : 2}}%)</span>
                 </td>
                 <td rowspan="4" style="width: 300px;">
-                    @*<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                         <!-- SteamBanner2 -->
                         <ins class="adsbygoogle"
                              style="display:inline-block;width:320px;height:100px"
@@ -34,25 +31,10 @@
                              data-ad-slot="6826309967"></ins>
                         <script>
                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>*@
+                        </script>
                 </td>
             </tr>
-            @*@if (Model.InclusionFilters.Count > 0 && Model.ExclusionFilters.Count > 0)
-                 {
-                <tr>
-                    <td>Include achievements with term:</td>
-                    <td>@Html.DropDownList("cboIncludeFilter", new SelectList(Model.InclusionFilters, "Value", "Key", Model.CurrentIncludeFilter), new { onchange = "this.form.submit();" })</td>
-                </tr>
-                <tr>
-                    <td>Exclude achievements with term:</td>
-                    <td>@Html.DropDownList("cboExcludeFilter", new SelectList(Model.ExclusionFilters, "Value", "Key", Model.CurrentExcludeFilter), new { onchange = "this.form.submit();" })</td>
-                </tr>
-                <tr>
-                    <td>@*Completion Filter:</td>
-                    <td>@Html.DropDownList("cboCompletedFilter", new SelectList(Model.CompletedFilters, "Value", "Key", Model.CurrentCompletedFilter), new { onchange = "this.form.submit();" })</td>
-                </tr>
-                }*@
-            <tr ng-show="selectedFriend">
+                       <tr ng-show="selectedFriend">
                 <td>Friend achievements Completed:</td>
                 <td>
                     <span>{{gameDetails.FriendTotalAchieved}} ({{gameDetails.FriendPercentAchieved * 100 | number : 2}}%)</span>
@@ -89,7 +71,6 @@
                 <th class="headerborders" ng-hide="selectedFriend">API Name</th>
                 <th class="headerborders" ng-show="selectedFriend">Friend has achieved this?</th>
             </tr>
-            @* | filter: {Achieved : !FriendAchieved} *@
             <tr ng-repeat="item in gameDetails.Achievements " class="alternatingColors" ng-style="{'background-color': getFriendStyle(selectedFriend, item.Achieved, item.FriendAchieved)}">
                 <td class="cellborders">{{$index + 1}}</td>
                 <td class="cellborders">
@@ -108,7 +89,5 @@
     </div>
     <span ng-show="gameDetails.Achievements.length == 0">No achievements found for this game</span>
     <span ng-show="gameDetails.Achievements.length == 0 && gameDetails.ErrorMessage">({{gameDetails.ErrorMessage}})</span>
-    @*<h2 class="sectionTitle"><b>Found no games for [Model.PlayerName]</b></h2>*@
-
     <br />
 </div>
