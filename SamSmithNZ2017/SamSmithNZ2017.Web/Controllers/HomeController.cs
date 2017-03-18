@@ -10,21 +10,24 @@ namespace SamSmithNZ2017.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return Redirect("http://samsmithnz.com");
+            //return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            return Redirect("http://samsmithnz.com/Home/About");
+            //ViewBag.Message = "Your application description page.";
 
-            return View();
+            //return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            return Redirect("http://samsmithnz.com/Home/Contact");
+            //ViewBag.Message = "Your contact page.";
 
-            return View();
+            //return View();
         }
     }
 }
