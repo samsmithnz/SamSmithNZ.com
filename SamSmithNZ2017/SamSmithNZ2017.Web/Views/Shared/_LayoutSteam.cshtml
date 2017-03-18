@@ -22,16 +22,15 @@
                     </a>
                 </td>
                 <td style="width: auto;">
-                    @*
-                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <!-- SteamBanner2 -->
-                        <ins class="adsbygoogle"
-                             style="display:inline-block;width:320px;height:100px"
-                             data-ad-client="ca-pub-2315986579277492"
-                             data-ad-slot="6826309967"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>*@
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- SteamBanner2 -->
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:320px;height:100px"
+                         data-ad-client="ca-pub-2315986579277492"
+                         data-ad-slot="6826309967"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
                 </td>
                 <td>
                     <div>
@@ -54,17 +53,6 @@
                         <div ng-repeat="item in friends">
                             <img ng-src="{{item.Avatar}}" /> <a href="~/Steam/Index?SteamId={{item.SteamId}}">{{item.Name}}</a><br />
                         </div>
-                        @*@if (Model.FriendList == null || Model.FriendList.Count == 0)
-                            {
-                                <span>No friends found...</span>
-                            }
-                            else
-                            {
-                                foreach (SamSmithNZ2015.Core.SteamWebAPI.FriendsListDetail.FriendsListDetail item in Model.FriendList)
-                                {
-                                    <img src="@item.Avatar" /> @Html.ActionLink(item.Name, "Index", new { steamID = item.Steamid }, new { @style = "font-weight: bold;" })<br />
-                                }
-                            }*@
                     </div>
                 </td>
                 <td class="contentMain">
