@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SSNZ.Steam.Data;
 using SSNZ.Steam.Models;
+using System.Threading.Tasks;
 
 namespace SSNZ.Steam.UnitTests
 {
@@ -10,14 +11,14 @@ namespace SSNZ.Steam.UnitTests
     public class SteamPlayerDetailUnitTest
     {
         [TestMethod]
-        public void PlayerDetailExistUnitTest()
+        public async Task PlayerDetailExistUnitTest()
         {
             //Arrange
             string steamId = "76561197974118008";
 
             //Act
             SteamPlayerDetailDA da = new SteamPlayerDetailDA();
-            SteamPlayerDetail result = da.GetData(steamId);
+            SteamPlayerDetail result = await da.GetDataAsync(steamId);
 
             //Asset
             Assert.IsTrue(result != null);

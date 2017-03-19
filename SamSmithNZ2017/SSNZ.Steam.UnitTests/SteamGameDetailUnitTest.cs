@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SSNZ.Steam.Data;
 using SSNZ.Steam.Models;
+using System.Threading.Tasks;
 
 namespace SSNZ.Steam.UnitTests
 {
@@ -10,14 +11,14 @@ namespace SSNZ.Steam.UnitTests
     public class SteamGameDetailUnitTest
     {
         [TestMethod]
-        public void GameDetailExistUnitTest()
+        public async Task GameDetailExistUnitTest()
         {
             //Arrange
             string appId = "200510"; //XCOM
 
             //Act
             SteamGameDetailDA da = new SteamGameDetailDA();
-            SteamGameDetail result = da.GetData(appId);
+            SteamGameDetail result = await da.GetDataAsync(appId);
 
             //Asset
             Assert.IsTrue(result != null);
@@ -34,7 +35,7 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.game.availableGameStats.achievements[0].description == "Beat the game in Ironman mode on Classic or Impossible Difficulty.");
             Assert.IsTrue(result.game.availableGameStats.achievements[0].icon == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/9ea8b01a66eb7af4d074430bbb3300414b7d457d.jpg");
             Assert.IsTrue(result.game.availableGameStats.achievements[0].icongray == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/7dd89a5070fa8f8a07d9859c12a888a2885929ca.jpg");
-          
+
             //<game>
             //  <gameName>ValveTestApp200510</gameName>
             //  <gameVersion>67</gameVersion>

@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SSNZ.Steam.Data;
 using SSNZ.Steam.Models;
+using System.Threading.Tasks;
 
 namespace SSNZ.Steam.UnitTests
 {
@@ -11,7 +12,7 @@ namespace SSNZ.Steam.UnitTests
     {
 
         [TestMethod]
-        public void SamXCOMTest()
+        public async Task SamXCOMTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -19,7 +20,7 @@ namespace SSNZ.Steam.UnitTests
             string appId = "200510"; //Xcom
 
             //Act
-            GameDetail result = da.GetData(steamId, appId);
+            GameDetail result = await da.GetDataAsync(steamId, appId);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -41,7 +42,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamCiv6Test()
+        public async Task SamCiv6Test()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -49,7 +50,7 @@ namespace SSNZ.Steam.UnitTests
             string appId = "289070"; //Civ 6
 
             //Act
-            GameDetail result = da.GetData(steamId, appId);
+            GameDetail result = await da.GetDataAsync(steamId, appId);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -71,7 +72,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void AlexCiv6Test()
+        public async Task AlexCiv6Test()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -79,7 +80,7 @@ namespace SSNZ.Steam.UnitTests
             string appId = "289070"; //Civ 6
 
             //Act
-            GameDetail result = da.GetData(steamId, appId);
+            GameDetail result = await da.GetDataAsync(steamId, appId);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -94,7 +95,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamSmithXCOMFriendWithStewTest()
+        public async Task SamSmithXCOMFriendWithStewTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -103,7 +104,7 @@ namespace SSNZ.Steam.UnitTests
             string appId = "200510"; //Xcom
 
             //Act
-            GameDetail result = da.GetDataWithFriend(steamId, appId, friendSteamId);
+            GameDetail result = await da.GetDataWithFriend(steamId, appId, friendSteamId);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -154,7 +155,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamSmithCiv6FriendWithAlexTest()
+        public async Task SamSmithCiv6FriendWithAlexTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -163,7 +164,7 @@ namespace SSNZ.Steam.UnitTests
             string appId = "289070"; //Civ 6
 
             //Act
-            GameDetail result = da.GetDataWithFriend(steamId, appId, friendSteamId);
+            GameDetail result = await da.GetDataWithFriend(steamId, appId, friendSteamId);
 
             //Assert
             Assert.IsTrue(result == null);
@@ -214,7 +215,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamSmithNoIconTest()
+        public async Task SamSmithNoIconTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -222,7 +223,7 @@ namespace SSNZ.Steam.UnitTests
             string appId = "223530"; //Left For Dead 2 Beta
 
             //Act
-            GameDetail result = da.GetData(steamId, appId);
+            GameDetail result = await da.GetDataAsync(steamId, appId);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -233,7 +234,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamSmithCiv6FriendWithStewTest()
+        public async Task SamSmithCiv6FriendWithStewTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -242,16 +243,15 @@ namespace SSNZ.Steam.UnitTests
             string appId = "289070"; //Civ 6
 
             //Act
-            GameDetail result = da.GetDataWithFriend(steamId, appId, friendSteamId);
+            GameDetail result = await da.GetDataWithFriend(steamId, appId, friendSteamId);
 
             //Assert
             Assert.IsTrue(result == null);
 
         }
 
-
         [TestMethod]
-        public void SamSmithCOH2Test()
+        public async Task SamSmithCOH2Test()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -259,7 +259,7 @@ namespace SSNZ.Steam.UnitTests
             string appId = "231430"; //Company of Heroes 2
 
             //Act
-            GameDetail result = da.GetData(steamId, appId);
+            GameDetail result = await da.GetDataAsync(steamId, appId);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -308,7 +308,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamSmithCastleStoryTest()
+        public async Task SamSmithCastleStoryTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -316,7 +316,7 @@ namespace SSNZ.Steam.UnitTests
             string appId = "227860"; //castle Story
 
             //Act
-            GameDetail result = da.GetData(steamId, appId);
+            GameDetail result = await da.GetDataAsync(steamId, appId);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -330,7 +330,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamSmithGodusTest()
+        public async Task SamSmithGodusTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -338,7 +338,7 @@ namespace SSNZ.Steam.UnitTests
             string appId = "232810"; //Godus
 
             //Act
-            GameDetail result = da.GetData(steamId, appId);
+            GameDetail result = await da.GetDataAsync(steamId, appId);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -349,6 +349,7 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.PercentAchieved == 0m);
             Assert.IsTrue(result.TotalAchieved == 0m);
             Assert.IsTrue(result.Achievements.Count == 0);
+            Assert.IsTrue(result.ErrorMessage == "Requested app has no stats");
         }
 
     }

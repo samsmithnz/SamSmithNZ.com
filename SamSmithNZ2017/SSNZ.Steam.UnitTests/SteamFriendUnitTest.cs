@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SSNZ.Steam.Data;
 using SSNZ.Steam.Models;
+using System.Threading.Tasks;
 
 namespace SSNZ.Steam.UnitTests
 {
@@ -10,14 +11,14 @@ namespace SSNZ.Steam.UnitTests
     public class SteamFriendUnitTest
     {
         [TestMethod]
-        public void FriendsExistTest()
+        public async Task FriendsExistTest()
         {
             //Arrange
             string steamId = "76561197971691578";
 
             //Act
             SteamFriendDA da = new SteamFriendDA();
-            SteamFriendList result = da.GetData(steamId);
+            SteamFriendList result = await da.GetDataAsync(steamId);
 
             //Asset
             Assert.IsTrue(result != null);

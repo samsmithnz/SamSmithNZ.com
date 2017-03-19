@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using SSNZ.Steam.Data;
 using SSNZ.Steam.Models;
@@ -11,16 +12,16 @@ namespace SSNZ.Steam.Service.Controllers
 {
     public class FriendsController : ApiController
     {
-        public List<Friend> GetFriends(string steamId)
+        public async Task<List<Friend>> GetFriends(string steamId)
         {
             FriendsDA da = new FriendsDA();
-            return da.GetFriends(steamId);
+            return await da.GetDataAsync(steamId);
         }
 
-        public List<Friend> GetFriendsWithSameGame(string steamId, string appId)
+        public async Task<List<Friend>> GetFriendsWithSameGame(string steamId, string appId)
         {
             FriendsDA da = new FriendsDA();
-            return da.GetFriendsWithSameGame(steamId, appId);
+            return await da.GetFriendsWithSameGame(steamId, appId);
         }
     }
 }
