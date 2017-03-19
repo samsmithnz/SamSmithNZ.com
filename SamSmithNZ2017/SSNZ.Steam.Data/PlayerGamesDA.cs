@@ -10,13 +10,13 @@ namespace SSNZ.Steam.Data
     public class PlayerGamesDA
     {
 
-        public List<Game> GetData(string steamID)
+        public async Task<List<Game>> GetDataAsync(string steamID)
         {
             List<Game> games = new List<Game>();
 
             //get games for Player
             SteamOwnedGamesDA da = new SteamOwnedGamesDA();
-            SteamOwnedGames ownedGames = da.GetData(steamID);
+            SteamOwnedGames ownedGames = await da.GetDataAsync(steamID);
             foreach (Message item in ownedGames.response.games)
             {
                 Game newItem = new Game();

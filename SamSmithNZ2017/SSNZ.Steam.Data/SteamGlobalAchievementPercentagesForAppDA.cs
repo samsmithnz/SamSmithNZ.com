@@ -13,12 +13,12 @@ namespace SSNZ.Steam.Data
     {
 
         //http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=200510
-        public SteamGlobalAchievementsForApp GetData(string appID)
+        public async Task<SteamGlobalAchievementsForApp> GetDataAsync(string appID)
         {
             string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=" + appID.ToString();
             WebClient newClient = new WebClient();
             newClient.Encoding = UTF8Encoding.UTF8;
-            string jsonData = newClient.DownloadString(jsonRequestString);
+            string jsonData = await newClient.DownloadStringTaskAsync(jsonRequestString);
 
             SteamGlobalAchievementsForApp result = JsonConvert.DeserializeObject<SteamGlobalAchievementsForApp>(jsonData);
             return result;

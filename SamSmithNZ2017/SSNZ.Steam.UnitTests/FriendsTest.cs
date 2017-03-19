@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SSNZ.Steam.Data;
 using SSNZ.Steam.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SSNZ.Steam.UnitTests
 {
@@ -12,14 +13,14 @@ namespace SSNZ.Steam.UnitTests
     {
 
         [TestMethod]
-        public void SamFirstFriendTest()
+        public async Task SamFirstFriendTest()
         {
             //Arrange
             FriendsDA da = new FriendsDA();
             string steamId = "76561197971691578";
 
             //Act
-            List<Friend> results = da.GetFriends(steamId);
+            List<Friend> results = await da.GetDataAsync(steamId);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -46,14 +47,14 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void AlexFriendsTest()
+        public async Task AlexFriendsTest()
         {
             //Arrange
             FriendsDA da = new FriendsDA();
             string steamId = "76561198034342716";
 
             //Act
-            List<Friend> results = da.GetFriends(steamId);
+            List<Friend> results = await da.GetDataAsync(steamId);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -73,7 +74,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamXcomFriendsTest()
+        public async Task SamXcomFriendsTest()
         {
             //Arrange
             FriendsDA da = new FriendsDA();
@@ -81,7 +82,7 @@ namespace SSNZ.Steam.UnitTests
             string appId = "200510"; //Xcom
 
             //Act
-            List<Friend> results = da.GetFriendsWithSameGame(steamId, appId);
+            List<Friend> results = await da.GetFriendsWithSameGame(steamId, appId);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -102,7 +103,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamCiv6FriendsTest()
+        public async Task SamCiv6FriendsTest()
         {
             //Arrange
             FriendsDA da = new FriendsDA();
@@ -110,7 +111,7 @@ namespace SSNZ.Steam.UnitTests
             string appId = "289070"; //Civ 6
 
             //Act
-            List<Friend> results = da.GetFriendsWithSameGame(steamId, appId);
+            List<Friend> results = await da.GetFriendsWithSameGame(steamId, appId);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -134,7 +135,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void StewXcomFriendsTest()
+        public async Task StewXcomFriendsTest()
         {
             //Arrange
             FriendsDA da = new FriendsDA();
@@ -142,7 +143,7 @@ namespace SSNZ.Steam.UnitTests
             string appId = "200510"; //Xcom
 
             //Act
-            List<Friend> results = da.GetFriendsWithSameGame(steamId, appId);
+            List<Friend> results = await da.GetFriendsWithSameGame(steamId, appId);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -160,9 +161,6 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.SteamId == "76561197971691578");
             Assert.IsTrue(result.Name == "Sam");
         }
-
-
-
 
     }
 }

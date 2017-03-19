@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SSNZ.Steam.Data;
 using SSNZ.Steam.Models;
+using System.Threading.Tasks;
 
 namespace SSNZ.Steam.UnitTests
 {
@@ -11,14 +12,14 @@ namespace SSNZ.Steam.UnitTests
     {
 
         [TestMethod]
-        public void SamPlayerTest()
+        public async Task SamPlayerTest()
         {
             //Arrange
             PlayerDA da = new PlayerDA();
             string steamId = "76561197971691578";
 
             //Act
-            Player result = da.GetData(steamId);
+            Player result = await da.GetDataAsync(steamId);
 
             //Assert
             Assert.IsTrue(result != null);

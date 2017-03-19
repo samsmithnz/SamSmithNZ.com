@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SSNZ.Steam.Data;
 using SSNZ.Steam.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SSNZ.Steam.UnitTests
 {
@@ -12,14 +13,14 @@ namespace SSNZ.Steam.UnitTests
     {
 
         [TestMethod]
-        public void SamPlayerGamesTest()
+        public async Task SamPlayerGamesTest()
         {
             //Arrange
             PlayerGamesDA da = new PlayerGamesDA();
             string steamId = "76561197971691578";
 
             //Act
-            List<Game> results = da.GetData(steamId);
+            List<Game> results = await da.GetDataAsync(steamId);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -34,7 +35,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamPlayerGamesWithNoIconTest()
+        public async Task SamPlayerGamesWithNoIconTest()
         {
             //Arrange
             PlayerGamesDA da = new PlayerGamesDA();
@@ -42,7 +43,7 @@ namespace SSNZ.Steam.UnitTests
             string appId = "223530";
 
             //Act
-            List<Game> results = da.GetData(steamId);
+            List<Game> results = await da.GetDataAsync(steamId);
 
             //Assert
             Assert.IsTrue(results != null);

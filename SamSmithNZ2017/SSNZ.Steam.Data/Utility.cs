@@ -20,7 +20,7 @@ namespace SSNZ.Steam.Data
             return result;
         }
 
-        public static string GetPageAsString(Uri address)
+        public async static Task<string> GetPageAsStringAsync(Uri address)
         {
             string result = "";
             // Create the web request  
@@ -28,7 +28,7 @@ namespace SSNZ.Steam.Data
             // Get response  
             try
             {
-                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                HttpWebResponse response = await request.GetResponseAsync() as HttpWebResponse;
                 // Get the response stream  
                 StreamReader reader = new StreamReader(response.GetResponseStream());
                 // Read the whole contents and return as a string  

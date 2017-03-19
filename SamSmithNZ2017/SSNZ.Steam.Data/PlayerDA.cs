@@ -10,13 +10,13 @@ namespace SSNZ.Steam.Data
     public class PlayerDA
     {
 
-        public Player GetData(string steamID)
+        public async Task<Player> GetDataAsync(string steamID)
         {
             Player result = new Player();
 
             //Get Player Details
             SteamPlayerDetailDA da = new SteamPlayerDetailDA();
-            SteamPlayerDetail playerDetail = da.GetData(steamID);
+            SteamPlayerDetail playerDetail = await da.GetDataAsync(steamID);
             if (playerDetail == null)
             {
                 return null; // RedirectToAction("SteamIsDown", "Steam");

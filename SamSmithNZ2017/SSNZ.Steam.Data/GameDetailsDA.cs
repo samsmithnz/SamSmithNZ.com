@@ -9,13 +9,13 @@ namespace SSNZ.Steam.Data
 {
     public class GameDetailsDA
     {
-        public GameDetail GetData(string steamID, string appID)
+        public async Task<GameDetail> GetDataAsync(string steamID, string appID)
         {
             SteamGameDetailDA da = new SteamGameDetailDA();
-            SteamGameDetail gameDetail = da.GetData(appID);
+            SteamGameDetail gameDetail = await da.GetDataAsync(appID);
 
-            SteamOwnedGamesDA da3 = new SteamOwnedGamesDA();
-            SteamOwnedGames gameOwnedGames = da3.GetData(steamID);
+            SteamOwnedGamesDA da2 = new SteamOwnedGamesDA();
+            SteamOwnedGames gameOwnedGames = await da2.GetDataAsync(steamID);
             GameDetail result = new GameDetail();
             foreach (Message item in gameOwnedGames.response.games)
             {
@@ -36,7 +36,7 @@ namespace SSNZ.Steam.Data
                 }
             }
 
-            Tuple<List<Achievement>, string> tempResults = GetAchievementData(steamID, appID, gameDetail);
+            Tuple<List<Achievement>, string> tempResults = await GetAchievementDataAsync(steamID, appID, gameDetail);
 
             result.Achievements = tempResults.Item1;
             result.ErrorMessage = tempResults.Item2;
@@ -59,10 +59,10 @@ namespace SSNZ.Steam.Data
             return result;
         }
 
-        public GameDetail GetDataWithFriend(string steamID, string appID, string friendSteamId)
+        public async Task<GameDetail> GetDataWithFriend(string steamID, string appID, string friendSteamId)
         {
-            GameDetail details = GetData(steamID, appID);
-            GameDetail friendDetails = GetData(friendSteamId, appID);
+            GameDetail details = await GetDataAsync(steamID, appID);
+            GameDetail friendDetails = await GetDataAsync(friendSteamId, appID);
 
             if (friendDetails == null || friendDetails.Achievements == null || friendDetails.Achievements.Count == 0)
             {
@@ -99,16 +99,16 @@ namespace SSNZ.Steam.Data
             return result;
         }
 
-        public Tuple<List<Achievement>, string> GetAchievementData(string steamID, string appID, SteamGameDetail steamGameDetails)
+        public async Task<Tuple<List<Achievement>, string>> GetAchievementDataAsync(string steamID, string appID, SteamGameDetail steamGameDetails)
         {
             SteamPlayerAchievementsForAppDA da = new SteamPlayerAchievementsForAppDA();
-            Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> playerData = da.GetData(steamID, appID);
+            Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> playerData = await da.GetDataAsync(steamID, appID);
 
             List<Achievement> results = new List<Achievement>();
             if (playerData != null && playerData.Item1 != null)
             {
                 SteamGlobalAchievementPercentagesForAppDA da2 = new SteamGlobalAchievementPercentagesForAppDA();
-                SteamGlobalAchievementsForApp globalData = da2.GetData(appID);
+                SteamGlobalAchievementsForApp globalData = await da2.GetDataAsync(appID);
 
                 if (playerData.Item1.playerstats.achievements != null)
                 {

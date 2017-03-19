@@ -9,10 +9,10 @@ namespace SSNZ.Steam.Data
 {
     public class FriendsDA
     {
-        public List<Friend> GetFriends(string steamID)
+        public async Task<List<Friend>> GetDataAsync(string steamID)
         {
             SteamFriendDA da = new SteamFriendDA();
-            SteamFriendList friendList = da.GetData(steamID);
+            SteamFriendList friendList = await da.GetDataAsync(steamID);
 
             //Don't forget to add ME! :)
             string commaSeperatedSteamIDs = steamID.ToString();
@@ -25,7 +25,7 @@ namespace SSNZ.Steam.Data
             }
 
             SteamPlayerDetailDA da2 = new SteamPlayerDetailDA();
-            SteamPlayerDetail playerDetails = da2.GetData(commaSeperatedSteamIDs);
+            SteamPlayerDetail playerDetails = await da2.GetDataAsync(commaSeperatedSteamIDs);
 
             List<Friend> processedFriendList = new List<Friend>();
             if (playerDetails != null)
@@ -56,10 +56,10 @@ namespace SSNZ.Steam.Data
             return processedFriendList;
         }
 
-        public List<Friend> GetFriendsWithSameGame(string steamId, string appId)
+        public async Task<List<Friend>> GetFriendsWithSameGame(string steamId, string appId)
         {
             SteamFriendDA da = new SteamFriendDA();
-            SteamFriendList friendList = da.GetData(steamId);
+            SteamFriendList friendList = await da.GetDataAsync(steamId);
 
             //Search my friends to see if they have the game we are searching for
             string commaSeperatedSteamIDs = "";
@@ -67,8 +67,8 @@ namespace SSNZ.Steam.Data
             {
                 foreach (SteamFriend item in friendList.friendslist.friends)
                 {
-                    SteamOwnedGamesDA da3 = new SteamOwnedGamesDA();
-                    SteamOwnedGames friendGames = da3.GetData(item.steamid);
+                    SteamOwnedGamesDA da2 = new SteamOwnedGamesDA();
+                    SteamOwnedGames friendGames = await da2.GetDataAsync(item.steamid);
                     if (friendGames.response.games != null)
                     {
                         foreach (Message item2 in friendGames.response.games)
@@ -84,8 +84,8 @@ namespace SSNZ.Steam.Data
             }
 
             //Get the friend details for this friend that has the right game
-            SteamPlayerDetailDA da2 = new SteamPlayerDetailDA();
-            SteamPlayerDetail playerDetails = da2.GetData(commaSeperatedSteamIDs);
+            SteamPlayerDetailDA da3 = new SteamPlayerDetailDA();
+            SteamPlayerDetail playerDetails = await da3.GetDataAsync(commaSeperatedSteamIDs);
 
             List<Friend> processedFriendList = new List<Friend>();
             if (playerDetails != null)
@@ -93,7 +93,7 @@ namespace SSNZ.Steam.Data
                 foreach (SteamPlayer item in playerDetails.response.players)
                 {
                     GameDetailsDA da4 = new GameDetailsDA();
-                    Tuple<List<Achievement>, string> tempResults = da4.GetAchievementData(item.steamid, appId, null);
+                    Tuple<List<Achievement>, string> tempResults = await da4.GetAchievementDataAsync(item.steamid, appId, null);
                     if (tempResults.Item2 == null)
                     {
                         Friend friend = new Friend();

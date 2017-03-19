@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SSNZ.Steam.Data;
 using SSNZ.Steam.Models;
+using System.Threading.Tasks;
 
 namespace SSNZ.Steam.UnitTests
 {
@@ -10,14 +11,14 @@ namespace SSNZ.Steam.UnitTests
     public class SteamGlobalAchievementUnitTest
     {
         [TestMethod]
-        public void GlobalAchievementUnitExistTest()
+        public async Task GlobalAchievementUnitExistTest()
         {
             //Arrange
             string appId = "200510"; //XCOM
 
             //Act
             SteamGlobalAchievementPercentagesForAppDA da = new SteamGlobalAchievementPercentagesForAppDA();
-            SteamGlobalAchievementsForApp result = da.GetData(appId);
+            SteamGlobalAchievementsForApp result = await da.GetDataAsync(appId);
 
             //Asset
             Assert.IsTrue(result != null);
