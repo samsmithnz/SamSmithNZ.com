@@ -21,22 +21,25 @@ namespace SSNZ.Steam.Data
 
             //Merge the two datasets into a clean gamedetail object
             GameDetail result = new GameDetail();
-            foreach (Message item in gameOwnedGames.response.games)
+            if (gameOwnedGames != null && gameOwnedGames.response != null && gameOwnedGames.response.games != null)
             {
-                if (item.appid == appID)
+                foreach (Message item in gameOwnedGames.response.games)
                 {
-                    result.AppID = appID;
-                    result.GameName = item.name;
-                    if (string.IsNullOrEmpty(item.img_icon_url))
+                    if (item.appid == appID)
                     {
-                        result.IconURL = null;
+                        result.AppID = appID;
+                        result.GameName = item.name;
+                        if (string.IsNullOrEmpty(item.img_icon_url))
+                        {
+                            result.IconURL = null;
+                        }
+                        else
+                        {
+                            result.IconURL = item.img_icon_url;
+                        }
+                        result.LogoURL = item.img_logo_url;
+                        break;
                     }
-                    else
-                    {
-                        result.IconURL = item.img_icon_url;
-                    }
-                    result.LogoURL = item.img_logo_url;
-                    break;
                 }
             }
 
@@ -91,7 +94,7 @@ namespace SSNZ.Steam.Data
             return details;
         }
 
-                private Achievement FindFriendItem(string apiName, List<Achievement> friendAchievements)
+        private Achievement FindFriendItem(string apiName, List<Achievement> friendAchievements)
         {
             Achievement result = null;
             foreach (Achievement item in friendAchievements)
