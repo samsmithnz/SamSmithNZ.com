@@ -11,15 +11,15 @@ namespace SamSmithNZ2017.Controllers
         //
         // GET: /AAR/
 
-        private bool _chapter1Enabled = true;
-        private bool _chapter2Enabled = false;
-        private bool _chapter3Enabled = false;
-        private bool _chapter4Enabled = false;
-        private bool _chapter5Enabled = false;
-        private bool _chapter6Enabled = false;
-        private bool _chapter7Enabled = false;
-        private bool _chapter8Enabled = false;
-        private bool _chapter9Enabled = false;
+        //private bool _chapter1Enabled = true;
+        //private bool _chapter2Enabled = false;
+        //private bool _chapter3Enabled = false;
+        //private bool _chapter4Enabled = false;
+        //private bool _chapter5Enabled = false;
+        //private bool _chapter6Enabled = false;
+        //private bool _chapter7Enabled = false;
+        //private bool _chapter8Enabled = false;
+        //private bool _chapter9Enabled = false;
 
         public ActionResult Index()
         {
