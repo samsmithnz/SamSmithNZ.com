@@ -80,6 +80,24 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(results.Count == 0);
 
         }
+
+        [TestMethod]
+        public async Task RandomAnotherPlayerGamesWithNoGamesTest()
+        {
+            //Arrange
+            PlayerGamesDA da = new PlayerGamesDA();
+            string steamId = "76561198121979762";
+
+            //Act
+            List<Game> results = await da.GetDataAsync(steamId);
+
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count == 0);
+
+        }
+
+        
         
 
     }
