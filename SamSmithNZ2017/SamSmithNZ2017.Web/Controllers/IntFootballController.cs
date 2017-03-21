@@ -270,105 +270,105 @@ namespace SamSmithNZ2017.Controllers
             //return View(CreateOddsGraphData(0.02, true, true, tournamentCode));
         }
 
-        private System.Web.HtmlString CreateOddsGraphData(double oddsLimit, bool chkShowActive, bool chkShowEliminated, short tournamentCode)
-        {
-            return Redirect("http://samsmithnz.com/IntFootball/Index");
+        //private System.Web.HtmlString CreateOddsGraphData(double oddsLimit, bool chkShowActive, bool chkShowEliminated, short tournamentCode)
+        //{
+        //    return Redirect("http://samsmithnz.com/IntFootball/Index");
 
-            //SamSmithNZ2015.Core.IntFootball.DataAccess.ImportGameOddsDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.ImportGameOddsDataAccess();
-            //List<ImportGameOdds> games;
-            //if (oddsLimit > 0)
-            //{
-            //    games = da.GetItems(oddsLimit, chkShowActive, chkShowEliminated, tournamentCode);
-            //}
-            //else
-            //{
-            //    games = da.GetItems(tournamentCode);
-            //}
-            ////Build the header
-            //StringBuilder headerRow = new StringBuilder();
-            //headerRow.Append("\"quarter\",");
+        //    //SamSmithNZ2015.Core.IntFootball.DataAccess.ImportGameOddsDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.ImportGameOddsDataAccess();
+        //    //List<ImportGameOdds> games;
+        //    //if (oddsLimit > 0)
+        //    //{
+        //    //    games = da.GetItems(oddsLimit, chkShowActive, chkShowEliminated, tournamentCode);
+        //    //}
+        //    //else
+        //    //{
+        //    //    games = da.GetItems(tournamentCode);
+        //    //}
+        //    ////Build the header
+        //    //StringBuilder headerRow = new StringBuilder();
+        //    //headerRow.Append("\"quarter\",");
 
-            ////for (int i = 0; i < 32; i++)
-            ////{
-            ////    ImportGameOdds item = games[i];
-            ////}
-            //foreach (string item in games.Select(x => x.TeamName).Distinct()) //Get a distinct list of team names
-            //{
-            //    headerRow.Append("\"");
-            //    headerRow.Append(item);
-            //    headerRow.Append("\"");
-            //    headerRow.Append(",");
-            //}
+        //    ////for (int i = 0; i < 32; i++)
+        //    ////{
+        //    ////    ImportGameOdds item = games[i];
+        //    ////}
+        //    //foreach (string item in games.Select(x => x.TeamName).Distinct()) //Get a distinct list of team names
+        //    //{
+        //    //    headerRow.Append("\"");
+        //    //    headerRow.Append(item);
+        //    //    headerRow.Append("\"");
+        //    //    headerRow.Append(",");
+        //    //}
 
-            ////Build the body
-            //List<string> rows = new List<string>();
-            //DateTime currentDate = DateTime.MinValue;
-            //StringBuilder row = new StringBuilder();
+        //    ////Build the body
+        //    //List<string> rows = new List<string>();
+        //    //DateTime currentDate = DateTime.MinValue;
+        //    //StringBuilder row = new StringBuilder();
 
-            //foreach (ImportGameOdds item in games)
-            //{
-            //    if (currentDate != item.Date)
-            //    {
-            //        if (currentDate != DateTime.MinValue)
-            //        {
-            //            rows.Add(row.ToString().TrimEnd(','));
-            //            row = new StringBuilder();
-            //        }
-            //        row.Append("\"");
-            //        row.Append(item.Date.ToString("dd-MMM"));
-            //        row.Append("\"");
-            //        row.Append(",");
-            //        currentDate = item.Date;
-            //    }
-            //    row.Append("\"");
-            //    row.Append((item.OddsProbability * 100).ToString("0.00"));
-            //    row.Append("\"");
-            //    row.Append(",");
-            //}
-            //rows.Add(row.ToString().TrimEnd(','));
+        //    //foreach (ImportGameOdds item in games)
+        //    //{
+        //    //    if (currentDate != item.Date)
+        //    //    {
+        //    //        if (currentDate != DateTime.MinValue)
+        //    //        {
+        //    //            rows.Add(row.ToString().TrimEnd(','));
+        //    //            row = new StringBuilder();
+        //    //        }
+        //    //        row.Append("\"");
+        //    //        row.Append(item.Date.ToString("dd-MMM"));
+        //    //        row.Append("\"");
+        //    //        row.Append(",");
+        //    //        currentDate = item.Date;
+        //    //    }
+        //    //    row.Append("\"");
+        //    //    row.Append((item.OddsProbability * 100).ToString("0.00"));
+        //    //    row.Append("\"");
+        //    //    row.Append(",");
+        //    //}
+        //    //rows.Add(row.ToString().TrimEnd(','));
 
-            ////Join it all together
-            //List<string> finalCSVRows = new List<string>();
-            //finalCSVRows.Add(headerRow.ToString().TrimEnd(','));
-            //finalCSVRows.AddRange(rows);
+        //    ////Join it all together
+        //    //List<string> finalCSVRows = new List<string>();
+        //    //finalCSVRows.Add(headerRow.ToString().TrimEnd(','));
+        //    //finalCSVRows.AddRange(rows);
 
-            ////Create the CSV/JS Array
-            //StringBuilder sbJSArray = new StringBuilder();
-            //for (int i = 0; i <= finalCSVRows.Count - 1; i++)
-            //{
-            //    //sbJSArray.Append("[");
-            //    sbJSArray.Append(finalCSVRows[i]);
-            //    //sbJSArray.Append("]");
-            //    if (i < finalCSVRows.Count - 1)
-            //    {
-            //        sbJSArray.Append(",");
-            //    }
-            //    else
-            //    {
-            //        sbJSArray.Append(Environment.NewLine);
-            //    }
-            //}
+        //    ////Create the CSV/JS Array
+        //    //StringBuilder sbJSArray = new StringBuilder();
+        //    //for (int i = 0; i <= finalCSVRows.Count - 1; i++)
+        //    //{
+        //    //    //sbJSArray.Append("[");
+        //    //    sbJSArray.Append(finalCSVRows[i]);
+        //    //    //sbJSArray.Append("]");
+        //    //    if (i < finalCSVRows.Count - 1)
+        //    //    {
+        //    //        sbJSArray.Append(",");
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        sbJSArray.Append(Environment.NewLine);
+        //    //    }
+        //    //}
 
-            ////Write out the CSV rows
-            //StringBuilder csvAnother = new StringBuilder();
-            //System.Diagnostics.Debug.WriteLine("Starting " + oddsLimit + " max chance");
-            //foreach (string item in finalCSVRows)
-            //{
-            //    System.Diagnostics.Debug.WriteLine(item.Replace("\"", ""));
-            //    csvAnother.Append(item.Replace("\"", ""));
-            //    csvAnother.Append(Environment.NewLine);
-            //}
+        //    ////Write out the CSV rows
+        //    //StringBuilder csvAnother = new StringBuilder();
+        //    //System.Diagnostics.Debug.WriteLine("Starting " + oddsLimit + " max chance");
+        //    //foreach (string item in finalCSVRows)
+        //    //{
+        //    //    System.Diagnostics.Debug.WriteLine(item.Replace("\"", ""));
+        //    //    csvAnother.Append(item.Replace("\"", ""));
+        //    //    csvAnother.Append(Environment.NewLine);
+        //    //}
 
-            //string fileName = "Data_" + tournamentCode.ToString("000") + "_" + DateTime.Now.ToString("ddMMM") + "_" + oddsLimit.ToString("0.00").Replace(".", "") + "_" + chkShowActive + "_" + chkShowEliminated + ".csv";
-            //string path = System.IO.Path.Combine(Server.MapPath("~/Content/D3Content/"), fileName);
+        //    //string fileName = "Data_" + tournamentCode.ToString("000") + "_" + DateTime.Now.ToString("ddMMM") + "_" + oddsLimit.ToString("0.00").Replace(".", "") + "_" + chkShowActive + "_" + chkShowEliminated + ".csv";
+        //    //string path = System.IO.Path.Combine(Server.MapPath("~/Content/D3Content/"), fileName);
 
-            //System.IO.StreamWriter objWriter;
-            //objWriter = new System.IO.StreamWriter(path);
-            //objWriter.Write(csvAnother.ToString());
-            //objWriter.Close();
+        //    //System.IO.StreamWriter objWriter;
+        //    //objWriter = new System.IO.StreamWriter(path);
+        //    //objWriter.Write(csvAnother.ToString());
+        //    //objWriter.Close();
 
-            //return new System.Web.HtmlString(fileName);
-        }
+        //    //return new System.Web.HtmlString(fileName);
+        //}
 
     }
 }
