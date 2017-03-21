@@ -18,7 +18,18 @@ namespace SSNZ.Steam.Data
             WebClient newClient = new WebClient();
             newClient.Encoding = UTF8Encoding.UTF8;
             string jsonData = await newClient.DownloadStringTaskAsync(jsonRequestString);
-            
+
+            SteamGameDetail result = JsonConvert.DeserializeObject<SteamGameDetail>(jsonData);
+            return result;
+        }
+
+        public SteamGameDetail GetDataOld(string appID)
+        {
+            string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=" + Global.MySteamWebAPIKey + "&appid=" + appID.ToString() + "&l=en";
+            WebClient newClient = new WebClient();
+            newClient.Encoding = UTF8Encoding.UTF8;
+            string jsonData = newClient.DownloadString(jsonRequestString);
+
             SteamGameDetail result = JsonConvert.DeserializeObject<SteamGameDetail>(jsonData);
             return result;
         }
