@@ -21,6 +21,7 @@ namespace SSNZ.Steam.Data
             //string jsonData = newClient.DownloadString(jsonRequestString);
             string jsonData = await Utility.GetPageAsStringAsync(new Uri(jsonRequestString));
 
+            //If the json returned a few new lines, return null, the player wasn't found
             if (jsonData =="{\n\n}")
             {
                 return null;

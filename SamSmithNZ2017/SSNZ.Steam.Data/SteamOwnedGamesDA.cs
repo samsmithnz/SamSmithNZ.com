@@ -20,8 +20,14 @@ namespace SSNZ.Steam.Data
             newClient.Encoding = UTF8Encoding.UTF8;
             string jsonData = await newClient.DownloadStringTaskAsync(jsonRequestString);
 
-            SteamOwnedGames result = JsonConvert.DeserializeObject<SteamOwnedGames>(jsonData);
-            return result;
+            if (jsonData == "{\n\t\"response\": {\n\n\t}\n}")
+            {
+                return null;
+            }
+            else
+            {
+                return JsonConvert.DeserializeObject<SteamOwnedGames>(jsonData);            
+            }
         }
     }
 }

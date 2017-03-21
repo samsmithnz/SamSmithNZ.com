@@ -13,7 +13,7 @@ namespace SSNZ.Steam.Data
         public async Task<Player> GetDataAsync(string steamID)
         {
             Player result = new Player();
-
+            
             //Get Player Details
             SteamPlayerDetailDA da = new SteamPlayerDetailDA();
             SteamPlayerDetail playerDetail = await da.GetDataAsync(steamID);
@@ -23,6 +23,7 @@ namespace SSNZ.Steam.Data
             }
             else
             {
+                //If detail exists, then load the details into a clean object
                 if (playerDetail.response.players.Count > 0)
                 {
                     result.SteamID = steamID;

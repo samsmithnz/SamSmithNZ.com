@@ -65,5 +65,22 @@ namespace SSNZ.Steam.UnitTests
 
         }
 
+        [TestMethod]
+        public async Task RandomPlayerGamesWithNoGamesTest()
+        {
+            //Arrange
+            PlayerGamesDA da = new PlayerGamesDA();
+            string steamId = "76561198059077520";
+
+            //Act
+            List<Game> results = await da.GetDataAsync(steamId);
+
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count == 0);
+
+        }
+        
+
     }
 }
