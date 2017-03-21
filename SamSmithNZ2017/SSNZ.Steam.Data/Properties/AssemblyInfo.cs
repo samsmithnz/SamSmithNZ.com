@@ -34,3 +34,6 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: InternalsVisibleTo("SSNZ.Steam.Data.Tests")]
+[assembly: InternalsVisibleTo("SSNZ.Steam.Data.Explorables")]
+

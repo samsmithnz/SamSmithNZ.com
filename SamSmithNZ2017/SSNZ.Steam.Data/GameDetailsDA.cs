@@ -11,11 +11,15 @@ namespace SSNZ.Steam.Data
     {
         public async Task<GameDetail> GetDataAsync(string steamID, string appID)
         {
+            //Get the details of the game
             SteamGameDetailDA da = new SteamGameDetailDA();
             SteamGameDetail gameDetail = await da.GetDataAsync(appID);
 
+            //Get the list of owned games for the user
             SteamOwnedGamesDA da2 = new SteamOwnedGamesDA();
             SteamOwnedGames gameOwnedGames = await da2.GetDataAsync(steamID);
+
+            //Merge the two datasets into a clean gamedetail object
             GameDetail result = new GameDetail();
             foreach (Message item in gameOwnedGames.response.games)
             {
@@ -36,8 +40,8 @@ namespace SSNZ.Steam.Data
                 }
             }
 
+            //Get the achievements from another dataset
             Tuple<List<Achievement>, string> tempResults = await GetAchievementDataAsync(steamID, appID, gameDetail);
-
             result.Achievements = tempResults.Item1;
             result.ErrorMessage = tempResults.Item2;
 
@@ -64,6 +68,7 @@ namespace SSNZ.Steam.Data
             GameDetail details = await GetDataAsync(steamID, appID);
             GameDetail friendDetails = await GetDataAsync(friendSteamId, appID);
 
+            //if the friend details return correctly, (this can fail sometimes if the friend has a private project), then continue:
             if (friendDetails == null || friendDetails.Achievements == null || friendDetails.Achievements.Count == 0)
             {
                 details = null;
@@ -74,6 +79,7 @@ namespace SSNZ.Steam.Data
                 details.FriendTotalAchieved = friendDetails.TotalAchieved;
                 foreach (Achievement item in details.Achievements)
                 {
+                    //Get the friends achievements for this game
                     Achievement friendItem = FindFriendItem(item.ApiName, friendDetails.Achievements);
                     if (friendItem != null)
                     {
@@ -85,7 +91,7 @@ namespace SSNZ.Steam.Data
             return details;
         }
 
-        private Achievement FindFriendItem(string apiName, List<Achievement> friendAchievements)
+                private Achievement FindFriendItem(string apiName, List<Achievement> friendAchievements)
         {
             Achievement result = null;
             foreach (Achievement item in friendAchievements)
@@ -101,12 +107,14 @@ namespace SSNZ.Steam.Data
 
         public async Task<Tuple<List<Achievement>, string>> GetAchievementDataAsync(string steamID, string appID, SteamGameDetail steamGameDetails)
         {
+            //Get the achievements for the app
             SteamPlayerAchievementsForAppDA da = new SteamPlayerAchievementsForAppDA();
             Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> playerData = await da.GetDataAsync(steamID, appID);
 
             List<Achievement> results = new List<Achievement>();
             if (playerData != null && playerData.Item1 != null)
             {
+                //Get the global achievement stats for the app
                 SteamGlobalAchievementPercentagesForAppDA da2 = new SteamGlobalAchievementPercentagesForAppDA();
                 SteamGlobalAchievementsForApp globalData = await da2.GetDataAsync(appID);
 
@@ -114,6 +122,7 @@ namespace SSNZ.Steam.Data
                 {
                     foreach (SteamPlayerAchievement item in playerData.Item1.playerstats.achievements)
                     {
+                        //Merge the play achievements with the global and friend achivements to one clean achievement object
                         Achievement newItem = new Achievement();
                         newItem.ApiName = item.apiname;
                         newItem.Name = item.name;
@@ -138,12 +147,14 @@ namespace SSNZ.Steam.Data
                     }
                 }
 
+                //Sort the results by global achievement %
                 results.Sort(delegate (Achievement p1, Achievement p2)
                 {
                     return p2.GlobalPercent.CompareTo(p1.GlobalPercent);
                 });
             }
 
+            //Handle any errors that may have been returned from the Steam API
             string error = null;
             if (playerData != null && playerData.Item2 != null && playerData.Item2.playerstats != null && playerData.Item2.playerstats.success == false)
             {

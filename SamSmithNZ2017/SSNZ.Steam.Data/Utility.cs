@@ -20,6 +20,7 @@ namespace SSNZ.Steam.Data
             return result;
         }
 
+        //A generic object
         public async static Task<string> GetPageAsStringAsync(Uri address)
         {
             string result = "";
@@ -37,8 +38,8 @@ namespace SSNZ.Steam.Data
             }
             catch (WebException e)
             {
+                //An error occured, capture the error response 
                 WebResponse response = e.Response;
-
                 HttpWebResponse httpResponse = (HttpWebResponse)response;
                 if (httpResponse != null)
                 {

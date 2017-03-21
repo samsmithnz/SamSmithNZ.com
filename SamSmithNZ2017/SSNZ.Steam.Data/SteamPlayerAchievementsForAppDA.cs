@@ -20,6 +20,7 @@ namespace SSNZ.Steam.Data
             //string jsonData = newClient.DownloadString(jsonRequestString);
             string jsonData = await Utility.GetPageAsStringAsync(new Uri(jsonRequestString));
 
+            //If the Json returned an error, process it into a AppError object
             if (jsonData.IndexOf("{\n\t\"playerstats\": {\n\t\t\"error\"") >= 0)
             {
                 SteamPlayerAchievementsForAppError errorResult = JsonConvert.DeserializeObject<SteamPlayerAchievementsForAppError>(jsonData);

@@ -11,11 +11,14 @@ namespace SSNZ.Steam.Data
     {
         public async Task<List<Friend>> GetDataAsync(string steamID)
         {
+            //Get all friends
             SteamFriendDA da = new SteamFriendDA();
             SteamFriendList friendList = await da.GetDataAsync(steamID);
-
-            //Don't forget to add ME! :)
+           
+            //Don't forget to add the current user to the comma seperated list
             string commaSeperatedSteamIDs = steamID.ToString();
+
+            //Build the comma seperated list for all friends
             if (friendList != null)
             {
                 foreach (SteamFriend item in friendList.friendslist.friends)
@@ -24,9 +27,11 @@ namespace SSNZ.Steam.Data
                 }
             }
 
+            //get the player details for all friends
             SteamPlayerDetailDA da2 = new SteamPlayerDetailDA();
             SteamPlayerDetail playerDetails = await da2.GetDataAsync(commaSeperatedSteamIDs);
 
+            //Transfer the steam player details to the clean friend objects
             List<Friend> processedFriendList = new List<Friend>();
             if (playerDetails != null)
             {
@@ -48,6 +53,8 @@ namespace SSNZ.Steam.Data
                     processedFriendList.Add(friend);
                 }
             }
+
+            //Sort the final list, as Steam returns the list by id, not name
             processedFriendList.Sort(delegate (Friend p1, Friend p2)
             {
                 return p1.Name.CompareTo(p2.Name);
@@ -58,6 +65,7 @@ namespace SSNZ.Steam.Data
 
         public async Task<List<Friend>> GetFriendsWithSameGame(string steamId, string appId)
         {
+            //Get all friends
             SteamFriendDA da = new SteamFriendDA();
             SteamFriendList friendList = await da.GetDataAsync(steamId);
 
@@ -69,10 +77,11 @@ namespace SSNZ.Steam.Data
                 {
                     SteamOwnedGamesDA da2 = new SteamOwnedGamesDA();
                     SteamOwnedGames friendGames = await da2.GetDataAsync(item.steamid);
-                    if (friendGames.response.games != null)
+                    if (friendGames != null && friendGames.response != null && friendGames.response.games != null)
                     {
                         foreach (Message item2 in friendGames.response.games)
                         {
+                            //If my friends have the game, then yes! Add them to the comma delimited list to get more details later 
                             if (item2.appid == appId)
                             {
                                 commaSeperatedSteamIDs += "," + item.steamid.ToString();
@@ -87,6 +96,7 @@ namespace SSNZ.Steam.Data
             SteamPlayerDetailDA da3 = new SteamPlayerDetailDA();
             SteamPlayerDetail playerDetails = await da3.GetDataAsync(commaSeperatedSteamIDs);
 
+            //Transfer the steam player details to the clean friend objects
             List<Friend> processedFriendList = new List<Friend>();
             if (playerDetails != null)
             {
@@ -110,6 +120,8 @@ namespace SSNZ.Steam.Data
                     }
                 }
             }
+
+            //Sort the final list, as Steam returns the list by id, not name
             processedFriendList.Sort(delegate (Friend p1, Friend p2)
             {
                 return p1.Name.CompareTo(p2.Name);
@@ -119,6 +131,7 @@ namespace SSNZ.Steam.Data
 
         }
 
+        //Get the friend since information from the SteamFriend list
         private long GetFriendSince(string steamID, List<SteamFriend> friends)
         {
             if (friends != null)
