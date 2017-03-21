@@ -32,6 +32,28 @@ namespace SSNZ.Steam.Data
                 return new Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError>(result, null);
             }
         }
-    
+
+        public Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> GetDataOld(string steamID, string appID)
+        {
+
+            string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=" + appID.ToString() + "&key=" + Global.MySteamWebAPIKey + "&steamid=" + steamID + "&l=en";
+            //WebClient newClient = new WebClient();
+            //newClient.Encoding = UTF8Encoding.UTF8;
+            //string jsonData = newClient.DownloadString(jsonRequestString);
+            string jsonData = Utility.GetPageAsStringOld(new Uri(jsonRequestString));
+
+            //If the Json returned an error, process it into a AppError object
+            if (jsonData.IndexOf("{\n\t\"playerstats\": {\n\t\t\"error\"") >= 0)
+            {
+                SteamPlayerAchievementsForAppError errorResult = JsonConvert.DeserializeObject<SteamPlayerAchievementsForAppError>(jsonData);
+                return new Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError>(null, errorResult);
+            }
+            else
+            {
+                SteamPlayerAchievementsForApp result = JsonConvert.DeserializeObject<SteamPlayerAchievementsForApp>(jsonData);
+                return new Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError>(result, null);
+            }
+        }
+
     }
 }

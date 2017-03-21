@@ -2,23 +2,23 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SSNZ.Steam.Data;
 using SSNZ.Steam.Models;
-using System.Threading.Tasks;
+
 
 namespace SSNZ.Steam.UnitTests
 {
     [TestClass]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public class SteamOwnedGamesTest
+    public class SteamOwnedGamesOldTest
     {
         [TestMethod]
-        public async Task SteamOwnedGamesExistTest()
+        public void SteamOwnedGamesExistOldTest()
         {
             //Arrange
             string steamId = "76561197971691578";
 
             //Act
             SteamOwnedGamesDA da = new SteamOwnedGamesDA();
-            SteamOwnedGames result = await da.GetDataAsync(steamId);
+            SteamOwnedGames result = da.GetDataOld(steamId);
 
             //Asset
             Assert.IsTrue(result != null);

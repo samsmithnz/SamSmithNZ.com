@@ -22,7 +22,7 @@ namespace SSNZ.Steam.Data
             string jsonData = await Utility.GetPageAsStringAsync(new Uri(jsonRequestString));
 
             //If the json returned a few new lines, return null, the player wasn't found
-            if (jsonData =="{\n\n}")
+            if (jsonData == "{\n\n}")
             {
                 return null;
             }
@@ -31,7 +31,28 @@ namespace SSNZ.Steam.Data
                 SteamFriendList result = JsonConvert.DeserializeObject<SteamFriendList>(jsonData);
                 return result;
             }
-            
+
+        }
+
+        public SteamFriendList GetDataOld(string steamID)
+        {
+            string jsonRequestString = "http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=" + Global.MySteamWebAPIKey + "&steamid=" + steamID + "&relationship=friend";
+            //WebClient newClient = new WebClient();
+            //newClient.Encoding = UTF8Encoding.UTF8;
+            //string jsonData = newClient.DownloadString(jsonRequestString);
+            string jsonData = Utility.GetPageAsStringOld(new Uri(jsonRequestString));
+
+            //If the json returned a few new lines, return null, the player wasn't found
+            if (jsonData == "{\n\n}")
+            {
+                return null;
+            }
+            else
+            {
+                SteamFriendList result = JsonConvert.DeserializeObject<SteamFriendList>(jsonData);
+                return result;
+            }
+
         }
     }
 }

@@ -2,23 +2,23 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SSNZ.Steam.Data;
 using SSNZ.Steam.Models;
-using System.Threading.Tasks;
+
 
 namespace SSNZ.Steam.UnitTests
 {
     [TestClass]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public class SteamGameDetailUnitTest
+    public class SteamGameDetailUnitOldTest
     {
         [TestMethod]
-        public async Task SteamGameDetailExistUnitTest()
+        public void SteamGameDetailExistUnitOldTest()
         {
             //Arrange
             string appId = "200510"; //XCOM
 
             //Act
             SteamGameDetailDA da = new SteamGameDetailDA();
-            SteamGameDetail result = await da.GetDataAsync(appId);
+            SteamGameDetail result = da.GetDataOld(appId);
 
             //Asset
             Assert.IsTrue(result != null);

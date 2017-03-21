@@ -2,23 +2,23 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SSNZ.Steam.Data;
 using SSNZ.Steam.Models;
-using System.Threading.Tasks;
+
 
 namespace SSNZ.Steam.UnitTests
 {
     [TestClass]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public class SteamGlobalAchievementUnitTest
+    public class SteamGlobalAchievementUnitOldTest
     {
         [TestMethod]
-        public async Task SteamGlobalAchievementUnitExistTest()
+        public void SteamGlobalAchievementUnitExistOldTest()
         {
             //Arrange
             string appId = "200510"; //XCOM
 
             //Act
             SteamGlobalAchievementPercentagesForAppDA da = new SteamGlobalAchievementPercentagesForAppDA();
-            SteamGlobalAchievementsForApp result = await da.GetDataAsync(appId);
+            SteamGlobalAchievementsForApp result = da.GetDataOld(appId);
 
             //Asset
             Assert.IsTrue(result != null);

@@ -44,10 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FriendsOldDA.cs" />
     <Compile Include="FriendsDA.cs" />
+    <Compile Include="GameDetailsOldDA.cs" />
     <Compile Include="GameDetailsDA.cs" />
     <Compile Include="Global.cs" />
+    <Compile Include="PlayerOldDA.cs" />
     <Compile Include="PlayerDA.cs" />
+    <Compile Include="PlayerGamesOldDA.cs" />
     <Compile Include="PlayerGamesDA.cs" />
     <Compile Include="SteamGameDetailDA.cs" />
     <Compile Include="SteamPlayerDetailDA.cs" />

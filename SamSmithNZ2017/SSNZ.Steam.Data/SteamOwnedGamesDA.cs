@@ -26,7 +26,24 @@ namespace SSNZ.Steam.Data
             }
             else
             {
-                return JsonConvert.DeserializeObject<SteamOwnedGames>(jsonData);            
+                return JsonConvert.DeserializeObject<SteamOwnedGames>(jsonData);
+            }
+        }
+
+        public SteamOwnedGames GetDataOld(string steamID)
+        {
+            string jsonRequestString = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + Global.MySteamWebAPIKey + "&steamid=" + steamID + "&include_appinfo=1";
+            WebClient newClient = new WebClient();
+            newClient.Encoding = UTF8Encoding.UTF8;
+            string jsonData = newClient.DownloadString(jsonRequestString);
+
+            if (jsonData == "{\n\t\"response\": {\n\n\t}\n}")
+            {
+                return null;
+            }
+            else
+            {
+                return JsonConvert.DeserializeObject<SteamOwnedGames>(jsonData);
             }
         }
     }

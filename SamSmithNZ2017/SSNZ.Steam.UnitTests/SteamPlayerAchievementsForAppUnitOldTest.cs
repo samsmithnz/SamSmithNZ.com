@@ -2,16 +2,15 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SSNZ.Steam.Data;
 using SSNZ.Steam.Models;
-using System.Threading.Tasks;
 
 namespace SSNZ.Steam.UnitTests
 {
     [TestClass]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public class SteamPlayerAchievementsForAppUnitTest
+    public class SteamPlayerAchievementsForAppUnitOldTest
     {
         [TestMethod]
-        public async Task SteamPlayerAchievementsForAppExistUnitTest()
+        public void SteamPlayerAchievementsForAppExistUnitOldTest()
         {
             //Arrange
             string appId = "200510"; //XCOM
@@ -19,7 +18,7 @@ namespace SSNZ.Steam.UnitTests
 
             //Act
             SteamPlayerAchievementsForAppDA da = new SteamPlayerAchievementsForAppDA();
-            Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> result = await da.GetDataAsync(steamId, appId);
+            Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> result = da.GetDataOld(steamId, appId);
 
             //Asset
             Assert.IsTrue(result != null);
@@ -52,7 +51,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task SteamPlayerAchievementsAlexPrivateProfileForAppExistUnitTest()
+        public void SteamPlayerAchievementsAlexPrivateProfileForAppExistUnitOldTest()
         {
             //Arrange
             string appId = "289070"; //Civ 6
@@ -60,7 +59,7 @@ namespace SSNZ.Steam.UnitTests
 
             //Act
             SteamPlayerAchievementsForAppDA da = new SteamPlayerAchievementsForAppDA();
-            Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> result = await da.GetDataAsync(steamId, appId);
+            Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> result = da.GetDataOld(steamId, appId);
 
             //Asset
             Assert.IsTrue(result != null);
