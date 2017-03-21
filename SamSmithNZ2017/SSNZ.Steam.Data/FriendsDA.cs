@@ -14,16 +14,22 @@ namespace SSNZ.Steam.Data
             //Get all friends
             SteamFriendDA da = new SteamFriendDA();
             SteamFriendList friendList = await da.GetDataAsync(steamID);
-           
+
             //Don't forget to add the current user to the comma seperated list
             string commaSeperatedSteamIDs = steamID.ToString();
 
             //Build the comma seperated list for all friends
             if (friendList != null)
             {
+                int i = 0;
                 foreach (SteamFriend item in friendList.friendslist.friends)
                 {
+                    i++;
                     commaSeperatedSteamIDs += "," + item.steamid.ToString();
+                    if (i >= 100) //This API accepts a maximum of 100 Steam Id's
+                    {
+                        break;
+                    }
                 }
             }
 
@@ -71,10 +77,15 @@ namespace SSNZ.Steam.Data
 
             //Search my friends to see if they have the game we are searching for
             string commaSeperatedSteamIDs = "";
+            int i = 0;
             if (friendList != null)
             {
                 foreach (SteamFriend item in friendList.friendslist.friends)
                 {
+                    if (i >= 100) //This steam function accepts a maximum of 100 steam id's
+                    {
+                        break;
+                    }
                     SteamOwnedGamesDA da2 = new SteamOwnedGamesDA();
                     SteamOwnedGames friendGames = await da2.GetDataAsync(item.steamid);
                     if (friendGames != null && friendGames.response != null && friendGames.response.games != null)
@@ -84,6 +95,7 @@ namespace SSNZ.Steam.Data
                             //If my friends have the game, then yes! Add them to the comma delimited list to get more details later 
                             if (item2.appid == appId)
                             {
+                                i++;
                                 commaSeperatedSteamIDs += "," + item.steamid.ToString();
                                 break;
                             }

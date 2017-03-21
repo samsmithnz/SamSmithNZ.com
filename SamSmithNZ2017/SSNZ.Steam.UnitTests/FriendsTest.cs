@@ -177,5 +177,20 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(results.Count >= 0);
         }
 
+        [TestMethod]
+        public async Task Random2FriendsTest()
+        {
+            //Arrange
+            FriendsDA da = new FriendsDA();
+            string steamId = "76561198129345768";
+
+            //Act
+            List<Friend> results = await da.GetDataAsync(steamId);
+
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count >= 0);
+        }
+
     }
 }
