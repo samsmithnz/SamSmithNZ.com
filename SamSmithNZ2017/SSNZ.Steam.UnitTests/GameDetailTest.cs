@@ -352,5 +352,28 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.ErrorMessage == "Requested app has no stats");
         }
 
+        [TestMethod]
+        public async Task RandomUserTest()
+        {
+            //Arrange
+            GameDetailsDA da = new GameDetailsDA();
+            string steamId = "76561198114819148";
+            string appId = "296070"; //???
+
+            //Act
+            GameDetail result = await da.GetDataAsync(steamId, appId);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.AppID == null);
+            Assert.IsTrue(result.GameName == null);
+            Assert.IsTrue(result.IconURL == null);
+            Assert.IsTrue(result.LogoURL == null);
+            Assert.IsTrue(result.PercentAchieved == 0m);
+            Assert.IsTrue(result.TotalAchieved == 0m);
+            Assert.IsTrue(result.Achievements.Count == 0);
+            Assert.IsTrue(result.ErrorMessage == "Profile is not public");
+        }
+
     }
 }

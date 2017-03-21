@@ -162,5 +162,20 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.Name == "Sam");
         }
 
+        [TestMethod]
+        public async Task RandomFriendsTest()
+        {
+            //Arrange
+            FriendsDA da = new FriendsDA();
+            string steamId = "76561198154034472";
+
+            //Act
+            List<Friend> results = await da.GetDataAsync(steamId);
+
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count >= 0);
+        }
+
     }
 }
