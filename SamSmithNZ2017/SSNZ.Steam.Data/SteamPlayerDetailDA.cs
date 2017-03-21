@@ -17,7 +17,8 @@ namespace SSNZ.Steam.Data
             string jsonRequestString = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + Global.MySteamWebAPIKey + "&steamids=" + commaSeperatedSteamIDs;
             WebClient newClient = new WebClient();
             newClient.Encoding = UTF8Encoding.UTF8;
-            string jsonData = await newClient.DownloadStringTaskAsync(jsonRequestString);
+            //string jsonData = await newClient.DownloadStringTaskAsync(jsonRequestString);
+            string jsonData = await Utility.GetPageAsStringAsync(new Uri(jsonRequestString));
 
             SteamPlayerDetail result = JsonConvert.DeserializeObject<SteamPlayerDetail>(jsonData);
             return result;
@@ -28,7 +29,8 @@ namespace SSNZ.Steam.Data
             string jsonRequestString = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + Global.MySteamWebAPIKey + "&steamids=" + commaSeperatedSteamIDs;
             WebClient newClient = new WebClient();
             newClient.Encoding = UTF8Encoding.UTF8;
-            string jsonData = newClient.DownloadString(jsonRequestString);
+            //string jsonData = newClient.DownloadString(jsonRequestString);
+            string jsonData = Utility.GetPageAsStringOld(new Uri(jsonRequestString));
 
             SteamPlayerDetail result = JsonConvert.DeserializeObject<SteamPlayerDetail>(jsonData);
             return result;
