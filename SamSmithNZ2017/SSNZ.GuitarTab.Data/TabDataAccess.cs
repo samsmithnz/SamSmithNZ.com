@@ -27,7 +27,7 @@ namespace SSNZ.GuitarTab.Data
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@TrackCode", trackCode, DbType.Int32);
 
-            return await base.GetItemAsync("Tab_GetArtists", parameters);
+            return await base.GetItemAsync("Tab_GetTracks", parameters);
         }
 
         public async Task<bool> SaveItemAsync(Tab item)

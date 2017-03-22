@@ -16,7 +16,7 @@ namespace SSNZ.GuitarTab.Data
             DynamicParameters parameters = new DynamicParameters();
             if (includeAllItems != null)
             {
-                parameters.Add("@IncludeAllItems", includeAllItems, DbType.Int32);
+                parameters.Add("@IncludeInIndex", includeAllItems, DbType.Int32);
             }
 
             return base.GetList("Tab_GetArtists", parameters).ToList<Artist>();
