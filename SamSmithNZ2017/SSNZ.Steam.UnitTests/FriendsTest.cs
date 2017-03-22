@@ -178,7 +178,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task Random2FriendsTest()
+        public async Task RandomWithMoreThan100FriendsTest()
         {
             //Arrange
             FriendsDA da = new FriendsDA();
@@ -189,7 +189,7 @@ namespace SSNZ.Steam.UnitTests
 
             //Assert
             Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count >= 0);
+            Assert.IsTrue(results.Count > 100);
         }
 
     }

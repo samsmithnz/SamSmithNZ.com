@@ -11,52 +11,93 @@ namespace SSNZ.Steam.Data
     {
         public async Task<List<Friend>> GetDataAsync(string steamID)
         {
+            List<Friend> processedFriendList = new List<Friend>();
+
             //Get all friends
             SteamFriendDA da = new SteamFriendDA();
             SteamFriendList friendList = await da.GetDataAsync(steamID);
 
             //Don't forget to add the current user to the comma seperated list
-            string commaSeperatedSteamIDs = steamID.ToString();
+            string commaSeperatedSteamIDs = "";
+            List<string> commaSeperatedSteamIDsArray = new List<string>();
 
             //Build the comma seperated list for all friends
             if (friendList != null)
             {
-                int i = 0;
-                foreach (SteamFriend item in friendList.friendslist.friends)
+                int friendsLength = friendList.friendslist.friends.Count + 1;
+                if (friendsLength < 100)
                 {
-                    i++;
-                    commaSeperatedSteamIDs += "," + item.steamid.ToString();
-                    if (i >= 100) //This API accepts a maximum of 100 Steam Id's
+                    foreach (SteamFriend item in friendList.friendslist.friends)
                     {
-                        break;
+                        commaSeperatedSteamIDs += "," + item.steamid.ToString();
                     }
                 }
+                else
+                {
+                    int playerDetails100FriendSplitArrayLength = friendList.friendslist.friends.Count / 100;
+                    int playerDetails100FriendSplitLengthDifference = friendList.friendslist.friends.Count - (playerDetails100FriendSplitArrayLength * 100);
+                    if (playerDetails100FriendSplitLengthDifference > 0)
+                    {
+                        playerDetails100FriendSplitArrayLength++;
+                    }
+
+                    for (int arrayCount = 0; arrayCount < playerDetails100FriendSplitArrayLength; arrayCount++)
+                    {
+                        int i = 0;
+                        for (int itemCount = 0; itemCount < 100; itemCount++)
+                        {
+                            if (itemCount == 0)
+                            {
+                                if (arrayCount == 0)
+                                {
+                                    commaSeperatedSteamIDs = steamID.ToString();
+                                }
+                                else
+                                {
+                                    commaSeperatedSteamIDs += friendList.friendslist.friends[arrayCount + itemCount].steamid.ToString();
+                                }
+                            }
+                            else
+                            {
+                                commaSeperatedSteamIDs += "," + friendList.friendslist.friends[arrayCount + itemCount].steamid.ToString();
+                            }
+                            if (itemCount == 99)
+                            {
+                                commaSeperatedSteamIDsArray.Add(commaSeperatedSteamIDs);
+                                commaSeperatedSteamIDs = "";
+                            }
+                        }
+                    }
+                }
+                commaSeperatedSteamIDsArray.Add(commaSeperatedSteamIDs);
             }
 
-            //get the player details for all friends
-            SteamPlayerDetailDA da2 = new SteamPlayerDetailDA();
-            SteamPlayerDetail playerDetails = await da2.GetDataAsync(commaSeperatedSteamIDs);
+            foreach (string CommaSeperatedItem in commaSeperatedSteamIDsArray)
+            { 
+                //get the player details for all friends
+                SteamPlayerDetailDA da2 = new SteamPlayerDetailDA();
+                SteamPlayerDetail playerDetails = await da2.GetDataAsync(CommaSeperatedItem);
 
-            //Transfer the steam player details to the clean friend objects
-            List<Friend> processedFriendList = new List<Friend>();
-            if (playerDetails != null)
-            {
-                foreach (SteamPlayer item in playerDetails.response.players)
+                //Transfer the steam player details to the clean friend objects
+                if (playerDetails != null)
                 {
-                    Friend friend = new Friend();
-                    friend.SteamId = item.steamid;
-                    friend.Name = item.personaname;
-                    friend.LastLogoff = item.lastlogoff;
-                    friend.ProfileURL = item.profileurl;
-                    friend.Avatar = item.avatar;
-                    friend.AvatarMedium = item.avatarmedium;
-                    friend.AvatarFull = item.avatarfull;
-                    friend.TimeCreated = item.timecreated;
-                    if (friendList != null)
+                    foreach (SteamPlayer item in playerDetails.response.players)
                     {
-                        friend.FriendSince = GetFriendSince(item.steamid, friendList.friendslist.friends);
+                        Friend friend = new Friend();
+                        friend.SteamId = item.steamid;
+                        friend.Name = item.personaname;
+                        friend.LastLogoff = item.lastlogoff;
+                        friend.ProfileURL = item.profileurl;
+                        friend.Avatar = item.avatar;
+                        friend.AvatarMedium = item.avatarmedium;
+                        friend.AvatarFull = item.avatarfull;
+                        friend.TimeCreated = item.timecreated;
+                        if (friendList != null)
+                        {
+                            friend.FriendSince = GetFriendSince(item.steamid, friendList.friendslist.friends);
+                        }
+                        processedFriendList.Add(friend);
                     }
-                    processedFriendList.Add(friend);
                 }
             }
 
@@ -66,8 +107,11 @@ namespace SSNZ.Steam.Data
                 return p1.Name.CompareTo(p2.Name);
             });
 
+
+
             return processedFriendList;
         }
+
 
         public async Task<List<Friend>> GetFriendsWithSameGame(string steamId, string appId)
         {

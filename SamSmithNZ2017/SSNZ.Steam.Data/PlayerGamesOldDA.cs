@@ -17,7 +17,7 @@ namespace SSNZ.Steam.Data
             SteamOwnedGames ownedGames = da.GetDataOld(steamID);
 
             //Check that the player has games to process
-            if (ownedGames != null)
+            if (ownedGames != null && ownedGames.response != null && ownedGames.response.games != null)
             {
                 foreach (Message item in ownedGames.response.games)
                 {

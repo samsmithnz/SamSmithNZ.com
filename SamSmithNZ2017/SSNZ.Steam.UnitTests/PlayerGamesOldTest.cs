@@ -80,6 +80,22 @@ namespace SSNZ.Steam.UnitTests
 
         }
 
+        [TestMethod]
+        public void RandomAnotherPlayerGamesWithNoGamesTest()
+        {
+            //Arrange
+            PlayerGamesOldDA da = new PlayerGamesOldDA();
+            string steamId = "76561198121979762";
+
+            //Act
+            List<Game> results = da.GetDataOld(steamId);
+
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count == 0);
+
+        }
+
 
     }
 }
