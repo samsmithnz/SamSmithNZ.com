@@ -12,7 +12,7 @@ namespace SSNZ.Steam.UnitTests
     {
 
         [TestMethod]
-        public void SamPlayerGamesOldTest()
+        public void PlayerGamesSamOldTest()
         {
             //Arrange
             PlayerGamesOldDA da = new PlayerGamesOldDA();
@@ -34,7 +34,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamPlayerGamesWithNoIconOldTest()
+        public void PlayerGamesSamWithNoIconOldTest()
         {
             //Arrange
             PlayerGamesOldDA da = new PlayerGamesOldDA();
@@ -65,7 +65,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void RandomPlayerGamesWithNoGamesOldTest()
+        public void PlayerGamesRandomWithNoGamesOldTest()
         {
             //Arrange
             PlayerGamesOldDA da = new PlayerGamesOldDA();
@@ -81,7 +81,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void RandomAnotherPlayerGamesWithNoGamesTest()
+        public void PlayerGamesRandomAnotherWithNoGamesTest()
         {
             //Arrange
             PlayerGamesOldDA da = new PlayerGamesOldDA();
@@ -95,7 +95,6 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(results.Count == 0);
 
         }
-
 
     }
 }

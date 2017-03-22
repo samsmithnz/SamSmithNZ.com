@@ -11,7 +11,7 @@ namespace SSNZ.Steam.UnitTests
     {
 
         [TestMethod]
-        public void SamXCOMOldTest()
+        public void GameDetailsSamXCOMOldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -41,7 +41,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamCiv6OldTest()
+        public void GameDetailsSamCiv6OldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -71,7 +71,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void AlexCiv6OldTest()
+        public void GameDetailsAlexCiv6OldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -94,7 +94,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamSmithXCOMFriendWithStewOldTest()
+        public void GameDetailsSamSmithXCOMFriendWithStewOldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -154,7 +154,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamSmithCiv6FriendWithAlexOldTest()
+        public void GameDetailsSamSmithCiv6FriendWithAlexOldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -214,7 +214,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamSmithNoIconOldTest()
+        public void GameDetailsSamSmithNoIconOldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -233,7 +233,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamSmithCiv6FriendWithStewOldTest()
+        public void GameDetailsSamSmithCiv6FriendWithStewOldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -250,7 +250,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamSmithCOH2OldTest()
+        public void GameDetailsSamSmithCOH2OldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -307,7 +307,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamSmithCastleStoryOldTest()
+        public void GameDetailsSamSmithCastleStoryOldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -329,7 +329,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamSmithGodusOldTest()
+        public void GameDetailsSamSmithGodusOldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -352,7 +352,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void RandomUserOldTest()
+        public void GameDetailsRandomUserOldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();

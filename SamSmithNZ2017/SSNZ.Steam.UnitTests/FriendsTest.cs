@@ -13,7 +13,7 @@ namespace SSNZ.Steam.UnitTests
     {
 
         [TestMethod]
-        public async Task SamFirstFriendTest()
+        public async Task FriendsSamFirstTest()
         {
             //Arrange
             FriendsDA da = new FriendsDA();
@@ -47,7 +47,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task AlexFriendsTest()
+        public async Task FriendsAlexTest()
         {
             //Arrange
             FriendsDA da = new FriendsDA();
@@ -74,7 +74,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task SamXcomFriendsTest()
+        public async Task FriendsSamXcomTest()
         {
             //Arrange
             FriendsDA da = new FriendsDA();
@@ -103,7 +103,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task SamCiv6FriendsTest()
+        public async Task FriendsSamCiv6Test()
         {
             //Arrange
             FriendsDA da = new FriendsDA();
@@ -135,7 +135,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task StewXcomFriendsTest()
+        public async Task FriendsStewXcomTest()
         {
             //Arrange
             FriendsDA da = new FriendsDA();
@@ -163,7 +163,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task RandomFriendsTest()
+        public async Task FriendsRandomTest()
         {
             //Arrange
             FriendsDA da = new FriendsDA();
@@ -178,7 +178,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task RandomWithMoreThan100FriendsTest()
+        public async Task FriendsRandomWithMoreThan100FriendsTest()
         {
             //Arrange
             FriendsDA da = new FriendsDA();
