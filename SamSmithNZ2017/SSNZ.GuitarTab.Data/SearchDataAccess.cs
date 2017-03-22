@@ -15,17 +15,17 @@ namespace SSNZ.GuitarTab.Data
         public async Task<List<Search>> GetDataAsync(Guid recordid)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@record_id", recordid, DbType.Guid);
+            parameters.Add("@RecordId", recordid, DbType.Guid);
 
-            return await base.GetListAsync("spKS_Tab_GetSearchResults", parameters);
+            return await base.GetListAsync("Tab_GetSearchResults", parameters);
         }
 
         public async Task<Guid> SaveItemAsync(String searchText)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@search_text", searchText, DbType.String);
+            parameters.Add("@SearchText", searchText, DbType.String);
 
-            return await base.GetScalarAsync<Guid>("spKS_Tab_SaveSearchParameters", parameters);
+            return await base.GetScalarAsync<Guid>("Tab_SaveSearchParameters", parameters);
         }
 
     }

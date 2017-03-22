@@ -14,17 +14,17 @@ namespace SSNZ.GuitarTab.Data
         public List<Search> GetData(Guid recordid)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@record_id", recordid, DbType.Guid);
+            parameters.Add("@RecordId", recordid, DbType.Guid);
 
-            return base.GetList("spKS_Tab_GetSearchResults", parameters).ToList<Search>();
+            return base.GetList("Tab_GetSearchResults", parameters).ToList<Search>();
         }
 
         public Guid SaveItem(String searchText)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@search_text", searchText, DbType.String);
+            parameters.Add("@SearchText", searchText, DbType.String);
 
-            return base.GetScalar<Guid>("spKS_Tab_SaveSearchParameters", parameters);
+            return base.GetScalar<Guid>("Tab_SaveSearchParameters", parameters);
         }
 
     }

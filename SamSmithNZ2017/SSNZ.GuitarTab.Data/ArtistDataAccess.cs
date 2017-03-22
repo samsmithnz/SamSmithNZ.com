@@ -17,10 +17,10 @@ namespace SSNZ.GuitarTab.Data
             DynamicParameters parameters = new DynamicParameters();
             if (includeAllItems != null)
             {
-                parameters.Add("@includeAllItems", includeAllItems, DbType.Int32);
+                parameters.Add("@IncludeAllItems", includeAllItems, DbType.Int32);
             }
 
-            return await base.GetListAsync("spKS_Tab_GetArtists", parameters);
+            return await base.GetListAsync("Tab_GetArtists", parameters);
         }
 
     }

@@ -14,7 +14,7 @@ namespace SSNZ.GuitarTab.Data
     {
         public async Task<List<Tuning>> GetDataAsync()
         {
-            return await base.GetListAsync("spKS_Tab_GetTunings");
+            return await base.GetListAsync("Tab_GetTunings");
         }
     }
 }

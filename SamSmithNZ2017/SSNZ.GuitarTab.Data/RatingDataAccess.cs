@@ -14,7 +14,7 @@ namespace SSNZ.GuitarTab.Data
     {
         public async Task<List<Rating>> GetDataAsync()
         {
-            return await base.GetListAsync("spKS_Tab_GetRatings");
+            return await base.GetListAsync("Tab_GetRatings");
         }
 
     }

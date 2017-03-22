@@ -16,10 +16,10 @@ namespace SSNZ.GuitarTab.Data
             DynamicParameters parameters = new DynamicParameters();
             if (includeAllItems != null)
             {
-                parameters.Add("@includeAllItems", includeAllItems, DbType.Int32);
+                parameters.Add("@IncludeAllItems", includeAllItems, DbType.Int32);
             }
 
-            return base.GetList("spKS_Tab_GetArtists", parameters).ToList<Artist>();
+            return base.GetList("Tab_GetArtists", parameters).ToList<Artist>();
         }
 
     }

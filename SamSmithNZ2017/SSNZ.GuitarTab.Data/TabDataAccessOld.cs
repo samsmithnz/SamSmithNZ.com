@@ -14,39 +14,39 @@ namespace SSNZ.GuitarTab.Data
         public List<Tab> GetData(short albumCode)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@album_code", albumCode, DbType.Int16);
+            parameters.Add("@AlbumCode", albumCode, DbType.Int32);
 
-            return base.GetList("spKS_Tab_GetTracks", parameters).ToList<Tab>();
+            return base.GetList("Tab_GetTracks", parameters).ToList<Tab>();
         }
 
         public Tab GetItem(short trackCode)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@track_code", trackCode, DbType.Int16);
+            parameters.Add("@TrackCode", trackCode, DbType.Int32);
 
-            return base.GetItem("spKS_Tab_GetArtists", parameters);
+            return base.GetItem("Tab_GetArtists", parameters);
         }
 
         public bool SaveItem(Tab item)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@track_code", item.TrackCode, DbType.Int32);
-            parameters.Add("@album_code", item.AlbumCode, DbType.Int32);
-            parameters.Add("@track_name", item.TrackName, DbType.String);
-            parameters.Add("@track_text", item.TrackText, DbType.String);
-            parameters.Add("@track_order", item.TrackOrder, DbType.Int32);
-            parameters.Add("@rating", item.Rating, DbType.Int32);
-            parameters.Add("@tuning_code", item.TuningCode, DbType.Int32);
+            parameters.Add("@TrackCode", item.TrackCode, DbType.Int32);
+            parameters.Add("@AlbumCode", item.AlbumCode, DbType.Int32);
+            parameters.Add("@TrackName", item.TrackName, DbType.String);
+            parameters.Add("@TrackText", item.TrackText, DbType.String);
+            parameters.Add("@TrackOrder", item.TrackOrder, DbType.Int32);
+            parameters.Add("@Rating", item.Rating, DbType.Int32);
+            parameters.Add("@TuningCode", item.TuningCode, DbType.Int32);
 
-            return base.PostItem("spKS_Tab_SaveTrack", parameters);
+            return base.PostItem("Tab_SaveTrack", parameters);
         }
 
         public bool DeleteItem(short trackCode)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@track_code", trackCode, DbType.Int32);
+            parameters.Add("@TrackCode", trackCode, DbType.Int32);
 
-            return base.PostItem("spKS_Tab_DeleteTrack", parameters);
+            return base.PostItem("Tab_DeleteTrack", parameters);
         }
 
     }
