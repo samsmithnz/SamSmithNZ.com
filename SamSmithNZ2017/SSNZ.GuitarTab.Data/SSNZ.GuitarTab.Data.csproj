@@ -44,13 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlbumDataAccessOld.cs" />
     <Compile Include="AlbumDataAccess.cs" />
+    <Compile Include="ArtistDataAccessOld.cs" />
     <Compile Include="ArtistDataAccess.cs" />
+    <Compile Include="GenericDataAccessOld.cs" />
     <Compile Include="GenericDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RatingDataAccessOld.cs" />
     <Compile Include="RatingDataAccess.cs" />
+    <Compile Include="SearchDataAccessOld.cs" />
     <Compile Include="SearchDataAccess.cs" />
+    <Compile Include="TabDataAccessOld.cs" />
     <Compile Include="TabDataAccess.cs" />
+    <Compile Include="TuningDataAccessOld.cs" />
     <Compile Include="TuningDataAccess.cs" />
   </ItemGroup>
   <ItemGroup>

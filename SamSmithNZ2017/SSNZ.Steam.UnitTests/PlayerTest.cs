@@ -12,7 +12,7 @@ namespace SSNZ.Steam.UnitTests
     {
 
         [TestMethod]
-        public async Task SamPlayerTest()
+        public async Task PlayerSamTest()
         {
             //Arrange
             PlayerDA da = new PlayerDA();

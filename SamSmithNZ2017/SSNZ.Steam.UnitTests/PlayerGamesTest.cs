@@ -13,7 +13,7 @@ namespace SSNZ.Steam.UnitTests
     {
 
         [TestMethod]
-        public async Task SamPlayerGamesTest()
+        public async Task PlayerGamesSamTest()
         {
             //Arrange
             PlayerGamesDA da = new PlayerGamesDA();
@@ -35,7 +35,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task SamPlayerGamesWithNoIconTest()
+        public async Task PlayerGamesSamWithNoIconTest()
         {
             //Arrange
             PlayerGamesDA da = new PlayerGamesDA();
@@ -66,7 +66,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task RandomPlayerGamesWithNoGamesTest()
+        public async Task PlayerGamesRandomWithNoGamesTest()
         {
             //Arrange
             PlayerGamesDA da = new PlayerGamesDA();
@@ -82,7 +82,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task RandomAnotherPlayerGamesWithNoGamesTest()
+        public async Task PlayerGamesRandomAnotherWithNoGamesTest()
         {
             //Arrange
             PlayerGamesDA da = new PlayerGamesDA();
@@ -96,9 +96,6 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(results.Count == 0);
 
         }
-
         
-        
-
     }
 }

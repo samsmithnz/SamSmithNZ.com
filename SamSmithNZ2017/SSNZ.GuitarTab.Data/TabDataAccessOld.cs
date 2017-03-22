@@ -6,31 +6,28 @@ using System.Data.SqlClient;
 using SSNZ.GuitarTab.Models;
 using Dapper;
 using System.Data;
-using System.Threading.Tasks;
 
 namespace SSNZ.GuitarTab.Data
 {
-    public class TabDataAccess : GenericDataAccess<Tab>
+    public class TabDataAccessOld : GenericDataAccessOld<Tab>
     {
-        public async Task<List<Tab>> GetDataAsync(short albumCode)
+        public List<Tab> GetData(short albumCode)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@album_code", albumCode, DbType.Int16);
 
-            List<Tab> result = await base.GetListAsync("spKS_Tab_GetTracks", parameters);
-
-            return result.ToList<Tab>();
+            return base.GetList("spKS_Tab_GetTracks", parameters).ToList<Tab>();
         }
 
-        public async Task<Tab> GetItemAsync(short trackCode)
+        public Tab GetItem(short trackCode)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@track_code", trackCode, DbType.Int16);
 
-            return await base.GetItemAsync("spKS_Tab_GetArtists", parameters);
+            return base.GetItem("spKS_Tab_GetArtists", parameters);
         }
 
-        public async Task<bool> SaveItemAsync(Tab item)
+        public bool SaveItem(Tab item)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@track_code", item.TrackCode, DbType.Int32);
@@ -41,15 +38,15 @@ namespace SSNZ.GuitarTab.Data
             parameters.Add("@rating", item.Rating, DbType.Int32);
             parameters.Add("@tuning_code", item.TuningCode, DbType.Int32);
 
-            return await base.PostItemAsync("spKS_Tab_SaveTrack", parameters);
+            return base.PostItem("spKS_Tab_SaveTrack", parameters);
         }
 
-        public async Task<bool> DeleteItem(short trackCode)
+        public bool DeleteItem(short trackCode)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@track_code", trackCode, DbType.Int32);
 
-            return await base.PostItemAsync("spKS_Tab_DeleteTrack", parameters);
+            return base.PostItem("spKS_Tab_DeleteTrack", parameters);
         }
 
     }

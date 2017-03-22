@@ -7,16 +7,15 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using Dapper;
-using System.Threading.Tasks;
 
 namespace SSNZ.GuitarTab.Data
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public class GenericDataAccess<T>
+    public class GenericDataAccessOld<T>
     {
         private string _connectionStringName;
 
-        public GenericDataAccess()
+        public GenericDataAccessOld()
         {
             this._connectionStringName = "DefaultConnection";
         }
@@ -28,9 +27,9 @@ namespace SSNZ.GuitarTab.Data
         /// <param name="storedProcedureName">Stored Procedure name string</param>
         /// <param name="parameters">Dapper DynamicParameters object</param>
         /// <returns>Returns object as defined by T</returns>
-        public async Task<T> GetItemAsync(string storedProcedureName, DynamicParameters parameters = null)
+        public T GetItem(string storedProcedureName, DynamicParameters parameters = null)
         {
-            IEnumerable<T> items = await this.GetListAsync(storedProcedureName, parameters);
+            IEnumerable<T> items = this.GetList(storedProcedureName, parameters);
             return items.SingleOrDefault();
         }
 
@@ -41,13 +40,13 @@ namespace SSNZ.GuitarTab.Data
         /// <param name="storedProcedureName">Stored Procedure name string</param>
         /// <param name="parameters">Dapper DynamicParameters object</param>
         /// <returns>Returns object as defined by T</returns>
-        public async Task<List<T>> GetListAsync(string storedProcedureName, DynamicParameters parameters = null)
+        public IEnumerable<T> GetList(string storedProcedureName, DynamicParameters parameters = null)
         {
             IEnumerable<T> items;
             try
             {
-                await this.CreateConnectionAsync();
-                items = await this.MySQLConnection.QueryAsync<T>(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
+                this.CreateConnection();
+                items = this.MySQLConnection.Query<T>(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
             }
             finally
             {
@@ -56,8 +55,7 @@ namespace SSNZ.GuitarTab.Data
                 System.Diagnostics.Debug.WriteLine(CreateSQLString(storedProcedureName, parameters));
 #endif
             }
-            return items.ToList<T>();
-
+            return items.ToList();
         }
 
         /// <summary>
@@ -66,12 +64,12 @@ namespace SSNZ.GuitarTab.Data
         /// <param name="storedProcedureName">Stored Procedure name string</param>
         /// <param name="parameters">Dapper DynamicParameters object</param>
         /// <returns>Boolean (true) if successful. </returns>
-        public async Task<bool> PostItemAsync(string storedProcedureName, DynamicParameters parameters = null, int? timeoutOverride = null)
+        public bool PostItem(string storedProcedureName, DynamicParameters parameters = null, int? timeoutOverride = null)
         {
             try
             {
-                await this.CreateConnectionAsync();
-                await this.MySQLConnection.ExecuteAsync(storedProcedureName, parameters, commandType: CommandType.StoredProcedure, commandTimeout: timeoutOverride);
+                this.CreateConnection();
+                this.MySQLConnection.Execute(storedProcedureName, parameters, commandType: CommandType.StoredProcedure, commandTimeout: timeoutOverride);
             }
             finally
             {
@@ -90,13 +88,13 @@ namespace SSNZ.GuitarTab.Data
         /// <param name="storedProcedureName">Stored Procedure name string</param>
         /// <param name="parameters">Dapper DynamicParameters object</param>
         /// <returns>Returns object as defined by T</returns>
-        public async Task<N> GetScalarAsync<N>(string storedProcedureName, DynamicParameters parameters = null)
+        public N GetScalar<N>(string storedProcedureName, DynamicParameters parameters = null)
         {
             IEnumerable<N> items;
             try
             {
-                await this.CreateConnectionAsync();
-                items = await this.MySQLConnection.QueryAsync<N>(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
+                this.CreateConnection();
+                items = this.MySQLConnection.Query<N>(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
             }
             finally
             {
@@ -123,7 +121,7 @@ namespace SSNZ.GuitarTab.Data
         /// To create a new connection to the database. Uses the connection string in the calling applications (web/app).config file
         /// </summary>
         /// <returns>A (hopefully) open SQLConnection object</returns>
-        private async Task<SqlConnection> CreateConnectionAsync()
+        private SqlConnection CreateConnection()
         {
             if (ConfigurationManager.ConnectionStrings.Count == 0)
             {
@@ -141,7 +139,7 @@ namespace SSNZ.GuitarTab.Data
             //string decryptedPassword = Encryption.GetDecryptedString(encryptedPassword);
             //connectionString = connectionString.Replace(encryptedUid, decryptedUid).Replace(encryptedPassword, decryptedPassword);
             MySQLConnection = new SqlConnection(connectionString);
-            await MySQLConnection.OpenAsync();
+            MySQLConnection.Open();
             return MySQLConnection;
         }
 
@@ -153,7 +151,7 @@ namespace SSNZ.GuitarTab.Data
         {
             if (MySQLConnection != null && MySQLConnection.State == ConnectionState.Open)
             {
-                MySQLConnection.Close(); //There is no async for close
+                MySQLConnection.Close();
             }
             return true;
         }
