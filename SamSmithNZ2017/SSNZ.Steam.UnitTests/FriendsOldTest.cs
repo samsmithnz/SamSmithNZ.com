@@ -12,7 +12,7 @@ namespace SSNZ.Steam.UnitTests
     {
 
         [TestMethod]
-        public void SamFirstFriendOldTest()
+        public void FriendsSamFirstOldTest()
         {
             //Arrange
             FriendsOldDA da = new FriendsOldDA();
@@ -46,7 +46,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void AlexFriendsOldTest()
+        public void FriendsAlexOldTest()
         {
             //Arrange
             FriendsOldDA da = new FriendsOldDA();
@@ -73,7 +73,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamXcomFriendsOldTest()
+        public void FriendsSamXcomOldTest()
         {
             //Arrange
             FriendsOldDA da = new FriendsOldDA();
@@ -102,7 +102,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void SamCiv6FriendsOldTest()
+        public void FriendsSamCiv6OldTest()
         {
             //Arrange
             FriendsOldDA da = new FriendsOldDA();
@@ -134,7 +134,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void StewXcomFriendsOldTest()
+        public void FriendsStewXcomOldTest()
         {
             //Arrange
             FriendsOldDA da = new FriendsOldDA();
@@ -162,7 +162,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void RandomFriendsOldTest()
+        public void FriendsRandomOldTest()
         {
             //Arrange
             FriendsOldDA da = new FriendsOldDA();
@@ -177,7 +177,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void RandomWithMoreThan100FriendsOldTest()
+        public void FriendsRandomWithMoreThan100FriendsOldTest()
         {
             //Arrange
             FriendsOldDA da = new FriendsOldDA();

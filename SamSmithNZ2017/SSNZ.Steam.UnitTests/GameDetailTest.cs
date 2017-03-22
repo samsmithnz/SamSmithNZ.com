@@ -12,7 +12,7 @@ namespace SSNZ.Steam.UnitTests
     {
 
         [TestMethod]
-        public async Task SamXCOMTest()
+        public async Task GameDetailsSamXCOMTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -42,7 +42,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task SamCiv6Test()
+        public async Task GameDetailsSamCiv6Test()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -72,7 +72,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task AlexCiv6Test()
+        public async Task GameDetailsAlexCiv6Test()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -95,7 +95,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task SamSmithXCOMFriendWithStewTest()
+        public async Task GameDetailsSamSmithXCOMFriendWithStewTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -155,7 +155,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task SamSmithCiv6FriendWithAlexTest()
+        public async Task GameDetailsSamSmithCiv6FriendWithAlexTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -215,7 +215,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task SamSmithNoIconTest()
+        public async Task GameDetailsSamSmithNoIconTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -234,7 +234,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task SamSmithCiv6FriendWithStewTest()
+        public async Task GameDetailsSamSmithCiv6FriendWithStewTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -251,7 +251,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task SamSmithCOH2Test()
+        public async Task GameDetailsSamSmithCOH2Test()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -308,7 +308,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task SamSmithCastleStoryTest()
+        public async Task GameDetailsSamSmithCastleStoryTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -330,7 +330,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task SamSmithGodusTest()
+        public async Task GameDetailsSamSmithGodusTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -353,7 +353,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task RandomUserTest()
+        public async Task GameDetailsRandomUserTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();

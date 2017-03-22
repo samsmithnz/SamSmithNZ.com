@@ -6,26 +6,25 @@ using System.Data.SqlClient;
 using SSNZ.GuitarTab.Models;
 using Dapper;
 using System.Data;
-using System.Threading.Tasks;
 
 namespace SSNZ.GuitarTab.Data
 {
-    public class SearchDataAccess : GenericDataAccess<Search>
+    public class SearchDataAccessOld : GenericDataAccessOld<Search>
     {
-        public async Task<List<Search>> GetDataAsync(Guid recordid)
+        public List<Search> GetData(Guid recordid)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@RecordId", recordid, DbType.Guid);
 
-            return await base.GetListAsync("Tab_GetSearchResults", parameters);
+            return base.GetList("Tab_GetSearchResults", parameters).ToList<Search>();
         }
 
-        public async Task<Guid> SaveItemAsync(String searchText)
+        public Guid SaveItem(String searchText)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@SearchText", searchText, DbType.String);
 
-            return await base.GetScalarAsync<Guid>("Tab_SaveSearchParameters", parameters);
+            return base.GetScalar<Guid>("Tab_SaveSearchParameters", parameters);
         }
 
     }

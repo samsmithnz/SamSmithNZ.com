@@ -11,7 +11,7 @@ namespace SSNZ.Steam.UnitTests
     {
 
         [TestMethod]
-        public void SamPlayerOldTest()
+        public void PlayerSamOldTest()
         {
             //Arrange
             PlayerOldDA da = new PlayerOldDA();

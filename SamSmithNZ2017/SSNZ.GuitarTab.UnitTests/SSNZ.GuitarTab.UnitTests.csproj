@@ -90,7 +90,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlbumDataAccessOldTest.cs" />
+    <Compile Include="AlbumDataAccessTest.cs" />
+    <Compile Include="ArtistDataAccessOldTest.cs" />
+    <Compile Include="ArtistDataAccessTest.cs" />
+    <Compile Include="GuitarTabControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchDataAccessOldTest.cs" />
+    <Compile Include="SearchDataAccessTest.cs" />
+    <Compile Include="TabDataAccessOldTest.cs" />
+    <Compile Include="TabDataAccessTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

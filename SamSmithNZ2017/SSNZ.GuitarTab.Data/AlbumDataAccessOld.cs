@@ -6,30 +6,29 @@ using System.Data.SqlClient;
 using SSNZ.GuitarTab.Models;
 using Dapper;
 using System.Data;
-using System.Threading.Tasks;
 
 namespace SSNZ.GuitarTab.Data
 {
-    public class AlbumDataAccess : GenericDataAccess<Album>
+    public class AlbumDataAccessOld : GenericDataAccessOld<Album>
     {
-        public async Task<List<Album>> GetDataAsync(bool isAdmin)
+        public List<Album> GetData(bool isAdmin)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@IsAdmin", isAdmin, DbType.Boolean);
 
-            return await base.GetListAsync("Tab_GetAlbums", parameters);
+            return base.GetList("Tab_GetAlbums", parameters).ToList<Album>();
         }
 
-        public async Task<Album> GetItemAsync(int albumCode, bool isAdmin)
+        public Album GetItem(int albumCode, bool isAdmin)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@AlbumCode", albumCode, DbType.Int32);
             parameters.Add("@IsAdmin", isAdmin, DbType.Boolean);
 
-            return await base.GetItemAsync("Tab_GetAlbums", parameters);
+            return base.GetItem("Tab_GetAlbums", parameters);
         }
 
-        public async Task<Album> SaveItemAsync(Album item)
+        public Album SaveItem(Album item)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@AlbumCode", item.AlbumCode, DbType.Int32);
@@ -42,7 +41,7 @@ namespace SSNZ.GuitarTab.Data
             parameters.Add("@IncludeInIndex", item.IncludeInIndex, DbType.Boolean);
             parameters.Add("@IncludeOnWebsite", item.IncludeOnWebsite, DbType.Boolean);
 
-            item.AlbumCode = await base.GetScalarAsync<short>("Tab_SaveAlbum", parameters);
+            item.AlbumCode = base.GetScalar<short>("Tab_SaveAlbum", parameters);
             return item;
         }
 

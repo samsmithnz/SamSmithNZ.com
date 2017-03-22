@@ -6,14 +6,15 @@ using System.Data.SqlClient;
 using SSNZ.GuitarTab.Models;
 using Dapper;
 using System.Data;
+using System.Threading.Tasks;
 
 namespace SSNZ.GuitarTab.Data
 {
     public class RatingDataAccess : GenericDataAccess<Rating>
     {
-        public List<Rating> GetItems()
+        public async Task<List<Rating>> GetDataAsync()
         {
-            return base.GetList("spKS_Tab_GetRatings").ToList<Rating>();
+            return await base.GetListAsync("Tab_GetRatings");
         }
 
     }

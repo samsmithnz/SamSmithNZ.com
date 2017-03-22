@@ -5,7 +5,7 @@ namespace SSNZ.GuitarTab.Models
 {
     public class Rating
     {
-        public short RatingCode { get; set; }
+        public int RatingCode { get; set; }
 
     }
 }
