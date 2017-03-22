@@ -177,7 +177,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void Random2FriendsOldTest()
+        public void RandomWithMoreThan100FriendsOldTest()
         {
             //Arrange
             FriendsOldDA da = new FriendsOldDA();
@@ -188,7 +188,7 @@ namespace SSNZ.Steam.UnitTests
 
             //Assert
             Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count >= 0);
+            Assert.IsTrue(results.Count > 100);
         }
 
 
