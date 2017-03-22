@@ -13,6 +13,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.Steam.UnitTests", "SSN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.Steam.Service", "SSNZ.Steam.Service\SSNZ.Steam.Service.csproj", "{EDAF4F51-48AE-47FD-9361-3B14074F0AD4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.GuitarTab.Models", "SSNZ.GuitarTab.Models\SSNZ.GuitarTab.Models.csproj", "{0D699DD1-7565-42B4-85C9-29B1FEB20839}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.GuitarTab.Data", "SSNZ.GuitarTab.Data\SSNZ.GuitarTab.Data.csproj", "{8BB1ECBF-1B7A-4D22-A3B8-5C00D5C3C97D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.GuitarTab.Service", "SSNZ.GuitarTab.Service\SSNZ.GuitarTab.Service.csproj", "{7FFB9CAA-3974-457D-A9D4-50BC387F1D10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.GuitarTab.UnitTests", "SSNZ.GuitarTab.UnitTests\SSNZ.GuitarTab.UnitTests.csproj", "{7B89F013-80F2-454B-A5FC-081C0901E6AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +47,22 @@ Global
 		{EDAF4F51-48AE-47FD-9361-3B14074F0AD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDAF4F51-48AE-47FD-9361-3B14074F0AD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDAF4F51-48AE-47FD-9361-3B14074F0AD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D699DD1-7565-42B4-85C9-29B1FEB20839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D699DD1-7565-42B4-85C9-29B1FEB20839}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D699DD1-7565-42B4-85C9-29B1FEB20839}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D699DD1-7565-42B4-85C9-29B1FEB20839}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BB1ECBF-1B7A-4D22-A3B8-5C00D5C3C97D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BB1ECBF-1B7A-4D22-A3B8-5C00D5C3C97D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BB1ECBF-1B7A-4D22-A3B8-5C00D5C3C97D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BB1ECBF-1B7A-4D22-A3B8-5C00D5C3C97D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FFB9CAA-3974-457D-A9D4-50BC387F1D10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FFB9CAA-3974-457D-A9D4-50BC387F1D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FFB9CAA-3974-457D-A9D4-50BC387F1D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FFB9CAA-3974-457D-A9D4-50BC387F1D10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B89F013-80F2-454B-A5FC-081C0901E6AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B89F013-80F2-454B-A5FC-081C0901E6AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B89F013-80F2-454B-A5FC-081C0901E6AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B89F013-80F2-454B-A5FC-081C0901E6AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
