@@ -9,6 +9,7 @@ using SSNZ.GuitarTab.Models;
 namespace SSNZ.GuitarTab.UnitTests
 {
     [TestClass]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class AlbumDataAccessOldTest
     {
 

@@ -40,7 +40,7 @@ namespace SSNZ.GuitarTab.Data
         /// <param name="storedProcedureName">Stored Procedure name string</param>
         /// <param name="parameters">Dapper DynamicParameters object</param>
         /// <returns>Returns object as defined by T</returns>
-        public IEnumerable<T> GetList(string storedProcedureName, DynamicParameters parameters = null)
+        public List<T> GetList(string storedProcedureName, DynamicParameters parameters = null)
         {
             IEnumerable<T> items;
             try
@@ -55,7 +55,7 @@ namespace SSNZ.GuitarTab.Data
                 System.Diagnostics.Debug.WriteLine(CreateSQLString(storedProcedureName, parameters));
 #endif
             }
-            return items.ToList();
+            return items.ToList<T>();
         }
 
         /// <summary>

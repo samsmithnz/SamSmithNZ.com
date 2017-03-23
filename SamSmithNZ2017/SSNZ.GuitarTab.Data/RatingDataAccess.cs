@@ -17,6 +17,11 @@ namespace SSNZ.GuitarTab.Data
             return await base.GetListAsync("Tab_GetRatings");
         }
 
+        //public List<Rating> GetDataAsync()
+        //{
+        //    return base.GetList("Tab_GetRatings");
+        //}
+
     }
 }
 

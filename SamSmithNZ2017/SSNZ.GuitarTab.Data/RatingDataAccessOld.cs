@@ -13,7 +13,7 @@ namespace SSNZ.GuitarTab.Data
     {
         public List<Rating> GetData()
         {
-            return base.GetList("Tab_GetRatings").ToList<Rating>();
+            return base.GetList("Tab_GetRatings");
         }
 
     }

@@ -191,7 +191,20 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(results.Count > 100);
         }
 
+        [TestMethod]
+        public void FriendsRandomWithExactly99FriendsOldTest()
+        {
+            //Arrange
+            FriendsOldDA da = new FriendsOldDA();
+            string steamId = "76561198140300853";
 
-        
+            //Act
+            List<Friend> results = da.GetDataOld(steamId);
+
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count == 100);
+        }
+
     }
 }
