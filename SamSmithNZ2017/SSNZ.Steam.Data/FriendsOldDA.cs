@@ -24,7 +24,7 @@ namespace SSNZ.Steam.Data
             if (friendList != null)
             {
                 int friendsLength = friendList.friendslist.friends.Count + 1;
-                if (friendsLength < 100)
+                if (friendsLength <= 100)
                 {
                     foreach (SteamFriend item in friendList.friendslist.friends)
                     {
@@ -42,7 +42,6 @@ namespace SSNZ.Steam.Data
 
                     for (int arrayCount = 0; arrayCount < playerDetails100FriendSplitArrayLength; arrayCount++)
                     {
-                        int i = 0;
                         for (int itemCount = 0; itemCount < 100; itemCount++)
                         {
                             if (itemCount == 0)

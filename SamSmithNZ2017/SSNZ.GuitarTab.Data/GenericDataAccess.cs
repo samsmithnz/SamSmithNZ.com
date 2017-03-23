@@ -57,7 +57,6 @@ namespace SSNZ.GuitarTab.Data
 #endif
             }
             return items.ToList<T>();
-
         }
 
         /// <summary>

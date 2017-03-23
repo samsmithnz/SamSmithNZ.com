@@ -42,7 +42,7 @@ namespace SSNZ.GuitarTab.Data
             parameters.Add("@IncludeInIndex", item.IncludeInIndex, DbType.Boolean);
             parameters.Add("@IncludeOnWebsite", item.IncludeOnWebsite, DbType.Boolean);
 
-            item.AlbumCode = await base.GetScalarAsync<short>("Tab_SaveAlbum", parameters);
+            item.AlbumCode = await base.GetScalarAsync<int>("Tab_SaveAlbum", parameters);
             return item;
         }
 

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace SSNZ.GuitarTab.UnitTests
 {
     [TestClass]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class AlbumDataAccessTest
     {
 

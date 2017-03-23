@@ -9,6 +9,7 @@ using SSNZ.GuitarTab.Models;
 namespace SSNZ.GuitarTab.UnitTests
 {
     [TestClass]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class SearchDataAccessOldTest
     {
 
@@ -48,6 +49,43 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(results[0].IsBassTab == false);
             Assert.IsTrue(results[0].TrackName == "Everlong");
             Assert.IsTrue(results[0].TrackResult == "11. Everlong");
+            Assert.IsTrue(results[0].SearchText == "Everlong");
+        }
+
+        [TestMethod()]
+        public void SearchBigOldTest()
+        {
+            //arrange
+            SearchDataAccessOld da = new SearchDataAccessOld();
+            string searchText = "home";
+
+            //act part 1
+            Guid recordId = da.SaveItem(searchText);
+
+            //assert part 1
+            Assert.IsTrue(recordId != null);
+            Assert.IsTrue(recordId != Guid.Empty);
+
+            //act part 2
+            List<Search> results = da.GetData(recordId);
+
+            //assert part 2
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count >= 19);
+            Assert.IsTrue(results[0] != null);
+            Assert.IsTrue(results[0].AlbumCode == 168);
+            Assert.IsTrue(results[0].ArtistAlbumResult == "Cure - Disintegration");
+            Assert.IsTrue(results[0].IsBassTab == false);
+            Assert.IsTrue(results[0].TrackName == "Homesick");
+            Assert.IsTrue(results[0].TrackResult == "11. Homesick");
+            Assert.IsTrue(results[0].SearchText == "home");
+            Assert.IsTrue(results[1] != null);
+            Assert.IsTrue(results[1].AlbumCode == 203);
+            Assert.IsTrue(results[1].ArtistAlbumResult == "Foo Fighters - Echoes, Silence, Patience And Grace");
+            Assert.IsTrue(results[1].IsBassTab == false);
+            Assert.IsTrue(results[1].TrackName == "Home");
+            Assert.IsTrue(results[1].TrackResult == "12. Home");
+            Assert.IsTrue(results[1].SearchText == "home");
         }
 
     }

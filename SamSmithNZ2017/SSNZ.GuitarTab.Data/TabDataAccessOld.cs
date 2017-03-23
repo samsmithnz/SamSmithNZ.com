@@ -11,7 +11,7 @@ namespace SSNZ.GuitarTab.Data
 {
     public class TabDataAccessOld : GenericDataAccessOld<Tab>
     {
-        public List<Tab> GetData(short albumCode)
+        public List<Tab> GetData(int albumCode)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@AlbumCode", albumCode, DbType.Int32);
@@ -19,7 +19,7 @@ namespace SSNZ.GuitarTab.Data
             return base.GetList("Tab_GetTracks", parameters).ToList<Tab>();
         }
 
-        public Tab GetItem(short trackCode)
+        public Tab GetItem(int trackCode)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@TrackCode", trackCode, DbType.Int32);
@@ -41,7 +41,7 @@ namespace SSNZ.GuitarTab.Data
             return base.PostItem("Tab_SaveTrack", parameters);
         }
 
-        public bool DeleteItem(short trackCode)
+        public bool DeleteItem(int trackCode)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@TrackCode", trackCode, DbType.Int32);

@@ -18,14 +18,14 @@ namespace SSNZ.Steam.Data
             SteamFriendList friendList = await da.GetDataAsync(steamID);
 
             //Don't forget to add the current user to the comma seperated list
-            string commaSeperatedSteamIDs = "";
+            string commaSeperatedSteamIDs = steamID.ToString();
             List<string> commaSeperatedSteamIDsArray = new List<string>();
 
             //Build the comma seperated list for all friends
             if (friendList != null)
             {
                 int friendsLength = friendList.friendslist.friends.Count + 1;
-                if (friendsLength < 100)
+                if (friendsLength <= 100)
                 {
                     foreach (SteamFriend item in friendList.friendslist.friends)
                     {
@@ -43,7 +43,6 @@ namespace SSNZ.Steam.Data
 
                     for (int arrayCount = 0; arrayCount < playerDetails100FriendSplitArrayLength; arrayCount++)
                     {
-                        int i = 0;
                         for (int itemCount = 0; itemCount < 100; itemCount++)
                         {
                             if (itemCount == 0)

@@ -12,7 +12,7 @@ namespace SSNZ.GuitarTab.Data
 {
     public class TabDataAccess : GenericDataAccess<Tab>
     {
-        public async Task<List<Tab>> GetDataAsync(short albumCode)
+        public async Task<List<Tab>> GetDataAsync(int albumCode)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@AlbumCode", albumCode, DbType.Int32);
@@ -22,7 +22,7 @@ namespace SSNZ.GuitarTab.Data
             return result.ToList<Tab>();
         }
 
-        public async Task<Tab> GetItemAsync(short trackCode)
+        public async Task<Tab> GetItemAsync(int trackCode)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@TrackCode", trackCode, DbType.Int32);
@@ -44,7 +44,7 @@ namespace SSNZ.GuitarTab.Data
             return await base.PostItemAsync("Tab_SaveTrack", parameters);
         }
 
-        public async Task<bool> DeleteItem(short trackCode)
+        public async Task<bool> DeleteItemAsync(int trackCode)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@TrackCode", trackCode, DbType.Int32);
