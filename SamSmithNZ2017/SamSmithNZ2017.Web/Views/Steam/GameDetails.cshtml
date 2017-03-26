@@ -79,7 +79,7 @@
                     <img ng-show="item.IsVisible == true && !item.Achieved" ng-src="{{item.IconGrayURL}}" />
                 </td>
                 <td class="cellborders">{{item.GlobalPercent | number : 2}}%</td>
-                <td class="cellborders">{{item.Name}}: {{item.Description}}</td>
+                <td class="cellborders">{{item.Name}}: {{item.Description}}</td> 
                 <td class="cellborders" ng-hide="selectedFriend">{{item.ApiName}}</td>
                 <td class="cellborders" ng-show="selectedFriend">
                     <img ng-show="item.FriendAchieved" ng-src="{{item.IconURL}}" />

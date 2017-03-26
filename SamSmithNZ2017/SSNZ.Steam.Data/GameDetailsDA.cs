@@ -126,10 +126,10 @@ namespace SSNZ.Steam.Data
                     foreach (SteamPlayerAchievement item in playerData.Item1.playerstats.achievements)
                     {
                         //Merge the play achievements with the global and friend achivements to one clean achievement object
-                        if (item.apiname== "DLC4_ACHIEVEMENT_01")
-                        {
-                            Console.WriteLine("here");
-                        }
+                        //if (item.apiname== "DLC4_ACHIEVEMENT_01")
+                        //{
+                        //    Console.WriteLine("here");
+                        //}
                         Achievement newItem = new Achievement();
                         newItem.ApiName = item.apiname;
                         newItem.Name = item.name;
@@ -148,6 +148,10 @@ namespace SSNZ.Steam.Data
                             newItem.IconURL = GetIconURL(newItem.ApiName, steamGameDetails.game.availableGameStats.achievements);
                             newItem.IconGrayURL = GetIconGrayURL(newItem.ApiName, steamGameDetails.game.availableGameStats.achievements);
                             newItem.IsVisible = GetIsVisible(newItem.ApiName, steamGameDetails.game.availableGameStats.achievements);
+                        }
+                        if (newItem.IsVisible==false )
+                        {
+                            newItem.Description = "(Note: this is a hidden achievement that has not been released to the public yet)";
                         }
                         newItem.FriendAchieved = false;
 
