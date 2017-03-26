@@ -73,95 +73,6 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void FriendsSamXcomOldTest()
-        {
-            //Arrange
-            FriendsOldDA da = new FriendsOldDA();
-            string steamId = "76561197971691578";
-            string appId = "200510"; //Xcom
-
-            //Act
-            List<Friend> results = da.GetFriendsWithSameGameOld(steamId, appId);
-
-            //Assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count >= 0);
-            Friend result = null;
-            foreach (Friend item in results)
-            {
-                if (item.SteamId == "76561197990013217") //Stew
-                {
-                    result = item;
-                    break;
-                }
-            }
-            Assert.IsTrue(result != null);
-            Assert.IsTrue(result.SteamId == "76561197990013217");
-            Assert.IsTrue(result.Name == "Captain Datsun");
-
-        }
-
-        [TestMethod]
-        public void FriendsSamCiv6OldTest()
-        {
-            //Arrange
-            FriendsOldDA da = new FriendsOldDA();
-            string steamId = "76561197971691578";
-            string appId = "289070"; //Civ 6
-
-            //Act
-            List<Friend> results = da.GetFriendsWithSameGameOld(steamId, appId);
-
-            //Assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count >= 1);
-            Friend result = null;
-            foreach (Friend item in results)
-            {
-                if (item.SteamId == "76561198030842184") //Coleman
-                {
-                    result = item;
-                }
-                else if (item.SteamId == "76561198034342716") //Alex
-                {
-                    Assert.IsTrue(false); //This should never happen, Alex has a private profile
-                }
-            }
-            Assert.IsTrue(result != null);
-            Assert.IsTrue(result.SteamId == "76561198030842184");
-            Assert.IsTrue(result.Name == "coleman.yeaw");
-
-        }
-
-        [TestMethod]
-        public void FriendsStewXcomOldTest()
-        {
-            //Arrange
-            FriendsOldDA da = new FriendsOldDA();
-            string steamId = "76561197990013217";
-            string appId = "200510"; //Xcom
-
-            //Act
-            List<Friend> results = da.GetFriendsWithSameGameOld(steamId, appId);
-
-            //Assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count >= 0);
-            Friend result = null;
-            foreach (Friend item in results)
-            {
-                if (item.SteamId == "76561197971691578") //Sam
-                {
-                    result = item;
-                    break;
-                }
-            }
-            Assert.IsTrue(result != null);
-            Assert.IsTrue(result.SteamId == "76561197971691578");
-            Assert.IsTrue(result.Name == "Sam");
-        }
-
-        [TestMethod]
         public void FriendsRandomOldTest()
         {
             //Arrange
@@ -204,6 +115,95 @@ namespace SSNZ.Steam.UnitTests
             //Assert
             Assert.IsTrue(results != null);
             Assert.IsTrue(results.Count == 100);
+        }
+
+        [TestMethod]
+        public void FriendsSameGameSamXcomOldTest()
+        {
+            //Arrange
+            FriendsOldDA da = new FriendsOldDA();
+            string steamId = "76561197971691578";
+            string appId = "200510"; //Xcom
+
+            //Act
+            List<Friend> results = da.GetFriendsWithSameGameOld(steamId, appId);
+
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count >= 0);
+            Friend result = null;
+            foreach (Friend item in results)
+            {
+                if (item.SteamId == "76561197990013217") //Stew
+                {
+                    result = item;
+                    break;
+                }
+            }
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.SteamId == "76561197990013217");
+            Assert.IsTrue(result.Name == "Captain Datsun");
+
+        }
+
+        [TestMethod]
+        public void FriendsSameGameSamCiv6OldTest()
+        {
+            //Arrange
+            FriendsOldDA da = new FriendsOldDA();
+            string steamId = "76561197971691578";
+            string appId = "289070"; //Civ 6
+
+            //Act
+            List<Friend> results = da.GetFriendsWithSameGameOld(steamId, appId);
+
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count >= 1);
+            Friend result = null;
+            foreach (Friend item in results)
+            {
+                if (item.SteamId == "76561198030842184") //Coleman
+                {
+                    result = item;
+                }
+                else if (item.SteamId == "76561198034342716") //Alex
+                {
+                    Assert.IsTrue(false); //This should never happen, Alex has a private profile
+                }
+            }
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.SteamId == "76561198030842184");
+            Assert.IsTrue(result.Name == "coleman.yeaw");
+
+        }
+
+        [TestMethod]
+        public void FriendsSameGameStewXcomOldTest()
+        {
+            //Arrange
+            FriendsOldDA da = new FriendsOldDA();
+            string steamId = "76561197990013217";
+            string appId = "200510"; //Xcom
+
+            //Act
+            List<Friend> results = da.GetFriendsWithSameGameOld(steamId, appId);
+
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count >= 0);
+            Friend result = null;
+            foreach (Friend item in results)
+            {
+                if (item.SteamId == "76561197971691578") //Sam
+                {
+                    result = item;
+                    break;
+                }
+            }
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.SteamId == "76561197971691578");
+            Assert.IsTrue(result.Name == "Sam");
         }
 
     }

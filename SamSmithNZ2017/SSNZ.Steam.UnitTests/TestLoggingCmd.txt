@@ -1,0 +1,1 @@
+﻿vstest.console.exe  C:\Projects\SSNZTFSGit\SamSmithNZ2017\SSNZ.Steam.UnitTests\bin\Debug\SSNZ.Steam.UnitTests.dll /logger:trx

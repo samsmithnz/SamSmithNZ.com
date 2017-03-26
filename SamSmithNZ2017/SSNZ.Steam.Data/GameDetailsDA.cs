@@ -126,6 +126,10 @@ namespace SSNZ.Steam.Data
                     foreach (SteamPlayerAchievement item in playerData.Item1.playerstats.achievements)
                     {
                         //Merge the play achievements with the global and friend achivements to one clean achievement object
+                        if (item.apiname== "DLC4_ACHIEVEMENT_01")
+                        {
+                            Console.WriteLine("here");
+                        }
                         Achievement newItem = new Achievement();
                         newItem.ApiName = item.apiname;
                         newItem.Name = item.name;
@@ -143,6 +147,7 @@ namespace SSNZ.Steam.Data
                         {
                             newItem.IconURL = GetIconURL(newItem.ApiName, steamGameDetails.game.availableGameStats.achievements);
                             newItem.IconGrayURL = GetIconGrayURL(newItem.ApiName, steamGameDetails.game.availableGameStats.achievements);
+                            newItem.IsVisible = GetIsVisible(newItem.ApiName, steamGameDetails.game.availableGameStats.achievements);
                         }
                         newItem.FriendAchieved = false;
 
@@ -189,6 +194,20 @@ namespace SSNZ.Steam.Data
                 if (item.name == apiName)
                 {
                     result = item.icongray;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        private bool GetIsVisible(string apiName, List<GameAchievement> steamGameDetails)
+        {
+            bool result = false;
+            foreach (GameAchievement item in steamGameDetails)
+            {
+                if (item.name == apiName)
+                {
+                    result = (item.hidden != 1);
                     break;
                 }
             }
