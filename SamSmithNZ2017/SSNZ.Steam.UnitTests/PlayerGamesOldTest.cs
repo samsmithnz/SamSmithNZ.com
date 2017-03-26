@@ -81,7 +81,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void PlayerGamesRandomAnotherWithNoGamesTest()
+        public void PlayerGamesRandomAnotherWithNoGamesOldTest()
         {
             //Arrange
             PlayerGamesOldDA da = new PlayerGamesOldDA();

@@ -16,5 +16,6 @@ namespace SSNZ.Steam.Models
         public string IconURL { get; set; }
         public string IconGrayURL { get; set; }
         public bool FriendAchieved { get; set; }
+        public bool IsVisible { get; set; }
     }
 }

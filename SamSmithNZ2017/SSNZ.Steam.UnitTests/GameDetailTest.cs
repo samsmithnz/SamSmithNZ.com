@@ -69,6 +69,7 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.Achievements[0].IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/289070/c29e93fd82f9033ea2029b866c5bc29f1813d649.jpg");
             Assert.IsTrue(result.Achievements[0].GlobalPercent >= 0);
             Assert.IsTrue(result.Achievements[0].FriendAchieved == false);
+            Assert.IsTrue(result.Achievements[0].IsVisible == true);
         }
 
         [TestMethod]
@@ -95,7 +96,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task GameDetailsSamSmithXCOMFriendWithStewTest()
+        public async Task GameDetailsWithFriendSamXCOMFriendWithStewTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -155,7 +156,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task GameDetailsSamSmithCiv6FriendWithAlexTest()
+        public async Task GameDetailsWithFriendSamCiv6FriendWithAlexTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -215,7 +216,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task GameDetailsSamSmithNoIconTest()
+        public async Task GameDetailsSamNoIconTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -234,7 +235,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task GameDetailsSamSmithCiv6FriendWithStewTest()
+        public async Task GameDetailsWithFriendSamCiv6FriendWithStewTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -251,7 +252,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task GameDetailsSamSmithCOH2Test()
+        public async Task GameDetailsSamCompanyOfHeroes2Test()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -308,7 +309,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task GameDetailsSamSmithCastleStoryTest()
+        public async Task GameDetailsSamCastleStoryTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();
@@ -330,7 +331,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public async Task GameDetailsSamSmithGodusTest()
+        public async Task GameDetailsSamGodusTest()
         {
             //Arrange
             GameDetailsDA da = new GameDetailsDA();

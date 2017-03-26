@@ -226,6 +226,7 @@
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\spinner.gif" />
     <Content Include="Content\Images\spinner_small.gif" />
+    <Content Include="Content\Steam\alien.png" />
     <Content Include="Content\Steam\steam.png" />
     <Content Include="Content\Steam\steam32by32.png" />
     <Content Include="favicon.ico" />

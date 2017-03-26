@@ -94,7 +94,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void GameDetailsSamSmithXCOMFriendWithStewOldTest()
+        public void GameDetailsWithFriendSamXCOMFriendWithStewOldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -154,7 +154,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void GameDetailsSamSmithCiv6FriendWithAlexOldTest()
+        public void GameDetailsWithFriendSamCiv6FriendWithAlexOldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -214,7 +214,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void GameDetailsSamSmithNoIconOldTest()
+        public void GameDetailsSamNoIconOldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -233,7 +233,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void GameDetailsSamSmithCiv6FriendWithStewOldTest()
+        public void GameDetailsWithFriendSamCiv6FriendWithStewOldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -250,7 +250,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void GameDetailsSamSmithCOH2OldTest()
+        public void GameDetailsSamCompanyOfHeroes2OldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -307,7 +307,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void GameDetailsSamSmithCastleStoryOldTest()
+        public void GameDetailsSamCastleStoryOldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
@@ -329,7 +329,7 @@ namespace SSNZ.Steam.UnitTests
         }
 
         [TestMethod]
-        public void GameDetailsSamSmithGodusOldTest()
+        public void GameDetailsSamGodusOldTest()
         {
             //Arrange
             GameDetailsOldDA da = new GameDetailsOldDA();
