@@ -24,17 +24,17 @@
                 </td>
                 <td rowspan="4" style="width: 300px;">
                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <!-- SteamBanner2 -->
-                        <ins class="adsbygoogle"
-                             style="display:inline-block;width:320px;height:100px"
-                             data-ad-client="ca-pub-2315986579277492"
-                             data-ad-slot="6826309967"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
+                    <!-- SteamBanner2 -->
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:320px;height:100px"
+                         data-ad-client="ca-pub-2315986579277492"
+                         data-ad-slot="6826309967"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
                 </td>
             </tr>
-                       <tr ng-show="selectedFriend">
+            <tr ng-show="selectedFriend">
                 <td>Friend achievements Completed:</td>
                 <td>
                     <span>{{gameDetails.FriendTotalAchieved}} ({{gameDetails.FriendPercentAchieved * 100 | number : 2}}%)</span>
@@ -61,7 +61,8 @@
         </table>
 
         <br />
-        <span>Achievements ({{gameDetails.Achievements.length}}):</span>
+        <span>Achievements ({{(gameDetails.Achievements| filter: achievementFilter).length}} / {{gameDetails.Achievements.length}}): </span><input id="chkShowAchievements" type="checkbox" ng-model="showAllAchievements" />
+        <label for="chkShowAchievements" style="font-weight: normal;">Show all achievements</label>
         <table class="tableborders">
             <tr>
                 <th class="headerborders">#</th>
@@ -71,7 +72,7 @@
                 <th class="headerborders" ng-hide="selectedFriend">API Name</th>
                 <th class="headerborders" ng-show="selectedFriend">Friend has achieved this?</th>
             </tr>
-            <tr ng-repeat="item in gameDetails.Achievements " class="alternatingColors" ng-style="{'background-color': getFriendStyle(selectedFriend, item.Achieved, item.FriendAchieved)}">
+            <tr ng-repeat="item in gameDetails.Achievements | filter: achievementFilter" class="alternatingColors" ng-style="{'background-color': getFriendStyle(selectedFriend, item.Achieved, item.FriendAchieved)}">
                 <td class="cellborders">{{$index + 1}}</td>
                 <td class="cellborders">
                     <img ng-show="item.IsVisible == false" src="~/Content/Steam/alien.png" />
@@ -79,7 +80,7 @@
                     <img ng-show="item.IsVisible == true && !item.Achieved" ng-src="{{item.IconGrayURL}}" />
                 </td>
                 <td class="cellborders">{{item.GlobalPercent | number : 2}}%</td>
-                <td class="cellborders">{{item.Name}}: {{item.Description}}</td> 
+                <td class="cellborders">{{item.Name}}: {{item.Description}}</td>
                 <td class="cellborders" ng-hide="selectedFriend">{{item.ApiName}}</td>
                 <td class="cellborders" ng-show="selectedFriend">
                     <img ng-show="item.FriendAchieved" ng-src="{{item.IconURL}}" />

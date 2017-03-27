@@ -64,6 +64,20 @@
             //gameDetailsService.getGameWithFriendDetails($scope.steamId, appId, $scope.selectedFriend).then(onGetGameDetailsEventComplete, onError);
         };
 
+        $scope.achievementFilter = function (a) {
+            if ($scope.showAllAchievements == true) {
+                return true;
+            }
+            else {
+                if (a.Achieved == true) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+        }
+
         $scope.filterFunction = function (item) {
             //return item.FriendsAchieved == true;
             if ($scope.showFriendChanges == true) {
@@ -83,14 +97,7 @@
                 else if (achieved == false && friendAchieved == true) {
                     return "#F75D59";
                 }
-                //else
-                //{
-                //    return "transparent"
-                //}
             }
-            //else {
-            //    return "transparent";
-            //}
         };
         
     }
