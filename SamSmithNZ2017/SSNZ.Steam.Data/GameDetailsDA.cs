@@ -134,6 +134,7 @@ namespace SSNZ.Steam.Data
                         newItem.ApiName = item.apiname;
                         newItem.Name = item.name;
                         newItem.Description = item.description;
+                        newItem.IsVisible = true;
                         if (item.achieved == 1)
                         {
                             newItem.Achieved = true;
@@ -149,7 +150,11 @@ namespace SSNZ.Steam.Data
                             newItem.IconGrayURL = GetIconGrayURL(newItem.ApiName, steamGameDetails.game.availableGameStats.achievements);
                             newItem.IsVisible = GetIsVisible(newItem.ApiName, steamGameDetails.game.availableGameStats.achievements);
                         }
-                        if (newItem.IsVisible==false )
+                        if (newItem.IsVisible == false && newItem.Achieved == true)
+                        {
+                            newItem.IsVisible = true;
+                        }
+                        if (newItem.IsVisible == false)
                         {
                             newItem.Description = "(Note: this is a hidden achievement that has not been released to the public yet)";
                         }
