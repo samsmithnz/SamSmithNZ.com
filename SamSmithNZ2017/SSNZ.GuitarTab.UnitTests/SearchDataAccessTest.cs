@@ -23,7 +23,7 @@ namespace SSNZ.GuitarTab.UnitTests
             Guid recordId = new Guid("7075FE23-B1AC-4169-AC87-D78F1E66BACB");
 
             //act
-            List<Search> results = await da.GetDataAsync(recordId);
+            List<Search> results = await da.GetListAsync(recordId);
 
             //assert
             Assert.IsTrue(results != null);
@@ -39,7 +39,7 @@ namespace SSNZ.GuitarTab.UnitTests
             Guid recordId = new Guid("7075FE23-B1AC-4169-AC87-D78F1E66BACB");
 
             //act
-            List<Search> results = await da.GetDataAsync(recordId);
+            List<Search> results = await da.GetListAsync(recordId);
 
             //assert
             Assert.IsTrue(results != null);
@@ -69,7 +69,7 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(recordId != Guid.Empty);
 
             //act part 2
-            List<Search> results = await da.GetDataAsync(recordId);
+            List<Search> results = await da.GetListAsync(recordId);
 
             //assert part 2
             Assert.IsTrue(results != null);

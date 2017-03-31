@@ -1,0 +1,546 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>SamSmithNZ2017.DB</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{9d1104aa-cf15-457b-bf19-41ce5445f3be}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>SamSmithNZ2017.DB</RootNamespace>
+    <AssemblyName>SamSmithNZ2017.DB</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Security\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\webpages_UsersInRoles.sql" />
+    <Build Include="dbo\Tables\webpages_Roles.sql" />
+    <Build Include="dbo\Tables\webpages_OAuthMembership.sql" />
+    <Build Include="dbo\Tables\webpages_Membership.sql" />
+    <Build Include="dbo\Tables\wc_tournament_team_final_placing.sql" />
+    <Build Include="dbo\Tables\wc_tournament_team_entry.sql" />
+    <Build Include="dbo\Tables\wc_tournament_format_round.sql" />
+    <Build Include="dbo\Tables\wc_tournament_format.sql" />
+    <Build Include="dbo\Tables\wc_tournament.sql" />
+    <Build Include="dbo\Tables\wc_team.sql" />
+    <Build Include="dbo\Tables\wc_round.sql" />
+    <Build Include="dbo\Tables\wc_related_team.sql" />
+    <Build Include="dbo\Tables\wc_region.sql" />
+    <Build Include="dbo\Tables\wc_ranking.sql">
+      <AnsiNulls>Off</AnsiNulls>
+    </Build>
+    <Build Include="dbo\Tables\wc_playoff_stage.sql" />
+    <Build Include="dbo\Tables\wc_playoff_setup.sql" />
+    <Build Include="dbo\Tables\wc_player_game.sql" />
+    <Build Include="dbo\Tables\wc_player.sql" />
+    <Build Include="dbo\Tables\wc_penalty_shootout.sql" />
+    <Build Include="dbo\Tables\wc_odds.sql" />
+    <Build Include="dbo\Tables\wc_group_stage.sql" />
+    <Build Include="dbo\Tables\wc_goal.sql" />
+    <Build Include="dbo\Tables\wc_game.sql" />
+    <Build Include="dbo\Tables\wc_competition.sql" />
+    <Build Include="dbo\Tables\wc_card.sql" />
+    <Build Include="dbo\Tables\valor_guild.sql" />
+    <Build Include="dbo\Tables\valor_claim.sql" />
+    <Build Include="dbo\Tables\UserProfile.sql" />
+    <Build Include="dbo\Tables\TabTrack_old.sql" />
+    <Build Include="dbo\Tables\TabStats_old.sql" />
+    <Build Include="dbo\Tables\TabAlbum_old.sql" />
+    <Build Include="dbo\Tables\tab_tuning.sql" />
+    <Build Include="dbo\Tables\tab_track.sql" />
+    <Build Include="dbo\Tables\tab_search_parameters.sql" />
+    <Build Include="dbo\Tables\tab_album.sql" />
+    <Build Include="dbo\Tables\steamAPI_stat.sql" />
+    <Build Include="dbo\Tables\problem_search_parameters.sql" />
+    <Build Include="dbo\Tables\problem.sql" />
+    <Build Include="dbo\Tables\pm_song.sql" />
+    <Build Include="dbo\Tables\pm_software.sql" />
+    <Build Include="dbo\Tables\pm_project_type.sql" />
+    <Build Include="dbo\Tables\pm_project_task.sql" />
+    <Build Include="dbo\Tables\pm_project_status.sql" />
+    <Build Include="dbo\Tables\pm_project.sql" />
+    <Build Include="dbo\Tables\pm_asset.sql" />
+    <Build Include="dbo\Tables\itTrack.sql" />
+    <Build Include="dbo\Tables\itPLTrack.sql" />
+    <Build Include="dbo\Tables\itPLPlaylistTrack.sql" />
+    <Build Include="dbo\Tables\itPLPlaylist.sql" />
+    <Build Include="dbo\Tables\itPlaylist.sql" />
+    <Build Include="dbo\Tables\ffl_unknown_song.sql" />
+    <Build Include="dbo\Tables\ffl_tracking.sql" />
+    <Build Include="dbo\Tables\ffl_show_song.sql" />
+    <Build Include="dbo\Tables\ffl_show_recording.sql" />
+    <Build Include="dbo\Tables\ffl_show.sql" />
+    <Build Include="dbo\Tables\ff_song.sql" />
+    <Build Include="dbo\Tables\ff_show_song.sql" />
+    <Build Include="dbo\Tables\ff_show.sql" />
+    <Build Include="dbo\Tables\ff_album.sql" />
+    <Build Include="dbo\Tables\FBWeekTemplate.sql" />
+    <Build Include="dbo\Tables\FBWeek.sql" />
+    <Build Include="dbo\Tables\FBTeam.sql" />
+    <Build Include="dbo\Tables\FBSummary.sql" />
+    <Build Include="dbo\Tables\FBStatus.sql" />
+    <Build Include="dbo\Tables\FBStats.sql" />
+    <Build Include="dbo\Tables\FBSettings.sql" />
+    <Build Include="dbo\Tables\FBPlayer.sql" />
+    <Build Include="dbo\Tables\FBMoney.sql" />
+    <Build Include="dbo\Tables\FBhistorical_stats.sql" />
+    <Build Include="dbo\Tables\FBAdmin.sql" />
+    <Build Include="dbo\Tables\FBAccountingTransactionType.sql" />
+    <Build Include="dbo\Tables\FBAccountingTransaction.sql" />
+    <Build Include="dbo\Tables\FBAccounting.sql" />
+    <Build Include="dbo\Tables\fb_odds.sql" />
+    <Build Include="dbo\Tables\fantasy_tweet.sql" />
+    <Build Include="dbo\Tables\ErrorLog.sql" />
+    <Build Include="dbo\Tables\AspNetUsers.sql" />
+    <Build Include="dbo\Tables\AspNetUserRoles.sql" />
+    <Build Include="dbo\Tables\AspNetUserLogins.sql" />
+    <Build Include="dbo\Tables\AspNetUserClaims.sql" />
+    <Build Include="dbo\Tables\AspNetRoles.sql" />
+    <Build Include="dbo\Tables\__MigrationHistory.sql" />
+    <Build Include="dbo\Views\vwWC_FinalPlacing.sql" />
+    <Build Include="dbo\Views\vwtab_rating.sql" />
+    <Build Include="dbo\Views\vWC_TournamentPenaltyShootoutGoals.sql" />
+    <Build Include="dbo\Views\vWC_TournamentGoals.sql" />
+    <Build Include="dbo\Views\vWC_TournamentFormats.sql" />
+    <Build Include="dbo\Views\vWC_TournamentCompletionStatistics.sql" />
+    <Build Include="dbo\Views\vWC_QualifiedTeamCount.sql" />
+    <Build Include="dbo\Views\vWC_PlayerPenaltyShootoutCount.sql" />
+    <Build Include="dbo\Views\vWC_PlayerGoalCount.sql" />
+    <Build Include="dbo\Views\vWC_PlayerCount.sql" />
+    <Build Include="dbo\Views\vWC_PlayerCardCount.sql" />
+    <Build Include="dbo\Views\vWC_GameScoreSummary.sql" />
+    <Build Include="dbo\Views\vWC_GameCount.sql" />
+    <Build Include="dbo\Views\vFF_Show.sql" />
+    <Build Include="dbo\Functions\fnWC_GetTeamWins.sql" />
+    <Build Include="dbo\Functions\fnWC_GetTeamLosses.sql" />
+    <Build Include="dbo\Functions\fnWC_GetTeamGoalsFor.sql" />
+    <Build Include="dbo\Functions\fnWC_GetTeamGoalsAgainst.sql" />
+    <Build Include="dbo\Functions\fnWC_GetTeamGamesPlayed.sql" />
+    <Build Include="dbo\Functions\fnWC_GetTeamDraws.sql" />
+    <Build Include="dbo\Functions\fnWC_GetPointsForAWin.sql" />
+    <Build Include="dbo\Functions\fnWC_CalculateRanking_OppositionStrength.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Functions\fnWC_CalculateRanking_MatchResult.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Functions\fnWC_CalculateRanking_GameAge.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Functions\fnValor_GetRegion.sql" />
+    <Build Include="dbo\Functions\fnTab_GetAlbumTop100Name.sql" />
+    <Build Include="dbo\Functions\fnit_GetTabForTrack.sql" />
+    <Build Include="dbo\Functions\fnIT_GetRanking.sql" />
+    <Build Include="dbo\Functions\fnIT_GetPlayListDate.sql" />
+    <Build Include="dbo\Functions\fnFB_GetTeamRecord.sql" />
+    <Build Include="dbo\Stored Procedures\Tab_SaveTrack.sql" />
+    <Build Include="dbo\Stored Procedures\Tab_SaveSearchParameters.sql" />
+    <Build Include="dbo\Stored Procedures\Tab_SaveAlbum.sql" />
+    <Build Include="dbo\Stored Procedures\Tab_GetTunings.sql" />
+    <Build Include="dbo\Stored Procedures\Tab_GetTracks.sql" />
+    <Build Include="dbo\Stored Procedures\Tab_GetSearchResults.sql" />
+    <Build Include="dbo\Stored Procedures\Tab_GetRatings.sql" />
+    <Build Include="dbo\Stored Procedures\Tab_GetArtists.sql" />
+    <Build Include="dbo\Stored Procedures\Tab_GetAlbums.sql" />
+    <Build Include="dbo\Stored Procedures\Tab_DeleteTrack.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_SetFinalTournamentPlacing.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_SaveShootoutGoal.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_SaveGoal.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_ProcessPlayoffDetails.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_ProcessGroupDetails.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_NormalizeOdds.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetTournamentTeamPlayerList.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetTournamentName.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetTournamentList.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetTournamentDetails.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetTeamName.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetTeamList.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetTeamGameList.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetTeamDetails.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetStats_TournamentStatistics.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetStats_TotalGoalsByTournament.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetStats_FinalTournamentPlacing.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetQualifiedTeamsForTournament.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetPlayoffGameList.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetPlayerName.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetPlayerListForGame.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetPlayerGames.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetPlayerDetails.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetOddsSummary.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetOddsMinMax.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetGroupList.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetGroupGameList.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetGroupDetails.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetGameShootoutGoalList.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetGameListForGoalAssigning.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetGameList2.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetGameList.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_GetGameGoalList.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_CalculateRanking.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\spWC_CalculateAllRankings.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\spWC_AddTeamOdds.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_AddOddsForOldTournament.sql" />
+    <Build Include="dbo\Stored Procedures\spWC_AddMissingTeamOdds.sql" />
+    <Build Include="dbo\Stored Procedures\spValor_ValidateAddClaim.sql" />
+    <Build Include="dbo\Stored Procedures\spValor_GetGuilds.sql" />
+    <Build Include="dbo\Stored Procedures\spValor_GetClaims.sql" />
+    <Build Include="dbo\Stored Procedures\spValor_DeleteClaim.sql" />
+    <Build Include="dbo\Stored Procedures\spValor_AddClaim.sql" />
+    <Build Include="dbo\Stored Procedures\spTab2_SaveTrack.sql" />
+    <Build Include="dbo\Stored Procedures\spTab2_SaveAlbum.sql" />
+    <Build Include="dbo\Stored Procedures\spTab2_GetTunings.sql" />
+    <Build Include="dbo\Stored Procedures\spTab2_GetTracksForAlbum.sql" />
+    <Build Include="dbo\Stored Procedures\spTab2_GetTrack.sql" />
+    <Build Include="dbo\Stored Procedures\spTab2_GetStatistics.sql" />
+    <Build Include="dbo\Stored Procedures\spTab2_GetRatingStats.sql" />
+    <Build Include="dbo\Stored Procedures\spTab2_GetRatings.sql" />
+    <Build Include="dbo\Stored Procedures\spTab2_GetArtists.sql" />
+    <Build Include="dbo\Stored Procedures\spTab2_GetAlbums.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_UpdateTrackRating.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_UpdateTrackOrder.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_UpdateAlbumLastUpdated.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_UpdateAlbumFlags.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_ReIndexTracks.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_ReIndexAlbums.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_InsertTrack.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_InsertAlbum.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetTracksForTop100Album.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetTracksForAlbum.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetTrackRating.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetTabsToDo.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetStatistics.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetRatingStats.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetMoreStatistics.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetEditAlbumList.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetArtistTop100List.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetArtistList.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetAlbumTop100Index.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetAlbumTop100Detail.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetAlbums.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetAlbumIndex.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetAlbumDetails.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetAlbumDetail.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_GetAlbumCount.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_DeleteTracksForAlbum.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_DeleteTrack.sql" />
+    <Build Include="dbo\Stored Procedures\spTab_AddTrackToExistingAlbum.sql" />
+    <Build Include="dbo\Stored Procedures\spSteamWebAPI_SaveStat.sql" />
+    <Build Include="dbo\Stored Procedures\spSteamWebAPI_GetStatsForToday.sql" />
+    <Build Include="dbo\Stored Procedures\spProblem_SaveSearchParameters.sql" />
+    <Build Include="dbo\Stored Procedures\spProblem_SaveProblem.sql" />
+    <Build Include="dbo\Stored Procedures\spProblem_GetSearchResults.sql" />
+    <Build Include="dbo\Stored Procedures\spProblem_GetProblems.sql" />
+    <Build Include="dbo\Stored Procedures\spProblem_GetProblemNumberList.sql" />
+    <Build Include="dbo\Stored Procedures\spPM_SaveProject.sql" />
+    <Build Include="dbo\Stored Procedures\spPM_GetSongProject.sql" />
+    <Build Include="dbo\Stored Procedures\spPM_GetSoftwareProject.sql" />
+    <Build Include="dbo\Stored Procedures\spPM_GetProjectTypes.sql" />
+    <Build Include="dbo\Stored Procedures\spPM_GetProjectStatuses.sql" />
+    <Build Include="dbo\Stored Procedures\spPM_GetProjects.sql" />
+    <Build Include="dbo\Stored Procedures\spPM_GetIdeaProject.sql" />
+    <Build Include="dbo\Stored Procedures\spPM_CreateProject.sql" />
+    <Build Include="dbo\Stored Procedures\spMusic_GetTuningList.sql" />
+    <Build Include="dbo\Stored Procedures\spMusic_GetTrackListForTuning.sql" />
+    <Build Include="dbo\Stored Procedures\spMusic_GetTrackListForAlbum.sql" />
+    <Build Include="dbo\Stored Procedures\spMusic_GetArtistNames.sql" />
+    <Build Include="dbo\Stored Procedures\spMusic_GetAlbumList.sql" />
+    <Build Include="dbo\Stored Procedures\spMusic_GetActiveTunings.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_Tab_SaveTrack.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_Tab_SaveSearchParameters.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_Tab_SaveAlbum.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_Tab_GetTunings.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_Tab_GetTracks.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_Tab_GetSearchResults.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_Tab_GetRatings.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_Tab_GetArtists.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_Tab_GetAlbums.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_Tab_DeleteTrack.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_FFL_GetAlbums.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_FF_GetYearList.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_FF_GetSongsForShow.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_FF_GetSongs.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_FF_GetShows.sql" />
+    <Build Include="dbo\Stored Procedures\spKS_FF_GetAlbums.sql" />
+    <Build Include="dbo\Stored Procedures\spITunes_GetTracks.sql" />
+    <Build Include="dbo\Stored Procedures\spITunes_GetTopArtists.sql" />
+    <Build Include="dbo\Stored Procedures\spITunes_GetStats.sql" />
+    <Build Include="dbo\Stored Procedures\spITunes_GetPlaylists.sql" />
+    <Build Include="dbo\Stored Procedures\spITunes_GetMovement.sql" />
+    <Build Include="dbo\Stored Procedures\spITPL_InsertTrack.sql" />
+    <Build Include="dbo\Stored Procedures\spITPL_InsertPLPlaylistTrack.sql" />
+    <Build Include="dbo\Stored Procedures\spITPL_GetPLPlaylistList.sql" />
+    <Build Include="dbo\Stored Procedures\spITPL_GetPLPlaylist.sql" />
+    <Build Include="dbo\Stored Procedures\spITPL_DeletePLDatabase.sql" />
+    <Build Include="dbo\Stored Procedures\spITPL_CreateNewPLPlaylist.sql" />
+    <Build Include="dbo\Stored Procedures\spIT_ValidateTracksForDuplicates.sql" />
+    <Build Include="dbo\Stored Procedures\spIT_SetTrackRanks.sql" />
+    <Build Include="dbo\Stored Procedures\spIT_InsertTrack.sql" />
+    <Build Include="dbo\Stored Procedures\spIT_GetTracksForPlaylist.sql" />
+    <Build Include="dbo\Stored Procedures\spIT_GetTotalSongsPlayedForPlaylist.sql" />
+    <Build Include="dbo\Stored Procedures\spit_GetTop10SongsThisMonth.sql" />
+    <Build Include="dbo\Stored Procedures\spit_GetTop10Movers.sql" />
+    <Build Include="dbo\Stored Procedures\spit_GetTabForTrack.sql" />
+    <Build Include="dbo\Stored Procedures\spit_GetPlaylistTrackCount.sql" />
+    <Build Include="dbo\Stored Procedures\spIT_GetPlaylistList.sql" />
+    <Build Include="dbo\Stored Procedures\spIT_GetPlaylist.sql" />
+    <Build Include="dbo\Stored Procedures\spit_GetNextPlaylistCode.sql" />
+    <Build Include="dbo\Stored Procedures\spit_GetLastPlaylistCode.sql" />
+    <Build Include="dbo\Stored Procedures\spit_GetArtistCounts.sql" />
+    <Build Include="dbo\Stored Procedures\spIT_DeletePlaylistTracks.sql" />
+    <Build Include="dbo\Stored Procedures\spIT_DeletePlaylistAndTracks.sql" />
+    <Build Include="dbo\Stored Procedures\spIT_CreateNewPlayList.sql" />
+    <Build Include="dbo\Stored Procedures\spImportTab.sql" />
+    <Build Include="dbo\Stored Procedures\spImport_ImportTrack.sql" />
+    <Build Include="dbo\Stored Procedures\spImport_ImportAlbum.sql" />
+    <Build Include="dbo\Stored Procedures\spImport_GetUnprocessedAlbums.sql" />
+    <Build Include="dbo\Stored Procedures\spImport_GetAlbumTracks.sql" />
+    <Build Include="dbo\Stored Procedures\spIFB_GetTournamentTeamsPlacing.sql" />
+    <Build Include="dbo\Stored Procedures\spIFB_GetTournamentTeams.sql" />
+    <Build Include="dbo\Stored Procedures\spIFB_GetTournaments.sql" />
+    <Build Include="dbo\Stored Procedures\spIFB_GetTeamList.sql" />
+    <Build Include="dbo\Stored Procedures\spIFB_GetPlayoffGameList.sql" />
+    <Build Include="dbo\Stored Procedures\spIFB_GetGroupList.sql" />
+    <Build Include="dbo\Stored Procedures\spIFB_GetGroupDetails.sql" />
+    <Build Include="dbo\Stored Procedures\spIFB_GetGameListForTeam.sql" />
+    <Build Include="dbo\Stored Procedures\spIFB_GetGameList.sql" />
+    <Build Include="dbo\Stored Procedures\spGT_SaveTrack.sql" />
+    <Build Include="dbo\Stored Procedures\spGT_SaveSearchParameters.sql" />
+    <Build Include="dbo\Stored Procedures\spGT_SaveAlbum.sql" />
+    <Build Include="dbo\Stored Procedures\spGT_GetTunings.sql" />
+    <Build Include="dbo\Stored Procedures\spGT_GetTracks.sql" />
+    <Build Include="dbo\Stored Procedures\spGT_GetSearchResults.sql" />
+    <Build Include="dbo\Stored Procedures\spGT_GetRatings.sql" />
+    <Build Include="dbo\Stored Procedures\spGT_GetArtists.sql" />
+    <Build Include="dbo\Stored Procedures\spGT_GetAlbums.sql" />
+    <Build Include="dbo\Stored Procedures\spGT_DeleteTrack.sql" />
+    <Build Include="dbo\Stored Procedures\spFT_GetFantasyTweetSummary.sql" />
+    <Build Include="dbo\Stored Procedures\spFT_GetFantasyTweets.sql" />
+    <Build Include="dbo\Stored Procedures\spFT_AddFantasyTweet.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL2Import_GetSongList.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL2Import_GetShowSongList.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL2Import_GetShowRecordingList.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL2Import_GetShowList.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL2Import_GetAlbumList.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL2_GetYearList.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL2_GetSongShowList.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL2_GetSongInfo.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL2_GetShowSongs.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL2_GetShowRecordings.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL2_GetShowList.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL2_GetShowInfo.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL2_GetAlbumSongs.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\spFFL2_GetAlbumSongList.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL2_GetAlbumInfo.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL_ImportSubmitSetlistSong.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL_ImportSearchForUnknownSong.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL_ImportSearchForSong.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL_ImportCreateShowRecording.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL_ImportCreateShow.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL_GetUnknownSongList.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL_GetShowSongs.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL_GetShowRecordings.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL_GetComparedShowList.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL_GetComparedShowInfo.sql" />
+    <Build Include="dbo\Stored Procedures\spFFL_DeleteAllFFLData.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_UpdateSong.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_SaveSongLyrics.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_ImportSubmitSetlistSong.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_ImportSearchForSong.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_ImportCreateShow.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetYearList.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetTrackList.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetSongList.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetSongLineBreakInfo.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetSongInfo.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetSongIndexList.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetShowStatistics.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetShowSongs.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetShowSongList.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetShowList.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetShowInfo.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetMissingShowList.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetLatestShow.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetAverageSetlist.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetAlbumSongs.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetAlbumList.sql" />
+    <Build Include="dbo\Stored Procedures\spFF_GetAlbumInfo.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_UpdateStatus.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_SubmitPicks.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_SaveWeekTemplate.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_MoveToNextWeek.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetWeekTemplate.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetWeekStatus.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetWeekList.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetTeams.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetTeamHeadToHeadStats.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetSummary.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetStatisticsByWinsDetailed.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetStatisticsByWins.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetStatisticsByPicks.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetStatistics_By_Spread.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetSamsModel.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetPotentialWeeklyWinners.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetPlayerSummary.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetPlayerList.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetPicks.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetCurrentSettings.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetAccountingTransactionTypeList.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetAccountingTransactionList.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_GetAccountingSummary.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_DeleteWeekTemplate.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_DeleteAccountingTransaction.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_AddNewWeekTemplate.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_AddNewPlayer.sql" />
+    <Build Include="dbo\Stored Procedures\spFB3_AddAccountingTransaction.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_WeekIsComplete.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_UpdateStatus.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_SubmitPicks.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_SaveWeekTemplate.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_MoveToNextWeek.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_IsAdminUser.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetWeekTemplate.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetWeekPlayerList.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetWeeklyStatisticsForPlayer.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetWeekList.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetTeams.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\spFB2_GetSummary.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetStatus.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetStatistics_Wins_Details_SUMMARY.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetStatistics_Wins_Details_Extra_ForMondays.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetStatistics_Wins_Details_Extra.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetStatistics_Wins_Details.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetStatistics_Wins.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetStatistics_Picks.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetStatistics.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetSettings.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetPotentialWeeklyWinners.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetPlayerName.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetPlayerListForPeopleWithNoPicks.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetPlayerList.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetPicks.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetCurrentYear.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetCurrentWeek.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetCurrentPlayerCode.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GetAccounting.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_GamesLeft.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_CanViewAdvancedStats.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_AddNewWeekTemplate.sql" />
+    <Build Include="dbo\Stored Procedures\spFB2_AddNewPlayer.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_ValidateNewUser.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_UpdateStatus.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_SubmitPicks.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_SaveWeekTemplate.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_NormalizeOdds.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_MoveToNextWeek.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_IsWeekComplete.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_IsAdminUser.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetWeekTemplate.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetWeeklyStatisticsForPlayer.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetWeeklyStatistics.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetWeekList.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetWeekCount.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetTeams.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetTeamHelmetList.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\spFB_GetSummary.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetStatus.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetStatistics.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetPotentialWinners.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetPlayerListForPeopleWithNoPicks.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetPlayerList.sql">
+      <AnsiNulls>Off</AnsiNulls>
+    </Build>
+    <Build Include="dbo\Stored Procedures\spFB_GetPicks.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetOddsSummary.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetOddsMinMax.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetEmployeeName.sql">
+      <AnsiNulls>Off</AnsiNulls>
+    </Build>
+    <Build Include="dbo\Stored Procedures\spFB_GetCurrentYear.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetCurrentWeek.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_GetCurrentPlayerCode.sql" />
+    <Build Include="dbo\Stored Procedures\spfb_GamesLeftCount.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_CanViewAdvancedStats.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_AddTeamOdds.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_AddNewWeekTemplate.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\spFB_AddNewUser.sql" />
+    <Build Include="dbo\Stored Procedures\spFB_AddMissingTeamOdds.sql" />
+    <Build Include="dbo\Stored Procedures\spError_LogError.sql" />
+    <Build Include="dbo\Stored Procedures\spError_GetTop5Errors.sql" />
+    <Build Include="dbo\Stored Procedures\spError_GetErrors.sql" />
+    <Build Include="dbo\Stored Procedures\SaveFootballPoolWeek.sql" />
+    <Build Include="dbo\Stored Procedures\GetFootballPoolWeek.sql" />
+    <Build Include="dbo\Stored Procedures\GetFootballPoolPlayerSummary.sql" />
+    <Build Include="Security\samdbuser.sql" />
+  </ItemGroup>
+</Project>

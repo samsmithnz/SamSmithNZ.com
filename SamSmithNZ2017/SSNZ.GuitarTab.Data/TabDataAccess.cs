@@ -12,7 +12,7 @@ namespace SSNZ.GuitarTab.Data
 {
     public class TabDataAccess : GenericDataAccess<Tab>
     {
-        public async Task<List<Tab>> GetDataAsync(int albumCode)
+        public async Task<List<Tab>> GetListAsync(int albumCode)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@AlbumCode", albumCode, DbType.Int32);

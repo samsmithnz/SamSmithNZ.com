@@ -12,7 +12,7 @@ namespace SSNZ.GuitarTab.Data
 {
     public class TuningDataAccess : GenericDataAccess<Tuning>
     {
-        public async Task<List<Tuning>> GetDataAsync()
+        public async Task<List<Tuning>> GetListAsync()
         {
             return await base.GetListAsync("Tab_GetTunings");
         }

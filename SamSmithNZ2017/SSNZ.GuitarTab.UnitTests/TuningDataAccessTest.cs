@@ -20,7 +20,7 @@ namespace SSNZ.GuitarTab.UnitTests
             TuningDataAccess da = new TuningDataAccess();
 
             //act
-            List<Tuning> results = await da.GetDataAsync();
+            List<Tuning> results = await da.GetListAsync();
 
             //assert
             Assert.IsTrue(results != null);
@@ -34,7 +34,7 @@ namespace SSNZ.GuitarTab.UnitTests
             TuningDataAccess da = new TuningDataAccess();
 
             //act
-            List<Tuning> results = await da.GetDataAsync();
+            List<Tuning> results = await da.GetListAsync();
 
             //assert
             Assert.IsTrue(results != null);

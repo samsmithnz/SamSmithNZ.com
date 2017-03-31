@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26228.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamSmithNZ2017.Web", "SamSmithNZ2017.Web\SamSmithNZ2017.Web.csproj", "{E8201CA0-A946-49CC-8EEE-EB42FF97712E}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.GuitarTab.Service", "SSNZ.GuitarTab.Service\SSNZ.GuitarTab.Service.csproj", "{7FFB9CAA-3974-457D-A9D4-50BC387F1D10}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.GuitarTab.UnitTests", "SSNZ.GuitarTab.UnitTests\SSNZ.GuitarTab.UnitTests.csproj", "{7B89F013-80F2-454B-A5FC-081C0901E6AB}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SamSmithNZ2017.DB", "SamSmithNZ2017.DB\SamSmithNZ2017.DB.sqlproj", "{9D1104AA-CF15-457B-BF19-41CE5445F3BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,12 @@ Global
 		{7B89F013-80F2-454B-A5FC-081C0901E6AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B89F013-80F2-454B-A5FC-081C0901E6AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B89F013-80F2-454B-A5FC-081C0901E6AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D1104AA-CF15-457B-BF19-41CE5445F3BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D1104AA-CF15-457B-BF19-41CE5445F3BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D1104AA-CF15-457B-BF19-41CE5445F3BE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9D1104AA-CF15-457B-BF19-41CE5445F3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D1104AA-CF15-457B-BF19-41CE5445F3BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D1104AA-CF15-457B-BF19-41CE5445F3BE}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

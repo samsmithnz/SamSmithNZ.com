@@ -21,7 +21,7 @@ namespace SSNZ.GuitarTab.UnitTests
             AlbumDataAccess da = new AlbumDataAccess();
 
             //act
-            List<Album> results = await da.GetDataAsync(true);
+            List<Album> results = await da.GetListAsync(true);
 
             //assert
             Assert.IsTrue(results != null);
