@@ -3,6 +3,6 @@
 AS
 
 SELECT *
-FROM itplaylist p 
+FROM itPlaylist p 
 WHERE (p.playlist_code = @playlist_code or @playlist_code is null)
 ORDER BY playlist_date desc

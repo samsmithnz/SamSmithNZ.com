@@ -7,7 +7,7 @@ SELECT 0
 --	isnull(max(it.playlist_code),0) as playlist_code,
 --	TrackKey, ta.artistname,TrackName, ta.path, TrackPath, TrackOrder, tt.AlbumKey, tt.rating, pt.track_order
 --FROM TabTrack tt
---LEFT OUTER JOIN ittrack it ON tt.TrackName = it.track_name COLLATE database_default
+--LEFT OUTER JOIN itTrack it ON tt.TrackName = it.track_name COLLATE database_default
 --LEFT OUTER JOIN TabAlbum ta ON tt.albumkey = ta.albumkey
 --INNER JOIN itPLTrack t ON tt.TrackName = t.track_name COLLATE database_default
 --INNER JOIN itPLPlaylistTrack pt ON t.track_code = pt.track_code 
@@ -22,7 +22,7 @@ SELECT 0
 --	isnull(max(it.playlist_code),0) as playlist_code,
 --	TrackKey, ta.artistname, TrackName, '' as path, '' as TrackPath, TrackOrder, tt.AlbumKey, tt.rating, pt.track_order
 --FROM TabTrack tt
---LEFT OUTER JOIN ittrack it ON tt.TrackName = it.track_name COLLATE database_default
+--LEFT OUTER JOIN itTrack it ON tt.TrackName = it.track_name COLLATE database_default
 --LEFT OUTER JOIN TabAlbum ta ON tt.albumkey = ta.albumkey
 --INNER JOIN itPLTrack t ON tt.TrackName = t.track_name COLLATE database_default
 --INNER JOIN itPLPlaylistTrack pt ON t.track_code = pt.track_code 

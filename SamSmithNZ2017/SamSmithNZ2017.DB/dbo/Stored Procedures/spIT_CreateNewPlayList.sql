@@ -3,8 +3,8 @@
 AS
 DECLARE @new_code smallint
 SELECT @new_code = max(playlist_code) + 1
-FROM itplaylist
+FROM itPlaylist
 SELECT @new_code = isnull(@new_code,1)
-INSERT INTO itplaylist
+INSERT INTO itPlaylist
 SELECT @new_code, @playlist_date
 SELECT @new_code

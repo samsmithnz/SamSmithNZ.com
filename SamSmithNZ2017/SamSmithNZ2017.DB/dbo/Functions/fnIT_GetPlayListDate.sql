@@ -5,7 +5,7 @@ BEGIN
 DECLARE @playlist_date datetime
 
 SELECT @playlist_date = playlist_date
-FROM itplaylist it
+FROM itPlaylist it
 WHERE it.playlist_code = @playlist_code
 
 RETURN @playlist_date

@@ -2,5 +2,5 @@
 	@playlist_code int
 AS
 SELECT isnull(min(playlist_code),-1)
-FROM itplaylist
+FROM itPlaylist
 WHERE playlist_code > @playlist_code

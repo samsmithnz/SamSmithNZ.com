@@ -7,7 +7,7 @@ IF (@show_just_summary = 1)
 BEGIN
 	SELECT *
 	FROM itTrack t
-	INNER JOIN itplaylist p ON t.playlist_code = p.playlist_code
+	INNER JOIN itPlaylist p ON t.playlist_code = p.playlist_code
 	WHERE p.playlist_code = @playlist_code and ranking <= 100 and rating = 100
 	ORDER BY ranking, track_name
 END
@@ -15,7 +15,7 @@ ELSE
 BEGIN	
 	SELECT *
 	FROM itTrack t
-	INNER JOIN itplaylist p ON t.playlist_code = p.playlist_code
+	INNER JOIN itPlaylist p ON t.playlist_code = p.playlist_code
 	WHERE p.playlist_code = @playlist_code
 	ORDER BY ranking, track_name
 END
