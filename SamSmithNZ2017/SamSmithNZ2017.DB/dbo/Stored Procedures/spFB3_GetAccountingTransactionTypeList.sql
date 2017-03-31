@@ -1,0 +1,5 @@
+﻿CREATE PROCEDURE dbo.spFB3_GetAccountingTransactionTypeList
+AS
+SELECT *
+FROM FBAccountingTransactionType att
+ORDER BY accounting_transaction_type_name

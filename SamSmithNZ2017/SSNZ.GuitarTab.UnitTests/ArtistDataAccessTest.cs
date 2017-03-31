@@ -21,7 +21,7 @@ namespace SSNZ.GuitarTab.UnitTests
             int? includeAllItems = null;
 
             //act
-            List<Artist> results = await da.GetDataAsync(includeAllItems);
+            List<Artist> results = await da.GetListAsync(includeAllItems);
 
             //assert
             Assert.IsTrue(results != null);
@@ -36,7 +36,7 @@ namespace SSNZ.GuitarTab.UnitTests
             int? includeAllItems = null;
 
             //act
-            List<Artist> results = await da.GetDataAsync(includeAllItems);
+            List<Artist> results = await da.GetListAsync(includeAllItems);
 
             //assert
             Assert.IsTrue(results != null);
@@ -53,7 +53,7 @@ namespace SSNZ.GuitarTab.UnitTests
             int? includeAllItems = 1;
 
             //act
-            List<Artist> results = await da.GetDataAsync(includeAllItems);
+            List<Artist> results = await da.GetListAsync(includeAllItems);
 
             //assert
             Assert.IsTrue(results != null);
@@ -68,7 +68,7 @@ namespace SSNZ.GuitarTab.UnitTests
             int? includeAllItems = 1;
 
             //act
-            List<Artist> results = await da.GetDataAsync(includeAllItems);
+            List<Artist> results = await da.GetListAsync(includeAllItems);
 
             //assert
             Assert.IsTrue(results != null);

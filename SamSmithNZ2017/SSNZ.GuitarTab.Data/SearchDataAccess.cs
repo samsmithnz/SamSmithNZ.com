@@ -12,7 +12,7 @@ namespace SSNZ.GuitarTab.Data
 {
     public class SearchDataAccess : GenericDataAccess<Search>
     {
-        public async Task<List<Search>> GetDataAsync(Guid recordid)
+        public async Task<List<Search>> GetListAsync(Guid recordid)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@RecordId", recordid, DbType.Guid);

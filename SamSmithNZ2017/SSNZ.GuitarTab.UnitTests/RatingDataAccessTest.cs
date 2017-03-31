@@ -20,7 +20,7 @@ namespace SSNZ.GuitarTab.UnitTests
             RatingDataAccess da = new RatingDataAccess();
 
             //act
-            List<Rating> results = await da.GetDataAsync();
+            List<Rating> results = await da.GetListAsync();
 
             //assert
             Assert.IsTrue(results != null);
@@ -35,7 +35,7 @@ namespace SSNZ.GuitarTab.UnitTests
             RatingDataAccess da = new RatingDataAccess();
 
             //act
-            List<Rating> results = await da.GetDataAsync();
+            List<Rating> results = await da.GetListAsync();
             
             //assert
             Assert.IsTrue(results != null);

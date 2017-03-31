@@ -23,7 +23,7 @@ namespace SSNZ.GuitarTab.UnitTests
             short albumCode = 14;
 
             //act
-            List<Tab> results = await da.GetDataAsync(albumCode); 
+            List<Tab> results = await da.GetListAsync(albumCode); 
 
             //assert
             Assert.IsTrue(results != null);
@@ -74,7 +74,7 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(result);
 
             //act part 2: get the tracks for the album
-            List<Tab> results = await da.GetDataAsync(albumCode);
+            List<Tab> results = await da.GetListAsync(albumCode);
 
             //assert part 2: check that the track is correct
             Assert.IsTrue(results != null);
@@ -92,7 +92,7 @@ namespace SSNZ.GuitarTab.UnitTests
             }
 
             //act part 4: get the tracks for the album
-            results = await da.GetDataAsync(albumCode);
+            results = await da.GetListAsync(albumCode);
 
             //assert part 4: check that the tracks have all been deleted
             Assert.IsTrue(results != null);

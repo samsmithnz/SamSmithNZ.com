@@ -12,7 +12,7 @@ namespace SSNZ.GuitarTab.Data
 {
     public class ArtistDataAccess : GenericDataAccess<Artist>
     {
-        public async Task<List<Artist>> GetDataAsync(int? includeAllItems)
+        public async Task<List<Artist>> GetListAsync(int? includeAllItems)
         {
             DynamicParameters parameters = new DynamicParameters();
             if (includeAllItems != null)
