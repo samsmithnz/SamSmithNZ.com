@@ -120,6 +120,7 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.FriendTotalAchieved >= 68);
             bool foundAPI1 = false;
             bool foundAPI2 = false;
+            bool foundAPI3 = false;
             foreach (Achievement item in result.Achievements)
             {
                 if (item.ApiName == "ACHIEVEMENT_28")
@@ -146,13 +147,18 @@ namespace SSNZ.Steam.UnitTests
                     Assert.IsTrue(item.GlobalPercent >= 0);
                     Assert.IsTrue(item.FriendAchieved == false);
                 }
-                if (foundAPI2 == true && foundAPI1 == true)
+                else if (item.IsVisible == false)
+                {
+                    foundAPI3 = true;
+                }
+                if (foundAPI2 == true && foundAPI1 == true && foundAPI3 == true)
                 {
                     break;
                 }
             }
             Assert.IsTrue(foundAPI1 == true);
             Assert.IsTrue(foundAPI2 == true);
+            Assert.IsTrue(foundAPI3 == false);
         }
 
         [TestMethod]
