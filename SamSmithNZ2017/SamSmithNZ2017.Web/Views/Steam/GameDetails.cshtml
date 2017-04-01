@@ -80,7 +80,13 @@
                     <img ng-show="item.IsVisible == true && item.Achieved" ng-src="{{item.IconURL}}" />
                     <img ng-show="item.IsVisible == true && !item.Achieved" ng-src="{{item.IconGrayURL}}" />
                 </td>
-                <td class="cellborders">{{item.GlobalPercent | number : 2}}%</td>
+                <td class="cellborders">
+                    @*<span style="color:red;">{{item.GlobalPercent | number : 2}}%</span>*@
+                    <span ng-if="item.GlobalPercent.toFixed(1) > 0">{{item.GlobalPercent | number : 2}}%</span>
+                    <span ng-if="item.GlobalPercent.toFixed(1) == 0 && item.GlobalPercent.toFixed(2) > 0">{{item.GlobalPercent | number : 3}}%</span>
+                    <span ng-if="item.GlobalPercent.toFixed(2) == 0 && item.GlobalPercent.toFixed(3) > 0">{{item.GlobalPercent | number : 4}}%</span>
+                    <span ng-if="item.GlobalPercent.toFixed(3) == 0 && item.GlobalPercent.toFixed(4) > 0">{{item.GlobalPercent | number : 5}}%</span>
+                </td>
                 <td class="cellborders">{{item.Name}}: {{item.Description}}</td>
                 <td class="cellborders" ng-hide="selectedFriend">{{item.ApiName}}</td>
                 <td class="cellborders" ng-show="selectedFriend">

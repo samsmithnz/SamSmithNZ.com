@@ -12,6 +12,7 @@
         $scope.appFriends = null;
         $scope.error = null;
         $scope.onlyShowFriendChanges = null;
+        $scope.Math = window.Math; //inject Math into my scope
 
         var onError = function (data) {
             //errorHandlerService.errorHandler(data);
