@@ -12,7 +12,7 @@ namespace SSNZ.GuitarTab.Service.Controllers
 {
     public class ArtistController : ApiController
     {
-        public async Task<List<Artist>> GetArtists(int includeAllItems) //TODO: Make this a bit
+        public async Task<List<Artist>> GetArtists(bool includeAllItems) 
         {
             ArtistDataAccess da = new ArtistDataAccess();
             return await da.GetListAsync(includeAllItems);

@@ -1,0 +1,150 @@
+﻿@model SamSmithNZ2015.Models.GuitarTab.AlbumTabsViewModel
+@{
+    if (Model.Album.AlbumCode == 0)
+    {
+        ViewBag.Title = "Add New Album";
+    }
+    else
+    {
+        ViewBag.Title = "Edit Album \"" + @Model.Album.AlbumName + "\"";
+    }
+    Layout = "~/Views/Shared/_LayoutGuitarTab.cshtml";
+    bool isGuitarAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2015.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
+
+    string year = "";
+    if (@Model.Album.AlbumYear == 0)
+    {
+        year = "";
+    }
+    else
+    {
+        year = @Model.Album.AlbumYear.ToString();
+    }
+
+}
+
+<script>
+    $("document").ready(function () {
+        $("#frmSaveAlbum").validate({
+            rules: {
+                'txtArtist': {
+                    required: true,
+                    maxlength: 100
+                },
+                'txtAlbumName': {
+                    required: true,
+                    maxlength: 100
+                },
+                'txtYear': {
+                    range: [1950, @DateTime.Now.Year.ToString()]
+                }
+            },
+            messages: {
+                'txtArtist': {
+                    required: 'Artist Name required',
+                    maxlength: 'Must be under 100 characters'
+                },
+                'txtAlbumName': {
+                    required: 'Album Name required',
+                    maxlength: 'Must be under 100 characters'
+                },
+                'txtYear': {
+                    range: 'Must enter a year between 1950 and @DateTime.Now.Year.ToString() (or leave blank)'
+                }
+            }
+        });
+    });
+</script>
+<style type="text/css">
+    label.error {
+        color: red;
+    }
+</style>
+
+@using (Html.BeginForm("SaveAlbum", "GuitarTab", new { albumCode = @Model.Album.AlbumCode }, FormMethod.Post, new { @id = "frmSaveAlbum" }))
+{
+    <table>
+        <tr>
+            <td>Artist: </td>
+            <td>@Html.TextBox("txtArtist", @Model.Album.ArtistName)</td>
+        </tr>
+        <tr>
+            <td>Album Name: </td>
+            <td>@Html.TextBox("txtAlbumName", @Model.Album.AlbumName)</td>
+        </tr>
+        <tr>
+            <td>Year: </td>
+            <td>@Html.TextBox("txtYear", @year)</td>
+        </tr>
+        <tr>
+            <td>Is Bass Tab: </td>
+            <td>@Html.CheckBox("chkIsBassTab", @Model.Album.IsBassTab)</td>
+        </tr>
+        <tr>
+            <td>Include on Main Index: </td>
+            <td>@Html.CheckBox("chkIncludeInIndex", @Model.Album.IncludeInIndex)</td>
+        </tr>
+        <tr>
+            <td>Include on Website: </td>
+            <td>@Html.CheckBox("chkIncludeOnWebsite", @Model.Album.IncludeOnWebsite)</td>
+        </tr>
+        <tr>
+            <td>Is a Collection Album: </td>
+            <td>@Html.CheckBox("chkIsMiscCollectionAlbum", @Model.Album.IsMiscCollectionAlbum)</td>
+        </tr>
+        @if (@Model.Album.AlbumCode == 0) //If it's a new album
+        {
+            <tr>
+                <td>Track list: </td>
+                <td>@Html.TextArea("txtTrackList", new { cols = "40", rows = "15" })</td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td style="vertical-align: top;">Track list: </td>
+                <td>
+                    <table class="tableofcontents" padding="0" cellspacing="0">
+                        <tr>
+                            <td style="width: 100%;">
+                                <ul style="text-align: left; padding: 0px;">
+                                    @foreach (SamSmithNZ2015.Core.GuitarTab.Tab item in Model.Tabs)
+                                    {
+                                        <li class="tableofcontentsitem">
+                                            @item.TrackOrder.ToString()<span>.</span>
+                                        @if (item.TrackText.Length == 0)
+                                        {
+                                            <span>@item.TrackName</span>
+                                        }
+                                        else
+                                        {
+                                            <a href="#@item.TrackName.Replace(" ", "")">@item.TrackName</a><img src="@Url.Content("~/Content/images/GuitarTab/rating_star0" + @item.Rating.ToString() + ".gif")" style="border-width:0;">
+                                        }
+                                        @if (isGuitarAdmin == true)
+                                        {
+                                            <a href="@Url.Action("AddEditTrack", "GuitarTab", new { trackCode = @item.TrackCode })" style="text-decoration:none;">
+                                                <img src="@Url.Content("~/Content/images/guitartab/pencil.gif")" alt="" style="height: 12px;border-width:0;" />
+                                            </a>
+                                            <span>&nbsp; &nbsp; &nbsp;</span>
+                                            <a href="@Url.Action("DeleteTrack", "GuitarTab", new { albumCode = @Model.Album.AlbumCode, trackCode = @item.TrackCode })" style="text-decoration:none;">
+                                                <img src="@Url.Content("~/Content/images/guitartab/delete.png")" alt="" style="height: 12px;border-width:0;" />
+                                            </a>
+                                        }
+                                    </li>
+                                    }
+                                    <li class="tableofcontentsitem">@Html.ActionLink("Add Track", "AddNewTrack", new { albumCode = @Model.Album.AlbumCode })</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <input id="SaveAlbum" type="submit" value="Save Changes" /><br />
+}

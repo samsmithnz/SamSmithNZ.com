@@ -15,7 +15,8 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Index()
         {
-            return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            return View();
+            //return Redirect("http://samsmithnz.com/GuitarTab/Index");
 
             //ViewBag.Message = "Welcome to my Guitar Tab application";
 

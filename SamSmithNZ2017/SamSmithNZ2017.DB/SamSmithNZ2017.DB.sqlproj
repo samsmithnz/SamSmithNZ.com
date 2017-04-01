@@ -187,7 +187,6 @@
     <Build Include="dbo\Functions\fnit_GetTabForTrack.sql" />
     <Build Include="dbo\Functions\fnIT_GetRanking.sql" />
     <Build Include="dbo\Functions\fnIT_GetPlayListDate.sql" />
-    <Build Include="dbo\Functions\fnFB_GetTeamRecord.sql" />
     <Build Include="dbo\Stored Procedures\Tab_SaveTrack.sql" />
     <Build Include="dbo\Stored Procedures\Tab_SaveSearchParameters.sql" />
     <Build Include="dbo\Stored Procedures\Tab_SaveAlbum.sql" />

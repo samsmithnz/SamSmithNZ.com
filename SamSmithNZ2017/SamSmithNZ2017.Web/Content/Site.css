@@ -174,3 +174,33 @@ a:hover
     background-position: 0 .4em;
     padding-left: .9em;
 }
+
+/* Guitar Tab Specific
+-----------------------------------------------------------*/
+.ArtistSideBar {
+    font-size: 9pt;
+}
+
+.pageTitle {
+    border-bottom-color: #aaa;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    font-size: 200%;
+    padding-top: 0.5em;
+    padding-bottom: 0.17em;
+    margin-bottom: 0.6em;
+}
+
+.sectionTitle {
+    border-bottom-color: #aaa;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    font-size: 150%;
+    padding-top: 0.5em;
+    padding-bottom: 0.17em;
+    margin-bottom: 0.6em;
+}
+
+Pre {
+    font-size: 9pt;
+}
