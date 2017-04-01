@@ -42,7 +42,8 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult AlbumTabList(short albumcode, bool isAdmin)
         {
-            return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            return View();
+            //return Redirect("http://samsmithnz.com/GuitarTab/Index");
 
             //ViewBag.Message = "Welcome to albumcode: " + albumcode.ToString();
 
@@ -58,7 +59,8 @@ namespace SamSmithNZ2017.Controllers
         //[HttpPost]
         public ActionResult SearchResults(string searchText)
         {
-            return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            return View();
+            //return Redirect("http://samsmithnz.com/GuitarTab/Index");
 
             //ViewBag.Message = "Searching: " + searchText;
 
@@ -71,21 +73,7 @@ namespace SamSmithNZ2017.Controllers
             //return View(list);
         }
 
-
-        //This creates the Artist side bar on the left hand side
-        [ChildActionOnly]
-        public ActionResult ArtistSideBar()
-        {
-            return Redirect("http://samsmithnz.com/GuitarTab/Index");
-
-            //SamSmithNZ2015.Core.GuitarTab.DataAccess.ArtistDataAccess t = new SamSmithNZ2015.Core.GuitarTab.DataAccess.ArtistDataAccess();
-            //IList<Artist> Artistlist = t.GetItems(1);
-
-            //// Return partial view
-            //return PartialView(Artistlist);
-        }
-
-        [Authorize(Roles = "WebAdmin")]
+                [Authorize(Roles = "WebAdmin")]
         public ActionResult AddEditAlbum(int albumcode)
         {
             return Redirect("http://samsmithnz.com/GuitarTab/Index");

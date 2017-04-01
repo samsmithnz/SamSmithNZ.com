@@ -8,6 +8,7 @@ namespace SSNZ.GuitarTab.Models
         public int AlbumCode { get; set; }
         public string ArtistName { get; set; }
         public string ArtistNameTrimed { get; set; }
+        public bool IsLeadArtist { get; set; }
         public string AlbumName { get; set; }
         public int AlbumYear { get; set; }
         public bool IsBassTab { get; set; }

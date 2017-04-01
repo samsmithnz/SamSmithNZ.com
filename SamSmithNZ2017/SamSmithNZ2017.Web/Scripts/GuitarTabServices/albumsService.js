@@ -12,7 +12,7 @@
         //var baseUrl = 'http://localhost:12730/';
         var baseUrl = 'http://ssnzguitartabservice.azurewebsites.net/';
 
-        this.getAlbums = function (includeAllItems) {
+        this.getAlbums = function (isAdmin) {
             var url = baseUrl + 'api/Album/GetAlbums?isAdmin=' + isAdmin;
             console.log(url);
             return $http.get(url);
