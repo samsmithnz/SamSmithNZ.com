@@ -3,5 +3,5 @@
 AS
 
 SELECT count(*) as track_count
-FROM ittrack
+FROM itTrack
 WHERE playlist_code = @playlist_code

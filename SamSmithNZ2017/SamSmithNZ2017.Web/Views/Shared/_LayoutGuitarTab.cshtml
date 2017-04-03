@@ -1,0 +1,83 @@
+﻿@*@{
+        bool isGuitarTabAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2015.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
+    }*@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Guitar Tab Library</title>
+    <link rel="shortcut icon" sizes="32x32" href="~/Content/GuitarTab/favicon.ico">
+    @Styles.Render("~/Content/globalCSS")
+    @Scripts.Render("~/bundles/globalJS")
+    @Scripts.Render("~/bundles/guitarTabServicesJS")
+    @Scripts.Render("~/bundles/guitarTabcontrollersJS")
+    <script type="text/javascript">  var appInsights = window.appInsights || function (config) { function r(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, u = document, e = window, o = "script", s = u.createElement(o), i, f; for (s.src = config.url || "//az416426.vo.msecnd.net/scripts/a/ai.0.js", u.getElementsByTagName(o)[0].parentNode.appendChild(s), t.cookie = u.cookie, t.queue = [], i = ["Event", "Exception", "Metric", "PageView", "Trace"]; i.length;)r("track" + i.pop()); return r("setAuthenticatedUserContext"), r("clearAuthenticatedUserContext"), config.disableExceptionTracking || (i = "onerror", r("_" + i), f = e[i], e[i] = function (config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t["_" + i](config, r, u, e, o), s }), t }({ instrumentationKey: "a8c026ad-b65e-40f3-9a1d-afef9d573dc3" }); window.appInsights = appInsights; appInsights.trackPageView();</script>
+</head>
+<body ng-app="GuitarTabApp">
+    <div class="headerandlogo">
+        <table class="PercentWidth100">
+            <tr>
+                <td class="PercentWidth50">
+                    <a href="@Url.Action("Index", "GuitarTab")" class="headerText">
+                        <img src="@Url.Content("~/Content/GuitarTab/GuitarHeader.png")" alt="" class="headerImg" />
+                        <span class="headerText">Guitar Tab Library</span>
+                    </a>
+                </td>
+                <td style="width: 200px;">
+                    <div class="HeaderStatus" style="height: 28px;">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </td>
+                <td class="PercentWidth100 AlignedRight">
+                    <span class="AlignedRight">
+                        @using (Html.BeginForm("SearchResults", "GuitarTab", FormMethod.Get))
+                        {
+                            <span>Search for guitar tab:</span>
+                            @Html.TextBox("searchText", "", new { @maxlength = 100 })
+                            <input type="submit" value="Search!" />
+                        }
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="contentFrame" ng-controller="layoutController">
+        <table class="PercentWidth100">
+            <tr class="toptr">
+                <td class="sideBar">
+                    <br />
+                    @*@if (isGuitarTabAdmin == true)
+    {
+        @Html.ActionLink("Add New Album", "EditAlbum", new { albumcode = 0 })<br />
+        <br />
+    }*@
+                    <b>Jump to Artist:</b><br />
+                    <div class="ArtistSideBar">
+                        <img ng-hide="artists" id="spinner1" src="~/Content/Images/spinner_small.gif" />
+                        <ul class="bulletedList" style="margin-bottom: 0px;" ng-repeat="item in artists">
+                            <li><a href="~/GuitarTab/Index#{{item.ArtistNameTrimed}}">{{item.ArtistName}}</a></li>
+                        </ul>
+                    </div>
+
+                </td>
+                <td class="contentMain">
+                    <div class="BreadCrumbs">
+                        @Html.ActionLink("Home", "Index", null, null) > Album List
+                    </div>
+                    <h2>@ViewBag.Title</h2>
+                    @RenderBody()
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="footer">
+        <div class="tableofcontents" style="width: 100%; text-align: center;">
+            Copyright &copy;2000 - @DateTime.Now.Year SamSmithNZ.com
+        </div>
+    </div>
+
+</body>
+</html>

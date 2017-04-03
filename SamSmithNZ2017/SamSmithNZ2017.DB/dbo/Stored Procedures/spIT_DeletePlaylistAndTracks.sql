@@ -1,8 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[spIT_DeletePlaylistAndTracks]
 	@playlist_code int
 AS
-DELETE ittrack
+DELETE itTrack
 WHERE playlist_code = @playlist_code
 
-DELETE itplaylist
+DELETE itPlaylist
 WHERE playlist_code = @playlist_code

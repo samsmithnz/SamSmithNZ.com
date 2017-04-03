@@ -1,5 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[Tab_DeleteTrack]
-	@TrackCode INT
+﻿CREATE PROCEDURE [dbo].[Tab_DeleteTab]
+	@TabCode INT
 AS
 DELETE FROM tab_track
-WHERE track_code = @TrackCode
+WHERE track_code = @TabCode

@@ -18,12 +18,20 @@ namespace SamSmithNZ2017
                         "~/Scripts/app.js"
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/servicesJS").IncludeDirectory(
-                        "~/Scripts/Services/", "*.js", searchSubdirectories: true
+            bundles.Add(new ScriptBundle("~/bundles/steamServicesJS").IncludeDirectory(
+                        "~/Scripts/SteamServices/", "*.js", searchSubdirectories: true
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/controllersJS").IncludeDirectory(
-                        "~/Scripts/Controllers/", "*.js", searchSubdirectories: true
+            bundles.Add(new ScriptBundle("~/bundles/steamcontrollersJS").IncludeDirectory(
+                        "~/Scripts/SteamControllers/", "*.js", searchSubdirectories: true
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/guitarTabServicesJS").IncludeDirectory(
+                        "~/Scripts/GuitarTabServices/", "*.js", searchSubdirectories: true
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/guitarTabcontrollersJS").IncludeDirectory(
+                        "~/Scripts/GuitarTabControllers/", "*.js", searchSubdirectories: true
                 ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

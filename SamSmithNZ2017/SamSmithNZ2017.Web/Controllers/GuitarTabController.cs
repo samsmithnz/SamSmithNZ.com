@@ -15,7 +15,8 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Index()
         {
-            return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            return View();
+            //return Redirect("http://samsmithnz.com/GuitarTab/Index");
 
             //ViewBag.Message = "Welcome to my Guitar Tab application";
 
@@ -39,9 +40,10 @@ namespace SamSmithNZ2017.Controllers
             //return View(new ArtistAlbumViewModel(Artistlist, Albumlist));
         }
 
-        public ActionResult AlbumTabList(short albumcode, bool isAdmin)
+        public ActionResult Album(int albumcode, bool isAdmin)
         {
-            return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            return View();
+            //return Redirect("http://samsmithnz.com/GuitarTab/Index");
 
             //ViewBag.Message = "Welcome to albumcode: " + albumcode.ToString();
 
@@ -57,7 +59,8 @@ namespace SamSmithNZ2017.Controllers
         //[HttpPost]
         public ActionResult SearchResults(string searchText)
         {
-            return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            return View();
+            //return Redirect("http://samsmithnz.com/GuitarTab/Index");
 
             //ViewBag.Message = "Searching: " + searchText;
 
@@ -70,24 +73,11 @@ namespace SamSmithNZ2017.Controllers
             //return View(list);
         }
 
-
-        //This creates the Artist side bar on the left hand side
-        [ChildActionOnly]
-        public ActionResult ArtistSideBar()
+                [Authorize(Roles = "WebAdmin")]
+        public ActionResult EditAlbum(int albumcode)
         {
-            return Redirect("http://samsmithnz.com/GuitarTab/Index");
-
-            //SamSmithNZ2015.Core.GuitarTab.DataAccess.ArtistDataAccess t = new SamSmithNZ2015.Core.GuitarTab.DataAccess.ArtistDataAccess();
-            //IList<Artist> Artistlist = t.GetItems(1);
-
-            //// Return partial view
-            //return PartialView(Artistlist);
-        }
-
-        [Authorize(Roles = "WebAdmin")]
-        public ActionResult AddEditAlbum(int albumcode)
-        {
-            return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            return View();
+            //return Redirect("http://samsmithnz.com/GuitarTab/Index");
 
             //bool isAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2015.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
 
@@ -103,14 +93,14 @@ namespace SamSmithNZ2017.Controllers
             //}
 
             //SamSmithNZ2015.Core.GuitarTab.DataAccess.TabDataAccess da2 = new Core.GuitarTab.DataAccess.TabDataAccess();
-            //List<Tab> tabs = da2.GetItems((short)albumcode);
+            //List<Tab> tabs = da2.GetItems((int)albumcode);
 
             //return View(new AlbumTabsViewModel(album, tabs));
         }
 
 
         [Authorize(Roles = "WebAdmin")]
-        public ActionResult AddEditTrack(short trackCode)
+        public ActionResult EditTrack(int trackCode)
         {
             return Redirect("http://samsmithnz.com/GuitarTab/Index");
 
@@ -133,14 +123,14 @@ namespace SamSmithNZ2017.Controllers
 
         [Authorize(Roles = "WebAdmin")]
         [HttpPost]
-        public ActionResult SaveAlbum(short albumCode, string txtArtist, string txtAlbumName, string txtYear,
+        public ActionResult SaveAlbum(int albumCode, string txtArtist, string txtAlbumName, string txtYear,
             bool chkIsBassTab, bool chkIncludeInIndex, bool chkIncludeOnWebsite, bool chkIsMiscCollectionAlbum, string txtTrackList)
         {
             return Redirect("http://samsmithnz.com/GuitarTab/Index");
 
             ////parse and convert the numbers
-            //short year = 0;
-            //if (string.IsNullOrEmpty(txtYear) == true || short.TryParse(txtYear.ToString(), out year) == false)
+            //int year = 0;
+            //if (string.IsNullOrEmpty(txtYear) == true || int.TryParse(txtYear.ToString(), out year) == false)
             //{
             //    year = 0;
             //}
@@ -168,11 +158,11 @@ namespace SamSmithNZ2017.Controllers
 
             ////Save all of the tracks on the album
             //SamSmithNZ2015.Core.GuitarTab.DataAccess.TabDataAccess da2 = new SamSmithNZ2015.Core.GuitarTab.DataAccess.TabDataAccess();
-            //short i = 1;
+            //int i = 1;
             //foreach (string item in tracks)
             //{
             //    Tab t = new Tab();
-            //    t.AlbumCode = (short)a.AlbumCode;
+            //    t.AlbumCode = (int)a.AlbumCode;
             //    t.Rating = 0;
             //    t.TuningCode = 0;
             //    t.TrackName = item;
@@ -186,7 +176,7 @@ namespace SamSmithNZ2017.Controllers
             //return RedirectToAction("Index", "GuitarTab");
         }
 
-        public ActionResult AddNewTrack(short albumCode)
+        public ActionResult AddNewTrack(int albumCode)
         {
             return Redirect("http://samsmithnz.com/GuitarTab/Index");
 
@@ -206,7 +196,7 @@ namespace SamSmithNZ2017.Controllers
             //t.AlbumCode = albumCode;
             //t.TrackCode = 0;
             //t.TrackName = "New Track";
-            //t.TrackOrder = (short)(lastOrder + 1);
+            //t.TrackOrder = (int)(lastOrder + 1);
             //t.TrackText = "";
             //t.TuningCode = 0;
             //t.Rating = 0;
@@ -215,10 +205,10 @@ namespace SamSmithNZ2017.Controllers
             //SamSmithNZ2015.Core.GuitarTab.DataAccess.TabDataAccess da = new SamSmithNZ2015.Core.GuitarTab.DataAccess.TabDataAccess();
             //da.Save(t);
 
-            //return RedirectToAction("AddEditAlbum", "GuitarTab", new { @albumCode = albumCode });
+            //return RedirectToAction("EditAlbum", "GuitarTab", new { @albumCode = albumCode });
         }
 
-        public ActionResult DeleteTrack(short albumCode, short trackCode)
+        public ActionResult DeleteTrack(int albumCode, int trackCode)
         {
             return Redirect("http://samsmithnz.com/GuitarTab/Index");
 
@@ -229,35 +219,35 @@ namespace SamSmithNZ2017.Controllers
             //int newOrder = 1;
             //foreach (Tab item in tabList)
             //{
-            //    item.TrackOrder = (short)newOrder;
+            //    item.TrackOrder = (int)newOrder;
             //    r.Save(item);
             //    newOrder++;
             //}
 
-            //return RedirectToAction("AddEditAlbum", "GuitarTab", new { @albumCode = albumCode });
+            //return RedirectToAction("EditAlbum", "GuitarTab", new { @albumCode = albumCode });
         }
 
 
 
         [Authorize(Roles = "WebAdmin")]
         [HttpPost]
-        public ActionResult SaveTrack(short albumCode, short trackCode, string txtTrackName, short txtOrder, string txtTrackText, string cboTuning, string cboRating)
+        public ActionResult SaveTrack(int albumCode, int trackCode, string txtTrackName, int txtOrder, string txtTrackText, string cboTuning, string cboRating)
         {
             return Redirect("http://samsmithnz.com/GuitarTab/Index");
 
             ////Parse and convert the numbers
-            //short order = 0;
-            //if (short.TryParse(txtOrder.ToString(), out order) == false)
+            //int order = 0;
+            //if (int.TryParse(txtOrder.ToString(), out order) == false)
             //{
             //    order = 0;
             //}
-            //short tuning = 0;
-            //if (cboTuning == null || short.TryParse(cboTuning.ToString(), out tuning) == false)
+            //int tuning = 0;
+            //if (cboTuning == null || int.TryParse(cboTuning.ToString(), out tuning) == false)
             //{
             //    tuning = 0;
             //}
-            //short rating = 0;
-            //if (cboRating == null || short.TryParse(cboRating.ToString(), out rating) == false)
+            //int rating = 0;
+            //if (cboRating == null || int.TryParse(cboRating.ToString(), out rating) == false)
             //{
             //    rating = 0;
             //}
@@ -277,7 +267,7 @@ namespace SamSmithNZ2017.Controllers
             //da.Save(t);
 
             ////redirect back to the album we just edited
-            //return RedirectToAction("AlbumTabList", "GuitarTab", new { albumCode = t.AlbumCode, isAdmin = true });
+            //return RedirectToAction("Album", "GuitarTab", new { albumCode = t.AlbumCode, isAdmin = true });
         }
     }
 }

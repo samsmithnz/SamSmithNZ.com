@@ -16,6 +16,8 @@ var app = angular.module("SteamApp", []);//, ['PartnerDBApp.settings', 'ui.boots
     //    $httpProvider.interceptors.push(interceptor);
     //}]);
 
+var app = angular.module("GuitarTabApp", []);
+
 //app.run(["$rootScope", function ($rootScope) {
 //    $rootScope.popup = "Ari Lerner";
 //    //$rootScope.partnerSetUpData = [];

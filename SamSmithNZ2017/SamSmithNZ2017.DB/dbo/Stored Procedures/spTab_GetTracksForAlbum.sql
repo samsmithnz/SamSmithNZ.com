@@ -6,7 +6,7 @@ SELECT 0
 --isnull(max(playlist_code),0) as playlist_code,
 --TrackKey, TrackName, TrackPath, TrackOrder, AlbumKey, tt.rating
 --FROM TabTrack tt
---LEFT OUTER JOIN ittrack it ON tt.TrackName = it.track_name COLLATE database_default
+--LEFT OUTER JOIN itTrack it ON tt.TrackName = it.track_name COLLATE database_default
 --WHERE AlbumKey = @AlbumKey 
 --GROUP BY trackKey, TrackName, TrackPath, TrackOrder, AlbumKey, tt.rating
 --ORDER BY TrackOrder

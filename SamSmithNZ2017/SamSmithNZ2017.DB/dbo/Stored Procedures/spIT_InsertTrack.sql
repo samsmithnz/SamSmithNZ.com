@@ -7,5 +7,5 @@
 	@ranking smallint,
 	@rating smallint
 AS
-INSERT INTO ittrack
+INSERT INTO itTrack
 SELECT @playlist_code, @track_name, @album_name, @artist_name, @play_count, null, @ranking, null, 0, @rating, newid()
