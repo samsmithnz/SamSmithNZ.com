@@ -1028,8 +1028,10 @@
     <Content Include="Scripts\3rdParty\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\3rdParty\i18n\angular-locale_zu.js" />
     <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\GuitarTabControllers\albumController.js" />
     <Content Include="Scripts\GuitarTabControllers\indexController.js" />
     <Content Include="Scripts\GuitarTabControllers\layoutController.js" />
+    <Content Include="Scripts\GuitarTabServices\tabsService.js" />
     <Content Include="Scripts\GuitarTabServices\albumsService.js" />
     <Content Include="Scripts\SteamControllers\layoutController.js" />
     <Content Include="Scripts\SteamControllers\gameDetailsController.js" />
@@ -1093,9 +1095,9 @@
     <Content Include="Views\Steam\About.cshtml" />
     <Content Include="Views\Steam\GameDetails.cshtml" />
     <Content Include="Views\Steam\SteamIsDown.cshtml" />
-    <Content Include="Views\GuitarTab\AddEditAlbum.cshtml" />
+    <Content Include="Views\GuitarTab\EditAlbum.cshtml" />
     <Content Include="Views\GuitarTab\AddEditTrack.cshtml" />
-    <Content Include="Views\GuitarTab\AlbumTabList.cshtml" />
+    <Content Include="Views\GuitarTab\Album.cshtml" />
     <Content Include="Views\GuitarTab\Index.cshtml" />
     <Content Include="Views\GuitarTab\SearchResults.cshtml" />
     <Content Include="Views\Shared\_LayoutGuitarTab.cshtml" />

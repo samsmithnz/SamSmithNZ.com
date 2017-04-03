@@ -18,10 +18,10 @@ namespace SSNZ.GuitarTab.Service.Controllers
             return await da.GetListAsync(albumCode);
         }
 
-        public async Task<Tab> GetTab(int trackCode)
+        public async Task<Tab> GetTab(int tabCode)
         {
             TabDataAccess da = new TabDataAccess();
-            return await da.GetItemAsync(trackCode);
+            return await da.GetItemAsync(tabCode);
         }
 
         public async Task<bool> SaveTab(Tab item)
@@ -30,10 +30,10 @@ namespace SSNZ.GuitarTab.Service.Controllers
             return await da.SaveItemAsync(item);
         }
 
-        public async Task<bool> DeleteTab(int trackCode)
+        public async Task<bool> DeleteTab(int tabCode)
         {
             TabDataAccess da = new TabDataAccess();
-            return await da.DeleteItemAsync(trackCode);
+            return await da.DeleteItemAsync(tabCode);
         }
     }
 }

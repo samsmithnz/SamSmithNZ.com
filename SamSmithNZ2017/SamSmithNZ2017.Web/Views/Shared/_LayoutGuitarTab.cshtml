@@ -49,10 +49,10 @@
                 <td class="sideBar">
                     <br />
                     @*@if (isGuitarTabAdmin == true)
-                        {
-                            @Html.ActionLink("Add New Album", "AddEditAlbum", new { albumcode = 0 })<br />
-                            <br />
-                        }*@
+    {
+        @Html.ActionLink("Add New Album", "EditAlbum", new { albumcode = 0 })<br />
+        <br />
+    }*@
                     <b>Jump to Artist:</b><br />
                     <div class="ArtistSideBar">
                         <img ng-hide="artists" id="spinner1" src="~/Content/Images/spinner_small.gif" />

@@ -1,0 +1,58 @@
+﻿@*@model SamSmithNZ2015.Models.GuitarTab.AlbumTabsViewModel*@
+@{
+    ViewBag.Title = "[Model.Album.ArtistName + ' - ' + Model.Album.AlbumName]";
+    Layout = "~/Views/Shared/_LayoutGuitarTab.cshtml";
+    //bool isGuitarAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2015.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
+}
+
+<div ng-controller="albumController">
+    <table class="tableofcontents" padding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <ul style="text-align: left; padding: 0px;" ng-repeat="item in tabs">
+                    <li class="tableofcontentsitem">
+                        {{$index + 1}}<span>.</span>
+                        <span ng-if="item.TrackText.length == 0">{{item.TrackName}}</span>
+                        <a ng-if="item.TrackText.length > 0" href="#@*@item.TrackName.Replace(" ", "")*@">{{item.TrackName}}</a>   <img src="~/Content/GuitarTab/rating_star0{{item.Rating}}.gif">
+                    </li>
+                    @*@foreach (SamSmithNZ2015.Core.GuitarTab.Tab item in Model.Tabs)
+                        {
+                            <li class="tableofcontentsitem">
+                                @item.TrackOrder.ToString()<span>.</span>
+                            @if (item.TrackText.Length == 0)
+                            {
+                                <span>@item.TrackName</span>
+                            }
+                            else
+                            {
+                                <a href="#@item.TrackName.Replace(" ", "")">@item.TrackName</a>   <img src="@Url.Content("~/Content/images/GuitarTab/rating_star0" + @item.Rating.ToString() + ".gif")">
+                            }
+                            @if (isGuitarAdmin == true)
+                            {
+                                <a href="@Url.Action("AddEditTrack", "GuitarTab", new { trackCode = @item.TrackCode })" style="text-decoration:none;">
+                                    <img src="@Url.Content("~/Content/images/guitartab/pencil.gif")" alt="" style="height: 12px; border-width:0;" />
+                                </a>
+                            }
+                        </li>
+                        }*@
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <div ng-repeat="item in tabs">
+        <a ng-if="item.TrackText.length > 0" name="@*@item.TrackName.Replace(" ", "")*@"></a>
+        <h2 ng-if="item.TrackText.length > 0"  class="sectionTitle">{{item.TrackName}}</h2>
+        <pre ng-if="item.TrackText.length > 0" >{{item.TrackText}}</pre>
+
+</div>
+    @*@foreach (SamSmithNZ2015.Core.GuitarTab.Tab item in Model.Tabs)
+        {
+            if (@item.TrackText.Length > 0)
+            {
+                <a name="@item.TrackName.Replace(" ", "")"></a>
+                <h2 class="sectionTitle">@item.TrackName</h2>
+
+                <pre>@item.TrackText</pre>
+            }
+        }*@
+</div>

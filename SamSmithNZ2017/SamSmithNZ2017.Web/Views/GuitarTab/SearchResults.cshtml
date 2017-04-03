@@ -1,12 +1,12 @@
-﻿@model IList<SamSmithNZ2015.Core.GuitarTab.Search>
+﻿@*@model IList<SamSmithNZ2015.Core.GuitarTab.Search>*@
 @{
     ViewBag.Title = "Search Results";
     Layout = "~/Views/Shared/_LayoutGuitarTab.cshtml";
-    bool isAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2015.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
+    //bool isAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2015.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
 }
 
 <div>
-    @{
+    @*@{
         String searchText = "";
         if (Model.Count == 0)
         {
@@ -32,13 +32,13 @@
                 }
                 String textString = item.ArtistAlbumResult + isBassTab + " : " + item.TrackResult;
                 <tr>
-                    <td>
+                    <td>*@
                         @* The 6th parameter is an HCPD Anchor: e.g. album.html#foofighters *@
-                        @Html.ActionLink(@textString, "AlbumTabList", "GuitarTab", null, null, item.TrackName.Replace(" ", ""), new { albumcode = item.AlbumCode, isAdmin = isAdmin }, null)
+                        @*@Html.ActionLink(@textString, "Album", "GuitarTab", null, null, item.TrackName.Replace(" ", ""), new { albumcode = item.AlbumCode, isAdmin = isAdmin }, null)
 
                     </td>
                 </tr>
             }
         </tbody>
-    </table>
+    </table>*@
 </div>

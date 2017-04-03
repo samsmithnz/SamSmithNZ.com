@@ -1,25 +1,26 @@
-﻿@model SamSmithNZ2015.Models.GuitarTab.AlbumTabsViewModel
+﻿@*@model SamSmithNZ2015.Models.GuitarTab.AlbumTabsViewModel*@
 @{
-    if (Model.Album.AlbumCode == 0)
-    {
-        ViewBag.Title = "Add New Album";
-    }
-    else
-    {
-        ViewBag.Title = "Edit Album \"" + @Model.Album.AlbumName + "\"";
-    }
+    //if (Model.Album.AlbumCode == 0)
+    //{
+    //    ViewBag.Title = "Add New Album";
+    //}
+    //else
+    //{
+    //    ViewBag.Title = "Edit Album \"" + @Model.Album.AlbumName + "\"";
+    //}
+    ViewBag.Title = "Add/Edit Album";
     Layout = "~/Views/Shared/_LayoutGuitarTab.cshtml";
-    bool isGuitarAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2015.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
+    //bool isGuitarAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2015.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
 
-    string year = "";
-    if (@Model.Album.AlbumYear == 0)
-    {
-        year = "";
-    }
-    else
-    {
-        year = @Model.Album.AlbumYear.ToString();
-    }
+    //string year = "";
+    //if (@Model.Album.AlbumYear == 0)
+    //{
+    //    year = "";
+    //}
+    //else
+    //{
+    //    year = @Model.Album.AlbumYear.ToString();
+    //}
 
 }
 
@@ -61,7 +62,7 @@
     }
 </style>
 
-@using (Html.BeginForm("SaveAlbum", "GuitarTab", new { albumCode = @Model.Album.AlbumCode }, FormMethod.Post, new { @id = "frmSaveAlbum" }))
+@*@using (Html.BeginForm("SaveAlbum", "GuitarTab", new { albumCode = @Model.Album.AlbumCode }, FormMethod.Post, new { @id = "frmSaveAlbum" }))
 {
     <table>
         <tr>
@@ -147,4 +148,4 @@
     </table>
 
     <input id="SaveAlbum" type="submit" value="Save Changes" /><br />
-}
+}*@
