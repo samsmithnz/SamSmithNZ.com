@@ -4,9 +4,9 @@
     angular
         .module('GuitarTabApp')
         .controller('albumController', albumController);
-    albumController.$inject = ['$scope', '$http', 'tabsService'];
+    albumController.$inject = ['$scope', '$http', 'albumsService', 'tabsService'];
 
-    function albumController($scope, $http, tabsService) {
+    function albumController($scope, $http, albumsService, tabsService) {
 
         $scope.tabs = [];
 
@@ -16,13 +16,25 @@
             console.log(data);
         };
 
+        var onGetAlbumEventComplete = function (response) {
+
+            var targets = angular.element(document).find('h2');
+            if (targets.length > 0) {
+                //console.log(targets);
+                //console.log(response.data.ArtistName + ' - ' + response.data.AlbumName);
+                targets[0].innerText = response.data.ArtistName + ' - ' + response.data.AlbumName;
+            }
+        }
+
         var onGetTabsEventComplete = function (response) {
             $scope.tabs = response.data;
+            //console.log($scope.tabs);
         }
 
         console.log("AlbumCode: " + getUrlParameter('AlbumCode'));
         $scope.albumCode = getUrlParameter('AlbumCode');
 
+        albumsService.getAlbum($scope.albumCode, true).then(onGetAlbumEventComplete, onError);
         tabsService.getTabs($scope.albumCode, true).then(onGetTabsEventComplete, onError);
 
     }

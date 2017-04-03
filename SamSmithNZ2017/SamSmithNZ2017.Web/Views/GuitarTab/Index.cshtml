@@ -13,54 +13,54 @@
                 <td>
                     <br ng-if="item.IsLeadArtist == true" />
                     <span ng-if="item.IsLeadArtist == true" style="font-weight: bold;"><a name="{{item.ArtistNameTrimed}}"></a>{{item.ArtistName}}<br /></span>
-                    <a ng-if="item.IsLeadArtist == false" href="~/GuitarTab/Album?AlbumCode={{item.AlbumCode}}&IsAdmin=false">
-                        <span ng-if="item.IsBassTab==false">{{item.AlbumName}}</span><span ng-if="item.IsBassTab==true">    (Bass)</span>
-                    </a>
+                    <a ng-if="item.IsLeadArtist == false" href="~/GuitarTab/Album?AlbumCode={{item.AlbumCode}}&IsAdmin=false">{{item.AlbumName}}</a>
+                    <span ng-if="item.IsLeadArtist == false && item.BassAlbumCode > 0">&nbsp;&nbsp;</span>
+                    <a ng-if="item.IsLeadArtist == false && item.BassAlbumCode > 0" href="~/GuitarTab/Album?AlbumCode={{item.BassAlbumCode}}&IsAdmin=false">(Bass)</a>
                     <span ng-if="item.AlbumYear > 0 && item.IsBassTab==false"> ({{item.AlbumYear}})</span>
                 </td>
             </tr>
             @*@{
-        string currentArtist = "";
-    }
-    @for (int i = 0; i < Model.Albums.Count; i++)
-    {
-        SamSmithNZ2015.Core.GuitarTab.Album item = Model.Albums[i];
-        string postLinkText = "";
-        if (item.AlbumYear > 0)
-        {
-            postLinkText = " (" + item.AlbumYear.ToString() + ")";
-        }
-        <tr>
-            <td>
-                @if (currentArtist != item.ArtistNameTrimed)
-                {
-                    <br />
-                    <a name="@item.ArtistNameTrimed"></a><b>@item.ArtistName</b><br />
+                    string currentArtist = "";
                 }
-                @Html.ActionLink(Model.CreateLinkText(item), "Album", "GuitarTab", new { albumcode = @item.AlbumCode, isAdmin = isGuitarAdmin }, null)
-                @if (isGuitarAdmin == true)
+                @for (int i = 0; i < Model.Albums.Count; i++)
                 {
-                    <a href="@Url.Action("Album", "GuitarTab", new { albumcode = @item.AlbumCode })" style="text-decoration:none;">
-                        <img src="@Url.Content("~/Content/images/guitartab/pencil.gif")" alt="" style="height: 12px; border-width: 0;" />
-                    </a>
-                }
-                @if (i + 1 < Model.Albums.Count && Model.Albums[i + 1].AlbumName == item.AlbumName && Model.Albums[i + 1].IsBassTab == true)
-                {
-                    i++;
-                    item = Model.Albums[i];
-                    @Html.ActionLink(Model.CreateLinkText(item), "Album", "GuitarTab", new { albumcode = @item.AlbumCode, isAdmin = isGuitarAdmin }, null)
-                    if (isGuitarAdmin == true)
+                    SamSmithNZ2015.Core.GuitarTab.Album item = Model.Albums[i];
+                    string postLinkText = "";
+                    if (item.AlbumYear > 0)
                     {
-                        <a href="@Url.Action("Album", "GuitarTab", new { albumcode = @item.AlbumCode })" style="text-decoration:none;">
-                            <img src="@Url.Content("~/Content/images/guitartab/pencil.gif")" alt="" style="height: 12px" />
-                        </a>
+                        postLinkText = " (" + item.AlbumYear.ToString() + ")";
                     }
-                }
-                @postLinkText
-            </td>
-        </tr>
-                currentArtist = item.ArtistNameTrimed;
-    }*@
+                    <tr>
+                        <td>
+                            @if (currentArtist != item.ArtistNameTrimed)
+                            {
+                                <br />
+                                <a name="@item.ArtistNameTrimed"></a><b>@item.ArtistName</b><br />
+                            }
+                            @Html.ActionLink(Model.CreateLinkText(item), "Album", "GuitarTab", new { albumcode = @item.AlbumCode, isAdmin = isGuitarAdmin }, null)
+                            @if (isGuitarAdmin == true)
+                            {
+                                <a href="@Url.Action("Album", "GuitarTab", new { albumcode = @item.AlbumCode })" style="text-decoration:none;">
+                                    <img src="@Url.Content("~/Content/images/guitartab/pencil.gif")" alt="" style="height: 12px; border-width: 0;" />
+                                </a>
+                            }
+                            @if (i + 1 < Model.Albums.Count && Model.Albums[i + 1].AlbumName == item.AlbumName && Model.Albums[i + 1].IsBassTab == true)
+                            {
+                                i++;
+                                item = Model.Albums[i];
+                                @Html.ActionLink(Model.CreateLinkText(item), "Album", "GuitarTab", new { albumcode = @item.AlbumCode, isAdmin = isGuitarAdmin }, null)
+                                if (isGuitarAdmin == true)
+                                {
+                                    <a href="@Url.Action("Album", "GuitarTab", new { albumcode = @item.AlbumCode })" style="text-decoration:none;">
+                                        <img src="@Url.Content("~/Content/images/guitartab/pencil.gif")" alt="" style="height: 12px" />
+                                    </a>
+                                }
+                            }
+                            @postLinkText
+                        </td>
+                    </tr>
+                            currentArtist = item.ArtistNameTrimed;
+                }*@
         </tbody>
     </table>
 </div>

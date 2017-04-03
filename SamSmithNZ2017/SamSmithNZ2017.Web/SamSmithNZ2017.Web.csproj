@@ -1096,7 +1096,7 @@
     <Content Include="Views\Steam\GameDetails.cshtml" />
     <Content Include="Views\Steam\SteamIsDown.cshtml" />
     <Content Include="Views\GuitarTab\EditAlbum.cshtml" />
-    <Content Include="Views\GuitarTab\AddEditTrack.cshtml" />
+    <Content Include="Views\GuitarTab\EditTrack.cshtml" />
     <Content Include="Views\GuitarTab\Album.cshtml" />
     <Content Include="Views\GuitarTab\Index.cshtml" />
     <Content Include="Views\GuitarTab\SearchResults.cshtml" />

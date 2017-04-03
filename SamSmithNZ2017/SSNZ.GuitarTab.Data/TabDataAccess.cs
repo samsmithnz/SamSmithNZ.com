@@ -17,39 +17,39 @@ namespace SSNZ.GuitarTab.Data
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@AlbumCode", albumCode, DbType.Int32);
 
-            List<Tab> result = await base.GetListAsync("Tab_GetTracks", parameters);
+            List<Tab> result = await base.GetListAsync("Tab_GetTabs", parameters);
 
             return result.ToList<Tab>();
         }
 
-        public async Task<Tab> GetItemAsync(int trackCode)
+        public async Task<Tab> GetItemAsync(int tabCode)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@TrackCode", trackCode, DbType.Int32);
+            parameters.Add("@TabCode", tabCode, DbType.Int32);
 
-            return await base.GetItemAsync("Tab_GetTracks", parameters);
+            return await base.GetItemAsync("Tab_GetTabs", parameters);
         }
 
         public async Task<bool> SaveItemAsync(Tab item)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@TrackCode", item.TrackCode, DbType.Int32);
+            parameters.Add("@TabCode", item.TabCode, DbType.Int32);
             parameters.Add("@AlbumCode", item.AlbumCode, DbType.Int32);
-            parameters.Add("@TrackName", item.TrackName, DbType.String);
-            parameters.Add("@TrackText", item.TrackText, DbType.String);
-            parameters.Add("@TrackOrder", item.TrackOrder, DbType.Int32);
+            parameters.Add("@TabName", item.TabName, DbType.String);
+            parameters.Add("@TabText", item.TabText, DbType.String);
+            parameters.Add("@TabOrder", item.TabOrder, DbType.Int32);
             parameters.Add("@Rating", item.Rating, DbType.Int32);
             parameters.Add("@TuningCode", item.TuningCode, DbType.Int32);
 
-            return await base.PostItemAsync("Tab_SaveTrack", parameters);
+            return await base.PostItemAsync("Tab_SaveTab", parameters);
         }
 
-        public async Task<bool> DeleteItemAsync(int trackCode)
+        public async Task<bool> DeleteItemAsync(int tabCode)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@TrackCode", trackCode, DbType.Int32);
+            parameters.Add("@TabCode", tabCode, DbType.Int32);
 
-            return await base.PostItemAsync("Tab_DeleteTrack", parameters);
+            return await base.PostItemAsync("Tab_DeleteTab", parameters);
         }
 
     }

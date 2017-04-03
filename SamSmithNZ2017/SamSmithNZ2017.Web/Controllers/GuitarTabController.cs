@@ -100,7 +100,7 @@ namespace SamSmithNZ2017.Controllers
 
 
         [Authorize(Roles = "WebAdmin")]
-        public ActionResult AddEditTrack(int trackCode)
+        public ActionResult EditTrack(int trackCode)
         {
             return Redirect("http://samsmithnz.com/GuitarTab/Index");
 

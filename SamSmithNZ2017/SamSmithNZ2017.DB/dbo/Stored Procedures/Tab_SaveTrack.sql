@@ -1,23 +1,23 @@
-﻿CREATE PROCEDURE [dbo].[Tab_SaveTrack]
-	@TrackCode INT,
+﻿CREATE PROCEDURE [dbo].[Tab_SaveTab]
+	@TabCode INT,
 	@AlbumCode INT,
-	@TrackName VARCHAR(100),
-	@TrackText TEXT,
-	@TrackOrder INT,
+	@TabName VARCHAR(100),
+	@TabText TEXT,
+	@TabOrder INT,
 	@Rating INT,
 	@TuningCode INT
 AS
-IF (@TrackCode > 0)
+IF (@TabCode > 0)
 BEGIN
 	UPDATE tab_track
-	SET track_name = @TrackName, track_order = @TrackOrder, track_text = @TrackText, rating = @Rating, tuning_code = @TuningCode, last_updated = GETDATE()
-	WHERE track_code = @TrackCode
+	SET track_name = @TabName, track_order = @TabOrder, track_text = @TabText, rating = @Rating, tuning_code = @TuningCode, last_updated = GETDATE()
+	WHERE track_code = @TabCode
 END
 ELSE
 BEGIN
-	SELECT @TrackCode = MAX(track_code) + 1
+	SELECT @TabCode = MAX(track_code) + 1
 	FROM tab_track
 	
 	INSERT INTO tab_track
-	SELECT @TrackCode, @AlbumCode, @TrackName, @TrackText, @TrackOrder, @Rating, @TuningCode, GETDATE()
+	SELECT @TabCode, @AlbumCode, @TabName, @TabText, @TabOrder, @Rating, @TuningCode, GETDATE()
 END

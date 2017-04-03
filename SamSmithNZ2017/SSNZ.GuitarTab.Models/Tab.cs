@@ -5,11 +5,12 @@ namespace SSNZ.GuitarTab.Models
 {
     public class Tab
     {
-        public int TrackCode { get; set; }
+        public int TabCode { get; set; }
         public int AlbumCode { get; set; }
-        public string TrackName { get; set; }
-        public string TrackText { get; set; }
-        public int TrackOrder { get; set; }
+        public string TabName { get; set; }
+        public string TabNameTrimed { get; set; }
+        public string TabText { get; set; }
+        public int TabOrder { get; set; }
         public int Rating { get; set; }
         public int TuningCode { get; set; }
         public string TuningName { get; set; }

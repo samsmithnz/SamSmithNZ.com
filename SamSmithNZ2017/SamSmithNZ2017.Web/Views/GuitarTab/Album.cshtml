@@ -1,6 +1,6 @@
 ﻿@*@model SamSmithNZ2015.Models.GuitarTab.AlbumTabsViewModel*@
 @{
-    ViewBag.Title = "[Model.Album.ArtistName + ' - ' + Model.Album.AlbumName]";
+    ViewBag.Title = "Loading album...";
     Layout = "~/Views/Shared/_LayoutGuitarTab.cshtml";
     //bool isGuitarAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2015.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
 }
@@ -12,47 +12,34 @@
                 <ul style="text-align: left; padding: 0px;" ng-repeat="item in tabs">
                     <li class="tableofcontentsitem">
                         {{$index + 1}}<span>.</span>
-                        <span ng-if="item.TrackText.length == 0">{{item.TrackName}}</span>
-                        <a ng-if="item.TrackText.length > 0" href="#@*@item.TrackName.Replace(" ", "")*@">{{item.TrackName}}</a>   <img src="~/Content/GuitarTab/rating_star0{{item.Rating}}.gif">
+                        <span ng-if="item.TabText == ''">{{item.TrackName}}</span>
+                        <a ng-if="item.TabText != ''" href="#{{item.TabNameTrimed}}">{{item.TabName}}</a>&nbsp;&nbsp;<img ng-if="item.Rating != null && item.Rating >= 0" ng-src="~/Content/GuitarTab/rating_star0{{item.Rating}}.gif">
                     </li>
                     @*@foreach (SamSmithNZ2015.Core.GuitarTab.Tab item in Model.Tabs)
-                        {
-                            <li class="tableofcontentsitem">
-                                @item.TrackOrder.ToString()<span>.</span>
-                            @if (item.TrackText.Length == 0)
-                            {
-                                <span>@item.TrackName</span>
-                            }
-                            else
-                            {
-                                <a href="#@item.TrackName.Replace(" ", "")">@item.TrackName</a>   <img src="@Url.Content("~/Content/images/GuitarTab/rating_star0" + @item.Rating.ToString() + ".gif")">
-                            }
                             @if (isGuitarAdmin == true)
                             {
-                                <a href="@Url.Action("AddEditTrack", "GuitarTab", new { trackCode = @item.TrackCode })" style="text-decoration:none;">
+                                <a href="@Url.Action("EditTab", "GuitarTab", new { trackCode = @item.TabCode })" style="text-decoration:none;">
                                     <img src="@Url.Content("~/Content/images/guitartab/pencil.gif")" alt="" style="height: 12px; border-width:0;" />
                                 </a>
                             }
-                        </li>
                         }*@
                 </ul>
             </td>
         </tr>
     </table>
     <div ng-repeat="item in tabs">
-        <a ng-if="item.TrackText.length > 0" name="@*@item.TrackName.Replace(" ", "")*@"></a>
-        <h2 ng-if="item.TrackText.length > 0"  class="sectionTitle">{{item.TrackName}}</h2>
-        <pre ng-if="item.TrackText.length > 0" >{{item.TrackText}}</pre>
-
-</div>
+        <a ng-if="item.TabText != ''" name="{{item.TabNameTrimed}}"></a>
+        <h2 ng-if="item.TabText != ''" class="sectionTitle">{{item.TabName}}</h2>
+        <pre ng-if="item.TabText != ''">{{item.TabText}}</pre>
+    </div>
     @*@foreach (SamSmithNZ2015.Core.GuitarTab.Tab item in Model.Tabs)
         {
-            if (@item.TrackText.Length > 0)
+            if (@item.TabText.Length > 0)
             {
-                <a name="@item.TrackName.Replace(" ", "")"></a>
-                <h2 class="sectionTitle">@item.TrackName</h2>
+                <a name="@item.TabName.Replace(" ", "")"></a>
+                <h2 class="sectionTitle">@item.TabName</h2>
 
-                <pre>@item.TrackText</pre>
+                <pre>@item.TabText</pre>
             }
         }*@
 </div>
