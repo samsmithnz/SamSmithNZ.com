@@ -27,6 +27,7 @@
             </td>
         </tr>
     </table>
+    <img ng-hide="tabs" id="spinner1" src="~/Content/Images/spinner.gif" />
     <div ng-repeat="item in tabs">
         <a ng-if="item.TabText != ''" name="{{item.TabNameTrimed}}"></a>
         <h2 ng-if="item.TabText != ''" class="sectionTitle">{{item.TabName}}</h2>

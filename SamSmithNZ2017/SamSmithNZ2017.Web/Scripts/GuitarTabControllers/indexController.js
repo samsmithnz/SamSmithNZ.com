@@ -19,7 +19,8 @@
 
         var onGetAlbumsEventComplete = function (response) {
             var currentArtist = '';
-            console.log('Original album list count: ' + response.data.length);
+            var tempAlbums = [];
+            //console.log('Original album list count: ' + response.data.length);
             for (var i = 0; i <= response.data.length - 1; i++) {
                 if (response.data[i].ArtistNameTrimed != currentArtist) {
                     currentArtist = response.data[i].ArtistNameTrimed;
@@ -36,15 +37,15 @@
                     //album.IncludeInIndex = true;
                     //album.IncludeOnWebsite = true;
                     album.AverageRating = 0;
-                    console.log('New album: ' + album.ArtistNameTrimed + ':' + album.AlbumName + ':' + album.IsLeadArtist);
-                    $scope.albums.push(album);
+                    //console.log('New album: ' + album.ArtistNameTrimed + ':' + album.AlbumName + ':' + album.IsLeadArtist);
+                    tempAlbums.push(album);
                 }
-                $scope.albums.push(response.data[i]);
-                console.log('Album: ' + response.data[i].ArtistNameTrimed + ':' + response.data[i].AlbumName + ':' + response.data[i].IsLeadArtist);
+                tempAlbums.push(response.data[i]);
+                //console.log('Album: ' + response.data[i].ArtistNameTrimed + ':' + response.data[i].AlbumName + ':' + response.data[i].IsLeadArtist);
             }
-            console.log('Final album list count: ' + $scope.albums.length);
-            console.log($scope.albums);
-            //$scope.albums = response.data;
+            //console.log('Final album list count: ' + $scope.albums.length);
+            //console.log(tempAlbums);
+            $scope.albums = tempAlbums;
         }
 
         //console.log("Steam Ids: Hidden: " + $('#txtSteamId').val() + ', URL: ' + getUrlParameter('SteamId'));
