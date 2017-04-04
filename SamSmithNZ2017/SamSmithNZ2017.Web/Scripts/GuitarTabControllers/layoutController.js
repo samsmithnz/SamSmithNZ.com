@@ -34,6 +34,10 @@
 
         artistsService.getArtists(true).then(onGetArtistsEventComplete, onError);
         //playerService.getPlayer(steamId).then(onGetPlayerEventComplete, onError);
+
+        $scope.searchGuitarTabs = function () {
+            console.log("Stuff!");
+        };
     }
 
     function getUrlParameter(param, dummyPath) {

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Guitar Tab Library</title>
-    <link rel="shortcut icon" sizes="32x32" href="~/Content/GuitarTab/favicon.ico">
+    <link rel="shortcut icon" sizes="32x32" href="~/Content/GuitarTab/GuitarTab.ico">
     @Styles.Render("~/Content/globalCSS")
     @Scripts.Render("~/bundles/globalJS")
     @Scripts.Render("~/bundles/guitarTabServicesJS")
@@ -22,7 +22,7 @@
                 <td class="PercentWidth50">
                     <a href="@Url.Action("Index", "GuitarTab")" class="headerText">
                         <img src="@Url.Content("~/Content/GuitarTab/GuitarHeader.png")" alt="" class="headerImg" />
-                        <span class="headerText">Guitar Tab Library</span>
+                        <span class="headerText">Guitar Tab Library (v4)</span>
                     </a>
                 </td>
                 <td style="width: 200px;">
@@ -32,12 +32,9 @@
                 </td>
                 <td class="PercentWidth100 AlignedRight">
                     <span class="AlignedRight">
-                        @using (Html.BeginForm("SearchResults", "GuitarTab", FormMethod.Get))
-                        {
-                            <span>Search for guitar tab:</span>
-                            @Html.TextBox("searchText", "", new { @maxlength = 100 })
-                            <input type="submit" value="Search!" />
-                        }
+                        <span>Search for guitar tab:</span>
+                        <input id="txtSearchText" type="text" maxlength="100" />
+                        <input type="button" value="Search!" ng-click="searchGuitarTabs()" />
                     </span>
                 </td>
             </tr>
@@ -48,11 +45,12 @@
             <tr class="toptr">
                 <td class="sideBar">
                     <br />
+                    <a href="~/GuitarTab/EditAlbum">Add new album</a><br /><br />
                     @*@if (isGuitarTabAdmin == true)
-    {
-        @Html.ActionLink("Add New Album", "EditAlbum", new { albumcode = 0 })<br />
-        <br />
-    }*@
+                        {
+                            @Html.ActionLink("Add New Album", "EditAlbum", new { albumcode = 0 })<br />
+                            <br />
+                        }*@
                     <b>Jump to Artist:</b><br />
                     <div class="ArtistSideBar">
                         <img ng-hide="artists" id="spinner1" src="~/Content/Images/spinner_small.gif" />
