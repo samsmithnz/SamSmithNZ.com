@@ -9,7 +9,7 @@ using SSNZ.GuitarTab.Models;
 
 namespace SSNZ.GuitarTab.Service.Controllers
 {
-    public class Old : ApiController
+    public class AlbumOldController : ApiController
     {
         public List<Album> GetAlbums(bool isAdmin)
         {

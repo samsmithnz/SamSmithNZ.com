@@ -9,11 +9,11 @@ using SSNZ.GuitarTab.Models;
 
 namespace SSNZ.GuitarTab.Service.Controllers
 {
-    public class TuningControllerOld : ApiController
+    public class RatingOldController : ApiController
     {
-        public List<Tuning> GetTunings()
+        public List<Rating> GetRatings()
         {
-            TuningDataAccessOld da = new TuningDataAccessOld();
+            RatingDataAccessOld da = new RatingDataAccessOld();
             return da.GetData();
         }
     }

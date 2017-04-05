@@ -9,7 +9,7 @@ using SSNZ.GuitarTab.Models;
 
 namespace SSNZ.GuitarTab.Service.Controllers
 {
-    public class SearchControllerOld : ApiController
+    public class SearchOldController : ApiController
     {
         public Guid SaveSearch(string searchText)
         {
