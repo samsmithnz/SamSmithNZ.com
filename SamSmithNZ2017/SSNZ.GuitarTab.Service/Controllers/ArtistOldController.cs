@@ -9,7 +9,7 @@ using SSNZ.GuitarTab.Models;
 
 namespace SSNZ.GuitarTab.Service.Controllers
 {
-    public class ArtistControllerOld : ApiController
+    public class ArtistOldController : ApiController
     {
         public List<Artist> GetArtists(bool includeAllItems)
         {
