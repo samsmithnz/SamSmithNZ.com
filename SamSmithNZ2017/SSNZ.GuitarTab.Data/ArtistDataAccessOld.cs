@@ -11,12 +11,12 @@ namespace SSNZ.GuitarTab.Data
 {
     public class ArtistDataAccessOld : GenericDataAccessOld<Artist>
     {
-        public List<Artist> GetData(int? includeAllItems)
+        public List<Artist> GetData(bool? includeAllItems)
         {
             DynamicParameters parameters = new DynamicParameters();
             if (includeAllItems != null)
             {
-                parameters.Add("@IncludeInIndex", includeAllItems, DbType.Int32);
+                parameters.Add("@IncludeInIndex", includeAllItems, DbType.Boolean);
             }
 
             return base.GetList("Tab_GetArtists", parameters).ToList<Artist>();
