@@ -17,7 +17,7 @@ namespace SSNZ.GuitarTab.UnitTests
         {
             //arrange
             ArtistDataAccessOld da = new ArtistDataAccessOld();
-            int? includeAllItems = null;
+            bool? includeAllItems = null;
 
             //act
             List<Artist> results = da.GetData(includeAllItems);
@@ -32,7 +32,7 @@ namespace SSNZ.GuitarTab.UnitTests
         {
             //arrange
             ArtistDataAccessOld da = new ArtistDataAccessOld();
-            int? includeAllItems = null;
+            bool? includeAllItems = null;
 
             //act
             List<Artist> results = da.GetData(includeAllItems);
@@ -49,7 +49,7 @@ namespace SSNZ.GuitarTab.UnitTests
         {
             //arrange
             ArtistDataAccessOld da = new ArtistDataAccessOld();
-            int? includeAllItems = 1;
+            bool? includeAllItems = true;
 
             //act
             List<Artist> results = da.GetData(includeAllItems);
@@ -64,7 +64,7 @@ namespace SSNZ.GuitarTab.UnitTests
         {
             //arrange
             ArtistDataAccessOld da = new ArtistDataAccessOld();
-            int? includeAllItems = 1;
+            bool? includeAllItems = true;
 
             //act
             List<Artist> results = da.GetData(includeAllItems);
