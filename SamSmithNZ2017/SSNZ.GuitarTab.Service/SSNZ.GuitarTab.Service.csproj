@@ -185,6 +185,12 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AlbumControllerOld.cs" />
+    <Compile Include="Controllers\ArtistControllerOld.cs" />
+    <Compile Include="Controllers\RatingControllerOld.cs" />
+    <Compile Include="Controllers\SearchControllerOld.cs" />
+    <Compile Include="Controllers\TabControllerOld.cs" />
+    <Compile Include="Controllers\TuningControllerOld.cs" />
     <Compile Include="Controllers\TuningController.cs" />
     <Compile Include="Controllers\ArtistController.cs" />
     <Compile Include="Controllers\RatingController.cs" />
