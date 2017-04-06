@@ -39,6 +39,35 @@ namespace SSNZ.GuitarTab.UnitTests
             Album results = await da.GetItemAsync(albumCode, true);
 
             //assert
+            TestTCATS(results);
+        }
+
+        [TestMethod()]
+        public async Task AlbumsTCATSTest()
+        {
+            //arrange
+            AlbumDataAccess da = new AlbumDataAccess();
+            int albumCode = 14; //The Colour And The Shape
+
+            //act
+            List<Album> results = await da.GetListAsync(true);
+
+            //assert
+            bool foundTCATS = false;
+            foreach (Album result in results)
+            {
+                if (result.AlbumCode == albumCode)
+                {
+                    TestTCATS(result);
+                    foundTCATS = true;
+                    break;
+                }
+            }
+            Assert.IsTrue(foundTCATS == true);
+        }
+
+        private void TestTCATS(Album results)
+        {
             Assert.IsTrue(results != null);
             Assert.IsTrue(results.AlbumCode == 14);
             Assert.IsTrue(results.AlbumName == "The Colour And The Shape");
@@ -51,6 +80,8 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(results.IsBassTab == false);
             Assert.IsTrue(results.IsMiscCollectionAlbum == false);
             Assert.IsTrue(results.IsNewAlbum == false);
+            Assert.IsTrue(results.IsLeadArtist == false);
+            Assert.IsTrue(results.BassAlbumCode == 102);
         }
 
         [TestMethod()]
@@ -78,7 +109,9 @@ namespace SSNZ.GuitarTab.UnitTests
             }
             results.AlbumName = albumName;
             results.ArtistName = artistName;
-        await    da.SaveItemAsync(results);
+            results.IsBassTab = results.IsBassTab;
+            results.IsLeadArtist = results.IsLeadArtist;
+            await da.SaveItemAsync(results);
 
             //reload
             results = await da.GetItemAsync(albumCode, true);
