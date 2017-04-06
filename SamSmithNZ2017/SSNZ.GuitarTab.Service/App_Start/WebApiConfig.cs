@@ -34,7 +34,6 @@ namespace SSNZ.GuitarTab.Service
                 defaults: new { id = RouteParameter.Optional }
             );
 
-
             config.Services.Add(typeof(IExceptionLogger), new AiExceptionLogger());
         }
     }

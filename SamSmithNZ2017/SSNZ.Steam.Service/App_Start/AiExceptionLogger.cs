@@ -1,8 +1,7 @@
-﻿
-using System.Web.Http.ExceptionHandling;
+﻿using System.Web.Http.ExceptionHandling;
 using Microsoft.ApplicationInsights;
 
-namespace SSNZ.GuitarTab.Service
+namespace SSNZ.Steam.Service
 {
     public class AiExceptionLogger : ExceptionLogger
     {

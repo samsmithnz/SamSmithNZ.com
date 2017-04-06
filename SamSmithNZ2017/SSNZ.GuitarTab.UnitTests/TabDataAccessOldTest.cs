@@ -46,6 +46,7 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(results.Rating == 5);
             Assert.IsTrue(results.TabCode == 500);
             Assert.IsTrue(results.TabName == "Everlong");
+            Assert.IsTrue(results.TabNameTrimed == "Everlong");
             Assert.IsTrue(results.TabOrder == 11);
             Assert.IsTrue(results.TabText.Length == 7477);
             Assert.IsTrue(results.TuningCode == 2);
@@ -80,6 +81,7 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(results[0].TabCode > 0);
             Assert.IsTrue(results[0].AlbumCode == albumCode);
             Assert.IsTrue(results[0].TabName == "Test track 14");
+            Assert.IsTrue(results[0].TabNameTrimed == "Testtrack14");
             Assert.IsTrue(results[0].TabText == "Test track text 14");
             Assert.IsTrue(results[0].LastUpdated > DateTime.MinValue);
 
