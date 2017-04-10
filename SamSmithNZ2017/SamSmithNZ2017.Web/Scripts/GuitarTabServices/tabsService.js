@@ -19,7 +19,7 @@
         };
 
         this.getTab = function (tabCode) {
-            var url = baseUrl + 'api/Tab/GetTab?AlbumCode=' + tabCode;
+            var url = baseUrl + 'api/Tab/GetTab?TabCode=' + tabCode;
             console.log(url);
             return $http.get(url);
         };
@@ -31,7 +31,7 @@
         };
 
         this.DeleteTab = function (tabCode) {
-            var url = baseUrl + 'api/Album/DeleteTab?AlbumCode=' + tabCode;
+            var url = baseUrl + 'api/Album/DeleteTab?TabCode=' + tabCode;
             console.log(url);
             return $http.get(url);
         };  

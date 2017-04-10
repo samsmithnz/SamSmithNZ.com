@@ -40,7 +40,7 @@ namespace SamSmithNZ2017.Controllers
             //return View(new ArtistAlbumViewModel(Artistlist, Albumlist));
         }
 
-        public ActionResult Album(int albumcode, bool isAdmin)
+        public ActionResult Album(int albumCode, bool isAdmin)
         {
             return View();
             //return Redirect("http://samsmithnz.com/GuitarTab/Index");
@@ -73,8 +73,8 @@ namespace SamSmithNZ2017.Controllers
             //return View(list);
         }
 
-                [Authorize(Roles = "WebAdmin")]
-        public ActionResult EditAlbum(int albumcode)
+        //[Authorize(Roles = "WebAdmin")]
+        public ActionResult EditAlbum(int albumCode)
         {
             return View();
             //return Redirect("http://samsmithnz.com/GuitarTab/Index");
@@ -99,10 +99,11 @@ namespace SamSmithNZ2017.Controllers
         }
 
 
-        [Authorize(Roles = "WebAdmin")]
-        public ActionResult EditTrack(int trackCode)
+        //[Authorize(Roles = "WebAdmin")]
+        public ActionResult EditTab(int tabCode)
         {
-            return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            return View();
+            //return Redirect("http://samsmithnz.com/GuitarTab/Index");
 
             //SamSmithNZ2015.Core.GuitarTab.DataAccess.TabDataAccess da = new Core.GuitarTab.DataAccess.TabDataAccess();
             //SamSmithNZ2015.Core.GuitarTab.Tab tab = da.GetItem(trackCode);

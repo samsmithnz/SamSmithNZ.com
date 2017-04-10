@@ -27,7 +27,17 @@ namespace SSNZ.GuitarTab.Data
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@TabCode", tabCode, DbType.Int32);
 
-            return await base.GetItemAsync("Tab_GetTabs", parameters);
+            List<Tab> results = await base.GetListAsync("Tab_GetTabs", parameters);
+
+            //Sometimes a tab can be associated with multiple albums, so we need to get a list and return the first record in those cases
+            if (results.Count > 0)
+            {
+                return results[0];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<bool> SaveItemAsync(Tab item)
