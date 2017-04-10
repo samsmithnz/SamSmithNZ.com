@@ -37,7 +37,7 @@
                     maxlength: 100
                 },
                 'txtYear': {
-                    range: [1950, @DateTime.Now.Year.ToString()]
+                    range: [1950, new Date().getFullYear()]
                 }
             },
             messages: {
@@ -50,7 +50,7 @@
                     maxlength: 'Must be under 100 characters'
                 },
                 'txtYear': {
-                    range: 'Must enter a year between 1950 and @DateTime.Now.Year.ToString() (or leave blank)'
+                    range: 'Must enter a year between 1950 and ' + new Date().getFullYear() + ' (or leave blank)'
                 }
             }
         });
