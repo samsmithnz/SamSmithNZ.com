@@ -38,52 +38,43 @@
 
 <div ng-controller="editTabController">
     @*@using (Html.BeginForm("SaveTrack", "GuitarTab", new { albumCode = @Model.Tab.AlbumCode, trackCode = @Model.Tab.TrackCode }, FormMethod.Post, new { @id = "frmSaveTrack" }))*@
-    <table>
+    <table class="form-group">
         <tr>
-            <td>Name: </td>
-            <td><input id="txtTrackName" type="text" value="{{tab.TabName}}"></td>
+            <td style="text-align:right;">Name: </td>
+            <td><input id="txtTrackName" type="text" class="form-control" value="{{tab.TabName}}"></td>
             @*<td>@Html.TextBox("txtTrackName", @Model.Tab.TrackName)</td>*@
         </tr>
         <tr>
-            <td>Order: </td>
-            <td><input id="txtOrder" type="text" value="{{tab.TabOrder}}"></td>
+            <td style="text-align:right;">Order: </td>
+            <td><input id="txtOrder" type="text" class="form-control" value="{{tab.TabOrder}}"></td>
             @*<td>@Html.TextBox("txtOrder", @Model.Tab.TrackOrder)</td>*@
         </tr>
         <tr>
-            <td>Rating: </td>
+            <td style="text-align:right;">Rating: </td>
             <td>
-                <select id="cboRating" name="cboRating">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option selected="selected" value="5">5</option>
+                <select id="cboRating" class="form-control">
+                    <option ng-repeat="item in ratings" value="{{item.RatingCode}}" ng-selected="tab.Rating == item.RatingCode">{{item.RatingCode}}</option>
                 </select>
             </td>
             @*<td>@Html.DropDownList("cboRating", new SelectList(Model.RatingList, "RatingCode", "RatingCode", @Model.Tab.Rating))</td>*@
         </tr>
         <tr>
-            <td>Tuning: </td>
+            <td style="text-align:right;">Tuning: </td>
             <td>
-                <select id="cboTuning" name="cboTuning">
-                    <option selected="selected" value="0">[unknown]</option>
-                    <option value="1">Standard Tuning</option>
-                    <option value="2">Drop D Tuning</option>
-                    <option value="3">1/2 Step down Tuning</option>
-                    <option value="4">Whole Step down Tuning</option>
-                    <option value="5">1/2 Step down &amp; Drop D Tuning</option>
-                    <option value="6">Whole Step down &amp; Drop D Tuning</option>
+                <select id="cboTuning" class="form-control">
+                    <option ng-repeat="item in tunings" value="{{item.TuningCode}}" ng-selected="tab.TuningCode == item.TuningCode">{{item.TuningName}}</option>
                 </select>
             </td>
             @*<td>@Html.DropDownList("cboTuning", new SelectList(Model.TuningList, "TuningCode", "TuningName", @Model.Tab.TuningCode))</td>*@
         </tr>
         <tr>
-            <td style="vertical-align:top;">Track Text: </td>
-            <td><textarea cols="100" rows="20">{{tab.TabText}}</textarea></td>
+            <td style="vertical-align:top; text-align:right;">Track Text: </td>
+            <td><textarea cols="100" rows="20" class="form-group" style="font-family: monospace; font-size:8pt; max-width:800px;">{{tab.TabText}}</textarea></td>
             @*<td>@Html.TextArea("txtTrackText", @Model.Tab.TrackText, new { cols = "100", rows = "20" })</td>*@
         </tr>
     </table>
-
-    <input id="SaveTrack" type="button" value="Save Changes" ng-click="saveTab()" /><br />
+    <div class="form-group">
+        <input id="SaveTrack" type="button" class="form-group" value="Save Changes" ng-click="saveTab()" />
+    </div>
+    <br />
 </div>

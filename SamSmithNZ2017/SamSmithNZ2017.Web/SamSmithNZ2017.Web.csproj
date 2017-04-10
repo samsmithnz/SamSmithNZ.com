@@ -1033,6 +1033,8 @@
     <Content Include="Scripts\GuitarTabControllers\albumController.js" />
     <Content Include="Scripts\GuitarTabControllers\indexController.js" />
     <Content Include="Scripts\GuitarTabControllers\layoutController.js" />
+    <Content Include="Scripts\GuitarTabServices\tuningsService.js" />
+    <Content Include="Scripts\GuitarTabServices\ratingsService.js" />
     <Content Include="Scripts\GuitarTabServices\tabsService.js" />
     <Content Include="Scripts\GuitarTabServices\albumsService.js" />
     <Content Include="Scripts\SteamControllers\layoutController.js" />
