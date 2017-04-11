@@ -1028,11 +1028,15 @@
     <Content Include="Scripts\3rdParty\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\3rdParty\i18n\angular-locale_zu.js" />
     <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\GuitarTabControllers\searchController.js" />
     <Content Include="Scripts\GuitarTabControllers\editAlbumController.js" />
     <Content Include="Scripts\GuitarTabControllers\editTabController.js" />
     <Content Include="Scripts\GuitarTabControllers\albumController.js" />
     <Content Include="Scripts\GuitarTabControllers\indexController.js" />
     <Content Include="Scripts\GuitarTabControllers\layoutController.js" />
+    <Content Include="Scripts\GuitarTabServices\searchService.js" />
+    <Content Include="Scripts\GuitarTabServices\tuningsService.js" />
+    <Content Include="Scripts\GuitarTabServices\ratingsService.js" />
     <Content Include="Scripts\GuitarTabServices\tabsService.js" />
     <Content Include="Scripts\GuitarTabServices\albumsService.js" />
     <Content Include="Scripts\SteamControllers\layoutController.js" />

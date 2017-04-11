@@ -4,11 +4,13 @@
     angular
         .module('GuitarTabApp')
         .controller('editTabController', editTabController);
-    editTabController.$inject = ['$scope', '$http', 'tabsService'];
+    editTabController.$inject = ['$scope', '$http', 'tabsService', 'ratingsService', 'tuningsService'];
 
-    function editTabController($scope, $http, tabsService) {
+    function editTabController($scope, $http, tabsService, ratingsService, tuningsService) {
 
         $scope.tab = null;
+        $scope.ratings = [];
+        $scope.tunings = [];
 
         var onError = function (data) {
             //errorHandlerService.errorHandler(data);
@@ -18,13 +20,37 @@
 
         var onGetTabEventComplete = function (response) {
             $scope.tab = response.data;
-            //console.log($scope.tabs);
+            //console.log($scope.tab);
+        }
+
+        var onGetRatingsEventComplete = function (response) {
+            $scope.ratings = response.data;
+            //console.log($scope.ratings);
+            if ($scope.tunings.length > 0) {
+                //console.log('Getting tab from ratings');
+                getTab();
+            }
+        }
+
+        var onGetTuningsEventComplete = function (response) {
+            $scope.tunings = response.data;
+            //console.log($scope.tunings);
+            if ($scope.ratings.length > 0)
+            {
+                //console.log('Getting tab from tunings');
+                getTab();
+            }
         }
 
         console.log("TabCode: " + getUrlParameter('TabCode'));
         $scope.tabCode = getUrlParameter('TabCode');
 
-        tabsService.getTab($scope.tabCode, true).then(onGetTabEventComplete, onError);
+        ratingsService.getRatings().then(onGetRatingsEventComplete, onError);
+        tuningsService.getTunings().then(onGetTuningsEventComplete, onError);
+
+        var getTab = function () {
+            tabsService.getTab($scope.tabCode, true).then(onGetTabEventComplete, onError);
+        }
 
         $scope.saveTab = function () {
             alert("Saving Tab!");

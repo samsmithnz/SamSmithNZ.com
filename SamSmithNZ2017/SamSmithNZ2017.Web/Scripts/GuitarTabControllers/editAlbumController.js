@@ -8,6 +8,7 @@
 
     function editAlbumController($scope, $http, albumsService, tabsService) {
 
+        $scope.album = null;
         $scope.tabs = [];
 
         var onError = function (data) {
@@ -17,13 +18,14 @@
         };
 
         var onGetAlbumEventComplete = function (response) {
-
             var targets = angular.element(document).find('h2');
             if (targets.length > 0) {
                 //console.log(targets);
                 //console.log(response.data.ArtistName + ' - ' + response.data.AlbumName);
                 targets[0].innerText = response.data.ArtistName + ' - ' + response.data.AlbumName;
             }
+            //console.log(response.data);
+            $scope.album = response.data;
         }
 
         var onGetTabsEventComplete = function (response) {
