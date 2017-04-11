@@ -4,9 +4,9 @@
     angular
         .module('GuitarTabApp')
         .controller('layoutController', layoutController);
-    layoutController.$inject = ['$scope', '$http', 'artistsService'];
+    layoutController.$inject = ['$scope', '$http', 'artistsService', '$window'];
 
-    function layoutController($scope, $http, artistsService) {
+    function layoutController($scope, $http, artistsService, $window) {
 
         //console.log("here!");
 
@@ -36,7 +36,10 @@
         //playerService.getPlayer(steamId).then(onGetPlayerEventComplete, onError);
 
         $scope.searchGuitarTabs = function () {
+            var searchText = 'foo';
+            //alert(searchText);
             console.log("Stuff!");
+            $window.open('GuitarTab/SearchResults?searchText=' + searchText, "_self");
         };
     }
 

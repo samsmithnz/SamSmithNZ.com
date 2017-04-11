@@ -14,6 +14,9 @@
                     <br ng-if="item.IsLeadArtist == true" />
                     <span ng-if="item.IsLeadArtist == true" style="font-weight: bold;"><a name="{{item.ArtistNameTrimed}}"></a>{{item.ArtistName}}<br /></span>
                     <a ng-if="item.IsLeadArtist == false" href="~/GuitarTab/Album?AlbumCode={{item.AlbumCode}}&IsAdmin=false">{{item.AlbumName}}</a>
+                    <a ng-if="item.IsLeadArtist == false" href="~/GuitarTab/EditAlbum?AlbumCode={{item.AlbumCode}}">
+                        <img src="@Url.Content("~/Content/guitartab/pencil.gif")" alt="" style="height: 12px; border-width: 0;" />
+                    </a>
                     <span ng-if="item.IsLeadArtist == false && item.BassAlbumCode > 0">&nbsp;&nbsp;</span>
                     <a ng-if="item.IsLeadArtist == false && item.BassAlbumCode > 0" href="~/GuitarTab/Album?AlbumCode={{item.BassAlbumCode}}&IsAdmin=false">(Bass)</a>
                     <span ng-if="item.AlbumYear > 0 && item.IsBassTab==false"> ({{item.AlbumYear}})</span>

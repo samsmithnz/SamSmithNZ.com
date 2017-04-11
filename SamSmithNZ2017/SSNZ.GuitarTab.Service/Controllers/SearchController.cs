@@ -12,18 +12,13 @@ namespace SSNZ.GuitarTab.Service.Controllers
 {
     public class SearchController : ApiController
     {
-        public async Task<Guid> SaveSearch(string searchText)
+        public async Task<List<Search>> GetSearchResults(string searchText)
         {
             SearchDataAccess da = new SearchDataAccess();
-            return await da.SaveItemAsync(searchText);
-        }
+            Guid recordId =  await da.SaveItemAsync(searchText);
 
-        public async Task<List<Search>> GetSearch(Guid recordId)
-        {
-            SearchDataAccess da = new SearchDataAccess();
             return await da.GetListAsync(recordId);
         }
-
         
     }
 }

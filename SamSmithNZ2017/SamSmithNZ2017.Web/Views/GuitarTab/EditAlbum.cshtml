@@ -62,57 +62,73 @@
     }
 </style>
 
-@*@using (Html.BeginForm("SaveAlbum", "GuitarTab", new { albumCode = @Model.Album.AlbumCode }, FormMethod.Post, new { @id = "frmSaveAlbum" }))
-    {
-        <table>
+<div ng-controller="editAlbumController">
+@*@using (Html.BeginForm("SaveAlbum", "GuitarTab", new { albumCode = @Model.Album.AlbumCode }, FormMethod.Post, new { @id = "frmSaveAlbum" }))*@
+        <table class="form-group">
             <tr>
-                <td>Artist: </td>
-                <td>@Html.TextBox("txtArtist", @Model.Album.ArtistName)</td>
+                <td style="text-align:right;">Artist: </td>
+                <td><input id="txtArtist" type="text" class="form-control" value="{{album.ArtistName}}"/></td>
+                @*<td>@Html.TextBox("txtArtist", @Model.Album.ArtistName)</td>*@
             </tr>
             <tr>
-                <td>Album Name: </td>
-                <td>@Html.TextBox("txtAlbumName", @Model.Album.AlbumName)</td>
+                <td style="text-align:right;">Album Name: </td>
+                <td><input id="txtAlbumName" type="text" class="form-control" value="{{album.AlbumName}}" /></td>
+                @*<td>@Html.TextBox("txtAlbumName", @Model.Album.AlbumName)</td>*@
             </tr>
             <tr>
-                <td>Year: </td>
-                <td>@Html.TextBox("txtYear", @year)</td>
+                <td style="text-align:right;">Year: </td>
+                <td><input id="txtYear" type="text" class="form-control" value="{{album.AlbumYear}}" /></td>
+                @*<td>@Html.TextBox("txtYear", @year)</td>*@
             </tr>
             <tr>
-                <td>Is Bass Tab: </td>
-                <td>@Html.CheckBox("chkIsBassTab", @Model.Album.IsBassTab)</td>
+                <td style="text-align:right;">Is Bass Tab: </td>
+                <td><input id="chkIsBassTab" type="checkbox" class="checkbox" ng-checked="album.BassAlbumCode == album.AlbumCode" /></td>
+                @*<td>@Html.CheckBox("chkIsBassTab", @Model.Album.IsBassTab)</td>*@
             </tr>
             <tr>
-                <td>Include on Main Index: </td>
-                <td>@Html.CheckBox("chkIncludeInIndex", @Model.Album.IncludeInIndex)</td>
+                <td style="text-align:right;">Include on Main Index: </td>
+                <td><input id="chkIncludeInIndex" type="checkbox" class="checkbox" ng-model="album.IncludeInIndex" /></td>
+                @*<td>@Html.CheckBox("chkIncludeInIndex", @Model.Album.IncludeInIndex)</td>*@
             </tr>
             <tr>
-                <td>Include on Website: </td>
-                <td>@Html.CheckBox("chkIncludeOnWebsite", @Model.Album.IncludeOnWebsite)</td>
+                <td style="text-align:right;">Include on Website: </td>
+                <td><input id="chkIncludeOnWebsite" type="checkbox" class="checkbox" ng-model="album.IncludeOnWebsite" /></td>
+                @*<td>@Html.CheckBox("chkIncludeOnWebsite", @Model.Album.IncludeOnWebsite)</td>*@
             </tr>
             <tr>
-                <td>Is a Collection Album: </td>
-                <td>@Html.CheckBox("chkIsMiscCollectionAlbum", @Model.Album.IsMiscCollectionAlbum)</td>
+                <td style="text-align:right;">Is a Collection Album: </td>
+                <td><input id="chkIsMiscCollectionAlbum" type="checkbox" class="formccheckboxontrol" ng-model="album.IsMiscCollectionAlbum" /></td>
+                @*<td>@Html.CheckBox("chkIsMiscCollectionAlbum", @Model.Album.IsMiscCollectionAlbum)</td>*@
             </tr>
-            @if (@Model.Album.AlbumCode == 0) //If it's a new album
-            {
-                <tr>
-                    <td>Track list: </td>
-                    <td>@Html.TextArea("txtTrackList", new { cols = "40", rows = "15" })</td>
-                </tr>
-            }
-            else
-            {
-                <tr>
-                    <td style="vertical-align: top;">Track list: </td>
-                    <td>
-                        <table class="tableofcontents" padding="0" cellspacing="0">
-                            <tr>
-                                <td style="width: 100%;">
-                                    <ul style="text-align: left; padding: 0px;">
-                                        @foreach (SamSmithNZ2015.Core.GuitarTab.Tab item in Model.Tabs)
-                                        {
-                                            <li class="tableofcontentsitem">
-                                                @item.TrackOrder.ToString()<span>.</span>
+            <tr ng-if="album.AlbumCode == 0">
+                <td style="text-align:right;">Track list: </td>
+                <td><textarea id="txtTrackList" cols="40" rows="15" class="form-group" style="font-family: monospace; font-size:8pt;">hi ho</textarea></td>
+                @*<td>@Html.TextArea("txtTrackList", new { cols = "40", rows = "15" })</td>*@
+            </tr>
+            <tr ng-if="album.AlbumCode != 0">
+                <td style="vertical-align: top; text-align:right;">Track list: </td>
+                <td>
+                    <table class="tableofcontents" padding="0" cellspacing="0">
+                        <tr>
+                            <td style="width: 100%;">
+                                <ul style="text-align: left; padding: 0px;" ng-repeat="item in tabs">
+                                    <li class="tableofcontentsitem">
+                                        {{$index + 1}}<span>.</span>
+                                        <span ng-if="item.TabText == ''">{{item.TrackName}}</span>
+                                        <a ng-if="item.TabText != ''" href="#{{item.TabNameTrimed}}">{{item.TabName}}</a>&nbsp;&nbsp;<img ng-if="item.Rating != null && item.Rating >= 0" ng-src="~/Content/GuitarTab/rating_star0{{item.Rating}}.gif">
+                                        <a href="~/GuitarTab/EditTab?TabCode={{item.TabCode}}">
+                                            <img src="@Url.Content("~/Content/guitartab/pencil.gif")" alt="" style="height: 12px; border-width:0;" />
+                                        </a>
+                                        <span>&nbsp; &nbsp; &nbsp;</span>
+                                        <a href="~/GuitarTab/DeleteTab?TabCode={{item.TrackCode}}" style="text-decoration:none;">
+                                            <img src="@Url.Content("~/Content/guitartab/delete.png")" alt="" style="height: 12px;border-width:0;" />
+                                        </a>
+                                    </li>
+
+                                    @*@foreach (SamSmithNZ2015.Core.GuitarTab.Tab item in Model.Tabs)
+                                    {
+                                        <li class="tableofcontentsitem">
+                                            @item.TrackOrder.ToString()<span>.</span>
                                             @if (item.TrackText.Length == 0)
                                             {
                                                 <span>@item.TrackName</span>
@@ -132,20 +148,19 @@
                                                 </a>
                                             }
                                         </li>
-                                        }
-                                        <li class="tableofcontentsitem">@Html.ActionLink("Add Track", "AddNewTrack", new { albumCode = @Model.Album.AlbumCode })</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            }
+                                    }*@
+                                    @*<li class="tableofcontentsitem">@Html.ActionLink("Add Track", "AddNewTrack", new { albumCode = @Model.Album.AlbumCode })</li>*@
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
 
         </table>
 
-        <input id="SaveAlbum" type="submit" value="Save Changes" /><br />
-    }*@
+        <input id="SaveAlbum" type="button" value="Save Changes" ng-click="saveAlbum()" /><br />
+</div>
