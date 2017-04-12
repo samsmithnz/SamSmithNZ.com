@@ -12,7 +12,7 @@
                 <ul style="text-align: left; padding: 0px;" ng-repeat="item in tabs">
                     <li class="tableofcontentsitem">
                         {{$index + 1}}<span>.</span>
-                        <span ng-if="item.TabText == ''">{{item.TrackName}}</span>
+                        <span ng-if="item.TabText == ''">{{item.TabName}}</span>
                         <a ng-if="item.TabText != ''" href="#{{item.TabNameTrimed}}">{{item.TabName}}</a>&nbsp;&nbsp;<img ng-if="item.Rating != null && item.Rating >= 0" ng-src="~/Content/GuitarTab/rating_star0{{item.Rating}}.gif">
                         <a href="~/GuitarTab/EditTab?TabCode={{item.TabCode}}">
                             <img src="@Url.Content("~/Content/guitartab/pencil.gif")" alt="" style="height: 12px; border-width:0;" />

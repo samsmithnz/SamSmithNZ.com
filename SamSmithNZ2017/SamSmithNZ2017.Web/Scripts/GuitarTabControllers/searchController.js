@@ -18,16 +18,17 @@
 
         var onGetSearchEventComplete = function (response) {            
             $scope.searchResults = response.data;
+            //console.log($scope.searchResults);
         }
 
         //console.log("Steam Ids: Hidden: " + $('#txtSteamId').val() + ', URL: ' + getUrlParameter('SteamId'));
-        //$scope.steamId = getUrlParameter('SteamId');
+        $scope.searchText = getUrlParameter('searchText');
         //if ($scope.steamId == '' || $scope.steamId == null) {
         //    $scope.steamId = '76561197971691578';
         //    //console.log("Steam Id not found");
         //}
 
-        searchService.getSearchResults(true).then(onGetSearchEventComplete, onError);
+        searchService.getSearchResults($scope.searchText).then(onGetSearchEventComplete, onError);
 
     }
 

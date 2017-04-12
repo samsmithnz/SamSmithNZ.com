@@ -36,10 +36,9 @@
         //playerService.getPlayer(steamId).then(onGetPlayerEventComplete, onError);
 
         $scope.searchGuitarTabs = function () {
-            var searchText = 'foo';
-            //alert(searchText);
-            console.log("Stuff!");
-            $window.open('GuitarTab/SearchResults?searchText=' + searchText, "_self");
+            var searchText = $('#txtSearch').val();
+            //console.log(searchText);
+            $window.open('SearchResults?searchText=' + searchText, "_self");
         };
     }
 
