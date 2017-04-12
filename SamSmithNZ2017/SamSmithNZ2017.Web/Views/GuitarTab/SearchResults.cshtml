@@ -5,42 +5,22 @@
     //bool isAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2015.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
 }
 
-<div>
+<div ng-controller="searchController">
 
-    SEARCHING!
-    @*@{
-        String searchText = "";
-        if (Model.Count == 0)
-        {
-            searchText = "no results";
-        }
-        else
-        {
-            searchText = "Searched for: \"" + Model[0].SearchText + "\", " + Model.Count.ToString() + " matches found:";
-        }
-    }
-    @searchText
-    <br />
+    <span ng-if="searchResults.length == 0">no results</span>
+    <span ng-if="searchResults.length > 0">Searched for: "{{searchResults[0].SearchText}}", {{searchResults.length}} matches found:</span>
     <br />
     <hr />
-    <table id="theTable">
+    <table ng-if="searchResults.length > 0">
         <tbody>
-            @foreach (SamSmithNZ2015.Core.GuitarTab.Search item in Model)
-            {
-                String isBassTab = "";
-                if (item.IsBassTab == true)
-                {
-                    isBassTab = " (Bass Tab)";
-                }
-                String textString = item.ArtistAlbumResult + isBassTab + " : " + item.TrackResult;
-                <tr>
-                    <td>*@
-                        @* The 6th parameter is an HCPD Anchor: e.g. album.html#foofighters *@
-                        @*@Html.ActionLink(@textString, "Album", "GuitarTab", null, null, item.TrackName.Replace(" ", ""), new { albumcode = item.AlbumCode, isAdmin = isAdmin }, null)
+            <tr ng-repeat="item in searchResults">
+                <td>
 
-                    </td>
-                </tr>
-            }
+                    @* The 6th parameter is an HCPD Anchor: e.g. album.html#foofighters *@
+                    @*@Html.ActionLink(@textString, "Album", "GuitarTab", null, null, item.TrackName.Replace(" ", ""), new { albumcode = item.AlbumCode, isAdmin = isAdmin }, null)*@
+                    {{$index + 1}}. <a href="~/GuitarTab/Album?AlbumCode={{item.AlbumCode}}&IsAdmin=false"><span>{{item.ArtistAlbumResult}}</span><span ng-if="item.IsBassTab == true"> (Bass Tab)</span><span> {{item.TrackResult}}</span></a>
+                </td>
+            </tr>
         </tbody>
-    </table>*@
+    </table>
 </div>

@@ -33,7 +33,7 @@
                 <td class="PercentWidth100 AlignedRight">
                     <span class="AlignedRight">
                         <span>Search for guitar tab:</span>
-                        <input id="txtSearch" type="text" maxlength="100" />
+                        <input id="txtSearch" type="text" maxlength="100" ng-keyup="$event.keyCode == 13 ? searchGuitarTabs() : null"/>
                         <input id="butSearch" type="button" value="Search!" ng-click="searchGuitarTabs()" />
                     </span>
                 </td>
