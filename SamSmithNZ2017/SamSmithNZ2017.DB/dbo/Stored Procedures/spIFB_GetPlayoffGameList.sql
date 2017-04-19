@@ -20,7 +20,7 @@ SELECT g.game_code, g.game_number, g.game_time,
 	CONVERT(bit,CASE WHEN g.team_2_normal_time_score is null THEN
 		1 ELSE 0 END) as team_2_withdrew
 FROM wc_game g
-INNER JOIN wc_round r ON g.round_code = r.round_code
+JOIN wc_round r ON g.round_code = r.round_code
 LEFT OUTER JOIN wc_team t1 ON g.team_1_code = t1.team_code
 LEFT OUTER JOIN wc_team t2 ON g.team_2_code = t2.team_code
 WHERE g.tournament_code = @tournament_code

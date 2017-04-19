@@ -45,8 +45,8 @@ END
 --END
 --ELSE
 --BEGIN
-	SELECT * 
-	FROM wc_odds
+	SELECT o.tournament_code, o.team_name, o.odds_date, o.odds_max, o.odds_mean, o.odds_min, o.odds_probability, o.odds_sample_size, o.odds_stdDev
+	FROM wc_odds o
 	WHERE 0 = 1
 	and tournament_code = @tournament_code
 	ORDER BY team_name

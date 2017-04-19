@@ -59,8 +59,8 @@ SELECT ga.game_code, ga.game_number, ga.game_time, ga.team_1_name, ga.team_2_nam
 	(isnull(ga.team_1_penalties_score,0) + isnull(ga.team_2_penalties_score,0)) as total_game_table_penalty_shootout_goals,
 	(isnull(ga.team_1_penalties_score,0) + isnull(ga.team_2_penalties_score,0)) - pso.total_penalties as total_penalty_shootout_table_goals
 FROM #tmp_games_for_assigning ga
-INNER JOIN #tmp_goals g ON ga.game_code = g.game_code
-INNER JOIN #tmp_penalty_shootout_goals pso ON pso.game_code = g.game_code
+JOIN #tmp_goals g ON ga.game_code = g.game_code
+JOIN #tmp_penalty_shootout_goals pso ON pso.game_code = g.game_code
 --WHERE ga.game_code = 65
 /*GROUP BY ga.game_code, ga.game_number, ga.game_time, ga.team_1_name, ga.team_2_name,
 	CONVERT(varchar(3),ga.team_1_normal_time_score+isnull(ga.team_1_extra_time_score,'')) + ' - ' + 

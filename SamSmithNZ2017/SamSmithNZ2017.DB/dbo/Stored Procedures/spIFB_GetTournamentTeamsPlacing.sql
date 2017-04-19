@@ -14,9 +14,9 @@ CREATE TABLE #tmp_final_placing (placing smallint, team_code smallint)
 INSERT INTO #tmp_final_placing 
 SELECT 1, CASE WHEN gss1.goals_with_penalties > gss2.goals_with_penalties THEN g1.team_1_code ELSE g2.team_2_code END
 FROM wc_game g1
-INNER JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
-INNER JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
-INNER JOIN vWC_GameScoreSummary gss2 ON g2.tournament_code = gss2.tournament_code and g2.game_code = gss2.game_code and gss2.is_team_1 = 0
+JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
+JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
+JOIN vWC_GameScoreSummary gss2 ON g2.tournament_code = gss2.tournament_code and g2.game_code = gss2.game_code and gss2.is_team_1 = 0
 WHERE g1.tournament_code = @tournament_code
 and g1.round_code = 'FF'
  
@@ -24,9 +24,9 @@ and g1.round_code = 'FF'
 INSERT INTO #tmp_final_placing 
 SELECT 2, CASE WHEN gss1.goals_with_penalties < gss2.goals_with_penalties THEN g1.team_1_code ELSE g2.team_2_code END
 FROM wc_game g1
-INNER JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
-INNER JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
-INNER JOIN vWC_GameScoreSummary gss2 ON g2.tournament_code = gss2.tournament_code and g2.game_code = gss2.game_code and gss2.is_team_1 = 0
+JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
+JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
+JOIN vWC_GameScoreSummary gss2 ON g2.tournament_code = gss2.tournament_code and g2.game_code = gss2.game_code and gss2.is_team_1 = 0
 WHERE g1.tournament_code = @tournament_code
 and g1.round_code = 'FF'
 
@@ -34,9 +34,9 @@ and g1.round_code = 'FF'
 INSERT INTO #tmp_final_placing 
 SELECT 3, CASE WHEN gss1.goals_with_penalties > gss2.goals_with_penalties THEN g1.team_1_code ELSE g2.team_2_code END
 FROM wc_game g1
-INNER JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
-INNER JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
-INNER JOIN vWC_GameScoreSummary gss2 ON g2.tournament_code = gss2.tournament_code and g2.game_code = gss2.game_code and gss2.is_team_1 = 0
+JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
+JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
+JOIN vWC_GameScoreSummary gss2 ON g2.tournament_code = gss2.tournament_code and g2.game_code = gss2.game_code and gss2.is_team_1 = 0
 WHERE g1.tournament_code = @tournament_code
 and g1.round_code = '3P'
 
@@ -44,9 +44,9 @@ and g1.round_code = '3P'
 INSERT INTO #tmp_final_placing 
 SELECT 4, CASE WHEN gss1.goals_with_penalties < gss2.goals_with_penalties THEN g1.team_1_code ELSE g2.team_2_code END
 FROM wc_game g1
-INNER JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
-INNER JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
-INNER JOIN vWC_GameScoreSummary gss2 ON g2.tournament_code = gss2.tournament_code and g2.game_code = gss2.game_code and gss2.is_team_1 = 0
+JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
+JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
+JOIN vWC_GameScoreSummary gss2 ON g2.tournament_code = gss2.tournament_code and g2.game_code = gss2.game_code and gss2.is_team_1 = 0
 WHERE g1.tournament_code = @tournament_code
 and g1.round_code = '3P'
 
@@ -54,9 +54,9 @@ and g1.round_code = '3P'
 INSERT INTO #tmp_final_placing 
 SELECT 5, CASE WHEN gss1.goals_with_penalties < gss2.goals_with_penalties THEN g1.team_1_code ELSE g2.team_2_code END
 FROM wc_game g1
-INNER JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
-INNER JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
-INNER JOIN vWC_GameScoreSummary gss2 ON g2.tournament_code = gss2.tournament_code and g2.game_code = gss2.game_code and gss2.is_team_1 = 0
+JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
+JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
+JOIN vWC_GameScoreSummary gss2 ON g2.tournament_code = gss2.tournament_code and g2.game_code = gss2.game_code and gss2.is_team_1 = 0
 WHERE g1.tournament_code = @tournament_code
 and g1.round_code = 'QF'
 
@@ -64,9 +64,9 @@ and g1.round_code = 'QF'
 INSERT INTO #tmp_final_placing 
 SELECT 9, CASE WHEN gss1.goals_with_penalties < gss2.goals_with_penalties THEN g1.team_1_code ELSE g2.team_2_code END
 FROM wc_game g1
-INNER JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
-INNER JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
-INNER JOIN vWC_GameScoreSummary gss2 ON g2.tournament_code = gss2.tournament_code and g2.game_code = gss2.game_code and gss2.is_team_1 = 0
+JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
+JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
+JOIN vWC_GameScoreSummary gss2 ON g2.tournament_code = gss2.tournament_code and g2.game_code = gss2.game_code and gss2.is_team_1 = 0
 WHERE g1.tournament_code = @tournament_code
 and g1.round_code = '16'
 
@@ -89,9 +89,9 @@ SELECT fp.placing, t.team_code, t.team_name,
 	isnull(te.fifa_ranking,0) as fifa_ranking, 
 	te.coach_name, isnull(ct.flag_name,'') as coach_nationality_flag_name
 FROM #tmp_final_placing fp
-INNER JOIN wc_team t ON fp.team_code = t.team_code
-INNER JOIN wc_tournament_team_entry te ON te.team_code = t.team_code
-INNER JOIN wc_region r ON t.region_code = r.region_code
+JOIN wc_team t ON fp.team_code = t.team_code
+JOIN wc_tournament_team_entry te ON te.team_code = t.team_code
+JOIN wc_region r ON t.region_code = r.region_code
 LEFT OUTER JOIN wc_team ct ON ct.team_name = te.coach_nationality
 WHERE te.tournament_code = @tournament_code
 ORDER BY fp.placing, t.team_name

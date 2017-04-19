@@ -2,6 +2,6 @@
 AS
 SELECT DISTINCT tu.tuning_code, tu.tuning_name 
 FROM tab_track tt
-INNER JOIN tab_tuning tu ON tt.tuning_code = tu.tuning_code
+JOIN tab_tuning tu ON tt.tuning_code = tu.tuning_code
 WHERE tt.tuning_code <> 0 
 ORDER BY tu.tuning_code

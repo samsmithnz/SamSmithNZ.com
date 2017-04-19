@@ -2,8 +2,8 @@
 	@tournament_code smallint,
 	@team_code smallint
 AS
-SELECT * 
-FROM wc_player
-WHERE tournament_code = @tournament_code
+SELECT p.tournament_code, p.club_country_name, p.club_name, p.date_of_birth, p.is_captain, p.number, p.player_code, p.player_name, p.position, p.team_code 
+FROM wc_player p
+WHERE p.tournament_code = @tournament_code
 and team_code = @team_code
 ORDER BY player_code

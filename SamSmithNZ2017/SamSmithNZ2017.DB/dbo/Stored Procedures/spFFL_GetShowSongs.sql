@@ -52,7 +52,7 @@ UPDATE ts
 SET ts.song_key = s.song_key, 
 	ts.song_name = s.song_name
 FROM #tmp_show_songs ts
-INNER JOIN ff_show_song ss ON ss.show_song_order = ts.show_song_order
+JOIN ff_show_song ss ON ss.show_song_order = ts.show_song_order
 LEFT OUTER JOIN ff_song s ON ss.song_key = s.song_key
 WHERE ss.show_key = @show_key
 
@@ -63,7 +63,7 @@ SET ts.ffl_song_key = isnull(ss.song_key,ss.unknown_song_key),
 	ts.ffl_song_notes = s.song_notes,
 	ts.is_known_song = CASE WHEN ss.unknown_song_key is null THEN 1 ELSE 0 END
 FROM #tmp_show_songs ts
-INNER JOIN ffl_show_song ss ON ss.show_song_order = ts.show_song_order
+JOIN ffl_show_song ss ON ss.show_song_order = ts.show_song_order
 LEFT OUTER JOIN ff_song s ON ss.song_key = s.song_key
 LEFT OUTER JOIN ffl_unknown_song us ON ss.unknown_song_key = us.song_key
 WHERE ss.show_key = @ffl_show_key

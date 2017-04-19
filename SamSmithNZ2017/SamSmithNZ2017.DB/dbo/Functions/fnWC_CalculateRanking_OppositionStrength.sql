@@ -33,14 +33,14 @@ BEGIN
 		--Find Team rank
 		SELECT @team_rank = r.ranking
 		FROM wc_game g
-		INNER JOIN wc_ranking r ON r.team_code = g.team_1_code and r.ranking_date > g.game_time  
+		JOIN wc_ranking r ON r.team_code = g.team_1_code and r.ranking_date > g.game_time  
 		WHERE g.game_code = @game_code
 		and g.team_1_code = @team_code
 	
 		--Find Opposition rank
 		SELECT @opposition_rank = r.ranking
 		FROM wc_game g
-		INNER JOIN wc_ranking r ON r.team_code = g.team_2_code and r.ranking_date > g.game_time  
+		JOIN wc_ranking r ON r.team_code = g.team_2_code and r.ranking_date > g.game_time  
 		WHERE g.game_code = @game_code
 		and g.team_1_code = @team_code
 
@@ -50,14 +50,14 @@ BEGIN
 		--Find Team rank
 		SELECT @team_rank = r.ranking
 		FROM wc_game g
-		INNER JOIN wc_ranking r ON r.team_code = g.team_2_code and r.ranking_date > g.game_time  
+		JOIN wc_ranking r ON r.team_code = g.team_2_code and r.ranking_date > g.game_time  
 		WHERE g.game_code = @game_code
 		and g.team_2_code = @team_code
 
 		--Find Opposition strength
 		SELECT @opposition_rank = r.ranking
 		FROM wc_game g
-		INNER JOIN wc_ranking r ON r.team_code = g.team_1_code and r.ranking_date > g.game_time  
+		JOIN wc_ranking r ON r.team_code = g.team_1_code and r.ranking_date > g.game_time  
 		WHERE g.game_code = @game_code
 		and g.team_2_code = @team_code	
 	END

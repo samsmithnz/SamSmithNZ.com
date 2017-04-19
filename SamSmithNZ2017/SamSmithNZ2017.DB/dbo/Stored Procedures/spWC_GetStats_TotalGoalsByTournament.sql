@@ -20,7 +20,7 @@ BEGIN
 		sum(isnull(team_2_normal_time_score,0)) + sum(isnull(team_2_extra_time_score,0)))) 
 			/ CONVERT(decimal(8,2),count(game_code)),0) as average_goals_per_game
 	FROM wc_tournament t
-	INNER JOIN wc_game g ON t.tournament_code = g.tournament_code
+	JOIN wc_game g ON t.tournament_code = g.tournament_code
 	GROUP BY t.tournament_code, t.name
 	ORDER BY t.tournament_code DESC
 
@@ -28,7 +28,7 @@ BEGIN
 	SELECT gs.tournament_code, CONVERT(decimal(8,2),sum(gs.goals)) ,
 	CONVERT(decimal(8,2),count(g.game_code))
 	FROM vWC_GameScoreSummary gs
-	INNER JOIN wc_game g ON gs.tournament_code = g.tournament_code
+	JOIN wc_game g ON gs.tournament_code = g.tournament_code
 	GROUP BY gs.tournament_code
 	ORDER BY gs.tournament_code DESC
 

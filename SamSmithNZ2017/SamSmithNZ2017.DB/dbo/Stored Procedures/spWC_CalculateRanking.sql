@@ -94,7 +94,7 @@ BEGIN
 	INSERT INTO #tmp_ranking
 	SELECT team_code, 0
 	FROM wc_tournament_team_entry te
-	INNER JOIN wc_tournament t ON te.tournament_code = t.tournament_code
+	JOIN wc_tournament t ON te.tournament_code = t.tournament_code
 	WHERE t.[year] = year(@ranking_date)
 	
 	-------------------------------------------------------------------------------

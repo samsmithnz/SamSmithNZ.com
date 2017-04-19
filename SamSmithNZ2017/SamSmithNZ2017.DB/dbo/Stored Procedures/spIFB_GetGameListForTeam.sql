@@ -18,13 +18,13 @@ AS
 		isnull(te.fifa_ranking,0) as fifa_ranking, 
 		null as is_penalty, null as is_own_goal, -1 as sort_order
 	FROM wc_game g
-	INNER JOIN wc_round r ON g.round_code = r.round_code
-	INNER JOIN wc_team t1 ON g.team_1_code = t1.team_code
-	INNER JOIN wc_team t2 ON g.team_2_code = t2.team_code
-	INNER JOIN wc_tournament t ON g.tournament_code = t.tournament_code
+	JOIN wc_round r ON g.round_code = r.round_code
+	JOIN wc_team t1 ON g.team_1_code = t1.team_code
+	JOIN wc_team t2 ON g.team_2_code = t2.team_code
+	JOIN wc_tournament t ON g.tournament_code = t.tournament_code
 	LEFT OUTER JOIN wc_tournament_team_entry te ON t.tournament_code = te.tournament_code 
 	LEFT OUTER JOIN wc_team t3 ON te.coach_nationality = t3.team_name
-	--INNER JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
+	--JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
 	WHERE (g.team_1_code = @team_code
 	or g.team_2_code = @team_code)
 	and te.team_code = @team_code

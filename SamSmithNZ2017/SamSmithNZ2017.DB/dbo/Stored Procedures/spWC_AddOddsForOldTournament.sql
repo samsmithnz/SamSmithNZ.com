@@ -21,7 +21,7 @@ AS
 	INSERT INTO #tmp_teams
 	SELECT DISTINCT t.team_name, t.team_code
 	FROM wc_tournament_team_entry tte
-	INNER JOIN wc_team t ON tte.team_code = t.team_code
+	JOIN wc_team t ON tte.team_code = t.team_code
 	WHERE tournament_code = @tournament_code
 
 	--add 1/[num of teams] as day before first game date.
@@ -38,18 +38,28 @@ AS
 		DROP TABLE #DateRange ;
 	END
 
-	-----------------------------------------------------------
-	-- Create the #DateRange Table, with one record per day
-	-- Included an Integer representation YYYYMMDD which
-	-- is often used to store date fields in warehouses.
-	-----------------------------------------------------------
-	SELECT  DATEADD(DAY, I, @StartDate) AS CalendarDate ,CONVERT(INT,CONVERT(VARCHAR, DATEADD(DAY, I, @StartDate),112)) AS CalendarDateInt
-	INTO #DateRange       
-	FROM    (
-			  SELECT ROW_NUMBER () OVER (ORDER BY A.object_id) - 1  AS I 
-			  FROM sys.all_columns A
-			) AS T1
-	WHERE   DATEADD(DAY, I, @StartDate) <= @EndDate ;
+	;WITH AllDays
+    AS (SELECT @StartDate AS [Date], 1 AS [level]
+        UNION ALL
+        SELECT DATEADD(DAY, 1, [Date]), [level] + 1
+        FROM AllDays
+        WHERE [Date] < @EndDate)
+	SELECT [Date], [level]
+	INTO #DateRange
+	FROM AllDays OPTION (MAXRECURSION 0)
+
+	-------------------------------------------------------------
+	---- Create the #DateRange Table, with one record per day
+	---- Included an Integer representation YYYYMMDD which
+	---- is often used to store date fields in warehouses.
+	-------------------------------------------------------------
+	--SELECT  DATEADD(DAY, I, @StartDate) AS CalendarDate ,CONVERT(INT,CONVERT(VARCHAR, DATEADD(DAY, I, @StartDate),112)) AS CalendarDateInt
+	--INTO #DateRange       
+	--FROM    (
+	--		  SELECT ROW_NUMBER () OVER (ORDER BY A.object_id) - 1  AS I 
+	--		  FROM sys.all_columns A
+	--		) AS T1
+	--WHERE   DATEADD(DAY, I, @StartDate) <= @EndDate ;
 
 	------------------------------------------------------------------
 	-- Validate the data in the #DateRange table
@@ -125,10 +135,10 @@ AS
 				@team_1_score = isnull(team_1_normal_time_score,0) + isnull(team_1_extra_time_score,0)+isnull(team_1_penalties_score,0),
 				@team_2_score = isnull(team_2_normal_time_score,0) + isnull(team_2_extra_time_score,0)+isnull(team_2_penalties_score,0)
 			FROM wc_game g
-			INNER JOIN wc_team t1 ON g.team_1_code = t1.team_code
-			INNER JOIN wc_team t2 ON g.team_2_code = t2.team_code
-			INNER JOIN wc_odds o1 ON t1.team_name = o1.team_name and o1.tournament_code = g.tournament_code
-			INNER JOIN wc_odds o2 ON t2.team_name = o2.team_name and o2.tournament_code = g.tournament_code
+			JOIN wc_team t1 ON g.team_1_code = t1.team_code
+			JOIN wc_team t2 ON g.team_2_code = t2.team_code
+			JOIN wc_odds o1 ON t1.team_name = o1.team_name and o1.tournament_code = g.tournament_code
+			JOIN wc_odds o2 ON t2.team_name = o2.team_name and o2.tournament_code = g.tournament_code
 			WHERE g.game_code = @game_code
 			AND g.tournament_code = @tournament_code
 
@@ -296,8 +306,8 @@ AS
 				DECLARE @first_date_of_round_2 datetime
 				SELECT @first_date_of_round_2 = CONVERT(datetime,cast(min(g.game_time) as date))
 				FROM wc_game g
-				--INNER JOIN wc_team t1 ON g.team_1_code = t1.team_code
-				--INNER JOIN wc_team t2 ON g.team_2_code = t2.team_code
+				--JOIN wc_team t1 ON g.team_1_code = t1.team_code
+				--JOIN wc_team t2 ON g.team_2_code = t2.team_code
 				WHERE g.tournament_code = @tournament_code
 				and g.round_number = 2
 
@@ -308,13 +318,13 @@ AS
 				WHERE tournament_code = @tournament_code
 				and team_name not in (SELECT t1.team_name
 										FROM wc_game g
-										INNER JOIN wc_team t1 ON g.team_1_code = t1.team_code
+										JOIN wc_team t1 ON g.team_1_code = t1.team_code
 										WHERE g.tournament_code = @tournament_code
 										and g.round_number = 2
 										and g.game_time >= @first_date_of_round_2)
 				and team_name not in (SELECT t2.team_name
 										FROM wc_game g
-										INNER JOIN wc_team t2 ON g.team_2_code = t2.team_code
+										JOIN wc_team t2 ON g.team_2_code = t2.team_code
 										WHERE g.tournament_code = @tournament_code
 										and g.round_number = 2
 										and g.game_time >= @first_date_of_round_2)

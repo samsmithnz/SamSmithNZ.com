@@ -97,10 +97,10 @@ BEGIN
 		'' as coach_name, '' as coach_flag, 0 as fifa_ranking, 
 		null as is_penalty, null as is_own_goal, -1 as sort_order
 	FROM wc_game g
-	INNER JOIN wc_round r ON g.round_code = r.round_code
-	INNER JOIN wc_team t1 ON g.team_1_code = t1.team_code
-	INNER JOIN wc_team t2 ON g.team_2_code = t2.team_code
-	INNER JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
+	JOIN wc_round r ON g.round_code = r.round_code
+	JOIN wc_team t1 ON g.team_1_code = t1.team_code
+	JOIN wc_team t2 ON g.team_2_code = t2.team_code
+	JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
 	WHERE g.tournament_code = @tournament_code
 	and (g.round_number = @round_number or @round_number = 0)
 	--ORDER BY g.game_time, g.game_number--, gl.goal_time, isnull(gl.injury_time,0)
@@ -122,13 +122,13 @@ BEGIN
 		isnull(te.fifa_ranking,0) as fifa_ranking, 
 		null as is_penalty, null as is_own_goal, -1 as sort_order
 	FROM wc_game g
-	INNER JOIN wc_round r ON g.round_code = r.round_code
-	INNER JOIN wc_team t1 ON g.team_1_code = t1.team_code
-	INNER JOIN wc_team t2 ON g.team_2_code = t2.team_code
-	INNER JOIN wc_tournament t ON g.tournament_code = t.tournament_code
+	JOIN wc_round r ON g.round_code = r.round_code
+	JOIN wc_team t1 ON g.team_1_code = t1.team_code
+	JOIN wc_team t2 ON g.team_2_code = t2.team_code
+	JOIN wc_tournament t ON g.tournament_code = t.tournament_code
 	LEFT OUTER JOIN wc_tournament_team_entry te ON t.tournament_code = te.tournament_code 
 	LEFT OUTER JOIN wc_team t3 ON te.coach_nationality = t3.team_name
-	INNER JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
+	JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
 	WHERE (g.team_1_code = @team_code
 	or g.team_2_code = @team_code)
 	and te.team_code = @team_code
@@ -149,10 +149,10 @@ SELECT 2 as row_type, g.round_number, g.round_code, CONVERT(varchar(50),'') as r
 	'' as coach_name, '' as coach_flag, 0 as fifa_ranking, 
 	gl.is_penalty, gl.is_own_goal, gl.goal_time + injury_time as sort_order
 FROM wc_game g 
---INNER JOIN wc_team t ON g.team_1_code = t.team_code
-INNER JOIN wc_goal gl ON gl.game_code = g.game_code
-INNER JOIN wc_player p ON p.player_code = gl.player_code and g.team_1_code = p.team_code
-INNER JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
+--JOIN wc_team t ON g.team_1_code = t.team_code
+JOIN wc_goal gl ON gl.game_code = g.game_code
+JOIN wc_player p ON p.player_code = gl.player_code and g.team_1_code = p.team_code
+JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
 WHERE g.tournament_code = @tournament_code
 and g.round_number = @round_number
 and @show_goals = 1
@@ -171,10 +171,10 @@ SELECT 2 as row_type, g.round_number, g.round_code, CONVERT(varchar(50),'') as r
 	'' as coach_name, '' as coach_flag, 0 as fifa_ranking, 
 	gl.is_penalty, gl.is_own_goal, gl.goal_time + injury_time as sort_order
 FROM wc_game g
---INNER JOIN wc_team t ON g.team_1_code = t.team_code
-INNER JOIN wc_goal gl ON gl.game_code = g.game_code
-INNER JOIN wc_player p ON p.player_code = gl.player_code and g.team_2_code = p.team_code
-INNER JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
+--JOIN wc_team t ON g.team_1_code = t.team_code
+JOIN wc_goal gl ON gl.game_code = g.game_code
+JOIN wc_player p ON p.player_code = gl.player_code and g.team_2_code = p.team_code
+JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
 WHERE g.tournament_code = @tournament_code
 and g.round_number = @round_number
 and @show_goals = 1
@@ -193,9 +193,9 @@ SELECT 3 as row_type, g.round_number, g.round_code, CONVERT(varchar(50),'') as r
 	'' as coach_name, '' as coach_flag, 0 as fifa_ranking, 
 	1 as is_penalty, 0 as is_own_goal, penalty_order as sort_order
 FROM wc_game g 
-INNER JOIN wc_penalty_shootout ps ON ps.game_code = g.game_code
-INNER JOIN wc_player p ON p.player_code = ps.player_code and g.team_1_code = p.team_code
-INNER JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
+JOIN wc_penalty_shootout ps ON ps.game_code = g.game_code
+JOIN wc_player p ON p.player_code = ps.player_code and g.team_1_code = p.team_code
+JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
 WHERE g.tournament_code = @tournament_code
 and g.round_number = @round_number
 and @show_goals = 1
@@ -214,9 +214,9 @@ SELECT 3 as row_type, g.round_number, g.round_code, CONVERT(varchar(50),'') as r
 	'' as coach_name, '' as coach_flag, 0 as fifa_ranking, 
 	1 as is_penalty, 0 as is_own_goal, penalty_order as sort_order
 FROM wc_game g 
-INNER JOIN wc_penalty_shootout ps ON ps.game_code = g.game_code
-INNER JOIN wc_player p ON p.player_code = ps.player_code and g.team_2_code = p.team_code
-INNER JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
+JOIN wc_penalty_shootout ps ON ps.game_code = g.game_code
+JOIN wc_player p ON p.player_code = ps.player_code and g.team_2_code = p.team_code
+JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
 WHERE g.tournament_code = @tournament_code
 and g.round_number = @round_number
 and @show_goals = 1

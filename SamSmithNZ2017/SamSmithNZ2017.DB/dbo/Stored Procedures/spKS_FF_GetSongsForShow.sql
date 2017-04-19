@@ -9,7 +9,7 @@ SELECT s.song_key, s.song_name,
 	isnull(count(ss.song_key),0) as times_played, 
 	a.album_key, a.album_name, ss.show_song_order as song_order
 FROM ff_song s
-INNER JOIN ff_album a ON s.album_key = a.album_key
+JOIN ff_album a ON s.album_key = a.album_key
 LEFT OUTER JOIN ffl_show_song ss ON ss.song_key = s.song_key
 LEFT OUTER JOIN ffl_show sh ON sh.show_key = ss.show_key
 WHERE sh.show_key = @show_key

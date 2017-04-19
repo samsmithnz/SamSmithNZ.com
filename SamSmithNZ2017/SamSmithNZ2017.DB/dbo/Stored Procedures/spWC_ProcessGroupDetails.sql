@@ -16,7 +16,7 @@ BEGIN
 		@TotalNumberOfTeamsThatAdvanceFromStage = tf.r1_total_number_of_teams_that_advance,
 		@TeamsFromEachGroupThatAdvance = tf.r1_number_of_teams_from_group_that_advance
 	FROM wc_tournament t 
-	INNER JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
+	JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
 	WHERE t.tournament_code = @tournament_code
 END
 ELSE IF (@round_number = 2)
@@ -25,7 +25,7 @@ BEGIN
 		@TotalNumberOfTeamsThatAdvanceFromStage = tf.r2_total_number_of_teams_that_advance,
 		@TeamsFromEachGroupThatAdvance = tf.r2_number_of_teams_from_group_that_advance
 	FROM wc_tournament t 
-	INNER JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
+	JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
 	WHERE t.tournament_code = @tournament_code
 END
 ELSE IF (@round_number = 3)
@@ -34,7 +34,7 @@ BEGIN
 		@TotalNumberOfTeamsThatAdvanceFromStage = tf.r3_total_number_of_teams_that_advance,
 		@TeamsFromEachGroupThatAdvance = tf.r3_number_of_teams_from_group_that_advance
 	FROM wc_tournament t 
-	INNER JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
+	JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
 	WHERE t.tournament_code = @tournament_code
 END
 
@@ -147,7 +147,7 @@ DEALLOCATE Cursor1
 /*
 SELECT t.team_name, gs.*
 FROM wc_group_stage gs
-INNER JOIN wc_team t ON gs.team_code = t.team_code
+JOIN wc_team t ON gs.team_code = t.team_code
 WHERE tournament_code = @tournament_code
 and round_number = @round_number
 and has_qualified_for_next_round = 0

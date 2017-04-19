@@ -39,8 +39,8 @@ FROM wc_tournament t
 LEFT OUTER JOIN wc_team te ON te.team_code = t.host_team_code
 LEFT OUTER JOIN wc_team te2 ON te2.team_code = t.co_host_team_code
 LEFT OUTER JOIN wc_game g ON t.tournament_code = g.tournament_code
-INNER JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
-INNER JOIN vWC_TournamentCompletionStatistics tcs ON t.tournament_code = tcs.tournament_code 
+JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
+JOIN vWC_TournamentCompletionStatistics tcs ON t.tournament_code = tcs.tournament_code 
 WHERE ((t.competition_code = @competition_code) or (@competition_code is null))
 and ((t.tournament_code = @tournament_code) or (@tournament_code is null))
 GROUP BY t.competition_code, t.tournament_code, [year] , [name], 
