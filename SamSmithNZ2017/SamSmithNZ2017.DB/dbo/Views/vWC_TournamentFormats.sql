@@ -20,6 +20,6 @@ tfr3.number_of_groups_in_round as r3_number_of_groups_in_round,
 tfr3.number_of_teams_from_group_that_advance as r3_number_of_teams_from_group_that_advance, 
 tfr3.total_number_of_teams_that_advance as r3_total_number_of_teams_that_advance
 from wc_tournament_format tf
-INNER JOIN wc_tournament_format_round tfr1 ON tf.round_1_format_code = tfr1.format_round_code
-INNER JOIN wc_tournament_format_round tfr2 ON tf.round_2_format_code = tfr2.format_round_code
-INNER JOIN wc_tournament_format_round tfr3 ON tf.round_3_format_code = tfr3.format_round_code
+JOIN wc_tournament_format_round tfr1 ON tf.round_1_format_code = tfr1.format_round_code
+JOIN wc_tournament_format_round tfr2 ON tf.round_2_format_code = tfr2.format_round_code
+JOIN wc_tournament_format_round tfr3 ON tf.round_3_format_code = tfr3.format_round_code

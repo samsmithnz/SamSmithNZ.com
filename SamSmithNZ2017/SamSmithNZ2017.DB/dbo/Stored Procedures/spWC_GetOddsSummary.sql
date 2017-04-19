@@ -73,7 +73,7 @@ AS
     o.odds_sample_size,
 	o.tournament_code
 	FROM wc_odds o
-	INNER JOIN #tmp_team t ON o.team_name = t.team_name
+	JOIN #tmp_team t ON o.team_name = t.team_name
 	WHERE tournament_code = @tournament_code
 	and (@odds_date is null or o.odds_date = @odds_date)
 	--and o.team_name = 'croatia' or o.team_name = 'usa'

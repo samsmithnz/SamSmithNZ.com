@@ -36,8 +36,8 @@ SELECT 1 as row_type, g.game_time, g.game_number,
 	t2.flag_name as team_2_flag_name,
 	g.location, g.round_number, g.round_code, 1 as sort_order
 FROM wc_game g
-INNER JOIN wc_team t1 ON g.team_1_code = t1.team_code
-INNER JOIN wc_team t2 ON g.team_2_code = t2.team_code
+JOIN wc_team t1 ON g.team_1_code = t1.team_code
+JOIN wc_team t2 ON g.team_2_code = t2.team_code
 WHERE g.tournament_code = @tournament_code
 and g.round_number = @round_number
 and (g.round_code = @round_code or g.round_code = @round_code + 'a')
@@ -51,8 +51,8 @@ SELECT 2 as row_type, g.game_time, g.game_number,
 	'Soccerball_svg.png', '',
 	g.location, g.round_number, g.round_code, go.goal_time as sort_order
 FROM wc_game g
-INNER JOIN wc_goal go ON go.game_code = g.game_code
-INNER JOIN wc_player p ON p.player_code = go.player_code and g.team_1_code = p.team_code
+JOIN wc_goal go ON go.game_code = g.game_code
+JOIN wc_player p ON p.player_code = go.player_code and g.team_1_code = p.team_code
 WHERE g.tournament_code = @tournament_code
 and g.round_number = @round_number
 and (g.round_code = @round_code or g.round_code = @round_code + 'a')
@@ -65,8 +65,8 @@ SELECT 2 as row_type, g.game_time, g.game_number,
 	'', 'Soccerball_svg.png',
 	g.location, g.round_number, g.round_code, go.goal_time as sort_order
 FROM wc_game g
-INNER JOIN wc_goal go ON go.game_code = g.game_code
-INNER JOIN wc_player p ON p.player_code = go.player_code and g.team_2_code = p.team_code
+JOIN wc_goal go ON go.game_code = g.game_code
+JOIN wc_player p ON p.player_code = go.player_code and g.team_2_code = p.team_code
 WHERE g.tournament_code = @tournament_code
 and g.round_number = @round_number
 and (g.round_code = @round_code or g.round_code = @round_code + 'a')

@@ -9,8 +9,8 @@ SELECT 0
 --FROM TabTrack tt
 --LEFT OUTER JOIN itTrack it ON tt.TrackName = it.track_name COLLATE database_default
 --LEFT OUTER JOIN TabAlbum ta ON tt.albumkey = ta.albumkey
---INNER JOIN itPLTrack t ON tt.TrackName = t.track_name COLLATE database_default
---INNER JOIN itPLPlaylistTrack pt ON t.track_code = pt.track_code 
+--JOIN itPLTrack t ON tt.TrackName = t.track_name COLLATE database_default
+--JOIN itPLPlaylistTrack pt ON t.track_code = pt.track_code 
 --WHERE pt.playlist_code = @playlist_code
 --and ta.IsABassTabAlbum = 0
 --GROUP BY trackKey, ta.artistname,TrackName, ta.path, TrackPath, TrackOrder, tt.AlbumKey, tt.rating, pt.track_order
@@ -24,8 +24,8 @@ SELECT 0
 --FROM TabTrack tt
 --LEFT OUTER JOIN itTrack it ON tt.TrackName = it.track_name COLLATE database_default
 --LEFT OUTER JOIN TabAlbum ta ON tt.albumkey = ta.albumkey
---INNER JOIN itPLTrack t ON tt.TrackName = t.track_name COLLATE database_default
---INNER JOIN itPLPlaylistTrack pt ON t.track_code = pt.track_code 
+--JOIN itPLTrack t ON tt.TrackName = t.track_name COLLATE database_default
+--JOIN itPLPlaylistTrack pt ON t.track_code = pt.track_code 
 --WHERE pt.playlist_code = @playlist_code
 --and ta.IsABassTabAlbum = 0
 --and t.track_name not in (select tt.TrackName COLLATE database_default from TabTrack tt)

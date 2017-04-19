@@ -7,7 +7,7 @@ SELECT s.song_key, s.song_name, --sh1.show_key, --sh1.show_key as show_key1,
 	count(ss.song_key) as times_played, 
 	a.album_key, a.album_name
 FROM ff_song s 
-INNER JOIN ff_album a ON s.album_key = a.album_key
+JOIN ff_album a ON s.album_key = a.album_key
 LEFT OUTER JOIN ff_show_song ss ON ss.song_key = s.song_key
 LEFT OUTER JOIN ff_show sh1 ON sh1.show_key = ss.show_key 
 LEFT OUTER JOIN ff_show sh2 ON sh2.show_key = ss.show_key

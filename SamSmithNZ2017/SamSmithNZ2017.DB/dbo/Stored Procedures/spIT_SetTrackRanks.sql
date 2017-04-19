@@ -164,7 +164,7 @@ BEGIN
 	UPDATE it
 	SET previous_ranking = isnull(it2.ranking,0), previous_play_count = isnull(it2.play_count,0), is_new_entry = 0
 	FROM itTrack it
-	INNER JOIN itTrack it2 ON it.track_name = it2.track_name and it.album_name = it2.album_name and it.artist_name = it2.artist_name
+	JOIN itTrack it2 ON it.track_name = it2.track_name and it.album_name = it2.album_name and it.artist_name = it2.artist_name
 	WHERE it.playlist_code = @playlist_code
 		and it2.playlist_code = @last_playlist_code
 		and not it2.previous_ranking is null

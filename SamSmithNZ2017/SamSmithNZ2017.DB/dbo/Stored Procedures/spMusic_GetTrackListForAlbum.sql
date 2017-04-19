@@ -4,6 +4,6 @@ AS
 
 SELECT ta.artist_name, tt.*
 FROM tab_track tt
-INNER JOIN tab_album ta ON tt.album_code = ta.album_code
+JOIN tab_album ta ON tt.album_code = ta.album_code
 WHERE tt.album_code = @album_code
 ORDER BY track_order
