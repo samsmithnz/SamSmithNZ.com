@@ -42,6 +42,10 @@
             }
         }
 
+        var onSaveTabEventComplete = function (response) {
+            getTab();
+        }
+
         console.log("TabCode: " + getUrlParameter('TabCode'));
         $scope.tabCode = getUrlParameter('TabCode');
 
@@ -53,7 +57,15 @@
         }
 
         $scope.saveTab = function () {
-            alert("Saving Tab!");
+            $scope.tab.TabName = $('#txtTabName').val();
+            $scope.tab.TabOrder = $('#txtOrder').val();
+            $scope.tab.RatingCode = $('#cboRating').val();
+            $scope.tab.TuningCode = $('#cboTuning').val();
+            $scope.tab.TabText = $('#txtTabText').val();
+
+            console.log($scope.tab);
+
+            //tabsService.saveTab(tab).then(onSaveTabEventComplete, onError);
         };
 
     }

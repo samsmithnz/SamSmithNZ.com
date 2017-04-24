@@ -44,23 +44,30 @@ namespace SSNZ.Steam.Data
             }
 
             //Get the achievements from another dataset
-            Tuple<List<Achievement>, string> tempResults = await GetAchievementDataAsync(steamID, appID, gameDetail);
-            result.Achievements = tempResults.Item1;
-            result.ErrorMessage = tempResults.Item2;
-
-            //Calculate the total achieved items
-            int totalAchieved = 0;
-            foreach (Achievement item in result.Achievements)
+            if (gameDetail != null)
             {
-                if (item.Achieved == true)
+                Tuple<List<Achievement>, string> tempResults = await GetAchievementDataAsync(steamID, appID, gameDetail);
+                result.Achievements = tempResults.Item1;
+                result.ErrorMessage = tempResults.Item2;
+
+                //Calculate the total achieved items
+                int totalAchieved = 0;
+                foreach (Achievement item in result.Achievements)
                 {
-                    totalAchieved++;
+                    if (item.Achieved == true)
+                    {
+                        totalAchieved++;
+                    }
+                }
+                result.TotalAchieved = totalAchieved;
+                if (result.Achievements.Count > 0)
+                {
+                    result.PercentAchieved = (decimal)totalAchieved / (decimal)result.Achievements.Count;
                 }
             }
-            result.TotalAchieved = totalAchieved;
-            if (result.Achievements.Count > 0)
+            else
             {
-                result.PercentAchieved = (decimal)totalAchieved / (decimal)result.Achievements.Count;
+                result.Achievements = new List<Achievement>();
             }
 
             return result;
