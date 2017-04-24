@@ -33,11 +33,32 @@
             //console.log($scope.tabs);
         }
 
+        var onSaveAlbumEventComplete = function (response) {
+            initialize();
+        }
+
         console.log("AlbumCode: " + getUrlParameter('AlbumCode'));
         $scope.albumCode = getUrlParameter('AlbumCode');
 
-        albumsService.getAlbum($scope.albumCode, true).then(onGetAlbumEventComplete, onError);
-        tabsService.getTabs($scope.albumCode, true).then(onGetTabsEventComplete, onError);
+        var initialize = function () {
+            albumsService.getAlbum($scope.albumCode, true).then(onGetAlbumEventComplete, onError);
+            tabsService.getTabs($scope.albumCode, true).then(onGetTabsEventComplete, onError);
+        }
+        initialize();
+
+        $scope.saveAlbum = function () {
+            $scope.album.ArtistName = $('#txtArtist').val();
+            $scope.album.AlbumName = $('#txtAlbumName').val();
+            $scope.album.AlbumYear = $('#txtYear').val();
+            $scope.album.IsBassTab = $('#chkIsBassTab')[0].checked;
+            $scope.album.IncludeInIndex = $('#chkIncludeInIndex')[0].checked;
+            $scope.album.IncludeOnWebsite = $('#chkIncludeOnWebsite')[0].checked;
+            $scope.album.IsMiscCollectionAlbum = $('#chkIsMiscCollectionAlbum')[0].checked;
+
+            console.log($scope.album);
+
+            //albumsService.saveAlbum(album).then(onSaveAlbumEventComplete, onError);
+        };
 
     }
 

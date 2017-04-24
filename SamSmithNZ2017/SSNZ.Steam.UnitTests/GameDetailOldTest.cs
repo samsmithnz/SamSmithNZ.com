@@ -348,7 +348,7 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.PercentAchieved == 0m);
             Assert.IsTrue(result.TotalAchieved == 0m);
             Assert.IsTrue(result.Achievements.Count == 0);
-            Assert.IsTrue(result.ErrorMessage == "Requested app has no stats");
+            Assert.IsTrue(result.ErrorMessage == null);
         }
 
         [TestMethod]
@@ -372,6 +372,29 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.TotalAchieved == 0m);
             Assert.IsTrue(result.Achievements.Count == 0);
             Assert.IsTrue(result.ErrorMessage == "Profile is not public");
+        }
+
+        [TestMethod]
+        public void GameDetailsApril24thFailOldTest()
+        {
+            //Arrange
+            GameDetailsOldDA da = new GameDetailsOldDA();
+            string steamId = "76561198036907814";
+            string appId = "243870"; //???
+
+            //Act
+            GameDetail result = da.GetDataOld(steamId, appId);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.AppID == "243870");
+            Assert.IsTrue(result.GameName == "Tom Clancy's Ghost Recon Phantoms - NA");
+            Assert.IsTrue(result.IconURL == "7ca714724bfc22fc9601d8b65f65c47f5d4103f3");
+            Assert.IsTrue(result.LogoURL == "e6d16e51104bc385e99ff6b14f5fb016c813590d");
+            Assert.IsTrue(result.PercentAchieved == 0m);
+            Assert.IsTrue(result.TotalAchieved == 0m);
+            Assert.IsTrue(result.Achievements.Count == 0);
+            Assert.IsTrue(result.ErrorMessage == null);
         }
 
     }

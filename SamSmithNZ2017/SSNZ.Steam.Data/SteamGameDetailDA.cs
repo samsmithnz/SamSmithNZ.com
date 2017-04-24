@@ -15,23 +15,37 @@ namespace SSNZ.Steam.Data
         public async Task<SteamGameDetail> GetDataAsync(string appID)
         {
             string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=" + Global.MySteamWebAPIKey + "&appid=" + appID.ToString() + "&l=en";
-            WebClient newClient = new WebClient();
-            newClient.Encoding = UTF8Encoding.UTF8;
-            string jsonData = await newClient.DownloadStringTaskAsync(jsonRequestString);
+            //WebClient newClient = new WebClient();
+            //newClient.Encoding = UTF8Encoding.UTF8;
+            //string jsonData = await newClient.DownloadStringTaskAsync(jsonRequestString);
+            string jsonData = await Utility.GetPageAsStringAsync(new Uri(jsonRequestString));
 
-            SteamGameDetail result = JsonConvert.DeserializeObject<SteamGameDetail>(jsonData);
-            return result;
+            if (jsonData == "{\n\t\"game\": {\n\n\t}\n}")
+            {
+                return null;
+            }
+            else
+            {
+                return JsonConvert.DeserializeObject<SteamGameDetail>(jsonData);
+            }
         }
 
         public SteamGameDetail GetDataOld(string appID)
         {
             string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=" + Global.MySteamWebAPIKey + "&appid=" + appID.ToString() + "&l=en";
-            WebClient newClient = new WebClient();
-            newClient.Encoding = UTF8Encoding.UTF8;
-            string jsonData = newClient.DownloadString(jsonRequestString);
+            //WebClient newClient = new WebClient();
+            //newClient.Encoding = UTF8Encoding.UTF8;
+            //string jsonData = newClient.DownloadString(jsonRequestString);
+            string jsonData = Utility.GetPageAsStringOld(new Uri(jsonRequestString));
 
-            SteamGameDetail result = JsonConvert.DeserializeObject<SteamGameDetail>(jsonData);
-            return result;
+            if (jsonData == "{\n\t\"game\": {\n\n\t}\n}")
+            {
+                return null;
+            }
+            else
+            {
+                return JsonConvert.DeserializeObject<SteamGameDetail>(jsonData);
+            }
         }
 
     }
