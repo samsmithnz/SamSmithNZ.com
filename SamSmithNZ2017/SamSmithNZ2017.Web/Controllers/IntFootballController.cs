@@ -16,14 +16,14 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Index()
         {
-            return Redirect("http://samsmithnz.com/IntFootball/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/IntFootball/Index");
             //SamSmithNZ2015.Core.IntFootball.DataAccess.TournamentDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.TournamentDataAccess();
             //return View(da.GetItems(1));
         }
 
         public ActionResult TournamentDetails(short tournamentCode)
         {
-            return Redirect("http://samsmithnz.com/IntFootball/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/IntFootball/Index");
 
             //SamSmithNZ2015.Core.IntFootball.DataAccess.TournamentDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.TournamentDataAccess();
             //Tournament tournament = da.GetItem(tournamentCode);
@@ -47,7 +47,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult GroupDetails(short tournamentCode, short roundNumber, bool isLastRound)
         {
-            return Redirect("http://samsmithnz.com/IntFootball/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/IntFootball/Index");
 
             //SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDataAccess();
             //List<Group> groups = da.GetItems(tournamentCode, roundNumber);
@@ -70,7 +70,7 @@ namespace SamSmithNZ2017.Controllers
         [HttpPost]
         public ActionResult GroupDetails(short tournamentCode, short roundNumber, string cboGroup, bool isLastRound)
         {
-            return Redirect("http://samsmithnz.com/IntFootball/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/IntFootball/Index");
 
             //SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDataAccess();
             //List<Group> groups = da.GetItems(tournamentCode, roundNumber);
@@ -91,7 +91,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult PlayoffDetails(short tournamentCode, short roundNumber)
         {
-            return Redirect("http://samsmithnz.com/IntFootball/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/IntFootball/Index");
 
             //SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess();
             //IList<Game> gameList = da.GetPlayoffItems(tournamentCode, roundNumber);
@@ -147,7 +147,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Team(short teamCode)
         {
-            return Redirect("http://samsmithnz.com/IntFootball/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/IntFootball/Index");
 
             //SamSmithNZ2015.Core.IntFootball.DataAccess.TeamDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.TeamDataAccess();
             //Team teamDetails = da.GetItem(teamCode);
@@ -160,7 +160,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult ELORating(short tournamentCode)
         {
-            return Redirect("http://samsmithnz.com/IntFootball/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/IntFootball/Index");
 
             //SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess();
             //List<Game> gameList = da.GetItems(tournamentCode);
@@ -172,7 +172,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Test()
         {
-            return Redirect("http://samsmithnz.com/IntFootball/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/IntFootball/Index");
 
             //return View();
         }
@@ -180,7 +180,7 @@ namespace SamSmithNZ2017.Controllers
         [HttpPost]
         public ActionResult WCOddsPost(string maxRange = "", bool chkShowActive = true, bool chkShowEliminated = false)
         {
-            return Redirect("http://samsmithnz.com/IntFootball/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/IntFootball/Index");
 
             ////return View(WCOdds(maxRange, chkShowActive, chkShowEliminated));
             //return RedirectToAction("Index", "FootballPool", new { maxRange = maxRange, chkShowActive = chkShowActive, chkShowEliminated = chkShowEliminated });
@@ -188,7 +188,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult WCOdds(string maxRange = "", bool showActive = true, bool showEliminated = false, short tournamentCode = 20)
         {
-            return Redirect("http://samsmithnz.com/IntFootball/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/IntFootball/Index");
 
             ////Scrap the odds
             //SamSmithNZ2015.Core.IntFootball.DataAccess.ImportGameOddsDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.ImportGameOddsDataAccess();
@@ -265,14 +265,14 @@ namespace SamSmithNZ2017.Controllers
         //From https://github.com/sghall/d3-multi-series-charts       
         public ActionResult WCOddsGraph(short tournamentCode = 20)
         {
-            return Redirect("http://samsmithnz.com/IntFootball/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/IntFootball/Index");
 
             //return View(CreateOddsGraphData(0.02, true, true, tournamentCode));
         }
 
         //private System.Web.HtmlString CreateOddsGraphData(double oddsLimit, bool chkShowActive, bool chkShowEliminated, short tournamentCode)
         //{
-        //    return Redirect("http://samsmithnz.com/IntFootball/Index");
+        //    return Redirect("http://samsmithnz2015.azurewebsites.net/IntFootball/Index");
 
         //    //SamSmithNZ2015.Core.IntFootball.DataAccess.ImportGameOddsDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.ImportGameOddsDataAccess();
         //    //List<ImportGameOdds> games;

@@ -17,7 +17,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Index()
         {
-            return Redirect("http://samsmithnz.com/Problems/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Problems/Index");
             //SamSmithNZ2015.Core.Problems.DataAccess.ProblemsDataAccess t = new SamSmithNZ2015.Core.Problems.DataAccess.ProblemsDataAccess();
             //List<Problem> problems = t.GetItems();
 
@@ -28,7 +28,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult EditProblem(int problemNumber)
         {
 
-            return Redirect("http://samsmithnz.com/Problems/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Problems/Index");
             //SamSmithNZ2015.Core.Problems.DataAccess.ProblemsDataAccess t = new SamSmithNZ2015.Core.Problems.DataAccess.ProblemsDataAccess();
             //Problem problem = t.GetItem(problemNumber);
 
@@ -41,7 +41,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult EditProblem(string txtProblemNumber, string txtDescription, string txtNotes, bool chkIsComplete)
         {
 
-            return Redirect("http://samsmithnz.com/Problems/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Problems/Index");
             //int problemNumber = int.Parse(txtProblemNumber);
 
             //SamSmithNZ2015.Core.Problems.DataAccess.ProblemsDataAccess t = new SamSmithNZ2015.Core.Problems.DataAccess.ProblemsDataAccess();
@@ -54,7 +54,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult SearchResults(string searchText)
         {
 
-            return Redirect("http://samsmithnz.com/Problems/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Problems/Index");
             //ViewBag.Message = "Searching: " + searchText;
 
             //SamSmithNZ2015.Core.Problems.DataAccess.SearchProblemDataAccess r = new SamSmithNZ2015.Core.Problems.DataAccess.SearchProblemDataAccess();
@@ -69,7 +69,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult Vietname3rdGrade()
         {
 
-            return Redirect("http://samsmithnz.com/Problems/Vietname3rdGrade");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Problems/Vietname3rdGrade");
 
             //return View();
         }
@@ -77,7 +77,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult Problem(int problemNumber)
         {
 
-            return Redirect("http://samsmithnz.com/Problems/Problem");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Problems/Problem");
             ////1. Start the timer
             //DateTime startTime = DateTime.Now;
 

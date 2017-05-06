@@ -16,7 +16,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult Index()
         {
 
-            return Redirect("http://samsmithnz.com/Valor/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Valor/Index");
             //SamSmithNZ2015.Core.iTunes.DataAccess.PlaylistDataAccess t = new SamSmithNZ2015.Core.iTunes.DataAccess.PlaylistDataAccess();
             //IList<Playlist> PlaylistList = t.GetItems();
 
@@ -25,7 +25,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult EnemySleepTimesList()
         {
-            return Redirect("http://samsmithnz.com/Valor/EnemySleepTimesList");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Valor/EnemySleepTimesList");
             ////SamSmithNZ2015.Core.iTunes.DataAccess.PlaylistDataAccess t = new SamSmithNZ2015.Core.iTunes.DataAccess.PlaylistDataAccess();
             //List<EnemySleepTime> enemySleepTimeList = new List<EnemySleepTime>();
             //return View(enemySleepTimeList);
@@ -33,7 +33,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult ClaimsList()
         {
-            return Redirect("http://samsmithnz.com/Valor/EnemySleepTimesList");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Valor/EnemySleepTimesList");
             //SamSmithNZ2015.Core.Valor.DataAccess.ClaimDataAccess t = new SamSmithNZ2015.Core.Valor.DataAccess.ClaimDataAccess();
             //List<Claim> claimList = t.GetItems();
             //return View(claimList);
@@ -42,7 +42,7 @@ namespace SamSmithNZ2017.Controllers
         [HttpPost]
         public ActionResult ClaimsList(string txtSearch)
         {
-            return Redirect("http://samsmithnz.com/Valor/ClaimsList");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Valor/ClaimsList");
             //SamSmithNZ2015.Core.Valor.DataAccess.ClaimDataAccess t = new SamSmithNZ2015.Core.Valor.DataAccess.ClaimDataAccess();
 
             ////Get X/Y coords
@@ -94,7 +94,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult AddClaim()
         {
-            return Redirect("http://samsmithnz.com/Valor/AddClaim");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Valor/AddClaim");
             //SamSmithNZ2015.Core.Valor.DataAccess.GuildDataAccess t = new SamSmithNZ2015.Core.Valor.DataAccess.GuildDataAccess();
             //List<Guild> guildList = t.GetItems();
 
@@ -104,7 +104,7 @@ namespace SamSmithNZ2017.Controllers
         [HttpPost]
         public ActionResult AddClaim(string txtXLocation, string txtYLocation, string txtOwner, string txtAddedBy, string cboGuild)
         {
-            return Redirect("http://samsmithnz.com/Valor/AddClaim");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Valor/AddClaim");
             //string errorMessage = "";
             //SamSmithNZ2015.Core.Valor.DataAccess.ClaimDataAccess t = new SamSmithNZ2015.Core.Valor.DataAccess.ClaimDataAccess();
             //Claim c = new Claim();
