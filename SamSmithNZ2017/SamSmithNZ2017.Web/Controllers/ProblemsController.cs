@@ -41,7 +41,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult EditProblem(string txtProblemNumber, string txtDescription, string txtNotes, bool chkIsComplete)
         {
 
-            return Redirect("http://samsmithnz2015.azurewebsites.net/Problems/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Problems/EditProblem?txtProblemNumber=" + txtProblemNumber + "&txtDescription=" + txtDescription + "&txtNotes=" + txtNotes + "&chkIsComplete=" + chkIsComplete);
             //int problemNumber = int.Parse(txtProblemNumber);
 
             //SamSmithNZ2015.Core.Problems.DataAccess.ProblemsDataAccess t = new SamSmithNZ2015.Core.Problems.DataAccess.ProblemsDataAccess();
@@ -54,7 +54,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult SearchResults(string searchText)
         {
 
-            return Redirect("http://samsmithnz2015.azurewebsites.net/Problems/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Problems/SearchResults?searchText=" + searchText);
             //ViewBag.Message = "Searching: " + searchText;
 
             //SamSmithNZ2015.Core.Problems.DataAccess.SearchProblemDataAccess r = new SamSmithNZ2015.Core.Problems.DataAccess.SearchProblemDataAccess();
@@ -77,7 +77,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult Problem(int problemNumber)
         {
 
-            return Redirect("http://samsmithnz2015.azurewebsites.net/Problems/Problem");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Problems/Problem?problemNumber=" + problemNumber);
             ////1. Start the timer
             //DateTime startTime = DateTime.Now;
 

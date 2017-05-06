@@ -27,7 +27,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult ShowYearList()
         {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/ShowYearList");
 
             //ShowYearDataAccess da = new ShowYearDataAccess();
             //IEnumerable<SelectListItem> selectItems;
@@ -46,7 +46,7 @@ namespace SamSmithNZ2017.Controllers
         [HttpPost]
         public ActionResult ShowListPartial(string cboShowYear2)
         {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/ShowListPartial?cboShowYear2=" + cboShowYear2);
 
             //ShowDataAccess da = new ShowDataAccess();
             //int yearCode = Convert.ToInt16(cboShowYear2);
@@ -56,7 +56,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult AlbumList()
         {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/AlbumList");
 
             //AlbumDataAccess da = new AlbumDataAccess();
             //GraphNodeGeneration graph = GetAlbumGraph();
@@ -66,7 +66,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Song(int songKey)
         {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Song?songKey=" + songKey);
 
             //SongDataAccess da = new SongDataAccess();
             //ShowDataAccess da2 = new ShowDataAccess();
@@ -75,7 +75,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Show(int showKey)
         {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Show?showKey="+ showKey);
 
             //ShowDataAccess da = new ShowDataAccess();
             //SongDataAccess da2 = new SongDataAccess();
@@ -84,7 +84,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Album(int albumKey)
         {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Album?albumKey=" + albumKey);
 
             //AlbumDataAccess da = new AlbumDataAccess();
             //SongDataAccess da2 = new SongDataAccess();
@@ -93,7 +93,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult SetlistProcessor()
         {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/SetlistProcessor");
 
             //return View();
         }
