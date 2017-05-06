@@ -16,14 +16,14 @@ namespace SamSmithNZ2017.Controllers
             }
             else
             { 
-                return Redirect("http://samsmithnz.com");
+                return Redirect("http://samsmithnz2015.azurewebsites.net");
             }
             //return View();
         }
 
         public ActionResult About()
         {
-            return Redirect("http://samsmithnz.com/Home/About");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Home/About");
             //ViewBag.Message = "Your application description page.";
 
             //return View();
@@ -31,7 +31,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Contact()
         {
-            return Redirect("http://samsmithnz.com/Home/Contact");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/Home/Contact");
             //ViewBag.Message = "Your contact page.";
 
             //return View();

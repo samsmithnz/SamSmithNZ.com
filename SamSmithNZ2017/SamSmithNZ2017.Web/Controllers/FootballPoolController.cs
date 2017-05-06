@@ -18,7 +18,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult AccountingSummary(short yearCode)
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //AccountingSummaryDataAccess DA = new AccountingSummaryDataAccess();
             //IList<SamSmithNZ2015.Core.FootballPool.AccountingSummary> AccountingSummaryList = DA.GetItems(yearCode);
@@ -28,7 +28,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult AccountingTransactions(short yearCode, short playerCode)
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //YearWeekPlayerBase yearWeekPlayer = new YearWeekPlayerBase(yearCode, 0, playerCode);
 
@@ -49,7 +49,7 @@ namespace SamSmithNZ2017.Controllers
         //To get the data for the page
         public ActionResult AddAccountingTransaction(short yearCode, short weekCode)
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //YearWeekPlayerBase yearWeekPlayer = new YearWeekPlayerBase(yearCode, weekCode, 0);
 
@@ -65,7 +65,7 @@ namespace SamSmithNZ2017.Controllers
         [HttpPost]
         public ActionResult AddAccountingTransaction(short yearCode, short weekCode, string cboPlayers, decimal? txtAmount, string cboTypes)
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //AccountingTransaction item = new AccountingTransaction();
             //item.YearCode = yearCode;
@@ -115,7 +115,7 @@ namespace SamSmithNZ2017.Controllers
         [ChildActionOnly]
         public ActionResult FootballPoolSideBar(short yearCode)
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //CurrentSettingsDataAccess DA2 = new CurrentSettingsDataAccess();
             //CurrentSettings currentSettings = DA2.GetItem();
@@ -135,7 +135,7 @@ namespace SamSmithNZ2017.Controllers
         [ChildActionOnly]
         public ActionResult HeaderStatus()
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //CurrentSettingsDataAccess DA = new CurrentSettingsDataAccess();
             //CurrentSettings currentSettings = DA.GetItem();
@@ -146,7 +146,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Helmets()
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //TeamDataAccess DA = new TeamDataAccess();
             //IList<Team> TeamList = DA.GetItems();
@@ -157,7 +157,7 @@ namespace SamSmithNZ2017.Controllers
         [HttpPost]
         public ActionResult MoveToNextWeekAction(short yearCode, short weekCode)
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //MoveToNextWeekDataAccess DA = new MoveToNextWeekDataAccess();
             //if (DA.MoveToNextWeek(yearCode) == true)
@@ -175,14 +175,14 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult MoveToNextWeek(short yearCode, short weekCode)
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //return View(new YearWeekPlayerBase(yearCode, weekCode, 0));
         }
 
         public ActionResult PickSheet(short yearCode, short weekCode, short playerCode)
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //Boolean IncludeTeamRecords = true;
 
@@ -207,7 +207,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult PotentialWinners(short yearCode, short weekCode)
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //PotentialWinnersDataAccess DA = new PotentialWinnersDataAccess();
             //IList<PotentialWinners> potentialWinnersList = DA.GetItems(yearCode, weekCode);
@@ -217,7 +217,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult SamsModel(short yearCode, short weekCode, short playerCode)
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //SamsModelDataAccess DA = new SamsModelDataAccess();
             //IList<SamsModel> SamModelsList = DA.GetItems(yearCode, weekCode, playerCode, false);
@@ -253,7 +253,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult SeasonStatistics()
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //StatisticsByPicksDataAccess DA = new StatisticsByPicksDataAccess();
             //IList<StatisticsByPicks> statisticsByPicksList = DA.GetItems();
@@ -267,7 +267,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Index(short? yearCode, short? weekCode, short? sortOrder, bool? isAdmin)
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //short finalYearCode;
             //short finalWeekCode;
@@ -313,7 +313,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult WeekSetup(short yearCode, short weekCode)
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //WeekStatusDataAccess DA = new WeekStatusDataAccess();
             //WeekStatus weekStatus = DA.GetItem(yearCode, weekCode);
@@ -329,7 +329,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult SparklineTest()
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             ////PlayerSummaryDataAccess DA = new PlayerSummaryDataAccess();
             ////List<PlayerSummary> SummaryList = DA.GetItems(2014, 1);
@@ -349,7 +349,7 @@ namespace SamSmithNZ2017.Controllers
         [HttpPost]
         public ActionResult SaveWeekSetup(short yearCode, short weekCode, decimal? txtDonutCost, FormCollection post)
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //WeekTemplateDataAccess DA = new WeekTemplateDataAccess();
             //IList<WeekTemplate> WeekTemplateList = DA.GetItems(yearCode, weekCode);
@@ -509,7 +509,7 @@ namespace SamSmithNZ2017.Controllers
         [HttpPost]
         public ActionResult OddsPost(string maxRange = "", bool chkShowActive = true, bool chkShowEliminated = false)
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             ////return View(WCOdds(maxRange, chkShowActive, chkShowEliminated));
             //return RedirectToAction("Index", "FootballPool", new { maxRange = maxRange, chkShowActive = chkShowActive, chkShowEliminated = chkShowEliminated });
@@ -517,7 +517,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult OddsBackup()
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //List<string> debugList = new List<string>();
             //int yearCode = 2014;
@@ -557,7 +557,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Odds(string maxRange = "", bool showActive = true, bool showEliminated = false, int yearCode = 2014, bool top8Items = false)
         {
-            return Redirect("http://samsmithnz.com/FootballPool/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
             //List<string> debugList = new List<string>();
 
@@ -641,7 +641,7 @@ namespace SamSmithNZ2017.Controllers
 
         //private System.Web.HtmlString CreateOddsGraphData(double oddsLimit, bool chkShowActive, bool chkShowEliminated, int yearCode, bool top10Items)
         //{
-        //    return Redirect("http://samsmithnz.com/FootballPool/Index");
+        //    return Redirect("http://samsmithnz2015.azurewebsites.net/FootballPool/Index");
 
         //    //SamSmithNZ2015.Core.FootballPool.DataAccess.FBImportGameOddsDataAccess da = new SamSmithNZ2015.Core.FootballPool.DataAccess.FBImportGameOddsDataAccess();
         //    //List<FBAPIImportGameOdds> games = new List<FBAPIImportGameOdds>();

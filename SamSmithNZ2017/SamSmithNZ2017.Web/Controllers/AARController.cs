@@ -23,19 +23,19 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Index()
         {
-            return Redirect("http://samsmithnz.com/AAR/Xcom");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/AAR/Xcom");
             //return RedirectToAction("XCOM", "AAR");
         }
 
         public ActionResult XCOMNoChapter()
         {
-            return Redirect("http://samsmithnz.com/AAR/XCOMNoChapter");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/AAR/XCOMNoChapter");
             //return View();
         }
 
         public ActionResult XCOM()
         {
-            return Redirect("http://samsmithnz.com/AAR/XCOM");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/AAR/XCOM");
             //
             //return View(new SamSmithNZ2015.Models.AAR.AARViewModel(this._chapter1Enabled,
             //                                                    this._chapter2Enabled,
@@ -50,7 +50,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult XCOMCH1()
         {
-            return Redirect("http://samsmithnz.com/AAR/XCOMCH1");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/AAR/XCOMCH1");
             //if (this._chapter1Enabled == true)
             //{
             //    return View(this._chapter2Enabled);
@@ -63,7 +63,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult XCOMCH2()
         {
-            return Redirect("http://samsmithnz.com/AAR/XCOMCH1");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/AAR/XCOMCH1");
             //if (this._chapter2Enabled == true)
             //{
             //    return View(this._chapter3Enabled);
@@ -76,7 +76,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult XCOMCH3()
         {
-            return Redirect("http://samsmithnz.com/AAR/XCOMCH1");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/AAR/XCOMCH1");
             //if (this._chapter3Enabled == true)
             //{
             //    return View(this._chapter4Enabled);
@@ -90,7 +90,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult XCOMCH4()
         {
 
-            return Redirect("http://samsmithnz.com/AAR/XCOMCH1");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/AAR/XCOMCH1");
             //if (this._chapter4Enabled == true)
             //{
             //    return View(this._chapter5Enabled);
@@ -103,7 +103,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult XCOMCH5()
         {
-            return Redirect("http://samsmithnz.com/AAR/XCOMCH1");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/AAR/XCOMCH1");
             //if (this._chapter5Enabled == true)
             //{
             //    return View(this._chapter6Enabled);
@@ -116,7 +116,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult XCOMCH6()
         {
-            return Redirect("http://samsmithnz.com/AAR/XCOMCH1");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/AAR/XCOMCH1");
             //if (this._chapter6Enabled == true)
             //{
             //    return View(this._chapter7Enabled);
@@ -129,7 +129,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult XCOMCH7()
         {
-            return Redirect("http://samsmithnz.com/AAR/XCOMCH1");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/AAR/XCOMCH1");
             //if (this._chapter7Enabled == true)
             //{
             //    return View(this._chapter8Enabled);
@@ -142,7 +142,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult XCOMCH8()
         {
-            return Redirect("http://samsmithnz.com/AAR/XCOMCH1");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/AAR/XCOMCH1");
             //if (this._chapter8Enabled == true)
             //{
             //    return View(this._chapter9Enabled);
@@ -155,7 +155,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult XCOMCH9()
         {
-            return Redirect("http://samsmithnz.com/AAR/XCOMCH1");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/AAR/XCOMCH1");
             //if (this._chapter9Enabled == true)
             //{
             //    return View(false);

@@ -17,7 +17,7 @@ namespace SamSmithNZ2017.Controllers
         //http://stackoverflow.com/questions/11915/rss-feeds-in-asp-net-mvc
         public ActionResult Index()
         {
-            return Redirect("http://samsmithnz.com/GameDev/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/GameDev/Index");
 
             //ViewBag.Message = "Game Development Blog!";
 
@@ -38,7 +38,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult LevelCreation(int width, int height)
         {
-            return Redirect("http://samsmithnz.com/GameDev/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/GameDev/Index");
 
             //string fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/Data.xml"));
 
@@ -52,7 +52,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult CampaignCreation(int width, int height)
         {
-            return Redirect("http://samsmithnz.com/GameDev/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/GameDev/Index");
 
             //string fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/Data.xml"));
 

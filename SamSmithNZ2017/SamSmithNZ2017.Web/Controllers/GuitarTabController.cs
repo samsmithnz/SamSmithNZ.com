@@ -16,7 +16,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult Index()
         {
             return View();
-            //return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            //return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
 
             //ViewBag.Message = "Welcome to my Guitar Tab application";
 
@@ -43,7 +43,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult Album(int albumCode, bool isAdmin)
         {
             return View();
-            //return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            //return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
 
             //ViewBag.Message = "Welcome to albumcode: " + albumcode.ToString();
 
@@ -60,7 +60,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult SearchResults(string searchText)
         {
             return View();
-            //return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            //return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
 
             //ViewBag.Message = "Searching: " + searchText;
 
@@ -77,7 +77,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult EditAlbum(int albumCode)
         {
             return View();
-            //return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            //return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
 
             //bool isAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2015.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
 
@@ -103,7 +103,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult EditTab(int tabCode)
         {
             return View();
-            //return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            //return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
 
             //SamSmithNZ2015.Core.GuitarTab.DataAccess.TabDataAccess da = new Core.GuitarTab.DataAccess.TabDataAccess();
             //SamSmithNZ2015.Core.GuitarTab.Tab tab = da.GetItem(trackCode);
@@ -127,7 +127,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult SaveAlbum(int albumCode, string txtArtist, string txtAlbumName, string txtYear,
             bool chkIsBassTab, bool chkIncludeInIndex, bool chkIncludeOnWebsite, bool chkIsMiscCollectionAlbum, string txtTrackList)
         {
-            return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
 
             ////parse and convert the numbers
             //int year = 0;
@@ -179,7 +179,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult AddNewTrack(int albumCode)
         {
-            return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
 
             //SamSmithNZ2015.Core.GuitarTab.DataAccess.TabDataAccess r = new SamSmithNZ2015.Core.GuitarTab.DataAccess.TabDataAccess();
             //IList<Tab> tabList = r.GetItems(albumCode);
@@ -211,7 +211,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult DeleteTrack(int albumCode, int trackCode)
         {
-            return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
 
             //SamSmithNZ2015.Core.GuitarTab.DataAccess.TabDataAccess r = new SamSmithNZ2015.Core.GuitarTab.DataAccess.TabDataAccess();
             //r.Delete(trackCode);
@@ -234,7 +234,7 @@ namespace SamSmithNZ2017.Controllers
         [HttpPost]
         public ActionResult SaveTrack(int albumCode, int trackCode, string txtTrackName, int txtOrder, string txtTrackText, string cboTuning, string cboRating)
         {
-            return Redirect("http://samsmithnz.com/GuitarTab/Index");
+            return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
 
             ////Parse and convert the numbers
             //int order = 0;
