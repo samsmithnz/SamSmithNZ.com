@@ -15,8 +15,8 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Index()
         {
-            return View();
-            //return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
+            //return View();
+            return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
 
             //ViewBag.Message = "Welcome to my Guitar Tab application";
 
@@ -42,8 +42,8 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Album(int albumCode, bool isAdmin)
         {
-            return View();
-            //return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
+            //return View();
+            return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
 
             //ViewBag.Message = "Welcome to albumcode: " + albumcode.ToString();
 
@@ -59,8 +59,8 @@ namespace SamSmithNZ2017.Controllers
         //[HttpPost]
         public ActionResult SearchResults(string searchText)
         {
-            return View();
-            //return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
+            //return View();
+            return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
 
             //ViewBag.Message = "Searching: " + searchText;
 
@@ -76,8 +76,8 @@ namespace SamSmithNZ2017.Controllers
         //[Authorize(Roles = "WebAdmin")]
         public ActionResult EditAlbum(int albumCode)
         {
-            return View();
-            //return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
+            //return View();
+            return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
 
             //bool isAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2015.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
 
@@ -102,8 +102,8 @@ namespace SamSmithNZ2017.Controllers
         //[Authorize(Roles = "WebAdmin")]
         public ActionResult EditTab(int tabCode)
         {
-            return View();
-            //return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
+            //return View();
+            return Redirect("http://samsmithnz2015.azurewebsites.net/GuitarTab/Index");
 
             //SamSmithNZ2015.Core.GuitarTab.DataAccess.TabDataAccess da = new Core.GuitarTab.DataAccess.TabDataAccess();
             //SamSmithNZ2015.Core.GuitarTab.Tab tab = da.GetItem(trackCode);

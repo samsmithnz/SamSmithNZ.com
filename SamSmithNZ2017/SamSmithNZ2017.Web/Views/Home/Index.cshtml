@@ -1,31 +1,80 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div class="container">
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole("WebAdmin") == false && User.IsInRole("FBAdmin") == false && User.IsInRole("FBUser") == false)
+            {
+                <span style="color: red;">Note: You do not have a role assigned. Please contact samsmithnz at gmail.com to get access to the correct area.</span><br />
+            }
+        }
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-4">
+                <h2><a href="@Url.Action("Index", "GuitarTab")">Guitar Tab</a></h2>
+                <p>I've been collecting guitar tab for my favorite bands since 1997. I've then learned, edited, standardized and ranked the tabs.</p>
+                <p><a class="btn" href="@Url.Action("Index", "GuitarTab")">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2><a href="@Url.Action("Index", "Steam", new { steamID = "76561197971691578" })">My Steam Account</a></h2>
+                <p>Tapping into my Steam Account via the <a href="https://steamcommunity.com/dev" target="_blank">Steam Web API</a>. I'm trying to develop better insights and interesting views of achievements.</p>
+                <p><a class="btn" href="@Url.Action("Index", "Steam", new { steamID = "76561197971691578" })">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2><a href="@Url.Action("Index", "IntFootball")">World Cup Analytics</a></h2>
+                <p>This started as World Cup statistics section, but I've been trying to migrate it to more of an International Football Competition analytics site...</p>
+                <p><a class="btn" href="@Url.Action("Index", "IntFootball")">View details &raquo;</a></p>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+            </div>
+        </div>
+
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-4">
+                <h2><a href="@Url.Action("Index", "FooFighters")">Foo Fighters Gigography</a></h2>
+                <p>Dave Grohl is a rock genius. This is a partial collection of Foo Fighter shows over the past 20 years. This is a colloraboration with <a href="http://www.foofighterslive.com" target="_blank">www.foofighterslive.com</a>.</p>
+                <p><a class="btn" href="@Url.Action("Index", "FooFighters")">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2><a href="@Url.Action("Index", "iTunes")">iTunes Analysis</a></h2>
+                <p>I've been saving my iTunes library files for analysis since 2007. This project is a result of this work. </p>
+                <p><a class="btn" href="@Url.Action("Index", "iTunes")">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2><a href="@Url.Action("Index", "GameDev")">Game Development</a></h2>
+                <p>This is my attempt to create my own turn based strategy game with Unity3D...</p>
+                <p><a class="btn" href="@Url.Action("Index", "GameDev")">View details &raquo;</a></p>
+            </div>
+        </div>
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-4">
+                <h2><a href="@Url.Action("Index", "Problems")">Project Euler Problems</a></h2>
+                <p>My solutions and notes to Project Euler problems, a series of challenging mathematical/computer programming problems.</p>
+                <p><a class="btn" href="@Url.Action("Index", "Problems")">View details &raquo;</a></p>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- SamSmithNZSteam -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-2315986579277492"
+                     data-ad-slot="1982797969"
+                     data-ad-format="auto"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+</body>
+</html>
