@@ -33,9 +33,10 @@
 
         console.log("AlbumCode: " + getUrlParameter('AlbumCode'));
         $scope.albumCode = getUrlParameter('AlbumCode');
+        var isAdmin = $('#txtViewHiddenTabs').val() == 'true';
 
-        albumsService.getAlbum($scope.albumCode, true).then(onGetAlbumEventComplete, onError);
-        tabsService.getTabs($scope.albumCode, true).then(onGetTabsEventComplete, onError);
+        albumsService.getAlbum($scope.albumCode, isAdmin).then(onGetAlbumEventComplete, onError);
+        tabsService.getTabs($scope.albumCode, isAdmin).then(onGetTabsEventComplete, onError);
 
     }
 

@@ -14,7 +14,7 @@ namespace SSNZ.GuitarTab.UnitTests
     public class ArtistDataAccessTest
     {
         [TestMethod()]
-        public async Task ArtistsExistOldTest()
+        public async Task ArtistsExistTest()
         {
             //arrange
             ArtistDataAccess da = new ArtistDataAccess();
@@ -29,11 +29,28 @@ namespace SSNZ.GuitarTab.UnitTests
         }
 
         [TestMethod()]
-        public async Task ArtistsFirstItemOldTest()
+        public async Task ArtistsFirstItemTest()
         {
             //arrange
             ArtistDataAccess da = new ArtistDataAccess();
             bool? includeAllItems = null;
+
+            //act
+            List<Artist> results = await da.GetListAsync(includeAllItems);
+
+            //assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count > 0);
+            Assert.IsTrue(results[0].ArtistName == "Ash");
+            Assert.IsTrue(results[0].ArtistNameTrimed == "Ash");
+        }
+
+        [TestMethod()]
+        public async Task ArtistsFirstItemIncludeAllTest()
+        {
+            //arrange
+            ArtistDataAccess da = new ArtistDataAccess();
+            bool? includeAllItems = true;
 
             //act
             List<Artist> results = await da.GetListAsync(includeAllItems);
@@ -46,7 +63,7 @@ namespace SSNZ.GuitarTab.UnitTests
         }
 
         [TestMethod()]
-        public async Task ArtistsIncludeAllItemsExistOldTest()
+        public async Task ArtistsIncludeAllItemsExistTest()
         {
             //arrange
             ArtistDataAccess da = new ArtistDataAccess();
@@ -59,24 +76,6 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(results != null);
             Assert.IsTrue(results.Count > 0);
         }
-
-        [TestMethod()]
-        public async Task ArtistsIncludeAllItemsFirstItemOldTest()
-        {
-            //arrange
-            ArtistDataAccess da = new ArtistDataAccess();
-            bool? includeAllItems = true;
-
-            //act
-            List<Artist> results = await da.GetListAsync(includeAllItems);
-
-            //assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count > 0);
-            Assert.IsTrue(results[0].ArtistName == "Ash");
-            Assert.IsTrue(results[0].ArtistNameTrimed == "Ash");
-        }
-
 
     }
 }

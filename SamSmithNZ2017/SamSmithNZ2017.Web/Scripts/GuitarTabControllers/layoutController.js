@@ -31,8 +31,11 @@
         //    steamId = '76561197971691578';
         //    //console.log("Steam Id not found");
         //}
+        var isAdmin = $('#txtViewHiddenTabs').val() == 'true';
+        //console.log($('#txtViewHiddenTabs').val());
+        //console.log(isAdmin);
 
-        artistsService.getArtists(true).then(onGetArtistsEventComplete, onError);
+        artistsService.getArtists(isAdmin).then(onGetArtistsEventComplete, onError);
         //playerService.getPlayer(steamId).then(onGetPlayerEventComplete, onError);
 
         $scope.searchGuitarTabs = function () {
