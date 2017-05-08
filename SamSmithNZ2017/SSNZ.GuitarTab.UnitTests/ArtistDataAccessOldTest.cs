@@ -40,6 +40,22 @@ namespace SSNZ.GuitarTab.UnitTests
             //assert
             Assert.IsTrue(results != null);
             Assert.IsTrue(results.Count > 0);
+            Assert.IsTrue(results[0].ArtistName == "Ash");
+            Assert.IsTrue(results[0].ArtistNameTrimed == "Ash");
+        }
+        [TestMethod()]
+        public void ArtistsFirstItemIncludeAllOldTest()
+        {
+            //arrange
+            ArtistDataAccessOld da = new ArtistDataAccessOld();
+            bool? includeAllItems = true;
+
+            //act
+            List<Artist> results = da.GetData(includeAllItems);
+
+            //assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count > 0);
             Assert.IsTrue(results[0].ArtistName == "(Top Songs)");
             Assert.IsTrue(results[0].ArtistNameTrimed == "(TopSongs)");
         }
@@ -57,23 +73,6 @@ namespace SSNZ.GuitarTab.UnitTests
             //assert
             Assert.IsTrue(results != null);
             Assert.IsTrue(results.Count > 0);
-        }
-
-        [TestMethod()]
-        public void ArtistsIncludeAllItemsFirstItemOldTest()
-        {
-            //arrange
-            ArtistDataAccessOld da = new ArtistDataAccessOld();
-            bool? includeAllItems = true;
-
-            //act
-            List<Artist> results = da.GetData(includeAllItems);
-
-            //assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count > 0);
-            Assert.IsTrue(results[0].ArtistName == "Ash");
-            Assert.IsTrue(results[0].ArtistNameTrimed == "Ash");
         }
 
 
