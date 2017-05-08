@@ -10,49 +10,20 @@ namespace SamSmithNZ2017.Controllers
     {
         public ActionResult Index()
         {
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                //return RedirectToAction("Index", "Steam");
-                return View();
-            }
-            else
-            { 
-                return Redirect("http://samsmithnz2015.azurewebsites.net");
-            }
-            //
+            return View();
         }
 
         public ActionResult About()
         {
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                //return RedirectToAction("Index", "Steam");
-                return View();
-            }
-            else
-            {
-                return Redirect("http://samsmithnz2015.azurewebsites.net/Home/About");
-            }
-            //ViewBag.Message = "Your application description page.";
-
-            //return View();
+            return View();
         }
+
 
         public ActionResult Contact()
         {
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                //return RedirectToAction("Index", "Steam");
-                return View();
-            }
-            else
-            {
-                return Redirect("http://samsmithnz2015.azurewebsites.net/Home/Contact");
-            }
-            //ViewBag.Message = "Your contact page.";
-
-            //return View();
+            return View();
         }
+
 
         public ActionResult WpAdmin()
         {
