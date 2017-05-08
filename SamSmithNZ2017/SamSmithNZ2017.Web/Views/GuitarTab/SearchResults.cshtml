@@ -2,11 +2,10 @@
 @{
     ViewBag.Title = "Search Results";
     Layout = "~/Views/Shared/_LayoutGuitarTab.cshtml";
-    //bool isAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2015.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
+    bool isGuitarTabAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2017.Web.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
 }
 
 <div ng-controller="searchController">
-
     <span ng-if="searchResults.length == 0">no results</span>
     <span ng-if="searchResults.length > 0">Searched for: "{{searchResults[0].SearchText}}", {{searchResults.length}} matches found:</span>
     <br />
@@ -18,7 +17,7 @@
 
                     @* The 6th parameter is an HCPD Anchor: e.g. album.html#foofighters *@
                     @*@Html.ActionLink(@textString, "Album", "GuitarTab", null, null, item.TrackName.Replace(" ", ""), new { albumcode = item.AlbumCode, isAdmin = isAdmin }, null)*@
-                    {{$index + 1}}. <a href="~/GuitarTab/Album?AlbumCode={{item.AlbumCode}}&IsAdmin=false"><span>{{item.ArtistAlbumResult}}</span><span ng-if="item.IsBassTab == true"> (Bass Tab)</span><span> {{item.TrackResult}}</span></a>
+                    {{$index + 1}}. <a href="~/GuitarTab/Album?AlbumCode={{item.AlbumCode}}"><span>{{item.ArtistAlbumResult}}</span><span ng-if="item.IsBassTab == true"> (Bass Tab)</span><span> {{item.TrackResult}}</span></a>
                 </td>
             </tr>
         </tbody>

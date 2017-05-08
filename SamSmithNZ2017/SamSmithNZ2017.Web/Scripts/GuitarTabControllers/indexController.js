@@ -55,7 +55,9 @@
         //    //console.log("Steam Id not found");
         //}
 
-        albumsService.getAlbums(true).then(onGetAlbumsEventComplete, onError);
+        var isAdmin = $('#txtViewHiddenTabs').val() == 'true';
+
+        albumsService.getAlbums(isAdmin).then(onGetAlbumsEventComplete, onError);
 
     }
 

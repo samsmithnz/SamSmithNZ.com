@@ -1,6 +1,6 @@
-﻿@*@{
-        bool isGuitarTabAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2015.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
-    }*@
+﻿@{
+    bool isGuitarTabAdmin = User.Identity.IsAuthenticated && (User.IsInRole(SamSmithNZ2017.Web.Models.AccountConstants.ACCOUNT_WebAdmin) == true);
+}
 <!DOCTYPE html>
 
 <html>
@@ -19,21 +19,21 @@
     <div class="headerandlogo">
         <table class="PercentWidth100">
             <tr>
-                <td class="PercentWidth50">
+                <td class="col-md-4">
                     <a href="@Url.Action("Index", "GuitarTab")" class="headerText">
                         <img src="@Url.Content("~/Content/GuitarTab/GuitarHeader.png")" alt="" class="headerImg" />
                         <span class="headerText">Guitar Tab Library (v4)</span>
                     </a>
                 </td>
-                <td style="width: 200px;">
+                <td class="col-md-4">
                     <div class="HeaderStatus" style="height: 28px;">
                         @Html.Partial("_LoginPartial")
                     </div>
                 </td>
-                <td class="PercentWidth100 AlignedRight">
+                <td class="col-md-4 pull-right">
                     <span class="AlignedRight">
                         <span>Search for guitar tab:</span>
-                        <input id="txtSearch" type="text" maxlength="100" ng-keyup="$event.keyCode == 13 ? searchGuitarTabs() : null"/>
+                        <input id="txtSearch" type="text" maxlength="100" ng-keyup="$event.keyCode == 13 ? searchGuitarTabs() : null" />
                         <input id="butSearch" type="button" value="Search!" ng-click="searchGuitarTabs()" />
                     </span>
                 </td>
@@ -45,12 +45,10 @@
             <tr class="toptr">
                 <td class="sideBar">
                     <br />
-                    <a href="~/GuitarTab/EditAlbum?AlbumCode=0">Add new album</a><br /><br />
-                    @*@if (isGuitarTabAdmin == true)
-                        {
-                            @Html.ActionLink("Add New Album", "EditAlbum", new { albumcode = 0 })<br />
-                            <br />
-                        }*@
+                    @if (isGuitarTabAdmin == true)
+                    {
+                        <a href="~/GuitarTab/EditAlbum?AlbumCode=0">Add new album</a><br /><br />
+                    }
                     <b>Jump to Artist:</b><br />
                     <div class="ArtistSideBar">
                         <img ng-hide="artists" id="spinner1" src="~/Content/Images/spinner_small.gif" />
@@ -66,6 +64,7 @@
                     </div>
                     <h2>@ViewBag.Title</h2>
                     @RenderBody()
+                    <input id="txtViewHiddenTabs" type="hidden" value="@isGuitarTabAdmin.ToString().ToLower()" />
                 </td>
             </tr>
         </table>
