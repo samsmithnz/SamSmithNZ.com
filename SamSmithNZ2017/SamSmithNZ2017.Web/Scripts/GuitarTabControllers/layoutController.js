@@ -41,7 +41,7 @@
         $scope.searchGuitarTabs = function () {
             var searchText = $('#txtSearch').val();
             //console.log(searchText);
-            $window.open('SearchResults?searchText=' + searchText, "_self");
+            $window.open('GuitarTab/SearchResults?searchText=' + searchText, "_self");
         };
     }
 
