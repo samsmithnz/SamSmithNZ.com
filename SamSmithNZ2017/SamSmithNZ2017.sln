@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.10
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamSmithNZ2017.Web", "SamSmithNZ2017.Web\SamSmithNZ2017.Web.csproj", "{E8201CA0-A946-49CC-8EEE-EB42FF97712E}"
 EndProject
@@ -22,6 +22,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.GuitarTab.UnitTests", "SSNZ.GuitarTab.UnitTests\SSNZ.GuitarTab.UnitTests.csproj", "{7B89F013-80F2-454B-A5FC-081C0901E6AB}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SamSmithNZ2017.DB", "SamSmithNZ2017.DB\SamSmithNZ2017.DB.sqlproj", "{9D1104AA-CF15-457B-BF19-41CE5445F3BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.Steam.CoreData", "SSNZ.Steam.CoreData\SSNZ.Steam.CoreData.csproj", "{256AC81E-543D-41E3-AD03-5BC95F1AF15A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.Steam.CoreUnitTests", "SSNZ.Steam.CoreUnitTests\SSNZ.Steam.CoreUnitTests.csproj", "{2D9267AF-478A-443D-BFA6-D5BD63AE7411}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.Steam.CoreService", "SSNZ.Steam.CoreService\SSNZ.Steam.CoreService.csproj", "{19C0CA03-D77F-42BB-86A3-8D4D774774CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.Steam.CoreModels", "SSNZ.Steam.CoreModels\SSNZ.Steam.CoreModels.csproj", "{3B84E0A7-8309-45AC-BDE0-E7CAE9C09399}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +79,22 @@ Global
 		{9D1104AA-CF15-457B-BF19-41CE5445F3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D1104AA-CF15-457B-BF19-41CE5445F3BE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9D1104AA-CF15-457B-BF19-41CE5445F3BE}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{256AC81E-543D-41E3-AD03-5BC95F1AF15A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{256AC81E-543D-41E3-AD03-5BC95F1AF15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{256AC81E-543D-41E3-AD03-5BC95F1AF15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{256AC81E-543D-41E3-AD03-5BC95F1AF15A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D9267AF-478A-443D-BFA6-D5BD63AE7411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D9267AF-478A-443D-BFA6-D5BD63AE7411}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D9267AF-478A-443D-BFA6-D5BD63AE7411}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D9267AF-478A-443D-BFA6-D5BD63AE7411}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19C0CA03-D77F-42BB-86A3-8D4D774774CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19C0CA03-D77F-42BB-86A3-8D4D774774CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19C0CA03-D77F-42BB-86A3-8D4D774774CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19C0CA03-D77F-42BB-86A3-8D4D774774CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B84E0A7-8309-45AC-BDE0-E7CAE9C09399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B84E0A7-8309-45AC-BDE0-E7CAE9C09399}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B84E0A7-8309-45AC-BDE0-E7CAE9C09399}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B84E0A7-8309-45AC-BDE0-E7CAE9C09399}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
