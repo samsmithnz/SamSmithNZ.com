@@ -57,7 +57,7 @@
 
             console.log($scope.album);
 
-            //albumsService.saveAlbum(album).then(onSaveAlbumEventComplete, onError);
+            albumsService.saveAlbum(album).then(onSaveAlbumEventComplete, onError);
         };
 
     }

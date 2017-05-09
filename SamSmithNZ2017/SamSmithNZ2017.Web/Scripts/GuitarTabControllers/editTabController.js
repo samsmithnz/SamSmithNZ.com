@@ -65,7 +65,7 @@
 
             console.log($scope.tab);
 
-            //tabsService.saveTab(tab).then(onSaveTabEventComplete, onError);
+            tabsService.saveTab(tab).then(onSaveTabEventComplete, onError);
         };
 
     }
