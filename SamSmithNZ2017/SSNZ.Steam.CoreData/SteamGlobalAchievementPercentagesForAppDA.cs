@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using SSNZ.Steam.Models;
+using SSNZ.Steam.CoreModels;
 using System.Net;
+using System.Net.Http;
 
-namespace SSNZ.Steam.Data
+namespace SSNZ.Steam.CoreData
 {
     public class SteamGlobalAchievementPercentagesForAppDA
     {
@@ -25,16 +26,6 @@ namespace SSNZ.Steam.Data
             return result;
         }
 
-        public SteamGlobalAchievementsForApp GetDataOld(string appID)
-        {
-            string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=" + appID.ToString();
-            //WebClient newClient = new WebClient();
-            //newClient.Encoding = UTF8Encoding.UTF8;
-            //string jsonData = newClient.DownloadString(jsonRequestString);
-            string jsonData =  Utility.GetPageAsStringOld(new Uri(jsonRequestString));
-
-            SteamGlobalAchievementsForApp result = JsonConvert.DeserializeObject<SteamGlobalAchievementsForApp>(jsonData);
-            return result;
-        }
+      
     }
 }

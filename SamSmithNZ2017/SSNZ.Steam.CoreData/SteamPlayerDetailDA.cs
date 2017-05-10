@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using SSNZ.Steam.Models;
+using SSNZ.Steam.CoreModels;
 using System.Net;
 
-namespace SSNZ.Steam.Data
+namespace SSNZ.Steam.CoreData
 {
     public class SteamPlayerDetailDA
     {
@@ -23,17 +23,6 @@ namespace SSNZ.Steam.Data
             SteamPlayerDetail result = JsonConvert.DeserializeObject<SteamPlayerDetail>(jsonData);
             return result;
         }
-
-        public SteamPlayerDetail GetDataOld(string commaSeperatedSteamIDs)
-        {
-            string jsonRequestString = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + Global.MySteamWebAPIKey + "&steamids=" + commaSeperatedSteamIDs;
-            //WebClient newClient = new WebClient();
-            //newClient.Encoding = UTF8Encoding.UTF8;
-            //string jsonData = newClient.DownloadString(jsonRequestString);
-            string jsonData = Utility.GetPageAsStringOld(new Uri(jsonRequestString));
-
-            SteamPlayerDetail result = JsonConvert.DeserializeObject<SteamPlayerDetail>(jsonData);
-            return result;
-        }
+      
     }
 }
