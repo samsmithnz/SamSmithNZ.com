@@ -1,4 +1,4 @@
-﻿//var interceptor = ["$q", "$location", function ($q, $location) {
+//var interceptor = ["$q", "$location", function ($q, $location) {
 //    return {
 //        request: function (config) {
 //            //Adding authorization token to header of each request
@@ -9,41 +9,33 @@
 //        }
 //    }
 //}];
-
-var app = angular.module("SteamApp", []);//, ['PartnerDBApp.settings', 'ui.bootstrap', 'ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.pinning', 'ui.grid.edit',
-    //'ui.grid.cellNav', 'ui.grid.autoResize', 'checklist-model', 'toaster', 'ui.grid.selection', 'angular-svg-round-progress', 'blockUI', 'ui.tree', 'kendo.directives'])
-    //.config(["$httpProvider", function ($httpProvider) {
-    //    $httpProvider.interceptors.push(interceptor);
-    //}]);
-
+var app = angular.module("SteamApp", []); //, ['PartnerDBApp.settings', 'ui.bootstrap', 'ngAnimate', 'ngTouch', 'ui.grid', 'ui.grid.pinning', 'ui.grid.edit',
+//'ui.grid.cellNav', 'ui.grid.autoResize', 'checklist-model', 'toaster', 'ui.grid.selection', 'angular-svg-round-progress', 'blockUI', 'ui.tree', 'kendo.directives'])
+//.config(["$httpProvider", function ($httpProvider) {
+//    $httpProvider.interceptors.push(interceptor);
+//}]);
 var app = angular.module("GuitarTabApp", []);
-
 //app.run(["$rootScope", function ($rootScope) {
 //    $rootScope.popup = "Ari Lerner";
 //    //$rootScope.partnerSetUpData = [];
 //}]);
-
 ////This gives the stack for caught exception 
 //app.factory("stacktraceService", function () {
 //    return ({
 //        print: printStackTrace
 //    });
 //});
-
 ////Decorating the exception handler to catch all exceptions(Unhandled + synchronous) 
 //app.provider("$exceptionHandler", {
 //    $get: ["errorLogService", function (errorLogService) {
 //        return (errorLogService);
 //    }]
 //});
-
 //app.factory("errorLogService",
 //    ["$log", "errorHandlerService",
 //        function ($log, errorHandlerService) {
-
 //            //log the given error to the remote server.
 //            function log(exception, cause) {
-
 //                // Pass off the error to the default error handler
 //                // on the AngualrJS logger. This will output the
 //                // error to the console (and let the application
@@ -55,4 +47,4 @@ var app = angular.module("GuitarTabApp", []);
 //            // Return the logging function.
 //            return (log);
 //        }
-//    ]);
+//    ]); 
