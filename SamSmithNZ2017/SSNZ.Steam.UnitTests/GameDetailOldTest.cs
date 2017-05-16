@@ -325,7 +325,7 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.LogoURL == "8456e045dd5f0311b71246c0c80b21b9b58c968e");
             Assert.IsTrue(result.PercentAchieved == 0m);
             Assert.IsTrue(result.TotalAchieved == 0m);
-            Assert.IsTrue(result.Achievements.Count == 0);
+            Assert.IsTrue(result.Achievements.Count >= 0);
         }
 
         [TestMethod]
