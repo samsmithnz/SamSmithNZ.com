@@ -4,9 +4,9 @@
     angular
         .module('GuitarTabApp')
         .controller('editAlbumController', editAlbumController);
-    editAlbumController.$inject = ['$scope', '$http', 'albumsService', 'tabsService'];
+    editAlbumController.$inject = ['$scope', '$http', 'albumsService', 'tabsService', '$window'];
 
-    function editAlbumController($scope, $http, albumsService, tabsService) {
+    function editAlbumController($scope, $http, albumsService, tabsService, $window) {
 
         $scope.album = null;
         $scope.tabs = [];
@@ -34,7 +34,8 @@
         }
 
         var onSaveAlbumEventComplete = function (response) {
-            initialize();
+            $window.location.href = '/GuitarTab/Album?AlbumCode=' + $scope.albumCode;
+            //initialize();
         }
 
         console.log("AlbumCode: " + getUrlParameter('AlbumCode'));

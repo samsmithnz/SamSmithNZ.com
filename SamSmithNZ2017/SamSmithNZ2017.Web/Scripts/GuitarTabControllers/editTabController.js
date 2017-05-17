@@ -3,8 +3,8 @@
     angular
         .module('GuitarTabApp')
         .controller('editTabController', editTabController);
-    editTabController.$inject = ['$scope', '$http', 'tabsService', 'ratingsService', 'tuningsService'];
-    function editTabController($scope, $http, tabsService, ratingsService, tuningsService) {
+    editTabController.$inject = ['$scope', '$http', 'tabsService', 'ratingsService', 'tuningsService', '$window'];
+    function editTabController($scope, $http, tabsService, ratingsService, tuningsService, $window) {
         $scope.tab = null;
         $scope.ratings = [];
         $scope.tunings = [];
@@ -34,7 +34,8 @@
             }
         };
         var onSaveTabEventComplete = function (response) {
-            getTab();
+            $window.location.href = '/GuitarTab/Album?AlbumCode=' + $scope.tab.AlbumCode;
+            //getTab();
         };
         console.log("TabCode: " + getUrlParameter('TabCode'));
         $scope.tabCode = getUrlParameter('TabCode');
