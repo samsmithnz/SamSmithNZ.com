@@ -20,12 +20,12 @@
             return $http.get(url);
         };
         this.saveTab = function (tabItem) {
-            var url = baseUrl + 'api/Album/SaveTab';
+            var url = baseUrl + 'api/Tab/SaveTab';
             console.log(url);
             return $http.post(url, tabItem);
         };
         this.DeleteTab = function (tabCode) {
-            var url = baseUrl + 'api/Album/DeleteTab?TabCode=' + tabCode;
+            var url = baseUrl + 'api/Tab/DeleteTab?TabCode=' + tabCode;
             console.log(url);
             return $http.get(url);
         };
