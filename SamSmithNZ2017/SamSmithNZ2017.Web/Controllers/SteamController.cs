@@ -8,6 +8,10 @@ namespace SamSmithNZ2017.Web.Controllers
 {
     public class SteamController : Controller
     {
+        //https://steamcommunity.com/dev
+        //https://developer.valvesoftware.com/wiki/Steam_Web_API#GetPlayerSummaries_.2v0001.29
+        //https://portablesteamwebapi.codeplex.com/documentation
+        //
         // GET: Steam
         public ActionResult Index(string steamID)
         {

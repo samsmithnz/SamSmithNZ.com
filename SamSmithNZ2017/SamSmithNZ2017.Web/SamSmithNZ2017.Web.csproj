@@ -209,6 +209,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProblemsController.cs" />
     <Compile Include="Controllers\SteamController.cs" />
+    <Compile Include="Controllers\SteamOldController.cs" />
     <Compile Include="Controllers\ValorController.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="FilterConfig.cs" />
@@ -1121,6 +1122,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\SteamOld\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
