@@ -12,22 +12,22 @@ namespace SamSmithNZ2017.Web.Controllers
         // GET: /SteamOld/
         public ActionResult Index(string steamID)
         {
-            return RedirectToAction("Steam", "Index", new { steamID = steamID });
+            return RedirectToAction("SteamIsDown", "Steam", new { steamID = steamID });
         }
 
         public ActionResult SteamIsDown()
         {
-            return RedirectToAction("Steam", "SteamIsDown");
+            return RedirectToAction("SteamIsDown", "Steam");
         }
 
         public ActionResult About()
         {
-            return RedirectToAction("Steam", "About");
+            return RedirectToAction("About", "Steam");
         }
 
         public ActionResult GameDetails(string steamID, string appID, string currentCompletedFilter, string currentIncludeFilter, string currentExcludeFilter)
         {
-            return RedirectToAction("Steam", "GameDetails", new { steamID = steamID, appID = appID });
+            return RedirectToAction("GameDetails", "Steam", new { steamID = steamID, appID = appID });
         }
 
     }
