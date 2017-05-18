@@ -46,6 +46,9 @@
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunSqlCodeAnalysis>True</RunSqlCodeAnalysis>
+    <SqlCodeAnalysisRules>
+    </SqlCodeAnalysisRules>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
@@ -347,5 +350,9 @@
     <Build Include="dbo\Stored Procedures\spError_GetTop5Errors.sql" />
     <Build Include="dbo\Stored Procedures\spError_GetErrors.sql" />
     <Build Include="Security\samdbuser.sql" />
+    <Build Include="dbo\Stored Procedures\FFL_GetAlbums.sql" />
+    <Build Include="dbo\Stored Procedures\FFL_GetShows.sql" />
+    <Build Include="dbo\Stored Procedures\FFL_GetSongs.sql" />
+    <Build Include="dbo\Stored Procedures\FFL_GetYearList.sql" />
   </ItemGroup>
 </Project>
