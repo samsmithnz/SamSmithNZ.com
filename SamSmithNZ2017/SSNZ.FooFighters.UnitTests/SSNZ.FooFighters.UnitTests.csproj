@@ -109,7 +109,7 @@
       <Name>SSNZ.FooFighters.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\SSNZ.FooFighters.Models\SSNZ.FooFighters.Models.csproj">
-      <Project>{18842512-a893-4c62-9b3a-2c64da7e80b3}</Project>
+      <Project>{a60c0d6a-85bd-4e6d-94f7-8e13262052c9}</Project>
       <Name>SSNZ.FooFighters.Models</Name>
     </ProjectReference>
   </ItemGroup>
