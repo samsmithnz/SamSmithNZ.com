@@ -25,6 +25,8 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <ApplicationInsightsResourceId>/subscriptions/fec9e5e4-938a-48e4-b178-dbe2b305b084/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/SSNZ.FooFighters.Service</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/fec9e5e4-938a-48e4-b178-dbe2b305b084/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/SSNZ.FooFighters.Service</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -181,6 +183,7 @@
     <Compile Include="Controllers\SongController.cs" />
     <Compile Include="Controllers\YearController.cs" />
     <Compile Include="Controllers\AlbumController.cs" />
+    <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -217,6 +220,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Connected Services\Application Insights\ConnectedService.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -266,6 +270,9 @@
       <Project>{a60c0d6a-85bd-4e6d-94f7-8e13262052c9}</Project>
       <Name>SSNZ.FooFighters.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
