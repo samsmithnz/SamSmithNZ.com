@@ -45,7 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GenericDataAccess.cs" />
+    <Compile Include="MovementDataAccess.cs" />
+    <Compile Include="PlaylistDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatsDataAccess.cs" />
+    <Compile Include="TopArtistsDataAccess.cs" />
+    <Compile Include="TrackDataAccess.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
