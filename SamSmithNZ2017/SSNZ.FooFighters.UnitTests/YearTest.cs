@@ -27,6 +27,22 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(results != null);
             Assert.IsTrue(results.Count > 0);
         }
-    
+
+        [TestMethod()]
+        public async Task YearsTest()
+        {
+            //arrange
+            ShowYearDataAccess da = new ShowYearDataAccess();
+
+            //act
+            List<ShowYear> results = await da.GetListAsync();
+
+            //assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count > 0);
+            Assert.IsTrue(results[results.Count - 1].YearCode == 1995);
+            Assert.IsTrue(results[results.Count - 1].YearText != "");
+        }
+
     }
 }
