@@ -9,7 +9,7 @@ using System.Text;
 using Dapper;
 using System.Threading.Tasks;
 
-namespace SSNZ.GuitarTab.Data
+namespace SSNZ.Problems.Data
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class GenericDataAccess<T>

@@ -45,7 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GenericDataAccess.cs" />
+    <Compile Include="ProblemNumberDataAccess.cs" />
+    <Compile Include="ProblemsDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchProblemDataAccess.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
