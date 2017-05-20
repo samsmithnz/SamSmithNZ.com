@@ -28,6 +28,6 @@
     <div ng-repeat="item in tabs">
         <a ng-if="item.TabText != ''" name="{{item.TabNameTrimed}}"></a>
         <h2 ng-if="item.TabText != ''" class="sectionTitle">{{item.TabName}}</h2>
-        <pre ng-if="item.TabText != ''">{{item.TabText}}</pre>
+        <pre ng-if="item.TabText != ''"><span ng-if="item.TuningName.length > 0">{{item.TuningName}}<br /><br /></span>{{item.TabText}}</pre>
     </div>
 </div>
