@@ -10,7 +10,7 @@ SELECT track_code AS TabCode,
 	track_order AS TabOrder, 
 	rating AS Rating, 
 	tr.tuning_code AS TuningCode, 
-	CASE WHEN tr.tuning_code = 0 THEN '' ELSE tu.tuning_name END as TuningName, 
+	CASE WHEN tr.tuning_code = 0 THEN '' ELSE tu.tuning_name END AS TuningName, 
 	tr.last_updated AS LastUpdated
 FROM tab_track tr
 LEFT OUTER JOIN tab_tuning tu ON tr.tuning_code = tu.tuning_code
