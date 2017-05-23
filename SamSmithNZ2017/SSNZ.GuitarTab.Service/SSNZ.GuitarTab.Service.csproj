@@ -192,6 +192,7 @@
     <Compile Include="Controllers\RatingOldController.cs" />
     <Compile Include="Controllers\SearchOldController.cs" />
     <Compile Include="Controllers\TabOldController.cs" />
+    <Compile Include="Controllers\TrackOrderController.cs" />
     <Compile Include="Controllers\TuningOldController.cs" />
     <Compile Include="Controllers\TuningController.cs" />
     <Compile Include="Controllers\ArtistController.cs" />

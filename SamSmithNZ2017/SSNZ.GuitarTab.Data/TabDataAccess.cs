@@ -12,10 +12,11 @@ namespace SSNZ.GuitarTab.Data
 {
     public class TabDataAccess : GenericDataAccess<Tab>
     {
-        public async Task<List<Tab>> GetListAsync(int albumCode)
+        public async Task<List<Tab>> GetListAsync(int albumCode, int sortOrder)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@AlbumCode", albumCode, DbType.Int32);
+            parameters.Add("@SortOrder", sortOrder, DbType.Int32);
 
             List<Tab> result = await base.GetListAsync("Tab_GetTabs", parameters);
 

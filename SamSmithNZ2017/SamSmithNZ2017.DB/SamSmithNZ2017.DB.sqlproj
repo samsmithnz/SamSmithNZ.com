@@ -354,5 +354,6 @@
     <Build Include="dbo\Stored Procedures\FFL_GetShows.sql" />
     <Build Include="dbo\Stored Procedures\FFL_GetSongs.sql" />
     <Build Include="dbo\Stored Procedures\FFL_GetYearList.sql" />
+    <Build Include="dbo\Stored Procedures\Tab_GetTrackOrders.sql" />
   </ItemGroup>
 </Project>

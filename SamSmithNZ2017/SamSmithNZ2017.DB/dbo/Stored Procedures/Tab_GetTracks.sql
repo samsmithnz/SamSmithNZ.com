@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[Tab_GetTabs]
 	@AlbumCode INT = NULL,
-	@TabCode INT = NULL
+	@TabCode INT = NULL,
+	@SortOrder INT = 0
 AS
 SELECT track_code AS TabCode, 
 	album_code AS AlbumCode, 
@@ -16,4 +17,4 @@ FROM tab_track tr
 LEFT OUTER JOIN tab_tuning tu ON tr.tuning_code = tu.tuning_code
 WHERE (@AlbumCode IS NULL OR album_code = @AlbumCode)
 AND (@TabCode IS NULL OR track_code = @TabCode)
-ORDER BY track_order, track_name
+ORDER BY CASE WHEN @SortOrder = 0 OR tr.tuning_code = 0 THEN track_order ELSE tr.tuning_code END, track_name 

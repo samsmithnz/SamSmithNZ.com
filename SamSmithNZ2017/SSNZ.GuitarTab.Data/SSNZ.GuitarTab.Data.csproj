@@ -58,6 +58,7 @@
     <Compile Include="SearchDataAccess.cs" />
     <Compile Include="TabDataAccessOld.cs" />
     <Compile Include="TabDataAccess.cs" />
+    <Compile Include="TrackOrderDataAccess.cs" />
     <Compile Include="TuningDataAccessOld.cs" />
     <Compile Include="TuningDataAccess.cs" />
   </ItemGroup>

@@ -12,10 +12,10 @@ namespace SSNZ.GuitarTab.Service.Controllers
 {
     public class TabController : ApiController
     {
-        public async Task<List<Tab>> GetTabs(int albumCode)
+        public async Task<List<Tab>> GetTabs(int albumCode, int sortOrder = 0)
         {
             TabDataAccess da = new TabDataAccess();
-            return await da.GetListAsync(albumCode);
+            return await da.GetListAsync(albumCode, sortOrder);
         }
 
         public async Task<Tab> GetTab(int tabCode)
