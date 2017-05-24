@@ -13,15 +13,15 @@ namespace SSNZ.ITunes.Data
         {
             DynamicParameters parameters = new DynamicParameters();
 
-            return await base.GetListAsync("spITunes_GetPlaylists", parameters);
+            return await base.GetListAsync("ITunes_GetPlaylists", parameters);
         }
     
         public async Task<Playlist> GetItem(int playlistCode)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@playlist_code", playlistCode, DbType.Int32);
+            parameters.Add("@PlaylistCode", playlistCode, DbType.Int32);
 
-            return await base.GetItemAsync("spITunes_GetPlaylists", parameters);
+            return await base.GetItemAsync("ITunes_GetPlaylists", parameters);
         }
       
     }

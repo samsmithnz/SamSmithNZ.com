@@ -355,5 +355,15 @@
     <Build Include="dbo\Stored Procedures\FFL_GetSongs.sql" />
     <Build Include="dbo\Stored Procedures\FFL_GetYearList.sql" />
     <Build Include="dbo\Stored Procedures\Tab_GetTrackOrders.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_ImportSetTrackRanks.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_ImportValidateTracksForDuplicates.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_ImportInsertTrack.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_ImportDeletePlaylistTracks.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_ImportCreateNewPlayList.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_GetMovement.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_GetPlaylists.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_GetStats.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_GetTopArtists.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_GetTracks.sql" />
   </ItemGroup>
 </Project>

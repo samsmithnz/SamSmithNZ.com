@@ -12,20 +12,20 @@ namespace SSNZ.ITunes.Data
         public async Task<List<Track>> GetListAsync(int playlistCode, Boolean showJustSummary)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@playlist_code", playlistCode, DbType.Int32);
-            parameters.Add("@show_just_summary", showJustSummary, DbType.Boolean);
+            parameters.Add("@PlaylistCode", playlistCode, DbType.Int32);
+            parameters.Add("@ShowJustSummary", showJustSummary, DbType.Boolean);
 
-            return await base.GetListAsync("spITunes_GetTracks", parameters);
+            return await base.GetListAsync("ITunes_GetTracks", parameters);
         }
 
         public async Task<Track> GetListAsync(int playlistCode, Boolean showJustSummary, String trackName)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@playlist_code", playlistCode, DbType.Int32);
-            parameters.Add("@show_just_summary", showJustSummary, DbType.Boolean);
-            parameters.Add("@track_name", trackName, DbType.String);
+            parameters.Add("@PlaylistCode", playlistCode, DbType.Int32);
+            parameters.Add("@ShowJustSummary", showJustSummary, DbType.Boolean);
+            parameters.Add("@TrackName", trackName, DbType.String);
 
-            return await base.GetItemAsync("spITunes_GetTracks", parameters);
+            return await base.GetItemAsync("ITunes_GetTracks", parameters);
         }
          
     }
