@@ -19,7 +19,7 @@ namespace SSNZ.ITunes.Data
             return await base.GetListAsync("ITunes_GetMovement", parameters);
         }        
 
-        public async Task<List<Movement>> GetListAsyncByTournament(Boolean showJustSummary)
+        public async Task<List<Movement>> GetListAsync(Boolean showJustSummary)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@ShowJustSummary", showJustSummary, DbType.Boolean);

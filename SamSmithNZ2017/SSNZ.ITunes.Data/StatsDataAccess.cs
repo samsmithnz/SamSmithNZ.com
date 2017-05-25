@@ -9,7 +9,7 @@
 //{
 //    public class StatsDataAccess : GenericDataAccess<Stats>
 //    {
-//        public async Task<List<Game>> GetListAsyncByTournament(int tournamentCode)
+//        public async Task<List<Game>> GetListAsync(int tournamentCode)
 //        {
 //            DynamicParameters parameters = new DynamicParameters();
 //            parameters.Add("@tournament_code", tournamentCode, DbType.Int32);
