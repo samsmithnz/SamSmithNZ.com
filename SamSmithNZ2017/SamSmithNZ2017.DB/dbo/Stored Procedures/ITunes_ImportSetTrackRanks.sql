@@ -80,7 +80,7 @@ BEGIN
 			SELECT --track_name,album_name,
 				record_id, RANK() OVER (ORDER BY rating DESC, play_count DESC, track_name) AS sort_order
 			FROM itTrack T2
-			WHERE T2.playlist_code = @PlaylistCode and T2.rating = 100
+			WHERE T2.playlist_code = @PlaylistCode AND T2.rating = 100
 		) D
 		WHERE D.record_id = itTrack.record_id
 	)
@@ -95,7 +95,7 @@ BEGIN
 			SELECT --track_name,album_name,
 				record_id, RANK() OVER (ORDER BY rating DESC, play_count DESC, track_name) AS sort_order
 			FROM itTrack T2
-			WHERE T2.playlist_code = @PlaylistCode and T2.rating < 100
+			WHERE T2.playlist_code = @PlaylistCode AND T2.rating < 100
 		) D
 		WHERE D.record_id = itTrack.record_id
 	)
@@ -105,7 +105,7 @@ BEGIN
 	DECLARE Cursor1 CURSOR LOCAL FOR
 		SELECT track_name, album_name, artist_name, sum(play_count)
 		FROM itTrack
-		WHERE playlist_code = @PlaylistCode and rating = 100
+		WHERE playlist_code = @PlaylistCode AND rating = 100
 		GROUP BY track_name, album_name, artist_name
 		ORDER BY sum(play_count) DESC, track_name
 	OPEN Cursor1
@@ -120,9 +120,9 @@ BEGIN
 			UPDATE itTrack 
 			SET ranking = @count
 			WHERE playlist_code = @PlaylistCode
-				and track_name = @track_name
-				and album_name = @album_name
-				and artist_name = @artist_name
+				AND track_name = @track_name
+				AND album_name = @album_name
+				AND artist_name = @artist_name
 			SET @ranking_count = @count
 		END
 		ELSE
@@ -130,9 +130,9 @@ BEGIN
 			UPDATE itTrack 
 			SET ranking = @ranking_count
 			WHERE playlist_code = @PlaylistCode
-				and track_name = @track_name
-				and album_name = @album_name
-				and artist_name = @artist_name
+				AND track_name = @track_name
+				AND album_name = @album_name
+				AND artist_name = @artist_name
 		END
 		SET @count = @count + 1
 	
@@ -146,6 +146,7 @@ BEGIN
 	SELECT @last_playlist_code = ISNULL(MAX(playlist_code),-1)
 	FROM itPlaylist
 	WHERE playlist_code < @PlaylistCode
+
 	IF (@last_playlist_code = -1)
 	BEGIN
 		UPDATE itTrack
@@ -157,25 +158,25 @@ BEGIN
 		UPDATE it
 		SET previous_ranking = ISNULL(it2.ranking,0), previous_play_count = 0, is_new_entry = 1
 		FROM itTrack it
-		LEFT OUTER JOIN itTrack it2 ON it.track_name = it2.track_name and it.album_name = it2.album_name and it.artist_name = it2.artist_name
-			and it2.playlist_code = @last_playlist_code
-			and it2.previous_ranking is null
+		LEFT OUTER JOIN itTrack it2 ON it.track_name = it2.track_name AND it.album_name = it2.album_name AND it.artist_name = it2.artist_name
+			AND it2.playlist_code = @last_playlist_code
+			AND it2.previous_ranking IS NULL
 		WHERE it.playlist_code = @PlaylistCode
 
 		UPDATE it
 		SET previous_ranking = ISNULL(it2.ranking,0), previous_play_count = ISNULL(it2.play_count,0), is_new_entry = 0
 		FROM itTrack it
-		JOIN itTrack it2 ON it.track_name = it2.track_name and it.album_name = it2.album_name and it.artist_name = it2.artist_name
+		JOIN itTrack it2 ON it.track_name = it2.track_name AND it.album_name = it2.album_name AND it.artist_name = it2.artist_name
 		WHERE it.playlist_code = @PlaylistCode
-			and it2.playlist_code = @last_playlist_code
-			and not it2.previous_ranking is null
+			AND it2.playlist_code = @last_playlist_code
+			AND NOT it2.previous_ranking IS NULL
 	/*
 		UPDATE itTrack 
 		SET previous_ranking = @previous_ranking, previous_play_count = @previous_play_count, is_new_entry = 0
 		WHERE playlist_code = @PlaylistCode
-			and track_name = @track_name
-			and album_name = @album_name
-			and artist_name = @artist_name*/
+			AND track_name = @track_name
+			AND album_name = @album_name
+			AND artist_name = @artist_name*/
 	/*
 		DECLARE Cursor1 CURSOR LOCAL FOR
 			SELECT track_name, album_name, artist_name
@@ -192,26 +193,26 @@ BEGIN
 			SELECT @previous_ranking = MAX(ranking), @previous_play_count = MAX(play_count)
 			FROM itTrack
 			WHERE playlist_code = @last_playlist_code
-				and track_name = @track_name
-				and album_name = @album_name
-				and artist_name = @artist_name
-			IF (@previous_ranking is null)
+				AND track_name = @track_name
+				AND album_name = @album_name
+				AND artist_name = @artist_name
+			IF (@previous_ranking IS NULL)
 			BEGIN
 				UPDATE itTrack
 				SET previous_ranking = ranking, previous_play_count = 0, is_new_entry = 1
 				WHERE playlist_code = @PlaylistCode
-					and track_name = @track_name
-					and album_name = @album_name
-					and artist_name = @artist_name
+					AND track_name = @track_name
+					AND album_name = @album_name
+					AND artist_name = @artist_name
 			END
 			ELSE
 			BEGIN
 				UPDATE itTrack 
 				SET previous_ranking = @previous_ranking, previous_play_count = @previous_play_count, is_new_entry = 0
 				WHERE playlist_code = @PlaylistCode
-					and track_name = @track_name
-					and album_name = @album_name
-					and artist_name = @artist_name
+					AND track_name = @track_name
+					AND album_name = @album_name
+					AND artist_name = @artist_name
 			END
 	
 			FETCH NEXT FROM Cursor1 INTO @track_name, @album_name, @artist_name

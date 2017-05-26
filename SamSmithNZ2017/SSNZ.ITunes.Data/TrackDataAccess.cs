@@ -27,6 +27,38 @@ namespace SSNZ.ITunes.Data
 
             return await base.GetItemAsync("ITunes_GetTracks", parameters);
         }
-         
+
+        public async Task<bool> SaveItemAsync(Track track)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@PlaylistCode", track.PlaylistCode, DbType.Int32);
+            parameters.Add("@TrackName", track.TrackName, DbType.String);
+            parameters.Add("@AlbumName", track.AlbumName, DbType.String);
+            parameters.Add("@ArtistName", track.ArtistName, DbType.String);
+            parameters.Add("@PlayCount", track.PlayCount, DbType.Int32);
+            parameters.Add("@Ranking", track.Ranking, DbType.Int32);
+            parameters.Add("@Rating", track.Rating, DbType.Int32);
+
+            return await base.PostItemAsync("ITunes_ImportInsertTrack", parameters);
+        }
+
+        public async Task<List<Track>> ValidateTracksForPlaylistAsync(int playlistCode)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@PlaylistCode", playlistCode, DbType.Int32);
+            int timeOut = 3600; //One hour
+
+            return await base.GetListAsync("ITunes_ImportValidateTracksForDuplicates", parameters, timeOut);
+        }
+
+        public async Task<bool> SetTrackRanksForPlaylistAsync(int playlistCode)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@PlaylistCode", playlistCode, DbType.Int32);
+            int timeOut = 3600; //One hour
+
+            return await base.PostItemAsync("ITunes_ImportSetTrackRanks", parameters, timeOut);
+        }
+
     }
 }

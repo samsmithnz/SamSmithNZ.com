@@ -80,7 +80,7 @@ BEGIN
 	SELECT artist_name AS ArtistName, 
 		album_name AS AlbumName, 
 		track_name AS TrackName, 
-		track_count AS TrackCount, 
+		track_count AS PlayCount, --Previously track count - this is the number of times this track appears - so it can be removed as a duplicate 
 		playlist_code AS PlaylistCode
 	FROM #tmpDuplicateTracks
 END

@@ -15,7 +15,7 @@ namespace SSNZ.ITunes.Data
 
             return await base.GetListAsync("ITunes_GetPlaylists", parameters);
         }
-    
+
         public async Task<Playlist> GetItemAsync(int playlistCode)
         {
             DynamicParameters parameters = new DynamicParameters();
@@ -23,6 +23,22 @@ namespace SSNZ.ITunes.Data
 
             return await base.GetItemAsync("ITunes_GetPlaylists", parameters);
         }
-      
+
+        public async Task<int> SaveItemAsync(DateTime dteDate)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@PlaylistDate", dteDate, DbType.DateTime);
+
+            return await base.GetScalarAsync<int>("ITunes_ImportCreateNewPlayList", parameters);
+        }
+
+        public async Task<bool> DeleteItemAsync(int playlistCode)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@PlaylistCode", playlistCode, DbType.Int32);
+
+            return await base.PostItemAsync("ITunes_ImportDeletePlaylistTracks", parameters);
+        }
+
     }
 }

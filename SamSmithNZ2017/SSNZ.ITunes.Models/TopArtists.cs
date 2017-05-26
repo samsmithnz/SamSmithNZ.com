@@ -10,7 +10,7 @@ namespace SSNZ.ITunes.Models
         public TopArtists() { }
 
         public String ArtistName { get; set; }
-        public short ArtistCount { get; set; }
+        public int ArtistCount { get; set; }
     }
 }
 

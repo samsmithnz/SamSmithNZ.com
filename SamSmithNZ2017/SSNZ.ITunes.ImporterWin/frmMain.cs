@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Collections;
 using System.Diagnostics;
+using SSNZ.ITunes.Models;
+using System.Threading;
 
 namespace SSNZ.ITunes.ImporterWin
 {
@@ -18,14 +20,16 @@ namespace SSNZ.ITunes.ImporterWin
         public frmMain()
         {
             InitializeComponent();
-            txtFile.Text = txtFile.Text + "2014-08.xml";
         }
+
+        private bool _runningMultipleMonths = false;
 
         private void btnImport_Click(object sender, EventArgs e)
         {
+            btnImport.Enabled = false;
             XmlDocument objXML = new XmlDocument();
             XmlNodeList objXMLNodeList = default(XmlNodeList);
-            List<ITunesTrack> iTunesTrackList = new List<ITunesTrack>();
+            List<Track> trackList = new List<Track>();
             System.IO.StreamReader objSR = default(System.IO.StreamReader);
             string strXML = null;
 
@@ -63,83 +67,100 @@ namespace SSNZ.ITunes.ImporterWin
                         //If it's the track data, then load it up.
                         if ((xmlTrack.SelectSingleNode("/dict") != null))
                         {
-                            ITunesTrack itunesTrack = new ITunesTrack();
+                            Track track = new Track();
 
                             for (int x = 0; x <= xmlTrack.SelectSingleNode("/dict").ChildNodes.Count - 1; x++)
                             {
                                 switch (xmlTrack.SelectSingleNode("/dict").ChildNodes[x].InnerText)
                                 {
                                     case "Name":
-                                        itunesTrack.TrackName = xmlTrack.SelectSingleNode("/dict").ChildNodes[x + 1].InnerText;
+                                        track.TrackName = xmlTrack.SelectSingleNode("/dict").ChildNodes[x + 1].InnerText;
                                         break;
                                     case "Artist":
-                                        itunesTrack.ArtistName = xmlTrack.SelectSingleNode("/dict").ChildNodes[x + 1].InnerText;
+                                        track.ArtistName = xmlTrack.SelectSingleNode("/dict").ChildNodes[x + 1].InnerText;
                                         break;
                                     case "Album":
-                                        itunesTrack.AlbumName = xmlTrack.SelectSingleNode("/dict").ChildNodes[x + 1].InnerText;
+                                        track.AlbumName = xmlTrack.SelectSingleNode("/dict").ChildNodes[x + 1].InnerText;
                                         break;
                                     case "Play Count":
-                                        itunesTrack.PlayCount = xmlTrack.SelectSingleNode("/dict").ChildNodes[x + 1].InnerText;
-                                        if (string.IsNullOrEmpty(itunesTrack.PlayCount))
+                                        int playListCountResult = 0;
+                                        if (int.TryParse(xmlTrack.SelectSingleNode("/dict").ChildNodes[x + 1].InnerText, out playListCountResult) == false)
                                         {
-                                            itunesTrack.PlayCount = "0";
+                                            playListCountResult = 0;
                                         }
+                                        track.PlayCount = playListCountResult;
                                         break;
                                     case "Rating":
-                                        itunesTrack.Rating = xmlTrack.SelectSingleNode("/dict").ChildNodes[x + 1].InnerText;
+                                        int ratingResult = 0;
+                                        if (int.TryParse(xmlTrack.SelectSingleNode("/dict").ChildNodes[x + 1].InnerText, out ratingResult) == false)
+                                        {
+                                            ratingResult = 0;
+                                        }
+                                        track.Rating = ratingResult;
                                         break;
                                 }
                             }
-                            iTunesTrackList.Add(itunesTrack);
+                            trackList.Add(track);
                         }
                     }
                 }
 
-                //clsOldDataAccess DataAccess = new clsOldDataAccess();
                 System.IO.FileInfo file = new System.IO.FileInfo(txtFile.Text);
                 string[] fileParts = file.Name.Replace(".xml", "").Split('-');
                 DateTime newDate = new DateTime(Convert.ToInt32(fileParts[0]), Convert.ToInt32(fileParts[1]), 1);
-                int intNewCode = 0;
-                intNewCode = DataAccess.CreateNewPlayList(newDate);
+                int newPlayListCode = 0;
+                newPlayListCode = AsyncHelper.RunSync<int>(() => DataAccess.CreateNewPlayList(newDate));
+                AsyncHelper.RunSync<bool>(() => DataAccess.DeletePlaylistTracks(newPlayListCode));
 
-                DataAccess.DeletePlaylistTracks(intNewCode);
-                //TODO: Enable again
-                //for (int i = 0; i <= objArray.Count - 1; i++)
-                //{
-                //    UpdateProgress("inserting into database", Convert.ToInt32(((i + 1) / objArray.Count * 100)), "");
-                //    DataAccess.InsertTrack(intNewCode, (ITunesTrack)objArray[i]);
-                //}
+                for (int i = 0; i <= trackList.Count - 1; i++)
+                {
+                    int percent = Convert.ToInt32((Convert.ToDecimal(i + 1) / Convert.ToDecimal(trackList.Count) * Convert.ToDecimal(100)));
+                    UpdateProgress("inserting into database", percent, "");
+                    trackList[i].PlaylistCode = newPlayListCode;
+                    AsyncHelper.RunSync<bool>(() => DataAccess.InsertTrack(trackList[i]));
+                }
 
                 UpdateProgress("validating track list...", 90, "");
-                //TODO: Enable again
-                //DataSet dsData = DataAccess.ValidateTracksForDuplicates(intNewCode);
-                //if (dsData.Tables[0].Rows.Count > 0)
-                //{
-                //    string strResult = "";
-                //    for (int i = 0; i <= dsData.Tables[0].Rows.Count - 1; i++)
-                //    {
-                //        var _with2 = dsData.Tables[0].Rows[i];
-                //        strResult = strResult + _with2.Item["artist_name"].ToString + " - " + _with2.Item["album_name"].ToString + " - " + _with2.Item["track_name"].ToString + Environment.NewLine;
-                //    }
-                //    //MsgBox("Error: there are duplicate tracks: " & vbCr & strResult & vbCr & vbCr & "Correct these to import in this playlist...")
-                //    Debug.WriteLine("Duplicate tracks detected " + Environment.NewLine + strResult);
-                //    //DataAccess.DeletePlaylistAndTracks(intNewCode)
-                //    //UpdateProgress("Duplicate tracks detected, removing playlist...", 95, "")
-                //    //MsgBox("Playlist and tracks successfully deleted!")
-                //    //Me.Close()
-                //    //Exit Sub
-                //}
+                List<Track> duplicateTracks = new List<Track>();
+                //duplicateTracks = AsyncHelper.RunSync<List<Track>>(() => DataAccess.ValidateTracksForDuplicates(newPlayListCode));
+
+                if (duplicateTracks.Count > 0)
+                {
+                    string strResult = "";
+                    for (int i = 0; i <= duplicateTracks.Count - 1; i++)
+                    {
+                        strResult = strResult + duplicateTracks[i].ArtistName.ToString() + " - " + duplicateTracks[i].AlbumName.ToString() + " - " + duplicateTracks[i].TrackName.ToString() + Environment.NewLine;
+                    }
+                    //MsgBox("Error: there are duplicate tracks: " & vbCr & strResult & vbCr & vbCr & "Correct these to import in this playlist...")
+                    Debug.WriteLine("Duplicate tracks detected " + Environment.NewLine + strResult);
+                    //DataAccess.DeletePlaylistAndTracks(newPlayListCode)
+                    //UpdateProgress("Duplicate tracks detected, removing playlist...", 95, "")
+                    //MsgBox("Playlist and tracks successfully deleted!")
+                    //Me.Close()
+                    //Exit Sub
+                }
 
                 UpdateProgress("updating ranking...", 100, "");
-                DataAccess.SetTrackRanks(intNewCode);
+                //AsyncHelper.RunSync<bool>(() => DataAccess.SetTrackRanks(newPlayListCode));
 
-                MessageBox.Show("Done!");
-                this.Close();
+
+                if (_runningMultipleMonths == false)
+                {
+                    MessageBox.Show("Done!");
+                    this.Close();
+                }
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                if (_runningMultipleMonths == false)
+                {
+                    btnImport.Enabled = true;
+                }
             }
 
         }
@@ -161,5 +182,97 @@ namespace SSNZ.ITunes.ImporterWin
             Application.DoEvents();
         }
 
+        private void btnFillInPlayListGaps_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnFillInPlayListGaps.Enabled = false;
+                btnImport.Enabled = false;
+                if (MessageBox.Show("Are you sure you want to fill in all gaps? This could take awhile...", Application.ProductName, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    _runningMultipleMonths = true;
+                    string originalPath = txtFile.Text;
+
+                    //Get all playlists
+                    List<Playlist> playLists = AsyncHelper.RunSync<List<Playlist>>(() => DataAccess.GetPlayLists());
+
+                    //Get all files
+                    string[] files = System.IO.Directory.GetFiles(txtFile.Text);
+
+                    //Loop through playlists compared to the files in the folder, looking for files that haven't ben uploaded
+                    foreach (string file in files)
+                    {
+                        System.IO.FileInfo fileInfo = new System.IO.FileInfo(file);
+                        string fileNameWithNoExtension = fileInfo.Name.Replace(".xml", "");
+                        int year = int.Parse(fileNameWithNoExtension.Split('-')[0]);
+                        if (year >= 2015)
+                        {
+                            int month = int.Parse(fileNameWithNoExtension.Split('-')[1]);
+                            Playlist playList = FindPlayList(year, month, playLists);
+
+                            if (playList == null && year == 2016)
+                            {
+                                //load these missing files
+                                txtFile.Text = txtFile.Text + year.ToString() + "-" + month.ToString("00") + ".xml";
+                                btnImport_Click(null, null);
+                            }
+                        }
+                        txtFile.Text = originalPath;
+                    }
+                    MessageBox.Show("Done!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                btnFillInPlayListGaps.Enabled = true;
+                btnImport.Enabled = true;
+                _runningMultipleMonths = false;
+            }
+
+
+        }
+        private static Playlist FindPlayList(int year, int month, List<Playlist> playLists)
+        {
+            foreach (Playlist item in playLists)
+            {
+                if (item.PlaylistDate.Year == year && item.PlaylistDate.Month == month)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+    }
+}
+
+
+internal static class AsyncHelper
+{
+    private static readonly TaskFactory _myTaskFactory = new
+      TaskFactory(CancellationToken.None,
+                  TaskCreationOptions.None,
+                  TaskContinuationOptions.None,
+                  TaskScheduler.Default);
+
+    public static TResult RunSync<TResult>(Func<Task<TResult>> func)
+    {
+        return AsyncHelper._myTaskFactory
+          .StartNew<Task<TResult>>(func)
+          .Unwrap<TResult>()
+          .GetAwaiter()
+          .GetResult();
+    }
+
+    public static void RunSync(Func<Task> func)
+    {
+        AsyncHelper._myTaskFactory
+          .StartNew<Task>(func)
+          .Unwrap()
+          .GetAwaiter()
+          .GetResult();
     }
 }

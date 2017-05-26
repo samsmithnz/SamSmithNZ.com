@@ -34,6 +34,7 @@
             this.OpenFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.lblStatus = new System.Windows.Forms.Label();
             this.prgStatus = new System.Windows.Forms.ProgressBar();
+            this.btnFillInPlayListGaps = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnImport
@@ -84,11 +85,22 @@
             this.prgStatus.Size = new System.Drawing.Size(532, 23);
             this.prgStatus.TabIndex = 89;
             // 
+            // btnFillInPlayListGaps
+            // 
+            this.btnFillInPlayListGaps.Location = new System.Drawing.Point(407, 41);
+            this.btnFillInPlayListGaps.Name = "btnFillInPlayListGaps";
+            this.btnFillInPlayListGaps.Size = new System.Drawing.Size(137, 23);
+            this.btnFillInPlayListGaps.TabIndex = 90;
+            this.btnFillInPlayListGaps.Text = "Fill in playlist gaps";
+            this.btnFillInPlayListGaps.UseVisualStyleBackColor = true;
+            this.btnFillInPlayListGaps.Click += new System.EventHandler(this.btnFillInPlayListGaps_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(556, 117);
+            this.Controls.Add(this.btnFillInPlayListGaps);
             this.Controls.Add(this.prgStatus);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.btnImport);
@@ -109,6 +121,7 @@
         internal System.Windows.Forms.OpenFileDialog OpenFileDialog1;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.ProgressBar prgStatus;
+        internal System.Windows.Forms.Button btnFillInPlayListGaps;
     }
 }
 

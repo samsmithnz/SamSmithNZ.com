@@ -10,8 +10,8 @@ namespace SSNZ.ITunes.Models
         public Movement() { }
 
         public String TrackName { get; set; }
-        public short PlayCount { get; set; }
-        public short ChangeThisMonth { get; set; }
+        public int PlayCount { get; set; }
+        public int ChangeThisMonth { get; set; }
     }
 }
 

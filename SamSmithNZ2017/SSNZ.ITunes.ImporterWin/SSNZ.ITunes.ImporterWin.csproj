@@ -55,7 +55,6 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="ITunesTrack.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmMain.resx">
@@ -83,6 +82,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SSNZ.ITunes.Data\SSNZ.ITunes.Data.csproj">
+      <Project>{a5b84968-b5d6-4b38-adee-1d8564ff7f49}</Project>
+      <Name>SSNZ.ITunes.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SSNZ.ITunes.Models\SSNZ.ITunes.Models.csproj">
+      <Project>{b4788864-aa1c-4251-8aba-c07ec060d84e}</Project>
+      <Name>SSNZ.ITunes.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
