@@ -141,8 +141,7 @@ namespace SSNZ.ITunes.ImporterWin
                 }
 
                 UpdateProgress("updating ranking...", 100, "");
-                //AsyncHelper.RunSync<bool>(() => DataAccess.SetTrackRanks(newPlayListCode));
-
+                AsyncHelper.RunSync<bool>(() => DataAccess.SetTrackRanks(newPlayListCode));
 
                 if (_runningMultipleMonths == false)
                 {
@@ -205,12 +204,12 @@ namespace SSNZ.ITunes.ImporterWin
                         System.IO.FileInfo fileInfo = new System.IO.FileInfo(file);
                         string fileNameWithNoExtension = fileInfo.Name.Replace(".xml", "");
                         int year = int.Parse(fileNameWithNoExtension.Split('-')[0]);
-                        if (year >= 2015)
+                        if (year >= 2015) //Because the old file format is MMM instead of MM
                         {
                             int month = int.Parse(fileNameWithNoExtension.Split('-')[1]);
                             Playlist playList = FindPlayList(year, month, playLists);
 
-                            if (playList == null && year == 2016)
+                            if (playList == null)
                             {
                                 //load these missing files
                                 txtFile.Text = txtFile.Text + year.ToString() + "-" + month.ToString("00") + ".xml";
