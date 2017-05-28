@@ -1,10 +1,10 @@
 ﻿CREATE PROCEDURE [dbo].[ITunes_GetTracks]
-	@playlist_code INT,
-	@show_just_summary BIT,
-	@track_name VARCHAR(50) = NULL
+	@PlaylistCode INT,
+	@ShowJustSummary BIT,
+	@TrackName VARCHAR(50) = NULL
 AS
 BEGIN
-	IF (@show_just_summary = 1)
+	IF (@ShowJustSummary = 1)
 	BEGIN
 		SELECT t.album_name AS AlbumName,
 		t.artist_name AS ArtistName,
@@ -19,8 +19,8 @@ BEGIN
 		t.track_name AS TrackName
 		FROM itTrack t
 		JOIN itPlaylist p ON t.playlist_code = p.playlist_code
-		WHERE p.playlist_code = @playlist_code AND ranking <= 100 AND rating = 100
-		AND (t.track_name = @track_name OR @track_name IS NULL)
+		WHERE p.playlist_code = @PlaylistCode AND ranking <= 100 AND rating = 100
+		AND (t.track_name = @TrackName OR @TrackName IS NULL)
 		ORDER BY ranking, track_name
 	END
 	ELSE
@@ -38,8 +38,8 @@ BEGIN
 		t.track_name AS TrackName
 		FROM itTrack t
 		JOIN itPlaylist p ON t.playlist_code = p.playlist_code
-		WHERE p.playlist_code = @playlist_code
-		AND (t.track_name = @track_name OR @track_name IS NULL)
+		WHERE p.playlist_code = @PlaylistCode
+		AND (t.track_name = @TrackName OR @TrackName IS NULL)
 		ORDER BY ranking, track_name
 	END
 END

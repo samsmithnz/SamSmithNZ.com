@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>iTunes Analysis</title>
+    <link rel="shortcut icon" sizes="32x32" href="~/Content/ITunes/favicon.ico">
+    @Styles.Render("~/Content/globalCSS")
+    @Scripts.Render("~/bundles/globalJS")
+    @Scripts.Render("~/bundles/iTunesServicesJS")
+    @Scripts.Render("~/bundles/iTunesControllersJS")
+    <script type="text/javascript">
+        var appInsights = window.appInsights || function (config) {
+            function i(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, u = document, e = window, o = "script", s = "AuthenticatedUserContext", h = "start", c = "stop", l = "Track", a = l + "Event", v = l + "Page", y = u.createElement(o), r, f; y.src = config.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js"; u.getElementsByTagName(o)[0].parentNode.appendChild(y); try { t.cookie = u.cookie } catch (p) { } for (t.queue = [], t.version = "1.0", r = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; r.length;)i("track" + r.pop()); return i("set" + s), i("clear" + s), i(h + a), i(c + a), i(h + v), i(c + v), i("flush"), config.disableExceptionTracking || (r = "onerror", i("_" + r), f = e[r], e[r] = function (config, i, u, e, o) { var s = f && f(config, i, u, e, o); return s !== !0 && t["_" + r](config, i, u, e, o), s }), t
+        }({
+            instrumentationKey: "6e41e3d1-2a17-4e37-8f8b-3d73805acd92"
+        });
+
+        window.appInsights = appInsights;
+        appInsights.trackPageView();
+    </script>
+</head>
+<body ng-app="ITunesApp" ng-controller="layoutController">
+    <div class="headerandlogo">
+        <table class="PercentWidth100">
+            <tr>
+                <td class="PercentWidth100">
+                    <a href="@Url.Action("Index", "iTunes")" class="headerText">
+                        <img src="@Url.Content("~/Content/ITunes/ITunes.png")" alt="" class="headerImg" />
+                        <span class="headerText">iTunes Analysis</span>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="contentFrame">
+        <table class="PercentWidth100">
+            <tr class="toptr">
+                <td class="sideBar">
+                    <br />
+                    <b>&nbsp;Jump to Playlist:</b><br /><br />
+                    <div class="PlaylistSideBar">
+                        <img ng-hide="playlists" id="spinner1" src="~/Content/Images/spinner_small.gif" />
+                        <div ng-repeat="item in playlists">
+                            &nbsp;&nbsp;<a href="~/ITunes/Playlist?PlayListCode={{item.PlaylistCode}}&ShowJustSummary=true">{{item.PlaylistDate | date:'MMM-yyyy'}}</a><br />
+                        </div>
+                        @*@{
+                                int currentYear = 0;
+                            }
+                            @foreach (SamSmithNZ2015.Core.iTunes.Playlist item in Model)
+                            {
+                                if (currentYear != item.PlaylistDate.Year)
+                                {
+                                    currentYear = item.PlaylistDate.Year;
+                                    <b>@item.PlaylistDate.ToString("yyyy")</b><br />
+                                }
+
+                                @* The 6th parameter is an HCPD Anchor: e.g. album.html#foofighters
+                                @Html.ActionLink(item.PlaylistDate.ToString("MMM-yyyy"), "PlaylistDetail", "iTunes", new { playlistCode = @item.PlaylistCode, showJustSummary = true }, null)
+                                if (item.PlaylistDate.Month == 1)
+                                {
+                                    <br />
+                                }
+                                <br />
+                            }*@
+                    </div>
+
+                </td>
+                <td class="contentMain">
+                    <h2 class="sectionTitle"><b>@ViewBag.Title</b></h2>
+                    @RenderBody()
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="footer">
+        Copyright &copy;2000 - @DateTime.Now.Year SamSmithNZ.com
+    </div>
+</body>
+</html>

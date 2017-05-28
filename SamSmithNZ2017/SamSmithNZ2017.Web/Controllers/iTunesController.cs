@@ -15,7 +15,8 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Index()
         {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/iTunes/Index");
+            return View();
+            //return Redirect("http://samsmithnz2015.azurewebsites.net/iTunes/Index");
             //SamSmithNZ2015.Core.iTunes.DataAccess.TopArtistsDataAccess b = new SamSmithNZ2015.Core.iTunes.DataAccess.TopArtistsDataAccess();
             //IList<TopArtists> TopArtistsList = b.GetItems(true);
 
@@ -28,29 +29,37 @@ namespace SamSmithNZ2017.Controllers
             //return View(new PlaylistDetailViewModel(null, TopArtistsList, MovementList, null));
         }
 
+        public ActionResult PlayList(int playlistCode, Boolean showJustSummary)
+        {
+            return View();
+        }
+
         public ActionResult PlaylistList()
         {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/iTunes/Index");
+            return RedirectToAction("Index");
+
+            //return Redirect("http://samsmithnz2015.azurewebsites.net/iTunes/Index");
             //SamSmithNZ2015.Core.iTunes.DataAccess.PlaylistDataAccess t = new SamSmithNZ2015.Core.iTunes.DataAccess.PlaylistDataAccess();
             //IList<Playlist> PlaylistList = t.GetItems();
 
             //return View(PlaylistList);
         }
 
-        [ChildActionOnly]
-        public ActionResult PlaylistSideBar()
-        {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/iTunes/Index");
-            //SamSmithNZ2015.Core.iTunes.DataAccess.PlaylistDataAccess t = new SamSmithNZ2015.Core.iTunes.DataAccess.PlaylistDataAccess();
-            //IList<Playlist> PlaylistList = t.GetItems();
+        //[ChildActionOnly]
+        //public ActionResult PlaylistSideBar()
+        //{
+        //    return Redirect("http://samsmithnz2015.azurewebsites.net/iTunes/Index");
+        //    //SamSmithNZ2015.Core.iTunes.DataAccess.PlaylistDataAccess t = new SamSmithNZ2015.Core.iTunes.DataAccess.PlaylistDataAccess();
+        //    //IList<Playlist> PlaylistList = t.GetItems();
 
-            //// Return partial view
-            //return PartialView(PlaylistList);
-        }
+        //    //// Return partial view
+        //    //return PartialView(PlaylistList);
+        //}
 
         public ActionResult PlaylistDetail(short playlistCode, Boolean showJustSummary)
         {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/iTunes/Index");
+            return RedirectToAction("Playlist", new { playlistCode = playlistCode, showJustSummary = showJustSummary });
+            //return Redirect("http://samsmithnz2015.azurewebsites.net/iTunes/Index");
             //SamSmithNZ2015.Core.iTunes.DataAccess.PlaylistDataAccess a = new SamSmithNZ2015.Core.iTunes.DataAccess.PlaylistDataAccess();
             //Playlist PlaylistRecord = a.GetItem(playlistCode);
 

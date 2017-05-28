@@ -18,7 +18,7 @@ namespace SSNZ.ITunes.Service.Controllers
             return await da.GetListAsync(playlistCode, showJustSummary);
         }
 
-        public async Task<List<TopArtists>> GetTopArtists(Boolean showJustSummary)
+        public async Task<List<TopArtists>> GetTopArtistsSummary(Boolean showJustSummary)
         {
             TopArtistsDataAccess da = new TopArtistsDataAccess();
             return await da.GetListAsync(showJustSummary);

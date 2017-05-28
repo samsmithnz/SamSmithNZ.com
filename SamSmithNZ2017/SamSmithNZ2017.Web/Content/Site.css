@@ -204,3 +204,9 @@ a:hover
 Pre {
     font-size: 9pt;
 }
+
+/* iTunes Specific
+-----------------------------------------------------------*/
+.PlaylistSideBar {
+    font-size: 9pt;
+}

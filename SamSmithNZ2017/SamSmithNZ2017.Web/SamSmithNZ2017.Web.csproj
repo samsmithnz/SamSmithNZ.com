@@ -235,7 +235,7 @@
     <Content Include="Content\GuitarTab\bucket1_tr.gif" />
     <Content Include="Content\GuitarTab\Delete.png" />
     <Content Include="Content\GuitarTab\GuitarHeader.png" />
-    <Content Include="Content\GuitarTab\GuitarTab.ico" />
+    <Content Include="Content\GuitarTab\favicon.ico" />
     <Content Include="Content\GuitarTab\pencil.gif" />
     <Content Include="Content\GuitarTab\rating_star00.gif" />
     <Content Include="Content\GuitarTab\rating_star01.gif" />
@@ -247,6 +247,8 @@
     <Content Include="Content\GuitarTab\rbox-br.gif" />
     <Content Include="Content\GuitarTab\rbox-tl.gif" />
     <Content Include="Content\GuitarTab\rbox-tr.gif" />
+    <Content Include="Content\ITunes\favicon.ico" />
+    <Content Include="Content\ITunes\iTunes.png" />
     <Content Include="Content\Steam\favicon.ico" />
     <Content Include="Content\Images\spinner.gif" />
     <Content Include="Content\Images\spinner_small.gif" />
@@ -1031,6 +1033,9 @@
     <Content Include="Scripts\3rdParty\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\3rdParty\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\3rdParty\i18n\angular-locale_zu.js" />
+    <Content Include="Views\ITunes\Index.cshtml" />
+    <Content Include="Views\ITunes\Playlist.cshtml" />
+    <Content Include="Views\Shared\_LayoutITunes.cshtml" />
     <TypeScriptCompile Include="Scripts\app.ts" />
     <TypeScriptCompile Include="Scripts\GuitarTabControllers\searchController.ts" />
     <TypeScriptCompile Include="Scripts\GuitarTabControllers\editAlbumController.ts" />
@@ -1111,6 +1116,13 @@
     <Content Include="Views\GuitarTab\Index.cshtml" />
     <Content Include="Views\GuitarTab\SearchResults.cshtml" />
     <Content Include="Views\Shared\_LayoutGuitarTab.cshtml" />
+    <TypeScriptCompile Include="Scripts\ITunesControllers\layoutController.ts" />
+    <TypeScriptCompile Include="Scripts\ITunesControllers\playlistController.ts" />
+    <TypeScriptCompile Include="Scripts\ITunesControllers\indexController.ts" />
+    <TypeScriptCompile Include="Scripts\ITunesServices\topArtistsService.ts" />
+    <TypeScriptCompile Include="Scripts\ITunesServices\trackService.ts" />
+    <TypeScriptCompile Include="Scripts\ITunesServices\movementService.ts" />
+    <TypeScriptCompile Include="Scripts\ITunesServices\playlistService.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-component-router.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />

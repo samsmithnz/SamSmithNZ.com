@@ -18,7 +18,7 @@ namespace SSNZ.ITunes.Service.Controllers
             return await da.GetListAsync(playListCode, showJustSummary);
         }
 
-        public async Task<List<Movement>> GetMovements(bool showJustSummary)
+        public async Task<List<Movement>> GetMovementsSummary(bool showJustSummary)
         {
             MovementDataAccess da = new MovementDataAccess();
             return await da.GetListAsync(showJustSummary);
