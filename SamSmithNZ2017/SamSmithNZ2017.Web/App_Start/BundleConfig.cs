@@ -15,6 +15,8 @@ namespace SamSmithNZ2017
                         "~/Scripts/3rdParty/bootstrap.js",
                         "~/Scripts/3rdParty/respond.js",
                         "~/Scripts/3rdParty/angular.js",
+                        "~/Scripts/3rdParty/moment.js",
+                        "~/Scripts/3rdParty/angular-moment.js",
                         "~/Scripts/app.js"
                 ));
 

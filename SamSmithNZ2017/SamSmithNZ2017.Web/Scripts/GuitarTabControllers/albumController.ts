@@ -17,7 +17,6 @@
         };
 
         var onGetAlbumEventComplete = function (response) {
-
             var targets = angular.element(document).find('h2');
             if (targets.length > 0) {
                 //console.log(targets);

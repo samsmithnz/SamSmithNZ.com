@@ -3,8 +3,8 @@
     angular
         .module('ITunesApp')
         .controller('playlistController', playlistController);
-    playlistController.$inject = ['$scope', '$http', 'trackService', 'topArtistsService', 'movementService'];
-    function playlistController($scope, $http, trackService, topArtistsService, movementService) {
+    playlistController.$inject = ['$scope', '$http', 'playlistService', 'trackService', 'topArtistsService', 'movementService', 'moment'];
+    function playlistController($scope, $http, playlistService, trackService, topArtistsService, movementService, moment) {
         $scope.tracks = [];
         $scope.topArtists = [];
         $scope.movements = [];
@@ -12,6 +12,14 @@
             //errorHandlerService.errorHandler(data);
             console.log("Error!!");
             console.log(data);
+        };
+        var onPlaylistComplete = function (response) {
+            //console.log(response.data);
+            var targets = angular.element(document).find('h2');
+            if (targets.length > 0) {
+                //console.log(moment(response.data.PlaylistDate).format('MMM-YYYY'));
+                targets[0].innerText = moment(response.data.PlaylistDate).format('MMM-YYYY') + ' Analysis'; // | date:'d-MMMM';
+            }
         };
         var onTracksComplete = function (response) {
             $scope.tracks = response.data;
@@ -24,9 +32,20 @@
         };
         $scope.playlistCode = getUrlParameter("playlistcode");
         console.log('playlistCode:' + $scope.playlistCode);
+        playlistService.getPlaylist($scope.playlistCode).then(onPlaylistComplete, onError);
         trackService.getTracksByPlaylist($scope.playlistCode, true).then(onTracksComplete, onError);
         topArtistsService.getTopArtistsByPlaylist($scope.playlistCode, true).then(onTopArtistsComplete, onError);
         movementService.getMovementsByPlaylist($scope.playlistCode, true).then(onMovementComplete, onError);
+    }
+    function formatDate(date) {
+        var monthNames = [
+            "Jan", "Feb", "Mar", "Apr",
+            "May", "Jun", "Jul", "Aug",
+            "Sep", "Oct", "Nov", "Dec"
+        ];
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+        return monthNames[monthIndex] + '-' + year;
     }
     function getUrlParameter(param) {
         var sPageURL = (window.location.search.substring(1));

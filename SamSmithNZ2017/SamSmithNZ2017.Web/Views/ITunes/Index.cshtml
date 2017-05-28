@@ -3,32 +3,6 @@
     Layout = "~/Views/Shared/_LayoutITunes.cshtml";
 }
 
-@*<div ng-controller="indexController">
-        <img ng-hide="albums" id="spinner1" src="~/Content/Images/spinner.gif" />
-        <div ng-cloak>
-            <table id="theTable">
-                <tbody>
-                    <tr ng-repeat="item in albums">
-                        <td>
-                            <br ng-if="item.IsLeadArtist == true" />
-                            <span ng-if="item.IsLeadArtist == true" style="font-weight: bold;"><a name="{{item.ArtistNameTrimed}}"></a>{{item.ArtistName}}<br /></span>
-                            <a ng-if="item.IsLeadArtist == false" href="~/GuitarTab/Album?AlbumCode={{item.AlbumCode}}">{{item.AlbumName}}</a>
-                            @if (isGuitarTabAdmin == true)
-                            {
-                                <a ng-if="item.IsLeadArtist == false" href="~/GuitarTab/EditAlbum?AlbumCode={{item.AlbumCode}}">
-                                    <img src="@Url.Content("~/Content/guitartab/pencil.gif")" alt="" style="height: 12px; border-width: 0;" />
-                                </a>
-                            }
-                            <span ng-if="item.IsLeadArtist == false && item.BassAlbumCode > 0">&nbsp;&nbsp;</span>
-                            <a ng-if="item.IsLeadArtist == false && item.BassAlbumCode > 0" href="~/GuitarTab/Album?AlbumCode={{item.BassAlbumCode}}">(Bass)</a>
-                            <span ng-if="item.AlbumYear > 0 && item.IsBassTab==false"> ({{item.AlbumYear}})</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>*@
-
 <div ng-controller="indexController">
     <h2>iTunes Statistics</h2>
 
@@ -49,7 +23,8 @@
 
     <a name="TopArtists"></a>
     <h2 class="sectionTitle">All Time Top Artists</h2>
-    <table class="tableborders">
+    <img ng-hide="topArtists" id="spinner1" src="~/Content/Images/spinner_small.gif" />
+    <table class="tableborders" ng-show="topArtists">
         <tr>
             <th class="headerborders">Ranking</th>
             <th class="headerborders">Artist</th>
@@ -76,7 +51,8 @@
 
     <a name="BiggestMovers"></a>
     <h2 class="sectionTitle">All Time Biggest Movers</h2>
-    <table class="tableborders">
+    <img ng-hide="movements" id="spinner1" src="~/Content/Images/spinner_small.gif" />
+    <table class="tableborders" ng-show="movements">
         <tr>
             <th class="headerborders">Track</th>
             <th class="headerborders">Change</th>

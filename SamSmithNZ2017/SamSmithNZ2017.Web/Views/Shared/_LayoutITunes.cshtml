@@ -45,27 +45,7 @@
                         <div ng-repeat="item in playlists">
                             &nbsp;&nbsp;<a href="~/ITunes/Playlist?PlayListCode={{item.PlaylistCode}}&ShowJustSummary=true">{{item.PlaylistDate | date:'MMM-yyyy'}}</a><br />
                         </div>
-                        @*@{
-                                int currentYear = 0;
-                            }
-                            @foreach (SamSmithNZ2015.Core.iTunes.Playlist item in Model)
-                            {
-                                if (currentYear != item.PlaylistDate.Year)
-                                {
-                                    currentYear = item.PlaylistDate.Year;
-                                    <b>@item.PlaylistDate.ToString("yyyy")</b><br />
-                                }
-
-                                @* The 6th parameter is an HCPD Anchor: e.g. album.html#foofighters
-                                @Html.ActionLink(item.PlaylistDate.ToString("MMM-yyyy"), "PlaylistDetail", "iTunes", new { playlistCode = @item.PlaylistCode, showJustSummary = true }, null)
-                                if (item.PlaylistDate.Month == 1)
-                                {
-                                    <br />
-                                }
-                                <br />
-                            }*@
                     </div>
-
                 </td>
                 <td class="contentMain">
                     <h2 class="sectionTitle"><b>@ViewBag.Title</b></h2>

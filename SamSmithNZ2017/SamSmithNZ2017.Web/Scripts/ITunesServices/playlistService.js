@@ -14,5 +14,11 @@
             console.log(url);
             return $http.get(url);
         };
+        this.getPlaylist = function (playlistCode) {
+            var url = baseUrl + 'api/playlist/GetPlaylist?playlistCode=' + playlistCode;
+            console.log(url);
+            return $http.get(url);
+        };
     }
 })();
+//# sourceMappingURL=playlistService.js.map
