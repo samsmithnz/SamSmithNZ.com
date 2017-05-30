@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Foo Fighters Gigography</title>
+    <link rel="shortcut icon" sizes="32x32" href="~/Content/FooFighters/favicon.ico">
+    @Styles.Render("~/Content/globalCSS")
+    @Scripts.Render("~/bundles/globalJS")
+    @Scripts.Render("~/bundles/fooFightersServicesJS")
+    @Scripts.Render("~/bundles/fooFightersControllersJS")
+    <script type="text/javascript">
+        var appInsights = window.appInsights || function (config) {
+            function i(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, u = document, e = window, o = "script", s = "AuthenticatedUserContext", h = "start", c = "stop", l = "Track", a = l + "Event", v = l + "Page", y = u.createElement(o), r, f; y.src = config.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js"; u.getElementsByTagName(o)[0].parentNode.appendChild(y); try { t.cookie = u.cookie } catch (p) { } for (t.queue = [], t.version = "1.0", r = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; r.length;)i("track" + r.pop()); return i("set" + s), i("clear" + s), i(h + a), i(c + a), i(h + v), i(c + v), i("flush"), config.disableExceptionTracking || (r = "onerror", i("_" + r), f = e[r], e[r] = function (config, i, u, e, o) { var s = f && f(config, i, u, e, o); return s !== !0 && t["_" + r](config, i, u, e, o), s }), t
+        }({
+            instrumentationKey: "3926e879-08eb-4c82-9801-83d8de18a33d"
+        });
+
+        window.appInsights = appInsights;
+        appInsights.trackPageView();
+    </script>
+</head>
+<body ng-app="FooFightersApp" @*ng-controller="layoutController"*@>
+    <div id="divheaderandlogo" class="header" style="vertical-align: middle;">
+        <a href="@Url.Action("Index", "FooFighters")">
+            <img src="@Url.Content("~/Content/FooFighters/foofighters.png")" alt="" class="headerImg" align="middle" border="0" width="64px" height="64px" />
+            <span class="headerText" style="font-size: 12pt; font-weight: bold;">Foo Fighters Gigography</span>
+        </a>
+        @*<span style="font-size:8pt">This is a colloraboration with <a href="http://www.foofighterslive.com" target="_blank">www.foofighterslive.com</a>. While this isn't completely in sync with www.foofighterslive.com, it is very close. Thank you to Simon for this opportunity.</span>*@
+        <br />
+        <hr />
+        <table width="100%">
+            <tr>
+                <td class="text-align: left;">
+                    <a href="@Url.Action("Index", "FooFighters")">Song List</a> |
+                    <a href="@Url.Action("ShowList", "FooFighters")">Show List</a> |
+                    <a href="@Url.Action("AlbumList", "FooFighters")">Album List</a>
+                </td>
+            </tr>
+        </table>
+        <hr />
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+    <div class="footer">
+        Copyright &copy;2000 - @DateTime.Now.Year SamSmithNZ.com
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

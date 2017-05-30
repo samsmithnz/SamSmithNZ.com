@@ -21,4 +21,3 @@
         };
     }
 })();
-//# sourceMappingURL=movementService.js.map

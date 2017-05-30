@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[itPlaylist] (
-    [playlist_code] INT      NULL,
-    [playlist_date] DATETIME NULL
+    [playlist_code] INT NOT NULL,
+    [playlist_date] DATETIME NOT NULL
 );
 
 

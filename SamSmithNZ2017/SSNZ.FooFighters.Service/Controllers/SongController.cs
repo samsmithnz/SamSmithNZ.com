@@ -14,22 +14,22 @@ namespace SSNZ.FooFighters.Service.Controllers
             return await da.GetListAsync();
         }
 
-        public async Task<List<Song>> GetSongsByAlbum(int albumKey)
+        public async Task<List<Song>> GetSongsByAlbum(int albumCode)
         {
             SongDataAccess da = new SongDataAccess();
-            return await da.GetListForAlbumAsync(albumKey);
+            return await da.GetListForAlbumAsync(albumCode);
         }
 
-        public async Task<List<Song>> GetSongsByShow(int showKey)
+        public async Task<List<Song>> GetSongsByShow(int showCode)
         {
             SongDataAccess da = new SongDataAccess();
-            return await da.GetListForShowAsync(showKey);
+            return await da.GetListForShowAsync(showCode);
         }
 
-        public async Task<Song> GetSong(int songKey)
+        public async Task<Song> GetSong(int songCode)
         {
             SongDataAccess da = new SongDataAccess();
-            return await da.GetItemAsync(songKey);
+            return await da.GetItemAsync(songCode);
         }
     }
 }

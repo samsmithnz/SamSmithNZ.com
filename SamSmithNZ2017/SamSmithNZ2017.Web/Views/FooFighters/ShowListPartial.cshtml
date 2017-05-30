@@ -1,0 +1,25 @@
+﻿@model SamSmithNZ2015.Models.FooFighters.ShowsPartialViewModel
+
+@if (Model.Shows != null && Model.Shows.Count > 0)
+{
+    <table class="tdTable" style="border-collapse: collapse; border: 1px solid DarkGray; text-align: center;">
+        <tr style="background-color: #EAEAEA; font-weight: bold;">
+            <th style="width: 250px;" class="tdTable">Show Date</th>
+            <th style="width: 250px;" class="tdTable">Location</th>
+            <th style="width: 250px;" class="tdTable">City</th>
+            <th style="width: 250px;" class="tdTable">Country</th>
+            <th style="width: 250px;" class="tdTable">Song Count</th>
+        </tr>
+
+        @foreach (SamSmithNZ2015.Core.FooFighters.Show item in Model.Shows)
+        {
+            <tr>
+                <td class="tdTable">@Html.ActionLink(@item.ShowDate.ToString("yyyy-MMM-dd"), "Show", "FooFighters", new { showKey = @item.ShowKey }, null)</td>
+                <td class="tdTable">@item.ShowLocation</td>
+                <td class="tdTable">@item.ShowCity</td>
+                <td class="tdTable">@item.ShowCountry</td>
+                <td class="tdTable">@item.NumberOfSongsPlayed</td>
+            </tr>
+        }
+    </table>
+}

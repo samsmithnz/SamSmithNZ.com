@@ -1,0 +1,87 @@
+﻿@*@model SamSmithNZ2015.Models.FooFighters.AlbumSongsViewModel*@
+@{
+    Layout = "~/Views/Shared/_LayoutFooFighters.cshtml";
+}
+
+@*<!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Album</title>
+    </head>*@
+<div style="font-family: Verdana; font-size: 10pt;" ng-controller="albumController">
+    <h2>{{album.AlbumName}}</h2>
+    <table>
+        <tr>
+            <td>
+                <span style="font-weight: bold;">Year Released:</span>
+            </td>
+            <td>
+                {{album.AlbumReleaseDate | date:'yyyy'}}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <img ng-src="~/Content/FooFighters/AlbumCovers/{{album.AlbumImage}}" alt="" style="width: 140px; height:140px;" />
+            </td>
+        </tr>
+    </table>
+    <br />
+    <span style="font-weight: bold;">Track list:</span>
+    <table class="tdTable" style="border-collapse: collapse; border: 1px solid DarkGray; text-align: center;">
+        <tr style="background-color: #EAEAEA; font-weight: bold;">
+            <th style="width: 50px;" class="tdTable"></th>
+            <th style="width: 250px;" class="tdTable">Song</th>
+            <th style="width: 200px;" class="tdTable">First Show Played</th>
+            <th style="width: 200px;" class="tdTable">Last Show Played</th>
+            <th style="width: 150px;" class="tdTable">Times Played Live</th>
+        </tr>
+        <tr ng-repeat="item in songs">
+            <td class="tdTable">{{item.SongOrder}}</td>
+            <td><a href="/FooFighters/Song/GetSong?SongCode={{item.SongCode}}">{{item.SongName}}</a></td>
+            <td ng-if="item.FirstPlayedShowCode <= 0">None Known</td>
+            <td ng-if="item.FirstPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.FirstPlayedShowCode}}">{{item.FirstPlayed | date:'yyyy-MMM-dd'}}</a></td>
+            <td ng-if="item.LastPlayedShowCode <= 0">None Known</td>
+            <td ng-if="item.LastPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.LastPlayedShowCode }}">{{item.LastPlayed | date:'yyyy-MMM-dd'}}</a></td>
+            <td>{{item.TimesPlayed}}</td>
+        </tr>
+
+        @*@foreach (SamSmithNZ2015.Core.FooFighters.Song item in Model.Songs)
+            {
+                <tr>
+                    @if (Model.Source == "Album" || Model.Source == "Show")
+                    {
+                        <td class="tdTable">@item.SongOrder</td>
+                    }
+                    <td class="tdTable">@Html.ActionLink(@item.SongName, "Song", "FooFighters", new { songKey = @item.SongKey }, null)</td>
+                    @if (Model.Source != "Show")
+                    {
+                        if (@item.FirstPlayedShowKey <= 0)
+                        {
+                            <td class="tdTable">None Known</td>
+                        }
+                        else
+                        {
+                            <td class="tdTable">@Html.ActionLink(@item.FirstPlayed.ToString("yyyy-MMM-dd"), "Show", "FooFighters", new { showKey = @item.FirstPlayedShowKey }, null)</td>
+                        }
+                        if (@item.LastPlayedShowKey <= 0)
+                        {
+                            <td class="tdTable">None Known</td>
+                        }
+                        else
+                        {
+                            <td class="tdTable">@Html.ActionLink(@item.LastPlayed.ToString("yyyy-MMM-dd"), "Show", "FooFighters", new { showKey = @item.LastPlayedShowKey }, null)</td>
+                        }
+                        <td class="tdTable">@item.SongTimesPlayed</td>
+                    }
+                    @if (Model.Source != "Album")
+                    {
+                        <td class="tdTable">@Html.ActionLink(@item.AlbumName, "Album", "FooFighters", new { albumKey = @item.AlbumKey }, null)</td>
+                    }
+                </tr>
+            }*@
+    </table>
+    <br />
+    <hr />
+</div>

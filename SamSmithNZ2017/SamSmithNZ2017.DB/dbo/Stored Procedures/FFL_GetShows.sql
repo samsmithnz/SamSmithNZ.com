@@ -1,10 +1,10 @@
 ﻿CREATE PROCEDURE [dbo].[FFL_GetShows]
-	@show_key INT = NULL,
-	@year_code INT = NULL,
-	@song_key INT = NULL
+	@ShowCode INT = NULL,
+	@YearCode INT = NULL,
+	@SongCode INT = NULL
 AS
 BEGIN
-	SELECT s.show_key AS ShowKey, 
+	SELECT s.show_key AS ShowCode, 
 		s.show_date AS ShowDate, 
 		s.show_location AS ShowLocation,
 		ISNULL(s.show_city + CASE WHEN NOT s.show_state IS NULL AND s.show_state <> '' THEN ', ' + s.show_state ELSE '' END,'') AS ShowCity,
@@ -18,9 +18,9 @@ BEGIN
 		COUNT(ISNULL(ss.song_key,0)) AS SongsPlayed
 	FROM ffl_show s
 	LEFT OUTER JOIN ffl_show_song ss ON ss.show_key = s.show_key
-	WHERE (YEAR(s.show_date) = @year_code OR @year_code IS NULL)
-	and (s.show_key = @show_key OR @show_key IS NULL)
-	and (ss.song_key = @song_key OR @song_key IS NULL)
+	WHERE (YEAR(s.show_date) = @YearCode OR @YearCode IS NULL)
+	and (s.show_key = @ShowCode OR @ShowCode IS NULL)
+	and (ss.song_key = @SongCode OR @SongCode IS NULL)
 	GROUP BY s.show_key, s.show_date,
 		s.show_location, 
 		ISNULL(s.show_city + CASE WHEN NOT s.show_state IS NULL AND s.show_state <> '' THEN ', ' + s.show_state ELSE '' END,''),

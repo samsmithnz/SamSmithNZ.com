@@ -3,8 +3,8 @@
     angular
         .module('GuitarTabApp')
         .controller('editAlbumController', editAlbumController);
-    editAlbumController.$inject = ['$scope', '$http', 'albumsService', 'tabsService', '$window'];
-    function editAlbumController($scope, $http, albumsService, tabsService, $window) {
+    editAlbumController.$inject = ['$scope', '$http', 'albumService', 'tabsService', '$window'];
+    function editAlbumController($scope, $http, albumService, tabsService, $window) {
         $scope.album = null;
         $scope.tabs = [];
         var onError = function (data) {
@@ -33,7 +33,7 @@
         console.log("AlbumCode: " + getUrlParameter('AlbumCode'));
         $scope.albumCode = getUrlParameter('AlbumCode');
         var initialize = function () {
-            albumsService.getAlbum($scope.albumCode, true).then(onGetAlbumEventComplete, onError);
+            albumService.getAlbum($scope.albumCode, true).then(onGetAlbumEventComplete, onError);
             tabsService.getTabs($scope.albumCode, true).then(onGetTabsEventComplete, onError);
         };
         initialize();
@@ -46,7 +46,7 @@
             $scope.album.IncludeOnWebsite = $('#chkIncludeOnWebsite')[0].checked;
             $scope.album.IsMiscCollectionAlbum = $('#chkIsMiscCollectionAlbum')[0].checked;
             console.log($scope.album);
-            albumsService.saveAlbum($scope.album).then(onSaveAlbumEventComplete, onError);
+            albumService.saveAlbum($scope.album).then(onSaveAlbumEventComplete, onError);
         };
     }
     function getUrlParameter(param) {
@@ -64,4 +64,3 @@
         return res;
     }
 })();
-//# sourceMappingURL=editAlbumController.js.map

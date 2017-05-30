@@ -13,26 +13,26 @@ namespace SSNZ.FooFighters.Data
             return await base.GetListAsync("FFL_GetSongs");
         }
 
-        public async Task< List<Song>> GetListForAlbumAsync(int albumKey)
+        public async Task< List<Song>> GetListForAlbumAsync(int albumCode)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@album_key", albumKey, DbType.Int32);
+            parameters.Add("@albumCode", albumCode, DbType.Int32);
 
             return await base.GetListAsync("FFL_GetSongs", parameters);
         }
 
-        public async Task<List<Song>> GetListForShowAsync(int showKey)
+        public async Task<List<Song>> GetListForShowAsync(int showCode)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@show_key", showKey, DbType.Int32);
+            parameters.Add("@showCode", showCode, DbType.Int32);
 
             return await base.GetListAsync("FFL_GetSongs", parameters);
         }
 
-        public async Task<Song> GetItemAsync(int songKey)
+        public async Task<Song> GetItemAsync(int songCode)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@song_key", songKey, DbType.Int32);
+            parameters.Add("@songCode", songCode, DbType.Int32);
 
             return await base.GetItemAsync("FFL_GetSongs", parameters);
         }

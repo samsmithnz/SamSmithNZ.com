@@ -52,7 +52,7 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(results[0].ShowCity == "Portland, OR");
             Assert.IsTrue(results[0].ShowCountry == "United States");
             Assert.IsTrue(results[0].ShowDate >= DateTime.MinValue);
-            Assert.IsTrue(results[0].ShowKey == 3);
+            Assert.IsTrue(results[0].ShowCode == 3);
             Assert.IsTrue(results[0].ShowLocation != "");
         }
 
@@ -94,7 +94,7 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(results[2].ShowCity == "Portland, OR");
             Assert.IsTrue(results[2].ShowCountry == "United States");
             Assert.IsTrue(results[2].ShowDate >= DateTime.MinValue);
-            Assert.IsTrue(results[2].ShowKey == 3);
+            Assert.IsTrue(results[2].ShowCode == 3);
             Assert.IsTrue(results[2].ShowLocation != "");
         }
 
@@ -121,7 +121,7 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(result.ShowCity == "Portland, OR");
             Assert.IsTrue(result.ShowCountry == "United States");
             Assert.IsTrue(result.ShowDate >= DateTime.MinValue);
-            Assert.IsTrue(result.ShowKey == 3);
+            Assert.IsTrue(result.ShowCode == 3);
             Assert.IsTrue(result.ShowLocation != "");
         }
 

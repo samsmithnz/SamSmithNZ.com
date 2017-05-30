@@ -4,9 +4,9 @@
     angular
         .module('GuitarTabApp')
         .controller('indexController', indexController);
-    indexController.$inject = ['$scope', '$http', 'albumsService'];
+    indexController.$inject = ['$scope', '$http', 'albumService'];
 
-    function indexController($scope, $http, albumsService) {
+    function indexController($scope, $http, albumService) {
 
         $scope.albums = [];
         $scope.currentArtist = '';
@@ -57,7 +57,7 @@
 
         var isAdmin = $('#txtViewHiddenTabs').val() == 'true';
 
-        albumsService.getAlbums(isAdmin).then(onGetAlbumsEventComplete, onError);
+        albumService.getAlbums(isAdmin).then(onGetAlbumsEventComplete, onError);
 
     }
 

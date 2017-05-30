@@ -5,7 +5,7 @@ namespace SSNZ.FooFighters.Models
   public  class Show
     {
 
-      public int ShowKey { get; set; }
+      public int ShowCode { get; set; }
       public DateTime ShowDate { get; set; }
       public string ShowLocation { get; set; }
       public string ShowCity { get; set; }

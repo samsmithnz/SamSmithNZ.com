@@ -14,10 +14,10 @@ namespace SSNZ.FooFighters.Service.Controllers
             return await da.GetListAsync();
         }
 
-        public async Task<Album> GetAlbum(int albumKey)
+        public async Task<Album> GetAlbum(int albumCode)
         {
             AlbumDataAccess da = new AlbumDataAccess();
-            return await da.GetItemAsync(albumKey);
+            return await da.GetItemAsync(albumCode);
         }
 
     }

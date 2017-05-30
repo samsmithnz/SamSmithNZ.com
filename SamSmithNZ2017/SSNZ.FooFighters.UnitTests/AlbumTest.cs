@@ -41,8 +41,7 @@ namespace SSNZ.GuitarTab.UnitTests
             //assert
             Assert.IsTrue(result != null);
             Assert.IsTrue(result.AlbumImage == "220px-FooFighters-FooFighters.jpg");
-            Assert.IsTrue(result.AlbumKey == 1);
-            Assert.IsTrue(result.AlbumLabel == null);
+            Assert.IsTrue(result.AlbumCode == 1);
             Assert.IsTrue(result.AlbumName == "Foo Fighters");
             Assert.IsTrue(result.AlbumReleaseDate >= DateTime.MinValue);
         }
