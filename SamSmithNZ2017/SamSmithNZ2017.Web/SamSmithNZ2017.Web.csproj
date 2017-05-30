@@ -1105,6 +1105,7 @@
     <TypeScriptCompile Include="Scripts\FooFightersControllers\indexController.ts" />
     <TypeScriptCompile Include="Scripts\FooFightersControllers\layoutController.ts" />
     <TypeScriptCompile Include="Scripts\FooFightersServices\showService.ts" />
+    <TypeScriptCompile Include="Scripts\FooFightersServices\yearService.ts" />
     <TypeScriptCompile Include="Scripts\FooFightersServices\songService.ts" />
     <TypeScriptCompile Include="Scripts\FooFightersServices\albumService.ts" />
     <TypeScriptCompile Include="Scripts\GuitarTabControllers\searchController.ts" />

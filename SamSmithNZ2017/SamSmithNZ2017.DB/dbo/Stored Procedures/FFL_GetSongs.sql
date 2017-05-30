@@ -22,8 +22,8 @@ BEGIN
 			s.song_order AS SongOrder
 		FROM ff_song s
 		JOIN ff_album a ON s.album_key = a.album_key
-		LEFT OUTER JOIN ffl_show_song ss ON ss.song_key = s.song_key
-		LEFT OUTER JOIN ffl_show sh ON sh.show_key = ss.show_key
+		LEFT JOIN ff_show_song ss ON ss.song_key = s.song_key
+		LEFT JOIN ff_show sh ON sh.show_key = ss.show_key
 		WHERE (s.song_key = @SongCode OR @SongCode IS NULL)
 		AND (a.album_key = @AlbumCode OR @AlbumCode IS NULL)
 		GROUP BY s.song_key, s.song_name, 
@@ -49,8 +49,8 @@ BEGIN
 			ss.show_song_order AS SongOrder
 		FROM ff_song s
 		JOIN ff_album a ON s.album_key = a.album_key
-		LEFT OUTER JOIN ffl_show_song ss ON ss.song_key = s.song_key
-		LEFT OUTER JOIN ffl_show sh ON sh.show_key = ss.show_key
+		LEFT JOIN ff_show_song ss ON ss.song_key = s.song_key
+		LEFT JOIN ff_show sh ON sh.show_key = ss.show_key
 		WHERE sh.show_key = @ShowCode
 		GROUP BY s.song_key, s.song_name, 
 			s.song_notes, s.song_lyrics, s.song_image, 

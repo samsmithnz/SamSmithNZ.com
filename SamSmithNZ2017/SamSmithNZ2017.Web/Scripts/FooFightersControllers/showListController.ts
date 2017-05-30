@@ -4,12 +4,13 @@
     angular
         .module('FooFightersApp')
         .controller('showListController', showListController);
-    showListController.$inject = ['$scope', '$http', 'showService', 'songService'];
+    showListController.$inject = ['$scope', '$http', 'yearService', 'showService'];
 
-    function showListController($scope, $http, showService, songService) {
+    function showListController($scope, $http, yearService, showService) {
 
-        $scope.show = null;
-        $scope.songs = [];
+        $scope.years = [];
+        $scope.shows = [];
+        $scope.selectedYear = null;
 
         var onError = function (data) {
             //errorHandlerService.errorHandler(data);
@@ -17,21 +18,28 @@
             console.log(data);
         };
 
-        var onGetShowsEventComplete = function (response) {
-            console.log($scope.show);
-            $scope.show = response.data;
-        }
-
-        var onGetSongsEventComplete = function (response) {
+        var onGetYearsEventComplete = function (response) {
             //console.log(response.data);
-            $scope.songs = response.data;
+            $scope.years = response.data;
+            if ($scope.years.length > 0) {
+                $scope.selectedYear = $scope.years[0].YearCode;
+                //console.log($scope.selectedYear);
+                showService.getShows($scope.selectedYear).then(onGetShowsEventComplete, onError);
+            }
         }
 
-        $scope.ShowCode = getUrlParameter('ShowCode');
+        var onGetShowsEventComplete = function (response) {
+            //console.log($scope.shows);
+            $scope.shows = response.data;
+        }
 
-        showService.getShow($scope.ShowCode).then(onGetShowsEventComplete, onError);
-        songService.getSongsByShow($scope.ShowCode).then(onGetSongsEventComplete, onError);
+        //$scope.ShowCode = getUrlParameter('ShowCode');
 
+        yearService.getYears().then(onGetYearsEventComplete, onError);
+
+        $scope.updateShows = function () {
+            showService.getShows($scope.selectedYear).then(onGetShowsEventComplete, onError);
+        }
     }
 
     function getUrlParameter(param: string) {
