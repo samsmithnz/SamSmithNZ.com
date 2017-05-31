@@ -23,8 +23,8 @@ SELECT CONVERT(smallint,null) as row_type,
 */
 
 CREATE TABLE #tmp_games (row_type smallint, game_time datetime, game_number smallint,
-	team_1_name varchar(100), team_1_code smallint, team_1_score varchar(10),
-	team_2_name varchar(100), team_2_code smallint, team_2_score varchar(10),
+	team_1_name varchar(200), team_1_code smallint, team_1_score varchar(10),
+	team_2_name varchar(200), team_2_code smallint, team_2_score varchar(10),
 	team_1_flag_name varchar(100), team_2_flag_name varchar(100),
 	location varchar(100), round_number smallint, round_code varchar(10), sort_order smallint)
 
@@ -41,18 +41,18 @@ JOIN wc_team t2 ON g.team_2_code = t2.team_code
 WHERE g.tournament_code = @tournament_code
 and g.round_number = @round_number
 and (g.round_code = @round_code or g.round_code = @round_code + 'a')
---ORDER BY g.game_time, g.game_number--, go.goal_time, isnull(go.injury_time,0)
+--ORDER BY g.game_time, g.game_number--, gl.goal_time, isnull(go.injury_time,0)
 
 --Insert Team 1 Scorers
 INSERT INTO #tmp_games
 SELECT 2 as row_type, g.game_time, g.game_number,
-	p.player_name, p.team_code, go.goal_time,
+	p.player_name, p.team_code, CONVERT(VARCHAR(10),gl.goal_time),
 	'','','',
 	'Soccerball_svg.png', '',
-	g.location, g.round_number, g.round_code, go.goal_time as sort_order
+	g.location, g.round_number, g.round_code, gl.goal_time as sort_order
 FROM wc_game g
-JOIN wc_goal go ON go.game_code = g.game_code
-JOIN wc_player p ON p.player_code = go.player_code and g.team_1_code = p.team_code
+JOIN wc_goal gl ON gl.game_code = g.game_code
+JOIN wc_player p ON p.player_code = gl.player_code and g.team_1_code = p.team_code
 WHERE g.tournament_code = @tournament_code
 and g.round_number = @round_number
 and (g.round_code = @round_code or g.round_code = @round_code + 'a')
@@ -61,12 +61,12 @@ and (g.round_code = @round_code or g.round_code = @round_code + 'a')
 INSERT INTO #tmp_games
 SELECT 2 as row_type, g.game_time, g.game_number,
 	'','','',
-	p.player_name, p.team_code, go.goal_time,
+	p.player_name, p.team_code, CONVERT(VARCHAR(10),gl.goal_time),
 	'', 'Soccerball_svg.png',
-	g.location, g.round_number, g.round_code, go.goal_time as sort_order
+	g.location, g.round_number, g.round_code, gl.goal_time as sort_order
 FROM wc_game g
-JOIN wc_goal go ON go.game_code = g.game_code
-JOIN wc_player p ON p.player_code = go.player_code and g.team_2_code = p.team_code
+JOIN wc_goal gl ON gl.game_code = g.game_code
+JOIN wc_player p ON p.player_code = gl.player_code and g.team_2_code = p.team_code
 WHERE g.tournament_code = @tournament_code
 and g.round_number = @round_number
 and (g.round_code = @round_code or g.round_code = @round_code + 'a')

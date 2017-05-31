@@ -65,7 +65,7 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult AlbumList()
         {
             return View();
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/AlbumList");
+            //return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/AlbumList");
 
             //AlbumDataAccess da = new AlbumDataAccess();
             //GraphNodeGeneration graph = GetAlbumGraph();
