@@ -85,16 +85,16 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(results != null);
             Assert.IsTrue(results.Count > 0);
             //Assert.IsTrue(results[2].IsCancelledShow == false);
-            //Assert.IsTrue(results[2].IsPostponedShow == false);
+            //Assert.IsTrue(results[2].IsPostponedShow == false);Ok, time to 
             //Assert.IsTrue(results[2].Notes != "");
             //Assert.IsTrue(results[2].NumberOfRecordings >= 0);
             Assert.IsTrue(results[2].NumberOfSongsPlayed >= 0);
             //Assert.IsTrue(results[2].NumberOfUnconfirmedRecordings >= 0);
             //Assert.IsTrue(results[2].OtherPerformers != "");
-            Assert.IsTrue(results[2].ShowCity == "Portland, OR");
+            Assert.IsTrue(results[2].ShowCity == "Seattle, WA");
             //Assert.IsTrue(results[2].ShowCountry == "United States");
             Assert.IsTrue(results[2].ShowDate >= DateTime.MinValue);
-            Assert.IsTrue(results[2].ShowCode == 3);
+            Assert.IsTrue(results[2].ShowCode == 4);
             Assert.IsTrue(results[2].ShowLocation != "");
         }
 
