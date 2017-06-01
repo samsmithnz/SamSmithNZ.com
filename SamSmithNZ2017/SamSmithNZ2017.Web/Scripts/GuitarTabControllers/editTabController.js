@@ -35,7 +35,6 @@
         };
         var onSaveTabEventComplete = function (response) {
             $window.location.href = '/GuitarTab/Album?AlbumCode=' + $scope.tab.AlbumCode;
-            //getTab();
         };
         console.log("TabCode: " + getUrlParameter('TabCode'));
         $scope.tabCode = getUrlParameter('TabCode');
@@ -47,6 +46,7 @@
         $scope.saveTab = function () {
             $scope.tab.TabName = $('#txtTabName').val();
             $scope.tab.TabOrder = $('#txtOrder').val();
+            $scope.tab.Rating = $('#cboRating').val();
             $scope.tab.RatingCode = $('#cboRating').val();
             $scope.tab.TuningCode = $('#cboTuning').val();
             $scope.tab.TabText = $('#txtTabText').val();
