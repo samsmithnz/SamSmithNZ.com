@@ -284,6 +284,15 @@
     <Content Include="Content\GuitarTab\rbox-br.gif" />
     <Content Include="Content\GuitarTab\rbox-tl.gif" />
     <Content Include="Content\GuitarTab\rbox-tr.gif" />
+    <Content Include="Content\Images\AboutMe\facebook-icon.png" />
+    <Content Include="Content\Images\AboutMe\gplus-icon.png" />
+    <Content Include="Content\Images\AboutMe\linkedin-icon.png" />
+    <Content Include="Content\Images\AboutMe\pinterest-icon.png" />
+    <Content Include="Content\Images\AboutMe\rss-icon.png" />
+    <Content Include="Content\Images\AboutMe\twitter-icon.png" />
+    <Content Include="Content\Images\AboutMe\youtube-icon.png" />
+    <Content Include="Content\Images\Logo_Small.jpg" />
+    <Content Include="Content\Images\Logo_Tiny.jpg" />
     <Content Include="Content\ITunes\favicon.ico" />
     <Content Include="Content\ITunes\iTunes.png" />
     <Content Include="Content\Steam\favicon.ico" />

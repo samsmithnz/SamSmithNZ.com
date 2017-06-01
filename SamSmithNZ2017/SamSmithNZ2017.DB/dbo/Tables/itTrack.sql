@@ -15,6 +15,17 @@
 
 
 GO
+
+CREATE NONCLUSTERED INDEX [IX_TrackNameAlbumNameArtistNamePlayCount]
+    ON [dbo].[itTrack]([playlist_code] ASC)
+    INCLUDE([track_name], [album_name], [artist_name], [play_count]);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_TrackNameAlbumNameArtistNamePlayCountRanking]
+    ON [dbo].[itTrack]([playlist_code] ASC, [previous_ranking] ASC)
+    INCLUDE([track_name], [album_name], [artist_name], [play_count], [ranking]);
+GO
+
 CREATE NONCLUSTERED INDEX [nci_wi_itTrack_2F9FA3C0-454E-4B2C-B349-9A27271F647A]
     ON [dbo].[itTrack]([rating] ASC, [playlist_code] ASC, [ranking] ASC)
     INCLUDE([album_name], [artist_name], [is_new_entry], [play_count], [previous_play_count], [previous_ranking], [record_id], [track_name]);
