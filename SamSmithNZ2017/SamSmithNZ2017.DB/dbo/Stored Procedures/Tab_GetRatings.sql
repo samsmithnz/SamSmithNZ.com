@@ -1,5 +1,17 @@
 ﻿CREATE PROCEDURE [dbo].[Tab_GetRatings]
 AS
-SELECT r.rating as RatingCode
-FROM vwtab_rating r
-ORDER BY r.rating
+BEGIN
+	SELECT 0 AS RatingCode
+	UNION
+	SELECT 1 AS RatingCode
+	UNION
+	SELECT 2 AS RatingCode
+	UNION
+	SELECT 3 AS RatingCode
+	UNION
+	SELECT 4 AS RatingCode
+	UNION
+	SELECT 5 AS RatingCode
+	ORDER BY RatingCode
+END
+GO

@@ -13,12 +13,12 @@ namespace SSNZ.ITunes.Models
         public string TrackName { get; set; }
         public string AlbumName { get; set; }
         public string ArtistName { get; set; }
-        public short PlayCount { get; set; }
-        public short PreviousPlayCount { get; set; }
-        public short Ranking { get; set; }
-        public short PreviousRanking { get; set; }
+        public int PlayCount { get; set; }
+        public int PreviousPlayCount { get; set; }
+        public int Ranking { get; set; }
+        public int PreviousRanking { get; set; }
         public bool IsNewEntry { get; set; }
-        public short Rating { get; set; }
+        public int Rating { get; set; }
         public Guid RecordId { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace SSNZ.GuitarTab.UnitTests
             ShowYearDataAccess da = new ShowYearDataAccess();
 
             //act
-            List<ShowYear> results = await da.GetListAsync();
+            List<Year> results = await da.GetListAsync();
 
             //assert
             Assert.IsTrue(results != null);
@@ -35,7 +35,7 @@ namespace SSNZ.GuitarTab.UnitTests
             ShowYearDataAccess da = new ShowYearDataAccess();
 
             //act
-            List<ShowYear> results = await da.GetListAsync();
+            List<Year> results = await da.GetListAsync();
 
             //assert
             Assert.IsTrue(results != null);

@@ -4,9 +4,9 @@
     angular
         .module('GuitarTabApp')
         .controller('albumController', albumController);
-    albumController.$inject = ['$scope', '$http', 'albumsService', 'tabsService'];
+    albumController.$inject = ['$scope', '$http', 'albumService', 'tabsService'];
 
-    function albumController($scope, $http, albumsService, tabsService) {
+    function albumController($scope, $http, albumService, tabsService) {
 
         $scope.tabs = [];
 
@@ -17,7 +17,6 @@
         };
 
         var onGetAlbumEventComplete = function (response) {
-
             var targets = angular.element(document).find('h2');
             if (targets.length > 0) {
                 //console.log(targets);
@@ -35,7 +34,7 @@
         $scope.albumCode = getUrlParameter('AlbumCode');
         var isAdmin = $('#txtViewHiddenTabs').val() == 'true';
 
-        albumsService.getAlbum($scope.albumCode, isAdmin).then(onGetAlbumEventComplete, onError);
+        albumService.getAlbum($scope.albumCode, isAdmin).then(onGetAlbumEventComplete, onError);
         tabsService.getTabs($scope.albumCode, isAdmin).then(onGetTabsEventComplete, onError);
     }
 

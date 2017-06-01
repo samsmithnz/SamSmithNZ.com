@@ -8,7 +8,7 @@ namespace SSNZ.FooFighters.Service.Controllers
 {
     public class YearController : ApiController
     {
-        public async Task<List<ShowYear>> GetYears()
+        public async Task<List<Year>> GetYears()
         {
             ShowYearDataAccess da = new ShowYearDataAccess();
             return await da.GetListAsync();

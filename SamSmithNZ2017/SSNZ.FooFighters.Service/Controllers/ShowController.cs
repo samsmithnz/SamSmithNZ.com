@@ -14,16 +14,16 @@ namespace SSNZ.FooFighters.Service.Controllers
             return await da.GetListByYearAsync(yearCode);
         }
 
-        public async Task<List<Show>> GetShowsBySong(int songKey)
+        public async Task<List<Show>> GetShowsBySong(int songCode)
         {
             ShowDataAccess da = new ShowDataAccess();
-            return await da.GetListBySongAsync(songKey);
+            return await da.GetListBySongAsync(songCode);
         }
 
-        public async Task<Show> GetShow(int showKey)
+        public async Task<Show> GetShow(int showCode)
         {
             ShowDataAccess da = new ShowDataAccess();
-            return await da.GetItemAsync(showKey);
+            return await da.GetItemAsync(showCode);
         }
 
     }

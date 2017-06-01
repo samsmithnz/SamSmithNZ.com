@@ -78,7 +78,7 @@ BEGIN
 	INSERT INTO #tmp_round_codes
 	SELECT @round_code
 	UNION
-	SELECT @round_code + 'a'
+	SELECT CONVERT(VARCHAR(10),@round_code + 'a')
 END
 
 IF (@team_code = 0)

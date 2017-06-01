@@ -79,7 +79,7 @@ PK's		x0.5
 Ranking Points = 100 X (result points X match status X opposition strength X regional strength X number of goals)
 */
 
-IF (@ranking_date = '1900-1-1')
+IF (@ranking_date = CONVERT(DATETIME,'1900-1-1'))
 BEGIN
 	INSERT INTO wc_ranking
 	SELECT @ranking_date, team_code, 1 as ranking, 0 as score
@@ -90,12 +90,13 @@ ELSE
 BEGIN
 
 	CREATE TABLE #tmp_ranking (team_code smallint, total_score decimal(10,2))
-	
+	DECLARE @RankingYear INT
+	SELECT @RankingYear = YEAR(@ranking_date)
 	INSERT INTO #tmp_ranking
 	SELECT team_code, 0
 	FROM wc_tournament_team_entry te
 	JOIN wc_tournament t ON te.tournament_code = t.tournament_code
-	WHERE t.[year] = year(@ranking_date)
+	WHERE t.[year] = @RankingYear
 	
 	-------------------------------------------------------------------------------
 	--http://en.wikipedia.org/wiki/FIFA_World_Rankings#Current_calculation_method--
@@ -121,7 +122,7 @@ BEGIN
 		dbo.fnWC_CalculateRanking_MatchResult(game_code, team_2_code),
 		dbo.fnWC_CalculateRanking_OppositionStrength(game_code, team_2_code)
 	FROM wc_game
-	WHERE year(game_time) = year(@ranking_date)
+	WHERE YEAR(game_time) = @RankingYear
 	ORDER BY game_time
 	
 	--SELECT * FROM #tmp_game_ranking

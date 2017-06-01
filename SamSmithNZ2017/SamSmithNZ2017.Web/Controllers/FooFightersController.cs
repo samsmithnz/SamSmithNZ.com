@@ -19,15 +19,64 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Index()
         {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Index");
+            return View();
+            //return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Index");
 
             //SongDataAccess da = new SongDataAccess();
             //return View(da.GetItems());
         }
 
+        public ActionResult ShowList()
+        {
+            return View();
+        }
+
+        public ActionResult Song(int songCode)
+        {
+            return View();
+            //return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Song?songCode=" + songCode);
+
+            //SongDataAccess da = new SongDataAccess();
+            //ShowDataAccess da2 = new ShowDataAccess();
+            //return View(new SongShowsViewModel(da.GetItem(songCode), da2.GetItemsBySong(songCode)));
+        }
+
+        public ActionResult Show(int showCode)
+        {
+            return View();
+            //return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Show?showCode=" + showCode);
+
+            //ShowDataAccess da = new ShowDataAccess();
+            //SongDataAccess da2 = new SongDataAccess();
+            //return View(new ShowSongsViewModel(da.GetItem(showCode), da2.GetSongsForShow(showCode)));
+        }
+
+        public ActionResult Album(int albumCode)
+        {
+            return View();
+            //return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Album?albumCode=" + albumCode);
+
+            //AlbumDataAccess da = new AlbumDataAccess();
+            //SongDataAccess da2 = new SongDataAccess();
+            //return View(new AlbumSongsViewModel(da.GetItem(albumCode), da2.GetSongsForAlbum(albumCode)));
+        }
+
+
+        public ActionResult AlbumList()
+        {
+            return View();
+            //return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/AlbumList");
+
+            //AlbumDataAccess da = new AlbumDataAccess();
+            //GraphNodeGeneration graph = GetAlbumGraph();
+
+            //return View(new SamSmithNZ2015.Models.FooFighters.AlbumsSongGraphViewModel(da.GetItems(), graph.GetVerticeScriptForNodes(graph.VerticeList), graph.GetVerticeEdgeScriptForNodes(graph.VerticeEdgeList)));
+        }
+
         public ActionResult ShowYearList()
         {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/ShowYearList");
+            return RedirectToAction("ShowList");
+            //return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/ShowYearList");
 
             //ShowYearDataAccess da = new ShowYearDataAccess();
             //IEnumerable<SelectListItem> selectItems;
@@ -43,53 +92,19 @@ namespace SamSmithNZ2017.Controllers
             //return View(selectItems);
         }
 
-        [HttpPost]
-        public ActionResult ShowListPartial(string cboShowYear2)
-        {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/ShowListPartial?cboShowYear2=" + cboShowYear2);
+        //[HttpPost]
+        //public ActionResult ShowListPartial(string cboShowYear2)
+        //{
+        //    return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/ShowListPartial?cboShowYear2=" + cboShowYear2);
 
-            //ShowDataAccess da = new ShowDataAccess();
-            //int yearCode = Convert.ToInt16(cboShowYear2);
+        //    //ShowDataAccess da = new ShowDataAccess();
+        //    //int yearCode = Convert.ToInt16(cboShowYear2);
 
-            //return PartialView(new ShowsPartialViewModel(da.GetItemsByYear(yearCode), "ShowList"));
-        }
+        //    //return PartialView(new ShowsPartialViewModel(da.GetItemsByYear(yearCode), "ShowList"));
+        //}
 
-        public ActionResult AlbumList()
-        {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/AlbumList");
 
-            //AlbumDataAccess da = new AlbumDataAccess();
-            //GraphNodeGeneration graph = GetAlbumGraph();
 
-            //return View(new SamSmithNZ2015.Models.FooFighters.AlbumsSongGraphViewModel(da.GetItems(), graph.GetVerticeScriptForNodes(graph.VerticeList), graph.GetVerticeEdgeScriptForNodes(graph.VerticeEdgeList)));
-        }
-
-        public ActionResult Song(int songKey)
-        {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Song?songKey=" + songKey);
-
-            //SongDataAccess da = new SongDataAccess();
-            //ShowDataAccess da2 = new ShowDataAccess();
-            //return View(new SongShowsViewModel(da.GetItem(songKey), da2.GetItemsBySong(songKey)));
-        }
-
-        public ActionResult Show(int showKey)
-        {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Show?showKey="+ showKey);
-
-            //ShowDataAccess da = new ShowDataAccess();
-            //SongDataAccess da2 = new SongDataAccess();
-            //return View(new ShowSongsViewModel(da.GetItem(showKey), da2.GetSongsForShow(showKey)));
-        }
-
-        public ActionResult Album(int albumKey)
-        {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Album?albumKey=" + albumKey);
-
-            //AlbumDataAccess da = new AlbumDataAccess();
-            //SongDataAccess da2 = new SongDataAccess();
-            //return View(new AlbumSongsViewModel(da.GetItem(albumKey), da2.GetSongsForAlbum(albumKey)));
-        }
 
         public ActionResult SetlistProcessor()
         {
@@ -113,10 +128,10 @@ namespace SamSmithNZ2017.Controllers
         //    foreach (Album item in albums)
         //    {
         //        //If the album was released and is not the greatest hits, include it.
-        //        if (item.AlbumKey == 1 || item.AlbumKey == 2 || item.AlbumKey == 3 || item.AlbumKey == 6 || item.AlbumKey == 7 || item.AlbumKey == 8 || item.AlbumKey == 9 || item.AlbumKey == 11)
+        //        if (item.AlbumCode == 1 || item.AlbumCode == 2 || item.AlbumCode == 3 || item.AlbumCode == 6 || item.AlbumCode == 7 || item.AlbumCode == 8 || item.AlbumCode == 9 || item.AlbumCode == 11)
         //        {
         //            SongDataAccess da2 = new SongDataAccess();
-        //            List<Song> songs = da2.GetSongsForAlbum(item.AlbumKey);
+        //            List<Song> songs = da2.GetSongsForAlbum(item.AlbumCode);
         //            albumSongList.Add(songs);
         //        }
         //    }

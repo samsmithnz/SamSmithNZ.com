@@ -3,8 +3,8 @@
     angular
         .module('GuitarTabApp')
         .controller('indexController', indexController);
-    indexController.$inject = ['$scope', '$http', 'albumsService'];
-    function indexController($scope, $http, albumsService) {
+    indexController.$inject = ['$scope', '$http', 'albumService'];
+    function indexController($scope, $http, albumService) {
         $scope.albums = [];
         $scope.currentArtist = '';
         var onError = function (data) {
@@ -49,7 +49,7 @@
         //    //console.log("Steam Id not found");
         //}
         var isAdmin = $('#txtViewHiddenTabs').val() == 'true';
-        albumsService.getAlbums(isAdmin).then(onGetAlbumsEventComplete, onError);
+        albumService.getAlbums(isAdmin).then(onGetAlbumsEventComplete, onError);
     }
     function getUrlParameter(param) {
         var sPageURL = (window.location.search.substring(1));

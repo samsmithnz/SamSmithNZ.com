@@ -95,8 +95,6 @@
     <Build Include="dbo\Tables\wc_game.sql" />
     <Build Include="dbo\Tables\wc_competition.sql" />
     <Build Include="dbo\Tables\wc_card.sql" />
-    <Build Include="dbo\Tables\valor_guild.sql" />
-    <Build Include="dbo\Tables\valor_claim.sql" />
     <Build Include="dbo\Tables\UserProfile.sql" />
     <Build Include="dbo\Tables\TabTrack_old.sql" />
     <Build Include="dbo\Tables\TabStats_old.sql" />
@@ -108,13 +106,6 @@
     <Build Include="dbo\Tables\steamAPI_stat.sql" />
     <Build Include="dbo\Tables\problem_search_parameters.sql" />
     <Build Include="dbo\Tables\problem.sql" />
-    <Build Include="dbo\Tables\pm_song.sql" />
-    <Build Include="dbo\Tables\pm_software.sql" />
-    <Build Include="dbo\Tables\pm_project_type.sql" />
-    <Build Include="dbo\Tables\pm_project_task.sql" />
-    <Build Include="dbo\Tables\pm_project_status.sql" />
-    <Build Include="dbo\Tables\pm_project.sql" />
-    <Build Include="dbo\Tables\pm_asset.sql" />
     <Build Include="dbo\Tables\itTrack.sql" />
     <Build Include="dbo\Tables\itPLTrack.sql" />
     <Build Include="dbo\Tables\itPLPlaylistTrack.sql" />
@@ -129,22 +120,6 @@
     <Build Include="dbo\Tables\ff_show_song.sql" />
     <Build Include="dbo\Tables\ff_show.sql" />
     <Build Include="dbo\Tables\ff_album.sql" />
-    <Build Include="dbo\Tables\FBWeekTemplate.sql" />
-    <Build Include="dbo\Tables\FBWeek.sql" />
-    <Build Include="dbo\Tables\FBTeam.sql" />
-    <Build Include="dbo\Tables\FBSummary.sql" />
-    <Build Include="dbo\Tables\FBStatus.sql" />
-    <Build Include="dbo\Tables\FBStats.sql" />
-    <Build Include="dbo\Tables\FBSettings.sql" />
-    <Build Include="dbo\Tables\FBPlayer.sql" />
-    <Build Include="dbo\Tables\FBMoney.sql" />
-    <Build Include="dbo\Tables\FBhistorical_stats.sql" />
-    <Build Include="dbo\Tables\FBAdmin.sql" />
-    <Build Include="dbo\Tables\FBAccountingTransactionType.sql" />
-    <Build Include="dbo\Tables\FBAccountingTransaction.sql" />
-    <Build Include="dbo\Tables\FBAccounting.sql" />
-    <Build Include="dbo\Tables\fb_odds.sql" />
-    <Build Include="dbo\Tables\fantasy_tweet.sql" />
     <Build Include="dbo\Tables\ErrorLog.sql" />
     <Build Include="dbo\Tables\AspNetUsers.sql" />
     <Build Include="dbo\Tables\AspNetUserRoles.sql" />
@@ -153,7 +128,6 @@
     <Build Include="dbo\Tables\AspNetRoles.sql" />
     <Build Include="dbo\Tables\__MigrationHistory.sql" />
     <Build Include="dbo\Views\vwWC_FinalPlacing.sql" />
-    <Build Include="dbo\Views\vwtab_rating.sql" />
     <Build Include="dbo\Views\vWC_TournamentPenaltyShootoutGoals.sql" />
     <Build Include="dbo\Views\vWC_TournamentGoals.sql" />
     <Build Include="dbo\Views\vWC_TournamentFormats.sql" />
@@ -185,11 +159,6 @@
       <AnsiNulls>Off</AnsiNulls>
       <QuotedIdentifier>Off</QuotedIdentifier>
     </Build>
-    <Build Include="dbo\Functions\fnValor_GetRegion.sql" />
-    <Build Include="dbo\Functions\fnTab_GetAlbumTop100Name.sql" />
-    <Build Include="dbo\Functions\fnit_GetTabForTrack.sql" />
-    <Build Include="dbo\Functions\fnIT_GetRanking.sql" />
-    <Build Include="dbo\Functions\fnIT_GetPlayListDate.sql" />
     <Build Include="dbo\Stored Procedures\Tab_SaveTrack.sql" />
     <Build Include="dbo\Stored Procedures\Tab_SaveSearchParameters.sql" />
     <Build Include="dbo\Stored Procedures\Tab_SaveAlbum.sql" />
@@ -260,12 +229,6 @@
     <Build Include="dbo\Stored Procedures\spITunes_GetStats.sql" />
     <Build Include="dbo\Stored Procedures\spITunes_GetPlaylists.sql" />
     <Build Include="dbo\Stored Procedures\spITunes_GetMovement.sql" />
-    <Build Include="dbo\Stored Procedures\spITPL_InsertTrack.sql" />
-    <Build Include="dbo\Stored Procedures\spITPL_InsertPLPlaylistTrack.sql" />
-    <Build Include="dbo\Stored Procedures\spITPL_GetPLPlaylistList.sql" />
-    <Build Include="dbo\Stored Procedures\spITPL_GetPLPlaylist.sql" />
-    <Build Include="dbo\Stored Procedures\spITPL_DeletePLDatabase.sql" />
-    <Build Include="dbo\Stored Procedures\spITPL_CreateNewPLPlaylist.sql" />
     <Build Include="dbo\Stored Procedures\spIT_ValidateTracksForDuplicates.sql" />
     <Build Include="dbo\Stored Procedures\spIT_SetTrackRanks.sql" />
     <Build Include="dbo\Stored Procedures\spIT_InsertTrack.sql" />
@@ -292,9 +255,6 @@
     <Build Include="dbo\Stored Procedures\spIFB_GetGroupDetails.sql" />
     <Build Include="dbo\Stored Procedures\spIFB_GetGameListForTeam.sql" />
     <Build Include="dbo\Stored Procedures\spIFB_GetGameList.sql" />
-    <Build Include="dbo\Stored Procedures\spFT_GetFantasyTweetSummary.sql" />
-    <Build Include="dbo\Stored Procedures\spFT_GetFantasyTweets.sql" />
-    <Build Include="dbo\Stored Procedures\spFT_AddFantasyTweet.sql" />
     <Build Include="dbo\Stored Procedures\spFFL2Import_GetSongList.sql" />
     <Build Include="dbo\Stored Procedures\spFFL2Import_GetShowSongList.sql" />
     <Build Include="dbo\Stored Procedures\spFFL2Import_GetShowRecordingList.sql" />
@@ -354,5 +314,19 @@
     <Build Include="dbo\Stored Procedures\FFL_GetShows.sql" />
     <Build Include="dbo\Stored Procedures\FFL_GetSongs.sql" />
     <Build Include="dbo\Stored Procedures\FFL_GetYearList.sql" />
+    <Build Include="dbo\Stored Procedures\Tab_GetTrackOrders.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_ImportSetTrackRanks.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_ImportValidateTracksForDuplicates.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_ImportInsertTrack.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_ImportDeletePlaylistTracks.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_ImportCreateNewPlayList.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_GetMovement.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_GetPlaylists.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_GetStats.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_GetTopArtists.sql" />
+    <Build Include="dbo\Stored Procedures\ITunes_GetTracks.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StaticCodeAnalysis.SuppressMessages.xml" />
   </ItemGroup>
 </Project>

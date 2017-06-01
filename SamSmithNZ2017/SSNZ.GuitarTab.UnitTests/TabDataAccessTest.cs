@@ -20,23 +20,24 @@ namespace SSNZ.GuitarTab.UnitTests
         {
             //arrange
             TabDataAccess da = new TabDataAccess();
-            short albumCode = 14;
+            int albumCode = 14;
+            int sortOrder = 0; //order by track order
 
             //act
-            List<Tab> results = await da.GetListAsync(albumCode); 
+            List<Tab> results = await da.GetListAsync(albumCode, sortOrder); 
 
             //assert
             Assert.IsTrue(results != null);
             Assert.IsTrue(results.Count > 0);
         }
 
-        //3. Get Tab 14
+        //3. Get tab 500/Everlong
         [TestMethod()]
         public async Task TabFirstItemTest()
         {
             //arrange
             TabDataAccess da = new TabDataAccess();
-            short tabCode = 500;
+            int tabCode = 500;
 
             //act
             Tab results = await da.GetItemAsync(tabCode); //Tab code of 500/Everlong
@@ -53,6 +54,94 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(results.TuningCode == 2);
             Assert.IsTrue(results.TuningName == "Drop D Tuning");
             Assert.IsTrue(results.LastUpdated > DateTime.MinValue);
+        }
+
+        //3. Get tab 0/null
+        [TestMethod()]
+        public async Task Tab0ItemTest()
+        {
+            //arrange
+            TabDataAccess da = new TabDataAccess();
+            int tabCode = 0;
+
+            //act
+            Tab results = await da.GetItemAsync(tabCode); //Tab code of 0/nothing
+
+            //assert
+            Assert.IsTrue(results == null);
+        }
+
+        //Test album 14, sorted by track
+        [TestMethod()]
+        public async Task TabAlbumSortedbyTrackOrderTest()
+        {
+            //arrange
+            TabDataAccess da = new TabDataAccess();
+            int albumCode = 14;
+            int sortOrder = 0; //order by track order
+
+            //act
+            List<Tab> results = await da.GetListAsync(albumCode, sortOrder); 
+
+            //assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count == 13);
+            int i = 0;
+            foreach (Tab result in results)
+            {
+                i++;
+                if (result.TabCode == 500)
+                {
+                    Assert.IsTrue(i == 11);
+                    Assert.IsTrue(result.AlbumCode == 14);
+                    Assert.IsTrue(result.Rating == 5);
+                    Assert.IsTrue(result.TabCode == 500);
+                    Assert.IsTrue(result.TabName == "Everlong");
+                    Assert.IsTrue(result.TabNameTrimed == "Everlong");
+                    Assert.IsTrue(result.TabOrder == 11);
+                    Assert.IsTrue(result.TabText.Length == 7477);
+                    Assert.IsTrue(result.TuningCode == 2);
+                    Assert.IsTrue(result.TuningName == "Drop D Tuning");
+                    Assert.IsTrue(result.LastUpdated > DateTime.MinValue);
+                    break;
+                }
+            }
+
+        }
+
+        //Test album 14
+        [TestMethod()]
+        public async Task TabAlbumSortedbyTuningTest()
+        {
+            //arrange
+            TabDataAccess da = new TabDataAccess();
+            int albumCode = 14;
+            int sortOrder = 1; //order by tuning
+
+            //act
+            List<Tab> results = await da.GetListAsync(albumCode, sortOrder);
+
+            //assert
+            int i = 0;
+            foreach (Tab result in results)
+            {
+                i++;
+                if (result.TabCode == 500)
+                {
+                    Assert.IsTrue(i == 5); //Is 5th in the tab order when sorting by tuning
+                    Assert.IsTrue(result.AlbumCode == 14);
+                    Assert.IsTrue(result.Rating == 5);
+                    Assert.IsTrue(result.TabCode == 500);
+                    Assert.IsTrue(result.TabName == "Everlong");
+                    Assert.IsTrue(result.TabNameTrimed == "Everlong");
+                    Assert.IsTrue(result.TabOrder == 11);
+                    Assert.IsTrue(result.TabText.Length == 7477);
+                    Assert.IsTrue(result.TuningCode == 2);
+                    Assert.IsTrue(result.TuningName == "Drop D Tuning");
+                    Assert.IsTrue(result.LastUpdated > DateTime.MinValue);
+                    break;
+                }
+            }
 
         }
 
@@ -62,6 +151,7 @@ namespace SSNZ.GuitarTab.UnitTests
             //arrange
             TabDataAccess da = new TabDataAccess();
             int albumCode = 246;
+            int sortOrder = 0;
             Tab newTab = new Tab();
             newTab.TabCode = 0;
             newTab.AlbumCode = albumCode;
@@ -75,7 +165,7 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(result);
 
             //act part 2: get the tracks for the album
-            List<Tab> results = await da.GetListAsync(albumCode);
+            List<Tab> results = await da.GetListAsync(albumCode, sortOrder);
 
             //assert part 2: check that the track is correct
             Assert.IsTrue(results != null);
@@ -94,7 +184,7 @@ namespace SSNZ.GuitarTab.UnitTests
             }
 
             //act part 4: get the tracks for the album
-            results = await da.GetListAsync(albumCode);
+            results = await da.GetListAsync(albumCode, sortOrder);
 
             //assert part 4: check that the tracks have all been deleted
             Assert.IsTrue(results != null);

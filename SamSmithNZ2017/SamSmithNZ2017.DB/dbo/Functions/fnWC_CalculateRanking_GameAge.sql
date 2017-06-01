@@ -25,7 +25,7 @@ BEGIN
 	FROM wc_game 
 	WHERE game_code = @game_code
 		
-	DECLARE @year_difference smallint
+	DECLARE @year_difference INT
 	SELECT @year_difference = year(@calculation_date) - year(@game_time)
 
 	SELECT @points = CASE WHEN @year_difference <= 0 THEN 1

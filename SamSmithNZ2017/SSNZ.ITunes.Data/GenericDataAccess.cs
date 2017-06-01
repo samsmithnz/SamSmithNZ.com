@@ -41,13 +41,13 @@ namespace SSNZ.ITunes.Data
         /// <param name="storedProcedureName">Stored Procedure name string</param>
         /// <param name="parameters">Dapper DynamicParameters object</param>
         /// <returns>Returns object as defined by T</returns>
-        public async Task<List<T>> GetListAsync(string storedProcedureName, DynamicParameters parameters = null)
+        public async Task<List<T>> GetListAsync(string storedProcedureName, DynamicParameters parameters = null, int? timeoutOverride = null)
         {
             IEnumerable<T> items;
             try
             {
                 await this.CreateConnectionAsync();
-                items = await this.MySQLConnection.QueryAsync<T>(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
+                items = await this.MySQLConnection.QueryAsync<T>(storedProcedureName, parameters, commandType: CommandType.StoredProcedure, commandTimeout: timeoutOverride);
             }
             finally
             {

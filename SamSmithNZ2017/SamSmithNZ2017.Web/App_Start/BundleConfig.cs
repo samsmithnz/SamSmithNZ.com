@@ -15,6 +15,9 @@ namespace SamSmithNZ2017
                         "~/Scripts/3rdParty/bootstrap.js",
                         "~/Scripts/3rdParty/respond.js",
                         "~/Scripts/3rdParty/angular.js",
+                        "~/Scripts/3rdParty/moment.js",
+                        "~/Scripts/3rdParty/angular-moment.js",
+                        "~/Scripts/3rdParty/angular-sanitize.js",
                         "~/Scripts/app.js"
                 ));
 
@@ -22,7 +25,7 @@ namespace SamSmithNZ2017
                         "~/Scripts/SteamServices/", "*.js", searchSubdirectories: true
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/steamcontrollersJS").IncludeDirectory(
+            bundles.Add(new ScriptBundle("~/bundles/steamControllersJS").IncludeDirectory(
                         "~/Scripts/SteamControllers/", "*.js", searchSubdirectories: true
                 ));
 
@@ -30,8 +33,24 @@ namespace SamSmithNZ2017
                         "~/Scripts/GuitarTabServices/", "*.js", searchSubdirectories: true
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/guitarTabcontrollersJS").IncludeDirectory(
+            bundles.Add(new ScriptBundle("~/bundles/guitarTabControllersJS").IncludeDirectory(
                         "~/Scripts/GuitarTabControllers/", "*.js", searchSubdirectories: true
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/iTunesServicesJS").IncludeDirectory(
+                        "~/Scripts/ITunesServices/", "*.js", searchSubdirectories: true
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/iTunesControllersJS").IncludeDirectory(
+                        "~/Scripts/ITunesControllers/", "*.js", searchSubdirectories: true
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/fooFightersServicesJS").IncludeDirectory(
+                        "~/Scripts/FooFightersServices/", "*.js", searchSubdirectories: true
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/fooFightersControllersJS").IncludeDirectory(
+                        "~/Scripts/FooFightersControllers/", "*.js", searchSubdirectories: true
                 ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

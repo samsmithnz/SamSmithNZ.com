@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "ITunes Analysis Summary";
+    Layout = "~/Views/Shared/_LayoutITunes.cshtml";
+}
+
+<div ng-controller="indexController">
+    <h2>iTunes Statistics</h2>
+
+    <table class="tableofcontents" padding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <ul style="text-align: left; padding: 0px;">
+                    <li class="tableofcontentsitem">
+                        1. <a href="#TopArtists">All Time Top Artists</a>
+                    </li>
+                    <li class="tableofcontentsitem">
+                        2. <a href="#BiggestMovers">All Time Biggest Movers</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+
+    <a name="TopArtists"></a>
+    <h2 class="sectionTitle">All Time Top Artists</h2>
+    <img ng-hide="topArtists" id="spinner1" src="~/Content/Images/spinner_small.gif" />
+    <table class="tableborders" ng-show="topArtists">
+        <tr>
+            <th class="headerborders">Ranking</th>
+            <th class="headerborders">Artist</th>
+        </tr>
+        <tr class="alternatingColors" ng-repeat="item in topArtists">
+            <td class="cellborders" ng-if="$index < 10">{{$index + 1}}</td>
+            <td class="cellborders" ng-if="$index < 10">{{item.ArtistName}}</td>
+        </tr>
+        @*@{
+            int iCount = 0;
+        }
+        @foreach (SamSmithNZ2015.Core.iTunes.TopArtists item in Model.TopArtists)
+        {
+            iCount = iCount + 1;
+            if (iCount <= 10)
+            {
+                <tr class="alternatingColors">
+                    <td class="cellborders">@iCount</td>
+                    <td class="cellborders">@item.ArtistName</td>
+                </tr>
+            }
+        }*@
+    </table>
+
+    <a name="BiggestMovers"></a>
+    <h2 class="sectionTitle">All Time Biggest Movers</h2>
+    <img ng-hide="movements" id="spinner1" src="~/Content/Images/spinner_small.gif" />
+    <table class="tableborders" ng-show="movements">
+        <tr>
+            <th class="headerborders">Track</th>
+            <th class="headerborders">Change</th>
+        </tr>
+        <tr class="alternatingColors" ng-repeat="item in movements">
+            <td class="cellborders">{{item.TrackName}}</td>
+            <td class="cellborders">+{{item.ChangeThisMonth}}</td>
+        </tr>
+        @*@foreach (SamSmithNZ2015.Core.iTunes.Movement item in Model.Movement)
+        {
+            <tr class="alternatingColors">
+                <td class="cellborders">@item.TrackName</td>
+                <td class="cellborders">+@item.ChangeThisMonth</td>
+            </tr>
+        }*@
+    </table>
+</div>

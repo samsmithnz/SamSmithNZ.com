@@ -1,0 +1,67 @@
+﻿@*@model IEnumerable<SelectListItem>*@
+@{
+    Layout = "~/Views/Shared/_LayoutFooFighters.cshtml";
+}
+
+@*<!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Show List</title>
+        <script src="@Url.Content("~/Scripts/jquery-1.9.1.js")" type="text/javascript"></script>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                $(function () {
+                    // NOTE : keep ONLY one of either $('#ddlMDLNo').change(...) or $('#btnclick').click(...)
+                    // attach the click event handler in an unobtrusive fashion, rather than directly on
+                    // the DOM element
+                    $('#cboShowYear').change(function () {
+                        var cboShowYearValue = $('#cboShowYear').val();
+
+                        $.ajax({
+                            url: "/FooFighters/ShowListPartial",
+                            type: "POST",
+                            data: {
+                                cboShowYear2: cboShowYearValue,
+                            },
+                            dataType: "html",
+                            success: function (data) {
+                                $("#partialContainer").html(data);
+                            },
+                            error: function () {
+                                alert("No Results Found");
+                                $("#partialContainer").html('An error has occurred');
+                            }
+                        });
+                    });
+
+                });
+            });
+        </script>
+    </head>*@
+<div ng-controller="showListController">
+    Select Year: <select name="dboYear" ng-model="selectedYear" ng-options="item.YearCode as item.YearText for item in years" ng-change="updateShows()"></select>
+    <br /><br />
+
+    <table style="border-collapse: collapse; border: 1px solid DarkGray; text-align: center;" ng-show="shows">
+        <tr style="background-color: #EAEAEA; font-weight: bold;">
+            <th style="width: 250px;">Show Date</th>
+            <th style="width: 250px;">Location</th>
+            <th style="width: 250px;">City</th>
+            @*<th style="width: 250px;">Country</th>*@
+            <th style="width: 250px;">Song Count</th>
+        </tr>
+        <tr ng-repeat="item in shows">
+            <td><a href="/FooFighters/Show/GetShow?ShowCode={{item.ShowCode}}">{{item.ShowDate | date:'yyyy-MMM-dd'}}</a></td>
+            <td>{{item.ShowLocation}}</td>
+            <td>{{item.ShowCity}}</td>
+            @*<td>{{item.ShowCountry}}</td>*@
+            <td>{{item.NumberOfSongsPlayed}}</td>
+        </tr>
+    </table>
+
+    @*<div id="partialContainer">@Html.Partial("~/Views/FooFighters/ShowListPartial.cshtml", new SamSmithNZ2015.Models.FooFighters.ShowsPartialViewModel(null, "ShowList"))</div>*@
+    <br /><hr />
+</div>

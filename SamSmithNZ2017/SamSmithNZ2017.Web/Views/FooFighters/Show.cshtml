@@ -1,0 +1,50 @@
+﻿@*@model SamSmithNZ2015.Models.FooFighters.ShowSongsViewModel*@
+@{
+    Layout = "~/Views/Shared/_LayoutFooFighters.cshtml";
+}
+
+@*<!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Show</title>
+    </head>*@
+<div style="font-family: Verdana; font-size: 10pt;" ng-controller="showController">
+    <h2>{{show.ShowDate | date:'dd-MMM-yyyy'}}</h2>
+    <table>
+        <tr>
+            <td>
+                <span style="font-weight: bold;">Location:</span>
+            </td>
+            <td>
+                {{show.ShowLocation}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span style="font-weight: bold;">City:</span>
+            </td>
+            <td>{{show.ShowCity}}</td>
+            @*<td ng-if="show.ShowCountry == 'United States'">{{show.ShowCity}}</td>
+            <td ng-if="show.ShowCountry != 'United States'">{{show.ShowCity}}, {{show.ShowCountry}}</td>*@
+        </tr>
+    </table>
+    <br />
+    <span ng-if="songs.length==0">Note: The setlist for this show is unknown</span>
+    <span style="font-weight: bold;" ng-if="songs.length > 0">Setlist:</span>
+    <table class="tdTable" style="border-collapse: collapse; border: 1px solid DarkGray; text-align: center;">
+        <tr style="background-color: #EAEAEA; font-weight: bold;">
+            <th style="width: 50px;" class="tdTable"></th>
+            <th style="width: 250px;" class="tdTable">Song</th>
+            <th style="width: 250px;" class="tdTable">Album</th>
+        </tr>
+        <tr ng-repeat="item in songs">
+            <td class="tdTable">{{item.SongOrder}}</td>
+            <td class="tdTable"><a href="/FooFighters/Song/GetSong?SongCode={{item.SongCode}}">{{item.SongName}}</a></td>
+            <td class="tdTable"><a href="/FooFighters/Album/GetAlbum?AlbumCode={{item.AlbumCode}}">{{item.AlbumName}}</a></td>
+        </tr>
+    </table>
+    <br /><hr />
+</div>
+</html>

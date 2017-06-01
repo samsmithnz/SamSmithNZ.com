@@ -3,10 +3,10 @@
 
     angular
         .module('GuitarTabApp')
-        .service('albumsService', albumsService);
-    albumsService.$inject = ['$http'];//, '$q', 'configSettings'];
+        .service('albumService', albumService);
+    albumService.$inject = ['$http'];//, '$q', 'configSettings'];
 
-    function albumsService($http) {//, $q, configSettings) {
+    function albumService($http) {//, $q, configSettings) {
         //Read config settings
         //var baseUrl = configSettings.webApiBaseUrl;
         //var baseUrl = 'http://localhost:12730/';

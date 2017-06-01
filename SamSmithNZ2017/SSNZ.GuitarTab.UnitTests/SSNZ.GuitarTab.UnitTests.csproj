@@ -105,6 +105,7 @@
     <Compile Include="SearchDataAccessTest.cs" />
     <Compile Include="TabDataAccessOldTest.cs" />
     <Compile Include="TabDataAccessTest.cs" />
+    <Compile Include="TrackOrderDataAccessTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

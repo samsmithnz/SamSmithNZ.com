@@ -18,6 +18,8 @@ namespace SSNZ.ITunes.Service
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            GlobalConfig.CustomizeConfig(GlobalConfiguration.Configuration);
         }
     }
 }

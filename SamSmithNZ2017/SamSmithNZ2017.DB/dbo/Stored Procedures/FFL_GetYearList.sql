@@ -16,9 +16,9 @@ BEGIN
 	FROM #tmp_year t1
 
 	--Return the total
-	SELECT 3000 AS YearCode, 
-		'<select year>' AS YearText
-	UNION
+	--SELECT 3000 AS YearCode, 
+	--	'<select year>' AS YearText
+	--UNION
 	SELECT year_code AS YearCode, 
 		CONVERT(VARCHAR(5),year_code) + ': ' + CONVERT(VARCHAR(50),song_count_total - song_count_with_date) + '/' + CONVERT(VARCHAR(50),song_count_total) +  ' of shows have setlist data' AS YearText
 	FROM #tmp_year

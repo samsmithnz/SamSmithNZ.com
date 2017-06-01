@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('GuitarTabApp')
-        .service('albumsService', albumsService);
-    albumsService.$inject = ['$http']; //, '$q', 'configSettings'];
-    function albumsService($http) {
+        .service('albumService', albumService);
+    albumService.$inject = ['$http']; //, '$q', 'configSettings'];
+    function albumService($http) {
         //Read config settings
         //var baseUrl = configSettings.webApiBaseUrl;
         //var baseUrl = 'http://localhost:12730/';

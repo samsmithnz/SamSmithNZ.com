@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[tab_tuning] (
-    [tuning_code] SMALLINT     NULL,
+    [tuning_code] INT     NULL,
     [tuning_name] VARCHAR (50) NULL
 );
 

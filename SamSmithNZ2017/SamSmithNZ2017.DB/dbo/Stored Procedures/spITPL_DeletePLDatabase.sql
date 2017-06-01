@@ -1,5 +1,0 @@
-﻿CREATE PROCEDURE [dbo].[spITPL_DeletePLDatabase]
-AS
-TRUNCATE TABLE itPLPlaylist
-TRUNCATE TABLE itPLPlaylistTrack
-TRUNCATE TABLE itPLTrack

@@ -5,9 +5,9 @@ using Dapper;
 
 namespace SSNZ.FooFighters.Data
 {
-    public class ShowYearDataAccess : GenericDataAccess<ShowYear>
+    public class ShowYearDataAccess : GenericDataAccess<Year>
     {
-        public async Task<List<ShowYear>> GetListAsync()
+        public async Task<List<Year>> GetListAsync()
         {
             return await base.GetListAsync("FFL_GetYearList");
         }

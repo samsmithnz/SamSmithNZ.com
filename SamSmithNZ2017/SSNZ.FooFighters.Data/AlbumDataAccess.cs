@@ -13,10 +13,10 @@ namespace SSNZ.FooFighters.Data
             return await base.GetListAsync("FFL_GetAlbums");
         }
 
-        public async Task<Album> GetItemAsync(int albumKey)
+        public async Task<Album> GetItemAsync(int albumCode)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@album_key", albumKey, DbType.Int32);
+            parameters.Add("@albumCode", albumCode, DbType.Int32);
 
             return await base.GetItemAsync("FFL_GetAlbums", parameters);
         }

@@ -43,7 +43,7 @@
     <Compile Include="Album.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Show.cs" />
-    <Compile Include="ShowYear.cs" />
+    <Compile Include="Year.cs" />
     <Compile Include="Song.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
