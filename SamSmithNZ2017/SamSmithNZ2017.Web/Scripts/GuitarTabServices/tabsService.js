@@ -21,6 +21,7 @@
         };
         this.saveTab = function (tabItem) {
             var url = baseUrl + 'api/Tab/SaveTab';
+            //console.log(tabItem);
             console.log(url);
             return $http.post(url, tabItem);
         };

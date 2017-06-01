@@ -21,3 +21,4 @@ BEGIN
 	INSERT INTO tab_track
 	SELECT @TabCode, @AlbumCode, @TabName, @TabText, @TabOrder, @Rating, @TuningCode, GETDATE()
 END
+GO
