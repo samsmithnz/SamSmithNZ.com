@@ -219,6 +219,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AboutMe\facebook-icon.png" />
+    <Content Include="Content\AboutMe\gplus-icon.png" />
+    <Content Include="Content\AboutMe\linkedin-icon.png" />
+    <Content Include="Content\AboutMe\pinterest-icon.png" />
+    <Content Include="Content\AboutMe\rss-icon.png" />
+    <Content Include="Content\AboutMe\twitter-icon.png" />
+    <Content Include="Content\AboutMe\youtube-icon.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\FooFighters\AlbumCovers\220px-FooFighters-FooFighters.jpg" />
