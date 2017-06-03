@@ -69,17 +69,17 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(result != null);
             Assert.IsTrue(result.AlbumCode == 14);
             Assert.IsTrue(result.AlbumName == "Sonic Highways");
-            Assert.IsTrue(result.FirstPlayed == null);
-            Assert.IsTrue(result.FirstPlayedShowCode == null);
-            Assert.IsTrue(result.LastPlayed == null);
-            Assert.IsTrue(result.LastPlayedShowCode == null);
+            Assert.IsTrue(result.FirstPlayed != null);
+            Assert.IsTrue(result.FirstPlayedShowCode != null);
+            Assert.IsTrue(result.LastPlayed != null);
+            Assert.IsTrue(result.LastPlayedShowCode != null);
             Assert.IsTrue(result.SongImage == null);
             Assert.IsTrue(result.SongCode == 318);
             Assert.IsTrue(string.IsNullOrEmpty(result.SongLyrics) == true);
             Assert.IsTrue(result.SongName == "Something From Nothing");
             Assert.IsTrue(string.IsNullOrEmpty(result.SongNotes) == true);
             Assert.IsTrue(result.SongOrder == 1);
-            Assert.IsTrue(result.TimesPlayed == 0);
+            Assert.IsTrue(result.TimesPlayed > 0);
         }
 
         [TestMethod()]
