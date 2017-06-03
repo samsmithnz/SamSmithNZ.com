@@ -52,6 +52,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ActionParameterAlias, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ActionParameterAlias.6.0.0\lib\net40\ActionParameterAlias.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
     </Reference>
@@ -206,6 +209,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SteamController.cs" />
     <Compile Include="Controllers\SteamOldController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="FilterConfig.cs" />
     <Compile Include="Global.asax.cs">
@@ -1138,6 +1142,7 @@
     <TypeScriptCompile Include="Scripts\SteamServices\playerGamesService.ts" />
     <TypeScriptCompile Include="Scripts\SteamServices\friendsService.ts" />
     <Content Include="Scripts\_references.js" />
+    <None Include="Views\Test\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

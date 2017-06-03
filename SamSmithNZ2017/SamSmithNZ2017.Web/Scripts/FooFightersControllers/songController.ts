@@ -33,6 +33,9 @@
         }
 
         $scope.SongCode = getUrlParameter('SongCode');
+        if (typeof $scope.SongCode === 'undefined' || !$scope.ShowCode) {
+            $scope.SongCode = getUrlParameter('SongKey');
+        }
         
         songService.getSong($scope.SongCode).then(onGetSongsEventComplete, onError);
         showService.getShowsBySong($scope.SongCode).then(onGetShowsEventComplete, onError);
