@@ -26,7 +26,7 @@
             <td ng-if="item.FirstPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.FirstPlayedShowCode}}">{{item.FirstPlayed | date:'yyyy-MMM-dd'}}</a></td>
             <td ng-if="item.LastPlayedShowCode <= 0">None Known</td>
             <td ng-if="item.LastPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.LastPlayedShowCode }}">{{item.LastPlayed | date:'yyyy-MMM-dd'}}</a></td>
-            <td>{{item.SongTimesPlayed}}</td>
+            <td>{{item.TimesPlayed}}</td>
             <td><a href="/FooFighters/Album/GetAlbum?AlbumCode={{item.AlbumCode}}">{{item.AlbumName}}</a></td>
         </tr>
     </table>
