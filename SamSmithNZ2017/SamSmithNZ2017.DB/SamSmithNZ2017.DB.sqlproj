@@ -255,60 +255,6 @@
     <Build Include="dbo\Stored Procedures\spIFB_GetGroupDetails.sql" />
     <Build Include="dbo\Stored Procedures\spIFB_GetGameListForTeam.sql" />
     <Build Include="dbo\Stored Procedures\spIFB_GetGameList.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL2Import_GetSongList.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL2Import_GetShowSongList.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL2Import_GetShowRecordingList.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL2Import_GetShowList.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL2Import_GetAlbumList.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL2_GetYearList.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL2_GetSongShowList.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL2_GetSongInfo.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL2_GetShowSongs.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL2_GetShowRecordings.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL2_GetShowList.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL2_GetShowInfo.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL2_GetAlbumSongs.sql">
-      <AnsiNulls>Off</AnsiNulls>
-      <QuotedIdentifier>Off</QuotedIdentifier>
-    </Build>
-    <Build Include="dbo\Stored Procedures\spFFL2_GetAlbumSongList.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL2_GetAlbumInfo.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL_ImportSubmitSetlistSong.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL_ImportSearchForUnknownSong.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL_ImportSearchForSong.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL_ImportCreateShowRecording.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL_ImportCreateShow.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL_GetUnknownSongList.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL_GetShowSongs.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL_GetShowRecordings.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL_GetComparedShowList.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL_GetComparedShowInfo.sql" />
-    <Build Include="dbo\Stored Procedures\spFFL_DeleteAllFFLData.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_UpdateSong.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_SaveSongLyrics.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_ImportSubmitSetlistSong.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_ImportSearchForSong.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_ImportCreateShow.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetYearList.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetTrackList.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetSongList.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetSongLineBreakInfo.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetSongInfo.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetSongIndexList.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetShowStatistics.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetShowSongs.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetShowSongList.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetShowList.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetShowInfo.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetMissingShowList.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetLatestShow.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetAverageSetlist.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetAlbumSongs.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetAlbumList.sql" />
-    <Build Include="dbo\Stored Procedures\spFF_GetAlbumInfo.sql" />
-    <Build Include="dbo\Stored Procedures\spError_LogError.sql" />
-    <Build Include="dbo\Stored Procedures\spError_GetTop5Errors.sql" />
-    <Build Include="dbo\Stored Procedures\spError_GetErrors.sql" />
     <Build Include="Security\samdbuser.sql" />
     <Build Include="dbo\Stored Procedures\FFL_GetAlbums.sql" />
     <Build Include="dbo\Stored Procedures\FFL_GetShows.sql" />
@@ -325,6 +271,7 @@
     <Build Include="dbo\Stored Procedures\ITunes_GetStats.sql" />
     <Build Include="dbo\Stored Procedures\ITunes_GetTopArtists.sql" />
     <Build Include="dbo\Stored Procedures\ITunes_GetTracks.sql" />
+    <Build Include="dbo\Stored Procedures\FFL_SaveShow.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />

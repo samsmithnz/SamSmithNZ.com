@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[ff_song] (
-    [song_key]    SMALLINT       NOT NULL,
+    [song_key]    INT       NOT NULL,
     [song_name]   VARCHAR (100)  NULL,
-    [album_key]   SMALLINT       NULL,
-    [song_order]  SMALLINT       NULL,
+    [album_key]   INT       NULL,
+    [song_order]  INT       NULL,
     [song_lyrics] VARCHAR (8000) NULL,
     [song_notes]  VARCHAR (2000) NULL,
     [song_image]  VARCHAR (200)  NULL,

@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[itTrack] (
-    [playlist_code]       INT           NOT NULL,
-    [track_name]          VARCHAR (75)  NOT NULL,
+    [playlist_code]       INT           NULL,
+    [track_name]          VARCHAR (75)  NULL,
     [album_name]          VARCHAR (50)  NULL,
     [artist_name]         VARCHAR (50)  NULL,
     [play_count]          INT			NULL,

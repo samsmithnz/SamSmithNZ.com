@@ -30,12 +30,32 @@ namespace SSNZ.FooFighters.Data
             return await base.GetListAsync("FFL_GetShows", parameters);
         }
 
+        public async Task<List<Show>> GetListByFFLCodeAsync()
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@GetFFLCodes", true, DbType.Int32);
+
+            return await base.GetListAsync("FFL_GetShows", parameters);
+        }
+
         public async Task<Show> GetItemAsync(int showCode)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@showCode", showCode, DbType.Int32);
 
             return await base.GetItemAsync("FFL_GetShows", parameters);
+        }
+
+        public async Task<bool> SaveItemAsync(Show show)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@ShowCode", show.ShowCode, DbType.Int32);
+            parameters.Add("@ShowDate", show.ShowDate, DbType.DateTime);
+            parameters.Add("@ShowLocation", show.ShowLocation, DbType.String);
+            parameters.Add("@ShowCity", show.ShowCity, DbType.String);
+            parameters.Add("@ShowCountry", show.ShowCountry, DbType.String);
+
+            return await base.PostItemAsync("FFL_SaveShow", parameters);
         }
     }
 }

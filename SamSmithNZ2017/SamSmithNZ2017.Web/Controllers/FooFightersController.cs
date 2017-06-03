@@ -4,10 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data;
-//using SamSmithNZ2015.Core.FooFighters;
-//using SamSmithNZ2015.Core.FooFighters.DataAccess;
-//using SamSmithNZ2015.Models.FooFighters;
-//using SamSmithNZ2015.Core.Graph;
+using ActionParameterAlias;
 
 namespace SamSmithNZ2017.Controllers
 {
@@ -20,91 +17,50 @@ namespace SamSmithNZ2017.Controllers
         public ActionResult Index()
         {
             return View();
-            //return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Index");
-
-            //SongDataAccess da = new SongDataAccess();
-            //return View(da.GetItems());
         }
 
         public ActionResult ShowList()
         {
             return View();
         }
-
-        public ActionResult Song(int songCode)
+        
+        public ActionResult Song([Bind(Prefix = "songKey")] int songCode)
         {
             return View();
-            //return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Song?songCode=" + songCode);
-
-            //SongDataAccess da = new SongDataAccess();
-            //ShowDataAccess da2 = new ShowDataAccess();
-            //return View(new SongShowsViewModel(da.GetItem(songCode), da2.GetItemsBySong(songCode)));
         }
 
-        public ActionResult Show(int showCode)
+        
+        public ActionResult Show([Bind(Prefix = "showKey")] int showCode)
         {
             return View();
-            //return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Show?showCode=" + showCode);
-
-            //ShowDataAccess da = new ShowDataAccess();
-            //SongDataAccess da2 = new SongDataAccess();
-            //return View(new ShowSongsViewModel(da.GetItem(showCode), da2.GetSongsForShow(showCode)));
         }
 
         public ActionResult Album(int albumCode)
         {
             return View();
-            //return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/Album?albumCode=" + albumCode);
-
-            //AlbumDataAccess da = new AlbumDataAccess();
-            //SongDataAccess da2 = new SongDataAccess();
-            //return View(new AlbumSongsViewModel(da.GetItem(albumCode), da2.GetSongsForAlbum(albumCode)));
         }
-
 
         public ActionResult AlbumList()
         {
             return View();
-            //return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/AlbumList");
-
-            //AlbumDataAccess da = new AlbumDataAccess();
-            //GraphNodeGeneration graph = GetAlbumGraph();
-
-            //return View(new SamSmithNZ2015.Models.FooFighters.AlbumsSongGraphViewModel(da.GetItems(), graph.GetVerticeScriptForNodes(graph.VerticeList), graph.GetVerticeEdgeScriptForNodes(graph.VerticeEdgeList)));
         }
+
+
+
+        //public ActionResult Song(short songKey)
+        //{
+        //    return RedirectToAction("Song", new { songCode = songKey });
+        //}
 
         public ActionResult ShowYearList()
         {
             return RedirectToAction("ShowList");
-            //return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/ShowYearList");
-
-            //ShowYearDataAccess da = new ShowYearDataAccess();
-            //IEnumerable<SelectListItem> selectItems;
-            //selectItems = da.GetItems()
-            //          .Select(x =>
-            //              new SelectListItem
-            //              {
-            //                  Text = x.YearText,
-            //                  Value = x.YearCode.ToString()
-            //              });
-
-
-            //return View(selectItems);
         }
 
-        //[HttpPost]
-        //public ActionResult ShowListPartial(string cboShowYear2)
+        //public ActionResult Show(int showKey)
         //{
-        //    return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/ShowListPartial?cboShowYear2=" + cboShowYear2);
-
-        //    //ShowDataAccess da = new ShowDataAccess();
-        //    //int yearCode = Convert.ToInt16(cboShowYear2);
-
-        //    //return PartialView(new ShowsPartialViewModel(da.GetItemsByYear(yearCode), "ShowList"));
+        //    return RedirectToAction("Show", new { showCode = showKey });
         //}
-
-
-
 
         public ActionResult SetlistProcessor()
         {
