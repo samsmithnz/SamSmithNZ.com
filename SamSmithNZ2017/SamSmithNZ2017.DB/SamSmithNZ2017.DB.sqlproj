@@ -272,6 +272,7 @@
     <Build Include="dbo\Stored Procedures\ITunes_GetTopArtists.sql" />
     <Build Include="dbo\Stored Procedures\ITunes_GetTracks.sql" />
     <Build Include="dbo\Stored Procedures\FFL_SaveShow.sql" />
+    <Build Include="dbo\Stored Procedures\FFL_SaveShowSong.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />

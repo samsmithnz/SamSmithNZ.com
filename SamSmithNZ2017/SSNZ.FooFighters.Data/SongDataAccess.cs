@@ -36,6 +36,16 @@ namespace SSNZ.FooFighters.Data
 
             return await base.GetItemAsync("FFL_GetSongs", parameters);
         }
+
+        public async Task<bool> SaveItemAsync(int songCode, int showCode, int showSongOrder)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@songCode", songCode, DbType.Int32);
+            parameters.Add("@ShowCode", showCode, DbType.Int32);
+            parameters.Add("@ShowSongOrder", showSongOrder, DbType.Int32);
+
+            return await base.PostItemAsync("FFL_SaveShowSong", parameters);
+        }
     }
 }
 

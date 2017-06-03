@@ -24,13 +24,13 @@ namespace SamSmithNZ2017.Controllers
             return View();
         }
         
-        public ActionResult Song([Bind(Prefix = "songKey")] int songCode)
+        public ActionResult Song(int songCode)
         {
             return View();
         }
 
         
-        public ActionResult Show([Bind(Prefix = "showKey")] int showCode)
+        public ActionResult Show(int showCode)
         {
             return View();
         }
