@@ -63,6 +63,7 @@ namespace SSNZ.FooFighters.SetlistFFLScraperWin
                     UpdateProgress("Processing show", percent, "");
                     i++;
                 }
+                MessageBox.Show("All done!");
             }
             catch (Exception ex)
             {
@@ -139,13 +140,25 @@ namespace SSNZ.FooFighters.SetlistFFLScraperWin
 
                     if (songName.Trim().Length > 0 &&
                         songName.Trim() != "\n" &&
-                        songName.Trim() != "Breakdown" &&
                         songName.Trim() != "No setlist data available for this performance.Please contact us if you can help.")
                     {
 
-                        if (songName == "Darling NikkiPart Of")
+                        songName = songName.Replace("Part Of", "").Replace("Jam", "");
+                        switch (songName)
                         {
-                            songName = "Darling Nikki";
+                            //case "Darling NikkiPart Of":
+                            //    songName = "Darling Nikki";
+                            //    break;
+                            case "What Did I Do? / God As My Witness":
+                            case "What Did I Do? /God As My Witness":
+                                songName = "What Did I Do?/God as My Witness";
+                                break;
+                            case "The Pretenderw/ part of 'Outside' in the middle":
+                                songName = "The Pretender";
+                                break;
+                            case "Breakoutw/ part of 'Message In a Bottle' in the middle":
+                                songName = "Breakout";
+                                break;
                         }
 
                         int songCode = FindSong(songName, songs);

@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[wc_odds] (
-    [team_name]        VARCHAR (100)   NOT NULL,
+    [team_name]        VARCHAR (200)   NOT NULL,
     [odds_date]        DATETIME        NOT NULL,
     [odds_probability] DECIMAL (18, 4) NOT NULL,
     [odds_mean]        DECIMAL (18, 4) NOT NULL,

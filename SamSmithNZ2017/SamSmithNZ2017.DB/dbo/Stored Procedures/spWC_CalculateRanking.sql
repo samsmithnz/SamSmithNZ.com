@@ -143,7 +143,7 @@ BEGIN
 	INSERT INTO wc_ranking
 	SELECT @ranking_date, 
 		team_code, 
-		RANK() OVER (ORDER BY SUM(total_score) DESC), 
+		CONVERT(SMALLINT,RANK() OVER (ORDER BY SUM(total_score) DESC)), 
 		SUM(total_score)
 	FROM #tmp_ranking
 	GROUP BY team_code

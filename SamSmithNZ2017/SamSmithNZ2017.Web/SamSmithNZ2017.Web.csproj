@@ -19,7 +19,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44313</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -316,6 +316,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="HTTPSSettings.txt" />
     <Content Include="Scripts\3rdParty\bootstrap.js" />
     <Content Include="Scripts\3rdParty\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -1104,12 +1105,9 @@
     <Content Include="Views\FooFighters\Album.cshtml" />
     <Content Include="Views\FooFighters\AlbumList.cshtml" />
     <Content Include="Views\FooFighters\Index.cshtml" />
-    <Content Include="Views\FooFighters\SetlistProcessor.cshtml" />
     <Content Include="Views\FooFighters\Show.cshtml" />
-    <Content Include="Views\FooFighters\ShowListPartial.cshtml" />
     <Content Include="Views\FooFighters\ShowList.cshtml" />
     <Content Include="Views\FooFighters\Song.cshtml" />
-    <Content Include="Views\FooFighters\SongListPartial.cshtml" />
     <TypeScriptCompile Include="Scripts\app.ts" />
     <TypeScriptCompile Include="Scripts\FooFightersControllers\albumListController.ts" />
     <TypeScriptCompile Include="Scripts\FooFightersControllers\showListController.ts" />
@@ -1252,7 +1250,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>23603</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:23603/</IISUrl>
+          <IISUrl>https://localhost:44313/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spWC_AddTeamOdds]
-	@team_name VARCHAR(100), 
+	@team_name VARCHAR(200), 
     @odds_date DATETIME,
     @odds_probability DECIMAL(18, 4),
     @odds_mean DECIMAL(18, 4),

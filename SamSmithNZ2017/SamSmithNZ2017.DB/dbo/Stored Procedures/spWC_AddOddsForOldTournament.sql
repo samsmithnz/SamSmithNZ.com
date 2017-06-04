@@ -16,7 +16,7 @@ AS
 	DECLARE @Days INT = DATEDIFF(DAY,@StartDate,@EndDate)+1
 
 	--Get all teams
-	CREATE TABLE #tmp_teams (team_name varchar(100), team_code smallint)
+	CREATE TABLE #tmp_teams (team_name varchar(200), team_code smallint)
 
 	INSERT INTO #tmp_teams
 	SELECT DISTINCT t.team_name, t.team_code
@@ -104,8 +104,8 @@ AS
 		DECLARE @game_date datetime
 		DECLARE @round_number smallint
 		DECLARE @round_code varchar(10)
-		DECLARE @team_1_name varchar(100)
-		DECLARE @team_2_name varchar(100)
+		DECLARE @team_1_name varchar(200)
+		DECLARE @team_2_name varchar(200)
 		DECLARE @team_1_previous_day_prob decimal(18,4)
 		DECLARE @team_2_previous_day_prob decimal(18,4)
 		DECLARE @team_1_score smallint

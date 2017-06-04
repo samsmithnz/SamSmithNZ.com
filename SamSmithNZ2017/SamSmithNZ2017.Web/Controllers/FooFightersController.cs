@@ -62,13 +62,6 @@ namespace SamSmithNZ2017.Controllers
         //    return RedirectToAction("Show", new { showCode = showKey });
         //}
 
-        public ActionResult SetlistProcessor()
-        {
-            return Redirect("http://samsmithnz2015.azurewebsites.net/FooFighters/SetlistProcessor");
-
-            //return View();
-        }
-
         //private GraphNodeGeneration GetAlbumGraph()
         //{
         //    AlbumDataAccess da = new AlbumDataAccess();

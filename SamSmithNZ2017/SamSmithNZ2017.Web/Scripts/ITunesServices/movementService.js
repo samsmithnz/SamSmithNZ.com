@@ -8,7 +8,7 @@
         //Read config settings
         //var baseUrl = configSettings.webApiBaseUrl;
         //var baseUrl = 'http://localhost:12730/';
-        var baseUrl = 'http://ssnzitunesservice.azurewebsites.net/';
+        var baseUrl = 'https://ssnzitunesservice.azurewebsites.net/';
         this.getMovementsByPlaylist = function (playlistCode, showJustSummary) {
             var url = baseUrl + 'api/Movement/GetMovementsByPlaylist?playlistCode=' + playlistCode + '&showJustSummary=' + showJustSummary;
             console.log(url);

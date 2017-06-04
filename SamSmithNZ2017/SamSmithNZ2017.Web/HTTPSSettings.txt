@@ -1,0 +1,4 @@
+﻿https://gooroo.io/GoorooTHINK/Article/16420/Lets-Encrypt-Azure-Web-Apps-the-Free-and-Easy-Way/21872#.WTQrrmjyuUl
+
+$app.ApplicationId: ba42e3d6-6ff1-4ae1-b346-8550a2e37496
+$password: drag0n14
