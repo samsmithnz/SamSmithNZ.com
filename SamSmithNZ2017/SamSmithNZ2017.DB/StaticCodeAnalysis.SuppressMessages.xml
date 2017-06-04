@@ -3,14 +3,13 @@
   <SuppressedFile FilePath="dbo\Functions\fnWC_GetTeamWins.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
   </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spKS_FF_GetShows.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
   <SuppressedFile FilePath="dbo\Views\vwWC_FinalPlacing.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0004" />
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Stored Procedures\Tab_GetSearchResults.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0006" />
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Functions\fnWC_CalculateRanking_MatchResult.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
@@ -21,59 +20,29 @@
   <SuppressedFile FilePath="dbo\Functions\fnWC_GetTeamGoalsAgainst.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
   </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spIT_GetTotalSongsPlayedForPlaylist.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
   <SuppressedFile FilePath="dbo\Stored Procedures\Tab_GetAlbums.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spit_GetPlaylistTrackCount.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spIT_ValidateTracksForDuplicates.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Functions\fnWC_GetTeamDraws.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
   </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spit_GetLastPlaylistCode.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spProblem_GetSearchResults.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spIT_DeletePlaylistTracks.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
   <SuppressedFile FilePath="dbo\Functions\fnWC_GetTeamGoalsFor.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spITunes_GetPlaylists.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spit_GetNextPlaylistCode.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spIT_DeletePlaylistAndTracks.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spKS_FF_GetYearList.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Stored Procedures\spWC_GetPlayoffGameList.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0004" />
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Functions\fnWC_GetTeamGamesPlayed.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Stored Procedures\spWC_AddOddsForOldTournament.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spITunes_GetTracks.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0004" />
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Stored Procedures\spWC_SetFinalTournamentPlacing.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0004" />
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Stored Procedures\spWC_GetGameList2.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
@@ -90,14 +59,9 @@
   <SuppressedFile FilePath="dbo\Stored Procedures\spWC_ProcessPlayoffDetails.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
   </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spITunes_GetMovement.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spITunes_GetTopArtists.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
   <SuppressedFile FilePath="dbo\Stored Procedures\spWC_GetOddsSummary.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0004" />
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Stored Procedures\spWC_GetOddsMinMax.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
@@ -110,20 +74,54 @@
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Stored Procedures\spWC_GetStats_FinalTournamentPlacing.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spit_GetArtistCounts.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
-  </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spIT_GetPlaylist.sql">
-    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0004" />
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Stored Procedures\spWC_CalculateRanking.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
   </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spit_GetTop10Movers.sql">
+  <SuppressedFile FilePath="dbo\Stored Procedures\ITunes_ImportSetTrackRanks.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
   </SuppressedFile>
-  <SuppressedFile FilePath="dbo\Stored Procedures\spit_GetTop10SongsThisMonth.sql">
+  <SuppressedFile FilePath="dbo\Stored Procedures\Tab_GetTracks.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+  </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Stored Procedures\ITunes_ImportValidateTracksForDuplicates.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+  </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Stored Procedures\Tab_GetArtists.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+  </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Stored Procedures\ITunes_GetMovement.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0006" />
+  </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Stored Procedures\ITunes_GetTracks.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+  </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Stored Procedures\spIFB_GetTournaments.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+  </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Stored Procedures\spIFB_GetPlayoffGameList.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0004" />
+  </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Stored Procedures\FFL_GetYearList.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+  </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Stored Procedures\spIFB_GetTournamentTeamsPlacing.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0004" />
+  </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Stored Procedures\ITunes_GetTopArtists.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+  </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Stored Procedures\ITunes_ImportDeletePlaylistTracks.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+  </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Stored Procedures\spIFB_GetGameList.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+  </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Stored Procedures\FFL_GetShows.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
   </SuppressedFile>
 </StaticCodeAnalysis>

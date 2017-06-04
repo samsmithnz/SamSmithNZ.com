@@ -47,7 +47,7 @@ and (g.round_code = @round_code or g.round_code = @round_code + 'a')
 INSERT INTO #tmp_games
 SELECT 2 as row_type, g.game_time, g.game_number,
 	p.player_name, p.team_code, CONVERT(VARCHAR(10),gl.goal_time),
-	'','','',
+	'',0,'',
 	'Soccerball_svg.png', '',
 	g.location, g.round_number, g.round_code, gl.goal_time as sort_order
 FROM wc_game g
@@ -60,7 +60,7 @@ and (g.round_code = @round_code or g.round_code = @round_code + 'a')
 --Insert Team 2 Scorers
 INSERT INTO #tmp_games
 SELECT 2 as row_type, g.game_time, g.game_number,
-	'','','',
+	'',0,'',
 	p.player_name, p.team_code, CONVERT(VARCHAR(10),gl.goal_time),
 	'', 'Soccerball_svg.png',
 	g.location, g.round_number, g.round_code, gl.goal_time as sort_order

@@ -1,15 +1,7 @@
-﻿@*@model SamSmithNZ2015.Models.FooFighters.ShowSongsViewModel*@
-@{
+﻿@{
     Layout = "~/Views/Shared/_LayoutFooFighters.cshtml";
 }
 
-@*<!DOCTYPE html>
-
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Show</title>
-    </head>*@
 <div style="font-family: Verdana; font-size: 10pt;" ng-controller="showController">
     <h2>{{show.ShowDate | date:'dd-MMM-yyyy'}}</h2>
     <table>
@@ -26,8 +18,6 @@
                 <span style="font-weight: bold;">City:</span>
             </td>
             <td>{{show.ShowCity}}</td>
-            @*<td ng-if="show.ShowCountry == 'United States'">{{show.ShowCity}}</td>
-            <td ng-if="show.ShowCountry != 'United States'">{{show.ShowCity}}, {{show.ShowCountry}}</td>*@
         </tr>
     </table>
     <br />
@@ -47,4 +37,3 @@
     </table>
     <br /><hr />
 </div>
-</html>

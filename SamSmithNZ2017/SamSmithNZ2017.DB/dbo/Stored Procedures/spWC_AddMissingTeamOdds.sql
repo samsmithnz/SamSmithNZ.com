@@ -2,7 +2,7 @@
 	@odds_date datetime,
 	@tournament_code SMALLINT = null
 AS
-CREATE TABLE #tmp_teams (team_name varchar(100))
+CREATE TABLE #tmp_teams (team_name varchar(200))
 
 IF (@tournament_code is null)
 BEGIN

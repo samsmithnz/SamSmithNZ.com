@@ -10,7 +10,7 @@ AS
 		SELECT @tournament_code = 20
 	END
 
-	CREATE TABLE #tmp_team (team_name varchar(100), odds_limit DECIMAL(18, 4))
+	CREATE TABLE #tmp_team (team_name varchar(200), odds_limit DECIMAL(18, 4))
 
 	IF (@odds_limit is null)
 	BEGIN

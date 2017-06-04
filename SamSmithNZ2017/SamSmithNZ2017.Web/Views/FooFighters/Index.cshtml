@@ -1,15 +1,7 @@
-﻿@*@model List<SamSmithNZ2015.Core.FooFighters.Song>*@
-@{
+﻿@{
     Layout = "~/Views/Shared/_LayoutFooFighters.cshtml";
 }
 
-@*<!DOCTYPE html>
-
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Song List</title>
-    </head>*@
 <div ng-controller="indexController">
     <img ng-hide="songs" id="spinner1" src="~/Content/Images/spinner.gif" />
     <table ng-show="songs" style="border-collapse: collapse; border: 1px solid DarkGray; text-align: center;">
@@ -23,9 +15,9 @@
         <tr ng-repeat="item in songs">
             <td><a href="/FooFighters/Song/GetSong?SongCode={{item.SongCode}}">{{item.SongName}}</a></td>
             <td ng-if="item.FirstPlayedShowCode <= 0">None Known</td>
-            <td ng-if="item.FirstPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.FirstPlayedShowCode}}">{{item.FirstPlayed | date:'yyyy-MMM-dd'}}</a></td>
+            <td ng-if="item.FirstPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.FirstPlayedShowCode}}">{{item.FirstPlayed | date:'dd-MMM-yyyy'}}</a></td>
             <td ng-if="item.LastPlayedShowCode <= 0">None Known</td>
-            <td ng-if="item.LastPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.LastPlayedShowCode }}">{{item.LastPlayed | date:'yyyy-MMM-dd'}}</a></td>
+            <td ng-if="item.LastPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.LastPlayedShowCode }}">{{item.LastPlayed | date:'dd-MMM-yyyy'}}</a></td>
             <td>{{item.TimesPlayed}}</td>
             <td><a href="/FooFighters/Album/GetAlbum?AlbumCode={{item.AlbumCode}}">{{item.AlbumName}}</a></td>
         </tr>

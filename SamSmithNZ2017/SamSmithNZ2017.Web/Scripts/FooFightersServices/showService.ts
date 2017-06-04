@@ -10,7 +10,7 @@
         //Read config settings
         //var baseUrl = configSettings.webApiBaseUrl;
         //var baseUrl = 'http://localhost:12730/';
-        var baseUrl = 'http://ssnzfoofightersservice.azurewebsites.net/';
+        var baseUrl = 'https://ssnzfoofightersservice.azurewebsites.net/';
 
         this.getShows = function (yearCode) {
             var url = baseUrl + 'api/Show/GetShowsByYear?YearCode=' + yearCode;
