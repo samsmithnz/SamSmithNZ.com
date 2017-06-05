@@ -33,8 +33,8 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.game.availableGameStats.achievements[0].displayName == "No Looking Back");
             Assert.IsTrue(result.game.availableGameStats.achievements[0].hidden == 0);
             Assert.IsTrue(result.game.availableGameStats.achievements[0].description == "Beat the game in Ironman mode on Classic or Impossible Difficulty.");
-            Assert.IsTrue(result.game.availableGameStats.achievements[0].icon == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/9ea8b01a66eb7af4d074430bbb3300414b7d457d.jpg");
-            Assert.IsTrue(result.game.availableGameStats.achievements[0].icongray == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/7dd89a5070fa8f8a07d9859c12a888a2885929ca.jpg");
+            Assert.IsTrue(result.game.availableGameStats.achievements[0].icon == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/9ea8b01a66eb7af4d074430bbb3300414b7d457d.jpg");
+            Assert.IsTrue(result.game.availableGameStats.achievements[0].icongray == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/7dd89a5070fa8f8a07d9859c12a888a2885929ca.jpg");
 
             //<game>
             //  <gameName>ValveTestApp200510</gameName>
@@ -48,10 +48,10 @@ namespace SSNZ.Steam.UnitTests
             //              <hidden>0</hidden>
             //              <description>Beat the game in Ironman mode on Classic or Impossible Difficulty.</description>
             //              <icon>
-            //              http://media.steampowered.com/steamcommunity/public/images/apps/200510/9ea8b01a66eb7af4d074430bbb3300414b7d457d.jpg
+            //              https://media.steampowered.com/steamcommunity/public/images/apps/200510/9ea8b01a66eb7af4d074430bbb3300414b7d457d.jpg
             //              </icon>
             //              <icongray>
-            //              http://media.steampowered.com/steamcommunity/public/images/apps/200510/7dd89a5070fa8f8a07d9859c12a888a2885929ca.jpg
+            //              https://media.steampowered.com/steamcommunity/public/images/apps/200510/7dd89a5070fa8f8a07d9859c12a888a2885929ca.jpg
             //              </icongray>
             //          </achievement>
             //      </achievements>

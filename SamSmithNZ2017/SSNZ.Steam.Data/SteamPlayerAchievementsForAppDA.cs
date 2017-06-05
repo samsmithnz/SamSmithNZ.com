@@ -10,11 +10,12 @@ namespace SSNZ.Steam.Data
 {
     public class SteamPlayerAchievementsForAppDA
     {
-        //http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=200510&key=35D42236AAC777BEDB12CDEB625EF289&steamid=76561197971691578&l=en&format=xml
+
+        //https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=200510&key=35D42236AAC777BEDB12CDEB625EF289&steamid=76561197971691578&l=en&format=xml
         public async Task<Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError>> GetDataAsync(string steamID, string appID)
         {
 
-            string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=" + appID.ToString() + "&key=" + Global.MySteamWebAPIKey + "&steamid=" + steamID + "&l=en";
+            string jsonRequestString = "https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=" + appID.ToString() + "&key=" + Global.MySteamWebAPIKey + "&steamid=" + steamID + "&l=en";
             //WebClient newClient = new WebClient();
             //newClient.Encoding = UTF8Encoding.UTF8;
             //string jsonData = newClient.DownloadString(jsonRequestString);
@@ -36,7 +37,7 @@ namespace SSNZ.Steam.Data
         public Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> GetDataOld(string steamID, string appID)
         {
 
-            string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=" + appID.ToString() + "&key=" + Global.MySteamWebAPIKey + "&steamid=" + steamID + "&l=en";
+            string jsonRequestString = "https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=" + appID.ToString() + "&key=" + Global.MySteamWebAPIKey + "&steamid=" + steamID + "&l=en";
             //WebClient newClient = new WebClient();
             //newClient.Encoding = UTF8Encoding.UTF8;
             //string jsonData = newClient.DownloadString(jsonRequestString);
