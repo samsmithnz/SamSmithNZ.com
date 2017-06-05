@@ -2,7 +2,7 @@
 	@game_code smallint, 
 	@team_code smallint
 )
-RETURNS decimal(10,2)
+RETURNS smallint
 AS
 BEGIN
 	 

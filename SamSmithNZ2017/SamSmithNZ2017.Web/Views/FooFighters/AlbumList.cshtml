@@ -1,17 +1,8 @@
-﻿@*@model SamSmithNZ2015.Models.FooFighters.AlbumsSongGraphViewModel*@
-@{
+﻿@{
     Layout = "~/Views/Shared/_LayoutFooFighters.cshtml";
 }
 
-@*<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Album List</title>
-</head>*@
 <div ng-controller="albumListController">
-    @*<div id="partialContainer">@Html.Partial("DirectForceGraphPartial", new SamSmithNZ2015.Models.Graphs.DirectForceGraphViewModel(Model.VerticeScript, Model.VerticeEdgeScript))</div>*@
     <br />
     <table style="border-collapse: collapse; border: 1px solid DarkGray; text-align: center;">
         <tr style="background-color: #EAEAEA; font-weight: bold;">
@@ -22,30 +13,10 @@
         <tr ng-repeat="item in albums">
             <td><a href="/FooFighters/Album/GetAlbum?AlbumCode={{item.AlbumCode}}">{{item.AlbumName}}</a></td>
             <td ng-if="item.AlbumReleaseDate == null">None Known</td>
-            <td ng-if="item.AlbumReleaseDate != null">{{item.AlbumReleaseDate | date:'yyyy-MMM-dd'}}</td>           
+            <td ng-if="item.AlbumReleaseDate != null">{{item.AlbumReleaseDate | date:'dd-MMM-yyyy'}}</td>           
             <td>
                 <img ng-src="~/Content/FooFighters/AlbumCovers/{{item.AlbumImage}}" alt="" style="width: 140px; height:140px;" />
             </td>
         </tr>
-
-        @*@foreach (SamSmithNZ2015.Core.FooFighters.Album item in Model.Albums)
-        {
-            <tr>
-                <td>@Html.ActionLink(@item.AlbumName, "Album", "FooFighters", new { albumKey = @item.AlbumKey }, null)</td>
-
-                @if (@item.AlbumReleaseDate != null)
-                {
-                    <td>None Known</td>
-                }
-                else
-                {
-                    <td>@item.AlbumReleaseDate.ToString("yyyy-MMM-dd")</td>
-                }
-                <td>
-                    <img src="@Url.Content("~/Content/images/FooFighters/" + @item.AlbumImage)" alt="" style="width: 140px; height:140px;" />
-                </td>
-            </tr>
-
-        }*@
     </table>
 </div>

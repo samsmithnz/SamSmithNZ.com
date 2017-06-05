@@ -1,15 +1,7 @@
-﻿@*@model SamSmithNZ2015.Models.FooFighters.AlbumSongsViewModel*@
-@{
+﻿@{
     Layout = "~/Views/Shared/_LayoutFooFighters.cshtml";
 }
 
-@*<!DOCTYPE html>
-
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Album</title>
-    </head>*@
 <div style="font-family: Verdana; font-size: 10pt;" ng-controller="albumController">
     <h2>{{album.AlbumName}}</h2>
     <table>
@@ -41,46 +33,11 @@
             <td class="tdTable">{{item.SongOrder}}</td>
             <td><a href="/FooFighters/Song/GetSong?SongCode={{item.SongCode}}">{{item.SongName}}</a></td>
             <td ng-if="item.FirstPlayedShowCode <= 0">None Known</td>
-            <td ng-if="item.FirstPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.FirstPlayedShowCode}}">{{item.FirstPlayed | date:'yyyy-MMM-dd'}}</a></td>
+            <td ng-if="item.FirstPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.FirstPlayedShowCode}}">{{item.FirstPlayed | date:'dd-MMM-yyyy'}}</a></td>
             <td ng-if="item.LastPlayedShowCode <= 0">None Known</td>
-            <td ng-if="item.LastPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.LastPlayedShowCode }}">{{item.LastPlayed | date:'yyyy-MMM-dd'}}</a></td>
+            <td ng-if="item.LastPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.LastPlayedShowCode }}">{{item.LastPlayed | date:'dd-MMM-yyyy'}}</a></td>
             <td>{{item.TimesPlayed}}</td>
         </tr>
-
-        @*@foreach (SamSmithNZ2015.Core.FooFighters.Song item in Model.Songs)
-            {
-                <tr>
-                    @if (Model.Source == "Album" || Model.Source == "Show")
-                    {
-                        <td class="tdTable">@item.SongOrder</td>
-                    }
-                    <td class="tdTable">@Html.ActionLink(@item.SongName, "Song", "FooFighters", new { songKey = @item.SongKey }, null)</td>
-                    @if (Model.Source != "Show")
-                    {
-                        if (@item.FirstPlayedShowKey <= 0)
-                        {
-                            <td class="tdTable">None Known</td>
-                        }
-                        else
-                        {
-                            <td class="tdTable">@Html.ActionLink(@item.FirstPlayed.ToString("yyyy-MMM-dd"), "Show", "FooFighters", new { showKey = @item.FirstPlayedShowKey }, null)</td>
-                        }
-                        if (@item.LastPlayedShowKey <= 0)
-                        {
-                            <td class="tdTable">None Known</td>
-                        }
-                        else
-                        {
-                            <td class="tdTable">@Html.ActionLink(@item.LastPlayed.ToString("yyyy-MMM-dd"), "Show", "FooFighters", new { showKey = @item.LastPlayedShowKey }, null)</td>
-                        }
-                        <td class="tdTable">@item.SongTimesPlayed</td>
-                    }
-                    @if (Model.Source != "Album")
-                    {
-                        <td class="tdTable">@Html.ActionLink(@item.AlbumName, "Album", "FooFighters", new { albumKey = @item.AlbumKey }, null)</td>
-                    }
-                </tr>
-            }*@
     </table>
     <br />
     <hr />

@@ -8,7 +8,7 @@
         //Read config settings
         //var baseUrl = configSettings.webApiBaseUrl;
         //var baseUrl = 'http://localhost:12730/';
-        var baseUrl = 'http://ssnzsteamservice.azurewebsites.net/';
+        var baseUrl = 'https://ssnzsteamservice.azurewebsites.net/';
         this.getPlayerGames = function (steamId) {
             var url = baseUrl + 'api/PlayerGames/GetPlayer?steamId=' + steamId; //todo: refactor to call API function "GetPlayerGames"
             console.log(url);

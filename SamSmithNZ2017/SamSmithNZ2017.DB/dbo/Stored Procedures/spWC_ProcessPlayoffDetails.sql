@@ -13,7 +13,7 @@ JOIN wc_tournament_format tf ON t.format_code = tf.format_code
 JOIN wc_tournament_format_round tfr ON tfr.format_round_code = tf.round_2_format_code
 WHERE tournament_code = @tournament_code
 
-DECLARE @game_count smallint
+DECLARE @game_count INT
 SELECT @game_count = count(*) 
 FROM wc_game
 WHERE tournament_code = @tournament_code

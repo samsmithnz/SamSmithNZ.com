@@ -12,7 +12,7 @@
         <a href="~/Steam/Index?SteamId={{steamId}}" ng-show="player">{{player.PlayerName}}'s Game List</a> <span ng-show="player">&nbsp;&gt;&nbsp;</span> {{gameDetails.GameName}}
         <br />
         <br />
-        <img ng-show="gameDetails != null" ng-src="http://media.steampowered.com/steamcommunity/public/images/apps/{{gameDetails.AppID}}/{{gameDetails.LogoURL}}.jpg" src="~/Content/Steam/steam32by32.png" />
+        <img ng-show="gameDetails != null" ng-src="https://media.steampowered.com/steamcommunity/public/images/apps/{{gameDetails.AppID}}/{{gameDetails.LogoURL}}.jpg" src="~/Content/Steam/steam32by32.png" />
         <br />
     </div>
     <img ng-hide="gameDetails" src="~/Content/Images/spinner.gif" />
@@ -23,16 +23,18 @@
                 <td>
                     <span>{{gameDetails.TotalAchieved}} ({{gameDetails.PercentAchieved * 100 | number : 2}}%)</span>
                 </td>
-                <td rowspan="4" style="width: 300px;">
-                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!-- SteamBanner2 -->
-                    <ins class="adsbygoogle"
-                         style="display:inline-block;width:320px;height:100px"
-                         data-ad-client="ca-pub-2315986579277492"
-                         data-ad-slot="6826309967"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
+                <td rowspan="4" width="500px;">
+                    <div class="pull-right" style="width: 300px;">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- SteamBanner2 -->
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:320px;height:100px"
+                             data-ad-client="ca-pub-2315986579277492"
+                             data-ad-slot="6826309967"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
                 </td>
             </tr>
             <tr ng-show="selectedFriend">

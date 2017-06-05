@@ -1,15 +1,7 @@
-﻿@*@model SamSmithNZ2015.Models.FooFighters.SongShowsViewModel*@
-@{
+﻿@{
     Layout = "~/Views/Shared/_LayoutFooFighters.cshtml";
 }
 
-@*<!DOCTYPE html>
-
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Song</title>
-    </head>*@
 <div style="font-family: Verdana; font-size: 10pt;" ng-controller="songController">
     <h2>{{song.SongName}}</h2>
     <table id="Table1">
@@ -34,9 +26,8 @@
                             <span style="font-weight: bold;">First Played:</span>
                         </td>
                         <td>
-                            <a href="/FooFighters/Show/GetShow?ShowCode={{song.FirstPlayedShowCode}}" ng-if="song.FirstPlayed != null">{{song.FirstPlayed | date:'yyyy-MMM-dd'}}</a>
+                            <a href="/FooFighters/Show/GetShow?ShowCode={{song.FirstPlayedShowCode}}" ng-if="song.FirstPlayed != null">{{song.FirstPlayed | date:'dd-MMM-yyyy'}}</a>
                             <span ng-if="song.FirstPlayed == null">Never played live</span>
-                            @*@Html.ActionLink(@Model.Song.FirstPlayed.ToString("yyyy-MMM-dd"), "Show", "FooFighters", new { showKey = @Model.Song.FirstPlayedShowKey }, null)*@
                         </td>
                     </tr>
                     <tr>
@@ -44,9 +35,8 @@
                             <span style="font-weight: bold;">Last Played:</span>
                         </td>
                         <td>
-                            <a href="/FooFighters/Show/GetShow?ShowCode={{song.LastPlayedShowCode}}" ng-if="song.LastPlayed != null">{{song.LastPlayed | date:'yyyy-MMM-dd'}}</a>
+                            <a href="/FooFighters/Show/GetShow?ShowCode={{song.LastPlayedShowCode}}" ng-if="song.LastPlayed != null">{{song.LastPlayed | date:'dd-MMM-yyyy'}}</a>
                             <span ng-if="song.LastPlayed == null">Never played live</span>
-                            @*@Html.ActionLink(@Model.Song.LastPlayed.ToString("yyyy-MMM-dd"), "Show", "FooFighters", new { showKey = @Model.Song.LastPlayedShowKey }, null)*@
                         </td>
                     </tr>
                     <tr>
@@ -96,29 +86,10 @@
             <th style="width: 250px;">City</th>
         </tr>
         <tr ng-repeat="item in shows">
-            <td><a href="/FooFighters/Show/GetShow?ShowCode={{item.ShowCode}}">{{item.ShowDate | date:'yyyy-MMM-dd'}}</a></td>
+            <td><a href="/FooFighters/Show/GetShow?ShowCode={{item.ShowCode}}">{{item.ShowDate | date:'dd-MMM-yyyy'}}</a></td>
             <td>{{item.ShowLocation}}</td>
             <td>{{item.ShowCity}}</td>
-            @*<td ng-if="show.ShowCountry == 'United States'">{{show.ShowCity}}</td>
-        <td ng-if="show.ShowCountry != 'United States'">{{show.ShowCity}}, {{show.ShowCountry}}</td>*@
         </tr>
-
-        @*@foreach (SamSmithNZ2015.Core.FooFighters.Show item in Model.Shows)
-            {
-                <tr>
-                    <td>@Html.ActionLink(@item.ShowDate.ToString("yyyy-MMM-dd"), "Show", "FooFighters", new { showKey = @item.ShowKey }, null)</td>
-                    <td>@item.ShowLocation</td>
-                    @if (@item.ShowCountry != "United States")
-                    {
-                        <td>@item.ShowCity, @item.ShowCountry</td>
-                    }
-                    else
-                    {
-                        <td>@item.ShowCity</td>
-                    }
-                </tr>
-            }*@
     </table>
     <br /><br /><br />
 </div>
-</html>
