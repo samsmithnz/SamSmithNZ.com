@@ -16,6 +16,7 @@ namespace SamSmithNZ2017.Controllers
             return View();
         }
 
+        [ValidateInput(false)]
         public ActionResult SearchResults(string searchText)
         {
             return View();

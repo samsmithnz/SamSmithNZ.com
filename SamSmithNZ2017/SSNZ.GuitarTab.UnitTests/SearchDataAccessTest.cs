@@ -90,6 +90,28 @@ namespace SSNZ.GuitarTab.UnitTests
             Assert.IsTrue(results[1].SearchText == "home");
         }
 
+        [TestMethod()]
+        public async Task SearchEncodedTextTest()
+        {
+            //arrange
+            SearchDataAccess da = new SearchDataAccess();
+            string searchText = "<foo>";
+
+            //act part 1
+            Guid recordId = await da.SaveItemAsync(searchText);
+
+            //assert part 1
+            Assert.IsTrue(recordId != null);
+            Assert.IsTrue(recordId != Guid.Empty);
+
+            //act part 2
+            List<Search> results = await da.GetListAsync(recordId);
+
+            //assert part 2
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count == 0);
+        }
+
     }
 }
 
