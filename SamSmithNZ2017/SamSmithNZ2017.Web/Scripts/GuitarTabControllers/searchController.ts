@@ -14,9 +14,9 @@
             //errorHandlerService.errorHandler(data);
             console.log("Error!!");
             console.log(data);
-        }; 
+        };
 
-        var onGetSearchEventComplete = function (response) {            
+        var onGetSearchEventComplete = function (response) {
             $scope.searchResults = response.data;
             //console.log($scope.searchResults);
         }

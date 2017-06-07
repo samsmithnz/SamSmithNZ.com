@@ -13,14 +13,14 @@
         var baseUrl = 'https://ssnzitunesservice.azurewebsites.net/';
 
         this.getTopArtistsByPlaylist = function (playlistCode, showJustSummary) {
-            var url = baseUrl + 'api/TopArtists/GetTopArtistsByPlaylist?playlistCode=' + playlistCode + '&showJustSummary=' + showJustSummary;
-            console.log(url);
+            let url: string = baseUrl + 'api/TopArtists/GetTopArtistsByPlaylist?playlistCode=' + playlistCode + '&showJustSummary=' + showJustSummary;
+            //console.log(url);
             return $http.get(url);
         };
 
         this.getTopArtistsSummary = function (showJustSummary) {
-            var url = baseUrl + 'api/TopArtists/GetTopArtistsSummary?showJustSummary=' + showJustSummary;
-            console.log(url);
+            let url: string = baseUrl + 'api/TopArtists/GetTopArtistsSummary?showJustSummary=' + showJustSummary;
+            //console.log(url);
             return $http.get(url);
         };
 

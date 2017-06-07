@@ -16,7 +16,7 @@
             console.log(data);
         };
 
-        var onGetSongsEventComplete = function (response) {         
+        var onGetSongsEventComplete = function (response) {
             //console.log(response.data);
             $scope.songs = response.data;
         }

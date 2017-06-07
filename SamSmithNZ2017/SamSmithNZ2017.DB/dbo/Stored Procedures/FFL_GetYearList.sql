@@ -1,28 +1,24 @@
 ﻿CREATE PROCEDURE [dbo].FFL_GetYearList
 AS
 BEGIN
-	CREATE TABLE #tmp_year (year_code INT, song_count_total INT, song_count_with_date INT)
+	CREATE TABLE #YearSummary (YearCode INT, SongCountTotal INT, SongCountWithDate INT)
 
-	INSERT INTO #tmp_year
-	SELECT DISTINCT YEAR(s1.show_date) AS year_code, COUNT(s1.show_date), NULL
+	INSERT INTO #YearSummary
+	SELECT DISTINCT YEAR(s1.ShowDate) AS YearCode, COUNT(s1.ShowDate), NULL
 	FROM vFF_Show s1
-	GROUP BY YEAR(s1.show_date)
+	GROUP BY YEAR(s1.ShowDate)
 
 	UPDATE t1
-	SET t1.song_count_with_date = (SELECT COUNT(s1.show_date) 
+	SET t1.SongCountWithDate = (SELECT COUNT(s1.ShowDate) 
 									FROM vFF_Show s1
-									WHERE t1.year_code = YEAR(s1.show_date)
-									AND song_count = 0)
-	FROM #tmp_year t1
+									WHERE t1.YearCode = YEAR(s1.ShowDate)
+									AND s1.SongCount = 0)
+	FROM #YearSummary t1
 
-	--Return the total
-	--SELECT 3000 AS YearCode, 
-	--	'<select year>' AS YearText
-	--UNION
-	SELECT year_code AS YearCode, 
-		CONVERT(VARCHAR(5),year_code) + ': ' + CONVERT(VARCHAR(50),song_count_total - song_count_with_date) + '/' + CONVERT(VARCHAR(50),song_count_total) +  ' of shows have setlist data' AS YearText
-	FROM #tmp_year 
+	SELECT YearCode AS YearCode, 
+		CONVERT(VARCHAR(5),YearCode) + ': ' + CONVERT(VARCHAR(50),SongCountTotal - SongCountWithDate) + '/' + CONVERT(VARCHAR(50),SongCountTotal) +  ' of shows have setlist data' AS YearText
+	FROM #YearSummary 
 	ORDER BY YearCode DESC
 
-	DROP TABLE #tmp_year
+	DROP TABLE #YearSummary
 END

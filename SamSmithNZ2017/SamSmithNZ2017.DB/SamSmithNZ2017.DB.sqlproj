@@ -47,8 +47,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunSqlCodeAnalysis>True</RunSqlCodeAnalysis>
-    <SqlCodeAnalysisRules>
-    </SqlCodeAnalysisRules>
+    <SqlCodeAnalysisRules>-Microsoft.Rules.Data.SR0007</SqlCodeAnalysisRules>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
@@ -240,6 +239,7 @@
     <Build Include="dbo\Stored Procedures\ITunes_GetTracks.sql" />
     <Build Include="dbo\Stored Procedures\FFL_SaveShow.sql" />
     <Build Include="dbo\Stored Procedures\FFL_SaveShowSong.sql" />
+    <Build Include="dbo\Stored Procedures\FFL_GetAverageSetlist.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />

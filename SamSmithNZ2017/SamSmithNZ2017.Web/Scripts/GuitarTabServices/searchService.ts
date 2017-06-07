@@ -13,8 +13,8 @@
         var baseUrl = 'https://ssnzguitartabservice.azurewebsites.net/';
 
         this.getSearchResults = function (searchText) {
-            var url = baseUrl + 'api/Search/GetSearchResults?SearchText=' + searchText;
-            console.log(url);
+            let url: string = baseUrl + 'api/Search/GetSearchResults?SearchText=' + searchText;
+            //console.log(url);
             return $http.get(url);
         };
 

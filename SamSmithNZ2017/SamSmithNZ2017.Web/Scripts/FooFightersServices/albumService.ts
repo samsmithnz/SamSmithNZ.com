@@ -13,17 +13,17 @@
         var baseUrl = 'https://ssnzfoofightersservice.azurewebsites.net/';
 
         this.getAlbums = function () {
-            var url = baseUrl + 'api/Album/GetAlbums';
-            console.log(url);
+            let url: string = baseUrl + 'api/Album/GetAlbums';
+            //console.log(url);
             return $http.get(url);
         };
 
         this.getAlbum = function (albumCode) {
-            var url = baseUrl + 'api/Album/GetAlbum?AlbumCode=' + albumCode;
-            console.log(url);
+            let url: string = baseUrl + 'api/Album/GetAlbum?AlbumCode=' + albumCode;
+            //console.log(url);
             return $http.get(url);
         };
-   
+
 
     }
 })();

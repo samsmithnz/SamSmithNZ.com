@@ -2,38 +2,45 @@
     Layout = "~/Views/Shared/_LayoutFooFighters.cshtml";
 }
 
-<div style="font-family: Verdana; font-size: 10pt;" ng-controller="showController">
-    <h2>{{show.ShowDate | date:'dd-MMM-yyyy'}}</h2>
-    <table>
-        <tr>
-            <td>
-                <span style="font-weight: bold;">Location:</span>
-            </td>
-            <td>
-                {{show.ShowLocation}}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span style="font-weight: bold;">City:</span>
-            </td>
-            <td>{{show.ShowCity}}</td>
-        </tr>
-    </table>
-    <br />
-    <span ng-if="songs.length==0">Note: The setlist for this show is unknown</span>
-    <span style="font-weight: bold;" ng-if="songs.length > 0">Setlist:</span>
-    <table class="tdTable" style="border-collapse: collapse; border: 1px solid DarkGray; text-align: center;">
-        <tr style="background-color: #EAEAEA; font-weight: bold;">
-            <th style="width: 50px;" class="tdTable"></th>
-            <th style="width: 250px;" class="tdTable">Song</th>
-            <th style="width: 250px;" class="tdTable">Album</th>
-        </tr>
-        <tr ng-repeat="item in songs">
-            <td class="tdTable">{{item.SongOrder}}</td>
-            <td class="tdTable"><a href="/FooFighters/Song/GetSong?SongCode={{item.SongCode}}">{{item.SongName}}</a></td>
-            <td class="tdTable"><a href="/FooFighters/Album/GetAlbum?AlbumCode={{item.AlbumCode}}">{{item.AlbumName}}</a></td>
-        </tr>
-    </table>
-    <br /><hr />
+<div ng-controller="showController">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>{{show.ShowDate | date:'dd-MMM-yyyy'}}</h2>
+            <table>
+                <tr>
+                    <td>
+                        <span style="font-weight: bold;">Location:</span>
+                    </td>
+                    <td>
+                        {{show.ShowLocation}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span style="font-weight: bold;">City:</span>
+                    </td>
+                    <td>{{show.ShowCity}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <span ng-if="songs.length==0">Note: The setlist for this show is unknown</span>
+            <span style="font-weight: bold;" ng-if="songs.length > 0">Setlist:</span>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th></th>
+                    <th>Song</th>
+                    <th>Album</th>
+                </tr>
+                <tr ng-repeat="item in songs">
+                    <td>{{item.SongOrder}}</td>
+                    <td><a href="/FooFighters/Song/GetSong?SongCode={{item.SongCode}}">{{item.SongName}}</a></td>
+                    <td><a href="/FooFighters/Album/GetAlbum?AlbumCode={{item.AlbumCode}}">{{item.AlbumName}}</a></td>
+                </tr>
+            </table>
+            <br /><hr />
+        </div>
+    </div>
 </div>

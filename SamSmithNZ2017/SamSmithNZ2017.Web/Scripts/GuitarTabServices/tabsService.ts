@@ -13,29 +13,29 @@
         var baseUrl = 'https://ssnzguitartabservice.azurewebsites.net/';
 
         this.getTabs = function (albumCode) {
-            var url = baseUrl + 'api/Tab/GetTabs?AlbumCode=' + albumCode;
-            console.log(url);
+            let url: string = baseUrl + 'api/Tab/GetTabs?AlbumCode=' + albumCode;
+            //console.log(url);
             return $http.get(url);
         };
 
         this.getTab = function (tabCode) {
-            var url = baseUrl + 'api/Tab/GetTab?TabCode=' + tabCode;
-            console.log(url);
+            let url: string = baseUrl + 'api/Tab/GetTab?TabCode=' + tabCode;
+            //console.log(url);
             return $http.get(url);
         };
 
         this.saveTab = function (tabItem) {
-            var url = baseUrl + 'api/Tab/SaveTab';
+            let url: string = baseUrl + 'api/Tab/SaveTab';
             //console.log(tabItem);
-            console.log(url);
+            //console.log(url);
             return $http.post(url, tabItem);
         };
 
         this.DeleteTab = function (tabCode) {
-            var url = baseUrl + 'api/Tab/DeleteTab?TabCode=' + tabCode;
-            console.log(url);
+            let url: string = baseUrl + 'api/Tab/DeleteTab?TabCode=' + tabCode;
+            //console.log(url);
             return $http.get(url);
-        };  
+        };
 
     }
 })();
