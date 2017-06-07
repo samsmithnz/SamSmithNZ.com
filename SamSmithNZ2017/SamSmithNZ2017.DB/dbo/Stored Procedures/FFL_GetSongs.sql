@@ -29,6 +29,7 @@ BEGIN
 		GROUP BY s.song_key, s.song_name, 
 			s.song_notes, s.song_lyrics, s.song_image,
 			a.album_key, a.album_name, s.song_order
+		HAVING (COUNT(ss.song_key) > 0 OR a.album_key <> 12) --Exclude FFL covers that haven't been played
 		ORDER BY CASE WHEN @SongCode IS NULL AND @AlbumCode IS NULL THEN ISNULL(COUNT(ss.song_key),0) ELSE 1 END DESC,
 			CASE WHEN not @SongCode IS NULL OR NOT @AlbumCode IS NULL THEN s.song_order END, s.song_name
 	END

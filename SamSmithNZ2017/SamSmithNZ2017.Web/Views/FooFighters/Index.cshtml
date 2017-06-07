@@ -3,23 +3,27 @@
 }
 
 <div ng-controller="indexController">
-    <img ng-hide="songs" id="spinner1" src="~/Content/Images/spinner.gif" />
-    <table ng-show="songs" style="border-collapse: collapse; border: 1px solid DarkGray; text-align: center;">
-        <tr style="background-color: #EAEAEA; font-weight: bold;">
-            <th style="width: 250px;">Song</th>
-            <th style="width: 200px;">First Show Played</th>
-            <th style="width: 200px;">Last Show Played</th>
-            <th style="width: 150px;">Times Played Live</th>
-            <th style="width: 250px;">Album</th>
-        </tr>
-        <tr ng-repeat="item in songs">
-            <td><a href="/FooFighters/Song/GetSong?SongCode={{item.SongCode}}">{{item.SongName}}</a></td>
-            <td ng-if="item.FirstPlayedShowCode <= 0">None Known</td>
-            <td ng-if="item.FirstPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.FirstPlayedShowCode}}">{{item.FirstPlayed | date:'dd-MMM-yyyy'}}</a></td>
-            <td ng-if="item.LastPlayedShowCode <= 0">None Known</td>
-            <td ng-if="item.LastPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.LastPlayedShowCode }}">{{item.LastPlayed | date:'dd-MMM-yyyy'}}</a></td>
-            <td>{{item.TimesPlayed}}</td>
-            <td><a href="/FooFighters/Album/GetAlbum?AlbumCode={{item.AlbumCode}}">{{item.AlbumName}}</a></td>
-        </tr>
-    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <img ng-hide="songs" id="spinner1" src="~/Content/Images/spinner.gif" />
+            <table ng-show="songs" class="table table-striped table-bordered">
+                <tr>
+                    <th>Song</th>
+                    <th>First Show Played</th>
+                    <th>Last Show Played</th>
+                    <th>Times Played Live</th>
+                    <th>Album</th>
+                </tr>
+                <tr ng-repeat="item in songs">
+                    <td><a href="/FooFighters/Song/GetSong?SongCode={{item.SongCode}}">{{item.SongName}}</a></td>
+                    <td ng-if="item.FirstPlayedShowCode <= 0">None Known</td>
+                    <td ng-if="item.FirstPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.FirstPlayedShowCode}}">{{item.FirstPlayed | date:'dd-MMM-yyyy'}}</a></td>
+                    <td ng-if="item.LastPlayedShowCode <= 0">None Known</td>
+                    <td ng-if="item.LastPlayedShowCode > 0"><a href="/FooFighters/Show/GetShow?ShowCode={{item.LastPlayedShowCode }}">{{item.LastPlayed | date:'dd-MMM-yyyy'}}</a></td>
+                    <td>{{item.TimesPlayed}}</td>
+                    <td><a href="/FooFighters/Album/GetAlbum?AlbumCode={{item.AlbumCode}}">{{item.AlbumName}}</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>

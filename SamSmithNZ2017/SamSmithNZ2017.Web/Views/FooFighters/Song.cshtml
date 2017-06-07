@@ -3,93 +3,105 @@
 }
 
 <div style="font-family: Verdana; font-size: 10pt;" ng-controller="songController">
-    <h2>{{song.SongName}}</h2>
-    <table id="Table1">
-        <tr>
-            <td valign="top">
-                <table border="0">
-                    <tr>
-                        <td style="width: 250px"></td>
-                        <td style="width: 200px"></td>
-                        <td style="width: 25px" rowspan="5"></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span style="font-weight: bold;">Album:</span>
-                        </td>
-                        <td>
-                            <a href="/FooFighters/Album/GetAlbum?AlbumCode={{song.AlbumCode}}">{{song.AlbumName}}</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span style="font-weight: bold;">First Played:</span>
-                        </td>
-                        <td>
-                            <a href="/FooFighters/Show/GetShow?ShowCode={{song.FirstPlayedShowCode}}" ng-if="song.FirstPlayed != null">{{song.FirstPlayed | date:'dd-MMM-yyyy'}}</a>
-                            <span ng-if="song.FirstPlayed == null">Never played live</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span style="font-weight: bold;">Last Played:</span>
-                        </td>
-                        <td>
-                            <a href="/FooFighters/Show/GetShow?ShowCode={{song.LastPlayedShowCode}}" ng-if="song.LastPlayed != null">{{song.LastPlayed | date:'dd-MMM-yyyy'}}</a>
-                            <span ng-if="song.LastPlayed == null">Never played live</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span style="font-weight: bold;">Times Played:</span>
-                        </td>
-                        <td>
-                            {{song.TimesPlayed}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <span style="font-weight: bold;">Notes:</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            {{song.SongNotes}}
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td valign="top">
-                <table border="0">
-                    <tr>
-                        <td valign="top">
-                            <span style="font-weight: bold;">Lyrics:</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign="top">
-                            <div ng-bind-html="song.SongLyrics"></div>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
 
-    <span ng-if="shows.length == 0">There is no record of {{song.SongName}} being played live</span>
-    <span ng-if="shows.length > 0">{{song.SongName}} has been played live at the following shows:</span>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>{{song.SongName}}</h2>
+            <table id="Table1">
+                <tr>
+                    <td valign="top">
+                        <table border="0">
+                            <tr>
+                                <td style="width: 250px"></td>
+                                <td style="width: 200px"></td>
+                                <td style="width: 25px" rowspan="5"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span style="font-weight: bold;">Album:</span>
+                                </td>
+                                <td>
+                                    <a href="/FooFighters/Album/GetAlbum?AlbumCode={{song.AlbumCode}}">{{song.AlbumName}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span style="font-weight: bold;">First Played:</span>
+                                </td>
+                                <td>
+                                    <a href="/FooFighters/Show/GetShow?ShowCode={{song.FirstPlayedShowCode}}" ng-if="song.FirstPlayed != null">{{song.FirstPlayed | date:'dd-MMM-yyyy'}}</a>
+                                    <span ng-if="song.FirstPlayed == null">Never played live</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span style="font-weight: bold;">Last Played:</span>
+                                </td>
+                                <td>
+                                    <a href="/FooFighters/Show/GetShow?ShowCode={{song.LastPlayedShowCode}}" ng-if="song.LastPlayed != null">{{song.LastPlayed | date:'dd-MMM-yyyy'}}</a>
+                                    <span ng-if="song.LastPlayed == null">Never played live</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span style="font-weight: bold;">Times Played:</span>
+                                </td>
+                                <td>
+                                    {{song.TimesPlayed}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <span style="font-weight: bold;">Notes:</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    {{song.SongNotes}}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td valign="top">
+                        <table border="0">
+                            <tr>
+                                <td valign="top">
+                                    <span style="font-weight: bold;">Lyrics:</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <div ng-bind-html="song.SongLyrics"></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 
-    <table style="border-collapse: collapse; border: 1px solid DarkGray; text-align: center;" ng-if="shows.length > 0">
-        <tr style="background-color: #EAEAEA; font-weight: bold;">
-            <th style="width: 250px;">Show Date</th>
-            <th style="width: 350px;">Location</th>
-            <th style="width: 250px;">City</th>
-        </tr>
-        <tr ng-repeat="item in shows">
-            <td><a href="/FooFighters/Show/GetShow?ShowCode={{item.ShowCode}}">{{item.ShowDate | date:'dd-MMM-yyyy'}}</a></td>
-            <td>{{item.ShowLocation}}</td>
-            <td>{{item.ShowCity}}</td>
-        </tr>
-    </table>
-    <br /><br /><br />
+    <div class="row">
+        <div class="col-md-6">
+            <span ng-if="shows.length == 0">There is no record of {{song.SongName}} being played live</span>
+            <span ng-if="shows.length > 0">{{song.SongName}} has been played live at the following shows:</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-striped table-bordered" ng-if="shows.length > 0">
+                <tr>
+                    <th>Show Date</th>
+                    <th>Location</th>
+                    <th>City</th>
+                </tr>
+                <tr ng-repeat="item in shows">
+                    <td><a href="/FooFighters/Show/GetShow?ShowCode={{item.ShowCode}}">{{item.ShowDate | date:'dd-MMM-yyyy'}}</a></td>
+                    <td>{{item.ShowLocation}}</td>
+                    <td>{{item.ShowCity}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>

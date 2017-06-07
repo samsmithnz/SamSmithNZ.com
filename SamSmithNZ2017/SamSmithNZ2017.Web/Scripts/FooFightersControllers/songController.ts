@@ -28,15 +28,13 @@
         }
 
         var onGetShowsEventComplete = function (response) {
-            console.log($scope.shows);
+            //console.log($scope.shows);
             $scope.shows = response.data;
         }
 
         $scope.SongCode = getUrlParameter('SongCode');
-        if (typeof $scope.SongCode === 'undefined' || !$scope.ShowCode) {
-            $scope.SongCode = getUrlParameter('SongKey');
-        }
-        
+        //console.log($scope.SongCode);
+
         songService.getSong($scope.SongCode).then(onGetSongsEventComplete, onError);
         showService.getShowsBySong($scope.SongCode).then(onGetShowsEventComplete, onError);
 

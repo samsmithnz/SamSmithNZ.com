@@ -34,7 +34,8 @@ BEGIN
 		FROM
 		(
 			SELECT --track_name,album_name,
-				record_id, RANK() OVER (ORDER BY rating DESC, play_count DESC, track_name) AS sort_order
+				record_id, 
+				RANK() OVER (ORDER BY rating DESC, play_count DESC, track_name) AS sort_order
 			FROM itTrack T2
 			WHERE T2.playlist_code = @PlaylistCode AND T2.rating = 100
 		) D

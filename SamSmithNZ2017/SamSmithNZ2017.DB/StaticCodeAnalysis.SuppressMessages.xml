@@ -124,4 +124,7 @@
   <SuppressedFile FilePath="dbo\Stored Procedures\FFL_GetShows.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
   </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Stored Procedures\FFL_GetAverageSetlist.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+  </SuppressedFile>
 </StaticCodeAnalysis>

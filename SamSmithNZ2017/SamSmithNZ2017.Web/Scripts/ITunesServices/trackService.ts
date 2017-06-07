@@ -12,9 +12,9 @@
         //var baseUrl = 'http://localhost:12730/';
         var baseUrl = 'https://ssnzitunesservice.azurewebsites.net/';
 
-        this.getTracksByPlaylist = function (playlistCode, showJustSummary) {
-            var url = baseUrl + 'api/track/GetTracks?playlistCode=' + playlistCode + '&showJustSummary=' + showJustSummary;
-            console.log(url);
+        this.getTracksByPlaylist = function (playlistCode: string, showJustSummary: string) {
+            let url: string = baseUrl + 'api/track/GetTracks?playlistCode=' + playlistCode + '&showJustSummary=' + showJustSummary;
+            //console.log(url);
             return $http.get(url);
         };
 
