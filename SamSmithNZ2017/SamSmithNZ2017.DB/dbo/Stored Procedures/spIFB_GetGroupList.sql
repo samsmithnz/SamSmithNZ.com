@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[spIFB_GetGroupList]
-	@tournament_code smallint,
-	@round_number smallint
+	@tournament_code INT,
+	@round_number INT
 AS
 SELECT distinct round_code
 FROM --wc_tournament_team_entry te JOIN 

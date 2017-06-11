@@ -1,11 +1,11 @@
 ﻿CREATE TABLE [dbo].[wc_playoff_stage] (
-    [tournament_code]       SMALLINT NOT NULL,
-    [round_number]          SMALLINT NOT NULL,
-    [game_code]             SMALLINT NOT NULL,
-    [team_1_winner_of_game] SMALLINT NULL,
-    [team_2_winner_of_game] SMALLINT NULL,
-    [team_1_loser_of_game]  SMALLINT NULL,
-    [team_2_loser_of_game]  SMALLINT NULL
+    [tournament_code]       INT NOT NULL,
+    [round_number]          INT NOT NULL,
+    [game_code]             INT NOT NULL,
+    [team_1_winner_of_game] INT NULL,
+    [team_2_winner_of_game] INT NULL,
+    [team_1_loser_of_game]  INT NULL,
+    [team_2_loser_of_game]  INT NULL
 );
 
 

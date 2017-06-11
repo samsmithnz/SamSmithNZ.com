@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spWC_AddOddsForOldTournament]
-	@tournament_code SMALLINT
+	@tournament_code INT
 AS
 	SET NOCOUNT ON
 
@@ -9,14 +9,14 @@ AS
 	--Set game dates.
 	DECLARE @StartDate datetime
 	DECLARE @EndDate datetime
-	SELECT @StartDate = CONVERT(datetime,cast(min(game_time) as date)), --Strip out the time
-		@EndDate = CONVERT(datetime,cast(max(game_time) as date)) + 1 --Strip out the time
+	SELECT @StartDate = CONVERT(datetime,cast(MIN(game_time) AS date)), --Strip out the time
+		@EndDate = CONVERT(datetime,cast(MAX(game_time) AS date)) + 1 --Strip out the time
 	FROM wc_game
 	WHERE tournament_code = @tournament_code
 	DECLARE @Days INT = DATEDIFF(DAY,@StartDate,@EndDate)+1
 
 	--Get all teams
-	CREATE TABLE #tmp_teams (team_name varchar(200), team_code smallint)
+	CREATE TABLE #tmp_teams (team_name VARCHAR(200), team_code INT)
 
 	INSERT INTO #tmp_teams
 	SELECT DISTINCT t.team_name, t.team_code
@@ -24,10 +24,10 @@ AS
 	JOIN wc_team t ON tte.team_code = t.team_code
 	WHERE tournament_code = @tournament_code
 
-	--add 1/[num of teams] as day before first game date.
+	--add 1/[num of teams] AS day before first game date.
 	INSERT INTO wc_odds
 	SELECT team_name, @StartDate - 1, 
-		CONVERT(decimal(18,4),1)/CONVERT(decimal(18,4),(SELECT count(*) FROM #tmp_teams)), 0,0,0,0,1, @tournament_code
+		CONVERT(decimal(18,4),1)/CONVERT(decimal(18,4),(SELECT COUNT(*) FROM #tmp_teams)), 0,0,0,0,1, @tournament_code
 	FROM #tmp_teams
 
 	-----------------------------------------------------------
@@ -73,7 +73,7 @@ AS
 	------------------------------------------------------------------
 	-- Loop through #DateRange, starting with the most recent date.
 	------------------------------------------------------------------
-	DECLARE @Counter smallint
+	DECLARE @Counter INT
 	SELECT @Counter = 0
 	WHILE (SELECT COUNT(*) FROM #DateRange) > 0
 	BEGIN
@@ -91,31 +91,31 @@ AS
 	   
 		SELECT 'Starting new calendar loop: ', 
 			@Calendar_Date, 
-			(SELECT count(*) 
+			(SELECT COUNT(*) 
 				from wc_odds where tournament_code = @tournament_code), 
 			'games found:', 
-			(SELECT DISTINCT count(*)
+			(SELECT DISTINCT COUNT(*)
 				FROM wc_game
 				WHERE tournament_code = @tournament_code
-				and CONVERT(datetime,cast(game_time as date)) = CONVERT(datetime,@Calendar_Date))
+				and CONVERT(datetime,cast(game_time AS date)) = CONVERT(datetime,@Calendar_Date))
 
 		----For each game, update the % for the next day.
-		DECLARE @game_code smallint
+		DECLARE @game_code INT
 		DECLARE @game_date datetime
-		DECLARE @round_number smallint
-		DECLARE @round_code varchar(10)
-		DECLARE @team_1_name varchar(200)
-		DECLARE @team_2_name varchar(200)
+		DECLARE @round_number INT
+		DECLARE @round_code VARCHAR(10)
+		DECLARE @team_1_name VARCHAR(200)
+		DECLARE @team_2_name VARCHAR(200)
 		DECLARE @team_1_previous_day_prob decimal(18,4)
 		DECLARE @team_2_previous_day_prob decimal(18,4)
-		DECLARE @team_1_score smallint
-		DECLARE @team_2_score smallint
+		DECLARE @team_1_score INT
+		DECLARE @team_2_score INT
 
 		DECLARE Cursor1 CURSOR LOCAL FOR
 			SELECT DISTINCT game_code
 			FROM wc_game
 			WHERE tournament_code = @tournament_code
-			and CONVERT(datetime,cast(game_time as date)) + 1 = CONVERT(datetime,@Calendar_Date)
+			and CONVERT(datetime,cast(game_time AS date)) + 1 = CONVERT(datetime,@Calendar_Date)
 
 		OPEN Cursor1
 
@@ -125,15 +125,15 @@ AS
 		BEGIN
 
 			--1. Get the game details
-			SELECT @game_date = CONVERT(datetime,cast(g.game_time as date)) + 1,
+			SELECT @game_date = CONVERT(datetime,cast(g.game_time AS date)) + 1,
 				@round_number = g.round_number,
 				@round_code = g.round_code,
 				@team_1_name = t1.team_name,
 				@team_2_name = t2.team_name,
 				@team_1_previous_day_prob = o1.odds_probability,
 				@team_2_previous_day_prob = o2.odds_probability,
-				@team_1_score = isnull(team_1_normal_time_score,0) + isnull(team_1_extra_time_score,0)+isnull(team_1_penalties_score,0),
-				@team_2_score = isnull(team_2_normal_time_score,0) + isnull(team_2_extra_time_score,0)+isnull(team_2_penalties_score,0)
+				@team_1_score = ISNULL(team_1_normal_time_score,0) + ISNULL(team_1_extra_time_score,0)+ISNULL(team_1_penalties_score,0),
+				@team_2_score = ISNULL(team_2_normal_time_score,0) + ISNULL(team_2_extra_time_score,0)+ISNULL(team_2_penalties_score,0)
 			FROM wc_game g
 			JOIN wc_team t1 ON g.team_1_code = t1.team_code
 			JOIN wc_team t2 ON g.team_2_code = t2.team_code
@@ -158,7 +158,7 @@ AS
 				SELECT @team_1_won = 0, @team_2_won = 0
 			END
 
-			--SELECT CONVERT(varchar(12),@team_1_name), @team_1_won, CONVERT(varchar(12),@team_2_name), @team_2_won
+			--SELECT CONVERT(VARCHAR(12),@team_1_name), @team_1_won, CONVERT(VARCHAR(12),@team_2_name), @team_2_won
 			--SELECT * 
 			--FROM wc_odds 
 			--WHERE tournament_code = @tournament_code 
@@ -279,7 +279,7 @@ AS
 				FROM wc_game g
 				WHERE g.tournament_code = @tournament_code
 				and g.game_code = 48
-				and 0 = (SELECT count(*) 
+				and 0 = (SELECT COUNT(*) 
 								FROM wc_game g2 
 								WHERE g2.tournament_code = @tournament_code
 								and round_number = @round_number
@@ -291,7 +291,7 @@ AS
 
 				----Store the last game of the round
 				--DECLARE @first_day_after_Round_1 datetime
-				--SELECT top 1 @first_day_after_Round_1 = CONVERT(datetime,cast(max(game_time) as date)) + 1
+				--SELECT top 1 @first_day_after_Round_1 = CONVERT(datetime,cast(MAX(game_time) AS date)) + 1
 				--FROM wc_game 
 				--WHERE tournament_code = 19 and round_number = 1
 
@@ -304,7 +304,7 @@ AS
 			ELSE IF (@round_number = 2)
 			BEGIN
 				DECLARE @first_date_of_round_2 datetime
-				SELECT @first_date_of_round_2 = CONVERT(datetime,cast(min(g.game_time) as date))
+				SELECT @first_date_of_round_2 = CONVERT(datetime,cast(MIN(g.game_time) AS date))
 				FROM wc_game g
 				--JOIN wc_team t1 ON g.team_1_code = t1.team_code
 				--JOIN wc_team t2 ON g.team_2_code = t2.team_code
@@ -443,7 +443,7 @@ AS
 								WHERE o2.tournament_code = @tournament_code 
 								and o2.odds_date = @missing_gamedate)
 
-		SELECT @Counter as counter, 32 + (@Counter*32) as total, count(*) as actual_total
+		SELECT @Counter AS counter, 32 + (@Counter*32) AS total, COUNT(*) AS actual_total
 		FROM wc_odds
 		WHERE tournament_code = @tournament_code
 
@@ -463,7 +463,7 @@ AS
 
 	
 
-	--Get all teams and add 1/[num of teams] as day before first game date.
+	--Get all teams and add 1/[num of teams] AS day before first game date.
 	--For each game, update the % for the next day.
 	--Fill in rest days with data from the day before
 

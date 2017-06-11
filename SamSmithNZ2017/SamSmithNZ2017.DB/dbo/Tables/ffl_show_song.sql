@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [dbo].[ffl_show_song] (
-    [showtrack_key]    SMALLINT     NOT NULL,
-    [show_key]         SMALLINT     NULL,
-    [song_key]         SMALLINT     NULL,
-    [unknown_song_key] SMALLINT     NULL,
-    [show_song_order]  SMALLINT     NULL,
+    [showtrack_key]    INT     NOT NULL,
+    [show_key]         INT     NULL,
+    [song_key]         INT     NULL,
+    [unknown_song_key] INT     NULL,
+    [show_song_order]  INT     NULL,
     [is_partial]       BIT          NULL,
     [is_jam]           BIT          NULL,
     [song_notes]       VARCHAR (50) NULL

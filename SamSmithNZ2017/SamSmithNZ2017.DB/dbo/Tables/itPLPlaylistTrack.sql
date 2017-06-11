@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[itPLPlaylistTrack] (
-    [playlist_code] SMALLINT NOT NULL,
-    [track_code]    SMALLINT NOT NULL,
-    [track_order]   SMALLINT NULL
+    [playlist_code] INT NOT NULL,
+    [track_code]    INT NOT NULL,
+    [track_order]   INT NULL
 );
 
 

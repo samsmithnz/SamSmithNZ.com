@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[wc_competition] (
-    [competition_code] SMALLINT     NOT NULL,
+    [competition_code] INT     NOT NULL,
     [competition_name] VARCHAR (50) NOT NULL,
-    [region_code]      SMALLINT     NULL
+    [region_code]      INT     NULL
 );
 
 

@@ -1,15 +1,15 @@
 ﻿CREATE PROCEDURE [dbo].[spWC_ProcessGroupDetails]
-	@tournament_code smallint,
-	@round_number smallint,
-	@round_code varchar(10)
+	@tournament_code INT,
+	@round_number INT,
+	@round_code VARCHAR(10)
 AS
 SET NOCOUNT ON
 
 --Get the number of teams to set for each group
-DECLARE @TeamsFromEachGroupThatAdvance smallint
-DECLARE @TeamsFromAllGroupsThatAdvance smallint
-DECLARE @TotalNumberOfTeamsThatAdvanceFromStage smallint
-DECLARE @GroupAdvancementDifference smallint
+DECLARE @TeamsFromEachGroupThatAdvance INT
+DECLARE @TeamsFromAllGroupsThatAdvance INT
+DECLARE @TotalNumberOfTeamsThatAdvanceFromStage INT
+DECLARE @GroupAdvancementDifference INT
 IF (@round_number = 1)
 BEGIN
 	SELECT @TeamsFromAllGroupsThatAdvance = (tf.r1_number_of_teams_from_group_that_advance * tf.r1_number_of_groups_in_round),
@@ -43,7 +43,7 @@ BEGIN
     SELECT @GroupAdvancementDifference = @TotalNumberOfTeamsThatAdvanceFromStage - @TeamsFromAllGroupsThatAdvance
 END
 
-CREATE TABLE #tmp_teams (team_code smallint)
+CREATE TABLE #tmp_teams (team_code INT)
 
 --get all teams affected
 INSERT INTO #tmp_teams
@@ -66,7 +66,7 @@ and round_number = @round_number
 and round_code = @round_code
 
 --Build the Group Table
-DECLARE @team_code smallint
+DECLARE @team_code INT
 DECLARE Cursor1 CURSOR LOCAL FOR
 	SELECT DISTINCT team_code
 	FROM #tmp_teams 
@@ -102,7 +102,7 @@ DEALLOCATE Cursor1
 --select * From wc_group_stage where tournament_code = @tournament_code
 
 --Set the Group Ranking for each group
-DECLARE @group_ranking smallint
+DECLARE @group_ranking INT
 SELECT @group_ranking = 0
 
 DECLARE Cursor1 CURSOR LOCAL FOR

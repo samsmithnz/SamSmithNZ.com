@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
+}
+
+<h2 class="sectionTitle"><b>WebAPI Test</b></h2>
+<br />
+<br />
+<br />
+
+<div id="body">
+    <ul id="contacts"></ul>
+</div>
+
+<br />
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            console.log("Starting work");
+            $.getJSON('http://localhost:19732/api/GuitarTab/GetItem?albumCode=1', function (data) {
+                console.log(data);
+                $(data).each(function (i, item) {
+                    $('#contacts').append('<li>' + item.ArtistName + '</li>');
+                    $('#contacts').append('<li>' + item.AlbumName + '</li>');
+                    $('#contacts').append('<li>' + item.AlbumYear + '</li>');
+                });
+            });
+            
+            console.log("Ending work");
+        });
+    </script>
+}

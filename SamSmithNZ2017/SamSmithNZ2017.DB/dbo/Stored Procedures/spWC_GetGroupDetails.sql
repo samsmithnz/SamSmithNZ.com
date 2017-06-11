@@ -1,10 +1,10 @@
 ﻿CREATE PROCEDURE [dbo].[spWC_GetGroupDetails]
-	@tournament_code smallint,
-	@round_number smallint,
-	@round_code varchar(10)
+	@tournament_code INT,
+	@round_number INT,
+	@round_code VARCHAR(10)
 AS
 SELECT t.team_name, 
-	CONVERT(varchar(100),t.flag_name) as team_flag_name, 
+	CONVERT(VARCHAR(100),t.flag_name) AS team_flag_name, 
 	gs.tournament_code,
 	gs.draws,
 	gs.goal_difference,

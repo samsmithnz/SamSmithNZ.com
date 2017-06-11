@@ -1,15 +1,15 @@
 ﻿CREATE VIEW [dbo].[vWC_TournamentCompletionStatistics]
 AS
 SELECT DISTINCT t.tournament_code, 
-	CONVERT(decimal(6,2),qt.qualified_teams_count/tf.total_number_of_teams) as team_percent, 
-	CONVERT(decimal(6,2),CASE WHEN g.game_count > 0 THEN 1 ELSE 0 END) as game_percent, 
+	CONVERT(decimal(6,2),qt.qualified_teams_count/tf.total_number_of_teams) AS team_percent, 
+	CONVERT(decimal(6,2),CASE WHEN g.game_count > 0 THEN 1 ELSE 0 END) AS game_percent, 
 	CONVERT(decimal(6,2),p.player_count / (tf.total_number_of_teams * CASE WHEN t.tournament_code > 16 THEN 23 
 																		WHEN t.tournament_code = 12 THEN 20 
 																		 
-																		ELSE 22 END)) as player_percent,
-	CASE WHEN tg.total_goals = 0 THEN 0 ELSE CONVERT(decimal(6,2),pg.player_goal_count) / CONVERT(decimal(6,2),tg.total_goals) END as goals_percent,
-	CASE WHEN tpsog.total_penalty_shootout_goals = 0 THEN 0 ELSE CONVERT(decimal(6,2),psog.player_penalty_shootout_goal_count) / CONVERT(decimal(6,2),tpsog.total_penalty_shootout_goals) END as penalty_shootout_goals_percent,
-	1 as cards_percent--CASE WHEN pc.player_card_count > 1 THEN 1 ELSE 0 END as cards_percent
+																		ELSE 22 END)) AS player_percent,
+	CASE WHEN tg.total_goals = 0 THEN 0 ELSE CONVERT(decimal(6,2),pg.player_goal_count) / CONVERT(decimal(6,2),tg.total_goals) END AS goals_percent,
+	CASE WHEN tpsog.total_penalty_shootout_goals = 0 THEN 0 ELSE CONVERT(decimal(6,2),psog.player_penalty_shootout_goal_count) / CONVERT(decimal(6,2),tpsog.total_penalty_shootout_goals) END AS penalty_shootout_goals_percent,
+	1 AS cards_percent--CASE WHEN pc.player_card_count > 1 THEN 1 ELSE 0 END AS cards_percent
 FROM wc_tournament t
 JOIN wc_tournament_format tf ON t.format_code = tf.format_code
 JOIN vWC_QualifiedTeamCount qt ON t.tournament_code = qt.tournament_code

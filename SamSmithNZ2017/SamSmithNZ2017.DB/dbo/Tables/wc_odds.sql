@@ -7,7 +7,7 @@
     [odds_min]         DECIMAL (18, 4) NOT NULL,
     [odds_stdDev]      DECIMAL (18, 4) NOT NULL,
     [odds_sample_size] INT             NOT NULL,
-    [tournament_code]  SMALLINT        NULL
+    [tournament_code]  INT        NULL
 );
 
 

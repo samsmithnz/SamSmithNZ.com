@@ -1,5 +1,5 @@
 ﻿CREATE FUNCTION dbo.fnWC_CalculateRanking_GameAge(
-	@game_code smallint,
+	@game_code INT,
 	@calculation_date datetime
 )
 RETURNS decimal(10,2)

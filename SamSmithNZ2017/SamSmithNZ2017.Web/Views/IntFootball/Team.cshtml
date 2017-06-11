@@ -1,0 +1,180 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutIntFootball.cshtml";
+}
+
+<div ng-controller="teamController">
+
+    <h2><img ng-src="~/Content/IntFootball/Teams/{{team.FlagName}}" CssClass="TeamImage" />{{team.TeamName}}</h2>
+    <br />
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>Game #</th>
+                    <th>Game Time</th>
+                    <th>Round</th>
+                    <th>Group Name</th>
+                    <th>Round</th>
+                    <th></th>
+                    <th>Score</th>
+                    <th></th>
+                    <th>Location</th>
+                    <th>Tournament</th>
+                    <th>Coach</th>
+                    @*<th>Fifa Ranking</th>*@
+                </tr>
+                <tr ng-repeat="item in games">
+                    <td class="cellborders">{{item.GameNumber}}</td>
+                    <td class="cellborders">{{item.GameTime | date:'dd-MMM-yyyy'}}</td>
+                    <td class="cellborders">{{item.RoundNumber}}</td>
+                    <td class="cellborders">{{item.RoundName}}</td>
+                    <td class="cellborders">{{item.RoundCode}}</td>
+                    <td class="cellborders" style="text-align: right;">
+                        <a href="/IntFootball/Team?TeamCode={{item.Team1Code}}">{{item.Team1Name}}</a>
+                        <img ng-src="~/Content/IntFootball/Teams/{{item.Team1FlagName}}" CssClass="TeamImage" />
+                    </td>
+                    <td class="cellborders" style="text-align: center;">
+                        @*@if (myGame.Team1PenaltiesScore >= 0)
+                            {
+                                gameResult.Team1Score = (short)(myGame.Team1NormalTimeScore + myGame.Team1ExtraTimeScore + myGame.Team1PenaltiesScore);
+                                gameResult.Team2Score = (short)(myGame.Team2NormalTimeScore + myGame.Team2ExtraTimeScore + myGame.Team2PenaltiesScore);
+                                gameResult.Team1ScoreText = ((short)(myGame.Team1NormalTimeScore + myGame.Team1ExtraTimeScore)).ToString() + " (" + myGame.Team1PenaltiesScore.ToString() + ")";
+                                gameResult.Team2ScoreText = ((short)(myGame.Team2NormalTimeScore + myGame.Team2ExtraTimeScore)).ToString() + " (" + myGame.Team2PenaltiesScore.ToString() + ")";
+                                if (gameResult.Team1Score > gameResult.Team2Score)
+                                {
+                                    gameResult.Team1ExtraText = " (pen)";
+                                    gameResult.Team2ExtraText = "";
+                                }
+                                if (gameResult.Team1Score < gameResult.Team2Score)
+                                {
+                                    gameResult.Team1ExtraText = "";
+                                    gameResult.Team2ExtraText = " (pen)";
+                                }
+                                gameResult.TeamScoresText = ((short)(myGame.Team1NormalTimeScore + myGame.Team1ExtraTimeScore)).ToString() + " - " + ((short)(myGame.Team2NormalTimeScore + myGame.Team2ExtraTimeScore)).ToString() + " (aet)";
+                                gameResult.TeamExtrasText = "(penalties)";
+                                gameResult.TeamPenaltiesText = "(" + myGame.Team1PenaltiesScore.ToString() + " - " + myGame.Team2PenaltiesScore.ToString() + ")";
+                            }
+                            else if (myGame.Team1ExtraTimeScore >= 0)
+                            {
+                                gameResult.Team1Score = (short)(myGame.Team1NormalTimeScore + myGame.Team1ExtraTimeScore);
+                                gameResult.Team2Score = (short)(myGame.Team2NormalTimeScore + myGame.Team2ExtraTimeScore);
+                                gameResult.Team1ScoreText = gameResult.Team1Score.ToString();
+                                gameResult.Team2ScoreText = gameResult.Team2Score.ToString();
+                                if (gameResult.Team1Score > gameResult.Team2Score)
+                                {
+                                    gameResult.Team1ExtraText = " (aet)";
+                                    gameResult.Team2ExtraText = "";
+                                }
+                                if (gameResult.Team1Score < gameResult.Team2Score)
+                                {
+                                    gameResult.Team1ExtraText = "";
+                                    gameResult.Team2ExtraText = " (aet)";
+                                }
+                                gameResult.TeamScoresText = ((short)(myGame.Team1NormalTimeScore + myGame.Team1ExtraTimeScore)).ToString() + " - " + ((short)(myGame.Team2NormalTimeScore + myGame.Team2ExtraTimeScore)).ToString() + " (aet)";
+                                gameResult.TeamExtrasText = "";
+                                gameResult.TeamPenaltiesText = "";
+                            }*@
+                        @*<span>Nom:{{item.Team1NormalTimeScore==null}}</span><span>Aet:{{item.Team1ExtraTimeScore==null}}</span><span>Pen:{{item.Team1PenaltiesScore==null}}</span>*@
+                        <div ng-if="item.Team1NormalTimeScore >= 0">
+                            <span ng-if="!item.Team1ExtraTimeScore && !item.Team1PenaltiesScore">{{item.Team1NormalTimeScore}} - {{item.Team2NormalTimeScore}}</span>
+                            <div ng-if="item.Team1ExtraTimeScore && item.Team1ExtraTimeScore >= 0">                                
+                                <span>{{item.Team1NormalTimeScore + item.Team1ExtraTimeScore}} - {{item.Team2NormalTimeScore + item.Team2ExtraTimeScore}} (aet)</span>
+                                <br />
+                            </div>
+                            <div ng-if="item.Team1PenaltiesScore && item.Team1PenaltiesScore >= 0">
+                                <span>{{item.Team1NormalTimeScore + item.Team1ExtraTimeScore}} - {{item.Team2NormalTimeScore + item.Team2ExtraTimeScore}} (aet)</span>
+                                <br />
+                                {{item.Team1PenaltiesScore}} - {{item.Team2PenaltiesScore}} (penalties)
+                            </div>
+                        </div>
+                        @*<span id="lblExtra">@result.TeamExtrasText</span>
+                        @if (string.IsNullOrEmpty(result.TeamExtrasText) == false)
+                        {
+                            <br />
+                        }
+                        <span id="lblPenalties">@result.TeamPenaltiesText</span>
+                        @if (string.IsNullOrEmpty(result.TeamPenaltiesText) == false)
+                        {
+                            <br />
+                        }*@
+                    </td>
+                    <td class="cellborders" style="text-align: left;">
+                        <img ng-src="~/Content/IntFootball/Teams/{{item.Team2FlagName}}" CssClass="TeamImage" />
+                        <a href="/IntFootball/Team?TeamCode={{item.Team2Code}}">{{item.Team2Name}}</a>
+                    </td>
+                    <td class="cellborders">{{item.Location}}</td>
+                    <td class="cellborders">{{item.TournamentName}}</td>
+                    <td class="cellborders"><img ng-src="~/Content/IntFootball/Teams/{{item.CoachFlag}}" CssClass="TeamImage" ng-if="item.CoachFlag != ''" />{{item.CoachName}}</td>
+                    @*<td class="cellborders">[Unknown]</td>*@
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    @*@Html.Partial("GamePartial", new SamSmithNZ2015.Models.IntFootball.GameViewModel(Model.GameList, true, false, false))*@
+
+    @*@model SamSmithNZ2015.Models.IntFootball.GameViewModel
+
+        <div id="divGames">
+            <asp:CheckBox ID="chkShowGoals" runat="server" Text="Show Goal Details" AutoPostBack="true" />
+            <table class="tableborders">
+
+                @foreach (SamSmithNZ2015.Core.IntFootball.Game item in Model.GameList)
+                {
+                    SamSmithNZ2015.Models.IntFootball.GameResult result = SamSmithNZ2015.Models.IntFootball.GameViewModel.GetGameResult(item);
+                    <tr>
+                        @if (Model.ShowDebugElements == true)
+                        {
+                            <td class="cellborders">{{item.GameNumber</td>
+                        }
+                        <td class="cellborders">{{item.GameTime.ToString("d-MMM-yyyy")</td>
+                        @if (Model.IsTeamVersion == true)
+                        {
+                            <td class="cellborders">{{item.RoundNumber</td>
+                            <td class="cellborders">{{item.RoundName</td>
+                        }
+                        @if (Model.IsGroupVersion == false)
+                        {
+                            <td class="cellborders">{{item.RoundCode</td>
+                        }
+                        <td class="cellborders" style="text-align: right;">
+                            <a href="@Url.Action("Team", "IntFootball", new { teamCode = {{item.Team1Code })">{{item.Team1Name</a>
+                            <img src="@Url.Content("~/Content/IntFootball/Teams/" + {{item.Team1FlagName)" CssClass="TeamImage" />
+                        </td>
+                        <td class="cellborders" style="text-align: center;">
+                            <span id="lblScore">@result.TeamScoresText</span>
+                            @if (string.IsNullOrEmpty(result.TeamScoresText) == false)
+                            {
+                                <br />
+                            }
+                            <span id="lblExtra">@result.TeamExtrasText</span>
+                            @if (string.IsNullOrEmpty(result.TeamExtrasText) == false)
+                            {
+                                <br />
+                            }
+                            <span id="lblPenalties">@result.TeamPenaltiesText</span>
+                            @if (string.IsNullOrEmpty(result.TeamPenaltiesText) == false)
+                            {
+                                <br />
+                            }
+                        </td>
+                        <td class="cellborders" style="text-align: left;">
+                            <img src="@Url.Content("~/Content/IntFootball/Teams/" + {{item.Team2FlagName)" CssClass="TeamImage" />
+                            <a href="@Url.Action("Team", "IntFootball", new { teamCode = {{item.Team2Code })">{{item.Team2Name</a>
+                        </td>
+                        <td class="cellborders">{{item.Location</td>
+                        @if (Model.IsGroupVersion == false)
+                        {
+                            <td class="cellborders">[Unknown]</td>
+                            <td class="cellborders">[Unknown]</td>
+                            <td class="cellborders">[Unknown]</td>
+                        }
+                    </tr>
+                }
+            </table>
+
+        </div>*@
+
+
+</div>

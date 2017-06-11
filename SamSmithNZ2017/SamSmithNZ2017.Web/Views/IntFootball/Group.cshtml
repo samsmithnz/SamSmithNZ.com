@@ -1,0 +1,85 @@
+﻿@model SamSmithNZ2015.Models.IntFootball.GroupViewModel
+@{
+    ViewBag.Title = "Round Details";
+    Layout = "~/Views/Shared/_LayoutIntFootball.cshtml";
+    bool showDebugElements = false; 
+}
+
+@using (Html.BeginForm("GroupDetails", "IntFootball", new { tournamentCode = @Model.TournamentCode, roundNumber = @Model.RoundNumber, isLastRound = @Model.IsLastRound }, FormMethod.Post))
+{
+    <span>Group: </span>@Html.DropDownList("cboGroup", new SelectList(Model.Groups, "RoundCode", "RoundCode", Model.SelectedGroup), new { onchange = "this.form.submit();" })
+    
+    if (@Model.IsLastRound == true)
+    {
+    <span>&nbsp;<span style="height: 20px; border-style: solid; border-width: 1px; border-color: darkgray; background-color: gold;">&nbsp;World Cup Champion&nbsp;</span>
+        &nbsp;<span style="height: 20px; border-style: solid; border-width: 1px; border-color: darkgray; background-color: silver;">&nbsp;2nd Place&nbsp;</span>
+        &nbsp;<span style="height: 20px; border-style: solid; border-width: 1px; border-color: darkgray; background-color: #A67D3D;">&nbsp;3rd Place&nbsp;</span>
+    </span>
+    }
+    else
+    {
+    <span>&nbsp;<span style="height: 20px; border-style: solid; border-width: 1px; border-color: darkgray; background-color: #CCFF99;">&nbsp;Team advances to next round&nbsp;</span>
+    </span>
+    }
+}
+<br />
+<hr />
+<br />
+<table class="tableborders">
+    <tr style="height: 30px;">
+        <th class="headerborders" style="width: 185px;">Team</th>
+        <th class="headerborders" style="width: 75px; text-align: center;">Played</th>
+        <th class="headerborders" style="width: 75px; text-align: center;">Wins</th>
+        <th class="headerborders" style="width: 75px; text-align: center;">Draws</th>
+        <th class="headerborders" style="width: 75px; text-align: center;">Losses</th>
+        <th class="headerborders" style="width: 75px; text-align: center;">GF</th>
+        <th class="headerborders" style="width: 75px; text-align: center;">GA</th>
+        <th class="headerborders" style="width: 75px; text-align: center;">GD</th>
+        <th class="headerborders" style="width: 75px; text-align: center;">Points</th>
+    </tr>
+    @foreach (SamSmithNZ2015.Core.IntFootball.GroupDetail item in Model.GroupDetails)
+    {
+        string trStyle = "";
+        if (Model.IsLastRound == true)
+        {
+            switch (item.GroupRanking)
+            {
+                case 1:
+                    trStyle = "background-color: gold;";
+                    break;
+                case 2:
+                    trStyle = "background-color: silver;";
+                    break;
+                case 3:
+                    trStyle = "background-color: #A67D3D;";
+                    break;
+            }
+        }
+        else
+        {
+            if (item.HasQualifiedForNextRound == true)
+            {
+                trStyle = "background-color: #CCFF99";
+            }
+        }
+        <tr style="@trStyle">
+            <td class="cellborders">
+                <img src="@Url.Content("~/Content/images/IntFootball/Teams/" + @item.TeamFlagName)" CssClass="TeamImage" />
+                <a href="@Url.Action("Team", "IntFootball", new { teamCode = @item.TeamCode })">@item.TeamName</a>
+            </td>
+            <td class="cellborders">@item.Played</td>
+            <td class="cellborders">@item.Wins</td>
+            <td class="cellborders">@item.Draws</td>
+            <td class="cellborders">@item.Losses</td>
+            <td class="cellborders">@item.GoalsFor</td>
+            <td class="cellborders">@item.GoalsAgainst</td>
+            <td class="cellborders">@item.GoalDifference</td>
+            <td class="cellborders">@item.Points</td>
+        </tr>
+    }
+</table>
+<br />
+<br />
+<br />
+
+@Html.Partial("GamePartial", new SamSmithNZ2015.Models.IntFootball.GameViewModel(Model.GameList, false, true, showDebugElements))

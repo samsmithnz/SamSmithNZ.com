@@ -1,8 +1,8 @@
 ﻿CREATE FUNCTION dbo.fnWC_CalculateRanking_MatchResult(
-	@game_code smallint, 
-	@team_code smallint
+	@game_code INT, 
+	@team_code INT
 )
-RETURNS smallint
+RETURNS INT
 AS
 BEGIN
 	 
@@ -26,7 +26,7 @@ BEGIN
 		SELECT @is_team_1 = 0
 	END
 	
-	DECLARE @points smallint
+	DECLARE @points INT
 	SELECT @points = 0
 	IF (@is_team_1 = 1)
 	BEGIN

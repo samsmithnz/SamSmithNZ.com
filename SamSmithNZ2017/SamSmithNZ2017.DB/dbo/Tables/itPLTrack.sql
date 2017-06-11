@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[itPLTrack] (
-    [track_code]  SMALLINT      NOT NULL,
+    [track_code]  INT      NOT NULL,
     [track_name]  VARCHAR (250) NULL,
     [artist_name] VARCHAR (250) NULL,
     [album_name]  VARCHAR (250) NULL,

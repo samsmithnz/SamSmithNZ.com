@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[TabStats_old] (
-    [StatKey]   SMALLINT        NULL,
+    [StatKey]   INT        NULL,
     [StatName]  VARCHAR (50)    NULL,
     [StatText]  VARCHAR (50)    NULL,
     [StatValue] DECIMAL (10, 2) NULL,

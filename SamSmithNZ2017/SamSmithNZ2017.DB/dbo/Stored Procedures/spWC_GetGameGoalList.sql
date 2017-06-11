@@ -1,8 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[spWC_GetGameGoalList]
-	@game_code smallint
+	@game_code INT
 AS
 SELECT g.goal_code, p.player_code, p.player_name, 
-	isnull(g.goal_time,0) as goal_time, isnull(g.injury_time,0) as injury_time, 
+	ISNULL(g.goal_time,0) AS goal_time, ISNULL(g.injury_time,0) AS injury_time, 
 	g.is_penalty, g.is_own_goal
 FROM wc_goal g
 JOIN wc_player p ON g.player_code = p.player_code

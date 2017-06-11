@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[wc_tournament_team_final_placing] (
-    [tournament_code] SMALLINT NULL,
-    [team_code]       SMALLINT NULL,
-    [final_placing]   SMALLINT NULL
+    [tournament_code] INT NULL,
+    [team_code]       INT NULL,
+    [final_placing]   INT NULL
 );
 
 

@@ -1,14 +1,14 @@
 ﻿
 CREATE PROCEDURE [dbo].[spIFB_GetTournamentTeamsPlacing]
-	@tournament_code smallint
+	@tournament_code INT
 AS
 SET NOCOUNT ON
 
 /*
-SELECT CONVERT(smallint, null) as placing,
-	CONVERT(varchar(100), null) as team_name
+SELECT CONVERT(INT, NULL) AS placing,
+	CONVERT(VARCHAR(100), NULL) AS team_name
 */
-CREATE TABLE #tmp_final_placing (placing smallint, team_code smallint)
+CREATE TABLE #tmp_final_placing (placing INT, team_code INT)
 
 --1st Place
 INSERT INTO #tmp_final_placing 
@@ -85,14 +85,14 @@ WHERE g2.tournament_code = @tournament_code
 and g2.team_2_code not in (SELECT team_code FROM #tmp_final_placing)
 
 SELECT fp.placing, t.team_code, t.team_name, 
-	t.flag_name, r.region_code, r.region_abbrev as region_name, 
-	isnull(te.fifa_ranking,0) as fifa_ranking, 
-	te.coach_name, isnull(ct.flag_name,'') as coach_nationality_flag_name
+	t.flag_name, r.region_code, r.region_abbrev AS region_name, 
+	ISNULL(te.fifa_ranking,0) AS fifa_ranking, 
+	te.coach_name, ISNULL(ct.flag_name,'') AS coach_nationality_flag_name
 FROM #tmp_final_placing fp
 JOIN wc_team t ON fp.team_code = t.team_code
 JOIN wc_tournament_team_entry te ON te.team_code = t.team_code
 JOIN wc_region r ON t.region_code = r.region_code
-LEFT OUTER JOIN wc_team ct ON ct.team_name = te.coach_nationality
+LEFT JOIN wc_team ct ON ct.team_name = te.coach_nationality
 WHERE te.tournament_code = @tournament_code
 ORDER BY fp.placing, t.team_name
 

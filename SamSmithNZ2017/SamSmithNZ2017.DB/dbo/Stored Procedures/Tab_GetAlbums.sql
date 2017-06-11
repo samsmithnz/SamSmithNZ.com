@@ -29,7 +29,7 @@ BEGIN
 		include_on_website AS IncludeOnWebsite,
 		ISNULL(CONVERT(INT,ROUND(CONVERT(DECIMAL(16,4),SUM(tt.rating))/CONVERT(DECIMAL(16,4),COUNT(tt.rating)),0)),0) AS AverageRating
 	FROM tab_album ta
-	LEFT OUTER JOIN tab_track tt ON ta.album_code = tt.album_code AND tt.rating > 0
+	LEFT JOIN tab_track tt ON ta.album_code = tt.album_code AND tt.rating > 0
 	WHERE (@IsAdmin = 1 OR (@IsAdmin = 0 AND include_in_index = 1) OR (@IsAdmin IS NULL AND include_in_index = 1))
 	AND ((@AlbumCode IS NULL AND is_bass_tab = 0) OR ta.album_code = @AlbumCode)
 	GROUP BY artist_name, album_name, album_year, is_bass_tab, is_new_album, 

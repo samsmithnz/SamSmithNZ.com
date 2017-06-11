@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spWC_GetGameShootoutGoalList]
-	@game_code smallint
+	@game_code INT
 AS
 SELECT ps.penalty_code, p.player_code, p.player_name, 
 	ps.penalty_order, ps.scored

@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spWC_GetTeamName]
-	@team_code smallint
+	@team_code INT
 AS
 SELECT team_name
 FROM wc_team

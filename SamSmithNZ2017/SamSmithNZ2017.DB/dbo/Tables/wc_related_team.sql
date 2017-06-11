@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[wc_related_team] (
-    [team_code]            SMALLINT      NULL,
-    [historical_team_code] SMALLINT      NULL,
-    [year_team_changed]    SMALLINT      NULL,
+    [team_code]            INT      NULL,
+    [historical_team_code] INT      NULL,
+    [year_team_changed]    INT      NULL,
     [notes]                VARCHAR (100) NULL
 );
 

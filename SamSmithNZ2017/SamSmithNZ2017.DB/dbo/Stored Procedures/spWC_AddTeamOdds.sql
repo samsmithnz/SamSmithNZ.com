@@ -7,7 +7,7 @@
     @odds_min DECIMAL(18, 4),
     @odds_stdDev DECIMAL(18, 4),
     @odds_sample_size INT,
-	@tournament_code SMALLINT = null
+	@tournament_code INT = NULL
 AS
 
 IF (exists (SELECT 1 FROM wc_odds WHERE team_name = @team_name and odds_date = @odds_date))
@@ -15,7 +15,7 @@ BEGIN
 	DELETE FROM wc_odds WHERE team_name = @team_name and odds_date = @odds_date
 END
 
-IF (@tournament_code is null)
+IF (@tournament_code is NULL)
 BEGIN
 	SELECT @tournament_code = 20
 END

@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [dbo].[wc_player] (
-    [player_code]       SMALLINT      NOT NULL,
-    [team_code]         SMALLINT      NOT NULL,
-    [tournament_code]   SMALLINT      NULL,
+    [player_code]       INT      NOT NULL,
+    [team_code]         INT      NOT NULL,
+    [tournament_code]   INT      NULL,
     [player_name]       VARCHAR (200) NOT NULL,
-    [number]            SMALLINT      NOT NULL,
+    [number]            INT      NOT NULL,
     [position]          VARCHAR (50)  NOT NULL,
     [date_of_birth]     DATETIME      NULL,
     [is_captain]        BIT           NOT NULL,

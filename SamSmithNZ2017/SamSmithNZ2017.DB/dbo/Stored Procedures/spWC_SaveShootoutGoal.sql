@@ -1,16 +1,16 @@
 ﻿CREATE PROCEDURE [dbo].[spWC_SaveShootoutGoal]
-	@penalty_code smallint,
-	@game_code smallint,
-	@player_code smallint,
-	@penalty_order smallint,
+	@penalty_code INT,
+	@game_code INT,
+	@player_code INT,
+	@penalty_order INT,
 	@scored bit
 AS
 
 IF (@penalty_code = 0)
 BEGIN 
 	--Get the new primary key
-	SELECT @penalty_code = max(penalty_code) + 1 FROM wc_penalty_shootout --WHERE game_code = @game_code
-	IF (@penalty_code is null)
+	SELECT @penalty_code = MAX(penalty_code) + 1 FROM wc_penalty_shootout --WHERE game_code = @game_code
+	IF (@penalty_code is NULL)
 	BEGIN
 		SELECT @penalty_code = 1
 	END

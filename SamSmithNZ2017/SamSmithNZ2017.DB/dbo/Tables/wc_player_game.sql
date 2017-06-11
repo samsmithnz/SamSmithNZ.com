@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [dbo].[wc_player_game] (
-    [game_code]       SMALLINT NOT NULL,
-    [team_code]       SMALLINT NOT NULL,
-    [player_code]     SMALLINT NOT NULL,
-    [player_time_on]  SMALLINT NOT NULL,
-    [player_time_off] SMALLINT NOT NULL
+    [game_code]       INT NOT NULL,
+    [team_code]       INT NOT NULL,
+    [player_code]     INT NOT NULL,
+    [player_time_on]  INT NOT NULL,
+    [player_time_off] INT NOT NULL
 );
 
 

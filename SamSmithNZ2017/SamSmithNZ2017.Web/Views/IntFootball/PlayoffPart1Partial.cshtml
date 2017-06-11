@@ -1,0 +1,10 @@
+﻿@model SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel
+
+@if (@Model.ShowDebugElements == true)
+{
+    <span style="color: red; font-weight: bold;">@Model.GameNumber</span>
+}
+@if (@Model.CurrentGame != null)
+{
+    <span>@Model.CurrentGame.GameTime.ToString("d-MMM")&nbsp;@Model.CurrentGame.Location</span>
+}

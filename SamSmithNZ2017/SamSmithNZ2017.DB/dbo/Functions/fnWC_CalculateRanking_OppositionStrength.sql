@@ -1,6 +1,6 @@
 ﻿CREATE FUNCTION dbo.fnWC_CalculateRanking_OppositionStrength(
-	@game_code smallint, 
-	@team_code smallint
+	@game_code INT, 
+	@team_code INT
 )
 RETURNS decimal(10,2)
 AS
@@ -23,8 +23,8 @@ BEGIN
 		SELECT @is_team_1 = 0
 	END
 	
-	DECLARE @team_rank smallint
-	DECLARE @opposition_rank smallint
+	DECLARE @team_rank INT
+	DECLARE @opposition_rank INT
 	DECLARE @points decimal(10,2)
 	SELECT @points = 0
 	
@@ -62,9 +62,9 @@ BEGIN
 		and g.team_2_code = @team_code	
 	END
 
-	SELECT @points = isnull(@team_rank,CONVERT(decimal(10,2),199)) - isnull(@opposition_rank,CONVERT(decimal(10,2),199))
+	SELECT @points = ISNULL(@team_rank,CONVERT(decimal(10,2),199)) - ISNULL(@opposition_rank,CONVERT(decimal(10,2),199))
 
-	--SELECT @points = (CONVERT(decimal(10,2),200) - isnull(@opposition_rank,CONVERT(decimal(10,2),199))) / CONVERT(decimal(10,2),100)
+	--SELECT @points = (CONVERT(decimal(10,2),200) - ISNULL(@opposition_rank,CONVERT(decimal(10,2),199))) / CONVERT(decimal(10,2),100)
 	IF (@points = 0)
 	BEGIN
 		SELECT @points = 1

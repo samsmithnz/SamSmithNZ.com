@@ -9,45 +9,41 @@ namespace SSNZ.IntFootball.Models
     {
         public Tournament() { }
 
-        private string logoImage;
-        private string qualificationImage;
-
-
-        public short CompetitionCode { get; set; }
-        public short TournamentCode { get; set; }
-        public short TournamentYear { get; set; }
+        public int CompetitionCode { get; set; }
+        public int TournamentCode { get; set; }
+        public int TournamentYear { get; set; }
         public string TournamentName { get; set; }
-        public short HostTeamCode { get; set; }
+        public int HostTeamCode { get; set; }
         public string HostTeamName { get; set; }
         public string HostFlagName { get; set; }
-        public short CoHostTeamCode { get; set; }
+        public int CoHostTeamCode { get; set; }
         public string CoHostTeamName { get; set; }
         public string CoHostFlagName { get; set; }
-        public short GameCount { get; set; }
-        public DateTime MinGameTime { get; set; }
-        public DateTime MaxGameTime { get; set; }
-        public short FormatCode { get; set; }
-        public short R1_FormatRoundCode { get; set; }
-        public Boolean R1_IsGroupStage { get; set; }
-        public short R1_NumberOfTeamsInGroup { get; set; }
-        public short R1_NumberOfGroupsInRound { get; set; }
-        public short R1_NumberOfTeamsFromGroupThatAdvance { get; set; }
-        public short R1_TotalNumberOfTeamsThatAdvanceFromRound { get; set; }
-        public string R1_FirstGroupCode { get; set; }
-        public short R2_FormatRoundCode { get; set; }
-        public Boolean R2_IsGroupStage { get; set; }
-        public short R2_NumberOfTeamsInGroup { get; set; }
-        public short R2_NumberOfGroupsInRound { get; set; }
-        public short R2_NumberOfTeamsFromGroupThatAdvance { get; set; }
-        public short R2_TotalNumberOfTeamsThatAdvanceFromRound { get; set; }
-        public string R2_FirstGroupCode { get; set; }
-        public short R3_FormatRoundCode { get; set; }
-        public Boolean R3_IsGroupStage { get; set; }
-        public short R3_NumberOfTeamsInGroup { get; set; }
-        public short R3_NumberOfGroupsInRound { get; set; }
-        public short R3_NumberOfTeamsFromGroupThatAdvance { get; set; }
-        public short R3_TotalNumberOfTeamsThatAdvanceFromRound { get; set; }
-        public string R3_FirstGroupCode { get; set; }
+        public int GameCount { get; set; }
+        public DateTime? MinGameTime { get; set; }
+        public DateTime? MaxGameTime { get; set; }
+        public int FormatCode { get; set; }
+        public int R1FormatRoundCode { get; set; }
+        public Boolean R1IsGroupStage { get; set; }
+        public int R1NumberOfTeamsInGroup { get; set; }
+        public int R1NumberOfGroupsInRound { get; set; }
+        public int R1NumberOfTeamsFromGroupThatAdvance { get; set; }
+        public int R1TotalNumberOfTeamsThatAdvanceFromRound { get; set; }
+        public string R1FirstGroupCode { get; set; }
+        public int R2FormatRoundCode { get; set; }
+        public Boolean R2IsGroupStage { get; set; }
+        public int R2NumberOfTeamsInGroup { get; set; }
+        public int R2NumberOfGroupsInRound { get; set; }
+        public int R2NumberOfTeamsFromGroupThatAdvance { get; set; }
+        public int R2TotalNumberOfTeamsThatAdvanceFromRound { get; set; }
+        public string R2FirstGroupCode { get; set; }
+        public int R3FormatRoundCode { get; set; }
+        public Boolean R3IsGroupStage { get; set; }
+        public int R3NumberOfTeamsInGroup { get; set; }
+        public int R3NumberOfGroupsInRound { get; set; }
+        public int R3NumberOfTeamsFromGroupThatAdvance { get; set; }
+        public int R3TotalNumberOfTeamsThatAdvanceFromRound { get; set; }
+        public string R3FirstGroupCode { get; set; }
         public decimal ImportingTotalPercentComplete { get; set; }
         public decimal ImportingTeamPercent { get; set; }
         public decimal ImportingGamePercent { get; set; }
@@ -55,39 +51,43 @@ namespace SSNZ.IntFootball.Models
         public decimal ImportingGoalsPercent { get; set; }
         public decimal ImportingPenaltyShootoutGoalsPercent { get; set; }
         public string Notes { get; set; }
+
+        private string _logoImage;
         public string LogoImage
         {
             get
             {
-                return logoImage;
+                return _logoImage;
             }
             set
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    logoImage = "images/no_image.gif";
+                    _logoImage = "images/no_image.gif";
                 }
                 else
                 {
-                    logoImage = value;
+                    _logoImage = value;
                 }
             }
         }
+
+        private string _qualificationImage;
         public string QualificationImage
         {
             get
             {
-                return qualificationImage;
+                return _qualificationImage;
             }
             set
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    qualificationImage = "images/no_image.gif";
+                    _qualificationImage = "images/no_image.gif";
                 }
                 else
                 {
-                    qualificationImage = value;
+                    _qualificationImage = value;
                 }
             }
         }

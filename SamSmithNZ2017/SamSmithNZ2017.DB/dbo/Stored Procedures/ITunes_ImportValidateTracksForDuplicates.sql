@@ -6,11 +6,11 @@ BEGIN
 	CREATE TABLE #tmpDuplicateTracks (artist_name VARCHAR(100), album_name VARCHAR(100), track_name VARCHAR(100), track_count INT, playlist_code INT)
 
 	INSERT INTO #tmpDuplicateTracks
-	SELECT artist_name, album_name, track_name, count(*), playlist_code
+	SELECT artist_name, album_name, track_name, COUNT(*), playlist_code
 	FROM itTrack
 	WHERE playlist_code = @PlaylistCode
 	GROUP BY artist_name, album_name, track_name, playlist_code
-	HAVING count(*) >= 2
+	HAVING COUNT(*) >= 2
 	ORDER BY artist_name, album_name, track_name, playlist_code
 
 	DECLARE @ArtistName VARCHAR(100)
@@ -80,7 +80,7 @@ BEGIN
 	SELECT artist_name AS ArtistName, 
 		album_name AS AlbumName, 
 		track_name AS TrackName, 
-		track_count AS PlayCount, --Previously track count - this is the number of times this track appears - so it can be removed as a duplicate 
+		track_count AS PlayCount, --Previously track count - this is the number of times this track appears - so it can be removed AS a duplicate 
 		playlist_code AS PlaylistCode
 	FROM #tmpDuplicateTracks
 END

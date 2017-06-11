@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[ffl_show_recording] (
-    [recording_key]         SMALLINT      NOT NULL,
-    [show_key]              SMALLINT      NOT NULL,
-    [number]                SMALLINT      NOT NULL,
+    [recording_key]         INT      NOT NULL,
+    [show_key]              INT      NOT NULL,
+    [number]                INT      NOT NULL,
     [Description]           VARCHAR (500) NOT NULL,
     [IsComplete]            BIT           NULL,
     [IsCirculatedRecording] BIT           NOT NULL,
