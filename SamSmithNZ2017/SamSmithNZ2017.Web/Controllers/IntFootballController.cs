@@ -41,7 +41,7 @@ namespace SamSmithNZ2017.Controllers
             }
         }
 
-        public ActionResult Group(int tournamentCode, int roundNumber, bool isLastRound)
+        public ActionResult Group(int tournamentCode, int roundNumber, string roundCode, bool isLastRound)
         {
             if (System.Diagnostics.Debugger.IsAttached == true)
             {
@@ -111,7 +111,7 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult GroupDetails(int tournamentCode, int roundNumber, bool isLastRound)
         {
-            return RedirectToAction("Group", new { tournamentCode = tournamentCode, roundNumber = roundNumber, isLastRound = isLastRound });
+            return RedirectToAction("Group", new { tournamentCode = tournamentCode, roundNumber = roundNumber, roundCode = "", isLastRound = isLastRound });
             
             //SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDataAccess();
             //List<Group> groups = da.GetItems(tournamentCode, roundNumber);

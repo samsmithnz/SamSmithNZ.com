@@ -12,9 +12,9 @@
         //var baseUrl = 'http://localhost:12730/';
         var baseUrl = 'https://ssnzintfootballservice.azurewebsites.net/';
 
-        this.getGroups = function (tournamentCode, roundNumber) {
-            let url: string = baseUrl + 'api/Group/GetGroups?tournamentCode=' + tournamentCode + '&roundNumber=' + roundNumber;
-            //console.log(url);
+        this.getGroups = function (tournamentCode, roundNumber, roundCode) {
+            let url: string = baseUrl + 'api/Group/GetGroups?tournamentCode=' + tournamentCode + '&roundNumber=' + roundNumber + '&roundCode=' + roundCode;
+            console.log(url);
             return $http.get(url);
         };
 

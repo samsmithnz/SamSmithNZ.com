@@ -11,8 +11,9 @@
         var baseUrl = 'https://ssnzfoofightersservice.azurewebsites.net/';
         this.getYears = function () {
             var url = baseUrl + 'api/Year/GetYears';
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
     }
 })();
+//# sourceMappingURL=yearService.js.map

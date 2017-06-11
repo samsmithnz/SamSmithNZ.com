@@ -11,13 +11,14 @@
         var baseUrl = 'https://ssnzitunesservice.azurewebsites.net/';
         this.getMovementsByPlaylist = function (playlistCode, showJustSummary) {
             var url = baseUrl + 'api/Movement/GetMovementsByPlaylist?playlistCode=' + playlistCode + '&showJustSummary=' + showJustSummary;
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
         this.getMovementsSummary = function (showJustSummary) {
             var url = baseUrl + 'api/Movement/GetMovementsSummary?showJustSummary=' + showJustSummary;
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
     }
 })();
+//# sourceMappingURL=movementService.js.map

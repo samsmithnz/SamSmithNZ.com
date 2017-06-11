@@ -11,8 +11,9 @@
         var baseUrl = 'https://ssnzitunesservice.azurewebsites.net/';
         this.getTracksByPlaylist = function (playlistCode, showJustSummary) {
             var url = baseUrl + 'api/track/GetTracks?playlistCode=' + playlistCode + '&showJustSummary=' + showJustSummary;
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
     }
 })();
+//# sourceMappingURL=trackService.js.map

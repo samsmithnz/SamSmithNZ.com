@@ -11,8 +11,9 @@
         var baseUrl = 'https://ssnzguitartabservice.azurewebsites.net/';
         this.getArtists = function (includeAllItems) {
             var url = baseUrl + 'api/Artist/GetArtists?includeAllItems=' + includeAllItems;
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
     }
 })();
+//# sourceMappingURL=artistsService.js.map

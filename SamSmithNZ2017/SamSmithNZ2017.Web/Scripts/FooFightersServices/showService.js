@@ -11,18 +11,19 @@
         var baseUrl = 'https://ssnzfoofightersservice.azurewebsites.net/';
         this.getShows = function (yearCode) {
             var url = baseUrl + 'api/Show/GetShowsByYear?YearCode=' + yearCode;
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
         this.getShowsBySong = function (songCode) {
             var url = baseUrl + 'api/Show/GetShowsBySong?SongCode=' + songCode;
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
         this.getShow = function (showCode) {
             var url = baseUrl + 'api/Show/GetShow?ShowCode=' + showCode;
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
     }
 })();
+//# sourceMappingURL=showService.js.map

@@ -3,11 +3,19 @@
     angular
         .module('FooFightersApp')
         .controller('showListController', showListController);
-    showListController.$inject = ['$scope', '$http', 'yearService', 'showService'];
-    function showListController($scope, $http, yearService, showService) {
+    showListController.$inject = ['$scope', '$http', 'yearService', 'showService', 'averageSetlistService'];
+    function showListController($scope, $http, yearService, showService, averageSetlistService) {
         $scope.years = [];
         $scope.shows = [];
+        $scope.averageSetlists = [];
         $scope.selectedYear = null;
+        $scope.minimumSongCount = 0;
+        $scope.number = 31;
+        $scope.setlistType = "0";
+        $scope.minimumSongArray = [];
+        for (var i = 0; i <= 30; i += 5) {
+            $scope.minimumSongArray.push(i);
+        }
         var onError = function (data) {
             //errorHandlerService.errorHandler(data);
             console.log("Error!!");
@@ -19,17 +27,29 @@
             if ($scope.years.length > 0) {
                 $scope.selectedYear = $scope.years[0].YearCode;
                 //console.log($scope.selectedYear);
-                showService.getShows($scope.selectedYear).then(onGetShowsEventComplete, onError);
+                $scope.updateShows();
             }
         };
         var onGetShowsEventComplete = function (response) {
             //console.log($scope.shows);
             $scope.shows = response.data;
         };
-        //$scope.ShowCode = getUrlParameter('ShowCode');
+        var onGetAverageSetlistEventComplete = function (response) {
+            $scope.averageSetlists = response.data;
+            //$scope.number = $scope.averageSetlists.length;
+            //console.log('minimumSongCount:' + $scope.minimumSongCount);
+        };
+        $scope.getNumber = function (num) {
+            return new Array(num);
+        };
         yearService.getYears().then(onGetYearsEventComplete, onError);
         $scope.updateShows = function () {
             showService.getShows($scope.selectedYear).then(onGetShowsEventComplete, onError);
+            $scope.updateSetlists();
+        };
+        $scope.updateSetlists = function () {
+            $scope.averageSetlists = null;
+            averageSetlistService.getAverageSetlist($scope.selectedYear, $scope.minimumSongCount, $scope.setlistType == 1).then(onGetAverageSetlistEventComplete, onError);
         };
     }
     function getUrlParameter(param) {
@@ -47,3 +67,4 @@
         return res;
     }
 })();
+//# sourceMappingURL=showListController.js.map

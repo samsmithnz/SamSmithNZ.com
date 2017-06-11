@@ -14,7 +14,7 @@
         var onGetPlayerGamesEventComplete = function (response) {
             $scope.games = response.data;
         };
-        console.log("Steam Ids: Hidden: " + $('#txtSteamId').val() + ', URL: ' + getUrlParameter('SteamId'));
+        //console.log("Steam Ids: Hidden: " + $('#txtSteamId').val() + ', URL: ' + getUrlParameter('SteamId'));
         $scope.steamId = getUrlParameter('SteamId');
         if ($scope.steamId == '' || $scope.steamId == null) {
             $scope.steamId = '76561197971691578';
@@ -45,3 +45,4 @@
         return res;
     }
 })();
+//# sourceMappingURL=indexController.js.map
