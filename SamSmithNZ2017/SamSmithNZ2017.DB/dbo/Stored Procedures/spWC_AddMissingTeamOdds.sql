@@ -1,10 +1,10 @@
 ﻿CREATE PROCEDURE [dbo].[spWC_AddMissingTeamOdds]
 	@odds_date datetime,
-	@tournament_code SMALLINT = null
+	@tournament_code INT = NULL
 AS
-CREATE TABLE #tmp_teams (team_name varchar(200))
+CREATE TABLE #tmp_teams (team_name VARCHAR(200))
 
-IF (@tournament_code is null)
+IF (@tournament_code is NULL)
 BEGIN
 	SELECT @tournament_code = 20
 END

@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[spWC_GetPlayerListForGame]
-	@game_code smallint
+	@game_code INT
 AS
---SELECT 0 as player_code, ' (select player)' as player_name, 1 as number, '' as position, '' as team_name
+--SELECT 0 AS player_code, ' (select player)' AS player_name, 1 AS number, '' AS position, '' AS team_name
 --UNION
 SELECT p.player_code, 
 	--p.player_name,

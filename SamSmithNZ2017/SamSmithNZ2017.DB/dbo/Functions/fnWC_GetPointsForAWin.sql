@@ -1,10 +1,10 @@
 ﻿CREATE FUNCTION [dbo].[fnWC_GetPointsForAWin](
-	@tournament_code smallint
+	@tournament_code INT
 )
-RETURNS smallint
+RETURNS INT
 AS
 BEGIN
-	DECLARE @total smallint
+	DECLARE @total INT
 
 	SELECT @total = 0
 

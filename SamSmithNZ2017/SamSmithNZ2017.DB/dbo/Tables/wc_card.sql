@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[wc_card] (
-    [card_code]      SMALLINT NOT NULL,
-    [game_code]      SMALLINT NOT NULL,
-    [player_code]    SMALLINT NOT NULL,
-    [card_time]      SMALLINT NOT NULL,
+    [card_code]      INT NOT NULL,
+    [game_code]      INT NOT NULL,
+    [player_code]    INT NOT NULL,
+    [card_time]      INT NOT NULL,
     [is_injury_time] BIT      NULL,
     [is_yellow]      BIT      NOT NULL,
     [is_2nd_yellow]  BIT      NOT NULL,

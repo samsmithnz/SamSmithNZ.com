@@ -1,24 +1,24 @@
 ﻿CREATE FUNCTION [dbo].[fnWC_GetTeamGoalsAgainst](
-	@tournament_code smallint,
-	@round_number smallint,
-	@round_code varchar(10),
-	@team_code smallint
+	@tournament_code INT,
+	@round_number INT,
+	@round_code VARCHAR(10),
+	@team_code INT
 )
-RETURNS smallint
+RETURNS INT
 AS
 BEGIN
-	DECLARE @total smallint
+	DECLARE @total INT
 
 	SELECT @total = 0
 
-	SELECT @total = @total + isnull(sum(team_2_normal_time_score),0)
+	SELECT @total = @total + ISNULL(sum(team_2_normal_time_score),0)
 	FROM wc_game 
 	WHERE tournament_code = @tournament_code
 	and round_number = @round_number
 	and round_code = @round_code
 	and team_1_code = @team_code
 
-	SELECT @total = @total + isnull(sum(team_1_normal_time_score),0) 
+	SELECT @total = @total + ISNULL(sum(team_1_normal_time_score),0) 
 	FROM wc_game 
 	WHERE tournament_code = @tournament_code
 	and round_number = @round_number

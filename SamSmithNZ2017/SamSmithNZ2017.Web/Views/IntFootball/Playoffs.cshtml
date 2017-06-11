@@ -1,0 +1,604 @@
+﻿@model SamSmithNZ2015.Models.IntFootball.PlayoffViewModel
+@{
+    ViewBag.Title = "Playoff Details";
+    Layout = "~/Views/Shared/_LayoutIntFootball.cshtml";
+    bool showDebugElements = false;
+}
+
+<script>
+
+    $(document).ready(function () {
+
+        var show16s = "@Model.Show16s.ToString()";
+        var showQuarters = "@Model.ShowQuarters.ToString()";
+        var showSemis = "@Model.ShowSemis.ToString()";
+        var show3rdPlace = "@Model.Show3rdPlace.ToString()";
+        var showFinals = "@Model.ShowFinals.ToString()";
+
+        if (show16s == "False") {
+            $('td[id^=tdCol_B]').each(function () {
+                $(this).hide();
+            });
+            $('td[id^=tdCol_C]').each(function () {
+                $(this).hide();
+            });
+            $('td[id^=tdCol_D]').each(function () {
+                $(this).hide();
+            });
+            $('td[id^=tdCol_E]').each(function () {
+                $(this).hide();
+            });
+        }
+        if (showQuarters == "False") {
+            $('td[id^=tdCol_F]').each(function () {
+                $(this).hide();
+            });
+            $('td[id^=tdCol_G]').each(function () {
+                $(this).hide();
+            });
+            $('td[id^=tdCol_H]').each(function () {
+                $(this).hide();
+            });
+            $('td[id^=tdCol_I]').each(function () {
+                $(this).hide();
+            });
+        }
+        if (showSemis == "False") {
+            $('td[id^=tdCol_J]').each(function () {
+                $(this).hide();
+            });
+            $('td[id^=tdCol_K]').each(function () {
+                $(this).hide();
+            });
+            $('td[id^=tdCol_L]').each(function () {
+                $(this).hide();
+            });
+            $('td[id^=tdCol_M]').each(function () {
+                $(this).hide();
+            });
+        }
+        if (show3rdPlace == "False") {
+            $('td[id^=tdCol_N]').each(function () {
+                var id = $(this).attr('id');
+                if (id.substr(id.length - 1) == "8" | id.substr(id.length - 1) == "9" | id.substr(id.length - 2) == "10" | id.substr(id.length - 2) == "11") {
+                    $(this).hide();
+                }
+            });
+            $('td[id^=tdCol_O]').each(function () {
+                var id = $(this).attr('id');
+                if (id.substr(id.length - 1) == "4" | id.substr(id.length - 1) == "5") {
+                    $(this).hide();
+                }
+            });
+        }
+        if (showFinals == "False") {
+            $('td[id^=tdCol_N]').each(function () {
+                $(this).hide();
+            });
+            $('td[id^=tdCol_O]').each(function () {
+                $(this).hide();
+            });
+        }
+
+
+    });
+</script>
+
+<style type="text/css">
+    .Col_A {
+        background-color: White /* Peru */;
+        text-align: center;
+    }
+
+    .Col_B {
+        background-color: White /* LightGreen */;
+        text-align: center;
+    }
+
+    .Col_C {
+        background-color: White /* CornFlowerBlue */;
+        text-align: center;
+    }
+
+    .Col_D {
+        background-color: White /* Tomato */;
+        text-align: center;
+    }
+
+    .Col_E {
+        background-color: White /* Wheat*/;
+        text-align: center;
+    }
+
+    .Col_F {
+        background-color: White /* LightGreen */;
+        text-align: center;
+    }
+
+    .Col_G {
+        background-color: White /* CornFlowerBlue */;
+        text-align: center;
+    }
+
+    .Col_H {
+        background-color: White /* Tomato */;
+        text-align: center;
+    }
+
+    .Col_I {
+        background-color: White /* Wheat*/;
+        text-align: center;
+    }
+
+    .Col_J {
+        background-color: White /* LightGreen */;
+        text-align: center;
+    }
+
+    .Col_K {
+        background-color: White /* CornFlowerBlue */;
+        text-align: center;
+    }
+
+    .Col_L {
+        background-color: White /* Tomato */;
+        text-align: center;
+    }
+
+    .Col_M {
+        background-color: White /* Wheat*/;
+        text-align: center;
+    }
+
+    .Col_N {
+        background-color: White /* LightGreen */;
+        text-align: center;
+    }
+
+    .Col_O {
+        background-color: White /* CornFlowerBlue */;
+        text-align: center;
+    }
+
+    .PlayoffHeader {
+        background-color: #f2f2f2;
+        border-bottom: #aaa 1px solid;
+        border-left: #aaa 1px solid;
+        border-top: #aaa 1px solid;
+        border-right: #aaa 1px solid;
+        text-align: center;
+    }
+
+    .PlayoffTeam {
+        background-color: White /* LightGreen */;
+        text-align: left;
+        border-bottom: #aaa 1px solid;
+        border-left: #aaa 1px solid;
+        border-top: #aaa 1px solid;
+        border-right: #aaa 1px solid;
+    }
+
+    .PlayoffScore {
+        background-color: White /* CornFlowerBlue */; /*#f9f9f9*/
+        text-align: center;
+        border-bottom: #aaa 1px solid;
+        border-left: #aaa 1px solid;
+        border-top: #aaa 1px solid;
+        border-right: #aaa 1px solid;
+    }
+
+    .PlayoffTimeLocation {
+        background-color: White /* LightGreen */;
+        text-align: left;
+    }
+</style>
+
+<div id="divPlayoffTable">
+    <table border="0" cellpadding="0" cellspacing="0" class="PlayoffTable">
+        @if (showDebugElements == true)
+        {
+            <tr>
+                <td class="Col_A" id="tdCol_A0" runat="server"></td>
+                <td class="Col_B" id="tdCol_B0" runat="server">Col_B
+                </td>
+                <td class="Col_C" id="tdCol_C0" runat="server">Col_C
+                </td>
+                <td class="Col_D" id="tdCol_D0" runat="server">Col_D
+                </td>
+                <td class="Col_E" id="tdCol_E0" runat="server">Col_E
+                </td>
+                <td class="Col_F" id="tdCol_F0" runat="server">Col_F
+                </td>
+                <td class="Col_G" id="tdCol_G0" runat="server">Col_G
+                </td>
+                <td class="Col_H" id="tdCol_H0" runat="server">Col_H
+                </td>
+                <td class="Col_I" id="tdCol_I0" runat="server">Col_I
+                </td>
+                <td class="Col_J" id="tdCol_J0" runat="server">Col_J
+                </td>
+                <td class="Col_K" id="tdCol_K0" runat="server">Col_K
+                </td>
+                <td class="Col_L" id="tdCol_L0" runat="server">Col_L
+                </td>
+                <td class="Col_M" id="tdCol_M0" runat="server">Col_M
+                </td>
+                <td class="Col_N" id="tdCol_N0" runat="server">Col_N
+                </td>
+                <td class="Col_O" id="tdCol_O0" runat="server">Col_O
+                </td>
+            </tr>
+        }
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" class="PlayoffHeader" id="tdCol_B1" runat="server">Round of 16
+            </td>
+            <td colspan="2" class="Col_D" id="tdCol_D1" runat="server"></td>
+            <td colspan="2" class="PlayoffHeader" id="tdCol_F1" runat="server">Quarter-finals
+            </td>
+            <td colspan="2" class="Col_H" id="tdCol_H1" runat="server"></td>
+            <td colspan="2" class="PlayoffHeader" id="tdCol_J1" runat="server">Semi-finals
+            </td>
+            <td colspan="2" class="Col_L" id="tdCol_L1" runat="server"></td>
+            <td colspan="2" class="PlayoffHeader" id="tdCol_N1" runat="server">Final
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <!-- Top 16 -->
+            <td width="175" class="Col_B" id="tdCol_B2" runat="server">&nbsp;
+            </td>
+            <td width="50" class="Col_C" id="tdCol_C1" runat="server">&nbsp;
+            </td>
+            <td width="15" class="Col_D" id="tdCol_D2" runat="server">&nbsp;
+            </td>
+            <td width="20" class="Col_E" id="tdCol_E1" runat="server">&nbsp;
+            </td>
+            <!-- Quarters -->
+            <td width="175" class="Col_F" id="tdCol_F2" runat="server">&nbsp;
+            </td>
+            <td width="50" class="Col_G" id="tdCol_G1" runat="server">&nbsp;
+            </td>
+            <td width="15" class="Col_H" id="tdCol_H2" runat="server">&nbsp;
+            </td>
+            <td width="20" class="Col_I" id="tdCol_I1" runat="server">&nbsp;
+            </td>
+            <!-- Semis -->
+            <td width="175" class="Col_J" id="tdCol_J2" runat="server">&nbsp;
+            </td>
+            <td width="50" class="Col_K" id="tdCol_K1" runat="server">&nbsp;
+            </td>
+            <td width="15" class="Col_L" id="tdCol_L2" runat="server">&nbsp;
+            </td>
+            <td width="20" class="Col_M" id="tdCol_M1" runat="server">&nbsp;
+            </td>
+            <!-- Final -->
+            <td width="175" class="Col_N" id="tdCol_N2" runat="server">&nbsp;
+            </td>
+            <td width="50" class="Col_O" id="tdCol_O1" runat="server">&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B3" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 49, showDebugElements))
+            </td>
+            <td rowspan="4" style="border-bottom: black 1px solid;" class="Col_D" id="tdCol_D3"
+                runat="server">&nbsp;
+            </td>
+            <td rowspan="7" style="border-bottom: black 1px solid;" class="Col_E" id="tdCol_E2"
+                runat="server">&nbsp;
+            </td>
+            <td colspan="2" rowspan="3" class="Col_F" id="tdCol_F3" runat="server"></td>
+            <td rowspan="7" style="border-bottom: black 1px solid;" class="Col_H" id="tdCol_H3"
+                runat="server">&nbsp;
+            </td>
+            <td rowspan="13" style="border-bottom: black 1px solid;" class="Col_I" id="tdCol_I2"
+                runat="server">&nbsp;
+            </td>
+            <td colspan="2" rowspan="9" class="Col_J" id="tdCol_J3" runat="server"></td>
+            <td rowspan="13" style="border-bottom: black 1px solid;" class="Col_L" id="tdCol_L3"
+                runat="server">&nbsp;
+            </td>
+            <td rowspan="25" style="border-bottom: black 1px solid;" class="Col_M" id="tdCol_M2"
+                runat="server">&nbsp;
+            </td>
+            <td colspan="2" rowspan="21" class="Col_N" id="tdCol_N3" runat="server"></td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 49, showDebugElements, true, "tdCol_B4", "tdCol_C2"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_F4" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 58, showDebugElements))
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 49, showDebugElements, false, "tdCol_B5", "tdCol_C3"))
+            <td rowspan="6" style="border-bottom: black 1px solid; border-top: black 2px solid; border-right: black 3px solid"
+                class="Col_D" id="tdCol_D4" runat="server">&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 58, showDebugElements, true, "tdCol_F5", "tdCol_G2"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B6" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 50, showDebugElements))
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td rowspan="12" style="border-bottom: black 1px solid; border-top: black 2px solid;"
+                class="Col_E" id="tdCol_E3" runat="server">&nbsp;
+            </td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 58, showDebugElements, false, "tdCol_F6", "tdCol_G3"))
+            <td rowspan="12" style="border-bottom: black 1px solid; border-top: black 2px solid; border-right: black 3px solid"
+                class="Col_D" id="tdCol_H4" runat="server">&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 50, showDebugElements, true, "tdCol_B7", "tdCol_C4"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="6" class="Col_F" id="tdCol_F7" runat="server"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_J4" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 61, showDebugElements))
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 50, showDebugElements, false, "tdCol_B8", "tdCol_C5"))
+            <td rowspan="6" style="border-bottom: black 1px solid; border-top: black 2px solid;"
+                class="Col_D" id="tdCol_D5" runat="server">&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 61, showDebugElements, true, "tdCol_J5", "tdCol_K2"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B9" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 53, showDebugElements))
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td rowspan="24" style="border-bottom: black 1px solid; border-top: black 2px solid;"
+                class="Col_I" id="tdCol_I3" runat="server">&nbsp;
+            </td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 61, showDebugElements, false, "tdCol_J6", "tdCol_K3"))
+            <td rowspan="24" style="border-bottom: black 1px solid; border-top: black 2px solid; border-right: black 3px solid"
+                class="Col_L" id="tdCol_L4" runat="server">&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 53, showDebugElements, true, "tdCol_B10", "tdCol_C6"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_F8" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 57, showDebugElements))
+            </td>
+            <td colspan="2" rowspan="18" class="Col_J" id="tdCol_J7" runat="server"></td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 53, showDebugElements, false, "tdCol_B11", "tdCol_C7"))
+            <td rowspan="6" style="border-bottom: black 1px solid; border-top: black 2px solid; border-right: black 3px solid"
+                class="Col_D" id="tdCol_D6" runat="server">&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 57, showDebugElements, true, "tdCol_F9", "tdCol_G4"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B12" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 54, showDebugElements))
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td rowspan="12" style="border-bottom: black 1px solid; border-top: black 2px solid;"
+                class="Col_E" id="tdCol_E4" runat="server">&nbsp;
+            </td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 57, showDebugElements, false, "tdCol_F10", "tdCol_G5"))
+            <td rowspan="12" style="border-bottom: black 1px solid; border-top: black 2px solid;"
+                class="Col_H" id="tdCol_H5" runat="server">&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 54, showDebugElements, true, "tdCol_B13", "tdCol_C8"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="6" class="Col_F" id="tdCol_F11" runat="server"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_N4" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 64, showDebugElements))
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 54, showDebugElements, false, "tdCol_B14", "tdCol_C9"))
+            <td rowspan="6" style="border-bottom: black 1px solid; border-top: black 2px solid;"
+                class="Col_D" id="tdCol_D7" runat="server">&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 64, showDebugElements, true, "tdCol_N5", "tdCol_O2"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B15" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 52, showDebugElements))
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td rowspan="23" style="border-top: black 2px solid;" class="Col_M" id="tdCol_M3"
+                runat="server">&nbsp;
+            </td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 64, showDebugElements, false, "tdCol_N6", "tdCol_O3"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 52, showDebugElements, true, "tdCol_B16", "tdCol_C10"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_F12" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 59, showDebugElements))
+            </td>
+            <td colspan="2" rowspan="10" class="Col_N" id="tdCol_N7" runat="server"></td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 52, showDebugElements, false, "tdCol_B17", "tdCol_C11"))
+            <td rowspan="6" style="border-bottom: black 1px solid; border-top: black 2px solid; border-right: black 3px solid"
+                class="Col_D" id="tdCol_D8" runat="server">&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 59, showDebugElements, true, "tdCol_F13", "tdCol_G6"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B18" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 51, showDebugElements))
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td rowspan="12" style="border-bottom: black 1px solid; border-top: black 2px solid;"
+                class="Col_E" id="tdCol_E5" runat="server">&nbsp;
+            </td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 59, showDebugElements, false, "tdCol_F14", "tdCol_G7"))
+            <td rowspan="12" style="border-bottom: black 1px solid; border-top: black 2px solid; border-right: black 3px solid"
+                class="Col_H" id="tdCol_H6" runat="server">&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 51, showDebugElements, true, "tdCol_B19", "tdCol_C12"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="6" class="Col_F" id="tdCol_F15" runat="server"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_J8" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 62, showDebugElements))
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 51, showDebugElements, false, "tdCol_B20", "tdCol_C13"))
+            <td rowspan="6" style="border-bottom: black 1px solid; border-top: black 2px solid;"
+                class="Col_D" id="tdCol_D9" runat="server">&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 62, showDebugElements, true, "tdCol_J9", "tdCol_K4"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B21" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 55, showDebugElements))
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td rowspan="11" style="border-top: black 2px solid;" class="Col_I" id="tdCol_I4"
+                runat="server">&nbsp;
+            </td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 62, showDebugElements, false, "tdCol_J10", "tdCol_K5"))
+            <td rowspan="11" style="border-bottom: black 0px solid; border-left: black 0px solid; border-top: black 2px solid; border-right: black 0px solid"
+                class="Col_L" id="tdCol_L5"
+                runat="server">&nbsp;
+            </td>
+            <td colspan="2" rowspan="2" class="PlayoffHeader" id="tdCol_N8" runat="server">Third place
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 55, showDebugElements, true, "tdCol_B22", "tdCol_C14"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_F16" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 60, showDebugElements))
+            </td>
+            <td colspan="2" rowspan="9" class="Col_J" id="tdCol_J11" runat="server"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_N9" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 63, showDebugElements))
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 55, showDebugElements, false, "tdCol_B23", "tdCol_C15"))
+            <td rowspan="6" style="border-bottom: black 1px solid; border-top: black 2px solid; border-right: black 3px solid"
+                class="Col_D" id="tdCol_D10" runat="server">&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 60, showDebugElements, true, "tdCol_F17", "tdCol_G8"))
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 63, showDebugElements, true, "tdCol_N10", "tdCol_O4"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B24" runat="server">
+                @Html.Partial("PlayoffPart1Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart1ViewModel(Model.GameList, 56, showDebugElements))
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td rowspan="5" style="border-top: black 2px solid;" class="Col_E" id="tdCol_E6"
+                runat="server">&nbsp;
+            </td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 60, showDebugElements, false, "tdCol_F18", "tdCol_G9"))
+            <td rowspan="5" style="border-top: black 2px solid;" class="Col_H" id="tdCol_H7"
+                runat="server">&nbsp;
+            </td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 63, showDebugElements, false, "tdCol_N11", "tdCol_O5"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 56, showDebugElements, true, "tdCol_B25", "tdCol_C16"))
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            <td colspan="2" rowspan="3" class="Col_F" id="tdCol_F19" runat="server"></td>
+            <td colspan="2" rowspan="3" class="Col_N" id="tdCol_N12" runat="server"></td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+            @Html.Partial("PlayoffPart2Partial", new SamSmithNZ2015.Models.IntFootball.PlayoffPart2ViewModel(Model.GameList, 56, showDebugElements, false, "tdCol_B26", "tdCol_C17"))
+            <td rowspan="2" style="border-top: black 2px solid;" class="Col_D" id="tdCol_D11"
+                runat="server">&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td height="5" class="Col_A"></td>
+        </tr>
+    </table>
+    <br />
+
+    @Html.Partial("GamePartial", new SamSmithNZ2015.Models.IntFootball.GameViewModel(Model.GameList, false, true, showDebugElements))
+</div>

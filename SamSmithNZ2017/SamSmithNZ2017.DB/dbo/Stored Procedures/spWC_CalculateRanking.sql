@@ -82,14 +82,14 @@ Ranking Points = 100 X (result points X match status X opposition strength X reg
 IF (@ranking_date = CONVERT(DATETIME,'1900-1-1'))
 BEGIN
 	INSERT INTO wc_ranking
-	SELECT @ranking_date, team_code, 1 as ranking, 0 as score
+	SELECT @ranking_date, team_code, 1 AS ranking, 0 AS score
 	FROM wc_tournament_team_entry
 	WHERE tournament_code = 1
 END
 ELSE
 BEGIN
 
-	CREATE TABLE #tmp_ranking (team_code smallint, total_score decimal(10,2))
+	CREATE TABLE #tmp_ranking (team_code INT, total_score decimal(10,2))
 	DECLARE @RankingYear INT
 	SELECT @RankingYear = YEAR(@ranking_date)
 	INSERT INTO #tmp_ranking
@@ -103,12 +103,12 @@ BEGIN
 	-------------------------------------------------------------------------------
 	
 	CREATE TABLE #tmp_game_ranking (
-		game_code smallint, 
+		game_code INT, 
 		game_age_multiplier decimal(10,2),
-		team_1_code smallint, 
+		team_1_code INT, 
 		team_1_match_result decimal(10,2),
 		team_1_opposition_strength decimal(10,2),
-		team_2_code smallint, 
+		team_2_code INT, 
 		team_2_match_result decimal(10,2),
 		team_2_opposition_strength decimal(10,2))
 	
@@ -143,7 +143,7 @@ BEGIN
 	INSERT INTO wc_ranking
 	SELECT @ranking_date, 
 		team_code, 
-		CONVERT(SMALLINT,RANK() OVER (ORDER BY SUM(total_score) DESC)), 
+		CONVERT(INT,RANK() OVER (ORDER BY SUM(total_score) DESC)), 
 		SUM(total_score)
 	FROM #tmp_ranking
 	GROUP BY team_code

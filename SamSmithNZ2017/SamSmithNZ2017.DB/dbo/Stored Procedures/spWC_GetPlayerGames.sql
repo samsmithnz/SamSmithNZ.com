@@ -1,10 +1,10 @@
 ﻿CREATE PROCEDURE [dbo].[spWC_GetPlayerGames]
-	@player_code smallint
+	@player_code INT
 AS
 SELECT p.player_code, p.player_name, t.team_code, t.team_name, t.flag_name,
 	g.game_code, g.game_time, g.round_number, r.round_name, g.location, 
 	gl.goal_time, gl.injury_time, gl.is_penalty, gl.is_own_goal,
-	tt.name as tournament_name
+	tt.name AS tournament_name
 FROM wc_game g 
 JOIN wc_team t ON g.team_2_code = t.team_code
 JOIN wc_goal gl ON gl.game_code = g.game_code
@@ -17,7 +17,7 @@ UNION
 SELECT p.player_code, p.player_name, t.team_code, t.team_name, t.flag_name,
 	g.game_code, g.game_time, g.round_number, r.round_name, g.location, 
 	gl.goal_time, gl.injury_time, gl.is_penalty, gl.is_own_goal,
-	tt.name as tournament_name
+	tt.name AS tournament_name
 FROM wc_game g 
 JOIN wc_team t ON g.team_1_code = t.team_code
 JOIN wc_goal gl ON gl.game_code = g.game_code

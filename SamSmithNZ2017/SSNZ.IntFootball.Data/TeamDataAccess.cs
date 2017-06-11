@@ -13,15 +13,15 @@ namespace SSNZ.IntFootball.Data
         {
             DynamicParameters parameters = new DynamicParameters();
 
-            return await base.GetListAsync("spIFB_GetTeamList", parameters);
+            return await base.GetListAsync("FB_GetTeams", parameters);
         }
 
         public async Task<Team> GetItemAsync(int teamCode)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@tournament_code", teamCode, DbType.Int32);
+            parameters.Add("@TeamCode", teamCode, DbType.Int32);
 
-            return await base.GetItemAsync("spIFB_GetTeamList", parameters);
+            return await base.GetItemAsync("FB_GetTeams", parameters);
         }
 
     }

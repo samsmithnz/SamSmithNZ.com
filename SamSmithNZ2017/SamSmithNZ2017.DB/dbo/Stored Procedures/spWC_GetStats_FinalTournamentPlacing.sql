@@ -1,13 +1,13 @@
 ﻿CREATE PROCEDURE [dbo].[spWC_GetStats_FinalTournamentPlacing]
-	@tournament_code smallint
+	@tournament_code INT
 AS
 SET NOCOUNT ON
 
 /*
-SELECT CONVERT(smallint, null) as placing,
-	CONVERT(varchar(100), null) as team_name
+SELECT CONVERT(INT, NULL) AS placing,
+	CONVERT(VARCHAR(100), NULL) AS team_name
 */
-CREATE TABLE #tmp_final_placing (placing smallint, team_code smallint)
+CREATE TABLE #tmp_final_placing (placing INT, team_code INT)
 
 --1st Place
 INSERT INTO #tmp_final_placing 

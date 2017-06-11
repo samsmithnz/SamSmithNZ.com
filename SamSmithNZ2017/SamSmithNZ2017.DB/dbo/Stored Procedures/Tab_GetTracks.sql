@@ -14,7 +14,7 @@ SELECT track_code AS TabCode,
 	CASE WHEN tr.tuning_code = 0 THEN '' ELSE tu.tuning_name END AS TuningName, 
 	tr.last_updated AS LastUpdated
 FROM tab_track tr
-LEFT OUTER JOIN tab_tuning tu ON tr.tuning_code = tu.tuning_code
+LEFT JOIN tab_tuning tu ON tr.tuning_code = tu.tuning_code
 WHERE (@AlbumCode IS NULL OR album_code = @AlbumCode)
 AND (@TabCode IS NULL OR track_code = @TabCode)
 ORDER BY CASE WHEN @SortOrder = 0 OR tr.tuning_code = 0 THEN track_order ELSE tr.tuning_code END, track_name 

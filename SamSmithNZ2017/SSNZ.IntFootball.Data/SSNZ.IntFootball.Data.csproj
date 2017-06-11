@@ -46,8 +46,8 @@
   <ItemGroup>
     <Compile Include="GameDataAccess.cs" />
     <Compile Include="GenericDataAccess.cs" />
+    <Compile Include="GroupCodeDataAccess.cs" />
     <Compile Include="GroupDataAccess.cs" />
-    <Compile Include="GroupDetailDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TeamDataAccess.cs" />
     <Compile Include="TeamRoundDataAccess.cs" />

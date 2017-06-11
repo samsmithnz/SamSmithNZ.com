@@ -48,10 +48,15 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="GroupTests.cs" />
+    <Compile Include="GamesTests.cs" />
+    <Compile Include="GroupCodeTests.cs" />
+    <Compile Include="TeamTests.cs" />
+    <Compile Include="TournamentTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

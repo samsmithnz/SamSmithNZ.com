@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutIntFootball.cshtml";
+}
+
+<div ng-controller="indexController">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>World Cup</th>
+                    <th>Round 1</th>
+                    <th>Round 2</th>
+                    <th>Round 3</th>
+                    <th>% Data Loaded</th>
+                    <th>Data Missing</th>
+                </tr>
+                <tr ng-repeat="item in tournaments">
+                    <td>
+                        <img ng-src="~/Content/IntFootball/teams/{{item.HostFlagName}}" />
+                        <img ng-src="~/Content/IntFootball/teams/{{item.CoHostFlagName}}" ng-if="item.CoHostFlagName!=''" />
+                        <a href="/IntFootball/Tournament?tournamentCode={{item.TournamentCode}}">{{item.TournamentName}}</a>
+                    </td>
+                    <td>
+                        <a href="/IntFootball/Group?tournamentCode={{item.TournamentCode}}&roundNumber=1&isLastRound={{item.R2FormatRoundCode==0}})" ng-if="item.GameCount > 0 && item.R1FormatRoundCode > 0 && item.R1IsGroupStage == true">Group Stage</a>
+                        <a href="/IntFootball/Playoffs?tournamentCode={{item.TournamentCode}}&roundNumber=1&isLastRound={{item.R2FormatRoundCode==0}}" ng-if="item.GameCount > 0 && item.R1FormatRoundCode > 0 && item.R1IsGroupStage == false">Playoffs</a>
+                    </td>
+                    <td>
+                        <a href="/IntFootball/Group?tournamentCode={{item.TournamentCode}}&roundNumber=2&isLastRound={{item.R3FormatRoundCode==0}})" ng-if="item.GameCount > 0 && item.R2FormatRoundCode > 0 && item.R2IsGroupStage == true">Group Stage</a>
+                        <a href="/IntFootball/Playoffs?tournamentCode={{item.TournamentCode}}&roundNumber=2&isLastRound={{item.R3FormatRoundCode==0}}" ng-if="item.GameCount > 0 && item.R2FormatRoundCode > 0 && item.R2IsGroupStage == false">Playoffs</a>
+                    </td>
+                    <td>
+                        <a href="/IntFootball/Group?tournamentCode={{item.TournamentCode}}&roundNumber=3&isLastRound=true)" ng-if="item.GameCount > 0 && item.R3FormatRoundCode > 0  && item.R3IsGroupStage == true">Group Stage</a>
+                        <a href="/IntFootball/Playoffs?tournamentCode={{item.TournamentCode}}&roundNumber=3&isLastRound=true" ng-if="item.GameCount > 0 && item.R3FormatRoundCode > 0  && item.R3IsGroupStage == false">Playoffs</a>
+                    </td>
+                    <td>{{item.ImportingTotalPercentComplete * 100}}%</td>
+                    <td>
+                        <span ng-if="item.MinGameTime != null">
+                            <span ng-if="item.ImportingTeamPercent < 1">Teams Missing: {{(1 - item.ImportingTeamPercent) * 100}}%; </span>
+                            <span ng-if="item.ImortingGamePercent < 1">Games Missing: {{(1 - item.ImportingGamePercent) * 100}}%; </span>
+                            <span ng-if="item.ImportingPlayerPercent < 1">Team Rosters Missing: {{(1 - item.ImportingPlayerPercent) * 100}}%; </span>
+                            <span ng-if="item.ImportingGoalsPercent < 1">Player Goal Assignments Missing: {{(1 - item.ImportingGoalsPercent) * 100}}%; </span>
+                            <span ng-if="item.ImportingPenaltyShootoutGoalsPercent < 1">Player Penalty Shootouts Assignments Missing: {{(1 - item.ImportingPenaltyShootoutGoalsPercent) * 100}}%; </span>                           
+                            @*<span ng-if="item.ImportingPlayerPercent < 1 && item.ImportingGoalsPercent < 1 && item.ImportingPenaltyShootoutGoalsPercent < 1">Team Rosters & Player Goal Assignments</span>
+                            <span ng-if="item.ImportingGoalsPercent < 1 && item.ImportingPenaltyShootoutGoalsPercent < 1">All Player Goal Assignments</span>*@
+                        </span>
+                        <span ng-if="item.MinGameTime == null">
+                            <span>(Tournament not started)</span>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

@@ -19,5 +19,6 @@ namespace SSNZ.IntFootball.Models
         public string CoachName { get; set; }
         public string CoachNationalityFlagName { get; set; }
         public string ELORating { get; set; }
+
     }
 }

@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace SSNZ.IntFootball.Data
 {
-    public class GroupDataAccess :  GenericDataAccess<Group>
+    public class GroupDataAccess : GenericDataAccess<Group>
     {
-
-        public async Task<List<Group>> GetListAsync(int tournamentCode, int roundNumber)
+        public async Task<List<Group>> GetListAsync(int tournamentCode, int roundNumber, string roundCode)
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@tournament_code", tournamentCode, DbType.Int32);
-            parameters.Add("@round_number", roundNumber, DbType.Int32);
+            parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
+            parameters.Add("@RoundNumber", roundNumber, DbType.Int32);
+            parameters.Add("@RoundCode", roundCode, DbType.String);
 
-            return await base.GetListAsync("spIFB_GetGroupList", parameters);
-        }     
-        
+            return await base.GetListAsync("FB_GetGroups", parameters);
+        }      
+
     }
 }

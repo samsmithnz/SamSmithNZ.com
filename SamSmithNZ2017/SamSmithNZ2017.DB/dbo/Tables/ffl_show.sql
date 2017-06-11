@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[ffl_show] (
-    [show_key]          SMALLINT       NOT NULL,
+    [show_key]          INT       NOT NULL,
     [show_date]         DATETIME       NULL,
     [show_location]     VARCHAR (100)  NULL,
     [show_city]         VARCHAR (50)   NULL,

@@ -4,7 +4,7 @@
     [TrackPath]  VARCHAR (100) NULL,
     [TrackOrder] INT           NULL,
     [AlbumKey]   INT           NULL,
-    [Rating]     SMALLINT      NULL,
+    [Rating]     INT      NULL,
     CONSTRAINT [PK_Tracks] PRIMARY KEY CLUSTERED ([TrackKey] ASC)
 );
 

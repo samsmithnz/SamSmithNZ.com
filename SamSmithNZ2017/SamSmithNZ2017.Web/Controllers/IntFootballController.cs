@@ -16,14 +16,78 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Index()
         {
-            return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/Index");
+            if (System.Diagnostics.Debugger.IsAttached == true)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/Index");
+            }
+
             //SamSmithNZ2015.Core.IntFootball.DataAccess.TournamentDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.TournamentDataAccess();
             //return View(da.GetItems(1));
         }
 
-        public ActionResult TournamentDetails(short tournamentCode)
+        public ActionResult Tournament(int tournamentCode)
         {
-            return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/TournamentDetails?tournamentCode=" + tournamentCode);
+            if (System.Diagnostics.Debugger.IsAttached == true)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/TournamentDetails?tournamentCode=" + tournamentCode);
+            }
+        }
+
+        public ActionResult Group(int tournamentCode, int roundNumber, bool isLastRound)
+        {
+            if (System.Diagnostics.Debugger.IsAttached == true)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/GroupDetails?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber + "&isLastRound=" + isLastRound);
+            }
+        }
+
+        public ActionResult Playoffs(int tournamentCode, int roundNumber)
+        {
+            if (System.Diagnostics.Debugger.IsAttached == true)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/PlayoffDetails?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber);
+            }
+        }
+
+        public ActionResult Team(int teamCode)
+        {
+            if (System.Diagnostics.Debugger.IsAttached == true)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/Team?teamCode=" + teamCode);
+            }
+
+            //SamSmithNZ2015.Core.IntFootball.DataAccess.TeamDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.TeamDataAccess();
+            //Team teamDetails = da.GetItem(teamCode);
+
+            //SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess da3 = new SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess();
+            //IList<Game> gameList = da3.GetItemsByTeam(teamCode);
+
+            //return View(new TeamViewModel(teamDetails, gameList));
+        }
+
+        public ActionResult TournamentDetails(int tournamentCode)
+        {
+            return RedirectToAction("Tournament", new { tournamentCode = tournamentCode });
 
             //SamSmithNZ2015.Core.IntFootball.DataAccess.TournamentDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.TournamentDataAccess();
             //Tournament tournament = da.GetItem(tournamentCode);
@@ -45,10 +109,10 @@ namespace SamSmithNZ2017.Controllers
             //return View(new TournamentDetailsViewModel(tournament, tournamentTeams, tournamentTeamPlacing));
         }
 
-        public ActionResult GroupDetails(short tournamentCode, short roundNumber, bool isLastRound)
+        public ActionResult GroupDetails(int tournamentCode, int roundNumber, bool isLastRound)
         {
-            return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/GroupDetails?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber + "&isLastRound=" + isLastRound);
-
+            return RedirectToAction("Group", new { tournamentCode = tournamentCode, roundNumber = roundNumber, isLastRound = isLastRound });
+            
             //SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDataAccess();
             //List<Group> groups = da.GetItems(tournamentCode, roundNumber);
 
@@ -67,31 +131,39 @@ namespace SamSmithNZ2017.Controllers
             //return View(new GroupViewModel(selectedGroup, groups, groupDetails, gameList, tournamentCode, roundNumber, isLastRound));
         }
 
-        [HttpPost]
-        public ActionResult GroupDetails(short tournamentCode, short roundNumber, string cboGroup, bool isLastRound)
+        //[HttpPost]
+        //public ActionResult GroupDetails(int tournamentCode, int roundNumber, string cboGroup, bool isLastRound)
+        //{
+        //    if (System.Diagnostics.Debugger.IsAttached == true)
+        //    {
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/GroupDetails?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber + "&cboGroup=" + cboGroup + "&isLastRound=" + isLastRound);
+        //    }
+
+        //    //SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDataAccess();
+        //    //List<Group> groups = da.GetItems(tournamentCode, roundNumber);
+
+        //    //if (string.IsNullOrEmpty(cboGroup) == true && groups.Count > 0)
+        //    //{
+        //    //    cboGroup = groups[0].RoundCode;
+        //    //}
+
+        //    //SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDetailDataAccess da2 = new SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDetailDataAccess();
+        //    //List<GroupDetail> groupDetails = da2.GetItems(tournamentCode, roundNumber, cboGroup);
+
+        //    //SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess da3 = new SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess();
+        //    //IList<Game> gameList = da3.GetItems(tournamentCode, roundNumber, cboGroup);
+
+        //    //return View(new GroupViewModel(cboGroup, groups, groupDetails, gameList, tournamentCode, roundNumber, isLastRound));
+        //}
+
+        public ActionResult PlayoffDetails(int tournamentCode, int roundNumber)
         {
-            return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/GroupDetails?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber + "&cboGroup=" + cboGroup + "&isLastRound=" + isLastRound);
 
-            //SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDataAccess();
-            //List<Group> groups = da.GetItems(tournamentCode, roundNumber);
-
-            //if (string.IsNullOrEmpty(cboGroup) == true && groups.Count > 0)
-            //{
-            //    cboGroup = groups[0].RoundCode;
-            //}
-
-            //SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDetailDataAccess da2 = new SamSmithNZ2015.Core.IntFootball.DataAccess.GroupDetailDataAccess();
-            //List<GroupDetail> groupDetails = da2.GetItems(tournamentCode, roundNumber, cboGroup);
-
-            //SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess da3 = new SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess();
-            //IList<Game> gameList = da3.GetItems(tournamentCode, roundNumber, cboGroup);
-
-            //return View(new GroupViewModel(cboGroup, groups, groupDetails, gameList, tournamentCode, roundNumber, isLastRound));
-        }
-
-        public ActionResult PlayoffDetails(short tournamentCode, short roundNumber)
-        {
-            return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/PlayoffDetails?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber);
+            return RedirectToAction("Playoffs", new { tournamentCode = tournamentCode, roundNumber = roundNumber});
 
             //SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess();
             //IList<Game> gameList = da.GetPlayoffItems(tournamentCode, roundNumber);
@@ -145,22 +217,16 @@ namespace SamSmithNZ2017.Controllers
             //return View(new PlayoffViewModel(gameList, show16s, showQuarters, showSemis, show3rdPlace, showFinals));
         }
 
-        public ActionResult Team(short teamCode)
+        public ActionResult ELORating(int tournamentCode)
         {
-            return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/Team?teamCode=" + teamCode);
-
-            //SamSmithNZ2015.Core.IntFootball.DataAccess.TeamDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.TeamDataAccess();
-            //Team teamDetails = da.GetItem(teamCode);
-
-            //SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess da3 = new SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess();
-            //IList<Game> gameList = da3.GetItemsByTeam(teamCode);
-
-            //return View(new TeamViewModel(teamDetails, gameList));
-        }
-
-        public ActionResult ELORating(short tournamentCode)
-        {
-            return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/ELORating?tournamentCode=" + tournamentCode);
+            if (System.Diagnostics.Debugger.IsAttached == true)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/ELORating?tournamentCode=" + tournamentCode);
+            }
 
             //SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.GameDataAccess();
             //List<Game> gameList = da.GetItems(tournamentCode);
@@ -172,7 +238,14 @@ namespace SamSmithNZ2017.Controllers
 
         public ActionResult Test()
         {
-            return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/Test");
+            if (System.Diagnostics.Debugger.IsAttached == true)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/Test");
+            }
 
             //return View();
         }
@@ -180,15 +253,29 @@ namespace SamSmithNZ2017.Controllers
         [HttpPost]
         public ActionResult WCOddsPost(string maxRange = "", bool chkShowActive = true, bool chkShowEliminated = false)
         {
-            return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/WCOddsPost?maxRange=" + maxRange + "&chkShowActive=" + chkShowActive + "&chkShowEliminated=" + chkShowEliminated);
+            if (System.Diagnostics.Debugger.IsAttached == true)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/WCOddsPost?maxRange=" + maxRange + "&chkShowActive=" + chkShowActive + "&chkShowEliminated=" + chkShowEliminated);
+            }
 
             ////return View(WCOdds(maxRange, chkShowActive, chkShowEliminated));
             //return RedirectToAction("Index", "FootballPool", new { maxRange = maxRange, chkShowActive = chkShowActive, chkShowEliminated = chkShowEliminated });
         }
 
-        public ActionResult WCOdds(string maxRange = "", bool showActive = true, bool showEliminated = false, short tournamentCode = 20)
+        public ActionResult WCOdds(string maxRange = "", bool showActive = true, bool showEliminated = false, int tournamentCode = 20)
         {
-            return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/WCOdds?maxRange=" + maxRange + "&showActive=" + showActive + "&showEliminated=" + showEliminated + "&tournamentCode=" + tournamentCode);
+            if (System.Diagnostics.Debugger.IsAttached == true)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/WCOdds?maxRange=" + maxRange + "&showActive=" + showActive + "&showEliminated=" + showEliminated + "&tournamentCode=" + tournamentCode);
+            }
 
             ////Scrap the odds
             //SamSmithNZ2015.Core.IntFootball.DataAccess.ImportGameOddsDataAccess da = new SamSmithNZ2015.Core.IntFootball.DataAccess.ImportGameOddsDataAccess();
@@ -263,14 +350,21 @@ namespace SamSmithNZ2017.Controllers
         }
 
         //From https://github.com/sghall/d3-multi-series-charts       
-        public ActionResult WCOddsGraph(short tournamentCode = 20)
+        public ActionResult WCOddsGraph(int tournamentCode = 20)
         {
-            return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/WCOddsGraph?tournamentCode=" + tournamentCode);
+            if (System.Diagnostics.Debugger.IsAttached == true)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/WCOddsGraph?tournamentCode=" + tournamentCode);
+            }
 
             //return View(CreateOddsGraphData(0.02, true, true, tournamentCode));
         }
 
-        //private System.Web.HtmlString CreateOddsGraphData(double oddsLimit, bool chkShowActive, bool chkShowEliminated, short tournamentCode)
+        //private System.Web.HtmlString CreateOddsGraphData(double oddsLimit, bool chkShowActive, bool chkShowEliminated, int tournamentCode)
         //{
         //    return Redirect("https://samsmithnz2015.azurewebsites.net/IntFootball/Index");
 

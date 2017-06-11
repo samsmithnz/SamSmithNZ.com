@@ -1,19 +1,19 @@
 ﻿/*
 CREATE TABLE [dbo].[wc_tournament_team_final_placing]
 (
-	tournament_code smallint, 
-	team_code smallint, 
-	final_placing smallint
+	tournament_code INT, 
+	team_code INT, 
+	final_placing INT
 )
 */
 
 CREATE PROCEDURE [dbo].[spWC_SetFinalTournamentPlacing]
-	@tournament_code smallint
+	@tournament_code INT
 AS
 	DELETE FROM wc_tournament_team_final_placing
 	WHERE tournament_code = @tournament_code
 
-	CREATE TABLE #tmp_final_placing (placing smallint, team_code smallint)
+	CREATE TABLE #tmp_final_placing (placing INT, team_code INT)
 
 	--1st Place
 	INSERT INTO #tmp_final_placing 

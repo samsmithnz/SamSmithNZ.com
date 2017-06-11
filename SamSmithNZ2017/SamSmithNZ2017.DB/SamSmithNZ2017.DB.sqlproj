@@ -240,6 +240,13 @@
     <Build Include="dbo\Stored Procedures\FFL_SaveShow.sql" />
     <Build Include="dbo\Stored Procedures\FFL_SaveShowSong.sql" />
     <Build Include="dbo\Stored Procedures\FFL_GetAverageSetlist.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetTournaments.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetTournamentTeams.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetTournamentTeamsPlacing.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetGames.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetTeams.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetGroups.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetGroupCodes.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />

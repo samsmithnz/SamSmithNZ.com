@@ -9,27 +9,36 @@ namespace SSNZ.IntFootball.Models
     {
         public Game() { }
 
-        public short RoundNumber { get; set; }
-        public string RoundName { get; set; }
-        public short GameCode { get; set; }
-        public short GameNumber { get; set; }
-        public DateTime GameTime { get; set; }
-        public short Team1Code { get; set; }
-        public string Team1Name { get; set; }
-        public short Team1NormalTimeScore { get; set; }
-        public short Team1ExtraTimeScore { get; set; }
-        public short Team1PenaltiesScore { get; set; }
-        public short Team2Code { get; set; }
-        public string Team2Name { get; set; }
-        public short Team2NormalTimeScore { get; set; }
-        public short Team2ExtraTimeScore { get; set; }
-        public short Team2PenaltiesScore { get; set; }
+        public int RoundNumber { get; set; }
         public string RoundCode { get; set; }
-        public string Location { get; set; }
+        public string RoundName { get; set; }
+        public int GameCode { get; set; }
+        public int GameNumber { get; set; }
+        public DateTime GameTime { get; set; }
+        public int Team1Code { get; set; }
+        public string Team1Name { get; set; }
+        public int Team1NormalTimeScore { get; set; }
+        public int? Team1ExtraTimeScore { get; set; }
+        public int? Team1PenaltiesScore { get; set; }
+        public int Team2Code { get; set; }
+        public string Team2Name { get; set; }
+        public int Team2NormalTimeScore { get; set; }
+        public int? Team2ExtraTimeScore { get; set; }
+        public int? Team2PenaltiesScore { get; set; }
         public string Team1FlagName { get; set; }
         public string Team2FlagName { get; set; }
         public bool Team1Withdrew { get; set; }
         public bool Team2Withdrew { get; set; }
+        public string Location { get; set; }
+        public int TournamentCode { get; set; }
+        public string TournamentName { get; set; }
+
+        public string CoachName { get; set; }
+        public string CoachFlag { get; set; }
+        //        ISNULL(te.fifa_ranking, 0) AS FifaRanking,
+        //         NULL AS IsPenalty,
+        //         NULL AS IsOwnGoal,
+        //-1 AS SortOrder
 
     }
 }

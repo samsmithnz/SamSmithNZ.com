@@ -15,7 +15,7 @@ SELECT @SearchText AS SearchText,
 	track_name AS TrackName,
 	is_bass_tab AS IsBassTab
 FROM tab_album ta
-LEFT OUTER JOIN tab_track tt ON ta.album_code = tt.album_code
+LEFT JOIN tab_track tt ON ta.album_code = tt.album_code
 WHERE include_in_index = 1
 AND ((artist_name + ' - ' + album_name LIKE '%' + @SearchText + '%') 
 OR (track_name LIKE '%' + @SearchText + '%'))
