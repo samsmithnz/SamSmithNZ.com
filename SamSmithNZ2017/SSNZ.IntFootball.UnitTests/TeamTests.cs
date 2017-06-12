@@ -8,6 +8,7 @@ using System.Collections.Generic;
 namespace SSNZ.IntFootball.UnitTests
 {
     [TestClass]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class TeamTests
     {
         [TestMethod]
@@ -27,11 +28,11 @@ namespace SSNZ.IntFootball.UnitTests
         [TestMethod()]
         public async Task TeamsFirstItemTest()
         {
+            //Arrange
             TeamDataAccess da = new TeamDataAccess();
 
             //act
             List<Team> results = await da.GetListAsync();
-
 
             //assert
             Assert.IsTrue(results != null);

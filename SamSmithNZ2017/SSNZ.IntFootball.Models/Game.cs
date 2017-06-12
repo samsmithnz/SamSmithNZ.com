@@ -12,6 +12,10 @@ namespace SSNZ.IntFootball.Models
         public int RoundNumber { get; set; }
         public string RoundCode { get; set; }
         public string RoundName { get; set; }
+        public string Location { get; set; }
+        public int TournamentCode { get; set; }
+        public string TournamentName { get; set; }
+
         public int GameCode { get; set; }
         public int GameNumber { get; set; }
         public DateTime GameTime { get; set; }
@@ -29,12 +33,16 @@ namespace SSNZ.IntFootball.Models
         public string Team2FlagName { get; set; }
         public bool Team1Withdrew { get; set; }
         public bool Team2Withdrew { get; set; }
-        public string Location { get; set; }
-        public int TournamentCode { get; set; }
-        public string TournamentName { get; set; }
-
         public string CoachName { get; set; }
         public string CoachFlag { get; set; }
+
+        //These fields are all derived from the above database columns
+        public int? Team1ResultRegulationTimeScore { get; set; }
+        public int? Team2ResultRegulationTimeScore { get; set; }
+        public string Team1ResultInformation { get; set; }
+        public string Team2ResultInformation { get; set; }
+        public bool? Team1ResultWonGame { get; set; }
+        public bool? Team2ResultWonGame{ get; set; }
         //        ISNULL(te.fifa_ranking, 0) AS FifaRanking,
         //         NULL AS IsPenalty,
         //         NULL AS IsOwnGoal,
