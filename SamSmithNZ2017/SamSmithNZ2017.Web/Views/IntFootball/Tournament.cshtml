@@ -57,7 +57,7 @@
                 </div>
                 <div ng-if="roundNumber == 1 && tournament.R1FormatRoundCode > 0 && tournament.R1IsGroupStage == false">
                     <span>Round {{roundNumber}}: {{tournament.R1NumberOfTeamsInGroup}} Team Playoff</span><br />
-                    <a href="/IntFootball/Playoffs?tournamentCode={{tournament.tournamentCode}}&roundNumber={{roundNumber}}&isLastRound={{tournament.R2FormatRoundCode==0}}" ng-if="tournament.MinGameTime != null">Playoffs</a>
+                    <a href="/IntFootball/Playoffs?tournamentCode={{tournament.TournamentCode}}&roundNumber={{roundNumber}}&isLastRound={{tournament.R2FormatRoundCode==0}}" ng-if="tournament.MinGameTime != null">Playoffs</a>
                     <br />
                 </div>
 
@@ -70,7 +70,7 @@
                 </div>
                 <div ng-if="roundNumber == 2 && tournament.R2FormatRoundCode > 0 && tournament.R2IsGroupStage == false">
                     <span>Round {{roundNumber}}: {{tournament.R2NumberOfTeamsInGroup}} Team Playoff</span><br />
-                    <a href="/IntFootball/Playoffs?tournamentCode={{tournament.tournamentCode}}&roundNumber={{roundNumber}}&isLastRound={{tournament.R3FormatRoundCode==0}}" ng-if="tournament.MinGameTime != null">Playoffs</a>
+                    <a href="/IntFootball/Playoffs?tournamentCode={{tournament.TournamentCode}}&roundNumber={{roundNumber}}&isLastRound={{tournament.R3FormatRoundCode==0}}" ng-if="tournament.MinGameTime != null">Playoffs</a>
                     <br />
                 </div>
 
@@ -83,7 +83,7 @@
                 </div>
                 <div ng-if="roundNumber == 3 && tournament.R3FormatRoundCode > 0 && tournament.R3IsGroupStage == false">
                     <span>Round {{roundNumber}}: {{tournament.R3NumberOfTeamsInGroup}} Team Playoff</span><br />
-                    <a href="/IntFootball/Playoffs?tournamentCode={{tournament.tournamentCode}}&roundNumber={{roundNumber}}&isLastRound=true" ng-if="tournament.MinGameTime != null">Playoffs</a>
+                    <a href="/IntFootball/Playoffs?tournamentCode={{tournament.TournamentCode}}&roundNumber={{roundNumber}}&isLastRound=true" ng-if="tournament.MinGameTime != null">Playoffs</a>
                     <br />
                 </div>
             </div>
