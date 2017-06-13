@@ -39,3 +39,4 @@
         return res;
     }
 })();
+//# sourceMappingURL=albumController.js.map

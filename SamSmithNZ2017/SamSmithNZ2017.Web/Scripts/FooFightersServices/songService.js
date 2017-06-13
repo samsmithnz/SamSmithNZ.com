@@ -11,23 +11,24 @@
         var baseUrl = 'https://ssnzfoofightersservice.azurewebsites.net/';
         this.getSongs = function () {
             var url = baseUrl + 'api/Song/GetSongs';
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
         this.getSongsByAlbum = function (albumCode) {
             var url = baseUrl + 'api/Song/GetSongsByAlbum?AlbumCode=' + albumCode;
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
         this.getSongsByShow = function (showCode) {
             var url = baseUrl + 'api/Song/GetSongsByShow?ShowCode=' + showCode;
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
         this.getSong = function (songCode) {
             var url = baseUrl + 'api/Song/GetSong?SongCode=' + songCode;
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
     }
 })();
+//# sourceMappingURL=songService.js.map

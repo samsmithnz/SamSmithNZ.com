@@ -1,85 +1,113 @@
-﻿@model SamSmithNZ2015.Models.IntFootball.GroupViewModel
+﻿@*@model SamSmithNZ2015.Models.IntFootball.GroupViewModel*@
 @{
-    ViewBag.Title = "Round Details";
+    ViewBag.Title = "Group Details";
     Layout = "~/Views/Shared/_LayoutIntFootball.cshtml";
-    bool showDebugElements = false; 
+    //bool showDebugElements = false;
 }
 
-@using (Html.BeginForm("GroupDetails", "IntFootball", new { tournamentCode = @Model.TournamentCode, roundNumber = @Model.RoundNumber, isLastRound = @Model.IsLastRound }, FormMethod.Post))
-{
-    <span>Group: </span>@Html.DropDownList("cboGroup", new SelectList(Model.Groups, "RoundCode", "RoundCode", Model.SelectedGroup), new { onchange = "this.form.submit();" })
-    
-    if (@Model.IsLastRound == true)
-    {
-    <span>&nbsp;<span style="height: 20px; border-style: solid; border-width: 1px; border-color: darkgray; background-color: gold;">&nbsp;World Cup Champion&nbsp;</span>
-        &nbsp;<span style="height: 20px; border-style: solid; border-width: 1px; border-color: darkgray; background-color: silver;">&nbsp;2nd Place&nbsp;</span>
-        &nbsp;<span style="height: 20px; border-style: solid; border-width: 1px; border-color: darkgray; background-color: #A67D3D;">&nbsp;3rd Place&nbsp;</span>
-    </span>
-    }
-    else
-    {
-    <span>&nbsp;<span style="height: 20px; border-style: solid; border-width: 1px; border-color: darkgray; background-color: #CCFF99;">&nbsp;Team advances to next round&nbsp;</span>
-    </span>
-    }
-}
-<br />
-<hr />
-<br />
-<table class="tableborders">
-    <tr style="height: 30px;">
-        <th class="headerborders" style="width: 185px;">Team</th>
-        <th class="headerborders" style="width: 75px; text-align: center;">Played</th>
-        <th class="headerborders" style="width: 75px; text-align: center;">Wins</th>
-        <th class="headerborders" style="width: 75px; text-align: center;">Draws</th>
-        <th class="headerborders" style="width: 75px; text-align: center;">Losses</th>
-        <th class="headerborders" style="width: 75px; text-align: center;">GF</th>
-        <th class="headerborders" style="width: 75px; text-align: center;">GA</th>
-        <th class="headerborders" style="width: 75px; text-align: center;">GD</th>
-        <th class="headerborders" style="width: 75px; text-align: center;">Points</th>
-    </tr>
-    @foreach (SamSmithNZ2015.Core.IntFootball.GroupDetail item in Model.GroupDetails)
-    {
-        string trStyle = "";
-        if (Model.IsLastRound == true)
-        {
-            switch (item.GroupRanking)
-            {
-                case 1:
-                    trStyle = "background-color: gold;";
-                    break;
-                case 2:
-                    trStyle = "background-color: silver;";
-                    break;
-                case 3:
-                    trStyle = "background-color: #A67D3D;";
-                    break;
-            }
-        }
-        else
-        {
-            if (item.HasQualifiedForNextRound == true)
-            {
-                trStyle = "background-color: #CCFF99";
-            }
-        }
-        <tr style="@trStyle">
-            <td class="cellborders">
-                <img src="@Url.Content("~/Content/images/IntFootball/Teams/" + @item.TeamFlagName)" CssClass="TeamImage" />
-                <a href="@Url.Action("Team", "IntFootball", new { teamCode = @item.TeamCode })">@item.TeamName</a>
-            </td>
-            <td class="cellborders">@item.Played</td>
-            <td class="cellborders">@item.Wins</td>
-            <td class="cellborders">@item.Draws</td>
-            <td class="cellborders">@item.Losses</td>
-            <td class="cellborders">@item.GoalsFor</td>
-            <td class="cellborders">@item.GoalsAgainst</td>
-            <td class="cellborders">@item.GoalDifference</td>
-            <td class="cellborders">@item.Points</td>
-        </tr>
-    }
-</table>
-<br />
-<br />
-<br />
+<div ng-controller="groupController">
+    @*@using (Html.BeginForm("GroupDetails", "IntFootball", new { tournamentCode = @Model.TournamentCode, roundNumber = @Model.RoundNumber, isLastRound = @Model.IsLastRound }, FormMethod.Post))
+        {*@
 
-@Html.Partial("GamePartial", new SamSmithNZ2015.Models.IntFootball.GameViewModel(Model.GameList, false, true, showDebugElements))
+
+    <div class="row">
+        <div class="col-md-12">
+            <span>Group: </span><select id="cboGroup" ng-model="roundCode" ng-options="item.RoundCode as item.RoundCode for item in groupCodes" ng-change="updateGroupDetails(tournamentCode, roundNumber, roundCode)"></select>@*@Html.DropDownList("cboGroup", new SelectList(Model.Groups, "RoundCode", "RoundCode", Model.SelectedGroup), new { onchange = "this.form.submit();" })*@            
+            <span ng-if="isLastRound == 'true'">
+                &nbsp;<span style="border-style: solid; border-width: 1px; border-color: darkgray; background-color: gold;">&nbsp;World Cup Champion&nbsp;</span>
+                &nbsp;<span style="border-style: solid; border-width: 1px; border-color: darkgray; background-color: silver;">&nbsp;2nd Place&nbsp;</span>
+                &nbsp;<span style="border-style: solid; border-width: 1px; border-color: darkgray; background-color: #A67D3D;">&nbsp;3rd Place&nbsp;</span>
+            </span>
+            <span ng-if="isLastRound == 'false'">
+                &nbsp;<span style="border-style: solid; border-width: 1px; border-color: darkgray; background-color: #CCFF99;">&nbsp;Team advances to next round&nbsp;</span>
+            </span>
+        </div>
+    </div>
+    @*}*@
+    <br />
+    <hr />
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Team</th>
+                    <th>Played</th>
+                    <th>Wins</th>
+                    <th>Draws</th>
+                    <th>Losses</th>
+                    <th>GF</th>
+                    <th>GA</th>
+                    <th>GD</th>
+                    <th>Points</th>
+                </tr>
+                <tr ng-repeat="item in groups" ng-style="{'background-color': getRowStyle(item.HasQualifiedForNextRound, item.GroupRanking, isLastRound)}">
+                    <td>
+                        <img ng-src="~/Content/IntFootball/Teams/{{item.TeamFlagName}}" CssClass="TeamImage" />
+                        <a href="/IntFootball/Team?TeamCode={{item.TeamCode}}">{{item.TeamName}}</a>
+                    </td>
+                    <td>{{item.Played}}</td>
+                    <td>{{item.Wins}}</td>
+                    <td>{{item.Draws}}</td>
+                    <td>{{item.Losses}}</td>
+                    <td>{{item.GoalsFor}}</td>
+                    <td>{{item.GoalsAgainst}}</td>
+                    <td>{{item.GoalDifference}}</td>
+                    <td>{{item.Points}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+            <br />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>Game #</th>
+                    <th>Game Time</th>
+                    <th>Round</th>
+                    <th>Group Name</th>
+                    <th>Round</th>
+                    <th></th>
+                    <th>Score</th>
+                    <th></th>
+                    <th>Location</th>
+                </tr>
+                <tr ng-repeat="item in games">
+                    <td>{{item.GameNumber}}</td>
+                    <td>{{item.GameTime | date:'dd-MMM-yyyy'}}</td>
+                    <td>{{item.RoundNumber}}</td>
+                    <td>{{item.RoundName}}</td>
+                    <td>{{item.RoundCode}}</td>
+                    <td style="text-align: right;">
+                        <a href="/IntFootball/Team?TeamCode={{item.Team1Code}}">{{item.Team1Name}}</a>
+                        <img ng-src="~/Content/IntFootball/Teams/{{item.Team1FlagName}}" CssClass="TeamImage" />
+                    </td>
+                    <td style="text-align: center;">
+                        <div ng-if="item.Team1NormalTimeScore >= 0">
+                            <span ng-if="!item.Team1PenaltiesScore">{{item.Team1ResultRegulationTimeScore}} - {{item.Team2ResultRegulationTimeScore}} {{item.Team1ResultInformation}}{{item.Team2ResultInformation}}</span>
+                            <div ng-if="item.Team1PenaltiesScore && item.Team1PenaltiesScore >= 0">
+                                <span>{{item.Team1ResultRegulationTimeScore}} - {{item.Team2ResultRegulationTimeScore}} (aet)</span>
+                                <br />
+                                {{item.Team1PenaltiesScore}} - {{item.Team2PenaltiesScore}} {{item.Team1ResultInformation}}{{item.Team2ResultInformation}}
+                            </div>
+                        </div>
+                    </td>
+                    <td style="text-align: left;">
+                        <img ng-src="~/Content/IntFootball/Teams/{{item.Team2FlagName}}" CssClass="TeamImage" />
+                        <a href="/IntFootball/Team?TeamCode={{item.Team2Code}}">{{item.Team2Name}}</a>
+                    </td>
+                    <td>{{item.Location}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>

@@ -11,8 +11,9 @@
         var baseUrl = 'https://ssnzguitartabservice.azurewebsites.net/';
         this.getRatings = function () {
             var url = baseUrl + 'api/Rating/GetRatings';
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
     }
 })();
+//# sourceMappingURL=ratingsService.js.map

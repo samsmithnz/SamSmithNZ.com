@@ -8,6 +8,7 @@ using System.Collections.Generic;
 namespace SSNZ.IntFootball.UnitTests
 {
     [TestClass]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class GroupCodeTests
     {
         [TestMethod]

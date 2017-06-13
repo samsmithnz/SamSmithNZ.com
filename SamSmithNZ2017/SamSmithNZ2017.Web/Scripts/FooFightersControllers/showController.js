@@ -21,9 +21,6 @@
             $scope.songs = response.data;
         };
         $scope.ShowCode = getUrlParameter('ShowCode');
-        if (typeof $scope.ShowCode === 'undefined' || !$scope.ShowCode) {
-            $scope.ShowCode = getUrlParameter('ShowKey');
-        }
         showService.getShow($scope.ShowCode).then(onGetShowsEventComplete, onError);
         songService.getSongsByShow($scope.ShowCode).then(onGetSongsEventComplete, onError);
     }
@@ -42,3 +39,4 @@
         return res;
     }
 })();
+//# sourceMappingURL=showController.js.map

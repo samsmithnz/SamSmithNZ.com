@@ -11,8 +11,9 @@
         var baseUrl = 'https://ssnzsteamservice.azurewebsites.net/';
         this.getPlayerGames = function (steamId) {
             var url = baseUrl + 'api/PlayerGames/GetPlayer?steamId=' + steamId; //todo: refactor to call API function "GetPlayerGames"
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
     }
 })();
+//# sourceMappingURL=playerGamesService.js.map

@@ -18,14 +18,14 @@
             return $http.get(url);
         };
 
-        this.getGamesForGroup = function (teamCode) {
-            let url: string = baseUrl + 'api/Game/GetGamesByTeam?TeamCode=' + teamCode;
+        this.getGamesForGroup = function (tournamentCode, roundNumber, roundCode) {
+            let url: string = baseUrl + 'api/Game/GetGames?tournamentCode=' + tournamentCode + '&roundNumber=' + roundNumber + '&roundCode=' + roundCode;
             console.log(url);
             return $http.get(url);
         };
 
-        this.getGamesForPlayoffs = function (teamCode) {
-            let url: string = baseUrl + 'api/Game/GetGamesByTeam?TeamCode=' + teamCode;
+        this.getGamesForPlayoffs = function (tournamentCode, roundNumber) {
+            let url: string = baseUrl + 'api/Game/GetPlayoffGames?tournamentCode=' + tournamentCode + '&roundNumber=' + roundNumber;
             console.log(url);
             return $http.get(url);
         };

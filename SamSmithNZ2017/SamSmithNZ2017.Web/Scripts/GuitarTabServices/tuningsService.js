@@ -11,8 +11,9 @@
         var baseUrl = 'https://ssnzguitartabservice.azurewebsites.net/';
         this.getTunings = function () {
             var url = baseUrl + 'api/Tuning/GetTunings';
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
     }
 })();
+//# sourceMappingURL=tuningsService.js.map

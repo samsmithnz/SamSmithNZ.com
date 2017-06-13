@@ -21,15 +21,15 @@
                         <a href="/IntFootball/Tournament?tournamentCode={{item.TournamentCode}}">{{item.TournamentName}}</a>
                     </td>
                     <td>
-                        <a href="/IntFootball/Group?tournamentCode={{item.TournamentCode}}&roundNumber=1&isLastRound={{item.R2FormatRoundCode==0}})" ng-if="item.GameCount > 0 && item.R1FormatRoundCode > 0 && item.R1IsGroupStage == true">Group Stage</a>
+                        <a href="/IntFootball/Group?tournamentCode={{item.TournamentCode}}&roundNumber=1&isLastRound={{item.R2FormatRoundCode==0}}" ng-if="item.GameCount > 0 && item.R1FormatRoundCode > 0 && item.R1IsGroupStage == true">Group Stage</a>
                         <a href="/IntFootball/Playoffs?tournamentCode={{item.TournamentCode}}&roundNumber=1&isLastRound={{item.R2FormatRoundCode==0}}" ng-if="item.GameCount > 0 && item.R1FormatRoundCode > 0 && item.R1IsGroupStage == false">Playoffs</a>
                     </td>
                     <td>
-                        <a href="/IntFootball/Group?tournamentCode={{item.TournamentCode}}&roundNumber=2&isLastRound={{item.R3FormatRoundCode==0}})" ng-if="item.GameCount > 0 && item.R2FormatRoundCode > 0 && item.R2IsGroupStage == true">Group Stage</a>
+                        <a href="/IntFootball/Group?tournamentCode={{item.TournamentCode}}&roundNumber=2&isLastRound={{item.R3FormatRoundCode==0}}" ng-if="item.GameCount > 0 && item.R2FormatRoundCode > 0 && item.R2IsGroupStage == true">Group Stage</a>
                         <a href="/IntFootball/Playoffs?tournamentCode={{item.TournamentCode}}&roundNumber=2&isLastRound={{item.R3FormatRoundCode==0}}" ng-if="item.GameCount > 0 && item.R2FormatRoundCode > 0 && item.R2IsGroupStage == false">Playoffs</a>
                     </td>
                     <td>
-                        <a href="/IntFootball/Group?tournamentCode={{item.TournamentCode}}&roundNumber=3&isLastRound=true)" ng-if="item.GameCount > 0 && item.R3FormatRoundCode > 0  && item.R3IsGroupStage == true">Group Stage</a>
+                        <a href="/IntFootball/Group?tournamentCode={{item.TournamentCode}}&roundNumber=3&isLastRound=true" ng-if="item.GameCount > 0 && item.R3FormatRoundCode > 0  && item.R3IsGroupStage == true">Group Stage</a>
                         <a href="/IntFootball/Playoffs?tournamentCode={{item.TournamentCode}}&roundNumber=3&isLastRound=true" ng-if="item.GameCount > 0 && item.R3FormatRoundCode > 0  && item.R3IsGroupStage == false">Playoffs</a>
                     </td>
                     <td>{{item.ImportingTotalPercentComplete * 100}}%</td>

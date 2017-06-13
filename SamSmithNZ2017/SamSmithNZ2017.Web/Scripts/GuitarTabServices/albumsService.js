@@ -11,18 +11,19 @@
         var baseUrl = 'https://ssnzguitartabservice.azurewebsites.net/';
         this.getAlbums = function (isAdmin) {
             var url = baseUrl + 'api/Album/GetAlbums?isAdmin=' + isAdmin;
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
         this.getAlbum = function (albumCode, isAdmin) {
             var url = baseUrl + 'api/Album/GetAlbum?AlbumCode=' + albumCode + '&isAdmin=' + isAdmin;
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
         this.saveAlbum = function (albumItem) {
             var url = baseUrl + 'api/Album/SaveAlbum';
-            console.log(url);
+            //console.log(url);
             return $http.post(url, albumItem);
         };
     }
 })();
+//# sourceMappingURL=albumsService.js.map

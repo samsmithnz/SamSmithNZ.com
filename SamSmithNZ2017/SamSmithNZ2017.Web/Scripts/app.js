@@ -17,6 +17,7 @@ var app = angular.module("SteamApp", []); //, ['PartnerDBApp.settings', 'ui.boot
 var app = angular.module("GuitarTabApp", []);
 var app = angular.module("FooFightersApp", ['ngSanitize']);
 var app = angular.module("ITunesApp", ['angularMoment']);
+var app = angular.module("IntFootballApp", ['angularMoment']);
 //app.run(["$rootScope", function ($rootScope) {
 //    $rootScope.popup = "Ari Lerner";
 //    //$rootScope.partnerSetUpData = [];
@@ -50,3 +51,4 @@ var app = angular.module("ITunesApp", ['angularMoment']);
 //            return (log);
 //        }
 //    ]); 
+//# sourceMappingURL=app.js.map
