@@ -92,15 +92,11 @@
                     </td>
                     <td style="text-align: center;">
                         <div ng-if="item.Team1NormalTimeScore >= 0">
-                            <span ng-if="!item.Team1ExtraTimeScore && !item.Team1PenaltiesScore">{{item.Team1NormalTimeScore}} - {{item.Team2NormalTimeScore}}</span>
-                            <div ng-if="item.Team1ExtraTimeScore && item.Team1ExtraTimeScore >= 0">
-                                <span>{{item.Team1NormalTimeScore + item.Team1ExtraTimeScore}} - {{item.Team2NormalTimeScore + item.Team2ExtraTimeScore}} (aet)</span>
-                                <br />
-                            </div>
+                            <span ng-if="!item.Team1PenaltiesScore">{{item.Team1ResultRegulationTimeScore}} - {{item.Team2ResultRegulationTimeScore}} {{item.Team1ResultInformation}}{{item.Team2ResultInformation}}</span>
                             <div ng-if="item.Team1PenaltiesScore && item.Team1PenaltiesScore >= 0">
-                                <span>{{item.Team1NormalTimeScore + item.Team1ExtraTimeScore}} - {{item.Team2NormalTimeScore + item.Team2ExtraTimeScore}} (aet)</span>
+                                <span>{{item.Team1ResultRegulationTimeScore}} - {{item.Team2ResultRegulationTimeScore}} (aet)</span>
                                 <br />
-                                {{item.Team1PenaltiesScore}} - {{item.Team2PenaltiesScore}} (penalties)
+                                {{item.Team1PenaltiesScore}} - {{item.Team2PenaltiesScore}} {{item.Team1ResultInformation}}{{item.Team2ResultInformation}}
                             </div>
                         </div>
                     </td>
