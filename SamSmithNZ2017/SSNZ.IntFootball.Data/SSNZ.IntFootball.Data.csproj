@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EloRating.cs" />
-    <Compile Include="EloRatingManager.cs" />
+    <Compile Include="EloRatingDataAccess.cs" />
     <Compile Include="GameDataAccess.cs" />
     <Compile Include="GenericDataAccess.cs" />
     <Compile Include="GroupCodeDataAccess.cs" />

@@ -8,13 +8,15 @@ namespace SSNZ.IntFootball.Models
 {
     public class TeamRating
     {
-        public TeamRating(int teamCode, string teamName, int rating)
+        public TeamRating(int tournamentCode, int teamCode, string teamName, int rating)
         {
+            this.TournamentCode = tournamentCode;
             this.TeamCode = teamCode;
             this.TeamName = teamName;
             this.Rating = rating;
         }
 
+        public int TournamentCode { get; set; }
         public int TeamCode { get; set; }
         public string TeamName { get; set; }
         public int Rating { get; set; }

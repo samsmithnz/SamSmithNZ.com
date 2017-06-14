@@ -346,9 +346,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(49).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(49).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(49).Team1Code}}">{{findGame(49).Team1Name}}</a> {{findGame(49).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(49) != null && findGame(49).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(49) == null || findGame(49).Team1Code == 0">Winner Group A</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C2" ng-if="show16s == true">
@@ -372,9 +370,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(49).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(49).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(49).Team2Code}}">{{findGame(49).Team2Name}}</a> {{findGame(49).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(49) != null && findGame(49).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(49) == null || findGame(49).Team1Code == 0">Runner Up Group B</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C3" ng-if="show16s == true">
@@ -394,9 +390,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(58).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(58).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(58).Team1Code}}">{{findGame(58).Team1Name}}</a> {{findGame(58).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(58) != null && findGame(58).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(58) == null || findGame(58).Team1Code == 0">Winner Game 49</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_G2" ng-if="showQuarters == true">
@@ -423,9 +417,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(58).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(58).Team2FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(58).Team2Code}}">{{findGame(58).Team2Name}}</a> {{findGame(58).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(58) != null && findGame(58).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(58) == null || findGame(58).Team1Code == 0">Winner Game 50</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_G3" ng-if="showQuarters == true">
@@ -445,9 +437,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(50).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(50).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(50).Team1Code}}">{{findGame(50).Team1Name}}</a> {{findGame(50).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(50) != null && findGame(50).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(50) == null || findGame(50).Team1Code == 0">Winner Group C</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C4" ng-if="show16s == true">
@@ -472,9 +462,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(50).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(50).Team2FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(50).Team2Code}}">{{findGame(50).Team2Name}}</a> {{findGame(50).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(50) != null && findGame(50).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(50) == null || findGame(50).Team1Code == 0">Runner Up Group D</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C5" ng-if="show16s == true">
@@ -494,9 +482,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(61).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(61).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(61).Team1Code}}">{{findGame(61).Team1Name}}</a> {{findGame(61).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(61) != null && findGame(61).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(61) == null || findGame(61).Team1Code == 0">Winner Game 58</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_K2" ng-if="showSemis == true">
@@ -523,9 +509,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(61).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(61).Team2FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(61).Team2Code}}">{{findGame(61).Team2Name}}</a> {{findGame(61).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(61) != null && findGame(61).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(61) == null || findGame(61).Team1Code == 0">Winner Game 57</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_K3" ng-if="showSemis == true">
@@ -545,9 +529,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(53).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(53).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(53).Team1Code}}">{{findGame(53).Team1Name}}</a> {{findGame(53).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(53) != null && findGame(53).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(53) == null || findGame(53).Team1Code == 0">Winner Group E</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C6" ng-if="show16s == true">
@@ -572,9 +554,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(53).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(53).Team2FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(53).Team2Code}}">{{findGame(53).Team2Name}}</a> {{findGame(53).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(53) != null && findGame(53).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(53) == null || findGame(53).Team1Code == 0">Runner Up Group F</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C7" ng-if="show16s == true">
@@ -594,9 +574,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(57).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(57).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(57).Team1Code}}">{{findGame(57).Team1Name}}</a> {{findGame(57).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(57) != null && findGame(57).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(57) == null || findGame(57).Team1Code == 0">Winner Game 53</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_G4" ng-if="showQuarters == true">
@@ -623,9 +601,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(57).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(57).Team2FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(57).Team2Code}}">{{findGame(57).Team2Name}}</a> {{findGame(57).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(57) != null && findGame(57).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(57) == null || findGame(57).Team1Code == 0">Winner Game 54</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_G5" ng-if="showQuarters == true">
@@ -645,9 +621,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(54).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(54).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(54).Team1Code}}">{{findGame(54).Team1Name}}</a> {{findGame(54).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(54) != null && findGame(54).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(54) == null || findGame(54).Team1Code == 0">Winner Group G</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C8" ng-if="show16s == true">
@@ -672,9 +646,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(54).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(54).Team2FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(54).Team2Code}}">{{findGame(54).Team2Name}}</a> {{findGame(54).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(54) != null && findGame(54).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(54) == null || findGame(54).Team1Code == 0">Runner Up Group H</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C9" ng-if="show16s == true">
@@ -694,9 +666,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(64).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(64).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(64).Team1Code}}">{{findGame(64).Team1Name}}</a> {{findGame(64).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(64) != null && findGame(64).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(64) == null || findGame(64).Team1Code == 0">Winner Game 61</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_O2" ng-if="show3rdPlace == true || showFinals == true">
@@ -723,9 +693,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(64).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(64).Team2FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(64).Team2Code}}">{{findGame(64).Team2Name}}</a> {{findGame(64).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(64) != null && findGame(64).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(64) == null || findGame(64).Team1Code == 0">Winner Game 62</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_O3" ng-if="show3rdPlace == true || showFinals == true">
@@ -742,9 +710,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(52).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(52).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(52).Team1Code}}">{{findGame(52).Team1Name}}</a> {{findGame(52).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(52) != null && findGame(52).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(52) == null || findGame(52).Team1Code == 0">Winner Group B</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C10" ng-if="show16s == true">
@@ -769,9 +735,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(52).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(52).Team2FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(52).Team2Code}}">{{findGame(52).Team2Name}}</a> {{findGame(52).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(52) != null && findGame(52).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(52) == null || findGame(52).Team1Code == 0">Runner Up Group A</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C11" ng-if="show16s == true">
@@ -791,9 +755,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(59).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(59).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(59).Team1Code}}">{{findGame(59).Team1Name}}</a> {{findGame(59).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(59) != null && findGame(59).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(59) == null || findGame(59).Team1Code == 0">Winner Game 52</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_G6" ng-if="showQuarters == true">
@@ -820,9 +782,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(59).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(59).Team2FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(59).Team2Code}}">{{findGame(59).Team2Name}}</a> {{findGame(59).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(59) != null && findGame(59).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(59) == null || findGame(59).Team1Code == 0">Winner Game 51</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_G7" ng-if="showQuarters == true">
@@ -842,9 +802,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(51).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(51).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(51).Team1Code}}">{{findGame(51).Team1Name}}</a> {{findGame(51).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(51) != null && findGame(51).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(51) == null || findGame(51).Team1Code == 0">Winner Group D</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C12" ng-if="show16s == true">
@@ -869,9 +827,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(51).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(51).Team2FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(51).Team2Code}}">{{findGame(51).Team2Name}}</a> {{findGame(51).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(51) != null && findGame(51).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(51) == null || findGame(51).Team1Code == 0">Runner Up Group C</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C13" ng-if="show16s == true">
@@ -891,9 +847,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(62).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(62).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(62).Team1Code}}">{{findGame(62).Team1Name}}</a> {{findGame(62).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(62) != null && findGame(62).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(62) == null || findGame(62).Team1Code == 0">Winner Game 59</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_K4" ng-if="showSemis == true">
@@ -920,9 +874,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(62).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(62).Team2FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(62).Team2Code}}">{{findGame(62).Team2Name}}</a> {{findGame(62).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(62) != null && findGame(62).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(62) == null || findGame(62).Team1Code == 0">Winner Game 60</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_K5" ng-if="showSemis == true">
@@ -945,9 +897,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(55).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(55).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(55).Team1Code}}">{{findGame(55).Team1Name}}</a> {{findGame(55).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(55) != null && findGame(55).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(55) == null || findGame(55).Team1Code == 0">Winner Group F</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C14" ng-if="show16s == true">
@@ -976,9 +926,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(55).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(55).Team2FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(55).Team2Code}}">{{findGame(55).Team2Name}}</a> {{findGame(55).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(55) != null && findGame(55).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(55) == null || findGame(55).Team1Code == 0">Runner Up Group E</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C15" ng-if="show16s == true">
@@ -998,9 +946,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(60).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(60).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(60).Team1Code}}">{{findGame(60).Team1Name}}</a> {{findGame(60).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(60) != null && findGame(60).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(60) == null || findGame(60).Team1Code == 0">Winner Game 55</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_G8" ng-if="showQuarters == true">
@@ -1014,9 +960,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(63).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(63).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(63).Team1Code}}">{{findGame(63).Team1Name}}</a> {{findGame(63).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(63) != null && findGame(63).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(63) == null || findGame(63).Team1Code == 0">Loser Game 61</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_O4" ng-if="show3rdPlace == true">
@@ -1043,9 +987,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(60).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(60).Team2FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(60).Team2Code}}">{{findGame(60).Team2Name}}</a> {{findGame(60).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(60) != null && findGame(60).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(60) == null || findGame(60).Team1Code == 0">Winner Game 56</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_G9" ng-if="showQuarters == true">
@@ -1062,9 +1004,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(63).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(63).Team2FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(63).Team2Code}}">{{findGame(63).Team2Name}}</a> {{findGame(63).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(63) != null && findGame(63).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(63) == null || findGame(63).Team1Code == 0">Loser Game 62</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_O5" ng-if="show3rdPlace == true">
@@ -1081,9 +1021,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(56).Team1FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(56).Team1FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(56).Team1Code}}">{{findGame(56).Team1Name}}</a> {{findGame(56).Team1ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(56) != null && findGame(56).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(56) == null || findGame(56).Team1Code == 0">Winner Group H</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C16" ng-if="show16s == true">
@@ -1105,9 +1043,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(56).Team2FlagName}}" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" ng-if="findGame(56).Team2FlagName != ''" />
                         <a href="/IntFootball/Team?teamCode={{findGame(56).Team2Code}}">{{findGame(56).Team2Name}}</a> {{findGame(56).Team2ResultInformation}}
-                    </div>
-                    <div ng-if="findGame(56) != null && findGame(56).Team1Code > 0">
-                        <!--Model.AlternativeText-->
+                        <span ng-if="findGame(56) == null || findGame(56).Team1Code == 0">Runner Up Group G</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_C17" ng-if="show16s == true">

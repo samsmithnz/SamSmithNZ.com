@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml;
-//using SamSmithNZ2015.Models.GameDev;
+using SamSmithNZ2017.Models.GameDev;
 
 namespace SamSmithNZ2017.Controllers
 {
@@ -14,54 +14,37 @@ namespace SamSmithNZ2017.Controllers
         //
         // GET: /GameDev/
 
-        //http://stackoverflow.com/questions/11915/rss-feeds-in-asp-net-mvc
         public ActionResult Index()
         {
-            return Redirect("https://samsmithnz2015.azurewebsites.net/GameDev/Index");
+            ViewBag.Message = "Game Development Blog!";
 
-            //ViewBag.Message = "Game Development Blog!";
-
-            ////const string feedUrl = "http://turnbasedengine.blogspot.com/feeds/posts/default?alt=rss";
-            ////SyndicationFeed feed = null;
-            ////using (XmlReader reader = XmlReader.Create(feedUrl))
-            ////{
-            ////    feed = SyndicationFeed.Load(reader);
-            ////}
-            ////if (feed != null)
-            ////{
-            ////    SyndicationItem item = feed.Items.First<SyndicationItem>();
-            ////    ViewBag.RssItem = item;
-            ////}
-
-            //return View();//new BlogItems(feed.Items));
+            return View();
         }
 
         public ActionResult LevelCreation(int width, int height)
         {
-            return Redirect("https://samsmithnz2015.azurewebsites.net/GameDev/LevelCreation?width=" + width + "&height=" + height);
 
-            //string fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/Data.xml"));
+            string fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/Data.xml"));
 
-            //GameDefinition game = GameDefinition.Load(fileContents);
-            //List<LevelPiece> levelPieces = Setup.CreateLevelFromPiecePool(game.MissionLevelPieces, width, height, true, false);
+            GameDefinition game = GameDefinition.Load(fileContents);
+            List<LevelPiece> levelPieces = Setup.CreateLevelFromPiecePool(game.MissionLevelPieces, width, height, true, false);
 
-            //string result = GameDefinition.OutputMissionLevels(levelPieces, width, height);
+            string result = GameDefinition.OutputMissionLevels(levelPieces, width, height);
 
-            //return View(new LevelCreationModel(result));
+            return View(new LevelCreationModel(result));
         }
 
         public ActionResult CampaignCreation(int width, int height)
         {
-            return Redirect("https://samsmithnz2015.azurewebsites.net/GameDev/CampaignCreation?width=" + width + "&height=" + height);
 
-            //string fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/Data.xml"));
+            string fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/Data.xml"));
 
-            //GameDefinition game = GameDefinition.Load(fileContents);
-            //List<LevelPiece> levelPieces = Setup.CreateLevelFromPiecePool(game.CampaignLevelPieces, width, height, false, true);
+            GameDefinition game = GameDefinition.Load(fileContents);
+            List<LevelPiece> levelPieces = Setup.CreateLevelFromPiecePool(game.CampaignLevelPieces, width, height, false, true);
 
-            //string result = GameDefinition.OutputCampaignLevels(levelPieces, width, height);
+            string result = GameDefinition.OutputCampaignLevels(levelPieces, width, height);
 
-            //return View(new LevelCreationModel(result));
+            return View(new LevelCreationModel(result));
         }
 
     }

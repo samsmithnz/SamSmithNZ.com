@@ -41,7 +41,15 @@ namespace SSNZ.IntFootball.Data
             return results;
         }
 
+        public async Task<List<Game>> GetListAsyncByTournament(int tournamentCode)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
 
+            List<Game> results = await base.GetListAsync("FB_GetGames", parameters);
+            results = ProcessGameResults(results);
+            return results;
+        }
 
         //Process the game, to make it easier to process on the client side
         private List<Game> ProcessGameResults(List<Game> games)
