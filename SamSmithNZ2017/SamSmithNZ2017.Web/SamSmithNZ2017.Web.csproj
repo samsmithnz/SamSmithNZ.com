@@ -217,6 +217,12 @@
     </Compile>
     <Compile Include="Models\AccountConstants.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\GameDev\GameDefinition.cs" />
+    <Compile Include="Models\GameDev\LevelCreationModel.cs" />
+    <Compile Include="Models\GameDev\LevelPiece.cs" />
+    <Compile Include="Models\GameDev\Location.cs" />
+    <Compile Include="Models\GameDev\Setup.cs" />
+    <Compile Include="Models\GameDev\Utility.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1321,6 +1327,9 @@
     <Content Include="Views\IntFootball\Group.cshtml" />
     <Content Include="Views\IntFootball\Team.cshtml" />
     <Content Include="Views\IntFootball\Playoffs.cshtml" />
+    <Content Include="Views\GameDev\CampaignCreation.cshtml" />
+    <Content Include="Views\GameDev\Index.cshtml" />
+    <Content Include="Views\GameDev\LevelCreation.cshtml" />
     <None Include="Views\Test\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1400,6 +1409,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\GameDev\" />
     <Folder Include="Views\SteamOld\" />
   </ItemGroup>
   <ItemGroup>

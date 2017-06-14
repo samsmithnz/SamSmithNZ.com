@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace SSNZ.IntFootball.Data
 {
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class EloRating
     {
 

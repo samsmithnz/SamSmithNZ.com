@@ -28,21 +28,21 @@ namespace SSNZ.IntFootball.Models
         public int R1NumberOfTeamsInGroup { get; set; }
         public int R1NumberOfGroupsInRound { get; set; }
         public int R1NumberOfTeamsFromGroupThatAdvance { get; set; }
-        public int R1TotalNumberOfTeamsThatAdvanceFromRound { get; set; }
+        public int R1TotalNumberOfTeamsThatAdvance { get; set; }
         public string R1FirstGroupCode { get; set; }
         public int R2FormatRoundCode { get; set; }
         public Boolean R2IsGroupStage { get; set; }
         public int R2NumberOfTeamsInGroup { get; set; }
         public int R2NumberOfGroupsInRound { get; set; }
         public int R2NumberOfTeamsFromGroupThatAdvance { get; set; }
-        public int R2TotalNumberOfTeamsThatAdvanceFromRound { get; set; }
+        public int R2TotalNumberOfTeamsThatAdvance { get; set; }
         public string R2FirstGroupCode { get; set; }
         public int R3FormatRoundCode { get; set; }
         public Boolean R3IsGroupStage { get; set; }
         public int R3NumberOfTeamsInGroup { get; set; }
         public int R3NumberOfGroupsInRound { get; set; }
         public int R3NumberOfTeamsFromGroupThatAdvance { get; set; }
-        public int R3TotalNumberOfTeamsThatAdvanceFromRound { get; set; }
+        public int R3TotalNumberOfTeamsThatAdvance { get; set; }
         public string R3FirstGroupCode { get; set; }
         public decimal ImportingTotalPercentComplete { get; set; }
         public decimal ImportingTeamPercent { get; set; }
@@ -51,45 +51,8 @@ namespace SSNZ.IntFootball.Models
         public decimal ImportingGoalsPercent { get; set; }
         public decimal ImportingPenaltyShootoutGoalsPercent { get; set; }
         public string Notes { get; set; }
+        public string LogoImage { get; set; }
+        public string QualificationImage { get; set; }
 
-        private string _logoImage;
-        public string LogoImage
-        {
-            get
-            {
-                return _logoImage;
-            }
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    _logoImage = "images/no_image.gif";
-                }
-                else
-                {
-                    _logoImage = value;
-                }
-            }
-        }
-
-        private string _qualificationImage;
-        public string QualificationImage
-        {
-            get
-            {
-                return _qualificationImage;
-            }
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    _qualificationImage = "images/no_image.gif";
-                }
-                else
-                {
-                    _qualificationImage = value;
-                }
-            }
-        }
     }
 }
