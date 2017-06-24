@@ -18,10 +18,10 @@ namespace SSNZ.ITunes.Service.Controllers
             return await da.GetListAsync(playlistCode, showJustSummary);
         }
 
-        public async Task<Track> GetTrack(int playlistCode, Boolean showJustSummary, String trackName)
-        {
-            TrackDataAccess da = new TrackDataAccess();
-            return await da.GetItemAsync(playlistCode, showJustSummary, trackName);
-        }
+        //public async Task<Track> GetTrack(int playlistCode, Boolean showJustSummary, String trackName)
+        //{
+        //    TrackDataAccess da = new TrackDataAccess();
+        //    return await da.GetItemAsync(playlistCode, showJustSummary, trackName);
+        //}
     }
 }

@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ShowTest.cs" />
+    <Compile Include="AverageSongTest.cs" />
     <Compile Include="YearTest.cs" />
     <Compile Include="SongTest.cs" />
     <Compile Include="AlbumTest.cs" />

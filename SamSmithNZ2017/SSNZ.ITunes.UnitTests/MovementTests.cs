@@ -28,5 +28,23 @@ namespace SSNZ.ITunes.UnitTests
             Assert.IsTrue(items[0].PlayCount == 36);
             Assert.IsTrue(items[0].ChangeThisMonth == 36);
         }
+
+        [TestMethod]
+        public async Task MovementSummaryTest()
+        {
+            //Arrange
+            MovementDataAccess da = new MovementDataAccess();
+            bool showJustSummary = true;
+
+            //Act
+            List<Movement> items = await da.GetListAsync(showJustSummary);
+
+            //Assert
+            Assert.IsTrue(items != null);
+            Assert.IsTrue(items.Count > 0);
+            Assert.IsTrue(items[0].TrackName == "Pete Yorn - For Nancy ('Cos It Already Is)");
+            Assert.IsTrue(items[0].PlayCount == 356);
+            Assert.IsTrue(items[0].ChangeThisMonth == 356);
+        }
     }
 }
