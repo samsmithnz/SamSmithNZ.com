@@ -24,18 +24,18 @@ namespace SamSmithNZ2017.Controllers
             return View();
         }
         
-        public ActionResult Song(int songCode)
+        public ActionResult Song(int songCode = 0, int sonhKey = 0)
         {
             return View();
         }
 
         
-        public ActionResult Show(int showCode)
+        public ActionResult Show(int showCode = 0, int showKey = 0)
         {
             return View();
         }
 
-        public ActionResult Album(int albumCode)
+        public ActionResult Album(int albumCode = 0, int albumKey = 0)
         {
             return View();
         }

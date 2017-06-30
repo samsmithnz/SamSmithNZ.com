@@ -32,11 +32,15 @@
             $scope.shows = response.data;
         }
 
-        $scope.SongCode = getUrlParameter('SongCode');
-        //console.log($scope.SongCode);
+        $scope.songCode = getUrlParameter('SongCode');
+        var songKey = Number(getUrlParameter('SongKey'));
+        if (songKey > 0) {
+            console.log("updating song key to song code");
+            $scope.songCode = songKey;
+        }
 
-        songService.getSong($scope.SongCode).then(onGetSongsEventComplete, onError);
-        showService.getShowsBySong($scope.SongCode).then(onGetShowsEventComplete, onError);
+        songService.getSong($scope.songCode).then(onGetSongsEventComplete, onError);
+        showService.getShowsBySong($scope.songCode).then(onGetShowsEventComplete, onError);
 
     }
 

@@ -18,7 +18,7 @@
         };
 
         var onGetShowsEventComplete = function (response) {
-            console.log($scope.show);
+            //console.log($scope.show);
             $scope.show = response.data;
         }
 
@@ -27,10 +27,15 @@
             $scope.songs = response.data;
         }
 
-        $scope.ShowCode = getUrlParameter('ShowCode');
+        $scope.showCode = getUrlParameter('ShowCode');
+        var showKey = Number(getUrlParameter('ShowKey'));
+        if (showKey > 0) {
+            console.log("updating show key to show code");
+            $scope.showCode = showKey;
+        }
 
-        showService.getShow($scope.ShowCode).then(onGetShowsEventComplete, onError);
-        songService.getSongsByShow($scope.ShowCode).then(onGetSongsEventComplete, onError);
+        showService.getShow($scope.showCode).then(onGetShowsEventComplete, onError);
+        songService.getSongsByShow($scope.showCode).then(onGetSongsEventComplete, onError);
 
     }
 
