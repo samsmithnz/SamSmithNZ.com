@@ -16,4 +16,3 @@
         };
     }
 })();
-//# sourceMappingURL=searchService.js.map

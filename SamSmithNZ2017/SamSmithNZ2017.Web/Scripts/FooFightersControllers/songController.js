@@ -24,10 +24,14 @@
             //console.log($scope.shows);
             $scope.shows = response.data;
         };
-        $scope.SongCode = getUrlParameter('SongCode');
-        //console.log($scope.SongCode);
-        songService.getSong($scope.SongCode).then(onGetSongsEventComplete, onError);
-        showService.getShowsBySong($scope.SongCode).then(onGetShowsEventComplete, onError);
+        $scope.songCode = getUrlParameter('SongCode');
+        var songKey = Number(getUrlParameter('SongKey'));
+        if (songKey > 0) {
+            console.log("updating song key to song code");
+            $scope.songCode = songKey;
+        }
+        songService.getSong($scope.songCode).then(onGetSongsEventComplete, onError);
+        showService.getShowsBySong($scope.songCode).then(onGetShowsEventComplete, onError);
     }
     function getUrlParameter(param) {
         var sPageURL = (window.location.search.substring(1));
@@ -44,4 +48,3 @@
         return res;
     }
 })();
-//# sourceMappingURL=songController.js.map

@@ -16,4 +16,3 @@
         };
     }
 })();
-//# sourceMappingURL=ratingsService.js.map

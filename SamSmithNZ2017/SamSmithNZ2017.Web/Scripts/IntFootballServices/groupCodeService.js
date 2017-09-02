@@ -11,9 +11,8 @@
         var baseUrl = 'https://ssnzintfootballservice.azurewebsites.net/';
         this.getGroupCodes = function (tournamentCode, roundNumber) {
             var url = baseUrl + 'api/GroupCode/GetGroupCodes?tournamentCode=' + tournamentCode + '&roundNumber=' + roundNumber;
-            //console.log(url);
+            console.log(url);
             return $http.get(url);
         };
     }
 })();
-//# sourceMappingURL=groupCodeService.js.map

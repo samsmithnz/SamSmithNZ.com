@@ -8,6 +8,7 @@
         $scope.groupCodes = [];
         $scope.groups = [];
         $scope.games = [];
+        $scope.roundCode = '';
         var onError = function (data) {
             //errorHandlerService.errorHandler(data);
             console.log("Error!!");
@@ -15,7 +16,7 @@
         };
         var onGetGroupCodesEventComplete = function (response) {
             $scope.groupCodes = response.data;
-            //console.log($scope.tabs);
+            console.log('$scope.roundCode:' + $scope.roundCode);
             if ($scope.groupCodes != null && $scope.groupCodes.length > 0 && $scope.roundCode == '') {
                 console.log('setting round code from ' + $scope.roundCode + ' to ' + $scope.groupCodes[0].RoundCode);
                 $scope.roundCode = $scope.groupCodes[0].RoundCode;
@@ -32,6 +33,9 @@
         $scope.tournamentCode = getUrlParameter('TournamentCode');
         $scope.roundNumber = getUrlParameter('RoundNumber');
         $scope.roundCode = getUrlParameter('RoundCode');
+        if (!$scope.roundCode) {
+            $scope.roundCode = '';
+        }
         $scope.isLastRound = getUrlParameter('IsLastRound');
         //console.log("isLastRound: " + $scope.isLastRound);
         groupCodeService.getGroupCodes($scope.tournamentCode, $scope.roundNumber).then(onGetGroupCodesEventComplete, onError);
@@ -42,7 +46,7 @@
         //Style the group rows depending on the the status of the group
         $scope.getRowStyle = function (hasQualifiedForNextRound, groupRanking, isLastRound) {
             var trStyle = "";
-            if (isLastRound == true) {
+            if (isLastRound == 'true') {
                 switch (groupRanking) {
                     case 1:
                         trStyle = "gold";
@@ -78,4 +82,3 @@
         return res;
     }
 })();
-//# sourceMappingURL=groupController.js.map

@@ -16,4 +16,3 @@
         };
     }
 })();
-//# sourceMappingURL=artistsService.js.map

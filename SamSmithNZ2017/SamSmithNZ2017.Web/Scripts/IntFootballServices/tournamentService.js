@@ -21,4 +21,3 @@
         };
     }
 })();
-//# sourceMappingURL=tournamentService.js.map
