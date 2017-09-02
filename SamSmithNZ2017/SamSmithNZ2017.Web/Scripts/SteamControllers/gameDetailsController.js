@@ -101,4 +101,3 @@
         return res;
     }
 })();
-//# sourceMappingURL=gameDetailsController.js.map

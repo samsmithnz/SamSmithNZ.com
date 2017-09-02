@@ -38,4 +38,3 @@
         return res;
     }
 })();
-//# sourceMappingURL=searchController.js.map

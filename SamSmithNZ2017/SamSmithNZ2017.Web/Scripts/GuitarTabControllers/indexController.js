@@ -66,4 +66,3 @@
         return res;
     }
 })();
-//# sourceMappingURL=indexController.js.map

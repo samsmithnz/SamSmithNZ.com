@@ -35,8 +35,8 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.Achievements[0].Name == "We Happy Few ");
             Assert.IsTrue(result.Achievements[0].Description == "Complete a mission without losing a soldier.");
             Assert.IsTrue(result.Achievements[0].Achieved == true);
-            Assert.IsTrue(result.Achievements[0].IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/9ef3538334062eceed71992328e6b1a6b577b5d7.jpg");
-            Assert.IsTrue(result.Achievements[0].IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/8cb928ad8be98984f1c739fa6f9b4f34ae0ea17e.jpg");
+            Assert.IsTrue(result.Achievements[0].IconURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/9ef3538334062eceed71992328e6b1a6b577b5d7.jpg");
+            Assert.IsTrue(result.Achievements[0].IconGrayURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/8cb928ad8be98984f1c739fa6f9b4f34ae0ea17e.jpg");
             Assert.IsTrue(result.Achievements[0].GlobalPercent >= 0);
             Assert.IsTrue(result.Achievements[0].FriendAchieved == false);
         }
@@ -65,8 +65,8 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.Achievements[0].Name == "If You Build It, They Will Come");
             Assert.IsTrue(result.Achievements[0].Description == "Have 6 Improvements at one time.");
             Assert.IsTrue(result.Achievements[0].Achieved == true);
-            Assert.IsTrue(result.Achievements[0].IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/289070/6858293f2952c7fb17a94667b0d823e67445dc4c.jpg");
-            Assert.IsTrue(result.Achievements[0].IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/289070/c29e93fd82f9033ea2029b866c5bc29f1813d649.jpg");
+            Assert.IsTrue(result.Achievements[0].IconURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/289070/6858293f2952c7fb17a94667b0d823e67445dc4c.jpg");
+            Assert.IsTrue(result.Achievements[0].IconGrayURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/289070/c29e93fd82f9033ea2029b866c5bc29f1813d649.jpg");
             Assert.IsTrue(result.Achievements[0].GlobalPercent >= 0);
             Assert.IsTrue(result.Achievements[0].FriendAchieved == false);
             Assert.IsTrue(result.Achievements[0].IsVisible == true);
@@ -130,8 +130,8 @@ namespace SSNZ.Steam.UnitTests
                     Assert.IsTrue(item.Name == "We Happy Few ");
                     Assert.IsTrue(item.Description == "Complete a mission without losing a soldier.");
                     Assert.IsTrue(item.Achieved == true);
-                    Assert.IsTrue(item.IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/9ef3538334062eceed71992328e6b1a6b577b5d7.jpg");
-                    Assert.IsTrue(item.IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/8cb928ad8be98984f1c739fa6f9b4f34ae0ea17e.jpg");
+                    Assert.IsTrue(item.IconURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/9ef3538334062eceed71992328e6b1a6b577b5d7.jpg");
+                    Assert.IsTrue(item.IconGrayURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/8cb928ad8be98984f1c739fa6f9b4f34ae0ea17e.jpg");
                     Assert.IsTrue(item.GlobalPercent >= 0);
                     Assert.IsTrue(item.FriendAchieved == true);
                 }
@@ -142,8 +142,8 @@ namespace SSNZ.Steam.UnitTests
                     Assert.IsTrue(item.Name == "A Continental Fellow");
                     Assert.IsTrue(item.Description == "Win the game from each of the 5 starting locations.");
                     Assert.IsTrue(item.Achieved == true);
-                    Assert.IsTrue(item.IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/1efdb8b427c628de17a49a55ad5afb495dd35cf0.jpg");
-                    Assert.IsTrue(item.IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/3d74016b994db08005c2aafe05db4740f22f5876.jpg");
+                    Assert.IsTrue(item.IconURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/1efdb8b427c628de17a49a55ad5afb495dd35cf0.jpg");
+                    Assert.IsTrue(item.IconGrayURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/3d74016b994db08005c2aafe05db4740f22f5876.jpg");
                     Assert.IsTrue(item.GlobalPercent >= 0);
                     Assert.IsTrue(item.FriendAchieved == false);
                 }
@@ -195,8 +195,8 @@ namespace SSNZ.Steam.UnitTests
             //        Assert.IsTrue(item.Name == "We Happy Few ");
             //        Assert.IsTrue(item.Description == "Complete a mission without losing a soldier.");
             //        Assert.IsTrue(item.Achieved == true);
-            //        Assert.IsTrue(item.IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/9ef3538334062eceed71992328e6b1a6b577b5d7.jpg");
-            //        Assert.IsTrue(item.IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/8cb928ad8be98984f1c739fa6f9b4f34ae0ea17e.jpg");
+            //        Assert.IsTrue(item.IconURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/9ef3538334062eceed71992328e6b1a6b577b5d7.jpg");
+            //        Assert.IsTrue(item.IconGrayURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/8cb928ad8be98984f1c739fa6f9b4f34ae0ea17e.jpg");
             //        Assert.IsTrue(item.GlobalPercent >= 0);
             //        Assert.IsTrue(item.FriendAchieved == true);
             //    }
@@ -207,8 +207,8 @@ namespace SSNZ.Steam.UnitTests
             //        Assert.IsTrue(item.Name == "A Continental Fellow");
             //        Assert.IsTrue(item.Description == "Win the game from each of the 5 starting locations.");
             //        Assert.IsTrue(item.Achieved == true);
-            //        Assert.IsTrue(item.IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/1efdb8b427c628de17a49a55ad5afb495dd35cf0.jpg");
-            //        Assert.IsTrue(item.IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/3d74016b994db08005c2aafe05db4740f22f5876.jpg");
+            //        Assert.IsTrue(item.IconURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/1efdb8b427c628de17a49a55ad5afb495dd35cf0.jpg");
+            //        Assert.IsTrue(item.IconGrayURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/3d74016b994db08005c2aafe05db4740f22f5876.jpg");
             //        Assert.IsTrue(item.GlobalPercent >= 0);
             //        Assert.IsTrue(item.FriendAchieved == false);
             //    }
@@ -288,8 +288,8 @@ namespace SSNZ.Steam.UnitTests
                     Assert.IsTrue(item.Name == "Campaign Conscript");
                     Assert.IsTrue(item.Description == "Play 1 Campaign mission");
                     Assert.IsTrue(item.Achieved == true);
-                    Assert.IsTrue(item.IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/231430/d4764605a93d376ee1f7ab92d74fc020a613390a.jpg");
-                    Assert.IsTrue(item.IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/231430/a17ecc024d331e61dbf70a32cf3cbd9e6c38e007.jpg");
+                    Assert.IsTrue(item.IconURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/231430/d4764605a93d376ee1f7ab92d74fc020a613390a.jpg");
+                    Assert.IsTrue(item.IconGrayURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/231430/a17ecc024d331e61dbf70a32cf3cbd9e6c38e007.jpg");
                     Assert.IsTrue(item.GlobalPercent >= 0);
                     Assert.IsTrue(item.FriendAchieved == false);
                 }
@@ -300,8 +300,8 @@ namespace SSNZ.Steam.UnitTests
                     Assert.IsTrue(item.Name == "Comp-Stomp Conscript");
                     Assert.IsTrue(item.Description == "Play 1 match versus AI");
                     Assert.IsTrue(item.Achieved == false);
-                    Assert.IsTrue(item.IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/231430/60c55f152741c29391c8bb0bf7b78c1fb62c7c60.jpg");
-                    Assert.IsTrue(item.IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/231430/a17ecc024d331e61dbf70a32cf3cbd9e6c38e007.jpg");
+                    Assert.IsTrue(item.IconURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/231430/60c55f152741c29391c8bb0bf7b78c1fb62c7c60.jpg");
+                    Assert.IsTrue(item.IconGrayURL == "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/231430/a17ecc024d331e61dbf70a32cf3cbd9e6c38e007.jpg");
                     Assert.IsTrue(item.GlobalPercent >= 0);
                     Assert.IsTrue(item.FriendAchieved == false);
                 }

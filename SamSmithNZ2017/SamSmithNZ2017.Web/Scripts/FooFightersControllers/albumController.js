@@ -21,6 +21,11 @@
             $scope.songs = response.data;
         };
         $scope.albumCode = getUrlParameter('AlbumCode');
+        var albumKey = Number(getUrlParameter('AlbumKey'));
+        if (albumKey > 0) {
+            console.log("updating album key to album code");
+            $scope.albumCode = albumKey;
+        }
         albumService.getAlbum($scope.albumCode).then(onGetAlbumsEventComplete, onError);
         songService.getSongsByAlbum($scope.albumCode).then(onGetSongsEventComplete, onError);
     }
@@ -39,4 +44,3 @@
         return res;
     }
 })();
-//# sourceMappingURL=albumController.js.map

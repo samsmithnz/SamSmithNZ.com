@@ -35,7 +35,7 @@ namespace SSNZ.Steam.Data
                 // Read the whole contents and return as a string  
                 result = reader.ReadToEnd();
                 //Convert all http calls to https
-                //result = result.Replace("http://", "https://");
+                result = result.Replace("http://", "https://");
 
             }
             catch (WebException e)
@@ -74,7 +74,7 @@ namespace SSNZ.Steam.Data
                 // Read the whole contents and return as a string  
                 result = reader.ReadToEnd();
                 //Convert all http calls to https
-                //result = result.Replace("http://", "https://");
+                result = result.Replace("http://", "https://");
             }
             catch (WebException e)
             {

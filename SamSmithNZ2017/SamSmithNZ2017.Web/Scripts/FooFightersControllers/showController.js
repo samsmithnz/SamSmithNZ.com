@@ -13,16 +13,21 @@
             console.log(data);
         };
         var onGetShowsEventComplete = function (response) {
-            console.log($scope.show);
+            //console.log($scope.show);
             $scope.show = response.data;
         };
         var onGetSongsEventComplete = function (response) {
             //console.log(response.data);
             $scope.songs = response.data;
         };
-        $scope.ShowCode = getUrlParameter('ShowCode');
-        showService.getShow($scope.ShowCode).then(onGetShowsEventComplete, onError);
-        songService.getSongsByShow($scope.ShowCode).then(onGetSongsEventComplete, onError);
+        $scope.showCode = getUrlParameter('ShowCode');
+        var showKey = Number(getUrlParameter('ShowKey'));
+        if (showKey > 0) {
+            console.log("updating show key to show code");
+            $scope.showCode = showKey;
+        }
+        showService.getShow($scope.showCode).then(onGetShowsEventComplete, onError);
+        songService.getSongsByShow($scope.showCode).then(onGetSongsEventComplete, onError);
     }
     function getUrlParameter(param) {
         var sPageURL = (window.location.search.substring(1));
@@ -39,4 +44,3 @@
         return res;
     }
 })();
-//# sourceMappingURL=showController.js.map
