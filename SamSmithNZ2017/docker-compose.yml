@@ -1,8 +1,0 @@
-version: '3'
-
-services:
-  samsmithnz2017.steam.web:
-    image: samsmithnz2017.steam.web
-    build:
-      context: ./SamSmithNZ2017.Steam.Web
-      dockerfile: Dockerfile
