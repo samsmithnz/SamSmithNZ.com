@@ -15,22 +15,22 @@ namespace SamSmithNZ2017.Web.Controllers
         // GET: Steam
         public ActionResult Index(string steamID)
         {
-            return View();
+            return Redirect("http://steamapiweb.azurewebsites.net/Home/Index?steamID="+ steamID);
         }
 
         public ActionResult SteamIsDown()
         {
-            return View();
+            return Redirect("http://steamapiweb.azurewebsites.net/Home/SteamIsDown");
         }
 
         public ActionResult About()
         {
-            return View();
+            return Redirect("http://steamapiweb.azurewebsites.net/Home/About");
         }
 
         public ActionResult GameDetails(string steamID, string appID)//, string currentCompletedFilter, string currentIncludeFilter, string currentExcludeFilter)
         {
-            return View();
+            return Redirect("http://steamapiweb.azurewebsites.net/Home/GameDetails?steamID=" + steamID + "&appID="+ appID);
         }
 
     }
