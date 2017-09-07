@@ -51,3 +51,4 @@ var app = angular.module("IntFootballApp", ['angularMoment']);
 //            return (log);
 //        }
 //    ]); 
+//# sourceMappingURL=app.js.map
