@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-controller="indexController">
+    <h2 ng-show="player" class="sectionTitle"><b>{{player.PlayerName}}'s Games</b></h2>
+    <span ng-show="player.IsPublic == false">This profile is private</span>
+    <br />
+
+    <img ng-hide="player" id="spinner1" src="~/Content/Images/spinner_small.gif" />
+    <table ng-show="player.IsPublic" class="tableofcontents" padding="0" cellspacing="0">
+        <tr>
+            <td style="width: 50%;">
+                <ul ng-repeat="item in games" style="text-align: left; padding: 0px;">
+                    <li class="tableofcontentsitem">
+                        <span>{{$index + 1}}.</span>
+                        <img ng-src="{{GetImagePath(item.AppID, item.IconURL)}}" src="~/Content/Steam/steam32by32.png" style="width:32px; height:32px;" />
+                        <span ng-hide="item.CommunityIsVisible">{{item.GameName}}</span>
+                        <span ng-show="item.CommunityIsVisible">
+                            <a href="~/Home/GameDetails?Steamid={{steamId}}&AppId={{item.AppID}}">{{item.GameName}}</a>
+                        </span>
+                        <span ng-show="item.TotalMinutesPlayed >= 60"> (Time played: {{item.TotalTimeString}})</span>
+                        <span ng-show="item.TotalMinutesPlayed <= 60"> (Time played: {{item.TotalMinutesPlayed}} minutes)</span>
+                    </li>
+                </ul>
+            </td>
+            <td ng-show="games.Length > 3" rowspan="{{games.length}}" style="vertical-align:top;">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- SteamIndexSkyscraper -->
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:300px;height:600px"
+                     data-ad-client="ca-pub-2315986579277492"
+                     data-ad-slot="8303043164"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </td>
+        </tr>
+    </table>
+</div>

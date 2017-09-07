@@ -40,3 +40,4 @@
         return res;
     }
 })();
+//# sourceMappingURL=teamController.js.map

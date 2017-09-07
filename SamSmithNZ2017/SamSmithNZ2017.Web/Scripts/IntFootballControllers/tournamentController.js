@@ -68,3 +68,4 @@
         return res;
     }
 })();
+//# sourceMappingURL=tournamentController.js.map

@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.ITunes.ImporterWin", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.FooFighters.SetlistFFLScraperWin", "SSNZ.FooFighters.SetlistFFLScraper\SSNZ.FooFighters.SetlistFFLScraperWin.csproj", "{96C0EC14-9E4A-45AD-8724-2707E7AFA795}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.Steam.Web", "SSNZ.Steam.Web\SSNZ.Steam.Web.csproj", "{31E9A4C3-4244-4671-A320-F027770CF542}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -165,6 +167,10 @@ Global
 		{96C0EC14-9E4A-45AD-8724-2707E7AFA795}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96C0EC14-9E4A-45AD-8724-2707E7AFA795}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96C0EC14-9E4A-45AD-8724-2707E7AFA795}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31E9A4C3-4244-4671-A320-F027770CF542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31E9A4C3-4244-4671-A320-F027770CF542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31E9A4C3-4244-4671-A320-F027770CF542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31E9A4C3-4244-4671-A320-F027770CF542}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -192,6 +198,7 @@ Global
 		{B4788864-AA1C-4251-8ABA-C07EC060D84E} = {72828614-5471-4DC8-B477-D9076FEC9B34}
 		{CE14B866-3522-45AD-A91C-4699964F3D23} = {72828614-5471-4DC8-B477-D9076FEC9B34}
 		{96C0EC14-9E4A-45AD-8724-2707E7AFA795} = {C5DAAF09-6122-44EF-B58D-999A62F07DB6}
+		{31E9A4C3-4244-4671-A320-F027770CF542} = {BE25C2FF-A0C3-41CA-8683-FF2559243116}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E732AC26-1C4B-407A-8B1F-B3BE57EE9E55}

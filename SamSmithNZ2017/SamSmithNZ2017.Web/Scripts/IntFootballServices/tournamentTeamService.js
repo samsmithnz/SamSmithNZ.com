@@ -21,3 +21,4 @@
         };
     }
 })();
+//# sourceMappingURL=tournamentTeamService.js.map

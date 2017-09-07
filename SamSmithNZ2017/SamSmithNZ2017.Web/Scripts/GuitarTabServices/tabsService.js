@@ -32,3 +32,4 @@
         };
     }
 })();
+//# sourceMappingURL=tabsService.js.map

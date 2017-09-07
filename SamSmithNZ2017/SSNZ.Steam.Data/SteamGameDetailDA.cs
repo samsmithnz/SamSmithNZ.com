@@ -12,10 +12,10 @@ namespace SSNZ.Steam.Data
     public class SteamGameDetailDA
     {
 
-        //https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=35D42236AAC777BEDB12CDEB625EF289&appid=200510&l=en&format=xml       
+        //http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=35D42236AAC777BEDB12CDEB625EF289&appid=200510&l=en&format=xml       
         public async Task<SteamGameDetail> GetDataAsync(string appID)
         {
-            string jsonRequestString = "https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=" + Global.MySteamWebAPIKey + "&appid=" + appID.ToString() + "&l=en";
+            string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=" + Utility.MySteamWebAPIKey + "&appid=" + appID.ToString() + "&l=en";
             //WebClient newClient = new WebClient();
             //newClient.Encoding = UTF8Encoding.UTF8;
             //string jsonData = await newClient.DownloadStringTaskAsync(jsonRequestString);
@@ -33,7 +33,7 @@ namespace SSNZ.Steam.Data
 
         public SteamGameDetail GetDataOld(string appID)
         {
-            string jsonRequestString = "https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=" + Global.MySteamWebAPIKey + "&appid=" + appID.ToString() + "&l=en";
+            string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=" + Utility.MySteamWebAPIKey + "&appid=" + appID.ToString() + "&l=en";
             //WebClient newClient = new WebClient();
             //newClient.Encoding = UTF8Encoding.UTF8;
             //string jsonData = newClient.DownloadString(jsonRequestString);

@@ -21,3 +21,4 @@
         };
     }
 })();
+//# sourceMappingURL=topArtistsService.js.map

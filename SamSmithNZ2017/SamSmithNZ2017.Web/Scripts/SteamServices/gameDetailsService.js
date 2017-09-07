@@ -21,3 +21,4 @@
         };
     }
 })();
+//# sourceMappingURL=gameDetailsService.js.map
