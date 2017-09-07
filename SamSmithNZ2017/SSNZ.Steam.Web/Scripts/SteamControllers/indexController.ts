@@ -34,7 +34,7 @@
                 return null;
             }
             else {
-                return 'https://media.steampowered.com/steamcommunity/public/images/apps/' + appID + '/' + iconURL + '.jpg';
+                return 'http://media.steampowered.com/steamcommunity/public/images/apps/' + appID + '/' + iconURL + '.jpg';
             }
         }
 
