@@ -12,10 +12,10 @@ namespace SSNZ.Steam.Data
     public class SteamOwnedGamesDA
     {
 
-        //https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=35D42236AAC777BEDB12CDEB625EF289&steamid=76561197971691578&include_appinfo=1&format=xml        
+        //http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=35D42236AAC777BEDB12CDEB625EF289&steamid=76561197971691578&include_appinfo=1&format=xml        
         public async Task<SteamOwnedGames> GetDataAsync(string steamID)
         {
-            string jsonRequestString = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + Global.MySteamWebAPIKey + "&steamid=" + steamID + "&include_appinfo=1";
+            string jsonRequestString = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + Utility.MySteamWebAPIKey + "&steamid=" + steamID + "&include_appinfo=1";
             //WebClient newClient = new WebClient();
             //newClient.Encoding = UTF8Encoding.UTF8;
             //string jsonData = await newClient.DownloadStringTaskAsync(jsonRequestString);
@@ -33,7 +33,7 @@ namespace SSNZ.Steam.Data
 
         public SteamOwnedGames GetDataOld(string steamID)
         {
-            string jsonRequestString = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + Global.MySteamWebAPIKey + "&steamid=" + steamID + "&include_appinfo=1";
+            string jsonRequestString = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + Utility.MySteamWebAPIKey + "&steamid=" + steamID + "&include_appinfo=1";
             //WebClient newClient = new WebClient();
             //newClient.Encoding = UTF8Encoding.UTF8;
             //string jsonData = newClient.DownloadString(jsonRequestString);

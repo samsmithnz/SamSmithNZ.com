@@ -12,10 +12,10 @@ namespace SSNZ.Steam.Data
     public class SteamGlobalAchievementPercentagesForAppDA
     {
 
-        //https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=200510
+        //http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=200510
         public async Task<SteamGlobalAchievementsForApp> GetDataAsync(string appID)
         {
-            string jsonRequestString = "https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=" + appID.ToString();
+            string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=" + appID.ToString();
             //WebClient newClient = new WebClient();
             //newClient.Encoding = UTF8Encoding.UTF8;
             //string jsonData = await newClient.DownloadStringTaskAsync(jsonRequestString);
@@ -27,7 +27,7 @@ namespace SSNZ.Steam.Data
 
         public SteamGlobalAchievementsForApp GetDataOld(string appID)
         {
-            string jsonRequestString = "https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=" + appID.ToString();
+            string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=" + appID.ToString();
             //WebClient newClient = new WebClient();
             //newClient.Encoding = UTF8Encoding.UTF8;
             //string jsonData = newClient.DownloadString(jsonRequestString);

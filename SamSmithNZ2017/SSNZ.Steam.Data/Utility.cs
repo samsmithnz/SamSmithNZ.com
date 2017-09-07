@@ -10,6 +10,11 @@ namespace SSNZ.Steam.Data
 {
     public static class Utility
     {
+        //http://steamcommunity.com/dev
+        //http://developer.valvesoftware.com/wiki/Steam_Web_API#GetPlayerSummaries_.2v0001.29
+        //http://portablesteamwebapi.codeplex.com/documentation
+        public static string MySteamWebAPIKey = "35D42236AAC777BEDB12CDEB625EF289";
+
         public static string ConvertMinutesToFriendlyTime(long minutes)
         {
             string result = "";
@@ -35,7 +40,7 @@ namespace SSNZ.Steam.Data
                 // Read the whole contents and return as a string  
                 result = reader.ReadToEnd();
                 //Convert all http calls to https
-                result = result.Replace("http://", "https://");
+                //result = result.Replace("http://", "https://");
 
             }
             catch (WebException e)
@@ -74,7 +79,7 @@ namespace SSNZ.Steam.Data
                 // Read the whole contents and return as a string  
                 result = reader.ReadToEnd();
                 //Convert all http calls to https
-                result = result.Replace("http://", "https://");
+                //result = result.Replace("http://", "https://");
             }
             catch (WebException e)
             {

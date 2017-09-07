@@ -31,7 +31,7 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.response.players[0].personaname == "nosilleg");
             Assert.IsTrue(result.response.players[0].lastlogoff >= 1392847930);
             Assert.IsTrue(result.response.players[0].commentpermission == 2);
-            Assert.IsTrue(result.response.players[0].profileurl == "https://steamcommunity.com/id/nosilleg/");
+            Assert.IsTrue(result.response.players[0].profileurl == "http://steamcommunity.com/id/nosilleg/");
             Assert.IsTrue(result.response.players[0].avatar == "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/85/8522d758971df1d6c4046cca81e8a364315388f2.jpg");
             Assert.IsTrue(result.response.players[0].avatarmedium == "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/85/8522d758971df1d6c4046cca81e8a364315388f2_medium.jpg");
             Assert.IsTrue(result.response.players[0].avatarfull == "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/85/8522d758971df1d6c4046cca81e8a364315388f2_full.jpg");
@@ -50,10 +50,10 @@ namespace SSNZ.Steam.UnitTests
             //            <personaname>nosilleg</personaname> 
             //            <lastlogoff>1392847930</lastlogoff> 
             //            <commentpermission>2</commentpermission> 
-            //            <profileurl>https://steamcommunity.com/id/nosilleg/</profileurl> 
-            //            <avatar>https://media.steampowered.com/steamcommunity/public/images/avatars/85/8522d758971df1d6c4046cca81e8a364315388f2.jpg</avatar> 
-            //            <avatarmedium>https://media.steampowered.com/steamcommunity/public/images/avatars/85/8522d758971df1d6c4046cca81e8a364315388f2_medium.jpg</avatarmedium> 
-            //            <avatarfull>https://media.steampowered.com/steamcommunity/public/images/avatars/85/8522d758971df1d6c4046cca81e8a364315388f2_full.jpg</avatarfull> 
+            //            <profileurl>http://steamcommunity.com/id/nosilleg/</profileurl> 
+            //            <avatar>http://media.steampowered.com/steamcommunity/public/images/avatars/85/8522d758971df1d6c4046cca81e8a364315388f2.jpg</avatar> 
+            //            <avatarmedium>http://media.steampowered.com/steamcommunity/public/images/avatars/85/8522d758971df1d6c4046cca81e8a364315388f2_medium.jpg</avatarmedium> 
+            //            <avatarfull>http://media.steampowered.com/steamcommunity/public/images/avatars/85/8522d758971df1d6c4046cca81e8a364315388f2_full.jpg</avatarfull> 
             //            <personastate>0</personastate> 
             //            <primaryclanid>103582791433470748</primaryclanid> 
             //            <timecreated>1108190390</timecreated> 
