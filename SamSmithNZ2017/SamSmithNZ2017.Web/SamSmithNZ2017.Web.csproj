@@ -483,7 +483,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <None Include="HTTPSSettings.txt" />
     <Content Include="Robots.txt" />
     <Content Include="Scripts\3rdParty\bootstrap.js" />
     <Content Include="Scripts\3rdParty\bootstrap.min.js" />
