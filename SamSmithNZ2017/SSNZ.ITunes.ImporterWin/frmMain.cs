@@ -111,6 +111,7 @@ namespace SSNZ.ITunes.ImporterWin
                 int newPlayListCode = 0;
                 newPlayListCode = AsyncHelper.RunSync<int>(() => DataAccess.CreateNewPlayList(newDate));
                 AsyncHelper.RunSync<bool>(() => DataAccess.DeletePlaylistTracks(newPlayListCode));
+                newPlayListCode = AsyncHelper.RunSync<int>(() => DataAccess.CreateNewPlayList(newDate)); //Ok - so we just deleted the playlist. lets recreate it.
 
                 for (int i = 0; i <= trackList.Count - 1; i++)
                 {
