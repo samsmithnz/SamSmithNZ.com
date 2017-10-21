@@ -39,6 +39,7 @@
   <SuppressedFile FilePath="dbo\Stored Procedures\spWC_AddOddsForOldTournament.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0004" />
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0014" />
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Stored Procedures\spWC_SetFinalTournamentPlacing.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
@@ -62,6 +63,7 @@
   <SuppressedFile FilePath="dbo\Stored Procedures\spWC_GetOddsSummary.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0004" />
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0014" />
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Stored Procedures\spWC_GetOddsMinMax.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
@@ -78,6 +80,7 @@
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Stored Procedures\spWC_CalculateRanking.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0014" />
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Stored Procedures\ITunes_ImportSetTrackRanks.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0007" />
@@ -129,5 +132,11 @@
   </SuppressedFile>
   <SuppressedFile FilePath="dbo\Stored Procedures\FB_GetTournamentTeamsPlacing.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0004" />
+  </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Functions\fnWC_CalculateRanking_OppositionStrength.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0014" />
+  </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Stored Procedures\spWC_NormalizeOdds.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0014" />
   </SuppressedFile>
 </StaticCodeAnalysis>
