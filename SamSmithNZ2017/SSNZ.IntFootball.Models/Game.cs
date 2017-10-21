@@ -9,6 +9,7 @@ namespace SSNZ.IntFootball.Models
     {
         public Game() { }
 
+        public int RowType { get; set; }
         public int RoundNumber { get; set; }
         public string RoundCode { get; set; }
         public string RoundName { get; set; }

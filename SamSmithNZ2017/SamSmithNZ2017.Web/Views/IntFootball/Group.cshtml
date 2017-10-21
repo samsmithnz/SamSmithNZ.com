@@ -12,7 +12,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <span>Group: </span><select id="cboGroup" ng-model="roundCode" ng-options="item.RoundCode as item.RoundCode for item in groupCodes" ng-change="updateGroupDetails(tournamentCode, roundNumber, roundCode)"></select>@*@Html.DropDownList("cboGroup", new SelectList(Model.Groups, "RoundCode", "RoundCode", Model.SelectedGroup), new { onchange = "this.form.submit();" })*@            
+            <span>Group: </span><select id="cboGroup" ng-model="roundCode" ng-options="item.RoundCode as item.RoundCode for item in groupCodes" ng-change="updateGroupDetails(tournamentCode, roundNumber, roundCode)"></select>@*@Html.DropDownList("cboGroup", new SelectList(Model.Groups, "RoundCode", "RoundCode", Model.SelectedGroup), new { onchange = "this.form.submit();" })*@
             <span ng-if="isLastRound == 'true'">
                 &nbsp;<span style="border-style: solid; border-width: 1px; border-color: darkgray; background-color: gold;">&nbsp;World Cup Champion&nbsp;</span>
                 &nbsp;<span style="border-style: solid; border-width: 1px; border-color: darkgray; background-color: silver;">&nbsp;2nd Place&nbsp;</span>
@@ -87,11 +87,17 @@
                     <td>{{item.RoundName}}</td>
                     <td>{{item.RoundCode}}</td>
                     <td style="text-align: right;">
-                        <a href="/IntFootball/Team?TeamCode={{item.Team1Code}}">{{item.Team1Name}}</a>
-                        <img ng-src="~/Content/IntFootball/Teams/{{item.Team1FlagName}}" CssClass="TeamImage" />
+                        <div ng-if="item.RowType == 1">
+                            <a href="/IntFootball/Team?TeamCode={{item.Team1Code}}">{{item.Team1Name}}</a>
+                            <img ng-src="~/Content/IntFootball/Teams/{{item.Team1FlagName}}" CssClass="TeamImage" />
+                        </div>
+                        <div ng-if="item.RowType >= 2">
+                            {{item.Team1Name}}
+                            <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" />
+                        </div>
                     </td>
                     <td style="text-align: center;">
-                        <div ng-if="item.Team1NormalTimeScore >= 0">
+                        <div ng-if="item.Team1NormalTimeScore >= 0 && item.RowType == 1">
                             <span ng-if="!item.Team1PenaltiesScore">{{item.Team1ResultRegulationTimeScore}} - {{item.Team2ResultRegulationTimeScore}} {{item.Team1ResultInformation}}{{item.Team2ResultInformation}}</span>
                             <div ng-if="item.Team1PenaltiesScore && item.Team1PenaltiesScore >= 0">
                                 <span>{{item.Team1ResultRegulationTimeScore}} - {{item.Team2ResultRegulationTimeScore}} (aet)</span>
