@@ -14,6 +14,7 @@ namespace SSNZ.IntFootball.Data
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
             parameters.Add("@RoundNumber", roundNumber, DbType.Int32);
             parameters.Add("@RoundCode", roundCode, DbType.String);
+            parameters.Add("@IncludeGoals", true, DbType.String);
 
             List<Game> results = await base.GetListAsync("FB_GetGames", parameters);
             results = ProcessGameResults(results);
@@ -35,6 +36,7 @@ namespace SSNZ.IntFootball.Data
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
             parameters.Add("@RoundNumber", roundNumber, DbType.Int32);
+            parameters.Add("@IncludeGoals", true, DbType.String);
 
             List<Game> results = await base.GetListAsync("FB_GetGames", parameters);
             results = ProcessGameResults(results);

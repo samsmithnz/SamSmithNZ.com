@@ -2,7 +2,8 @@
 	@TournamentCode INT = NULL,
 	@RoundNumber INT = NULL,
 	@RoundCode VARCHAR(10) = NULL,
-	@TeamCode INT = NULL
+	@TeamCode INT = NULL,
+	@IncludeGoals BIT = 0
 AS
 BEGIN
 	
@@ -133,6 +134,7 @@ BEGIN
 		WHERE (@TournamentCode IS NULL OR g.tournament_code = @TournamentCode)
 		AND (@RoundNumber IS NULL OR g.round_number = @RoundNumber)
 		AND (@RoundCode IS NULL OR g.round_code = @RoundCode)
+		AND @IncludeGoals = 1
 
 		UNION
 		SELECT 
@@ -174,95 +176,9 @@ BEGIN
 		WHERE (@TournamentCode IS NULL OR g.tournament_code = @TournamentCode)
 		AND (@RoundNumber IS NULL OR g.round_number = @RoundNumber)
 		AND (@RoundCode IS NULL OR g.round_code = @RoundCode)
+		AND @IncludeGoals = 1
 
 		ORDER BY g.game_time, g.game_number, g.game_code, SortOrder
 	END
 END
-
-
-----Insert Team 1 Scorers
---INSERT INTO #tmp_games
---SELECT 2 AS row_type, g.round_number, g.round_code, CONVERT(VARCHAR(50),'') AS round_name,
---	g.game_code, g.game_number, g.game_time, 
---	p.player_code AS team_1_code, CONVERT(VARCHAR(50),p.player_name) AS team_1_name, 
---	gl.goal_time AS team_1_normal_time_score, injury_time AS team_1_extra_time_score, 0 AS team_1_penalties_score,
---	p.team_code AS team_2_code, '' AS team_2_name, 
---	0 AS team_2_normal_time_score, 0 AS team_2_extra_time_score, 0 AS team_2_penalties_score,
---	'Soccerball_svg.png' AS team_1_flag_name, '' AS team_2_flag_name,
---	g.location, 0 AS team_1_withdrew, 0 AS team_2_withdrew,
---	g.tournament_code, '' AS tournament_name,
---	'' AS coach_name, '' AS coach_flag, 0 AS fifa_ranking, 
---	gl.is_penalty, gl.is_own_goal, gl.goal_time + injury_time AS sort_order
---FROM wc_game g 
-----JOIN wc_team t ON g.team_1_code = t.team_code
---JOIN wc_goal gl ON gl.game_code = g.game_code
---JOIN wc_player p ON p.player_code = gl.player_code and g.team_1_code = p.team_code
---JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
---WHERE g.tournament_code = @tournament_code
---and g.round_number = @round_number
---and @show_goals = 1
-
-----Insert Team 2 Scorers
---INSERT INTO #tmp_games
---SELECT 2 AS row_type, g.round_number, g.round_code, CONVERT(VARCHAR(50),'') AS round_name,
---	g.game_code, g.game_number, g.game_time, 
---	p.team_code AS team_1_code, '' AS team_1_name, 
---	0 AS team_1_normal_time_score, 0 AS team_1_extra_time_score, 0 AS team_1_penalties_score,
---	p.player_code AS team_2_code, CONVERT(VARCHAR(50),p.player_name) AS team_2_name, 
---	gl.goal_time AS team_2_normal_time_score, injury_time AS team_2_extra_time_score, 0 AS team_2_penalties_score,
---	'' AS team_1_flag_name, 'Soccerball_svg.png' AS team_2_flag_name,
---	g.location, 0 AS team_1_withdrew, 0 AS team_2_withdrew,
---	g.tournament_code, '' AS tournament_name,
---	'' AS coach_name, '' AS coach_flag, 0 AS fifa_ranking, 
---	gl.is_penalty, gl.is_own_goal, gl.goal_time + injury_time AS sort_order
---FROM wc_game g
-----JOIN wc_team t ON g.team_1_code = t.team_code
---JOIN wc_goal gl ON gl.game_code = g.game_code
---JOIN wc_player p ON p.player_code = gl.player_code and g.team_2_code = p.team_code
---JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
---WHERE g.tournament_code = @tournament_code
---and g.round_number = @round_number
---and @show_goals = 1
-
-----Insert Team 1 Penalty Shootout Scorers
---INSERT INTO #tmp_games
---SELECT 3 AS row_type, g.round_number, g.round_code, CONVERT(VARCHAR(50),'') AS round_name,
---	g.game_code, g.game_number, g.game_time, 
---	p.player_code AS team_1_code, CONVERT(VARCHAR(50),p.player_name) AS team_1_name, 
---	0 AS team_1_normal_time_score, 0 AS team_1_extra_time_score, ps.scored AS team_1_penalties_score,
---	p.team_code AS team_2_code, '' AS team_2_name, 
---	0 AS team_2_normal_time_score, 0 AS team_2_extra_time_score, 0 AS team_2_penalties_score,
---	CASE WHEN ps.scored = 1 THEN 'Soccerball_svg.png' ELSE 'Soccerball_Miss_svg.png' END AS team_1_flag_name, '' AS team_2_flag_name,
---	g.location, 0 AS team_1_withdrew, 0 AS team_2_withdrew,
---	g.tournament_code, '' AS tournament_name,
---	'' AS coach_name, '' AS coach_flag, 0 AS fifa_ranking, 
---	1 AS is_penalty, 0 AS is_own_goal, penalty_order AS sort_order
---FROM wc_game g 
---JOIN wc_penalty_shootout ps ON ps.game_code = g.game_code
---JOIN wc_player p ON p.player_code = ps.player_code and g.team_1_code = p.team_code
---JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
---WHERE g.tournament_code = @tournament_code
---and g.round_number = @round_number
---and @show_goals = 1
-
-----Insert Team 2 Penalty Shootout Scorers
---INSERT INTO #tmp_games
---SELECT 3 AS row_type, g.round_number, g.round_code, CONVERT(VARCHAR(50),'') AS round_name,
---	g.game_code, g.game_number, g.game_time, 
---	p.team_code AS team_1_code, '' AS team_1_name, 
---	0 AS team_1_normal_time_score, 0 AS team_1_extra_time_score, 0 AS team_1_penalties_score,
---	p.player_code AS team_2_code, CONVERT(VARCHAR(50),p.player_name) AS team_2_name, 
---	0 AS team_2_normal_time_score, 0 AS team_2_extra_time_score, ps.scored AS team_2_penalties_score,
---	'' AS team_1_flag_name, CASE WHEN ps.scored = 1 THEN 'Soccerball_svg.png' ELSE 'Soccerball_Miss_svg.png' END AS team_2_flag_name,
---	g.location, 0 AS team_1_withdrew, 0 AS team_2_withdrew,
---	g.tournament_code, '' AS tournament_name,
---	'' AS coach_name, '' AS coach_flag, 0 AS fifa_ranking, 
---	1 AS is_penalty, 0 AS is_own_goal, penalty_order AS sort_order
---FROM wc_game g 
---JOIN wc_penalty_shootout ps ON ps.game_code = g.game_code
---JOIN wc_player p ON p.player_code = ps.player_code and g.team_2_code = p.team_code
---JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
---WHERE g.tournament_code = @tournament_code
---and g.round_number = @round_number
---and @show_goals = 1
 GO
