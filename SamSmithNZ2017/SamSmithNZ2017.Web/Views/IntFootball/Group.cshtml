@@ -91,7 +91,7 @@
                             <a href="/IntFootball/Team?TeamCode={{item.Team1Code}}">{{item.Team1Name}}</a>
                             <img ng-src="~/Content/IntFootball/Teams/{{item.Team1FlagName}}" CssClass="TeamImage" />
                         </div>
-                        <div ng-if="item.RowType >= 2">
+                        <div ng-if="item.RowType >= 2 && item.Team1NormalTimeScore">
                             {{item.Team1Name}}
                             <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" />
                         </div>
@@ -105,10 +105,21 @@
                                 {{item.Team1PenaltiesScore}} - {{item.Team2PenaltiesScore}} {{item.Team1ResultInformation}}{{item.Team2ResultInformation}}
                             </div>
                         </div>
+                        <div ng-if="item.Team1NormalTimeScore && item.RowType >= 2">
+                            {{item.Team1NormalTimeScore}}'
+                        </div>
+                        <div ng-if="item.Team2NormalTimeScore && item.RowType >= 2">
+                            {{item.Team2NormalTimeScore}}'
+                        </div>
                     </td>
                     <td style="text-align: left;">
-                        <img ng-src="~/Content/IntFootball/Teams/{{item.Team2FlagName}}" CssClass="TeamImage" />
-                        <a href="/IntFootball/Team?TeamCode={{item.Team2Code}}">{{item.Team2Name}}</a>
+                        <div ng-if="item.RowType == 1">
+                            <img ng-src="~/Content/IntFootball/Teams/{{item.Team2FlagName}}" CssClass="TeamImage" />
+                            <a href="/IntFootball/Team?TeamCode={{item.Team2Code}}">{{item.Team2Name}}</a>
+                        </div>  <div ng-if="item.RowType >= 2 && item.Team2NormalTimeScore">
+                            {{item.Team2Name}}
+                            <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" />
+                        </div>
                     </td>
                     <td>{{item.Location}}</td>
                 </tr>
