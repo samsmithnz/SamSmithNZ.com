@@ -41,7 +41,7 @@
                     <th>GD</th>
                     <th>Points</th>
                 </tr>
-                <tr ng-repeat="item in groups" ng-style="{'background-color': getRowStyle(item.HasQualifiedForNextRound, item.GroupRanking, isLastRound)}">
+                <tr ng-repeat="item in groups" ng-style="{'background-color': getGroupRowStyle(item.HasQualifiedForNextRound, item.GroupRanking, isLastRound)}">
                     <td>
                         <img ng-src="~/Content/IntFootball/Teams/{{item.TeamFlagName}}" CssClass="TeamImage" />
                         <a href="/IntFootball/Team?TeamCode={{item.TeamCode}}">{{item.TeamName}}</a>
@@ -68,7 +68,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-striped table-bordered">
+            <table class="table table-bordered">
                 <tr>
                     <th>Game #</th>
                     <th>Game Time</th>
@@ -80,12 +80,12 @@
                     <th></th>
                     <th>Location</th>
                 </tr>
-                <tr ng-repeat="item in games">
-                    <td>{{item.GameNumber}}</td>
-                    <td>{{item.GameTime | date:'dd-MMM-yyyy'}}</td>
-                    <td>{{item.RoundNumber}}</td>
-                    <td>{{item.RoundName}}</td>
-                    <td>{{item.RoundCode}}</td>
+                <tr ng-repeat="item in games" ng-style="{'background-color': getGameRowStyle(item.GameCode)}">
+                    <td><div ng-if="item.RowType == 1">{{item.GameNumber}}</div></td>
+                    <td><div ng-if="item.RowType == 1">{{item.GameTime | date:'dd-MMM-yyyy'}}</div></td>
+                    <td><div ng-if="item.RowType == 1">{{item.RoundNumber}}</div></td>
+                    <td><div ng-if="item.RowType == 1">{{item.RoundName}}</div></td>
+                    <td><div ng-if="item.RowType == 1">{{item.RoundCode}}</div></td>
                     <td style="text-align: right;">
                         <div ng-if="item.RowType == 1">
                             <a href="/IntFootball/Team?TeamCode={{item.Team1Code}}">{{item.Team1Name}}</a>
@@ -93,7 +93,7 @@
                         </div>
                         <div ng-if="item.RowType >= 2 && item.Team1NormalTimeScore">
                             {{item.Team1Name}}
-                            <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" />
+                            <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" /> {{item.Team1NormalTimeScore}}'
                         </div>
                     </td>
                     <td style="text-align: center;">
@@ -105,12 +105,6 @@
                                 {{item.Team1PenaltiesScore}} - {{item.Team2PenaltiesScore}} {{item.Team1ResultInformation}}{{item.Team2ResultInformation}}
                             </div>
                         </div>
-                        <div ng-if="item.Team1NormalTimeScore && item.RowType >= 2">
-                            {{item.Team1NormalTimeScore}}'
-                        </div>
-                        <div ng-if="item.Team2NormalTimeScore && item.RowType >= 2">
-                            {{item.Team2NormalTimeScore}}'
-                        </div>
                     </td>
                     <td style="text-align: left;">
                         <div ng-if="item.RowType == 1">
@@ -118,7 +112,7 @@
                             <a href="/IntFootball/Team?TeamCode={{item.Team2Code}}">{{item.Team2Name}}</a>
                         </div>  <div ng-if="item.RowType >= 2 && item.Team2NormalTimeScore">
                             {{item.Team2Name}}
-                            <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" />
+                            <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" /> {{item.Team2NormalTimeScore}}'
                         </div>
                     </td>
                     <td>{{item.Location}}</td>
