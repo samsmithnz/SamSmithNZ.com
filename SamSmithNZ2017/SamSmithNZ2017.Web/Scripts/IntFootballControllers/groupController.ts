@@ -87,7 +87,7 @@
             else {
                 trStyle = "white";
             }
-            console.log("GameCode: " + gameCode + ", style:" + trStyle);
+            //console.log("GameCode: " + gameCode + ", style:" + trStyle);
             return trStyle;
         };
 

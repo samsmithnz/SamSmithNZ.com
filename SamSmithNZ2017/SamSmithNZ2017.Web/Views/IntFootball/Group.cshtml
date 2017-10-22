@@ -115,7 +115,7 @@
                             <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" /> {{item.Team2NormalTimeScore}}'
                         </div>
                     </td>
-                    <td>{{item.Location}}</td>
+                    <td><div ng-if="item.RowType == 1">{{item.Location}}</div></td>
                 </tr>
             </table>
         </div>
