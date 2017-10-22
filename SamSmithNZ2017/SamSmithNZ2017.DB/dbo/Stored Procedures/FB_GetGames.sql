@@ -93,6 +93,7 @@ BEGIN
 		WHERE (@TournamentCode IS NULL OR g.tournament_code = @TournamentCode)
 		AND (@RoundNumber IS NULL OR g.round_number = @RoundNumber)
 		AND (@RoundCode IS NULL OR g.round_code = @RoundCode)
+		--and g.game_code = 58
 
 		UNION
 		SELECT 
@@ -125,7 +126,7 @@ BEGIN
 			0 AS FifaRanking, 
 			0 AS IsPenalty, 
 			0 AS IsOwnGoal, 
-			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS sort_order
+			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS SortOrder
 		FROM wc_game g 
 		--JOIN wc_team t ON g.team_1_code = t.team_code
 		JOIN wc_goal gl ON gl.game_code = g.game_code
@@ -135,6 +136,7 @@ BEGIN
 		AND (@RoundNumber IS NULL OR g.round_number = @RoundNumber)
 		AND (@RoundCode IS NULL OR g.round_code = @RoundCode)
 		AND @IncludeGoals = 1
+		--and g.game_code = 58
 
 		UNION
 		SELECT 
@@ -160,7 +162,7 @@ BEGIN
 			0 AS Team1withdrew, 
 			0 AS Team2withdrew,
 			NULL AS [Location],
-			g.tournament_code AS TournamentName, 
+			g.tournament_code AS TournamentCode, 
 			'' AS TournamentName,
 			'' AS CoachName, 
 			'' AS CoachFlag, 
@@ -177,8 +179,93 @@ BEGIN
 		AND (@RoundNumber IS NULL OR g.round_number = @RoundNumber)
 		AND (@RoundCode IS NULL OR g.round_code = @RoundCode)
 		AND @IncludeGoals = 1
+		--and g.game_code = 58
+		
+		--Insert Team 1 Penalty Shootout Scorers
+		UNION
+		SELECT 3 AS RowType, 			
+			g.round_number AS RoundNumber, 
+			NULL AS RoundCode, 
+			CONVERT(VARCHAR(50),'') AS RoundName,
+			g.game_code AS GameCode, 
+			g.game_number AS GameNumber, 
+			g.game_time AS GameTime,  
+			p.player_code AS Team1Code, 
+			CONVERT(VARCHAR(50),p.player_name) AS Team1Name, 
+			0 AS Team1NormalTimeScore, 
+			0 AS Team1ExtraTimeScore, 
+			ps.scored AS Team1PenaltiesScore,
+			p.team_code AS Team2Code, 
+			'' AS Team2Name, 
+			0 AS Team2NormalTimeScore, 
+			0 AS Team2ExtraTimeScore, 
+			NULL AS Team2PenaltiesScore,
+			NULL AS Team1FlagName, 
+			NULL AS Team2FlagName,
+			0 AS Team1withdrew, 
+			0 AS Team2withdrew,
+			NULL AS [Location],
+			g.tournament_code AS TournamentCode, 
+			'' AS TournamentName,
+			'' AS CoachName, 
+			'' AS CoachFlag, 
+			0 AS FifaRanking, 
+			0 AS IsPenalty, 
+			0 AS IsOwnGoal,  
+			penalty_order AS sort_order
+		FROM wc_game g 
+		JOIN wc_penalty_shootout ps ON ps.game_code = g.game_code
+		JOIN wc_player p ON p.player_code = ps.player_code and g.team_1_code = p.team_code
+		LEFT JOIN wc_round r ON g.round_code = r.round_code
+		WHERE (@TournamentCode IS NULL OR g.tournament_code = @TournamentCode)
+		AND (@RoundNumber IS NULL OR g.round_number = @RoundNumber)
+		AND (@RoundCode IS NULL OR g.round_code = @RoundCode)
+		AND @IncludeGoals = 1
+		--and g.game_code = 58
 
-		ORDER BY g.game_time, g.game_number, g.game_code, SortOrder
+		--Insert Team 2 Penalty Shootout Scorers
+		UNION
+		SELECT 3 AS RowType, 			
+			g.round_number AS RoundNumber, 
+			NULL AS RoundCode, 
+			CONVERT(VARCHAR(50),'') AS RoundName,
+			g.game_code AS GameCode, 
+			g.game_number AS GameNumber, 
+			g.game_time AS GameTime,  
+			p.player_code AS Team1Code, 
+			'' AS Team1Name, 
+			0 AS Team1NormalTimeScore, 
+			0 AS Team1ExtraTimeScore, 
+			NULL AS Team1PenaltiesScore,
+			p.player_code AS Team2Code, 
+			CONVERT(VARCHAR(50),p.player_name) AS Team2Name, 
+			0 AS Team2NormalTimeScore, 
+			0 AS Team2ExtraTimeScore, 
+			ps.scored AS Team2PenaltiesScore,
+			NULL AS Team1FlagName, 
+			NULL AS Team2FlagName,
+			0 AS Team1withdrew, 
+			0 AS Team2withdrew,
+			NULL AS [Location],
+			g.tournament_code AS TournamentCode, 
+			'' AS TournamentName,
+			'' AS CoachName, 
+			'' AS CoachFlag, 
+			0 AS FifaRanking, 
+			0 AS IsPenalty, 
+			0 AS IsOwnGoal,  
+			penalty_order AS sort_order
+		FROM wc_game g 
+		JOIN wc_penalty_shootout ps ON ps.game_code = g.game_code
+		JOIN wc_player p ON p.player_code = ps.player_code and g.team_2_code = p.team_code
+		LEFT JOIN wc_round r ON g.round_code = r.round_code
+		WHERE (@TournamentCode IS NULL OR g.tournament_code = @TournamentCode)
+		AND (@RoundNumber IS NULL OR g.round_number = @RoundNumber)
+		AND (@RoundCode IS NULL OR g.round_code = @RoundCode)
+		AND @IncludeGoals = 1
+		--and g.game_code = 58
+
+		ORDER BY g.game_time, g.game_number, g.game_code, RowType, SortOrder
 	END
 END
 GO
