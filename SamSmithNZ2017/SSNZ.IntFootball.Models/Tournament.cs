@@ -53,6 +53,8 @@ namespace SSNZ.IntFootball.Models
         public string Notes { get; set; }
         public string LogoImage { get; set; }
         public string QualificationImage { get; set; }
+        public int TotalGoals { get; set; }
+        public int TotalPenalties { get; set; }
 
     }
 }
