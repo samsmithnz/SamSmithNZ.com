@@ -11,6 +11,7 @@
                     <th>Round 1</th>
                     <th>Round 2</th>
                     <th>Round 3</th>
+                    <th>Stats</th>
                     <th>% Data Loaded</th>
                     <th>Data Missing</th>
                 </tr>
@@ -32,6 +33,7 @@
                         <a href="/IntFootball/Group?tournamentCode={{item.TournamentCode}}&roundNumber=3&isLastRound=true" ng-if="item.GameCount > 0 && item.R3FormatRoundCode > 0  && item.R3IsGroupStage == true">Group Stage</a>
                         <a href="/IntFootball/Playoffs?tournamentCode={{item.TournamentCode}}&roundNumber=3&isLastRound=true" ng-if="item.GameCount > 0 && item.R3FormatRoundCode > 0  && item.R3IsGroupStage == false">Playoffs</a>
                     </td>
+                    <td>{{item.TotalGoals}} in {{item.GameCount}}, including {{item.TotalPenalties}} goals from penalty shootouts</td>
                     <td>{{item.ImportingTotalPercentComplete * 100}}%</td>
                     <td>
                         <span ng-if="item.MinGameTime != null">
