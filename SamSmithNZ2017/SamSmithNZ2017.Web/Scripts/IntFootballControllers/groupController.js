@@ -44,7 +44,7 @@
             gameService.getGamesForGroup(tournamentCode, roundNumber, roundCode).then(onGetGamesEventComplete, onError);
         };
         //Style the group rows depending on the the status of the group
-        $scope.getRowStyle = function (hasQualifiedForNextRound, groupRanking, isLastRound) {
+        $scope.getGroupRowStyle = function (hasQualifiedForNextRound, groupRanking, isLastRound) {
             var trStyle = "";
             if (isLastRound == 'true') {
                 switch (groupRanking) {
@@ -64,6 +64,18 @@
                     trStyle = "#CCFF99";
                 }
             }
+            return trStyle;
+        };
+        //Style the game rows to group game details with goal details
+        $scope.getGameRowStyle = function (gameCode) {
+            var trStyle = "";
+            if ((gameCode % 2) == 1) {
+                trStyle = "#f9f9f9";
+            }
+            else {
+                trStyle = "white";
+            }
+            //console.log("GameCode: " + gameCode + ", style:" + trStyle);
             return trStyle;
         };
     }
