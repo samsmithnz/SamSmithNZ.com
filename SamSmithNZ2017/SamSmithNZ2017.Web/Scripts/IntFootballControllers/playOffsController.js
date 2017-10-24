@@ -20,7 +20,7 @@
             $scope.showSemis = true;
             $scope.show3rdPlace = true;
             $scope.showFinals = true;
-            console.log('games: ' + $scope.games.length);
+            //console.log('games: ' + $scope.games.length);
             switch ($scope.games.length) {
                 case 16:
                     //Show Everything!!!
@@ -70,6 +70,18 @@
                 }
             }
             return null;
+        };
+        //Style the game rows to group game details with goal details
+        $scope.getGameRowStyle = function (gameCode) {
+            var trStyle = "";
+            if ((gameCode % 2) == 1) {
+                trStyle = "#f9f9f9";
+            }
+            else {
+                trStyle = "white";
+            }
+            //console.log("GameCode: " + gameCode + ", style:" + trStyle);
+            return trStyle;
         };
     }
     function getUrlParameter(param) {
