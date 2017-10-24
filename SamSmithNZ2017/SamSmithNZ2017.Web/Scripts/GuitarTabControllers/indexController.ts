@@ -46,6 +46,11 @@
             //console.log('Final album list count: ' + $scope.albums.length);
             //console.log(tempAlbums);
             $scope.albums = tempAlbums;
+
+
+            var targets2 = document.querySelector('#lblBreadCrumbLocation');
+            //console.log(targets2.innerText);
+            targets2.innerHTML = "";
         }
 
         //console.log("Steam Ids: Hidden: " + $('#txtSteamId').val() + ', URL: ' + getUrlParameter('SteamId'));

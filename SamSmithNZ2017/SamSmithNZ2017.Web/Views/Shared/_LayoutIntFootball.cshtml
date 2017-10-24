@@ -38,10 +38,12 @@
         </table>
     </div>
     <div class="contentFrame">
-        <div class="BreadCrumbs">
-            &nbsp;&nbsp;&nbsp;  @Html.ActionLink("Home", "Index", "IntFootball") > [where am i]
+        <div class="BreadCrumbs" style="padding-left: 1.5em;">
+            &nbsp;&nbsp;&nbsp;  @Html.ActionLink("Home", "Index", "IntFootball") > <span id="lblBreadCrumbLocation">loading...</span>
         </div>
-        <h2>@ViewBag.Title</h2>
+        <div style="padding-left: 1.5em;">
+            <h2>@ViewBag.Title</h2>
+        </div>
         <div class="contentMain">
             @RenderBody()
         </div>

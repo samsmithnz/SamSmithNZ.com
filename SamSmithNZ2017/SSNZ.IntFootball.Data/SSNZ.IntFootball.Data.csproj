@@ -46,6 +46,10 @@
   <ItemGroup>
     <Compile Include="EloRating.cs" />
     <Compile Include="EloRatingDataAccess.cs" />
+    <Compile Include="GameGoalAssignmentDataAccess.cs" />
+    <Compile Include="PenaltyShootoutGoalDataAccess.cs" />
+    <Compile Include="PlayerDataAccess.cs" />
+    <Compile Include="GoalDataAccess.cs" />
     <Compile Include="GameDataAccess.cs" />
     <Compile Include="GenericDataAccess.cs" />
     <Compile Include="GroupCodeDataAccess.cs" />

@@ -24,6 +24,9 @@
                 //console.log(response.data.ArtistName + ' - ' + response.data.AlbumName);
                 targets[0].innerText = response.data.ArtistName + ' - ' + response.data.AlbumName;
             }
+            var targets2 = document.querySelector('#lblBreadCrumbLocation');
+            //console.log(targets2.innerText);
+            targets2.innerHTML = response.data.ArtistName + ' - ' + response.data.AlbumName;
             //console.log(response.data);
             $scope.album = response.data;
         }

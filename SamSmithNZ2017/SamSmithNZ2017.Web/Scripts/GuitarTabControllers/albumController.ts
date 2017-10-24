@@ -22,7 +22,11 @@
                 //console.log(targets);
                 //console.log(response.data.ArtistName + ' - ' + response.data.AlbumName);
                 targets[0].innerText = response.data.ArtistName + ' - ' + response.data.AlbumName;
+                //targets[1].innerText = response.data.ArtistName + ' - ' + response.data.AlbumName;
             }
+            var targets2 = document.querySelector('#lblBreadCrumbLocation');
+            //console.log(targets2.innerText);
+            targets2.innerHTML = response.data.ArtistName + ' - ' + response.data.AlbumName;
         }
 
         var onGetTabsEventComplete = function (response) {
@@ -30,7 +34,7 @@
             //console.log($scope.tabs);
         }
 
-        console.log("AlbumCode: " + getUrlParameter('AlbumCode'));
+        //console.log("AlbumCode: " + getUrlParameter('AlbumCode'));
         $scope.albumCode = getUrlParameter('AlbumCode');
         var isAdmin = $('#txtViewHiddenTabs').val() == 'true';
 

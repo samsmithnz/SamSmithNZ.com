@@ -20,6 +20,10 @@
         var onGetTeamEventComplete = function (response) {
             $scope.team = response.data;
             //console.log($scope.tabs);
+
+            var targets2 = document.querySelector('#lblBreadCrumbLocation');
+            //console.log(targets2.innerText);
+            targets2.innerHTML = $scope.team.TeamName;
         }
 
         var onGetGamesEventComplete = function (response) {

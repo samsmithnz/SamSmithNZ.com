@@ -44,10 +44,10 @@ namespace SSNZ.IntFootball.Models
         public string Team2ResultInformation { get; set; }
         public bool? Team1ResultWonGame { get; set; }
         public bool? Team2ResultWonGame{ get; set; }
-        //        ISNULL(te.fifa_ranking, 0) AS FifaRanking,
-        //         NULL AS IsPenalty,
-        //         NULL AS IsOwnGoal,
-        //-1 AS SortOrder
+
+        //Player properties
+        public bool IsPenalty { get; set; }
+        public bool IsOwnGoal { get; set; }
 
     }
 }

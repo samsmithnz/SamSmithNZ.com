@@ -19,6 +19,9 @@
         var onGetSearchEventComplete = function (response) {
             $scope.searchResults = response.data;
             //console.log($scope.searchResults);
+            var targets2 = document.querySelector('#lblBreadCrumbLocation');
+            //console.log(targets2.innerText);
+            targets2.innerHTML = "search results";
         }
 
         //console.log("Steam Ids: Hidden: " + $('#txtSteamId').val() + ', URL: ' + getUrlParameter('SteamId'));

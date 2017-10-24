@@ -39,6 +39,10 @@
                     $scope.R3GroupArray.push(i);
                 }
             }
+
+            var targets2 = document.querySelector('#lblBreadCrumbLocation');
+            //console.log(targets2.innerText);
+            targets2.innerHTML = $scope.tournament.TournamentName;
         }
 
         var onGetTournamentPlacingTeamsEventComplete = function (response) {

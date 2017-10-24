@@ -1094,7 +1094,7 @@
                         </div>
                         <div ng-if="item.RowType >= 2">
                             <div ng-if="item.RowType == 2 && item.Team1NormalTimeScore">
-                                {{item.Team1Name}} <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" /> {{item.Team1NormalTimeScore}}'
+                                {{item.Team1Name}} <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" /> {{item.Team1NormalTimeScore}}' <span ng-if="item.IsPenalty == true"> (pen)</span><span ng-if="item.IsOwnGoal == true"> (og)</span>
                             </div>
                             <div ng-if="item.RowType == 3 && item.Team1PenaltiesScore >= 0">
                                 {{item.Team1Name}} <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" ng-if="item.Team1PenaltiesScore == 1" /><img ng-src="~/Content/IntFootball/Soccerball_Miss_svg.png" CssClass="TeamImage" ng-if="item.Team1PenaltiesScore == 0" />
@@ -1117,7 +1117,7 @@
                             <a href="/IntFootball/Team?TeamCode={{item.Team2Code}}">{{item.Team2Name}}</a>
                         </div>  <div ng-if="item.RowType >= 2">                            
                             <div ng-if="item.RowType == 2 && item.Team2NormalTimeScore">
-                                {{item.Team2Name}} <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" /> {{item.Team2NormalTimeScore}}'
+                                {{item.Team2Name}} <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" /> {{item.Team2NormalTimeScore}}' <span ng-if="item.IsPenalty == true"> (pen)</span><span ng-if="item.IsOwnGoal == true"> (og)</span>
                             </div>
                             <div ng-if="item.RowType == 3 && item.Team2PenaltiesScore >= 0">
                                 {{item.Team2Name}} <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" ng-if="item.Team2PenaltiesScore == 1" /><img ng-src="~/Content/IntFootball/Soccerball_Miss_svg.png" CssClass="TeamImage" ng-if="item.Team2PenaltiesScore == 0" />

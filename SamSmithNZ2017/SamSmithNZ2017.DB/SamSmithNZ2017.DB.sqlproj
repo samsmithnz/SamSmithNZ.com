@@ -247,6 +247,12 @@
     <Build Include="dbo\Stored Procedures\FB_GetTeams.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetGroups.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetGroupCodes.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetPlayers.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetGameGoalAssignments.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetPenaltyShootoutGoals.sql" />
+    <Build Include="dbo\Stored Procedures\FB_SaveGoal.sql" />
+    <Build Include="dbo\Stored Procedures\FB_SavePenaltyShootoutGoal.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetGoals.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />

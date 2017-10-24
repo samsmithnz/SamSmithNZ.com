@@ -4,9 +4,9 @@
     angular
         .module('IntFootballApp')
         .controller('playOffsController', playOffsController);
-    playOffsController.$inject = ['$scope', '$http', 'gameService'];
+    playOffsController.$inject = ['$scope', '$http', 'tournamentService', 'gameService'];
 
-    function playOffsController($scope, $http, gameService) {
+    function playOffsController($scope, $http, tournamentService, gameService) {
         
         $scope.games = [];
         $scope.showDebugInformation = true;
@@ -67,11 +67,24 @@
                     $scope.show3rdPlace = false;
                     break;
             }
+
+            var targets2 = document.querySelector('#lblBreadCrumbLocation');
+            //console.log(targets2.innerText);
+            targets2.innerHTML = $scope.tournament.TournamentName + " - Playoffs";
+        }
+
+        var onGetTournamentEventComplete = function (response) {
+            $scope.tournament = response.data;
+
+            var targets2 = document.querySelector('#lblBreadCrumbLocation');
+            //console.log(targets2.innerText);
+            targets2.innerHTML = $scope.tournament.TournamentName + " - Playoffs ";
         }
 
          $scope.tournamentCode = getUrlParameter('TournamentCode');
          $scope.roundNumber = getUrlParameter('RoundNumber');
 
+         tournamentService.getTournament($scope.tournamentCode).then(onGetTournamentEventComplete, onError);
          gameService.getGamesForPlayoffs($scope.tournamentCode, $scope.roundNumber).then(onGetGamesEventComplete, onError);
 
          $scope.findGame = function (gameNumber){

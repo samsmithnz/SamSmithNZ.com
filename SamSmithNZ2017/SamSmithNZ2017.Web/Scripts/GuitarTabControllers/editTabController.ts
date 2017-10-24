@@ -21,6 +21,9 @@
         var onGetTabEventComplete = function (response) {
             $scope.tab = response.data;
             //console.log($scope.tab);
+            var targets2 = document.querySelector('#lblBreadCrumbLocation');
+            //console.log(targets2.innerText);
+            targets2.innerHTML = response.data.TabName;
         }
 
         var onGetRatingsEventComplete = function (response) {

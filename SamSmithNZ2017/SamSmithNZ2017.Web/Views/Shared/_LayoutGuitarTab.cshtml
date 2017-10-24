@@ -72,7 +72,7 @@
                 </td>
                 <td class="contentMain">
                     <div class="BreadCrumbs">
-                        @Html.ActionLink("Home", "Index", null, null) > Album List
+                        @Html.ActionLink("Home", "Index", null, null) > <span id="lblBreadCrumbLocation">loading...</span>
                     </div>
                     <h2>@ViewBag.Title</h2>
                     @RenderBody()

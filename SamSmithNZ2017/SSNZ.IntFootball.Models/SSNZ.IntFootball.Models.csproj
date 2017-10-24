@@ -41,8 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game.cs" />
+    <Compile Include="GameGoalAssignment.cs" />
+    <Compile Include="PenaltyShootoutGoal.cs" />
     <Compile Include="GroupCode.cs" />
     <Compile Include="Group.cs" />
+    <Compile Include="Goal.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="TeamRating.cs" />

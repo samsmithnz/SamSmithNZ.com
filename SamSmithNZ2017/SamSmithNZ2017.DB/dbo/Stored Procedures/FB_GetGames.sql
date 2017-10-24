@@ -124,8 +124,8 @@ BEGIN
 			'' AS CoachName, 
 			'' AS CoachFlag, 
 			0 AS FifaRanking, 
-			0 AS IsPenalty, 
-			0 AS IsOwnGoal, 
+			gl.is_penalty AS IsPenalty, 
+			gl.is_own_goal AS IsOwnGoal, 
 			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS SortOrder
 		FROM wc_game g 
 		--JOIN wc_team t ON g.team_1_code = t.team_code
@@ -167,8 +167,8 @@ BEGIN
 			'' AS CoachName, 
 			'' AS CoachFlag, 
 			0 AS FifaRanking, 
-			0 AS IsPenalty, 
-			0 AS IsOwnGoal, 
+			gl.is_penalty AS IsPenalty, 
+			gl.is_own_goal AS IsOwnGoal, 
 			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS sort_order
 		FROM wc_game g 
 		--JOIN wc_team t ON g.team_1_code = t.team_code

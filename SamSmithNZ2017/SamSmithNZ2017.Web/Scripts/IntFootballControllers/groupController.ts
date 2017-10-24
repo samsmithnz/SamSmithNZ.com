@@ -4,9 +4,9 @@
     angular
         .module('IntFootballApp')
         .controller('groupController', groupController);
-    groupController.$inject = ['$scope', '$http', 'groupCodeService', 'groupService', 'gameService'];
+    groupController.$inject = ['$scope', '$http', 'tournamentService', 'groupCodeService', 'groupService', 'gameService'];
 
-    function groupController($scope, $http, groupCodeService, groupService, gameService) {
+    function groupController($scope, $http, tournamentService, groupCodeService, groupService, gameService) {
 
         $scope.groupCodes = [];
         $scope.groups = [];
@@ -31,6 +31,22 @@
 
         var onGetGroupsEventComplete = function (response) {
             $scope.groups = response.data;
+
+            var targets2 = document.querySelector('#lblBreadCrumbLocation');
+            //console.log(targets2.innerText);
+            if ($scope.tournament != null) {
+                targets2.innerHTML = $scope.tournament.TournamentName + " - Group " + $scope.roundCode;
+            }
+        }
+
+        var onGetTournamentEventComplete = function (response) {
+            $scope.tournament = response.data;
+
+            var targets2 = document.querySelector('#lblBreadCrumbLocation');
+            //console.log(targets2.innerText);
+            if ($scope.tournament != null) {
+                targets2.innerHTML = $scope.tournament.TournamentName + " - Group " + $scope.roundCode;
+            }
         }
 
         var onGetGamesEventComplete = function (response) {
@@ -47,6 +63,7 @@
         $scope.isLastRound = getUrlParameter('IsLastRound');
         //console.log("isLastRound: " + $scope.isLastRound);
 
+        tournamentService.getTournament($scope.tournamentCode).then(onGetTournamentEventComplete, onError);
         groupCodeService.getGroupCodes($scope.tournamentCode, $scope.roundNumber).then(onGetGroupCodesEventComplete, onError);
 
         $scope.updateGroupDetails = function (tournamentCode, roundNumber, roundCode) {

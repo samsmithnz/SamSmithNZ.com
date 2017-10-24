@@ -1,0 +1,120 @@
+﻿<Window x:Class="SSNZ.IntFootball.Goals.WinWPF.Games"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SSNZ.IntFootball.Goals.WinWPF"
+        Title="Games" Height="346" Width="1163" ShowInTaskbar="True" WindowStartupLocation="CenterScreen" Icon="/SSNZ.IntFootball.Goals.WinWPF;component/Soccer.ico">
+    <Window.Resources>
+        <Style x:Key="ItemContStyle" TargetType="{x:Type ListViewItem}">
+            <Style.Resources>
+                <LinearGradientBrush x:Key="ProfitBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Offset="0.1" Color="#AA00CC00" />
+                    <GradientStop Offset="0.8" Color="#55008800" />
+                </LinearGradientBrush>
+                <LinearGradientBrush x:Key="LossBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Offset="0.1" Color="#AACC0000" />
+                    <GradientStop Offset="0.8" Color="#55880000" />
+                </LinearGradientBrush>
+                <!-- Reduces a customer's Balance to either -1, 0, or +1 -->
+                <local:NumberToPolarValueConverter x:Key="PolarValueConv" />
+            </Style.Resources>
+            <!-- Stretch the content so that we can right-align values in the Balance column. -->
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Style.Triggers>
+                <!-- When penalty shootout goals are required, color them red. -->
+                <DataTrigger  Binding="{Binding TotalPenaltyShootoutTableGoals, Converter={StaticResource PolarValueConv}}" Value="+1">
+                    <Setter Property="Background" Value="{StaticResource LossBrush}" />
+                </DataTrigger>
+                <!-- When goals are required, color the row green. -->
+                <DataTrigger Binding="{Binding TotalGoalTableGoals, Converter={StaticResource PolarValueConv}}" Value="+1">
+                    <Setter Property="Background" Value="{StaticResource ProfitBrush}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <ListView Margin="12" Name="lstGames" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource ItemContStyle}" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Game Number" DisplayMemberBinding="{Binding Path=GameNumber}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Game Time" DisplayMemberBinding="{Binding Path=GameTime}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Team" DisplayMemberBinding="{Binding Path=Team1Name}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Team" DisplayMemberBinding="{Binding Path=Team2Name}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Score" DisplayMemberBinding="{Binding Path=Score}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Game Goals" DisplayMemberBinding="{Binding Path=TotalGameTableGoals}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Player Goals Left" DisplayMemberBinding="{Binding Path=TotalGoalTableGoals}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Edit">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Edit Goals" Click="btnGameEdit_Click" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Game Shootout Goals" DisplayMemberBinding="{Binding Path=TotalGameTablePenaltyShootoutGoals}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Player Shootout Goals Left" DisplayMemberBinding="{Binding Path=TotalPenaltyShootoutTableGoals}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Edit Shootout">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Edit Shootouts" Click="btnGameShootoutEdit_Click" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

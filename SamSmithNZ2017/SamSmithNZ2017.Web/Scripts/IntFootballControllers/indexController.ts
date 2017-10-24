@@ -20,6 +20,9 @@
         var onGetTournamentsEventComplete = function (response) {
             $scope.tournaments = response.data;
             //console.log($scope.tournaments);
+            var targets2 = document.querySelector('#lblBreadCrumbLocation');
+            //console.log(targets2.innerText);
+            targets2.innerHTML = "Tournament list";
         }
 
         tournamentService.getTournaments().then(onGetTournamentsEventComplete, onError);
