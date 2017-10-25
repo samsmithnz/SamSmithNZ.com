@@ -68,6 +68,9 @@ namespace SSNZ.IntFootball.UnitTests
             Assert.IsTrue(results[0].Team2Withdrew == false);
             Assert.IsTrue(results[0].TournamentCode == 19);
             Assert.IsTrue(results[0].TournamentName != "");
+            Assert.IsTrue(results[0].IsOwnGoal == false);
+            Assert.IsTrue(results[0].IsPenalty == false);
+            Assert.IsTrue(results[0].RowType == 1);
         }
 
         [TestMethod]
