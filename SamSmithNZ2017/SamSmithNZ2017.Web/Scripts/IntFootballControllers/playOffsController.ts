@@ -7,9 +7,9 @@
     playOffsController.$inject = ['$scope', '$http', 'tournamentService', 'gameService'];
 
     function playOffsController($scope, $http, tournamentService, gameService) {
-        
+
         $scope.games = [];
-        $scope.showDebugInformation = true;
+        $scope.showDebugInformation = false;
 
         var onError = function (data) {
             //errorHandlerService.errorHandler(data);
@@ -17,7 +17,7 @@
             console.log(data);
         };
 
-         var onGetGamesEventComplete = function (response) {
+        var onGetGamesEventComplete = function (response) {
             $scope.games = response.data;
             //console.log($scope.games);
 
@@ -27,9 +27,15 @@
             $scope.show3rdPlace = true;
             $scope.showFinals = true;
 
-            //console.log('games: ' + $scope.games.length);
+            var gameCount = 0;
+            for (var i = 0; i < $scope.games.length; i++) {
+                if ($scope.games[i].RowType == 1) {
+                    gameCount++;
+                }
+            }
+            //console.log('games: ' + gameCount);
 
-            switch ($scope.games.length) {
+            switch (gameCount) {
                 case 16:
                     //Show Everything!!!
                     break;
@@ -70,7 +76,9 @@
 
             var targets2 = document.querySelector('#lblBreadCrumbLocation');
             //console.log(targets2.innerText);
-            targets2.innerHTML = $scope.tournament.TournamentName + " - Playoffs";
+            if ($scope.tournament != null) {
+                targets2.innerHTML = $scope.tournament.TournamentName + " - Playoffs ";
+            }
         }
 
         var onGetTournamentEventComplete = function (response) {
@@ -78,37 +86,38 @@
 
             var targets2 = document.querySelector('#lblBreadCrumbLocation');
             //console.log(targets2.innerText);
-            targets2.innerHTML = $scope.tournament.TournamentName + " - Playoffs ";
+            if ($scope.tournament != null) {
+                targets2.innerHTML = $scope.tournament.TournamentName + " - Playoffs ";
+            }
         }
 
-         $scope.tournamentCode = getUrlParameter('TournamentCode');
-         $scope.roundNumber = getUrlParameter('RoundNumber');
+        $scope.tournamentCode = getUrlParameter('TournamentCode');
+        $scope.roundNumber = getUrlParameter('RoundNumber');
 
-         tournamentService.getTournament($scope.tournamentCode).then(onGetTournamentEventComplete, onError);
-         gameService.getGamesForPlayoffs($scope.tournamentCode, $scope.roundNumber).then(onGetGamesEventComplete, onError);
+        tournamentService.getTournament($scope.tournamentCode).then(onGetTournamentEventComplete, onError);
+        gameService.getGamesForPlayoffs($scope.tournamentCode, $scope.roundNumber).then(onGetGamesEventComplete, onError);
 
-         $scope.findGame = function (gameNumber){
-             for (var i = 0; i <= $scope.games.length - 1; i++) {
-                 if ($scope.games[i].GameNumber == gameNumber)
-                 {
-                     return $scope.games[i];
-                 }
-             }
-             return null;
-         }
+        $scope.findGame = function (gameNumber) {
+            for (var i = 0; i <= $scope.games.length - 1; i++) {
+                if ($scope.games[i].GameNumber == gameNumber) {
+                    return $scope.games[i];
+                }
+            }
+            return null;
+        }
 
-         //Style the game rows to group game details with goal details
-         $scope.getGameRowStyle = function (gameCode) {
-             var trStyle = "";
-             if ((gameCode % 2) == 1) {
-                 trStyle = "#f9f9f9";
-             }
-             else {
-                 trStyle = "white";
-             }
-             //console.log("GameCode: " + gameCode + ", style:" + trStyle);
-             return trStyle;
-         };
+        //Style the game rows to group game details with goal details
+        $scope.getGameRowStyle = function (gameCode) {
+            var trStyle = "";
+            if ((gameCode % 2) == 1) {
+                trStyle = "#f9f9f9";
+            }
+            else {
+                trStyle = "white";
+            }
+            //console.log("GameCode: " + gameCode + ", style:" + trStyle);
+            return trStyle;
+        };
     }
 
     function getUrlParameter(param: string) {

@@ -47,8 +47,8 @@ BEGIN
 		tcs.player_percent AS ImportingPlayerPercent, 
 		tcs.goals_percent AS ImportingGoalsPercent, 
 		tcs.penalty_shootout_goals_percent AS ImportingPenaltyShootoutGoalsPercent,
-		COUNT(g.team_1_normal_time_score) + COUNT(g.team_1_extra_time_score) + COUNT(g.team_1_penalties_score) + COUNT(g.team_2_normal_time_score) + COUNT(g.team_2_extra_time_score) + COUNT(g.team_2_penalties_score) AS TotalGoals,
-		COUNT(g.team_1_penalties_score) + COUNT(g.team_2_penalties_score) AS TotalPenalties
+		SUM(g.team_1_normal_time_score) + SUM(isnull(g.team_1_extra_time_score,0)) + SUM(g.team_2_normal_time_score) + SUM(isnull(g.team_2_extra_time_score,0)) AS TotalGoals,
+		SUM(isnull(g.team_1_penalties_score,0)) + SUM(isnull(g.team_2_penalties_score,0)) AS TotalPenalties
 	FROM wc_tournament t
 	LEFT JOIN wc_team te ON te.team_code = t.host_team_code
 	LEFT JOIN wc_team te2 ON te2.team_code = t.co_host_team_code

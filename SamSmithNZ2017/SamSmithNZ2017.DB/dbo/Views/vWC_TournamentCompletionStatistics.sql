@@ -8,7 +8,7 @@ SELECT DISTINCT t.tournament_code,
 																		 
 																		ELSE 22 END)) AS player_percent,
 	CASE WHEN tg.total_goals = 0 THEN 0 ELSE CONVERT(decimal(6,2),pg.player_goal_count) / CONVERT(decimal(6,2),tg.total_goals) END AS goals_percent,
-	CASE WHEN tpsog.total_penalty_shootout_goals = 0 THEN 0 ELSE CONVERT(decimal(6,2),psog.player_penalty_shootout_goal_count) / CONVERT(decimal(6,2),tpsog.total_penalty_shootout_goals) END AS penalty_shootout_goals_percent,
+	CASE WHEN tpsog.total_penalty_shootout_goals = 0 THEN 1 ELSE CONVERT(decimal(6,2),psog.player_penalty_shootout_goal_count) / CONVERT(decimal(6,2),tpsog.total_penalty_shootout_goals) END AS penalty_shootout_goals_percent,
 	1 AS cards_percent--CASE WHEN pc.player_card_count > 1 THEN 1 ELSE 0 END AS cards_percent
 FROM wc_tournament t
 JOIN wc_tournament_format tf ON t.format_code = tf.format_code
