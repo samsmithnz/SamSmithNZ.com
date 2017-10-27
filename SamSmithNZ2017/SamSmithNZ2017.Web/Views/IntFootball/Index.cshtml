@@ -40,7 +40,7 @@
                     <td><span ng-if="item.MinGameTime != null">{{item.TotalGoals}}</span></td>
                     <td><span ng-if="item.MinGameTime != null">{{item.GameCount}}</span></td>
                     <td><span ng-if="item.MinGameTime != null">{{item.TotalPenalties}}</span></td>
-                    <td>{{item.ImportingTotalPercentComplete * 100 | number:2}}%</td>
+                    <td><span ng-if="item.MinGameTime != null">{{item.ImportingTotalPercentComplete * 100 | number:2}}%</span></td>
                     <td>
                         <span ng-if="item.MinGameTime != null">
                             <span ng-if="item.ImportingTeamPercent < 1">Teams Missing: {{(1 - item.ImportingTeamPercent) * 100 | number:2}}%; </span>

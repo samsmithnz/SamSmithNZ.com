@@ -4,7 +4,7 @@
         Title="Assign Penalty Shootout" Height="242" Width="450" ShowInTaskbar="True" WindowStartupLocation="CenterScreen" Icon="/SSNZ.IntFootball.Goals.WinWPF;component/Soccer.ico">
     <Grid Height="153" Width="388">
         <Label Content="Player:" Height="25" HorizontalAlignment="Left" Margin="35,41,0,0" Name="label2" VerticalAlignment="Top" Width="Auto" />
-        <ComboBox Height="23" Margin="84,41,12,0" Name="cboPlayer" VerticalAlignment="Top" ItemsSource="{Binding}" />
+        <ComboBox Height="25" Margin="84,41,12,0" Name="cboPlayer" VerticalAlignment="Top" ItemsSource="{Binding}" />
         <Label Content="Game:" Height="25" HorizontalAlignment="Left" Margin="36,12,0,0" Name="label3" VerticalAlignment="Top" Width="Auto" />
         <CheckBox Content="Scored!" Height="16" HorizontalAlignment="Left" Margin="84,77,0,0" Name="chkScored" VerticalAlignment="Top" IsChecked="True" />
         <Button Content="Delete" Height="23" Margin="12,0,0,12" Name="btnDelete" UseLayoutRounding="False" Width="75" HorizontalAlignment="Left" VerticalAlignment="Bottom" IsEnabled="False" />
