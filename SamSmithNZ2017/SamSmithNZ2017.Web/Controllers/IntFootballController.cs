@@ -19,6 +19,11 @@ namespace SamSmithNZ2017.Controllers
             return View();
         }
 
+        public ActionResult About()
+        {
+            return View();
+        }
+
         public ActionResult Tournament(int tournamentCode)
         {
             return View();

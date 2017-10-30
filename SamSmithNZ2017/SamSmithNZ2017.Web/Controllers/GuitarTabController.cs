@@ -11,6 +11,11 @@ namespace SamSmithNZ2017.Controllers
             return View();
         }
 
+        public ActionResult About()
+        {
+            return View();
+        }
+
         public ActionResult Album(int albumCode)
         {
             return View();

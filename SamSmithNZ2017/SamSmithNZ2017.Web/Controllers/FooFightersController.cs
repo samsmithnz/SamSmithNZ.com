@@ -23,13 +23,12 @@ namespace SamSmithNZ2017.Controllers
         {
             return View();
         }
-        
+
         public ActionResult Song(int songCode = 0, int sonhKey = 0)
         {
             return View();
         }
 
-        
         public ActionResult Show(int showCode = 0, int showKey = 0)
         {
             return View();
@@ -45,22 +44,10 @@ namespace SamSmithNZ2017.Controllers
             return View();
         }
 
-
-
-        //public ActionResult Song(short songKey)
-        //{
-        //    return RedirectToAction("Song", new { songCode = songKey });
-        //}
-
         public ActionResult ShowYearList()
         {
             return RedirectToAction("ShowList");
         }
-
-        //public ActionResult Show(int showKey)
-        //{
-        //    return RedirectToAction("Show", new { showCode = showKey });
-        //}
 
         //private GraphNodeGeneration GetAlbumGraph()
         //{

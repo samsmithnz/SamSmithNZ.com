@@ -48,6 +48,9 @@
                         <input id="txtSearch" type="text" maxlength="100" ng-keyup="$event.keyCode == 13 ? searchGuitarTabs() : null" />
                         <input id="butSearch" type="button" value="Search!" ng-click="searchGuitarTabs()" />
                     </span>
+                    <span>
+                        <a href="@Url.Action("About", "GuitarTab")">About</a>
+                    </span>
                 </td>
             </tr>
         </table>
