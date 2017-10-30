@@ -8,22 +8,22 @@
             <ColumnDefinition Width="412*" />
         </Grid.ColumnDefinitions>
         <Label Content="Player:" Height="25" HorizontalAlignment="Left" Margin="35,41,0,0" Name="label2" VerticalAlignment="Top" Width="Auto" />
-        <ComboBox Height="25" HorizontalAlignment="Left" Margin="84,41,0,0" Name="cboPlayer" VerticalAlignment="Top" Width="234" Grid.ColumnSpan="2" ItemsSource="{Binding}" />
+        <ComboBox Height="25" HorizontalAlignment="Left" Margin="84,41,0,0" Name="cboPlayer" VerticalAlignment="Top" Width="234" Grid.ColumnSpan="2" ItemsSource="{Binding}" TabIndex="0" />
         <Label Content="Game:" Height="25" HorizontalAlignment="Left" Margin="36,12,0,0" Name="label3" VerticalAlignment="Top" Width="Auto" />
         <Label Content="Goal Time:" Height="25" HorizontalAlignment="Left" Margin="15,69,0,0" Name="label4" VerticalAlignment="Top" Width="Auto" />
-        <Slider Height="25" Margin="106,70,0,0" Name="sliNormalTime" VerticalAlignment="Top" Maximum="120" TickPlacement="TopLeft" IsSnapToTickEnabled="True" IsSelectionRangeEnabled="False" ValueChanged="sliNormalTime_ValueChanged" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="480" />
-        <Label Content="0" Height="25" HorizontalAlignment="Left" Margin="84,69,0,0" Name="lblNormalTime" VerticalAlignment="Top" Width="Auto" BorderThickness="0" />
-        <CheckBox Content="Is Penalty" Height="16" HorizontalAlignment="Left" Margin="84,133,0,0" Name="chkIsPenalty" VerticalAlignment="Top" Checked="chkIsPenalty_Checked" />
-        <CheckBox Content="Is Own Goal" Height="16" HorizontalAlignment="Left" Margin="159,133,0,0" Name="chkIsOwnGoal" VerticalAlignment="Top" Grid.ColumnSpan="2" Checked="chkIsOwnGoal_Checked" />
-        <Button Content="Delete" Height="25" Margin="12,0,0,12" Name="btnDelete" UseLayoutRounding="False" Width="75" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+        <Slider Height="25" Margin="134,70,0,0" Name="sliNormalTime" VerticalAlignment="Top" Maximum="120" TickPlacement="TopLeft" IsSnapToTickEnabled="True" IsSelectionRangeEnabled="False" ValueChanged="sliNormalTime_ValueChanged" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="452" />
+        <CheckBox Content="Is _Penalty" Height="16" HorizontalAlignment="Left" Margin="84,133,0,0" Name="chkIsPenalty" VerticalAlignment="Top" Checked="chkIsPenalty_Checked"  TabIndex="3" />
+        <CheckBox Content="Is _Own Goal" Height="16" HorizontalAlignment="Left" Margin="159,133,0,0" Name="chkIsOwnGoal" VerticalAlignment="Top" Grid.ColumnSpan="2" Checked="chkIsOwnGoal_Checked" TabIndex="4" />
+        <Button Content="Delete" Height="25" Margin="12,0,0,12" Name="btnDelete" UseLayoutRounding="False" Width="75" HorizontalAlignment="Left" VerticalAlignment="Bottom" IsTabStop="False" />
         <Label Content="Injury Time:" Height="26" HorizontalAlignment="Left" Margin="12,99,0,0" Name="label1" VerticalAlignment="Top" Width="Auto" />
-        <Slider Height="25" HorizontalAlignment="Left" IsSelectionRangeEnabled="False" IsSnapToTickEnabled="True" Margin="106,99,0,0" Maximum="10" Name="sliInjuryTime" TickPlacement="TopLeft" VerticalAlignment="Top" Width="40" ValueChanged="sliInjuryTime_ValueChanged" />
-        <Label BorderThickness="0" Content="0" Height="25" HorizontalAlignment="Left" Margin="84,99,0,0" Name="lblInjuryTime" VerticalAlignment="Top" Width="Auto" />
+        <Slider Height="25" HorizontalAlignment="Left" IsSelectionRangeEnabled="False" IsSnapToTickEnabled="True" Margin="134,99,0,0" Maximum="10" Name="sliInjuryTime" TickPlacement="TopLeft" VerticalAlignment="Top" Width="40" ValueChanged="sliInjuryTime_ValueChanged" />
         <Label Content="Goal Appearance:" Height="30" HorizontalAlignment="Left" Margin="11,164,0,0" Name="lblGoalAppearanceLabel" VerticalAlignment="Top" Width="Auto" />
         <Label Content="[Goal]" Height="25" Margin="107,164,12,0" Name="lblGoalAppearance" VerticalAlignment="Top" Grid.ColumnSpan="2" />
-        <Button Content="Save" Height="25" Name="btnSave" Width="75" UseLayoutRounding="False" Margin="0,0,93,12" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" Click="btnSave_Click" />
-        <Button Content="Cancel" Height="25" Name="btnCancel" Width="75" UseLayoutRounding="False" Click="btnCancel_Click" Margin="0,0,12,12" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" />
+        <Button Content="_Save" Height="25" Name="btnSave" Width="75" UseLayoutRounding="False" Margin="0,0,93,12" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" Click="btnSave_Click"  TabIndex="5"/>
+        <Button Content="Cancel" Height="25" Name="btnCancel" Width="75" UseLayoutRounding="False" Click="btnCancel_Click" Margin="0,0,12,12" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" IsTabStop="False"/>
         <Label Content="[Game]" Height="25" Margin="84,12,12,0" Name="lblGame" VerticalAlignment="Top" Grid.ColumnSpan="2" />
         <CheckBox Content="Show Extra Time" Height="16" HorizontalAlignment="Left" Margin="284,46,0,0" Name="chkShowExtraTime" VerticalAlignment="Top" Grid.Column="1" Checked="chkShowExtraTime_Checked" Unchecked="chkShowExtraTime_Unchecked" IsChecked="True" Visibility="Hidden" />
+        <TextBox  x:Name="txtNormalTime" HorizontalAlignment="Left" Margin="84,74,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="30" Height="21" TextChanged="txtNormalTime_TextChanged"  TabIndex="1" Keyboard.PreviewGotKeyboardFocus="TextBox_GotKeyboardFocus" />
+        <TextBox  x:Name="txtInjuryTime" HorizontalAlignment="Left" Margin="84,104,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="30" Height="21" TextChanged="txtInjuryTime_TextChanged"  TabIndex="2" Keyboard.PreviewGotKeyboardFocus="TextBox_GotKeyboardFocus" />
     </Grid>
 </Window>

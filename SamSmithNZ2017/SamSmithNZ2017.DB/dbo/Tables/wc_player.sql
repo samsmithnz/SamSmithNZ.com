@@ -3,7 +3,7 @@
     [team_code]         INT      NOT NULL,
     [tournament_code]   INT      NULL,
     [player_name]       VARCHAR (200) NOT NULL,
-    [number]            INT      NOT NULL,
+    [number]            INT      NULL,
     [position]          VARCHAR (50)  NOT NULL,
     [date_of_birth]     DATETIME      NULL,
     [is_captain]        BIT           NOT NULL,

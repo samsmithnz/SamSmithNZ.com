@@ -28,6 +28,23 @@ namespace SSNZ.IntFootball.UnitTests
             Assert.IsTrue(results.Count > 0);
         }
 
+        [TestMethod]
+        public async Task GamesExist2Test()
+        {
+            //arrange
+            GameDataAccess da = new GameDataAccess();
+            int tournamentCode = 19;
+            int roundNumber = 2;
+            //string roundCode = "A";
+
+            //act
+            List<Game> results = await da.GetListAsyncByPlayoff(tournamentCode, roundNumber);
+
+            //assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count > 0);
+        }
+
         [TestMethod()]
         public async Task GamesFirstItemTest()
         {

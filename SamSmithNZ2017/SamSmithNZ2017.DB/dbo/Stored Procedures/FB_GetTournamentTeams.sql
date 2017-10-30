@@ -9,7 +9,8 @@ SELECT 0 AS Placing,
 	r.region_abbrev AS RegionName, 
 	ISNULL(te.fifa_ranking,0) AS FifaRanking, 
 	te.coach_name AS CoachName, 
-	ISNULL(ct.flag_name,'') AS CoachNationalityFlagName
+	ISNULL(ct.flag_name,'') AS CoachNationalityFlagName,
+	'' AS EloRating
 FROM wc_tournament_team_entry te
 JOIN wc_team t ON te.team_code = t.team_code
 JOIN wc_region r ON t.region_code = r.region_code

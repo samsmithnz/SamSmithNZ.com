@@ -1344,6 +1344,10 @@
     <Content Include="Views\GameDev\CampaignCreation.cshtml" />
     <Content Include="Views\GameDev\Index.cshtml" />
     <Content Include="Views\GameDev\LevelCreation.cshtml" />
+    <Content Include="Views\IntFootball\About.cshtml" />
+    <Content Include="Views\ITunes\About.cshtml" />
+    <Content Include="Views\GuitarTab\About.cshtml" />
+    <Content Include="Views\FooFighters\About.cshtml" />
     <None Include="Views\Test\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

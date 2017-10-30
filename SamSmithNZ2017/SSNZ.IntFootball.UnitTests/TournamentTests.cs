@@ -110,6 +110,8 @@ namespace SSNZ.IntFootball.UnitTests
             Assert.IsTrue(item.TournamentCode == 19);
             Assert.IsTrue(item.TournamentName == "South Africa 2010");
             Assert.IsTrue(item.TournamentYear == 2010);
+            Assert.IsTrue(item.TotalGoals == 145);
+            Assert.IsTrue(item.TotalPenalties == 14);
         }
 
         //[TestMethod()]

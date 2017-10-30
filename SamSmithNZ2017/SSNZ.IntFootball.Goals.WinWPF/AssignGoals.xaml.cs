@@ -93,13 +93,13 @@ namespace SSNZ.IntFootball.Goals.WinWPF
 
         private void sliNormalTime_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            lblNormalTime.Content = sliNormalTime.Value.ToString();
+            txtNormalTime.Text = sliNormalTime.Value.ToString();
             UpdateGoalAppearance(Convert.ToInt16(cboPlayer.SelectedValue), Convert.ToInt32(sliNormalTime.Value), Convert.ToInt32(sliInjuryTime.Value), chkIsPenalty.IsChecked, chkIsOwnGoal.IsChecked);
         }
 
         private void sliInjuryTime_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            lblInjuryTime.Content = sliInjuryTime.Value.ToString();
+            txtInjuryTime.Text = sliInjuryTime.Value.ToString();
             UpdateGoalAppearance(Convert.ToInt16(cboPlayer.SelectedValue), Convert.ToInt32(sliNormalTime.Value), Convert.ToInt32(sliInjuryTime.Value), chkIsPenalty.IsChecked, chkIsOwnGoal.IsChecked);
         }
 
@@ -161,6 +161,32 @@ namespace SSNZ.IntFootball.Goals.WinWPF
         {
             sliNormalTime.Maximum = 90;
             sliNormalTime.Width = 90 * 4;
+        }
+
+        private void txtNormalTime_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            int normalTime = 0;
+            if (int.TryParse(txtNormalTime.Text, out normalTime) == true)
+            {
+                sliNormalTime.Value = normalTime;
+            }
+        }
+
+        private void txtInjuryTime_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            int injuryTime = 0;
+            if (int.TryParse(txtNormalTime.Text, out injuryTime) == true)
+            {
+                sliInjuryTime.Value = injuryTime;
+            }
+        }
+
+        private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (e.KeyboardDevice.IsKeyDown(Key.Tab))
+            {
+                ((TextBox)sender).SelectAll();
+            }
         }
 
         private async void btnSave_Click(object sender, RoutedEventArgs e)
