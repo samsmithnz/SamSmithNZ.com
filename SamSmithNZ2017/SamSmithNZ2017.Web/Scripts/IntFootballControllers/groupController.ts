@@ -32,21 +32,51 @@
         var onGetGroupsEventComplete = function (response) {
             $scope.groups = response.data;
 
-            var targets2 = document.querySelector('#lblBreadCrumbLocation');
-            //console.log(targets2.innerText);
             if ($scope.tournament != null) {
-                targets2.innerHTML = $scope.tournament.TournamentName + " - Group " + $scope.roundCode;
+                var lnkBreadCrumb2Visibility = 'true';
+                var lnkBreadCrumb2Href = '/IntFootball/Tournament?tournamentCode=' + $scope.tournament.TournamentCode;
+                var lblBreadCrumbData2 = $scope.tournament.TournamentName;
+                var lblBreadCrumbSeperator2Visibility = 'visible';
+                var lblBreadCrumb3Visibility = 'visible';
+                var lblBreadCrumb3 = 'Group ' + $scope.roundCode;
+
+                //lnkBreadCrumb2
+                if (lnkBreadCrumb2Visibility == 'true') {
+                    var target1 = <HTMLAnchorElement>document.querySelector('#lnkBreadCrumb2');
+                    target1.innerHTML = lblBreadCrumbData2;
+                    target1.href = lnkBreadCrumb2Href;
+                    //console.log(target1.innerHTML);
+                }
+                else {
+                    var target1a = document.querySelector('#lnkBreadCrumb2');
+                    var c = $('#lnkBreadCrumb2').contents().unwrap();
+                    console.log(c[0].nodeValue);
+                    c[0].nodeValue = lblBreadCrumbData2;
+                    //console.log(lblBreadCrumbData2);
+                }
+
+                //lblBreadCrumbSeperator2
+                var target3 = <HTMLElement>document.querySelector('#lblBreadCrumbSeperator2');
+                target3.style.visibility = lblBreadCrumbSeperator2Visibility;
+                //console.log(target3.innerHTML);
+
+                //lblBreadCrumb3
+                var target4 = <HTMLElement>document.querySelector('#lblBreadCrumb3');
+                target4.style.visibility = lblBreadCrumb3Visibility;
+                target4.innerHTML = lblBreadCrumb3;
+                //console.log(target4.innerHTML);
             }
+
         }
 
         var onGetTournamentEventComplete = function (response) {
             $scope.tournament = response.data;
 
-            var targets2 = document.querySelector('#lblBreadCrumbLocation');
-            //console.log(targets2.innerText);
-            if ($scope.tournament != null) {
-                targets2.innerHTML = $scope.tournament.TournamentName + " - Group " + $scope.roundCode;
-            }
+            //var targets2 = document.querySelector('#lblBreadCrumbData2');
+            ////console.log(targets2.innerText);
+            //if ($scope.tournament != null) {
+            //    targets2.innerHTML = $scope.tournament.TournamentName + " - Group " + $scope.roundCode;
+            //}
         }
 
         var onGetGamesEventComplete = function (response) {

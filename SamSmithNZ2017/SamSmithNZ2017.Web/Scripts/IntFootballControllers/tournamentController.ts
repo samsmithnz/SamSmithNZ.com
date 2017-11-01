@@ -40,9 +40,41 @@
                 }
             }
 
-            var targets2 = document.querySelector('#lblBreadCrumbLocation');
-            //console.log(targets2.innerText);
-            targets2.innerHTML = $scope.tournament.TournamentName;
+            if ($scope.tournament != null) {
+                var lnkBreadCrumb2Visibility = 'false';
+                var lnkBreadCrumb2Href = '';
+                var lblBreadCrumbData2 = $scope.tournament.TournamentName;
+                var lblBreadCrumbSeperator2Visibility = 'hidden';
+                var lblBreadCrumb3Visibility = 'hidden';
+                var lblBreadCrumb3 = '';
+
+                //lnkBreadCrumb2
+                if (lnkBreadCrumb2Visibility == 'true') {
+                    var target1 = <HTMLAnchorElement>document.querySelector('#lnkBreadCrumb2');
+                    target1.innerHTML = lblBreadCrumbData2;
+                    target1.href = lnkBreadCrumb2Href;
+                    console.log(target1.innerHTML);
+                }
+                else {
+                    var target1a = document.querySelector('#lnkBreadCrumb2');
+                    var c = $('#lnkBreadCrumb2').contents().unwrap();
+                    console.log(c[0].nodeValue);
+                    c[0].nodeValue = lblBreadCrumbData2;
+                    //console.log(lblBreadCrumbData2);
+                }
+
+                //lblBreadCrumbSeperator2
+                var target3 = <HTMLElement>document.querySelector('#lblBreadCrumbSeperator2');
+                target3.style.visibility = lblBreadCrumbSeperator2Visibility;
+                //console.log(target3.innerHTML);
+
+                //lblBreadCrumb3
+                var target4 = <HTMLElement>document.querySelector('#lblBreadCrumb3');
+                target4.style.visibility = lblBreadCrumb3Visibility;
+                target4.innerHTML = lblBreadCrumb3;
+                //console.log(target4.innerHTML);
+            }
+
         }
 
         var onGetTournamentPlacingTeamsEventComplete = function (response) {
@@ -58,7 +90,7 @@
             $scope.tournamentTeams = response.data;
         }
 
-        console.log("TournamentCode: " + getUrlParameter('TournamentCode'));
+        //console.log("TournamentCode: " + getUrlParameter('TournamentCode'));
         $scope.tournamentCode = getUrlParameter('TournamentCode');
 
         tournamentService.getTournament($scope.tournamentCode).then(onGetTournamentEventComplete, onError);

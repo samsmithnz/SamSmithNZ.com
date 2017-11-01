@@ -42,9 +42,11 @@
             </tr>
         </table>
     </div>
+
     <div class="contentFrame">
         <div class="BreadCrumbs" style="padding-left: 1.5em;">
-            &nbsp;&nbsp;&nbsp;  @Html.ActionLink("Home", "Index", "IntFootball") > <span id="lblBreadCrumbLocation">loading...</span>
+            &nbsp;&nbsp;&nbsp;  @Html.ActionLink("Home", "Index", "IntFootball") > 
+            <a href="/IntFootball/Tournament?tournamentCode={{item.TournamentCode}}" id="lnkBreadCrumb2">loading...</a>@*<span id="lblBreadCrumbData2">loading...</span>*@<span id="lblBreadCrumbSeperator2" style="visibility: hidden">&nbsp;&gt;&nbsp;</span><span id="lblBreadCrumb3" style="visibility: hidden"></span>
         </div>
         <div style="padding-left: 1.5em;">
             <h2>@ViewBag.Title</h2>
@@ -59,6 +61,5 @@
             Copyright &copy;2000 - @DateTime.Now.Year SamSmithNZ.com
         </div>
     </div>
-
 </body>
 </html>

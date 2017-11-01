@@ -24,9 +24,9 @@ namespace SSNZ.ITunes.ImporterWin
 
         private bool _runningMultipleMonths = false;
 
-        private void btnImport_Click(object sender, EventArgs e)
+        private void RunImport()
         {
-            btnImport.Enabled = false;
+            //btnImport.Enabled = false;
             XmlDocument objXML = new XmlDocument();
             XmlNodeList objXMLNodeList = default(XmlNodeList);
             List<Track> trackList = new List<Track>();
@@ -157,15 +157,15 @@ namespace SSNZ.ITunes.ImporterWin
             }
             finally
             {
-                if (_runningMultipleMonths == false)
-                {
-                    btnImport.Enabled = true;
-                }
+                //if (_runningMultipleMonths == false)
+                //{
+                //    btnImport.Enabled = true;
+                //}
             }
 
         }
 
-        private void btnOpenFile_Click(object sender, EventArgs e)
+        private void ButtonOpenFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog1.InitialDirectory = txtFile.Text;
             if (OpenFileDialog1.ShowDialog() == DialogResult.OK)
@@ -182,12 +182,12 @@ namespace SSNZ.ITunes.ImporterWin
             Application.DoEvents();
         }
 
-        private void btnFillInPlayListGaps_Click(object sender, EventArgs e)
+        private void ButtonFillInPlayListGaps_Click(object sender, EventArgs e)
         {
             try
             {
                 btnFillInPlayListGaps.Enabled = false;
-                btnImport.Enabled = false;
+                //btnImport.Enabled = false;
                 if (MessageBox.Show("Are you sure you want to fill in all gaps? This could take awhile...", Application.ProductName, MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     _runningMultipleMonths = true;
@@ -214,7 +214,7 @@ namespace SSNZ.ITunes.ImporterWin
                             {
                                 //load these missing files
                                 txtFile.Text = txtFile.Text + year.ToString() + "-" + month.ToString("00") + ".xml";
-                                btnImport_Click(null, null);
+                                RunImport();
                             }
                         }
                         txtFile.Text = originalPath;
@@ -229,7 +229,7 @@ namespace SSNZ.ITunes.ImporterWin
             finally
             {
                 btnFillInPlayListGaps.Enabled = true;
-                btnImport.Enabled = true;
+                //btnImport.Enabled = true;
                 _runningMultipleMonths = false;
             }
 

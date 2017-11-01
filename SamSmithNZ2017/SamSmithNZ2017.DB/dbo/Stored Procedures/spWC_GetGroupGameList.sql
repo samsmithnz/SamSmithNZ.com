@@ -23,10 +23,10 @@ SELECT CONVERT(INT,NULL) AS row_type,
 */
 
 CREATE TABLE #tmp_games (row_type INT, game_time datetime, game_number INT,
-	team_1_name VARCHAR(200), team_1_code INT, team_1_score VARCHAR(10),
-	team_2_name VARCHAR(200), team_2_code INT, team_2_score VARCHAR(10),
+	team_1_name NVARCHAR(200), team_1_code INT, team_1_score VARCHAR(10),
+	team_2_name NVARCHAR(200), team_2_code INT, team_2_score VARCHAR(10),
 	team_1_flag_name VARCHAR(100), team_2_flag_name VARCHAR(100),
-	location VARCHAR(100), round_number INT, round_code VARCHAR(10), sort_order INT)
+	[location] VARCHAR(100), round_number INT, round_code VARCHAR(10), sort_order INT)
 
 INSERT INTO #tmp_games
 SELECT 1 AS row_type, g.game_time, g.game_number,
