@@ -336,6 +336,7 @@
     <Content Include="Content\IntFootball\Soccerball_svg.png" />
     <Content Include="Content\IntFootball\teams\15px-Flag_of_Switzerland_svg.png" />
     <Content Include="Content\IntFootball\teams\20px-Flag_of_Switzerland_svg.png" />
+    <Content Include="Content\IntFootball\teams\21px-Flag_of_Iceland.svg.png" />
     <Content Include="Content\IntFootball\teams\22px-Flag_of_Algeria_svg.png" />
     <Content Include="Content\IntFootball\teams\22px-Flag_of_Angola_svg.png" />
     <Content Include="Content\IntFootball\teams\22px-Flag_of_Argentina_svg.png" />
@@ -418,6 +419,7 @@
     <Content Include="Content\IntFootball\teams\22px-Flag_of_Uruguay_svg.png" />
     <Content Include="Content\IntFootball\teams\22px-Flag_of_Wales_2_svg.png" />
     <Content Include="Content\IntFootball\teams\22px-Flag_of_Zaire_svg.png" />
+    <Content Include="Content\IntFootball\teams\23px-Flag_of_Panama.svg.png" />
     <Content Include="Content\IntFootball\teams\Flag_of_Bosnia_and_Herzegovina.svg.png" />
     <Content Include="Content\IntFootball\WorldCup.png" />
     <Content Include="Content\IntFootball\WorldCupLogos\120px-UEFA_Euro_2000_logo.svg.png" />
@@ -452,6 +454,7 @@
     <Content Include="Content\IntFootball\WorldCupLogos\200px-UEFA_EURO_2008_New_Logo.svg.png" />
     <Content Include="Content\IntFootball\WorldCupLogos\200px-UEFA_Euro_2012_logo.svg.png" />
     <Content Include="Content\IntFootball\WorldCupLogos\200px-UEFA_Euro_2016_logo.jpg" />
+    <Content Include="Content\IntFootball\WorldCupLogos\2018_FIFA_WC.svg.png" />
     <Content Include="Content\IntFootball\WorldCupLogos\220px-Russia2018bidlogo_svg.png" />
     <Content Include="Content\IntFootball\WorldCupLogos\Cc2001lg.jpg" />
     <Content Include="Content\IntFootball\WorldCupLogos\France2003.jpg" />
@@ -484,6 +487,7 @@
     <Content Include="Content\IntFootball\WorldCupQualification\305px-2006_world_cup_qualification.png" />
     <Content Include="Content\IntFootball\WorldCupQualification\305px-2010_world_cup_qualification.png" />
     <Content Include="Content\IntFootball\WorldCupQualification\400px-1930_world_cup_quailification.png" />
+    <Content Include="Content\IntFootball\WorldCupQualification\695px-2018_world_cup_qualification.PNG" />
     <Content Include="Content\IntFootball\Yellow_card_svg.png" />
     <Content Include="Content\ITunes\favicon.ico" />
     <Content Include="Content\ITunes\iTunes.png" />
