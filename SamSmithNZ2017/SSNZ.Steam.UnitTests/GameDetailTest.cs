@@ -70,6 +70,40 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.Achievements[0].GlobalPercent >= 0);
             Assert.IsTrue(result.Achievements[0].FriendAchieved == false);
             Assert.IsTrue(result.Achievements[0].IsVisible == true);
+            Assert.IsTrue(result.AchievementsStats.Count >= 0);
+        }
+
+        [TestMethod]
+        public async Task GameDetailsSamCiv6WithFilterTest()
+        {
+            //Arrange
+            GameDetailsDA da = new GameDetailsDA();
+            string steamId = "76561197971691578";
+            string appId = "289070"; //Civ 6
+            string achievementToSearch = "RAF";
+
+            //Act
+            GameDetail result = await da.GetDataAsync(steamId, appId, true, achievementToSearch);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.AppID == "289070");
+            Assert.IsTrue(result.GameName == "Sid Meier's Civilization VI");
+            Assert.IsTrue(result.IconURL == "9dc914132fec244adcede62fb8e7524a72a7398c");
+            Assert.IsTrue(result.LogoURL == "356443a094f8e20ce21293039d7226eac3d3b4d9");
+            Assert.IsTrue(result.PercentAchieved >= 0m);
+            Assert.IsTrue(result.TotalAchieved >= 0);
+            Assert.IsTrue(result.Achievements.Count >= 0);
+            Assert.IsTrue(result.Achievements[0].ApiName == "RAF_ACHIEVEMENT_35");
+            Assert.IsTrue(result.Achievements[0].Name == "Victory Belongs to the Most Persevering");
+            Assert.IsTrue(result.Achievements[0].Description == "Achieve a Heroic Age");
+            Assert.IsTrue(result.Achievements[0].Achieved == true);
+            Assert.IsTrue(result.Achievements[0].IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/289070/976f5496ae20072842a8d394de88a2c0297a321f.jpg");
+            Assert.IsTrue(result.Achievements[0].IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/289070/c05dd3fc1d3b8ac1b04314e73dfeebb8aa7ffb26.jpg");
+            Assert.IsTrue(result.Achievements[0].GlobalPercent >= 0);
+            Assert.IsTrue(result.Achievements[0].FriendAchieved == false);
+            Assert.IsTrue(result.Achievements[0].IsVisible == true);
+            Assert.IsTrue(result.AchievementsStats.Count >= 0);
         }
 
         [TestMethod]

@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "M&M Counter";
+    Layout = "~/Views/Shared/_LayoutMandMCounter.cshtml";
+}
+
+<h2>M&amp;M counter</h2>
+
+<div ng-controller="indexController">
+    <input type="button" value="Calculate counters" ng-click="UpdateCounters()" />
+    <br /><br />
+    <hr />
+    M&Ms: {{MandMsResult | number: 1}} <br />
+    Peanut M&Ms: {{PeanutMandMsResult | number: 1}} <br />
+    Skittles M&Ms: {{SkittlesResult | number: 1}} <br />
+</div>

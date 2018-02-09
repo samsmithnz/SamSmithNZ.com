@@ -158,7 +158,7 @@ namespace SSNZ.Steam.Data
                 foreach (SteamPlayer item in playerDetails.response.players)
                 {
                     GameDetailsDA da4 = new GameDetailsDA();
-                    Tuple<List<Achievement>, string> tempResults = await da4.GetAchievementDataAsync(item.steamid, appId, null);
+                    Tuple<List<Achievement>, string> tempResults = await da4.GetAchievementDataAsync(item.steamid, appId, null, null);
                     if (tempResults.Item2 == null)
                     {
                         Friend friend = new Friend();

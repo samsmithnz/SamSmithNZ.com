@@ -17,6 +17,7 @@ namespace SSNZ.Steam.Models
         public int FriendTotalAchieved { get; set; }
         public decimal FriendPercentAchieved { get; set; }
         public List<Achievement> Achievements { get; set; }
+        public List<KeyValuePair<string, int>> AchievementsStats { get; set; }
         public string ErrorMessage { get; set; }
     }
 }

@@ -115,7 +115,7 @@ namespace SSNZ.Steam.UnitTests
 
             //Assert
             Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count >= 100);
+            Assert.IsTrue(results.Count >= 0);
         }
 
         [TestMethod]

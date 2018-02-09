@@ -221,6 +221,7 @@
     <Compile Include="Controllers\IntFootballController.cs" />
     <Compile Include="Controllers\iTunesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MandMCounterController.cs" />
     <Compile Include="Controllers\SteamController.cs" />
     <Compile Include="Controllers\SteamOldController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -491,6 +492,8 @@
     <Content Include="Content\IntFootball\Yellow_card_svg.png" />
     <Content Include="Content\ITunes\favicon.ico" />
     <Content Include="Content\ITunes\iTunes.png" />
+    <Content Include="Content\MandMCounter\favicon.ico" />
+    <Content Include="Content\MandMCounter\MandM.png" />
     <Content Include="Content\Steam\favicon.ico" />
     <Content Include="Content\Images\spinner.gif" />
     <Content Include="Content\Images\spinner_small.gif" />
@@ -507,6 +510,7 @@
     <Content Include="Scripts\3rdParty\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Connected Services\Application Insights\ConnectedService.json" />
     <None Include="Properties\PublishProfiles\SamSmithNZ2017Web.pubxml" />
@@ -1330,6 +1334,11 @@
     <TypeScriptCompile Include="Scripts\GuitarTabServices\tabsService.ts" />
     <TypeScriptCompile Include="Scripts\GuitarTabServices\albumsService.ts" />
     <TypeScriptCompile Include="Scripts\IntFootballServices\tournamentTeamService.ts" />
+    <TypeScriptCompile Include="Scripts\MandMCounterControllers\indexController.ts" />
+    <TypeScriptCompile Include="Scripts\MandMCounterServices\skittlesMandMCounterService.ts" />
+    <TypeScriptCompile Include="Scripts\MandMCounterServices\peanutMandMCounterService.ts" />
+    <TypeScriptCompile Include="Scripts\MandMCounterServices\unitService.ts" />
+    <TypeScriptCompile Include="Scripts\MandMCounterServices\mandMCounterService.ts" />
     <TypeScriptCompile Include="Scripts\SteamControllers\layoutController.ts" />
     <TypeScriptCompile Include="Scripts\SteamControllers\gameDetailsController.ts" />
     <TypeScriptCompile Include="Scripts\SteamControllers\indexController.ts" />
@@ -1352,6 +1361,8 @@
     <Content Include="Views\ITunes\About.cshtml" />
     <Content Include="Views\GuitarTab\About.cshtml" />
     <Content Include="Views\FooFighters\About.cshtml" />
+    <Content Include="Views\MandMCounter\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutMandMCounter.cshtml" />
     <None Include="Views\Test\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -9,7 +9,7 @@ namespace SSNZ.Steam.Data
 {
     public class GameDetailsDA
     {
-        public async Task<GameDetail> GetDataAsync(string steamID, string appID)
+        public async Task<GameDetail> GetDataAsync(string steamID, string appID, bool getStats = true, string achievementToSearch = null)
         {
             //Get the details of the game
             SteamGameDetailDA da = new SteamGameDetailDA();
@@ -46,7 +46,8 @@ namespace SSNZ.Steam.Data
             //Get the achievements from another dataset
             if (gameDetail != null)
             {
-                Tuple<List<Achievement>, string> tempResults = await GetAchievementDataAsync(steamID, appID, gameDetail);
+                //Get the achievements
+                Tuple<List<Achievement>, string> tempResults = await GetAchievementDataAsync(steamID, appID, gameDetail, achievementToSearch);
                 result.Achievements = tempResults.Item1;
                 result.ErrorMessage = tempResults.Item2;
 
@@ -64,10 +65,57 @@ namespace SSNZ.Steam.Data
                 {
                     result.PercentAchieved = (decimal)totalAchieved / (decimal)result.Achievements.Count;
                 }
+
+                //Get the achievement Stats
+                //Build Stats
+                if (getStats == true)
+                {
+                    List<string> blackList = new List<string> { "achievement", "the", "with", "one", "and", "game", "your", "all", "every", "have", "for", "than", "any", "you" };
+                    TextStats ts = new TextStats(blackList, true);
+                    foreach (Achievement item in result.Achievements)
+                    {
+                        ts.AddItem(item.ApiName, '_');
+                        ts.AddItem(item.Description, ' ');
+                        ts.AddItem(item.Name, ' ');
+                    }
+                    //sort the final list
+                    List<KeyValuePair<string, int>> sortedList = ts.SortList(false);
+
+                    //Filter the list to remove more than 10 search items
+                    int counter = 0;
+                    int currentItem = 0;
+                    foreach (KeyValuePair<string, int> item in sortedList)
+                    {
+                        counter++;
+                        if (counter >= 15)
+                        {
+                            currentItem = item.Value;
+                            break;
+                        }
+                    }
+                    List<KeyValuePair<string, int>> finalSortedList = new List<KeyValuePair<string, int>>();
+                    foreach (KeyValuePair<string, int> item in sortedList)
+                    {
+                        if (item.Value >= currentItem)
+                        {
+                            finalSortedList.Add(item);
+                        }
+                        else if (item.Value < currentItem)
+                        {
+                            break;
+                        }
+                    }
+                    result.AchievementsStats = finalSortedList;
+                }
+                else
+                {
+                    result.AchievementsStats = new List<KeyValuePair<string, int>>();
+                }
             }
             else
             {
                 result.Achievements = new List<Achievement>();
+                result.AchievementsStats = new List<KeyValuePair<string, int>>();
             }
 
             return result;
@@ -115,7 +163,7 @@ namespace SSNZ.Steam.Data
             return result;
         }
 
-        public async Task<Tuple<List<Achievement>, string>> GetAchievementDataAsync(string steamID, string appID, SteamGameDetail steamGameDetails)
+        public async Task<Tuple<List<Achievement>, string>> GetAchievementDataAsync(string steamID, string appID, SteamGameDetail steamGameDetails, string achievementToSearch)
         {
             //Get the achievements for the app
             SteamPlayerAchievementsForAppDA da = new SteamPlayerAchievementsForAppDA();
@@ -167,7 +215,19 @@ namespace SSNZ.Steam.Data
                         }
                         newItem.FriendAchieved = false;
 
-                        results.Add(newItem);
+                        if (achievementToSearch != null)
+                        {
+                            string[] splitApiNames = newItem.ApiName.Split('_');
+                            if (Array.Exists(splitApiNames, element => element == achievementToSearch.ToUpper()) ==true)
+                            {
+                                results.Add(newItem);
+                            }
+                        }
+                        else
+                        {
+                            results.Add(newItem);
+                        }
+
                     }
                 }
 

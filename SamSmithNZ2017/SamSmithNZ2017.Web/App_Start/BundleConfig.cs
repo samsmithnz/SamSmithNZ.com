@@ -61,6 +61,17 @@ namespace SamSmithNZ2017
                         "~/Scripts/IntFootballControllers/", "*.js", searchSubdirectories: true
                 ));
 
+            bundles.Add(new ScriptBundle("~/bundles/mandMCounterServicesJS").IncludeDirectory(
+                        "~/Scripts/MandMCounterServices/", "*.js", searchSubdirectories: true
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/mandMCounterControllersJS").IncludeDirectory(
+                        "~/Scripts/MandMCounterControllers/", "*.js", searchSubdirectories: true
+                ));
+
+
+            
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             //bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
