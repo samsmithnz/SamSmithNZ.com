@@ -121,10 +121,10 @@ namespace SSNZ.Steam.Data
             return result;
         }
 
-        public async Task<GameDetail> GetDataWithFriend(string steamID, string appID, string friendSteamId)
+        public async Task<GameDetail> GetDataWithFriend(string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null)
         {
-            GameDetail details = await GetDataAsync(steamID, appID);
-            GameDetail friendDetails = await GetDataAsync(friendSteamId, appID);
+            GameDetail details = await GetDataAsync(steamID, appID, getStats, achievementToSearch);
+            GameDetail friendDetails = await GetDataAsync(friendSteamId, appID, getStats, achievementToSearch);
 
             //if the friend details return correctly, (this can fail sometimes if the friend has a private project), then continue:
             if (friendDetails == null || friendDetails.Achievements == null || friendDetails.Achievements.Count == 0)
