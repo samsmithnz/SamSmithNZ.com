@@ -168,10 +168,10 @@ namespace SSNZ.Steam.UnitTests
                 {
                     result = item;
                 }
-                else if (item.SteamId == "76561198034342716") //Alex
-                {
-                    Assert.IsTrue(false); //This should never happen, Alex has a private profile
-                }
+                //else if (item.SteamId == "76561198034342716") //Alex
+                //{
+                //    Assert.IsTrue(false); //This should never happen, Alex has a private profile
+                //}
             }
             Assert.IsTrue(result != null);
             Assert.IsTrue(result.SteamId == "76561198030842184");

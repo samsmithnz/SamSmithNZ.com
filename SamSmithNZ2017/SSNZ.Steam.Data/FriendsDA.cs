@@ -13,102 +13,111 @@ namespace SSNZ.Steam.Data
         {
             List<Friend> processedFriendList = new List<Friend>();
 
-            //Get all friends
-            SteamFriendDA da = new SteamFriendDA();
-            SteamFriendList friendList = await da.GetDataAsync(steamID);
-
-            //Don't forget to add the current user to the comma seperated list
-            string commaSeperatedSteamIDs = steamID.ToString();
-            List<string> commaSeperatedSteamIDsArray = new List<string>();
-
-            //Build the comma seperated list for all friends
-            if (friendList != null)
+            try
             {
-                int friendsLength = friendList.friendslist.friends.Count + 1;
-                if (friendsLength <= 100)
-                {
-                    foreach (SteamFriend item in friendList.friendslist.friends)
-                    {
-                        commaSeperatedSteamIDs += "," + item.steamid.ToString();
-                    }
-                }
-                else
-                {
-                    int playerDetails100FriendSplitArrayLength = friendList.friendslist.friends.Count / 100;
-                    int playerDetails100FriendSplitLengthDifference = friendList.friendslist.friends.Count - (playerDetails100FriendSplitArrayLength * 100);
-                    if (playerDetails100FriendSplitLengthDifference > 0)
-                    {
-                        playerDetails100FriendSplitArrayLength++;
-                    }
+                //Get all friends
+                SteamFriendDA da = new SteamFriendDA();
+                SteamFriendList friendList = await da.GetDataAsync(steamID);
 
-                    for (int arrayCount = 0; arrayCount < playerDetails100FriendSplitArrayLength; arrayCount++)
+                //Don't forget to add the current user to the comma seperated list
+                string commaSeperatedSteamIDs = steamID.ToString();
+                List<string> commaSeperatedSteamIDsArray = new List<string>();
+
+                //Build the comma seperated list for all friends
+                if (friendList != null && friendList.friendslist != null)
+                {
+                    int friendsLength = friendList.friendslist.friends.Count + 1;
+                    if (friendsLength <= 100)
                     {
-                        for (int itemCount = 0; itemCount < 100; itemCount++)
+                        foreach (SteamFriend item in friendList.friendslist.friends)
                         {
-                            if (itemCount == 0)
+                            commaSeperatedSteamIDs += "," + item.steamid.ToString();
+                        }
+                    }
+                    else
+                    {
+                        int playerDetails100FriendSplitArrayLength = friendList.friendslist.friends.Count / 100;
+                        int playerDetails100FriendSplitLengthDifference = friendList.friendslist.friends.Count - (playerDetails100FriendSplitArrayLength * 100);
+                        if (playerDetails100FriendSplitLengthDifference > 0)
+                        {
+                            playerDetails100FriendSplitArrayLength++;
+                        }
+
+                        for (int arrayCount = 0; arrayCount < playerDetails100FriendSplitArrayLength; arrayCount++)
+                        {
+                            for (int itemCount = 0; itemCount < 100; itemCount++)
                             {
-                                if (arrayCount == 0)
+                                if (itemCount == 0)
                                 {
-                                    commaSeperatedSteamIDs = steamID.ToString();
+                                    if (arrayCount == 0)
+                                    {
+                                        commaSeperatedSteamIDs = steamID.ToString();
+                                    }
+                                    else
+                                    {
+                                        commaSeperatedSteamIDs += friendList.friendslist.friends[arrayCount + itemCount].steamid.ToString();
+                                    }
                                 }
                                 else
                                 {
-                                    commaSeperatedSteamIDs += friendList.friendslist.friends[arrayCount + itemCount].steamid.ToString();
+                                    commaSeperatedSteamIDs += "," + friendList.friendslist.friends[arrayCount + itemCount].steamid.ToString();
+                                }
+                                if (itemCount == 99)
+                                {
+                                    commaSeperatedSteamIDsArray.Add(commaSeperatedSteamIDs);
+                                    commaSeperatedSteamIDs = "";
                                 }
                             }
-                            else
-                            {
-                                commaSeperatedSteamIDs += "," + friendList.friendslist.friends[arrayCount + itemCount].steamid.ToString();
-                            }
-                            if (itemCount == 99)
-                            {
-                                commaSeperatedSteamIDsArray.Add(commaSeperatedSteamIDs);
-                                commaSeperatedSteamIDs = "";
-                            }
                         }
                     }
+                    commaSeperatedSteamIDsArray.Add(commaSeperatedSteamIDs);
                 }
-                commaSeperatedSteamIDsArray.Add(commaSeperatedSteamIDs);
-            }
 
-            foreach (string CommaSeperatedItem in commaSeperatedSteamIDsArray)
-            { 
-                //get the player details for all friends
-                SteamPlayerDetailDA da2 = new SteamPlayerDetailDA();
-                SteamPlayerDetail playerDetails = await da2.GetDataAsync(CommaSeperatedItem);
-
-                //Transfer the steam player details to the clean friend objects
-                if (playerDetails != null)
+                foreach (string CommaSeperatedItem in commaSeperatedSteamIDsArray)
                 {
-                    foreach (SteamPlayer item in playerDetails.response.players)
+                    //get the player details for all friends
+                    SteamPlayerDetailDA da2 = new SteamPlayerDetailDA();
+                    SteamPlayerDetail playerDetails = await da2.GetDataAsync(CommaSeperatedItem);
+
+                    //Transfer the steam player details to the clean friend objects
+                    if (playerDetails != null)
                     {
-                        Friend friend = new Friend();
-                        friend.SteamId = item.steamid;
-                        friend.Name = item.personaname;
-                        friend.LastLogoff = item.lastlogoff;
-                        friend.ProfileURL = item.profileurl;
-                        friend.Avatar = item.avatar;
-                        friend.AvatarMedium = item.avatarmedium;
-                        friend.AvatarFull = item.avatarfull;
-                        friend.TimeCreated = item.timecreated;
-                        if (friendList != null)
+                        foreach (SteamPlayer item in playerDetails.response.players)
                         {
-                            friend.FriendSince = GetFriendSince(item.steamid, friendList.friendslist.friends);
+                            Friend friend = new Friend
+                            {
+                                SteamId = item.steamid,
+                                Name = item.personaname,
+                                LastLogoff = item.lastlogoff,
+                                ProfileURL = item.profileurl,
+                                Avatar = item.avatar,
+                                AvatarMedium = item.avatarmedium,
+                                AvatarFull = item.avatarfull,
+                                TimeCreated = item.timecreated
+                            };
+                            if (friendList != null)
+                            {
+                                friend.FriendSince = GetFriendSince(item.steamid, friendList.friendslist.friends);
+                            }
+                            processedFriendList.Add(friend);
                         }
-                        processedFriendList.Add(friend);
                     }
                 }
+
+                //Sort the final list, as Steam returns the list by id, not name
+                processedFriendList.Sort(delegate (Friend p1, Friend p2)
+                {
+                    return p1.Name.CompareTo(p2.Name);
+                });
+
             }
-
-            //Sort the final list, as Steam returns the list by id, not name
-            processedFriendList.Sort(delegate (Friend p1, Friend p2)
+            catch (Exception ex)
             {
-                return p1.Name.CompareTo(p2.Name);
-            });
-
-
+                throw ex;
+            }
 
             return processedFriendList;
+
         }
 
 
@@ -121,7 +130,7 @@ namespace SSNZ.Steam.Data
             //Search my friends to see if they have the game we are searching for
             string commaSeperatedSteamIDs = "";
             int i = 0;
-            if (friendList != null)
+            if (friendList != null && friendList.friendslist != null)
             {
                 foreach (SteamFriend item in friendList.friendslist.friends)
                 {
@@ -161,16 +170,18 @@ namespace SSNZ.Steam.Data
                     Tuple<List<Achievement>, string> tempResults = await da4.GetAchievementDataAsync(item.steamid, appId, null, null);
                     if (tempResults.Item2 == null)
                     {
-                        Friend friend = new Friend();
-                        friend.SteamId = item.steamid;
-                        friend.Name = item.personaname;
-                        friend.LastLogoff = item.lastlogoff;
-                        friend.ProfileURL = item.profileurl;
-                        friend.Avatar = item.avatar;
-                        friend.AvatarMedium = item.avatarmedium;
-                        friend.AvatarFull = item.avatarfull;
-                        friend.TimeCreated = item.timecreated;
-                        friend.FriendSince = GetFriendSince(item.steamid, friendList.friendslist.friends);
+                        Friend friend = new Friend
+                        {
+                            SteamId = item.steamid,
+                            Name = item.personaname,
+                            LastLogoff = item.lastlogoff,
+                            ProfileURL = item.profileurl,
+                            Avatar = item.avatar,
+                            AvatarMedium = item.avatarmedium,
+                            AvatarFull = item.avatarfull,
+                            TimeCreated = item.timecreated,
+                            FriendSince = GetFriendSince(item.steamid, friendList.friendslist.friends)
+                        };
                         processedFriendList.Add(friend);
                     }
                 }

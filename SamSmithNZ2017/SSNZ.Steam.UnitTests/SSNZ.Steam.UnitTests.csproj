@@ -56,21 +56,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="FriendsOldTest.cs" />
-    <Compile Include="GameDetailOldTest.cs" />
-    <Compile Include="PlayerGamesOldTest.cs" />
-    <Compile Include="PlayerOldTest.cs" />
     <Compile Include="PlayerTest.cs" />
     <Compile Include="PlayerGamesTest.cs" />
     <Compile Include="FriendsTest.cs" />
-    <Compile Include="SteamFriendUnitOldTest.cs" />
-    <Compile Include="SteamGameDetailUnitOldTest.cs" />
-    <Compile Include="SteamGlobalAchievementUnitOldTest.cs" />
     <Compile Include="SteamGlobalAchievementUnitTest.cs" />
     <Compile Include="SteamGameDetailUnitTest.cs" />
-    <Compile Include="SteamOwnedGamesOldTest.cs" />
-    <Compile Include="SteamPlayerAchievementsForAppUnitOldTest.cs" />
-    <Compile Include="SteamPlayerDetailUnitOldTest.cs" />
     <Compile Include="SteamPlayerDetailUnitTest.cs" />
     <Compile Include="SteamPlayerAchievementsForAppUnitTest.cs" />
     <Compile Include="SteamOwnedGamesTest.cs" />

@@ -126,7 +126,7 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.PercentAchieved >= 0m);
             Assert.IsTrue(result.TotalAchieved >= 0);
             Assert.IsTrue(result.Achievements.Count == 0);
-            Assert.IsTrue(result.ErrorMessage != null);
+            Assert.IsTrue(result.ErrorMessage == null);
         }
 
         [TestMethod]
@@ -413,7 +413,7 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result.PercentAchieved == 0m);
             Assert.IsTrue(result.TotalAchieved == 0m);
             Assert.IsTrue(result.Achievements.Count == 0);
-            Assert.IsTrue(result.ErrorMessage == "Profile is not public");
+            Assert.IsTrue(result.ErrorMessage == null);
         }
 
         [TestMethod]
