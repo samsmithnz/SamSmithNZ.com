@@ -9,7 +9,31 @@
     <div ng-cloak>
         <table id="theTable">
             <tbody>
-                <tr ng-repeat="item in albums">
+                <tr ng-repeat="artist in artists">
+                    <td>
+                        <br />
+                        <b><a name="{{artist.ArtistNameTrimed}}"></a>{{artist.ArtistName}}<br /></b>
+                        <span ng-repeat="album in artist.Albums">
+                            <a href="~/GuitarTab/Album?AlbumCode={{album.AlbumCode}}">{{album.AlbumName}}</a>
+                            @if (isGuitarTabAdmin == true)
+                            {
+                                <a href="~/GuitarTab/EditAlbum?AlbumCode={{album.AlbumCode}}">
+                                    <img src="@Url.Content("~/Content/guitartab/pencil.gif")" alt="" style="height: 12px; border-width: 0;" />
+                                </a>
+                            }
+                            <a ng-if="album.BassAlbumCode > 0" href="~/GuitarTab/Album?AlbumCode={{album.BassAlbumCode}}">&nbsp;(Bass)</a>
+                            @if (isGuitarTabAdmin == true)
+                            {
+                                <a ng-if="album.BassAlbumCode > 0" href="~/GuitarTab/EditAlbum?AlbumCode={{album.BassAlbumCode}}">
+                                    <img src="@Url.Content("~/Content/guitartab/pencil.gif")" alt="" style="height: 12px; border-width: 0;" />
+                                </a>
+                            }
+                            <span ng-if="album.AlbumYear > 0"> ({{album.AlbumYear}})</span>
+                            <span ng-if="$index < artist.Albums.length - 1"> | </span>
+                        </span>                    
+                    </td>
+                </tr>
+                @*<tr ng-repeat="item in albums">
                     <td>
                         <br ng-if="item.IsLeadArtist == true" />
                         <span ng-if="item.IsLeadArtist == true" style="font-weight: bold;"><a name="{{item.ArtistNameTrimed}}"></a>{{item.ArtistName}}<br /></span>
@@ -24,7 +48,7 @@
                         <a ng-if="item.IsLeadArtist == false && item.BassAlbumCode > 0" href="~/GuitarTab/Album?AlbumCode={{item.BassAlbumCode}}">(Bass)</a>
                         <span ng-if="item.AlbumYear > 0 && item.IsBassTab==false"> ({{item.AlbumYear}})</span>
                     </td>
-                </tr>
+                </tr>*@
             </tbody>
         </table>
     </div>

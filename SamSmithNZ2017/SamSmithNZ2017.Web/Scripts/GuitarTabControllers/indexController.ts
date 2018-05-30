@@ -9,6 +9,7 @@
     function indexController($scope, $http, albumService) {
 
         $scope.albums = [];
+        $scope.artists = [];
         $scope.currentArtist = '';
 
         var onError = function (data) {
@@ -20,9 +21,14 @@
         var onGetAlbumsEventComplete = function (response) {
             var currentArtist = '';
             var tempAlbums = [];
+            var tempArtists = [];
+            var newArtist = null;
             //console.log('Original album list count: ' + response.data.length);
             for (var i = 0; i <= response.data.length - 1; i++) {
                 if (response.data[i].ArtistNameTrimed != currentArtist) {
+                    //CREATE NEW ARTIST
+                    newArtist = { ArtistName: response.data[i].ArtistName, ArtistNameTrimed: response.data[i].ArtistNameTrimed, Albums: [] };
+
                     currentArtist = response.data[i].ArtistNameTrimed;
                     var album = angular.copy(response.data[i]);
                     album.AlbumCode = 0;
@@ -39,14 +45,17 @@
                     album.AverageRating = 0;
                     //console.log('New album: ' + album.ArtistNameTrimed + ':' + album.AlbumName + ':' + album.IsLeadArtist);
                     tempAlbums.push(album);
+                    tempArtists.push(newArtist);
                 }
                 tempAlbums.push(response.data[i]);
+                tempArtists[tempArtists.length - 1].Albums.push(response.data[i]);
                 //console.log('Album: ' + response.data[i].ArtistNameTrimed + ':' + response.data[i].AlbumName + ':' + response.data[i].IsLeadArtist);
             }
             //console.log('Final album list count: ' + $scope.albums.length);
             //console.log(tempAlbums);
             $scope.albums = tempAlbums;
-
+            $scope.artists = tempArtists;
+            //console.log(tempArtists);
 
             var targets2 = document.querySelector('#lblBreadCrumbLocation');
             //console.log(targets2.innerText);
