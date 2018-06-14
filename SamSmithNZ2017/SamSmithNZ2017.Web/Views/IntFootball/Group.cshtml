@@ -93,12 +93,13 @@
                         </div>
                         <div ng-if="item.RowType >= 2 && item.Team1NormalTimeScore">
                             {{item.Team1Name}}
-                            <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" /> {{item.Team1NormalTimeScore}}' <span ng-if="item.IsPenalty == true"> (pen)</span><span ng-if="item.IsOwnGoal == true"> (og)</span>
+                            <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" /> {{item.Team1NormalTimeScore}}' <span ng-if="item.Team1ExtraTimeScore > 0">+{{item.Team1ExtraTimeScore}}'</span> <span ng-if="item.IsPenalty == true"> (pen)</span><span ng-if="item.IsOwnGoal == true"> (og)</span>
                         </div>
                     </td>
                     <td style="text-align: center;">
                         <div ng-if="item.Team1NormalTimeScore >= 0 && item.RowType == 1">
-                            <span ng-if="!item.Team1PenaltiesScore">{{item.Team1ResultRegulationTimeScore}} - {{item.Team2ResultRegulationTimeScore}} {{item.Team1ResultInformation}}{{item.Team2ResultInformation}}</span>
+                            <span ng-if="!item.Team1PenaltiesScore">{{item.Team1ResultRegulationTimeScore}} - {{item.Team2ResultRegulationTimeScore}} {{item.Team1ResultInformation}}{{item.Team2ResultInformation}}
+</span>
                             <div ng-if="item.Team1PenaltiesScore && item.Team1PenaltiesScore >= 0">
                                 <span>{{item.Team1ResultRegulationTimeScore}} - {{item.Team2ResultRegulationTimeScore}} (aet)</span>
                                 <br />
@@ -113,7 +114,7 @@
                         </div>  
                         <div ng-if="item.RowType >= 2 && item.Team2NormalTimeScore">
                             {{item.Team2Name}}
-                            <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" /> {{item.Team2NormalTimeScore}}' <span ng-if="item.IsPenalty == true"> (pen)</span><span ng-if="item.IsOwnGoal == true"> (og)</span>
+                            <img ng-src="~/Content/IntFootball/Soccerball_svg.png" CssClass="TeamImage" /> {{item.Team2NormalTimeScore}}' <span ng-if="item.Team2ExtraTimeScore > 0">+{{item.Team2ExtraTimeScore}}'</span> <span ng-if="item.IsPenalty == true"> (pen)</span><span ng-if="item.IsOwnGoal == true"> (og)</span>
                         </div>
                     </td>
                     <td><div ng-if="item.RowType == 1">{{item.Location}}</div></td>

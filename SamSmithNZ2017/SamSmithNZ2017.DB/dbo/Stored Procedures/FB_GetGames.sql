@@ -3,7 +3,8 @@
 	@RoundNumber INT = NULL,
 	@RoundCode VARCHAR(10) = NULL,
 	@TeamCode INT = NULL,
-	@IncludeGoals BIT = 0
+	@IncludeGoals BIT = 0,
+	@GameCode INT = NULL
 AS
 BEGIN
 	
@@ -93,7 +94,7 @@ BEGIN
 		WHERE (@TournamentCode IS NULL OR g.tournament_code = @TournamentCode)
 		AND (@RoundNumber IS NULL OR g.round_number = @RoundNumber)
 		AND (@RoundCode IS NULL OR g.round_code = @RoundCode)
-		--AND g.game_code = 569
+		AND (@GameCode IS NULL OR g.game_code = @GameCode)
 
 		--Normal team 1 goal
 		UNION
@@ -137,7 +138,7 @@ BEGIN
 		AND (@RoundNumber IS NULL OR g.round_number = @RoundNumber)
 		AND (@RoundCode IS NULL OR g.round_code = @RoundCode)
 		AND @IncludeGoals = 1
-		--AND g.game_code = 569
+		AND (@GameCode IS NULL OR g.game_code = @GameCode)
 
 		--Team 2 scored own goal (counts as team 1 goal)
 		UNION
@@ -181,7 +182,7 @@ BEGIN
 		AND (@RoundNumber IS NULL OR g.round_number = @RoundNumber)
 		AND (@RoundCode IS NULL OR g.round_code = @RoundCode)
 		AND @IncludeGoals = 1
-		--AND g.game_code = 569
+		AND (@GameCode IS NULL OR g.game_code = @GameCode)
 		
 		--Normal team 2 goal
 		UNION
@@ -225,7 +226,7 @@ BEGIN
 		AND (@RoundNumber IS NULL OR g.round_number = @RoundNumber)
 		AND (@RoundCode IS NULL OR g.round_code = @RoundCode)
 		AND @IncludeGoals = 1
-		--AND g.game_code = 569
+		AND (@GameCode IS NULL OR g.game_code = @GameCode)
 		
 		--Team 1 scored own goal (counts as team 2 goal)
 		UNION
@@ -269,7 +270,7 @@ BEGIN
 		AND (@RoundNumber IS NULL OR g.round_number = @RoundNumber)
 		AND (@RoundCode IS NULL OR g.round_code = @RoundCode)
 		AND @IncludeGoals = 1
-		--AND g.game_code = 569
+		AND (@GameCode IS NULL OR g.game_code = @GameCode)
 		
 		--Insert Team 1 Penalty Shootout Scorers
 		UNION
@@ -311,7 +312,7 @@ BEGIN
 		AND (@RoundNumber IS NULL OR g.round_number = @RoundNumber)
 		AND (@RoundCode IS NULL OR g.round_code = @RoundCode)
 		AND @IncludeGoals = 1
-		--AND g.game_code = 569
+		AND (@GameCode IS NULL OR g.game_code = @GameCode)
 
 		--Insert Team 2 Penalty Shootout Scorers
 		UNION
@@ -353,7 +354,7 @@ BEGIN
 		AND (@RoundNumber IS NULL OR g.round_number = @RoundNumber)
 		AND (@RoundCode IS NULL OR g.round_code = @RoundCode)
 		AND @IncludeGoals = 1
-		--AND g.game_code = 569
+		AND (@GameCode IS NULL OR g.game_code = @GameCode)
 
 		ORDER BY g.game_time, g.game_number, g.game_code, RowType, SortOrder
 	END

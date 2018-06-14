@@ -46,6 +46,28 @@ namespace SSNZ.IntFootball.Goals.WinWPF
             lstGames.DataContext = games;
         }
 
+        private async void btnGameScoreEdit_Click(object sender, RoutedEventArgs e)
+        {
+            DependencyObject dep = (DependencyObject)e.OriginalSource;
+            while ((dep != null) && !(dep is ListViewItem))
+            {
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+            if (dep == null)
+            {
+                return;
+            }
+
+            GameGoalAssignment dr = (GameGoalAssignment)lstGames.ItemContainerGenerator.ItemFromContainer(dep);
+
+            AssignScore AssignScorei = new AssignScore();
+            if (await AssignScorei.ShowForm(Convert.ToInt16(dr.GameCode)) == true)
+            {
+                await LoadGrid(_tournamentCode);
+            }
+
+        }
+
         private async void btnGameEdit_Click(object sender, RoutedEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;

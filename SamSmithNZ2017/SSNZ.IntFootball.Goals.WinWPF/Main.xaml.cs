@@ -34,7 +34,7 @@ namespace SSNZ.IntFootball.Goals.WinWPF
             cboTournament.DataContext = tournaments;
             cboTournament.DisplayMemberPath = "TournamentName";
             cboTournament.SelectedValuePath = "TournamentCode";
-            cboTournament.SelectedIndex = 0;
+            cboTournament.SelectedIndex = 1;
         }
 
         private void btnAssignGoals_Click(object sender, RoutedEventArgs e)

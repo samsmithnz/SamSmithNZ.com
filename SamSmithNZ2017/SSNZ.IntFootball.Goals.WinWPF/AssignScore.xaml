@@ -1,0 +1,25 @@
+﻿<Window x:Class="SSNZ.IntFootball.Goals.WinWPF.AssignScore"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Assign Score" Height="310" Width="627.206" ShowInTaskbar="True" WindowStartupLocation="CenterScreen" Icon="/SSNZ.IntFootball.Goals.WinWPF;component/Soccer.ico">
+    <Grid Height="271" Width="617">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Content="Normal Time Score:" Height="25" HorizontalAlignment="Left" Margin="14,55,0,0" Name="label4" VerticalAlignment="Top" Width="Auto" />
+        <Button Content="_Save" Name="btnSave" UseLayoutRounding="False" Margin="0,155.399,10,90.601" Click="btnSave_Click"  TabIndex="5" HorizontalAlignment="Right" Width="75"/>
+        <Button Content="Cancel" Height="25" Name="btnCancel" UseLayoutRounding="False" Click="btnCancel_Click" Margin="10,155.399,224,0" VerticalAlignment="Top" Grid.Column="1" IsTabStop="False"/>
+        <Label Content="[Game]" Height="25" Margin="14,28,10,0" Name="lblGame" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Grid.ColumnSpan="2" Width="593" />
+        <Label Content="Extra Time Score:" Height="25" HorizontalAlignment="Left" Margin="14,81,0,0" x:Name="label4_Copy" VerticalAlignment="Top" Width="Auto" />
+        <Label Content="Penalties Score:" Height="25" HorizontalAlignment="Left" Margin="14,108,0,0" x:Name="label4_Copy1" VerticalAlignment="Top" Width="Auto" />
+        <TextBox  x:Name="txtTeam1NormalTime" HorizontalAlignment="Left" TextAlignment="Right" Margin="238,55,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="60" Height="21" TabIndex="1" Keyboard.PreviewGotKeyboardFocus="TextBox_GotKeyboardFocus" />
+        <TextBox  x:Name="txtTeam2NormalTime" HorizontalAlignment="Left" Margin="10,55,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="60" Height="21" TabIndex="1" Keyboard.PreviewGotKeyboardFocus="TextBox_GotKeyboardFocus" Grid.Column="1" />
+        <TextBox  x:Name="txtTeam1ExtraTime" HorizontalAlignment="Left" TextAlignment="Right" Margin="238,81,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="60" Height="21" TabIndex="1" Keyboard.PreviewGotKeyboardFocus="TextBox_GotKeyboardFocus" />
+        <TextBox  x:Name="txtTeam2ExtraTime" HorizontalAlignment="Left" Margin="10,81,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="60" Height="21" TabIndex="1" Keyboard.PreviewGotKeyboardFocus="TextBox_GotKeyboardFocus" Grid.Column="1" />
+        <TextBox  x:Name="txtTeam1Penalties" HorizontalAlignment="Left" TextAlignment="Right" Margin="238,108,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="60" Height="21" TabIndex="1" Keyboard.PreviewGotKeyboardFocus="TextBox_GotKeyboardFocus" />
+        <TextBox  x:Name="txtTeam2Penalties" HorizontalAlignment="Left" Margin="10,108,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="60" Height="21" TabIndex="1" Keyboard.PreviewGotKeyboardFocus="TextBox_GotKeyboardFocus" Grid.Column="1" />
+        <Label Content="[GameHeader]" Height="25" Margin="14,3,10,0" x:Name="lblGameHeader" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Grid.ColumnSpan="2" Width="593" />
+
+    </Grid>
+</Window>

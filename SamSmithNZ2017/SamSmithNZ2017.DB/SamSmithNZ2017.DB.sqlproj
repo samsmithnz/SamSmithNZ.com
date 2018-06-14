@@ -253,6 +253,9 @@
     <Build Include="dbo\Stored Procedures\FB_SaveGoal.sql" />
     <Build Include="dbo\Stored Procedures\FB_SavePenaltyShootoutGoal.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetGoals.sql" />
+    <Build Include="dbo\Stored Procedures\FB_SaveGroupDetails.sql" />
+    <Build Include="dbo\Stored Procedures\FB_SavePlayoffDetails.sql" />
+    <Build Include="dbo\Stored Procedures\FB_SaveGame.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />

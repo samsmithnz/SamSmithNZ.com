@@ -175,7 +175,7 @@ namespace SSNZ.IntFootball.Goals.WinWPF
         private void txtInjuryTime_TextChanged(object sender, TextChangedEventArgs e)
         {
             int injuryTime = 0;
-            if (int.TryParse(txtNormalTime.Text, out injuryTime) == true)
+            if (int.TryParse(txtInjuryTime.Text, out injuryTime) == true)
             {
                 sliInjuryTime.Value = injuryTime;
             }

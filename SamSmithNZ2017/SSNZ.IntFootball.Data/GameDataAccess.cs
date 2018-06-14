@@ -53,6 +53,34 @@ namespace SSNZ.IntFootball.Data
             return results;
         }
 
+        public async Task<Game> GetItemAsync(int gameCode)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@GameCode", gameCode, DbType.Int32);
+
+            Game result = await base.GetItemAsync("FB_GetGames", parameters);
+            List<Game> results = new List<Game>();
+            results.Add(result);
+            results = ProcessGameResults(results);
+
+            return results[0];
+        }
+
+        public async Task<bool> SaveItemAsync(Game game)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@GameCode", game.GameCode, DbType.Int32);
+            parameters.Add("@Team1NormalTimeScore", game.Team1NormalTimeScore, DbType.Int32);
+            parameters.Add("@Team1ExtraTimeScore", game.Team1ExtraTimeScore, DbType.Int32);
+            parameters.Add("@Team1PenaltiesScore", game.Team1PenaltiesScore, DbType.Int32);
+            parameters.Add("@Team2NormalTimeScore", game.Team2NormalTimeScore, DbType.Int32);
+            parameters.Add("@Team2ExtraTimeScore", game.Team2ExtraTimeScore, DbType.Int32);
+            parameters.Add("@Team2PenaltiesScore", game.Team2PenaltiesScore, DbType.Int32);
+
+            await base.PostItemAsync("FB_SaveGame", parameters);
+            return true;
+        }
+
         //Process the game, to make it easier to process on the client side
         private List<Game> ProcessGameResults(List<Game> games)
         {

@@ -71,6 +71,13 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn Header="Edit Score">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Edit Score" Click="btnGameScoreEdit_Click" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Game Goals" DisplayMemberBinding="{Binding Path=TotalGameTableGoals}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
