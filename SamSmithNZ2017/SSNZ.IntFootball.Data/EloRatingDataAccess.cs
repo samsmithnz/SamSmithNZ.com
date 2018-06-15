@@ -89,8 +89,8 @@ namespace SSNZ.IntFootball.Data
 
         private int CalculateGoalDifference(Game item)
         {
-            int team1Score = 0;
-            int team2Score = 0;
+            int? team1Score = 0;
+            int? team2Score = 0;
             if (item.Team1PenaltiesScore >= 0)
             {
                 team1Score = team1Score + item.Team1NormalTimeScore + item.Team1ExtraTimeScore.GetValueOrDefault() + item.Team1PenaltiesScore.GetValueOrDefault();
@@ -130,7 +130,7 @@ namespace SSNZ.IntFootball.Data
                 //    return 2;
                 //}
             }
-            return team1Score - team2Score;
+            return (int)team1Score - (int)team2Score;
         }
 
 

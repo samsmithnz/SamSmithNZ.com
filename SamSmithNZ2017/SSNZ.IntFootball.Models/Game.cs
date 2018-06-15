@@ -22,12 +22,12 @@ namespace SSNZ.IntFootball.Models
         public DateTime GameTime { get; set; }
         public int Team1Code { get; set; }
         public string Team1Name { get; set; }
-        public int Team1NormalTimeScore { get; set; }
+        public int? Team1NormalTimeScore { get; set; }
         public int? Team1ExtraTimeScore { get; set; }
         public int? Team1PenaltiesScore { get; set; }
         public int Team2Code { get; set; }
         public string Team2Name { get; set; }
-        public int Team2NormalTimeScore { get; set; }
+        public int? Team2NormalTimeScore { get; set; }
         public int? Team2ExtraTimeScore { get; set; }
         public int? Team2PenaltiesScore { get; set; }
         public string Team1FlagName { get; set; }
