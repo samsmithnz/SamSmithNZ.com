@@ -18,5 +18,16 @@ namespace SSNZ.IntFootball.Service.Controllers
             TournamentTeamDataAccess da = new TournamentTeamDataAccess();
             return await da.GetTeamsPlacingAsync(tournamentCode);
         }
+
+        public async Task<bool> RefreshTournamentELORatings(int tournamentCode)
+        {
+            EloRatingDataAccess daELO = new EloRatingDataAccess();
+            List<TeamELORating> teams = await daELO.CalculateEloForTournamentAsync(tournamentCode);
+            foreach (TeamELORating team in teams)
+            {
+                await daELO.SaveTeamELORatingAsync(team.TournamentCode, team.TeamCode, team.ELORating);               
+            }
+            return true;
+        }
     }
 }

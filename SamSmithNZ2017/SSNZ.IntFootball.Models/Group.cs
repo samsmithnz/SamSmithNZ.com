@@ -25,6 +25,8 @@ namespace SSNZ.IntFootball.Models
         public int Points { get; set; }
         public bool HasQualifiedForNextRound { get; set; }
         public int GroupRanking { get; set; }
-        
+        public int ELORating { get; set; }
+
+
     }
 }

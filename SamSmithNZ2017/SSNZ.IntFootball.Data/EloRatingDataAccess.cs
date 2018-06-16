@@ -1,15 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 using SSNZ.IntFootball.Models;
 
 namespace SSNZ.IntFootball.Data
 {
-    public class EloRatingDataAccess
+    public class EloRatingDataAccess : GenericDataAccess<EloRating>
     {
-        public async Task<List<TeamRating>> CalculateEloForTournamentAsync(int tournamentCode)
+        public async Task<bool> UpdateTournamentELORatings(int tournamentCode)
+        {
+            List<TeamELORating> results = await CalculateEloForTournamentAsync(tournamentCode);
+
+            foreach (TeamELORating item in results)
+            {
+                await SaveTeamELORatingAsync(tournamentCode, item.TeamCode, item.ELORating);
+            }
+
+            return true;
+        }
+
+        public async Task<List<TeamELORating>> CalculateEloForTournamentAsync(int tournamentCode)
         {
             double diff = 400;
             double kRating = 32;
@@ -20,14 +34,14 @@ namespace SSNZ.IntFootball.Data
             TeamDataAccess da2 = new TeamDataAccess();
             List<Team> teamList = await da2.GetListAsync();
 
-            List<TeamRating> teamRatingList = new List<TeamRating>();
+            List<TeamELORating> teamRatingList = new List<TeamELORating>();
             foreach (Game item in gameList)
             {
-                TeamRating team1 = GetTeamRating(tournamentCode, item.Team1Code, item.Team1Name, teamRatingList);
-                TeamRating team2 = GetTeamRating(tournamentCode, item.Team2Code, item.Team2Name, teamRatingList);
+                TeamELORating team1 = GetTeamRating(tournamentCode, item.Team1Code, item.Team1Name, teamRatingList);
+                TeamELORating team2 = GetTeamRating(tournamentCode, item.Team2Code, item.Team2Name, teamRatingList);
                 EloRating.Matchup match = new EloRating.Matchup();
-                match.User1Score = team1.Rating;
-                match.User2Score = team2.Rating;
+                match.User1Score = team1.ELORating;
+                match.User2Score = team2.ELORating;
                 int result = WhoWon(item);
                 kRating = CalculateKFactor(item);
                 if (result == 1)
@@ -48,20 +62,30 @@ namespace SSNZ.IntFootball.Data
                     team1.Draws++;
                     team2.Draws++;
                 }
-                team1.Rating = match.User1Score;
+                team1.ELORating = match.User1Score;
                 team1.GameCount++;
-                team2.Rating = match.User2Score;
+                team2.ELORating = match.User2Score;
                 team2.GameCount++;
             }
 
             //Sort the teas
-            teamRatingList.Sort((x, y) => y.Rating.CompareTo(x.Rating));
+            teamRatingList.Sort((x, y) => y.ELORating.CompareTo(x.ELORating));
 
             //Update the team ratings 
             TournamentTeamDataAccess da3 = new TournamentTeamDataAccess();
             //da3.SaveItemAsync();
 
             return teamRatingList;
+        }
+
+        public async Task<bool> SaveTeamELORatingAsync(int tournamentCode, int teamCode, int eloRating)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
+            parameters.Add("@TeamCode", teamCode, DbType.Int32);
+            parameters.Add("@ELORating", eloRating, DbType.Int32);
+
+            return await base.PostItemAsync("FB_SaveTournamentTeamELORating", parameters);
         }
 
         /// <summary>
@@ -173,16 +197,16 @@ namespace SSNZ.IntFootball.Data
             return kFactor;
         }
 
-        private TeamRating GetTeamRating(int tournamentCode, int teamCode, string teamName, List<TeamRating> teamList)
+        private TeamELORating GetTeamRating(int tournamentCode, int teamCode, string teamName, List<TeamELORating> teamList)
         {
-            foreach (TeamRating item in teamList)
+            foreach (TeamELORating item in teamList)
             {
                 if (item.TeamCode == teamCode)
                 {
                     return item;
                 }
             }
-            TeamRating newTeam = new TeamRating(tournamentCode, teamCode, teamName, 1000);
+            TeamELORating newTeam = new TeamELORating(tournamentCode, teamCode, teamName, 1000);
             teamList.Add(newTeam);
             return newTeam;
         }

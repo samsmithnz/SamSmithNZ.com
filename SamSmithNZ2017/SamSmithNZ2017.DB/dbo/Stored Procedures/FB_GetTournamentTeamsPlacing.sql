@@ -88,14 +88,16 @@ BEGIN
 		r.region_abbrev AS RegionName, 
 		ISNULL(te.fifa_ranking,0) AS FifaRanking, 
 		te.coach_name AS CoachName, 
-		ISNULL(ct.flag_name,'') AS CoachNationalityFlagName
+		ISNULL(ct.flag_name,'') AS CoachNationalityFlagName,
+		e.elo_rating AS ELORating
 	FROM #tmp_final_placing fp
 	JOIN wc_team t ON fp.team_code = t.team_code
 	JOIN wc_tournament_team_entry te ON te.team_code = t.team_code
 	JOIN wc_region r ON t.region_code = r.region_code
 	LEFT JOIN wc_team ct ON ct.team_name = te.coach_nationality
+	JOIN wc_tournament_team_elo_rating e ON te.tournament_code = e.tournament_code AND te.team_code = e.team_code
 	WHERE te.tournament_code = @TournamentCode
-	ORDER BY fp.placing, t.team_name
+	ORDER BY fp.placing, e.elo_rating DESC, t.team_name
 
 	DROP TABLE #tmp_final_placing
 END

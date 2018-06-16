@@ -19,12 +19,14 @@ BEGIN
 		gs.round_number AS RoundNumber, 
 		gs.team_code AS TeamCode, 
 		gs.tournament_code AS TournamentCode, 
-		gs.wins AS Wins
+		gs.wins AS Wins,
+		e.elo_rating AS ELORating
 	FROM wc_group_stage gs
 	JOIN wc_team t ON gs.team_code = t.team_code
-	WHERE tournament_code = @TournamentCode
-	AND round_number = @RoundNumber
-	AND round_code = @RoundCode
-	ORDER BY group_ranking
+	JOIN wc_tournament_team_elo_rating e ON gs.tournament_code = e.tournament_code AND gs.team_code = e.team_code
+	WHERE gs.tournament_code = @TournamentCode
+	AND gs.round_number = @RoundNumber
+	AND gs.round_code = @RoundCode
+	ORDER BY gs.group_ranking
 END
 

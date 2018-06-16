@@ -256,6 +256,8 @@
     <Build Include="dbo\Stored Procedures\FB_SaveGroupDetails.sql" />
     <Build Include="dbo\Stored Procedures\FB_SavePlayoffDetails.sql" />
     <Build Include="dbo\Stored Procedures\FB_SaveGame.sql" />
+    <Build Include="dbo\Tables\wc_tournament_team_elo_rating.sql" />
+    <Build Include="dbo\Stored Procedures\FB_SaveTournamentTeamELORating.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />

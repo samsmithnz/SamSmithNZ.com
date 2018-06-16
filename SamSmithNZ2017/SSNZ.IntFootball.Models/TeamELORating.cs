@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace SSNZ.IntFootball.Models
 {
-    public class TeamRating
+    public class TeamELORating
     {
-        public TeamRating(int tournamentCode, int teamCode, string teamName, int rating)
+        public TeamELORating(int tournamentCode, int teamCode, string teamName, int eloRating)
         {
             this.TournamentCode = tournamentCode;
             this.TeamCode = teamCode;
             this.TeamName = teamName;
-            this.Rating = rating;
+            this.ELORating = eloRating;
         }
 
         public int TournamentCode { get; set; }
         public int TeamCode { get; set; }
         public string TeamName { get; set; }
-        public int Rating { get; set; }
+        public int ELORating { get; set; }
         public int GameCount { get; set; }
         public int Wins { get; set; }
         public int Losses { get; set; }

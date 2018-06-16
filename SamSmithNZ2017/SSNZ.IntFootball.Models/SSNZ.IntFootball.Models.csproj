@@ -49,7 +49,7 @@
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Team.cs" />
-    <Compile Include="TeamRating.cs" />
+    <Compile Include="TeamELORating.cs" />
     <Compile Include="TeamRound.cs" />
     <Compile Include="Tournament.cs" />
     <Compile Include="TournamentTeam.cs" />

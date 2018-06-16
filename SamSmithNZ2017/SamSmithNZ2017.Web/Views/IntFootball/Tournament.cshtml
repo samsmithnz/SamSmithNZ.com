@@ -136,7 +136,7 @@
                     <th>Placing</th>
                     <th>ELO Rating</th>
                     <th>Team</th>
-                    <th>Coach</th>
+                    @*<th>Coach</th>*@
                     <th>Region</th>
                 </tr>
                 <tr ng-repeat="item in tournamentTeams">
@@ -146,10 +146,10 @@
                         <img ng-src="~/Content/IntFootball/Teams/{{item.FlagName}}" CssClass="TeamImage" />
                         <a href="/IntFootball/Team?teamCode={{item.TeamCode}}">{{item.TeamName}}</a>
                     </td>
-                    <td>
+                    @*<td>
                         <img ng-src="~/Content/IntFootball/Teams/{{item.CoachNationalityFlagName}}" CssClass="TeamImage" ng-if="item.CoachNationalityFlagName != ''" />
                         {{item.CoachName}}
-                    </td>
+                    </td>*@
                     <td>{{item.RegionName}}</td>
                 </tr>
 

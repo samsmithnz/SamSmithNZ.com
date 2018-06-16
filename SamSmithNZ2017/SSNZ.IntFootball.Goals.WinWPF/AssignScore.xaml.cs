@@ -88,6 +88,9 @@ namespace SSNZ.IntFootball.Goals.WinWPF
                 GameDataAccess da = new GameDataAccess();
                 await da.SaveItemAsync(_game);
 
+                EloRatingDataAccess daELO = new EloRatingDataAccess();
+                await daELO.UpdateTournamentELORatings(_game.TournamentCode);
+
                 _bResult = true;
                 this.Close();
             }

@@ -40,6 +40,7 @@
                     <th>GA</th>
                     <th>GD</th>
                     <th>Points</th>
+                    <th>ELO Rating</th>
                 </tr>
                 <tr ng-repeat="item in groups" ng-style="{'background-color': getGroupRowStyle(item.HasQualifiedForNextRound, item.GroupRanking, isLastRound)}">
                     <td>
@@ -54,6 +55,7 @@
                     <td>{{item.GoalsAgainst}}</td>
                     <td>{{item.GoalDifference}}</td>
                     <td>{{item.Points}}</td>
+                    <td>{{item.ELORating}}</td>
                 </tr>
             </table>
         </div>
