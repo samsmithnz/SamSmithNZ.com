@@ -39,7 +39,7 @@ namespace SSNZ.IntFootball.UnitTests
             //System.Diagnostics.Debug.WriteLine("Done!");
         }
 
-
+        //team_a_win_prob = 1.0/(10.0^((team_b - team_a)/400.0) + 1.0)
         [TestMethod()]
         public async Task ELOTournamentRefresh()
         {
@@ -48,17 +48,10 @@ namespace SSNZ.IntFootball.UnitTests
 
             foreach (Tournament tournament in tournaments)
             {
-                if (tournament.TournamentCode ==21)
+                if (tournament.TournamentCode == 21)
                 {
                     EloRatingDataAccess daELO = new EloRatingDataAccess();
-                    List<TeamELORating> teams = await daELO.CalculateEloForTournamentAsync(tournament.TournamentCode);
-
-                    foreach (TeamELORating team in teams)
-                    {
-                        bool result = await daELO.SaveTeamELORatingAsync(team.TournamentCode, team.TeamCode, team.ELORating);
-                        Assert.IsTrue(result);
-
-                    }
+                    await daELO.UpdateTournamentELORatings(tournament.TournamentCode);
                 }
             }
         }

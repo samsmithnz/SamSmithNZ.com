@@ -82,5 +82,20 @@ namespace SSNZ.IntFootball.Models
             }
         }
 
+        public double Team1ChanceToWin
+        {
+            get
+            {
+                return 0.75d;
+            }
+        }
+        public double Team2ChanceToWin
+        {
+            get
+            {
+                return 0.25d;
+            }
+        }
+
     }
 }

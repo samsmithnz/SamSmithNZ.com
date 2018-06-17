@@ -57,30 +57,37 @@ namespace SSNZ.IntFootball.Data
                 EloRating.Matchup match = new EloRating.Matchup();
                 match.User1Score = team1.ELORating;
                 match.User2Score = team2.ELORating;
-                int result = WhoWon(item);
+                int? result = WhoWon(item);
                 kRating = CalculateKFactor(item);
-                if (result == 1)
+                if (result == null)
                 {
-                    EloRating.UpdateEloRatingScores(match, true, false, diff, kRating);
-                    team1.Wins++;
-                    team2.Losses++;
-                }
-                else if (result == 2)
-                {
-                    EloRating.UpdateEloRatingScores(match, false, true, diff, kRating);
-                    team1.Losses++;
-                    team2.Wins++;
+                    //the game hasn't started yet, do nothing
                 }
                 else
                 {
-                    EloRating.UpdateEloRatingScores(match, false, false, diff, kRating);
-                    team1.Draws++;
-                    team2.Draws++;
+                    if (result == 1)
+                    {
+                        EloRating.UpdateEloRatingScores(match, true, false, diff, kRating);
+                        team1.Wins++;
+                        team2.Losses++;
+                    }
+                    else if (result == 2)
+                    {
+                        EloRating.UpdateEloRatingScores(match, false, true, diff, kRating);
+                        team1.Losses++;
+                        team2.Wins++;
+                    }
+                    else
+                    {
+                        EloRating.UpdateEloRatingScores(match, false, false, diff, kRating);
+                        team1.Draws++;
+                        team2.Draws++;
+                    }
+                    team1.ELORating = match.User1Score;
+                    team1.GameCount++;
+                    team2.ELORating = match.User2Score;
+                    team2.GameCount++;
                 }
-                team1.ELORating = match.User1Score;
-                team1.GameCount++;
-                team2.ELORating = match.User2Score;
-                team2.GameCount++;
             }
 
             //Sort the teas
@@ -108,10 +115,14 @@ namespace SSNZ.IntFootball.Data
         /// </summary>
         /// <param name="game"></param>
         /// <returns>1 if team 1 won, 2 if team 2 won, 0 if draw</returns>
-        private int WhoWon(Game item)
+        private int? WhoWon(Game item)
         {
-            int goals = CalculateGoalDifference(item);
-            if (goals > 0)
+            int? goals = CalculateGoalDifference(item);
+            if (goals == null)
+            {
+                return null; //the game hasn't started yet
+            }
+            else if (goals > 0)
             {
                 return 1;
             }
@@ -126,50 +137,57 @@ namespace SSNZ.IntFootball.Data
             }
         }
 
-        private int CalculateGoalDifference(Game item)
+        private int? CalculateGoalDifference(Game item)
         {
-            int? team1Score = 0;
-            int? team2Score = 0;
-            if (item.Team1PenaltiesScore >= 0)
+            if (item.Team1NormalTimeScore == null || item.Team2NormalTimeScore == null)
             {
-                team1Score = team1Score + item.Team1NormalTimeScore + item.Team1ExtraTimeScore.GetValueOrDefault() + item.Team1PenaltiesScore.GetValueOrDefault();
-                team2Score = team2Score + item.Team2NormalTimeScore + item.Team2ExtraTimeScore.GetValueOrDefault() + item.Team2PenaltiesScore.GetValueOrDefault();
-                //if (item.Team1PenaltiesScore > item.Team2PenaltiesScore)
-                //{
-                //    return 1;
-                //}
-                //else if (item.Team1PenaltiesScore < item.Team2PenaltiesScore)
-                //{
-                //    return 2;
-                //}
+                return null;//the game hasn't started yet
             }
-            else if (item.Team1ExtraTimeScore >= 0)
+            else
             {
-                team1Score = team1Score + item.Team1NormalTimeScore + item.Team1ExtraTimeScore.GetValueOrDefault();
-                team2Score = team2Score + item.Team2NormalTimeScore + item.Team2ExtraTimeScore.GetValueOrDefault();
-                //if (item.Team1ExtraTimeScore > item.Team2ExtraTimeScore)
-                //{
-                //    return 1;
-                //}
-                //else if (item.Team1ExtraTimeScore < item.Team2ExtraTimeScore)
-                //{
-                //    return 2;
-                //}
+                int? team1Score = 0;
+                int? team2Score = 0;
+                if (item.Team1PenaltiesScore >= 0)
+                {
+                    team1Score = team1Score + item.Team1NormalTimeScore + item.Team1ExtraTimeScore.GetValueOrDefault() + item.Team1PenaltiesScore.GetValueOrDefault();
+                    team2Score = team2Score + item.Team2NormalTimeScore + item.Team2ExtraTimeScore.GetValueOrDefault() + item.Team2PenaltiesScore.GetValueOrDefault();
+                    //if (item.Team1PenaltiesScore > item.Team2PenaltiesScore)
+                    //{
+                    //    return 1;
+                    //}
+                    //else if (item.Team1PenaltiesScore < item.Team2PenaltiesScore)
+                    //{
+                    //    return 2;
+                    //}
+                }
+                else if (item.Team1ExtraTimeScore >= 0)
+                {
+                    team1Score = team1Score + item.Team1NormalTimeScore + item.Team1ExtraTimeScore.GetValueOrDefault();
+                    team2Score = team2Score + item.Team2NormalTimeScore + item.Team2ExtraTimeScore.GetValueOrDefault();
+                    //if (item.Team1ExtraTimeScore > item.Team2ExtraTimeScore)
+                    //{
+                    //    return 1;
+                    //}
+                    //else if (item.Team1ExtraTimeScore < item.Team2ExtraTimeScore)
+                    //{
+                    //    return 2;
+                    //}
+                }
+                else if (item.Team1NormalTimeScore >= 0)
+                {
+                    team1Score = team1Score + item.Team1NormalTimeScore;
+                    team2Score = team2Score + item.Team2NormalTimeScore;
+                    //if (item.Team1NormalTimeScore > item.Team2NormalTimeScore)
+                    //{
+                    //    return 1;
+                    //}
+                    //else if (item.Team1NormalTimeScore < item.Team2NormalTimeScore)
+                    //{
+                    //    return 2;
+                    //}
+                }
+                return (int)team1Score - (int)team2Score;
             }
-            else if (item.Team1NormalTimeScore >= 0)
-            {
-                team1Score = team1Score + item.Team1NormalTimeScore;
-                team2Score = team2Score + item.Team2NormalTimeScore;
-                //if (item.Team1NormalTimeScore > item.Team2NormalTimeScore)
-                //{
-                //    return 1;
-                //}
-                //else if (item.Team1NormalTimeScore < item.Team2NormalTimeScore)
-                //{
-                //    return 2;
-                //}
-            }
-            return (int)team1Score - (int)team2Score;
         }
 
 
@@ -192,22 +210,22 @@ namespace SSNZ.IntFootball.Data
             //by 3/4 if a game is won by three goals, 
             //by a whole 1 if a game is won by four or more goals
             ////and by 3/4 + (N-3)/8 if the game is won by four or more goals, where N is the goal difference.
-            int goals = CalculateGoalDifference(item);
+            int? goals = CalculateGoalDifference(item);
             if (goals < 0)
             {
                 goals = goals * -1;
             }
             if (goals == 2)
             {
-                kFactor = kFactor * 2d;
+                kFactor = kFactor * 1.5d;
             }
             else if (goals == 3)
             {
-                kFactor = kFactor * 2.5d;
+                kFactor = kFactor * 2d;
             }
             else if (goals >= 4)
             {
-                kFactor = kFactor * 3d;// (1.75d + ((Convert.ToDouble(goals) - 3d) / 8d));
+                kFactor = kFactor * 3.5d;// (1.75d + ((Convert.ToDouble(goals) - 3d) / 8d));
             }
 
             ////K factor is then adjusted for total goals scored - if teams can score goals, they can get results.
