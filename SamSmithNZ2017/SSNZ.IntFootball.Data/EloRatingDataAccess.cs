@@ -23,6 +23,18 @@ namespace SSNZ.IntFootball.Data
             return true;
         }
 
+        private int GetTournamentTeamFifaRanking(int teamCode, List<TournamentTeam> tournamentTeams)
+        {
+            foreach (TournamentTeam item in tournamentTeams)
+            {
+                if (item.TeamCode == teamCode)
+                {
+                    return item.FifaRanking;
+                }
+            }
+            return 0;
+        }
+
         public async Task<List<TeamELORating>> CalculateEloForTournamentAsync(int tournamentCode)
         {
             double diff = 400;
@@ -34,11 +46,14 @@ namespace SSNZ.IntFootball.Data
             TeamDataAccess da2 = new TeamDataAccess();
             List<Team> teamList = await da2.GetListAsync();
 
+            TournamentTeamDataAccess da3 = new TournamentTeamDataAccess();
+            List<TournamentTeam> tournamentTeams = await da3.GetQualifiedTeamsAsync(tournamentCode);
+
             List<TeamELORating> teamRatingList = new List<TeamELORating>();
             foreach (Game item in gameList)
             {
-                TeamELORating team1 = GetTeamRating(tournamentCode, item.Team1Code, item.Team1Name, teamRatingList);
-                TeamELORating team2 = GetTeamRating(tournamentCode, item.Team2Code, item.Team2Name, teamRatingList);
+                TeamELORating team1 = GetTeamELORating(tournamentCode, item.Team1Code, item.Team1Name, GetTournamentTeamFifaRanking(item.Team1Code, tournamentTeams), teamRatingList);
+                TeamELORating team2 = GetTeamELORating(tournamentCode, item.Team2Code, item.Team2Name, GetTournamentTeamFifaRanking(item.Team2Code, tournamentTeams), teamRatingList);
                 EloRating.Matchup match = new EloRating.Matchup();
                 match.User1Score = team1.ELORating;
                 match.User2Score = team2.ELORating;
@@ -72,7 +87,7 @@ namespace SSNZ.IntFootball.Data
             teamRatingList.Sort((x, y) => y.ELORating.CompareTo(x.ELORating));
 
             //Update the team ratings 
-            TournamentTeamDataAccess da3 = new TournamentTeamDataAccess();
+            //TournamentTeamDataAccess da3 = new TournamentTeamDataAccess();
             //da3.SaveItemAsync();
 
             return teamRatingList;
@@ -128,7 +143,7 @@ namespace SSNZ.IntFootball.Data
                 //    return 2;
                 //}
             }
-            else if (item.Team1ExtraTimeScore >= 0 )
+            else if (item.Team1ExtraTimeScore >= 0)
             {
                 team1Score = team1Score + item.Team1NormalTimeScore + item.Team1ExtraTimeScore.GetValueOrDefault();
                 team2Score = team2Score + item.Team2NormalTimeScore + item.Team2ExtraTimeScore.GetValueOrDefault();
@@ -170,12 +185,13 @@ namespace SSNZ.IntFootball.Data
             //20 for friendly matches.
 
             //Everything is currently World Cup Games
-            kFactor = 60d;
+            kFactor = 100d;
 
             //K is then adjusted for the goal difference in the game. 
             //It is increased by half if a game is won by two goals, 
             //by 3/4 if a game is won by three goals, 
-            //and by 3/4 + (N-3)/8 if the game is won by four or more goals, where N is the goal difference.
+            //by a whole 1 if a game is won by four or more goals
+            ////and by 3/4 + (N-3)/8 if the game is won by four or more goals, where N is the goal difference.
             int goals = CalculateGoalDifference(item);
             if (goals < 0)
             {
@@ -183,21 +199,27 @@ namespace SSNZ.IntFootball.Data
             }
             if (goals == 2)
             {
-                kFactor = kFactor * 1.5d;
+                kFactor = kFactor * 2d;
             }
             else if (goals == 3)
             {
-                kFactor = kFactor * 1.75d;
+                kFactor = kFactor * 2.5d;
             }
             else if (goals >= 4)
             {
-                kFactor = kFactor * (1.75d + ((Convert.ToDouble(goals) - 3d) / 8d));
+                kFactor = kFactor * 3d;// (1.75d + ((Convert.ToDouble(goals) - 3d) / 8d));
             }
+
+            ////K factor is then adjusted for total goals scored - if teams can score goals, they can get results.
+            //if (item.Team1TotalGoals != null && item.Team2TotalGoals != null)
+            //{
+            //    kFactor = kFactor + (((int)item.Team1TotalGoals + (int)item.Team2TotalGoals));
+            //}
 
             return kFactor;
         }
 
-        private TeamELORating GetTeamRating(int tournamentCode, int teamCode, string teamName, List<TeamELORating> teamList)
+        private TeamELORating GetTeamELORating(int tournamentCode, int teamCode, string teamName, int initialFifaELORanking, List<TeamELORating> teamList)
         {
             foreach (TeamELORating item in teamList)
             {
@@ -206,22 +228,14 @@ namespace SSNZ.IntFootball.Data
                     return item;
                 }
             }
-            TeamELORating newTeam = new TeamELORating(tournamentCode, teamCode, teamName, 1000);
+            if (initialFifaELORanking < 500)
+            {
+                initialFifaELORanking = 1000;
+            }
+            TeamELORating newTeam = new TeamELORating(tournamentCode, teamCode, teamName, initialFifaELORanking);
             teamList.Add(newTeam);
             return newTeam;
         }
-
-        //public int FindTeamELORating(int teamCode, List<TeamRating> teamRatingList)
-        //{
-        //    foreach (TeamRating item in teamRatingList)
-        //    {
-        //        if (teamCode == item.TeamCode)
-        //        {
-        //            return item.Rating;
-        //        }
-        //    }
-        //    return 0;
-        //}
 
     }
 }

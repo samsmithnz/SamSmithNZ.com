@@ -37,6 +37,7 @@ namespace SSNZ.IntFootball.Goals.WinWPF
 
             lblGameHeader.Content = "#" + _game.GameNumber + ": " + _game.GameTime.ToString("dd-MMM-yyyy hh:mm:sstt");
             lblGame.Content = _game.Team1Name + " vs " + _game.Team2Name;
+            lblStatus.Content = "";
 
             txtTeam1NormalTime.Text = _game.Team1NormalTimeScore.ToString();
             txtTeam1ExtraTime.Text = _game.Team1ExtraTimeScore.ToString();
@@ -70,29 +71,45 @@ namespace SSNZ.IntFootball.Goals.WinWPF
 
         private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidateSave() == true)
+            try
             {
-                _game.Team1NormalTimeScore = Convert.ToInt32(txtTeam1NormalTime.Text);
-                _game.Team2NormalTimeScore = Convert.ToInt32(txtTeam2NormalTime.Text);
-                if (txtTeam1ExtraTime.Text.Length > 0 || txtTeam2ExtraTime.Text.Length > 0)
+                if (ValidateSave() == true)
                 {
-                    _game.Team1ExtraTimeScore = Convert.ToInt32(txtTeam1ExtraTime.Text);
-                    _game.Team2ExtraTimeScore = Convert.ToInt32(txtTeam2ExtraTime.Text);
+                    btnSave.IsEnabled = false;
+                    btnCancel.IsEnabled = false;
+                    lblStatus.Content = "Updating ELO ratings...";
+                    _game.Team1NormalTimeScore = Convert.ToInt32(txtTeam1NormalTime.Text);
+                    _game.Team2NormalTimeScore = Convert.ToInt32(txtTeam2NormalTime.Text);
+                    if (txtTeam1ExtraTime.Text.Length > 0 || txtTeam2ExtraTime.Text.Length > 0)
+                    {
+                        _game.Team1ExtraTimeScore = Convert.ToInt32(txtTeam1ExtraTime.Text);
+                        _game.Team2ExtraTimeScore = Convert.ToInt32(txtTeam2ExtraTime.Text);
+                    }
+                    if (txtTeam1Penalties.Text.Length > 0 || txtTeam2Penalties.Text.Length > 0)
+                    {
+                        _game.Team1PenaltiesScore = Convert.ToInt32(txtTeam1Penalties.Text);
+                        _game.Team2PenaltiesScore = Convert.ToInt32(txtTeam2Penalties.Text);
+                    }
+
+                    GameDataAccess da = new GameDataAccess();
+                    await da.SaveItemAsync(_game);
+
+                    EloRatingDataAccess daELO = new EloRatingDataAccess();
+                    await daELO.UpdateTournamentELORatings(_game.TournamentCode);
+
+                    lblStatus.Content = "Score saved...";
+                    _bResult = true;
+                    this.Close();
                 }
-                if (txtTeam1Penalties.Text.Length > 0 || txtTeam2Penalties.Text.Length > 0)
-                {
-                    _game.Team1PenaltiesScore = Convert.ToInt32(txtTeam1Penalties.Text);
-                    _game.Team2PenaltiesScore = Convert.ToInt32(txtTeam2Penalties.Text);
-                }
-
-                GameDataAccess da = new GameDataAccess();
-                await da.SaveItemAsync(_game);
-
-                EloRatingDataAccess daELO = new EloRatingDataAccess();
-                await daELO.UpdateTournamentELORatings(_game.TournamentCode);
-
-                _bResult = true;
-                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                btnSave.IsEnabled = true;
+                btnCancel.IsEnabled = true;
             }
         }
 

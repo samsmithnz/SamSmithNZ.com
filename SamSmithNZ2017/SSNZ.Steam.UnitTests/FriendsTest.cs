@@ -37,12 +37,12 @@ namespace SSNZ.Steam.UnitTests
             Assert.IsTrue(result != null);
             Assert.IsTrue(result.SteamId == "76561198034342716");
             Assert.IsTrue(result.Name == "Alex");
-            Assert.IsTrue(result.Avatar == "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/c5/c5e94b1718c9e14d6d17be6c2c5b0fe41f5eb12e.jpg");
-            Assert.IsTrue(result.AvatarFull == "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/c5/c5e94b1718c9e14d6d17be6c2c5b0fe41f5eb12e_full.jpg");
-            Assert.IsTrue(result.AvatarMedium == "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/c5/c5e94b1718c9e14d6d17be6c2c5b0fe41f5eb12e_medium.jpg");
+            Assert.IsTrue(result.Avatar != "");
+            Assert.IsTrue(result.AvatarFull != "");
+            Assert.IsTrue(result.AvatarMedium != "");
             Assert.IsTrue(result.FriendSince >= 0);
             Assert.IsTrue(result.LastLogoff >= 0);
-            Assert.IsTrue(result.ProfileURL == "http://steamcommunity.com/profiles/76561198034342716/");
+            Assert.IsTrue(result.ProfileURL!= "");
             Assert.IsTrue(result.TimeCreated >= 0);
         }
 

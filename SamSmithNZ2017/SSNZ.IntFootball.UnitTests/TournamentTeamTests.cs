@@ -98,7 +98,7 @@ namespace SSNZ.IntFootball.UnitTests
             Assert.IsTrue(item.FlagName == "22px-Flag_of_New_Zealand_svg.png");
             Assert.IsTrue(item.CoachName == "Ricki Herbert");
             Assert.IsTrue(item.CoachNationalityFlagName == "22px-Flag_of_New_Zealand_svg.png");
-            Assert.IsTrue(item.ELORating == "" || item.ELORating == null);
+            Assert.IsTrue(item.ELORating >= 0);
             Assert.IsTrue(item.FifaRanking == 0);
             Assert.IsTrue(item.Placing >= 0);
             Assert.IsTrue(item.RegionCode == 5);

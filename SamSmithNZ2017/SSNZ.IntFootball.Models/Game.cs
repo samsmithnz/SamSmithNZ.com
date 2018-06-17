@@ -49,5 +49,38 @@ namespace SSNZ.IntFootball.Models
         public bool IsPenalty { get; set; }
         public bool IsOwnGoal { get; set; }
 
+        public int? Team1TotalGoals
+        {
+            get
+            {
+                int? total = null;
+                if (Team1NormalTimeScore != null)
+                {
+                    total = Team1NormalTimeScore;
+                }
+                if (Team1ExtraTimeScore != null)
+                {
+                    total += Team1ExtraTimeScore;
+                }
+                return total;
+            }
+        }
+        public int? Team2TotalGoals
+        {
+            get
+            {
+                int? total = null;
+                if (Team2NormalTimeScore != null)
+                {
+                    total = Team2NormalTimeScore;
+                }
+                if (Team2ExtraTimeScore != null)
+                {
+                    total += Team2ExtraTimeScore;
+                }
+                return total;
+            }
+        }
+
     }
 }

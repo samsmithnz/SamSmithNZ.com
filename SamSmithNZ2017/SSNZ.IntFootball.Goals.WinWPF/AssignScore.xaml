@@ -20,6 +20,7 @@
         <TextBox  x:Name="txtTeam1Penalties" HorizontalAlignment="Left" TextAlignment="Right" Margin="238,108,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="60" Height="21" TabIndex="5" Keyboard.PreviewGotKeyboardFocus="TextBox_GotKeyboardFocus" />
         <TextBox  x:Name="txtTeam2Penalties" HorizontalAlignment="Left" Margin="10,108,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="60" Height="21" TabIndex="6" Keyboard.PreviewGotKeyboardFocus="TextBox_GotKeyboardFocus" Grid.Column="1" />
         <Label Content="[GameHeader]" Height="25" Margin="14,3,10,0" x:Name="lblGameHeader" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Grid.ColumnSpan="2" Width="593" />
+        <Label Content="[Status]:" Height="25" HorizontalAlignment="Left" Margin="223,185,0,0" x:Name="lblStatus" VerticalAlignment="Top" Width="170" Grid.ColumnSpan="2" />
 
     </Grid>
 </Window>

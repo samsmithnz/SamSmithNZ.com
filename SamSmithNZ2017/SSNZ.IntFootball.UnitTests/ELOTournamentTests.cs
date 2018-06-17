@@ -34,31 +34,34 @@ namespace SSNZ.IntFootball.UnitTests
                 Assert.IsTrue(item.Wins >= 0);
                 Assert.IsTrue(item.Losses >= 0);
                 Assert.IsTrue(item.Draws >= 0);
+                break;
             }
             //System.Diagnostics.Debug.WriteLine("Done!");
         }
 
 
-        //[TestMethod()]
-        //public async Task ELOTournamentLoadingTest()
-        //{
-        //    TournamentDataAccess daTournament = new TournamentDataAccess();
-        //    List<Tournament> tournaments = await daTournament.GetListAsync();
+        [TestMethod()]
+        public async Task ELOTournamentRefresh()
+        {
+            TournamentDataAccess daTournament = new TournamentDataAccess();
+            List<Tournament> tournaments = await daTournament.GetListAsync();
 
-        //    foreach (Tournament tournament in tournaments)
-        //    {
-        //        EloRatingDataAccess daELO = new EloRatingDataAccess();
-        //        List<TeamELORating> teams = await daELO.CalculateEloForTournamentAsync(tournament.TournamentCode);
+            foreach (Tournament tournament in tournaments)
+            {
+                if (tournament.TournamentCode ==21)
+                {
+                    EloRatingDataAccess daELO = new EloRatingDataAccess();
+                    List<TeamELORating> teams = await daELO.CalculateEloForTournamentAsync(tournament.TournamentCode);
 
-        //        foreach (TeamELORating team in teams)
-        //        {
-        //            TournamentTeamELORatingDataAccess daELOSave = new TournamentTeamELORatingDataAccess();
-        //            bool result = await daELOSave.SaveTeamELORatingAsync(team.TournamentCode, team.TeamCode, team.ELORating);
-        //            Assert.IsTrue(result);
+                    foreach (TeamELORating team in teams)
+                    {
+                        bool result = await daELO.SaveTeamELORatingAsync(team.TournamentCode, team.TeamCode, team.ELORating);
+                        Assert.IsTrue(result);
 
-        //        }
-        //    }
-        //}
+                    }
+                }
+            }
+        }
 
     }
 }
