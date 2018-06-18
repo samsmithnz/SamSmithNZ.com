@@ -25,11 +25,13 @@ namespace SSNZ.IntFootball.Models
         public int? Team1NormalTimeScore { get; set; }
         public int? Team1ExtraTimeScore { get; set; }
         public int? Team1PenaltiesScore { get; set; }
+        public int? Team1EloRating { get; set; }
         public int Team2Code { get; set; }
         public string Team2Name { get; set; }
         public int? Team2NormalTimeScore { get; set; }
         public int? Team2ExtraTimeScore { get; set; }
         public int? Team2PenaltiesScore { get; set; }
+        public int? Team2EloRating { get; set; }
         public string Team1FlagName { get; set; }
         public string Team2FlagName { get; set; }
         public bool Team1Withdrew { get; set; }
@@ -43,7 +45,7 @@ namespace SSNZ.IntFootball.Models
         public string Team1ResultInformation { get; set; }
         public string Team2ResultInformation { get; set; }
         public bool? Team1ResultWonGame { get; set; }
-        public bool? Team2ResultWonGame{ get; set; }
+        public bool? Team2ResultWonGame { get; set; }
 
         //Player properties
         public bool IsPenalty { get; set; }
@@ -82,20 +84,42 @@ namespace SSNZ.IntFootball.Models
             }
         }
 
+        //team_a_win_prob = 1.0/(10.0^((team_b - team_a)/400.0) + 1.0)
+
         public double Team1ChanceToWin
         {
             get
             {
-                return 0.75d;
+                if (Team1EloRating == null)
+                {
+                    return -1;
+                }
+                else
+                {
+                    double result = 1.0 / (Math.Pow(10, (((double)Team2EloRating - (double)Team1EloRating) / 400.0)) + 1.0);
+                    //System.Diagnostics.Debug.WriteLine("Calculating Team1ChanceToWin:" + result.ToString());
+                    //return 1.0 / (10.0 ^ ((Team2EloRating - Team1EloRating) / 400.0) + 1.0);
+                    //return  1.0 / (Math.Pow(10, (((double)Team2EloRating - (double)Team1EloRating) / 400.0)) + 1.0);
+                    return result;
+                }
             }
         }
         public double Team2ChanceToWin
         {
             get
             {
-                return 0.25d;
+                if (Team2EloRating == null)
+                {
+                    return -1;
+                }
+                else
+                {
+                    double result = 1.0 / (Math.Pow(10, (((double)Team1EloRating - (double)Team2EloRating) / 400.0)) + 1.0);
+                    //System.Diagnostics.Debug.WriteLine("Calculating Team2ChanceToWin:" + result.ToString());
+                    //return 1.0 / (10.0 ^ ((Team2EloRating - Team1EloRating) / 400.0) + 1.0);
+                    return result;
+                }
             }
         }
-
     }
 }

@@ -395,5 +395,33 @@ namespace SSNZ.IntFootball.UnitTests
                 }
             }
         }
+
+        [TestMethod]
+        public void GamesTeam2IsWayBetterELOTest()
+        {
+            //arrange
+            Game game = new Game();
+            game.Team1EloRating = 1000;
+            game.Team2EloRating = 2000;
+
+            //act
+
+            //assert
+            Assert.IsTrue(game.Team1ChanceToWin < game.Team2ChanceToWin);
+        }
+
+        [TestMethod]
+        public void GamesTeamsAreEqualELOTest()
+        {
+            //arrange
+            Game game = new Game();
+            game.Team1EloRating = 1000;
+            game.Team2EloRating = 1000;
+
+            //act
+
+            //assert
+            Assert.IsTrue(game.Team1ChanceToWin == game.Team2ChanceToWin);
+        }
     }
 }

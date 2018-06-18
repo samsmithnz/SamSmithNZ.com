@@ -14,6 +14,8 @@
     [team_2_normal_time_score] INT      NULL,
     [team_2_extra_time_score]  INT      NULL,
     [team_2_penalties_score]   INT      NULL,
+    [team_1_elo_rating] INT NULL, 
+    [team_2_elo_rating] INT NULL, 
     CONSTRAINT [PK_wc_game] PRIMARY KEY CLUSTERED ([game_code] ASC)
 );
 
