@@ -52,6 +52,7 @@
     <Compile Include="TeamELORating.cs" />
     <Compile Include="TeamRound.cs" />
     <Compile Include="Tournament.cs" />
+    <Compile Include="TournamentTopGoalScorer.cs" />
     <Compile Include="TournamentTeam.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,15 +1,10 @@
-﻿@*@model SamSmithNZ2015.Models.IntFootball.GroupViewModel*@
-@{
+﻿@{
     ViewBag.Title = "Group Details";
     Layout = "~/Views/Shared/_LayoutIntFootball.cshtml";
     //bool showDebugElements = false;
 }
 
 <div ng-controller="groupController">
-    @*@using (Html.BeginForm("GroupDetails", "IntFootball", new { tournamentCode = @Model.TournamentCode, roundNumber = @Model.RoundNumber, isLastRound = @Model.IsLastRound }, FormMethod.Post))
-        {*@
-
-
     <div class="row">
         <div class="col-md-12">
             <span>Group: </span><select id="cboGroup" ng-model="roundCode" ng-options="item.RoundCode as item.RoundCode for item in groupCodes" ng-change="updateGroupDetails(tournamentCode, roundNumber, roundCode)"></select>@*@Html.DropDownList("cboGroup", new SelectList(Model.Groups, "RoundCode", "RoundCode", Model.SelectedGroup), new { onchange = "this.form.submit();" })*@
@@ -23,9 +18,6 @@
             </span>
         </div>
     </div>
-    @*}*@
-    <br />
-    <hr />
     <br />
     <div class="row">
         <div class="col-md-12">
@@ -61,12 +53,7 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <hr />
-            <br />
-        </div>
-    </div>
+    <br />
 
     <div class="row">
         <div class="col-md-12">

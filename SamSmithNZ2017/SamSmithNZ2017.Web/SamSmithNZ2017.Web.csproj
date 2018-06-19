@@ -1333,6 +1333,7 @@
     <TypeScriptCompile Include="Scripts\GuitarTabServices\ratingsService.ts" />
     <TypeScriptCompile Include="Scripts\GuitarTabServices\tabsService.ts" />
     <TypeScriptCompile Include="Scripts\GuitarTabServices\albumsService.ts" />
+    <TypeScriptCompile Include="Scripts\IntFootballServices\tournamentTopGoalScorerService.ts" />
     <TypeScriptCompile Include="Scripts\IntFootballServices\tournamentTeamService.ts" />
     <TypeScriptCompile Include="Scripts\MandMCounterControllers\indexController.ts" />
     <TypeScriptCompile Include="Scripts\MandMCounterServices\skittlesMandMCounterService.ts" />

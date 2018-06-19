@@ -4,15 +4,16 @@
     angular
         .module('IntFootballApp')
         .controller('tournamentController', tournamentController);
-    tournamentController.$inject = ['$scope', '$http', 'tournamentService', 'tournamentTeamService'];
+    tournamentController.$inject = ['$scope', '$http', 'tournamentService', 'tournamentTeamService', 'tournamentTopGoalScorerService'];
 
-    function tournamentController($scope, $http, tournamentService, tournamentTeamService) {
+    function tournamentController($scope, $http, tournamentService, tournamentTeamService, tournamentTopGoalScorerService) {
 
         $scope.tournament = null;
         $scope.R1GroupArray = [];
         $scope.R2GroupArray = [];
         $scope.R3GroupArray = [];
         $scope.tournamentTeams = [];
+        $scope.tournamentTopGoalScorers = [];
 
         var onError = function (data) {
             //errorHandlerService.errorHandler(data);
@@ -90,15 +91,20 @@
             $scope.tournamentTeams = response.data;
         }
 
+        var onGetTournamentTopGoalScorersEventComplete = function (response) {
+            $scope.tournamentTopGoalScorers = response.data;
+        }
+
         //console.log("TournamentCode: " + getUrlParameter('TournamentCode'));
         $scope.tournamentCode = getUrlParameter('TournamentCode');
 
         tournamentService.getTournament($scope.tournamentCode).then(onGetTournamentEventComplete, onError);
         tournamentTeamService.getTournamentPlacingTeams($scope.tournamentCode).then(onGetTournamentPlacingTeamsEventComplete, onError);
-
-        $scope.getCharacter = function (code) {
-            return String.fromCharCode(code);
-        };
+        tournamentTopGoalScorerService.getTournamentTopGoalScores($scope.tournamentCode).then(onGetTournamentTopGoalScorersEventComplete, onError);
+        
+            $scope.getCharacter = function (code) {
+                return String.fromCharCode(code);
+            };
     }
 
     function getUrlParameter(param: string) {

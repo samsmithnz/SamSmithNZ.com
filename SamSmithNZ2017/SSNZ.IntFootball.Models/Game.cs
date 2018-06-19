@@ -96,7 +96,7 @@ namespace SSNZ.IntFootball.Models
                 }
                 else
                 {
-                    double result = 1.0 / (Math.Pow(10, (((double)Team2EloRating - (double)Team1EloRating) / 400.0)) + 1.0);
+                    double result = 1.0 / (Math.Pow(10, (((double)Team2EloRating - (double)Team1EloRating) / 400.0)) + 1.0) * 100;
                     //System.Diagnostics.Debug.WriteLine("Calculating Team1ChanceToWin:" + result.ToString());
                     //return 1.0 / (10.0 ^ ((Team2EloRating - Team1EloRating) / 400.0) + 1.0);
                     //return  1.0 / (Math.Pow(10, (((double)Team2EloRating - (double)Team1EloRating) / 400.0)) + 1.0);
@@ -114,7 +114,7 @@ namespace SSNZ.IntFootball.Models
                 }
                 else
                 {
-                    double result = 1.0 / (Math.Pow(10, (((double)Team1EloRating - (double)Team2EloRating) / 400.0)) + 1.0);
+                    double result = 1.0 / (Math.Pow(10, (((double)Team1EloRating - (double)Team2EloRating) / 400.0)) + 1.0) * 100;
                     //System.Diagnostics.Debug.WriteLine("Calculating Team2ChanceToWin:" + result.ToString());
                     //return 1.0 / (10.0 ^ ((Team2EloRating - Team1EloRating) / 400.0) + 1.0);
                     return result;

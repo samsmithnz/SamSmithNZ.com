@@ -1,5 +1,4 @@
-﻿@*@model SamSmithNZ2015.Models.IntFootball.TournamentDetailsViewModel*@
-@{
+﻿@{
     ViewBag.Title = "Tournament Details";
     Layout = "~/Views/Shared/_LayoutIntFootball.cshtml";
 }
@@ -38,10 +37,6 @@
             <br /><br />
         </div>
     </div>
-
-    <!-- Format:
-            <asp:Label ID="lblFormat" runat="server">[8 Groups of 4, top 2 teams from each group advance. Top 16 Playoff]</asp:Label>
-            <br />-->
 
     <div class="row">
         <div class="col-md-12">
@@ -129,7 +124,8 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+
+        <div class="col-md-6">
             <b>Qualified Teams:</b>
             <table class="table table-striped table-bordered">
                 <tr>
@@ -149,65 +145,32 @@
                     <td>{{item.FifaRanking}}</td>
                     <td>{{item.ELORating}}</td>
                     @*<td>
-            <img ng-src="~/Content/IntFootball/Teams/{{item.CoachNationalityFlagName}}" CssClass="TeamImage" ng-if="item.CoachNationalityFlagName != ''" />
-            {{item.CoachName}}
-        </td>*@
+                            <img ng-src="~/Content/IntFootball/Teams/{{item.CoachNationalityFlagName}}" CssClass="TeamImage" ng-if="item.CoachNationalityFlagName != ''" />
+                            {{item.CoachName}}
+                        </td>*@
                     <td>{{item.RegionName}}</td>
                 </tr>
+            </table>
+        </div>
 
-                @*@foreach (SamSmithNZ2015.Core.IntFootball.TournamentTeam item in tournamentTeamPlacing)
-                    {
-                            <tr class="alternatingColors">
-                                <td>@item.Placing</td>
-                                <td>@item.ELORating</td>
-                                <td>
-                                    <img src="@Url.Content("~/Content/IntFootball/Teams/" + @item.FlagName)" CssClass="TeamImage" />
-                                    <a href="@Url.Action("Team", "IntFootball", new { teamCode = @item.TeamCode })">@item.TeamName</a>
-                                </td>
-                                <td>
-                                    @if (@item.CoachNationalityFlagName != "")
-                                    {
-                                        <img src="@Url.Content("~/Content/IntFootball/Teams/" + @item.CoachNationalityFlagName)" CssClass="TeamImage" />
-                                    }
-                                    @item.CoachName
-                                </td>
-                                <td>@item.RegionName</td>
-                            </tr>
-                        }*@
+        <div class="col-md-6">
+            <b>Top goal scorers:</b>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>Player</th>
+                    <th>Goals Scored</th>
+                    <th>Team</th>
+                </tr>
+                <tr ng-repeat="item in tournamentTopGoalScorers">
+                    <td>{{item.PlayerName}}</td>
+                    <td>{{item.GoalsScored}}</td>
+                    <td>
+                        <img ng-src="~/Content/IntFootball/Teams/{{item.FlagName}}" CssClass="TeamImage" />
+                        <a href="/IntFootball/Team?teamCode={{item.TeamCode}}">{{item.TeamName}}</a>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
 
-    @*
-
-
-        <b>Qualified Teams:</b>
-        <table class="tableborders">
-            <tr>
-                <th>Placing</th>
-                <th>ELO Rating</th>
-                <th>Team</th>
-                <th>Coach</th>
-                <th>Region</th>
-            </tr>
-            @foreach (SamSmithNZ2015.Core.IntFootball.TournamentTeam item in tournamentTeamPlacing)
-            {
-                <tr class="alternatingColors">
-                    <td>@item.Placing</td>
-                    <td>@item.ELORating</td>
-                    <td>
-                        <img src="@Url.Content("~/Content/IntFootball/Teams/" + @item.FlagName)" CssClass="TeamImage" />
-                        <a href="@Url.Action("Team", "IntFootball", new { teamCode = @item.TeamCode })">@item.TeamName</a>
-                    </td>
-                    <td>
-                        @if (@item.CoachNationalityFlagName != "")
-                        {
-                            <img src="@Url.Content("~/Content/IntFootball/Teams/" + @item.CoachNationalityFlagName)" CssClass="TeamImage" />
-                        }
-                        @item.CoachName
-                    </td>
-                    <td>@item.RegionName</td>
-                </tr>
-            }
-        </table>*@
 </div>

@@ -58,6 +58,7 @@
     <Compile Include="TeamDataAccess.cs" />
     <Compile Include="TeamRoundDataAccess.cs" />
     <Compile Include="TournamentDataAccess.cs" />
+    <Compile Include="TournamentTopGoalScorerDataAccess.cs" />
     <Compile Include="TournamentTeamDataAccess.cs" />
   </ItemGroup>
   <ItemGroup>

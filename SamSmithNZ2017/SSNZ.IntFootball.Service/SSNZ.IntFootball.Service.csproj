@@ -191,6 +191,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\TournamentTopGoalScorerController.cs" />
     <Compile Include="Controllers\TournamentTeamController.cs" />
     <Compile Include="Controllers\TournamentController.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
