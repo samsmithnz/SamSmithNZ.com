@@ -10,5 +10,6 @@ namespace SSNZ.IntFootball.Models
         public GroupCode() { }
 
         public string RoundCode { get; set; }
+        public bool IsLastRound { get; set; }
     }
 }

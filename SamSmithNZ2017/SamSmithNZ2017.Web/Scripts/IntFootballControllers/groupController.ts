@@ -12,6 +12,7 @@
         $scope.groups = [];
         $scope.games = [];
         $scope.roundCode = '';
+        $scope.isLastRound = false;
 
         var onError = function (data) {
             //errorHandlerService.errorHandler(data);
@@ -25,6 +26,7 @@
             if ($scope.groupCodes != null && $scope.groupCodes.length > 0 && $scope.roundCode == '') {
                 console.log('setting round code from ' + $scope.roundCode + ' to ' + $scope.groupCodes[0].RoundCode);
                 $scope.roundCode = $scope.groupCodes[0].RoundCode;
+                $scope.isLastRound = $scope.groupCodes[0].IsLastRound;
             }
             $scope.updateGroupDetails($scope.tournamentCode, $scope.roundNumber, $scope.roundCode);
         }
@@ -90,9 +92,7 @@
         if (!$scope.roundCode) {
             $scope.roundCode = '';
         }
-        $scope.isLastRound = getUrlParameter('IsLastRound');
-        //console.log("isLastRound: " + $scope.isLastRound);
-
+        
         tournamentService.getTournament($scope.tournamentCode).then(onGetTournamentEventComplete, onError);
         groupCodeService.getGroupCodes($scope.tournamentCode, $scope.roundNumber).then(onGetGroupCodesEventComplete, onError);
 

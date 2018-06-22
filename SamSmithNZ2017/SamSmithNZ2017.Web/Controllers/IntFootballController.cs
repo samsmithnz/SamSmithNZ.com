@@ -29,7 +29,7 @@ namespace SamSmithNZ2017.Controllers
             return View();
         }
 
-        public ActionResult Group(int tournamentCode, int roundNumber, string roundCode, bool isLastRound)
+        public ActionResult Group(int tournamentCode, int roundNumber, string roundCode)
         {
             return View();
         }
@@ -49,9 +49,14 @@ namespace SamSmithNZ2017.Controllers
             return RedirectToAction("Tournament", new { tournamentCode = tournamentCode });
         }
 
+        public ActionResult Group(int tournamentCode, int roundNumber, string roundCode, bool isLastRound)
+        {
+            return RedirectToAction("Group", new { tournamentCode = tournamentCode, roundNumber = roundNumber, roundCode = "" });
+        }
+
         public ActionResult GroupDetails(int tournamentCode, int roundNumber, bool isLastRound)
         {
-            return RedirectToAction("Group", new { tournamentCode = tournamentCode, roundNumber = roundNumber, roundCode = "", isLastRound = isLastRound });
+            return RedirectToAction("Group", new { tournamentCode = tournamentCode, roundNumber = roundNumber, roundCode = "" });
         }
 
         public ActionResult PlayoffDetails(int tournamentCode, int roundNumber)

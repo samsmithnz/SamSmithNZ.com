@@ -46,39 +46,39 @@
                 <div ng-if="roundNumber == 1 && tournament.R1FormatRoundCode > 0 && tournament.R1IsGroupStage == true">
                     <span>Round {{roundNumber}}: {{tournament.R1NumberOfGroupsInRound * tournament.R1NumberOfTeamsInGroup}} teams split in {{tournament.R1NumberOfGroupsInRound}} groups of {{tournament.R1NumberOfTeamsInGroup}}.</span><br />
                     <span ng-repeat="groupNumber in R1GroupArray" ng-if="tournament.MinGameTime != null">
-                        <a href="/IntFootball/Group?tournamentCode={{tournament.TournamentCode}}&roundNumber={{roundNumber}}&roundCode={{getCharacter(tournament.R1FirstGroupCode.charCodeAt(0) + groupNumber - 1)}}&isLastRound={{tournament.R2FormatRoundCode==0}}">Group {{getCharacter(tournament.R1FirstGroupCode.charCodeAt(0) + groupNumber - 1)}}</a>
+                        <a href="/IntFootball/Group?tournamentCode={{tournament.TournamentCode}}&roundNumber={{roundNumber}}&roundCode={{getCharacter(tournament.R1FirstGroupCode.charCodeAt(0) + groupNumber - 1)}}">Group {{getCharacter(tournament.R1FirstGroupCode.charCodeAt(0) + groupNumber - 1)}}</a>
                         <span ng-if="groupNumber < tournament.R1NumberOfGroupsInRound"> | </span>
                     </span>
                 </div>
                 <div ng-if="roundNumber == 1 && tournament.R1FormatRoundCode > 0 && tournament.R1IsGroupStage == false">
                     <span>Round {{roundNumber}}: {{tournament.R1NumberOfTeamsInGroup}} Team Playoff</span><br />
-                    <a href="/IntFootball/Playoffs?tournamentCode={{tournament.TournamentCode}}&roundNumber={{roundNumber}}&isLastRound={{tournament.R2FormatRoundCode==0}}" ng-if="tournament.MinGameTime != null">Playoffs</a>
+                    <a href="/IntFootball/Playoffs?tournamentCode={{tournament.TournamentCode}}&roundNumber={{roundNumber}}" ng-if="tournament.MinGameTime != null">Playoffs</a>
                     <br />
                 </div>
 
                 <div ng-if="roundNumber == 2 && tournament.R2FormatRoundCode > 0 && tournament.R2IsGroupStage == true">
                     <span>Round {{roundNumber}}: {{tournament.R2NumberOfGroupsInRound * tournament.R2NumberOfTeamsInGroup}} teams split in {{tournament.R2NumberOfGroupsInRound}} groups of {{tournament.R2NumberOfTeamsInGroup}}.</span><br />
                     <span ng-repeat="groupNumber in R2GroupArray" ng-if="tournament.MinGameTime != null">
-                        <a href="/IntFootball/Group?tournamentCode={{tournament.TournamentCode}}&roundNumber={{roundNumber}}&roundCode={{getCharacter(tournament.R2FirstGroupCode.charCodeAt(0) + groupNumber - 1)}}&isLastRound={{tournament.R3FormatRoundCode==0}}">Group {{getCharacter(tournament.R2FirstGroupCode.charCodeAt(0) + groupNumber - 1)}}</a>
+                        <a href="/IntFootball/Group?tournamentCode={{tournament.TournamentCode}}&roundNumber={{roundNumber}}&roundCode={{getCharacter(tournament.R2FirstGroupCode.charCodeAt(0) + groupNumber - 1)}}">Group {{getCharacter(tournament.R2FirstGroupCode.charCodeAt(0) + groupNumber - 1)}}</a>
                         <span ng-if="groupNumber < tournament.R2NumberOfGroupsInRound"> | </span>
                     </span>
                 </div>
                 <div ng-if="roundNumber == 2 && tournament.R2FormatRoundCode > 0 && tournament.R2IsGroupStage == false">
                     <span>Round {{roundNumber}}: {{tournament.R2NumberOfTeamsInGroup}} Team Playoff</span><br />
-                    <a href="/IntFootball/Playoffs?tournamentCode={{tournament.TournamentCode}}&roundNumber={{roundNumber}}&isLastRound={{tournament.R3FormatRoundCode==0}}" ng-if="tournament.MinGameTime != null">Playoffs</a>
+                    <a href="/IntFootball/Playoffs?tournamentCode={{tournament.TournamentCode}}&roundNumber={{roundNumber}}" ng-if="tournament.MinGameTime != null">Playoffs</a>
                     <br />
                 </div>
 
                 <div ng-if="roundNumber == 3 && tournament.R3FormatRoundCode > 0 && tournament.R3IsGroupStage == true">
                     <span>Round {{roundNumber}}: {{tournament.R3NumberOfGroupsInRound * tournament.R3NumberOfTeamsInGroup}} teams split in {{tournament.R3NumberOfGroupsInRound}} groups of {{tournament.R3NumberOfTeamsInGroup}}.</span><br />
                     <span ng-repeat="groupNumber in R3GroupArray" ng-if="tournament.MinGameTime != null">
-                        <a href="/IntFootball/Group?tournamentCode={{tournament.TournamentCode}}&roundNumber={{roundNumber}}&roundCode={{getCharacter(tournament.R3FirstGroupCode.charCodeAt(0) + groupNumber - 1)}}&isLastRound=true">Group {{getCharacter(tournament.R3FirstGroupCode.charCodeAt(0) + groupNumber - 1)}}</a>
+                        <a href="/IntFootball/Group?tournamentCode={{tournament.TournamentCode}}&roundNumber={{roundNumber}}&roundCode={{getCharacter(tournament.R3FirstGroupCode.charCodeAt(0) + groupNumber - 1)}}">Group {{getCharacter(tournament.R3FirstGroupCode.charCodeAt(0) + groupNumber - 1)}}</a>
                         <span ng-if="groupNumber < tournament.R3NumberOfGroupsInRound"> | </span>
                     </span>
                 </div>
                 <div ng-if="roundNumber == 3 && tournament.R3FormatRoundCode > 0 && tournament.R3IsGroupStage == false">
                     <span>Round {{roundNumber}}: {{tournament.R3NumberOfTeamsInGroup}} Team Playoff</span><br />
-                    <a href="/IntFootball/Playoffs?tournamentCode={{tournament.TournamentCode}}&roundNumber={{roundNumber}}&isLastRound=true" ng-if="tournament.MinGameTime != null">Playoffs</a>
+                    <a href="/IntFootball/Playoffs?tournamentCode={{tournament.TournamentCode}}&roundNumber={{roundNumber}}" ng-if="tournament.MinGameTime != null">Playoffs</a>
                     <br />
                 </div>
             </div>
