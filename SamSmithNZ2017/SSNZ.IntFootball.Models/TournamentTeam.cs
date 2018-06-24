@@ -23,7 +23,7 @@ namespace SSNZ.IntFootball.Models
         {
             get
             {
-                int result = FifaRanking - ELORating;
+                int result = ELORating - FifaRanking;
                 if (result > 0)
                 {
                     return "+" + result.ToString();
