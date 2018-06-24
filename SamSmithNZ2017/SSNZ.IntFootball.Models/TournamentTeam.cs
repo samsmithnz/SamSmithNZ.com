@@ -19,6 +19,22 @@ namespace SSNZ.IntFootball.Models
         public string CoachName { get; set; }
         public string CoachNationalityFlagName { get; set; }
         public int ELORating { get; set; }
+        public string ELORatingDifference
+        {
+            get
+            {
+                int result = FifaRanking - ELORating;
+                if (result > 0)
+                {
+                    return "+" + result.ToString();
+                }
+                else
+                {
+                    return result.ToString();
+                }
+
+            }
+        }
 
     }
 }

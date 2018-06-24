@@ -29,14 +29,21 @@ namespace SSNZ.IntFootball.Goals.WinWPF
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            btnTournamentGames.IsEnabled = false;
-            TournamentDataAccess da = new TournamentDataAccess();
-            List<Tournament> tournaments = await da.GetListAsync();
-            cboTournament.DataContext = tournaments;
-            cboTournament.DisplayMemberPath = "TournamentName";
-            cboTournament.SelectedValuePath = "TournamentCode";
-            cboTournament.SelectedIndex = 1;
-            btnTournamentGames.IsEnabled = true;
+            try
+            {
+                btnTournamentGames.IsEnabled = false;
+                TournamentDataAccess da = new TournamentDataAccess();
+                List<Tournament> tournaments = await da.GetListAsync();
+                cboTournament.DataContext = tournaments;
+                cboTournament.DisplayMemberPath = "TournamentName";
+                cboTournament.SelectedValuePath = "TournamentCode";
+                cboTournament.SelectedIndex = 1;
+                btnTournamentGames.IsEnabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void btnAssignGoals_Click(object sender, RoutedEventArgs e)
