@@ -504,6 +504,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="ServicePublishing.txt" />
     <Content Include="httpssettings.txt" />
     <Content Include="Robots.txt" />
     <Content Include="Scripts\3rdParty\bootstrap.js" />
@@ -513,7 +514,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Connected Services\Application Insights\ConnectedService.json" />
-    <None Include="Properties\PublishProfiles\SamSmithNZ2017Web.pubxml" />
+    <None Include="Properties\PublishProfiles\SamSmithNZ2017Web - Web Deploy.pubxml" />
     <None Include="Scripts\3rdParty\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\3rdParty\jquery-1.10.2.js" />
     <Content Include="Scripts\3rdParty\jquery-1.10.2.min.js" />

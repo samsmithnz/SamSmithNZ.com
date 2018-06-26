@@ -48,7 +48,15 @@ BEGIN
 
 	--5th - 8th Place
 	INSERT INTO #tmp_final_placing 
-	SELECT 5, CASE WHEN gss1.goals_with_penalties < gss2.goals_with_penalties THEN g1.team_1_code ELSE g2.team_2_code END
+	SELECT 5, CASE WHEN gss1.goals_with_penalties IS NULL THEN g1.team_1_code ELSE CASE WHEN gss1.goals_with_penalties < gss2.goals_with_penalties THEN g1.team_1_code ELSE g2.team_2_code END END
+	FROM wc_game g1
+	JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
+	JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
+	JOIN vWC_GameScoreSummary gss2 ON g2.tournament_code = gss2.tournament_code and g2.game_code = gss2.game_code and gss2.is_team_1 = 0
+	WHERE g1.tournament_code = @TournamentCode
+	and g1.round_code = 'QF'
+	INSERT INTO #tmp_final_placing 
+	SELECT 5, CASE WHEN gss2.goals_with_penalties IS NULL THEN g1.team_2_code ELSE CASE WHEN gss1.goals_with_penalties < gss2.goals_with_penalties THEN g1.team_1_code ELSE g2.team_2_code END END
 	FROM wc_game g1
 	JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
 	JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
@@ -58,7 +66,15 @@ BEGIN
 
 	--9th - 16th Place
 	INSERT INTO #tmp_final_placing 
-	SELECT 9, CASE WHEN gss1.goals_with_penalties < gss2.goals_with_penalties THEN g1.team_1_code ELSE g2.team_2_code END
+	SELECT 9, CASE WHEN gss1.goals_with_penalties IS NULL THEN g1.team_1_code ELSE CASE WHEN gss1.goals_with_penalties < gss2.goals_with_penalties THEN g1.team_1_code ELSE g2.team_2_code END END
+	FROM wc_game g1
+	JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
+	JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
+	JOIN vWC_GameScoreSummary gss2 ON g2.tournament_code = gss2.tournament_code and g2.game_code = gss2.game_code and gss2.is_team_1 = 0
+	WHERE g1.tournament_code = @TournamentCode
+	and g1.round_code = '16'
+	INSERT INTO #tmp_final_placing 
+	SELECT 9, CASE WHEN gss2.goals_with_penalties IS NULL THEN g1.team_2_code ELSE CASE WHEN gss1.goals_with_penalties < gss2.goals_with_penalties THEN g1.team_1_code ELSE g2.team_2_code END END
 	FROM wc_game g1
 	JOIN vWC_GameScoreSummary gss1 ON g1.tournament_code = gss1.tournament_code and g1.game_code = gss1.game_code and gss1.is_team_1 = 1
 	JOIN wc_game g2 ON g1.tournament_code = g2.tournament_code and g1.game_code = g2.game_code
