@@ -122,7 +122,7 @@
 
         $scope.findGame = function (gameNumber) {
             for (var i = 0; i <= $scope.games.length - 1; i++) {
-                if ($scope.games[i].GameNumber == gameNumber) {
+                if ($scope.games[i].GameNumber == gameNumber && $scope.games[i].Team1Code > 0) {
                     return $scope.games[i];
                 }
             }

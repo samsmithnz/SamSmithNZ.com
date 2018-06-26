@@ -48,6 +48,24 @@ BEGIN
 	Select 0
 END
 
+--Update the next games
+
+--Quarter-finals
+--Winners Match 49	Match 57	Winners Match 50
+--Winners Match 53	Match 58	Winners Match 54
+--Winners Match 55	Match 60	Winners Match 56
+--Winners Match 51	Match 59	Winners Match 52
+
+--Semi-finals
+--Winners Match 57	Match 61	Winners Match 58
+--Winners Match 59	Match 62	Winners Match 60
+
+--Third place play-off
+--Losers Match 61	Match 63	Losers Match 62
+
+--Final
+--Winners Match 61	Match 64	Winners Match 62
+
 ----Get the number of teams to set for each group
 --DECLARE @TeamsFromEachGroupThatAdvance INT
 --DECLARE @TeamsFromAllGroupsThatAdvance INT

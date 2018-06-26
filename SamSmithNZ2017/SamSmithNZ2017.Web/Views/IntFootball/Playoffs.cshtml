@@ -1110,6 +1110,10 @@
                                 {{item.Team1PenaltiesScore}} - {{item.Team2PenaltiesScore}} {{item.Team1ResultInformation}}{{item.Team2ResultInformation}}
                             </div>
                         </div>
+                        <div ng-if="item.Team1NormalTimeScore == null && item.RowType == 1 && item.Team1EloRating >= 0 && item.Team1EloRating > 0">
+                            Chance to win:<br />
+                            {{item.Team1ChanceToWin | number : 2}}% - {{item.Team2ChanceToWin | number : 2}}%
+                        </div>
                     </td>
                     <td style="text-align: left;">
                         <div ng-if="item.RowType == 1">

@@ -90,7 +90,7 @@ namespace SSNZ.IntFootball.Models
         {
             get
             {
-                if (Team1EloRating == null)
+                if (Team1EloRating == null || Team1Code == 0)
                 {
                     return -1;
                 }
@@ -108,7 +108,7 @@ namespace SSNZ.IntFootball.Models
         {
             get
             {
-                if (Team2EloRating == null)
+                if (Team2EloRating == null || Team2Code == 0)
                 {
                     return -1;
                 }
