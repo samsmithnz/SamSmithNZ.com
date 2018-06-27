@@ -1,8 +1,11 @@
-﻿CREATE PROCEDURE [dbo].[FB_GetTournaments] 
+﻿CREATE PROCEDURE [dbo].[FB_GetTournaments]
 	--@CompetitonCode INT = 1,
 	@TournamentCode INT = NULL
 AS
 BEGIN
+	DECLARE @CurrentTime DATETIME 
+	SELECT @CurrentTime = GETDATE()
+
 	SELECT t.competition_code AS CompetitionCode, 
 		t.tournament_code AS TournamentCode, 
 		[year] AS TournamentYear, 
@@ -13,10 +16,14 @@ BEGIN
 		ISNULL(t.co_host_team_code,0) AS CoHostTeamCode, 
 		te2.team_name AS CoHostTeamName, 
 		ISNULL(te2.flag_name,'') AS CoHostFlagName,
+		ISNULL(t.co_host_team_code2,0) AS CoHostTeamCode2, 
+		te3.team_name AS CoHostTeamName2, 
+		ISNULL(te3.flag_name,'') AS CoHostFlagName2,
 		CONVERT(VARCHAR(8000),t.notes) AS Notes, 
 		t.logo_image AS LogoImage, 
 		t.qualification_image AS QualificationImage,
-		ISNULL(COUNT(g.game_code),0) AS GameCount,
+		ISNULL(COUNT(g.game_code),0) AS GameCount,	
+		(SELECT COUNT(g4.game_code) FROM wc_game g4 WHERE g4.tournament_code = t.tournament_code AND g4.game_time <= @CurrentTime) AS GamesCompleteCount,
 		ISNULL((SELECT MIN(ga1.game_time) FROM wc_game ga1 WHERE ga1.tournament_code = t.tournament_code),NULL) AS MinGameTime,
 		ISNULL((SELECT MAX(ga2.game_time) FROM wc_game ga2 WHERE ga2.tournament_code = t.tournament_code),NULL) AS MaxGameTime,
 		tf.format_code AS FormatCode,
@@ -47,11 +54,13 @@ BEGIN
 		tcs.player_percent AS ImportingPlayerPercent, 
 		tcs.goals_percent AS ImportingGoalsPercent, 
 		tcs.penalty_shootout_goals_percent AS ImportingPenaltyShootoutGoalsPercent,
-		SUM(g.team_1_normal_time_score) + SUM(isnull(g.team_1_extra_time_score,0)) + SUM(g.team_2_normal_time_score) + SUM(isnull(g.team_2_extra_time_score,0)) AS TotalGoals,
-		SUM(isnull(g.team_1_penalties_score,0)) + SUM(isnull(g.team_2_penalties_score,0)) AS TotalPenalties
+		SUM(g.team_1_normal_time_score) + SUM(ISNULL(g.team_1_extra_time_score,0)) + SUM(g.team_2_normal_time_score) + SUM(ISNULL(g.team_2_extra_time_score,0)) AS TotalGoals,
+		(SELECT COUNT(g5.goal_code) FROM wc_goal g5 JOIN wc_game g6 ON g5.game_code = g6.game_code WHERE g6.tournament_code = t.tournament_code AND g5.is_penalty = 1) AS TotalPenalties,
+		SUM(ISNULL(g.team_1_penalties_score,0)) + SUM(ISNULL(g.team_2_penalties_score,0)) AS TotalShootoutGoals
 	FROM wc_tournament t
 	LEFT JOIN wc_team te ON te.team_code = t.host_team_code
 	LEFT JOIN wc_team te2 ON te2.team_code = t.co_host_team_code
+	LEFT JOIN wc_team te3 ON te3.team_code = t.co_host_team_code2
 	LEFT JOIN wc_game g ON t.tournament_code = g.tournament_code
 	JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
 	JOIN vWC_TournamentCompletionStatistics tcs ON t.tournament_code = tcs.tournament_code 
@@ -67,6 +76,9 @@ BEGIN
 		ISNULL(t.co_host_team_code,0), 
 		te2.team_name, 
 		ISNULL(te2.flag_name,''),
+		ISNULL(t.co_host_team_code2,0), 
+		te3.team_name, 
+		ISNULL(te3.flag_name,''),
 		CONVERT(VARCHAR(8000),t.notes), 
 		t.logo_image, 
 		t.qualification_image,
@@ -97,3 +109,4 @@ BEGIN
 		tcs.penalty_shootout_goals_percent
 	ORDER BY [year] DESC
 END
+GO

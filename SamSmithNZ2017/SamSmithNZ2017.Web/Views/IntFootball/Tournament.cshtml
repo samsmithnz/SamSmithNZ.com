@@ -20,6 +20,9 @@
             <span ng-if="tournament.CoHostTeamCode > 0">/ </span>
             <img ng-src="~/Content/IntFootball/Teams//{{tournament.CoHostFlagName}}" class="TeamImage" ng-if="tournament.CoHostTeamCode > 0" />
             <a href="/IntFootball/Team?teamCode={{tournament.CoHostTeamCode}}" ng-if="tournament.CoHostTeamCode > 0">{{tournament.CoHostTeamName}}</a>
+            <span ng-if="tournament.CoHostTeamCode2 > 0">/ </span>
+            <img ng-src="~/Content/IntFootball/Teams//{{tournament.CoHostFlagName2}}" class="TeamImage" ng-if="tournament.CoHostTeamCode2 > 0" />
+            <a href="/IntFootball/Team?teamCode={{tournament.CoHostTeamCode2}}" ng-if="tournament.CoHostTeamCode2 > 0">{{tournament.CoHostTeamName2}}</a>
         </div>
     </div>
 

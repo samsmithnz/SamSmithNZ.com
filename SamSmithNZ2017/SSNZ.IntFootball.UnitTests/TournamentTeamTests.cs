@@ -100,7 +100,7 @@ namespace SSNZ.IntFootball.UnitTests
             Assert.IsTrue(item.CoachNationalityFlagName == "22px-Flag_of_New_Zealand_svg.png");
             Assert.IsTrue(item.ELORating >= 0);
             Assert.IsTrue(item.FifaRanking == 0);
-            Assert.IsTrue(item.Placing >= 0);
+            Assert.IsTrue(item.Placing != "");
             Assert.IsTrue(item.RegionCode == 5);
             Assert.IsTrue(item.RegionName == "OFC");
         }

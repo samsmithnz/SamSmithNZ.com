@@ -9,7 +9,7 @@ namespace SSNZ.IntFootball.Models
     {
         public TournamentTeam() { }
 
-        public int Placing { get; set; }
+        public string Placing { get; set; }
         public int TeamCode { get; set; }
         public string TeamName { get; set; }
         public string FlagName { get; set; }

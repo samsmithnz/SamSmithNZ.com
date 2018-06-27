@@ -14,7 +14,7 @@
 
         this.getGroups = function (tournamentCode, roundNumber, roundCode) {
             let url: string = baseUrl + 'api/Group/GetGroups?tournamentCode=' + tournamentCode + '&roundNumber=' + roundNumber + '&roundCode=' + roundCode;
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
 

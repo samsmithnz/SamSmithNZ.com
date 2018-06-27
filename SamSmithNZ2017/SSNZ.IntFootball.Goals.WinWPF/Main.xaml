@@ -5,7 +5,7 @@
     <Grid>
         <ComboBox Height="25" HorizontalAlignment="Left" Margin="91,12,0,0" Name="cboTournament" VerticalAlignment="Top" Width="165" ItemsSource="{Binding}" SelectionChanged="cboTournament_SelectionChanged" />
         <Label Content="Tournament:" Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" />
-        <Button Content="View Tournament Games" Height="23" HorizontalAlignment="Left" Margin="262,12,0,0" Name="btnTournamentGames" VerticalAlignment="Top" Width="144" Click="btnTournamentGames_Click" />
+        <Button Content="View Tournament Games" Height="25" HorizontalAlignment="Left" Margin="262,12,0,0" Name="btnTournamentGames" VerticalAlignment="Top" Width="144" Click="btnTournamentGames_Click" />
     </Grid>
 </Window>
 

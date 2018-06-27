@@ -421,6 +421,7 @@
     <Content Include="Content\IntFootball\teams\22px-Flag_of_Wales_2_svg.png" />
     <Content Include="Content\IntFootball\teams\22px-Flag_of_Zaire_svg.png" />
     <Content Include="Content\IntFootball\teams\23px-Flag_of_Panama.svg.png" />
+    <Content Include="Content\IntFootball\teams\Blank.png" />
     <Content Include="Content\IntFootball\teams\Flag_of_Bosnia_and_Herzegovina.svg.png" />
     <Content Include="Content\IntFootball\WorldCup.png" />
     <Content Include="Content\IntFootball\WorldCupLogos\120px-UEFA_Euro_2000_logo.svg.png" />
@@ -437,6 +438,7 @@
     <Content Include="Content\IntFootball\WorldCupLogos\150px-WorldCup1938poster.jpg" />
     <Content Include="Content\IntFootball\WorldCupLogos\160px-Qatar_2022_bid_logo_svg.png" />
     <Content Include="Content\IntFootball\WorldCupLogos\160px-UEFA_Euro_1996_logo.svg.png" />
+    <Content Include="Content\IntFootball\WorldCupLogos\160px-USA-Canada-Mexico_2026_World_Cup_Bid_Logo.png" />
     <Content Include="Content\IntFootball\WorldCupLogos\175px-FIFA_World_Cup_2006_Logo_svg.png" />
     <Content Include="Content\IntFootball\WorldCupLogos\180px-Fifa_confederations_cup_2009_logo.png" />
     <Content Include="Content\IntFootball\WorldCupLogos\200px-2010_FIFA_World_Cup_logo_svg.png" />

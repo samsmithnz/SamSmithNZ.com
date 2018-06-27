@@ -22,9 +22,9 @@
 
         var onGetGroupCodesEventComplete = function (response) {
             $scope.groupCodes = response.data;
-            console.log('$scope.roundCode:' + $scope.roundCode);
+            //console.log('$scope.roundCode:' + $scope.roundCode);
             if ($scope.groupCodes != null && $scope.groupCodes.length > 0 && $scope.roundCode == '') {
-                console.log('setting round code from ' + $scope.roundCode + ' to ' + $scope.groupCodes[0].RoundCode);
+                //console.log('setting round code from ' + $scope.roundCode + ' to ' + $scope.groupCodes[0].RoundCode);
                 $scope.roundCode = $scope.groupCodes[0].RoundCode;
                 $scope.isLastRound = $scope.groupCodes[0].IsLastRound;
             }
@@ -79,6 +79,7 @@
             //if ($scope.tournament != null) {
             //    targets2.innerHTML = $scope.tournament.TournamentName + " - Group " + $scope.roundCode;
             //}
+            groupCodeService.getGroupCodes($scope.tournamentCode, $scope.roundNumber).then(onGetGroupCodesEventComplete, onError);
         }
 
         var onGetGamesEventComplete = function (response) {
@@ -94,9 +95,9 @@
         }
         
         tournamentService.getTournament($scope.tournamentCode).then(onGetTournamentEventComplete, onError);
-        groupCodeService.getGroupCodes($scope.tournamentCode, $scope.roundNumber).then(onGetGroupCodesEventComplete, onError);
 
         $scope.updateGroupDetails = function (tournamentCode, roundNumber, roundCode) {
+            //console.log("updating group details");
             groupService.getGroups(tournamentCode, roundNumber, roundCode).then(onGetGroupsEventComplete, onError);
             gameService.getGamesForGroup(tournamentCode, roundNumber, roundCode).then(onGetGamesEventComplete, onError);
         };

@@ -19,7 +19,11 @@ namespace SSNZ.IntFootball.Models
         public int CoHostTeamCode { get; set; }
         public string CoHostTeamName { get; set; }
         public string CoHostFlagName { get; set; }
+        public int CoHostTeamCode2 { get; set; }
+        public string CoHostTeamName2 { get; set; }
+        public string CoHostFlagName2 { get; set; }
         public int GameCount { get; set; }
+        public int GamesCompleteCount { get; set; }
         public DateTime? MinGameTime { get; set; }
         public DateTime? MaxGameTime { get; set; }
         public int FormatCode { get; set; }
@@ -55,6 +59,7 @@ namespace SSNZ.IntFootball.Models
         public string QualificationImage { get; set; }
         public int TotalGoals { get; set; }
         public int TotalPenalties { get; set; }
+        public int TotalShootoutGoals { get; set; }
 
     }
 }

@@ -14,7 +14,7 @@
 
         this.getTournaments = function () {
             let url: string = baseUrl + 'api/Tournament/GetTournaments';
-            //console.log(url);
+            console.log(url);
             return $http.get(url);
         };
 

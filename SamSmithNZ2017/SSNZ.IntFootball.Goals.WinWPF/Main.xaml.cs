@@ -37,7 +37,7 @@ namespace SSNZ.IntFootball.Goals.WinWPF
                 cboTournament.DataContext = tournaments;
                 cboTournament.DisplayMemberPath = "TournamentName";
                 cboTournament.SelectedValuePath = "TournamentCode";
-                cboTournament.SelectedIndex = 1;
+                cboTournament.SelectedIndex = 2;
                 btnTournamentGames.IsEnabled = true;
             }
             catch (Exception ex)

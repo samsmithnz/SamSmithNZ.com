@@ -9,6 +9,7 @@
     [notes]               TEXT          NULL,
     [logo_image]          VARCHAR (100) NULL,
     [qualification_image] VARCHAR (100) NULL,
+	[co_host_team_code2]  INT      NULL,
     CONSTRAINT [PK_wc_tournament] PRIMARY KEY CLUSTERED ([tournament_code] ASC)
 );
 

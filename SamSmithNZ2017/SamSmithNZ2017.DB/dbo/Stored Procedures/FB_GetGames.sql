@@ -10,8 +10,18 @@ BEGIN
 	
 	IF (NOT @TeamCode IS NULL)
 	BEGIN
-		SELECT 
-			1 AS RowType, --1 is a team
+		CREATE TABLE #TmpAlternativeTeams (tournament_code INT, team_code INT)
+		INSERT INTO #TmpAlternativeTeams 
+		SELECT te.tournament_code, historical_team_code 
+		FROM wc_related_team rl
+		JOIN wc_tournament_team_entry te ON rl.historical_team_code = te.team_code
+		WHERE rl.team_code = @TeamCode
+		UNION
+		SELECT te.tournament_code, te.team_code
+		FROM wc_tournament_team_entry te 
+		WHERE te.team_code = @TeamCode
+
+		SELECT 1 AS RowType, --1 is a team
 			g.round_number AS RoundNumber, 
 			g.round_code AS RoundCode, 
 			r.round_name AS RoundName, 
@@ -42,19 +52,70 @@ BEGIN
 			ISNULL(te.fifa_ranking,0) AS FifaRanking, 
 			NULL AS IsPenalty, 
 			NULL AS IsOwnGoal, 
-			1 AS SortOrder
+			1 AS SortOrder 
 		FROM wc_game g
-		JOIN wc_round r ON g.round_code = r.round_code
 		JOIN wc_team t1 ON g.team_1_code = t1.team_code
 		JOIN wc_team t2 ON g.team_2_code = t2.team_code
+		JOIN wc_round r ON g.round_code = r.round_code
 		JOIN wc_tournament t ON g.tournament_code = t.tournament_code
-		LEFT JOIN wc_tournament_team_entry te ON t.tournament_code = te.tournament_code 
+		LEFT JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_1_code = te.team_code
 		LEFT JOIN wc_team t3 ON te.coach_nationality = t3.team_name
-		--JOIN #tmp_round_codes rc ON g.round_code = rc.round_code
+		JOIN #TmpAlternativeTeams ate ON g.team_1_code = ate.team_code 
 		WHERE t.competition_code = 1
-		AND (g.team_1_code = @TeamCode OR g.team_2_code = @TeamCode)
-		AND te.team_code = @TeamCode
+		--AND (g.team_1_code = @TeamCode OR g.team_2_code = @TeamCode)
+		--AND te.team_code = @TeamCode
+		--AND game_code = 7
+
+		UNION
+
+		SELECT 1 AS RowType, --1 is a team
+			g.round_number AS RoundNumber, 
+			g.round_code AS RoundCode, 
+			r.round_name AS RoundName, 
+			g.game_code AS GameCode, 
+			g.game_number AS GameNumber, 
+			g.game_time AS GameTime, 
+			t1.team_code AS Team1Code, 
+			t1.team_name AS Team1Name, 
+			g.team_1_normal_time_score AS Team1NormalTimeScore, 
+			g.team_1_extra_time_score AS Team1ExtraTimeScore, 
+			g.team_1_penalties_score AS Team1PenaltiesScore,
+			g.team_1_elo_rating AS Team1EloRating,
+			t2.team_code AS Team2Code, 
+			t2.team_name AS Team2Name, 
+			g.team_2_normal_time_score AS Team2NormalTimeScore, 
+			g.team_2_extra_time_score AS Team2ExtraTimeScore, 
+			g.team_2_penalties_score AS Team2PenaltiesScore, 
+			g.team_2_elo_rating AS Team2EloRating,
+			t1.flag_name AS Team1FlagName, 
+			t2.flag_name AS Team2FlagName,
+			CONVERT(BIT,CASE WHEN g.team_1_normal_time_score is NULL THEN 1 ELSE 0 END) AS Team1withdrew,
+			CONVERT(BIT,CASE WHEN g.team_2_normal_time_score is NULL THEN 1 ELSE 0 END) AS Team2withdrew,
+			g.[location] AS [Location], 
+			t.tournament_code AS TournamentCode, 
+			t.[name] AS TournamentName, 
+			ISNULL(te.coach_name,'') AS CoachName, 
+			ISNULL(t3.flag_name,'') AS CoachFlag,
+			ISNULL(te.fifa_ranking,0) AS FifaRanking, 
+			NULL AS IsPenalty, 
+			NULL AS IsOwnGoal, 
+			1 AS SortOrder 
+		FROM wc_game g
+		JOIN wc_team t1 ON g.team_1_code = t1.team_code
+		JOIN wc_team t2 ON g.team_2_code = t2.team_code
+		JOIN wc_round r ON g.round_code = r.round_code
+		JOIN wc_tournament t ON g.tournament_code = t.tournament_code
+		LEFT JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_2_code = te.team_code
+		LEFT JOIN wc_team t3 ON te.coach_nationality = t3.team_name
+		JOIN #TmpAlternativeTeams ate ON g.team_2_code = ate.team_code
+		WHERE t.competition_code = 1
+		--AND (g.team_1_code = @TeamCode OR g.team_2_code = @TeamCode)
+		--AND te.team_code = @TeamCode
+		--AND game_code = 7
+
 		ORDER BY g.game_time DESC, g.game_number, SortOrder--, gl.goal_time, ISNULL(gl.injury_time,0)
+
+		DROP TABLE #TmpAlternativeTeams
 	END
 	ELSE
 	BEGIN		
