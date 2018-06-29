@@ -3,273 +3,239 @@
 	@RoundNumber INT,
 	@RoundCode VARCHAR(10)
 AS
-SET NOCOUNT ON
-
-DECLARE @number_of_teams_in_group INT
-
-SELECT @number_of_teams_in_group = tfr.number_of_teams_in_group 
-FROM wc_tournament t
-JOIN wc_tournament_format tf ON t.format_code = tf.format_code
-JOIN wc_tournament_format_round tfr ON tfr.format_round_code = tf.round_2_format_code
-WHERE tournament_code = @TournamentCode
-
-DECLARE @game_count INT
-SELECT @game_count = COUNT(*) 
-FROM wc_game
-WHERE tournament_code = @TournamentCode
-and round_number = @RoundNumber
-and round_code = @RoundCode
-
---If the number of games doesn't audit correctly, add some new games
-IF (@number_of_teams_in_group/2 <> @game_count)
 BEGIN
-	SELECT g.tournament_code,
-		g.game_code,
-		g.game_number,
-		g.game_time,
-		g.[location],
-		g.round_code,
-		g.round_number,
-		g.team_1_code,
-		g.team_1_extra_time_score,
-		g.team_1_normal_time_score,
-		g.team_1_penalties_score,
-		g.team_2_code,
-		g.team_2_extra_time_score,
-		g.team_2_normal_time_score,
-		g.team_2_penalties_score
-	FROM wc_game g
+	SET NOCOUNT ON
+
+	DECLARE @number_of_teams_in_group INT
+
+	SELECT @number_of_teams_in_group = tfr.number_of_teams_in_group 
+	FROM wc_tournament t
+	JOIN wc_tournament_format tf ON t.format_code = tf.format_code
+	JOIN wc_tournament_format_round tfr ON tfr.format_round_code = tf.round_2_format_code
+	WHERE tournament_code = @TournamentCode
+
+	DECLARE @game_count INT
+	SELECT @game_count = COUNT(*) 
+	FROM wc_game
 	WHERE tournament_code = @TournamentCode
 	and round_number = @RoundNumber
 	and round_code = @RoundCode
-END
-ELSE
-BEGIN
-	Select 0
-END
 
---Update the next games
+	--If the number of games doesn't audit correctly, add some new games
+	IF (@number_of_teams_in_group / 2 <> @game_count)
+	BEGIN
+		SELECT g.tournament_code,
+			g.game_code,
+			g.game_number,
+			g.game_time,
+			g.[location],
+			g.round_code,
+			g.round_number,
+			g.team_1_code,
+			g.team_1_extra_time_score,
+			g.team_1_normal_time_score,
+			g.team_1_penalties_score,
+			g.team_2_code,
+			g.team_2_extra_time_score,
+			g.team_2_normal_time_score,
+			g.team_2_penalties_score
+		FROM wc_game g
+		WHERE tournament_code = @TournamentCode
+		and round_number = @RoundNumber
+		and round_code = @RoundCode
+	END
 
---Quarter-finals
---Winners Match 49	Match 57	Winners Match 50
---Winners Match 53	Match 58	Winners Match 54
---Winners Match 55	Match 60	Winners Match 56
---Winners Match 51	Match 59	Winners Match 52
+	--Update the next games
+	--Update the playoff's if the group is done.
+	DECLARE @Team1Score INT
+	DECLARE @Team2Score INT
+	DECLARE @GameNumber INT
 
---Semi-finals
---Winners Match 57	Match 61	Winners Match 58
---Winners Match 59	Match 62	Winners Match 60
+	DECLARE Cursor1 CURSOR LOCAL FOR
+		SELECT g.round_code, 
+			SUM(g.team_1_normal_time_score) + SUM(ISNULL(g.team_1_extra_time_score,0)) + SUM(ISNULL(g.team_1_penalties_score,0)),
+			SUM(g.team_2_normal_time_score) + SUM(ISNULL(g.team_2_extra_time_score,0)) + SUM(ISNULL(g.team_2_penalties_score,0)), 
+			g.game_number
+		FROM wc_game g
+		WHERE g.tournament_code = @TournamentCode
+		AND g.round_number = @RoundNumber
+		GROUP BY g.round_code, g.game_number
+		ORDER BY g.game_number
 
---Third place play-off
---Losers Match 61	Match 63	Losers Match 62
+	OPEN Cursor1
 
---Final
---Winners Match 61	Match 64	Winners Match 62
+	--loop through all the items
+	FETCH NEXT FROM Cursor1 INTO @RoundCode, @Team1Score, @Team2Score, @GameNumber
+	WHILE (@@FETCH_STATUS <> -1)
+	BEGIN
+			
+		DECLARE @WinningTeamCode INT
+		DECLARE @LosingTeamCode INT
+			
+		IF (@Team1Score > @Team2Score)
+		BEGIN
+			SELECT @WinningTeamCode = g.team_1_code, @LosingTeamCode = g.team_2_code
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = @GameNumber
 
-----Get the number of teams to set for each group
---DECLARE @TeamsFromEachGroupThatAdvance INT
---DECLARE @TeamsFromAllGroupsThatAdvance INT
---DECLARE @TotalNumberOfTeamsThatAdvanceFromStage INT
---DECLARE @GroupAdvancementDifference INT
---IF (@RoundNumber = 1)
---BEGIN
---	SELECT @TeamsFromAllGroupsThatAdvance = (tf.r1_number_of_teams_from_group_that_advance * tf.r1_number_of_groups_in_round),
---		@TotalNumberOfTeamsThatAdvanceFromStage = tf.r1_total_number_of_teams_that_advance,
---		@TeamsFromEachGroupThatAdvance = tf.r1_number_of_teams_from_group_that_advance
---	FROM wc_tournament t 
---	JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
---	WHERE t.tournament_code = @TournamentCode
---END
---ELSE IF (@RoundNumber = 2)
---BEGIN
---	SELECT @TeamsFromAllGroupsThatAdvance = (tf.r2_number_of_teams_from_group_that_advance * tf.r2_number_of_groups_in_round),
---		@TotalNumberOfTeamsThatAdvanceFromStage = tf.r2_total_number_of_teams_that_advance,
---		@TeamsFromEachGroupThatAdvance = tf.r2_number_of_teams_from_group_that_advance
---	FROM wc_tournament t 
---	JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
---	WHERE t.tournament_code = @TournamentCode
---END
---ELSE IF (@RoundNumber = 3)
---BEGIN
---	SELECT @TeamsFromAllGroupsThatAdvance = (tf.r3_number_of_teams_from_group_that_advance * tf.r3_number_of_groups_in_round),
---		@TotalNumberOfTeamsThatAdvanceFromStage = tf.r3_total_number_of_teams_that_advance,
---		@TeamsFromEachGroupThatAdvance = tf.r3_number_of_teams_from_group_that_advance
---	FROM wc_tournament t 
---	JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
---	WHERE t.tournament_code = @TournamentCode
---END
+		END
+		ELSE IF (@Team1Score < @Team2Score)
+		BEGIN
+			SELECT @WinningTeamCode = g.team_2_code, @LosingTeamCode = g.team_1_code
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = @GameNumber
+		END
+		ELSE 
+		BEGIN
+			SELECT @WinningTeamCode = 0, @LosingTeamCode = 0
+		END
 
---IF (@TeamsFromAllGroupsThatAdvance <> @TotalNumberOfTeamsThatAdvanceFromStage)
---BEGIN
---    SELECT @GroupAdvancementDifference = @TotalNumberOfTeamsThatAdvanceFromStage - @TeamsFromAllGroupsThatAdvance
---END
+		--Quarter-finals
+		--Winners Match 49	Match 57	Winners Match 50		
+		IF (@GameNumber = 49) 
+		BEGIN
+			--select 'game 57', @WinningTeamCode, @LosingTeamCode
+			UPDATE g
+			SET team_1_code = @WinningTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 57
+		END	
+		ELSE IF (@GameNumber = 50) 
+		BEGIN
+			UPDATE g
+			SET team_2_code = @WinningTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 57
+		END
+		--Winners Match 53	Match 58	Winners Match 54		
+		IF (@GameNumber = 53) 
+		BEGIN
+			UPDATE g
+			SET team_1_code = @WinningTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 58
+		END	
+		ELSE IF (@GameNumber = 54) 
+		BEGIN
+			UPDATE g
+			SET team_2_code = @WinningTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 58
+		END
+		--Winners Match 55	Match 60	Winners Match 56		
+		IF (@GameNumber = 55) 
+		BEGIN
+			UPDATE g
+			SET team_1_code = @WinningTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 60
+		END	
+		ELSE IF (@GameNumber = 56) 
+		BEGIN
+			UPDATE g
+			SET team_2_code = @WinningTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 60
+		END
+		--Winners Match 51	Match 59	Winners Match 52		
+		IF (@GameNumber = 51) 
+		BEGIN
+			UPDATE g
+			SET team_1_code = @WinningTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 59
+		END	
+		ELSE IF (@GameNumber = 52) 
+		BEGIN
+			UPDATE g
+			SET team_2_code = @WinningTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 59
+		END
 
---CREATE TABLE #tmp_teams (team_code INT)
+		--Semi-finals
+		--Winners Match 57	Match 61	Winners Match 58		
+		IF (@GameNumber = 57) 
+		BEGIN
+			UPDATE g
+			SET team_1_code = @WinningTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 61
+		END	
+		ELSE IF (@GameNumber = 58) 
+		BEGIN
+			UPDATE g
+			SET team_2_code = @WinningTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 61
+		END
+		--Winners Match 59	Match 62	Winners Match 60		
+		IF (@GameNumber = 59) 
+		BEGIN
+			UPDATE g
+			SET team_1_code = @WinningTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 62
+		END	
+		ELSE IF (@GameNumber = 60) 
+		BEGIN
+			UPDATE g
+			SET team_2_code = @WinningTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 62
+		END
 
-----get all teams affected
---INSERT INTO #tmp_teams
---SELECT team_1_code
---FROM wc_game
---WHERE tournament_code = @TournamentCode
---and round_number = @RoundNumber
---and round_code = @RoundCode
---UNION
---SELECT team_2_code
---FROM wc_game
---WHERE tournament_code = @TournamentCode
---and round_number = @RoundNumber
---and round_code = @RoundCode
+		--Final
+		--Winners Match 61	Match 64	Winners Match 62
+		--Third place play-off
+		--Losers Match 61	Match 63	Losers Match 62					
+		IF (@GameNumber = 61) 
+		BEGIN
+			UPDATE g
+			SET team_1_code = @WinningTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 64
 
-----Clean up the group table
---DELETE FROM wc_group_stage
---WHERE tournament_code = @TournamentCode
---and round_number = @RoundNumber
---and round_code = @RoundCode
+			UPDATE g
+			SET team_1_code = @LosingTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 63
+		END	
+		ELSE IF (@GameNumber = 62) 
+		BEGIN
+			UPDATE g
+			SET team_2_code = @WinningTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 64
 
-----Build the Group Table
---DECLARE @team_code INT
---DECLARE Cursor1 CURSOR LOCAL FOR
---	SELECT DISTINCT team_code
---	FROM #tmp_teams 
-
---OPEN Cursor1
-
-----loop through all the teams, getting the record of each team, inserting in default placing.
---FETCH NEXT FROM Cursor1 INTO @team_code
---WHILE (@@FETCH_STATUS <> -1)
---BEGIN
-
---	--select @team_code
---	INSERT INTO wc_group_stage
---	SELECT @RoundNumber, @RoundCode, @TournamentCode, @team_code, 
---		dbo.fnWC_GetTeamGamesPlayed(@TournamentCode, @RoundNumber, @RoundCode, @team_code), --played
---		dbo.fnWC_GetTeamWins(@TournamentCode, @RoundNumber, @RoundCode, @team_code), --W
---		dbo.fnWC_GetTeamDraws(@TournamentCode, @RoundNumber, @RoundCode, @team_code), --D
---		dbo.fnWC_GetTeamLosses(@TournamentCode, @RoundNumber, @RoundCode, @team_code), --L
---		dbo.fnWC_GetTeamGoalsFor(@TournamentCode, @RoundNumber, @RoundCode, @team_code), --GF
---		dbo.fnWC_GetTeamGoalsAgainst (@TournamentCode, @RoundNumber, @RoundCode, @team_code), --GA
---		dbo.fnWC_GetTeamGoalsFor(@TournamentCode, @RoundNumber, @RoundCode, @team_code) - dbo.fnWC_GetTeamGoalsAgainst (@TournamentCode, @RoundNumber, @RoundCode, @team_code), --GD
---		(dbo.fnWC_GetTeamWins(@TournamentCode, @RoundNumber, @RoundCode, @team_code) * dbo.fnWC_GetPointsForAWin(@TournamentCode)) + (dbo.fnWC_GetTeamDraws(@TournamentCode, @RoundNumber, @RoundCode, @team_code) * 1), --Pts
---		0, 0
-
---	--select * From wc_group_stage where tournament_code = 16
-
---	FETCH NEXT FROM Cursor1 INTO @team_code
---END
-
---CLOSE Cursor1
---DEALLOCATE Cursor1
-
-----select * From wc_group_stage where tournament_code = @TournamentCode
-
-----Set the Group Ranking for each group
---DECLARE @group_ranking INT
---SELECT @group_ranking = 0
-
---DECLARE Cursor1 CURSOR LOCAL FOR
---	SELECT gs.team_code
---	FROM wc_group_stage gs
---	WHERE tournament_code = @TournamentCode
---	and round_number = @RoundNumber
---	and round_code = @RoundCode
---	ORDER BY points DESC, goal_difference DESC, goals_for DESC
-
---OPEN Cursor1
-
-----loop through all the items
---FETCH NEXT FROM Cursor1 INTO @team_code
---WHILE (@@FETCH_STATUS <> -1)
---BEGIN
---	SELECT @group_ranking = @group_ranking + 1
+			UPDATE g
+			SET team_2_code = @LosingTeamCode
+			FROM wc_game g
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = 63
+		END
 	
---	DECLARE @has_qualified_for_next_round bit
---	IF (@group_ranking <= @TeamsFromEachGroupThatAdvance)
---	BEGIN
---		SELECT @has_qualified_for_next_round = 1
---	END
---	ELSE
---	BEGIN
---		SELECT @has_qualified_for_next_round = 0
---	END
+		FETCH NEXT FROM Cursor1 INTO @RoundCode, @Team1Score, @Team2Score, @GameNumber
+	END
 
---	UPDATE wc_group_stage
---	SET group_ranking = @group_ranking, has_qualified_for_next_round = @has_qualified_for_next_round
---	WHERE tournament_code = @TournamentCode
---	and round_number = @RoundNumber
---	and round_code = @RoundCode
---	and team_code = @team_code
+	CLOSE Cursor1
+	DEALLOCATE Cursor1
 
---	FETCH NEXT FROM Cursor1 INTO @team_code
---END
-
---CLOSE Cursor1
---DEALLOCATE Cursor1
-
---/*
---SELECT t.team_name, gs.*
---FROM wc_group_stage gs
---JOIN wc_team t ON gs.team_code = t.team_code
---WHERE tournament_code = @TournamentCode
---and round_number = @RoundNumber
---and has_qualified_for_next_round = 0
---ORDER BY points DESC, goal_difference DESC, goals_for DESC
---*/
-
---IF (@TeamsFromAllGroupsThatAdvance = (SELECT COUNT(*) FROM wc_group_stage gs
---										WHERE tournament_code = @TournamentCode
---										and round_number = @RoundNumber
---										and group_ranking <= @TeamsFromEachGroupThatAdvance))
---BEGIN
---		UPDATE wc_group_stage
---		SET has_qualified_for_next_round = 0
---		WHERE tournament_code = @TournamentCode
---		and round_number = @RoundNumber
---		and team_code = @team_code
---		and group_ranking <= @TeamsFromEachGroupThatAdvance
-	
-
---	--Finally set any teams that have qualified for the next round in 3rd place positions
---	SELECT @group_ranking = 0
---	DECLARE Cursor1 CURSOR LOCAL FOR
---		SELECT gs.team_code
---		FROM wc_group_stage gs
---		WHERE tournament_code = @TournamentCode
---		and round_number = @RoundNumber
---		and has_qualified_for_next_round = 0
---		ORDER BY group_ranking, points DESC, goal_difference DESC, goals_for DESC
-
---	OPEN Cursor1
-
---	--loop through all the items
---	FETCH NEXT FROM Cursor1 INTO @team_code
---	WHILE (@@FETCH_STATUS <> -1 and @group_ranking < @GroupAdvancementDifference)
---	BEGIN
---		SELECT @group_ranking = @group_ranking + 1
-		
---		UPDATE wc_group_stage
---		SET has_qualified_for_next_round = 1
---		WHERE tournament_code = @TournamentCode
---		and round_number = @RoundNumber
---		and team_code = @team_code
-
---		FETCH NEXT FROM Cursor1 INTO @team_code
---	END
-
---	CLOSE Cursor1
---	DEALLOCATE Cursor1
---END
-
-----
---/*
---SELECT * 
---FROM wc_group_stage
---WHERE tournament_code = @TournamentCode
---and round_number = @RoundNumber
---and round_code = @RoundCode*/
-
-----SELECT * 
-----FROM wc_tournament_format_round
-----WHERE format_round_code = @format_round_code
-----wc_tournament_format
-
---DROP TABLE #tmp_teams
+END

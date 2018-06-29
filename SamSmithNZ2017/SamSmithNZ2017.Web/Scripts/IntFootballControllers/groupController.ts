@@ -13,6 +13,7 @@
         $scope.games = [];
         $scope.roundCode = '';
         $scope.isLastRound = false;
+        $scope.teamWithdrew = false;
 
         var onError = function (data) {
             //errorHandlerService.errorHandler(data);
@@ -33,6 +34,12 @@
 
         var onGetGroupsEventComplete = function (response) {
             $scope.groups = response.data;
+
+            for (var i = 0; i < $scope.groups.length - 1; i++) {
+                if ($scope.groups[i].TeamWithdrew == true) {
+                    $scope.teamWithdrew = true;
+                }
+            }
 
             if ($scope.tournament != null) {
                 var lnkBreadCrumb2Visibility = 'true';
@@ -93,7 +100,7 @@
         if (!$scope.roundCode) {
             $scope.roundCode = '';
         }
-        
+
         tournamentService.getTournament($scope.tournamentCode).then(onGetTournamentEventComplete, onError);
 
         $scope.updateGroupDetails = function (tournamentCode, roundNumber, roundCode) {
@@ -103,7 +110,7 @@
         };
 
         //Style the group rows depending on the the status of the group
-        $scope.getGroupRowStyle = function (hasQualifiedForNextRound, groupRanking, isLastRound) {
+        $scope.getGroupRowStyle = function (hasQualifiedForNextRound, groupRanking, teamWithdrew, isLastRound) {
             var trStyle = "";
             if (isLastRound == 'true') {
                 switch (groupRanking) {
@@ -121,6 +128,9 @@
             else {
                 if (hasQualifiedForNextRound == true) {
                     trStyle = "#CCFF99";
+                }
+                else if (teamWithdrew == true) {
+                    trStyle = "#ffcccc";
                 }
             }
             return trStyle;

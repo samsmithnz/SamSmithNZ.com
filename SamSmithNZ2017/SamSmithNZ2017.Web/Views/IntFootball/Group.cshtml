@@ -8,13 +8,16 @@
     <div class="row">
         <div class="col-md-12">
             <span>Group: </span><select id="cboGroup" ng-model="roundCode" ng-options="item.RoundCode as item.RoundCode for item in groupCodes" ng-change="updateGroupDetails(tournamentCode, roundNumber, roundCode)"></select>@*@Html.DropDownList("cboGroup", new SelectList(Model.Groups, "RoundCode", "RoundCode", Model.SelectedGroup), new { onchange = "this.form.submit();" })*@
-            <span ng-if="isLastRound == 'true'">
+            <span ng-if="isLastRound == true">
                 &nbsp;<span style="border-style: solid; border-width: 1px; border-color: darkgray; background-color: gold;">&nbsp;World Cup Champion&nbsp;</span>
                 &nbsp;<span style="border-style: solid; border-width: 1px; border-color: darkgray; background-color: silver;">&nbsp;2nd Place&nbsp;</span>
                 &nbsp;<span style="border-style: solid; border-width: 1px; border-color: darkgray; background-color: #A67D3D;">&nbsp;3rd Place&nbsp;</span>
             </span>
-            <span ng-if="isLastRound == 'false'">
+            <span ng-if="isLastRound == false">
                 &nbsp;<span style="border-style: solid; border-width: 1px; border-color: darkgray; background-color: #CCFF99;">&nbsp;Team advances to next round&nbsp;</span>
+            </span>
+            <span ng-if="teamWithdrew == true">
+                &nbsp;<span style="border-style: solid; border-width: 1px; border-color: darkgray; background-color: #ffcccc;">&nbsp;Team withdrew prior to start of tournament&nbsp;</span>
             </span>
         </div>
     </div>
@@ -34,7 +37,7 @@
                     <th>Points</th>
                     <th>ELO Rating</th>
                 </tr>
-                <tr ng-repeat="item in groups" ng-style="{'background-color': getGroupRowStyle(item.HasQualifiedForNextRound, item.GroupRanking, isLastRound)}">
+                <tr ng-repeat="item in groups" ng-style="{'background-color': getGroupRowStyle(item.HasQualifiedForNextRound, item.GroupRanking, item.TeamWithdrew, isLastRound)}">
                     <td>
                         <img ng-src="~/Content/IntFootball/Teams/{{item.TeamFlagName}}" CssClass="TeamImage" />
                         <a href="/IntFootball/Team?TeamCode={{item.TeamCode}}">{{item.TeamName}}</a>
@@ -71,7 +74,7 @@
                 </tr>
                 <tr ng-repeat="item in games" ng-style="{'background-color': getGameRowStyle(item.GameCode)}">
                     <td><div ng-if="item.RowType == 1">{{item.GameNumber}}</div></td>
-                    <td><div ng-if="item.RowType == 1">{{item.GameTime | date:'dd-MMM-yyyy'}}</div></td>
+                    <td><div ng-if="item.RowType == 1">{{item.GameTime | date:'dd-MMM-yyyy HH:mm'}}</div></td>
                     <td><div ng-if="item.RowType == 1">{{item.RoundNumber}}</div></td>
                     <td><div ng-if="item.RowType == 1">{{item.RoundName}}</div></td>
                     <td><div ng-if="item.RowType == 1">{{item.RoundCode}}</div></td>

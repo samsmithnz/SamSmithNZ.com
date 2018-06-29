@@ -19,7 +19,7 @@
 
         var onGetGamesEventComplete = function (response) {
             $scope.games = response.data;
-            //console.log($scope.games);
+            console.log($scope.games);
 
             $scope.show16s = true;
             $scope.showQuarters = true;
@@ -77,6 +77,7 @@
 
         var onGetTournamentEventComplete = function (response) {
             $scope.tournament = response.data;
+            //console.log($scope.tournament);
 
             if ($scope.tournament != null) {
                 var lnkBreadCrumb2Visibility = 'true';
@@ -122,7 +123,7 @@
 
         $scope.findGame = function (gameNumber) {
             for (var i = 0; i <= $scope.games.length - 1; i++) {
-                if ($scope.games[i].GameNumber == gameNumber && $scope.games[i].Team1Code > 0) {
+                if ($scope.games[i].GameNumber == gameNumber && ($scope.games[i].Team1Code > 0 || $scope.games[i].Team2Code > 0)) {
                     return $scope.games[i];
                 }
             }

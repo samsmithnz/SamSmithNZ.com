@@ -13,17 +13,18 @@ BEGIN
 		gs.group_ranking AS GroupRanking, 
 		gs.has_qualified_for_next_round AS HasQualifiedForNextRound, 
 		gs.losses AS Losses,
-		gs.played AS Played, 
+		CASE WHEN gs.played < 0 THEN 0 ELSE gs.played END AS Played, 
 		gs.points AS Points, 
 		gs.round_code AS RoundCode, 
 		gs.round_number AS RoundNumber, 
 		gs.team_code AS TeamCode, 
 		gs.tournament_code AS TournamentCode, 
 		gs.wins AS Wins,
-		e.elo_rating AS ELORating
+		e.elo_rating AS ELORating,
+		CASE WHEN gs.played < 0 THEN 1 ELSE 0 END AS TeamWithdrew
 	FROM wc_group_stage gs
 	JOIN wc_team t ON gs.team_code = t.team_code
-	JOIN wc_tournament_team_elo_rating e ON gs.tournament_code = e.tournament_code AND gs.team_code = e.team_code
+	LEFT JOIN wc_tournament_team_elo_rating e ON gs.tournament_code = e.tournament_code AND gs.team_code = e.team_code
 	WHERE gs.tournament_code = @TournamentCode
 	AND gs.round_number = @RoundNumber
 	AND gs.round_code = @RoundCode

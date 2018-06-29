@@ -78,17 +78,29 @@ namespace SSNZ.IntFootball.Goals.WinWPF
                     btnSave.IsEnabled = false;
                     btnCancel.IsEnabled = false;
                     lblStatus.Content = "Updating ELO ratings...";
-                    _game.Team1NormalTimeScore = Convert.ToInt32(txtTeam1NormalTime.Text);
-                    _game.Team2NormalTimeScore = Convert.ToInt32(txtTeam2NormalTime.Text);
-                    if (txtTeam1ExtraTime.Text.Length > 0 || txtTeam2ExtraTime.Text.Length > 0)
+                    if (txtTeam1NormalTime.Text.Length == 0 || txtTeam2NormalTime.Text.Length == 0)
                     {
-                        _game.Team1ExtraTimeScore = Convert.ToInt32(txtTeam1ExtraTime.Text);
-                        _game.Team2ExtraTimeScore = Convert.ToInt32(txtTeam2ExtraTime.Text);
+                        _game.Team1NormalTimeScore = null;
+                        _game.Team2NormalTimeScore = null;
+                        _game.Team1ExtraTimeScore = null;
+                        _game.Team2ExtraTimeScore = null;
+                        _game.Team1PenaltiesScore = null;
+                        _game.Team2PenaltiesScore = null;
                     }
-                    if (txtTeam1Penalties.Text.Length > 0 || txtTeam2Penalties.Text.Length > 0)
+                    else
                     {
-                        _game.Team1PenaltiesScore = Convert.ToInt32(txtTeam1Penalties.Text);
-                        _game.Team2PenaltiesScore = Convert.ToInt32(txtTeam2Penalties.Text);
+                        _game.Team1NormalTimeScore = Convert.ToInt32(txtTeam1NormalTime.Text);
+                        _game.Team2NormalTimeScore = Convert.ToInt32(txtTeam2NormalTime.Text);
+                        if (txtTeam1ExtraTime.Text.Length > 0 || txtTeam2ExtraTime.Text.Length > 0)
+                        {
+                            _game.Team1ExtraTimeScore = Convert.ToInt32(txtTeam1ExtraTime.Text);
+                            _game.Team2ExtraTimeScore = Convert.ToInt32(txtTeam2ExtraTime.Text);
+                        }
+                        if (txtTeam1Penalties.Text.Length > 0 || txtTeam2Penalties.Text.Length > 0)
+                        {
+                            _game.Team1PenaltiesScore = Convert.ToInt32(txtTeam1Penalties.Text);
+                            _game.Team2PenaltiesScore = Convert.ToInt32(txtTeam2Penalties.Text);
+                        }
                     }
 
                     GameDataAccess da = new GameDataAccess();
@@ -116,6 +128,17 @@ namespace SSNZ.IntFootball.Goals.WinWPF
         private Boolean ValidateSave()
         {
             int result;
+            if (txtTeam1NormalTime.Text.Length == 0 && txtTeam2NormalTime.Text.Length == 0)
+            {
+                if (MessageBox.Show("Are you sure you want to remove this result?", "Remove result?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
             if (int.TryParse(txtTeam1NormalTime.Text, out result) == false)
             {
                 MessageBox.Show("Enter a valid team 1 normal time score");
@@ -126,7 +149,6 @@ namespace SSNZ.IntFootball.Goals.WinWPF
                 MessageBox.Show("Enter a valid team 2 normal time score");
                 return false;
             }
-
             if (txtTeam1ExtraTime.Text.Length > 0 && int.TryParse(txtTeam1ExtraTime.Text, out result) == false)
             {
                 MessageBox.Show("Enter a valid team 1 extra time score");
