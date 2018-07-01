@@ -100,16 +100,19 @@ namespace SSNZ.IntFootball.Data
                     {
                         item.Team1ResultWonGame = true;
                         item.Team2ResultWonGame = false;
-                        item.Team1ResultInformation = "";
-                        item.Team2ResultInformation = "";
                     }
                     else if (item.Team1ResultRegulationTimeScore < item.Team2ResultRegulationTimeScore)
                     {
                         item.Team2ResultWonGame = true;
                         item.Team1ResultWonGame = false;
-                        item.Team1ResultInformation = "";
-                        item.Team2ResultInformation = "";
                     }
+                    else
+                    {
+                        item.Team2ResultWonGame = false;
+                        item.Team1ResultWonGame = false;
+                    }
+                    item.Team1ResultInformation = "";
+                    item.Team2ResultInformation = "";
                 }
                 else if (item.Team1ExtraTimeScore != null && item.Team1PenaltiesScore == null)
                 {
@@ -129,6 +132,11 @@ namespace SSNZ.IntFootball.Data
                         item.Team2ResultWonGame = true;
                         item.Team1ResultInformation = "";
                         item.Team2ResultInformation = "(aet)";
+                    }
+                    else
+                    {
+                        item.Team1ResultWonGame = false;
+                        item.Team2ResultWonGame = false;
                     }
                 }
 

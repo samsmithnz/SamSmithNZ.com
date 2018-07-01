@@ -158,21 +158,35 @@
 
         <div class="col-md-6">
             <b>Top goal scorers:</b>
-            <table class="table table-striped table-bordered">
-                <tr>
-                    <th>Player</th>
-                    <th>Goals Scored</th>
-                    <th>Team</th>
-                </tr>
-                <tr ng-repeat="item in tournamentTopGoalScorers">
-                    <td>{{item.PlayerName}}</td>
-                    <td>{{item.GoalsScored}}</td>
-                    <td>
-                        <img ng-src="~/Content/IntFootball/Teams/{{item.FlagName}}" CssClass="TeamImage" />
-                        <a href="/IntFootball/Team?teamCode={{item.TeamCode}}">{{item.TeamName}}</a>
-                    </td>
-                </tr>
-            </table>
+            <br /><br />
+            <div ng-repeat="item in tournamentTopGoalScorersAdjusted">
+                <b ng-if="item.Goals > 1">{{item.Goals}} goals</b>
+                <b ng-if="item.Goals == 1">{{item.Goals}} goal</b><br />
+                <div class="col-sm-12">
+                    <div class="col-sm-3" ng-repeat="player in item.Players">
+                        &bull;<a href="/IntFootball/Team?teamCode={{player.TeamCode}}">
+                            <img ng-src="~/Content/IntFootball/Teams/{{player.FlagName}}" CssClass="TeamImage" />
+                        </a>
+                        &nbsp;{{player.PlayerName}}&nbsp;
+                    </div>
+                </div>
+                <br /><br />
+            </div>
+            @*<table class="table table-striped table-bordered">
+                    <tr>
+                        <th>Player</th>
+                        <th>Goals Scored</th>
+                        <th>Team</th>
+                    </tr>
+                    <tr ng-repeat="item in tournamentTopGoalScorers">
+                        <td>{{item.PlayerName}}</td>
+                        <td>{{item.GoalsScored}}</td>
+                        <td>
+                            <img ng-src="~/Content/IntFootball/Teams/{{item.FlagName}}" CssClass="TeamImage" />
+                            <a href="/IntFootball/Team?teamCode={{item.TeamCode}}">{{item.TeamName}}</a>
+                        </td>
+                    </tr>
+                </table>*@
         </div>
     </div>
 

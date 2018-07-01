@@ -14,6 +14,7 @@
         $scope.R3GroupArray = [];
         $scope.tournamentTeams = [];
         $scope.tournamentTopGoalScorers = [];
+        $scope.tournamentTopGoalScorersAdjusted = [];
 
         var onError = function (data) {
             //errorHandlerService.errorHandler(data);
@@ -93,6 +94,24 @@
 
         var onGetTournamentTopGoalScorersEventComplete = function (response) {
             $scope.tournamentTopGoalScorers = response.data;
+            var goals = 0;
+            var currentGoalIndex = -1;
+            $scope.tournamentTopGoalScorersAdjusted
+
+            //Pivot the data so that for each goal it creates a new array of players for those goals
+            for (var i = 0; i < $scope.tournamentTopGoalScorers.length; i++) {
+                if (goals != $scope.tournamentTopGoalScorers[i].GoalsScored) {
+                    goals = $scope.tournamentTopGoalScorers[i].GoalsScored;
+                    currentGoalIndex++;
+                    var newGoal = {
+                        Goals: goals,
+                        Players: []
+                    }
+                    $scope.tournamentTopGoalScorersAdjusted.push(newGoal);
+                }
+                $scope.tournamentTopGoalScorersAdjusted[currentGoalIndex].Players.push($scope.tournamentTopGoalScorers[i]);
+            }
+            //console.log($scope.tournamentTopGoalScorersAdjusted);
         }
 
         //console.log("TournamentCode: " + getUrlParameter('TournamentCode'));
@@ -101,10 +120,10 @@
         tournamentService.getTournament($scope.tournamentCode).then(onGetTournamentEventComplete, onError);
         tournamentTeamService.getTournamentPlacingTeams($scope.tournamentCode).then(onGetTournamentPlacingTeamsEventComplete, onError);
         tournamentTopGoalScorerService.getTournamentTopGoalScores($scope.tournamentCode).then(onGetTournamentTopGoalScorersEventComplete, onError);
-        
-            $scope.getCharacter = function (code) {
-                return String.fromCharCode(code);
-            };
+
+        $scope.getCharacter = function (code) {
+            return String.fromCharCode(code);
+        };
     }
 
     function getUrlParameter(param: string) {

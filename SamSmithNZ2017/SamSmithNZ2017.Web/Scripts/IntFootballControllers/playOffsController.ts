@@ -28,9 +28,21 @@
             $scope.showFinals = true;
 
             var gameCount = 0;
+            var firstRow3 = true;
+            $scope.RowType3FirstRow = 0;
             for (var i = 0; i < $scope.games.length; i++) {
                 if ($scope.games[i].RowType == 1) {
                     gameCount++;
+                }
+                else if ($scope.games[i].RowType == 3 && firstRow3 == true) {
+                    //Mark the first row of PK's with a tag so we can use a label in the UI
+                    firstRow3 = false;
+                    if ($scope.games[i].Team1PenaltiesScore != null) {
+                        $scope.RowType3FirstRow = $scope.games[i].Team1Code; 
+                    }
+                    else if ($scope.games[i].Team2PenaltiesScore != null) {
+                        $scope.RowType3FirstRow = $scope.games[i].Team2Code;
+                    }
                 }
             }
             //console.log('games: ' + gameCount);
