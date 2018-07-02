@@ -92,6 +92,20 @@ BEGIN
 			SELECT @WinningTeamCode = 0, @LosingTeamCode = 0
 		END
 
+		--Keep the winning team in the competition
+		UPDATE te
+		SET te.is_active = 1
+		FROM wc_tournament_team_entry te
+		WHERE te.tournament_code = @TournamentCode
+		AND te.team_code = @WinningTeamCode
+
+		--Remove the losing team	
+		UPDATE te
+		SET te.is_active = 0
+		FROM wc_tournament_team_entry te
+		WHERE te.tournament_code = @TournamentCode
+		AND te.team_code = @LosingTeamCode
+
 		--Quarter-finals
 		--Winners Match 49	Match 57	Winners Match 50		
 		IF (@GameNumber = 49) 

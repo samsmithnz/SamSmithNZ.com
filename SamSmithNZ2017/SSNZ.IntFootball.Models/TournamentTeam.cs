@@ -35,6 +35,7 @@ namespace SSNZ.IntFootball.Models
 
             }
         }
+        public bool IsActive { get; set; }
 
     }
 }

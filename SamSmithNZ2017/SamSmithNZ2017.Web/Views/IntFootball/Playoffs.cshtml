@@ -1056,8 +1056,10 @@
                     </td>
                     <td style="text-align: center;">
                         <div ng-if="item.Team1NormalTimeScore >= 0 && item.RowType == 1">
-                            <span ng-if="item.Team1PenaltiesScore == null">{{item.Team1ResultRegulationTimeScore}} - {{item.Team2ResultRegulationTimeScore}} {{item.Team1ResultInformation}}{{item.Team2ResultInformation}}</span>
-                            <div ng-if="item.Team1PenaltiesScore != null && item.Team1PenaltiesScore >= 0">
+                            <span ng-if="!item.Team1PenaltiesScore && item.Team1NormalTimeScore != null">
+                                {{item.Team1ResultRegulationTimeScore}} - {{item.Team2ResultRegulationTimeScore}} {{item.Team1ResultInformation}}{{item.Team2ResultInformation}}
+                            </span>
+                            <div ng-if="item.Team1PenaltiesScore && item.Team1PenaltiesScore >= 0">
                                 <span>{{item.Team1ResultRegulationTimeScore}} - {{item.Team2ResultRegulationTimeScore}} (aet)</span>
                                 <br />
                                 {{item.Team1PenaltiesScore}} - {{item.Team2PenaltiesScore}} {{item.Team1ResultInformation}}{{item.Team2ResultInformation}}
@@ -1067,8 +1069,8 @@
                             Chance to win:<br />
                             {{item.Team1ChanceToWin | number : 2}}% - {{item.Team2ChanceToWin | number : 2}}%
                         </div>
-                        <div ng-if="item.RowType == 3 && RowType3FirstRow != 0 && (RowType3FirstRow == item.Team1Code || RowType3FirstRow == item.Team2Code)">
-                            Penalty Shootout
+                        <div ng-if="item.RowType == 3 && (item.FifaRanking == item.Team1Code || item.FifaRanking == item.Team2Code)">
+                            <u>Penalty Shootout</u>
                         </div>
                     </td>
                     <td style="text-align: left;">

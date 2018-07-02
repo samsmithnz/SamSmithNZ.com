@@ -38,11 +38,14 @@
                     //Mark the first row of PK's with a tag so we can use a label in the UI
                     firstRow3 = false;
                     if ($scope.games[i].Team1PenaltiesScore != null) {
-                        $scope.RowType3FirstRow = $scope.games[i].Team1Code; 
+                        $scope.games[i].FifaRanking = $scope.games[i].Team1Code;
                     }
                     else if ($scope.games[i].Team2PenaltiesScore != null) {
-                        $scope.RowType3FirstRow = $scope.games[i].Team2Code;
+                        $scope.games[i].FifaRanking = $scope.games[i].Team2Code;
                     }
+                }
+                else if ($scope.games[i].RowType != 3 && firstRow3 == false) {
+                    firstRow3 = true;
                 }
             }
             //console.log('games: ' + gameCount);

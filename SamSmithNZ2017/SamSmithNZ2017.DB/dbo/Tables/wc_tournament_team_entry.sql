@@ -4,7 +4,8 @@
     [round_code]        VARCHAR (10)  NOT NULL,
     [fifa_ranking]      INT      NULL,
     [coach_name]        VARCHAR (200) NULL,
-    [coach_nationality] VARCHAR (200) NULL
+    [coach_nationality] VARCHAR (200) NULL,
+	[is_active]			BIT NULL
 );
 
 

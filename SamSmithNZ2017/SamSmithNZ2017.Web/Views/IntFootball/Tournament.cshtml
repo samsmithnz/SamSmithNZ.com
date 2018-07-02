@@ -157,20 +157,24 @@
         </div>
 
         <div class="col-md-6">
-            <b>Top goal scorers:</b>
+            <b>Top goal scorers:</b> (bold indicates the player's team is still in the tournament)
             <br /><br />
             <div ng-repeat="item in tournamentTopGoalScorersAdjusted">
-                <b ng-if="item.Goals > 1">{{item.Goals}} goals</b>
-                <b ng-if="item.Goals == 1">{{item.Goals}} goal</b><br />
-                <div class="col-sm-12">
-                    <div class="col-sm-3" ng-repeat="player in item.Players">
-                        &bull;<a href="/IntFootball/Team?teamCode={{player.TeamCode}}">
-                            <img ng-src="~/Content/IntFootball/Teams/{{player.FlagName}}" CssClass="TeamImage" />
-                        </a>
-                        &nbsp;{{player.PlayerName}}&nbsp;
+                <span ng-if="item.Goals > 1"><b>{{item.Goals}} goals</b></span>
+                <span ng-if="item.Goals == 1"><b>{{item.Goals}} goal</b></span>
+                <br />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-3" ng-repeat="player in item.Players">
+                            &bull;<a href="/IntFootball/Team?teamCode={{player.TeamCode}}">
+                                <img ng-src="~/Content/IntFootball/Teams/{{player.FlagName}}" CssClass="TeamImage" />
+                            </a>
+                            <span ng-if="player.IsActive"><b>&nbsp;{{player.PlayerName}}&nbsp;</b></span>
+                            <span ng-if="!player.IsActive">&nbsp;{{player.PlayerName}}&nbsp;</span>
+                        </div>
                     </div>
                 </div>
-                <br /><br />
+                <br />
             </div>
             @*<table class="table table-striped table-bordered">
                     <tr>
