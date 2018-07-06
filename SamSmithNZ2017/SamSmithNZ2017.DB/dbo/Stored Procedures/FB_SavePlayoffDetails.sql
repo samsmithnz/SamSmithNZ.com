@@ -106,6 +106,12 @@ BEGIN
 		WHERE te.tournament_code = @TournamentCode
 		AND te.team_code = @LosingTeamCode
 
+		UPDATE c
+		SET c.chance_to_win = 0
+		FROM wc_tournament_team_chance_to_win c
+		WHERE c.tournament_code = @TournamentCode
+		AND c.team_code = @LosingTeamCode
+
 		--Quarter-finals
 		--Winners Match 49	Match 57	Winners Match 50		
 		IF (@GameNumber = 49) 

@@ -15,6 +15,7 @@
         $scope.tournamentTeams = [];
         $scope.tournamentTopGoalScorers = [];
         $scope.tournamentTopGoalScorersAdjusted = [];
+        $scope.ChanceToWin = null;
 
         var onError = function (data) {
             //errorHandlerService.errorHandler(data);
@@ -85,6 +86,9 @@
             }
             else {
                 $scope.tournamentTeams = response.data;
+                if ($scope.tournamentTeams.length > 0 && $scope.tournamentTeams[0].ChanceToWin > 0) {
+                    $scope.ChanceToWin = true;
+                }
             }
         }
 

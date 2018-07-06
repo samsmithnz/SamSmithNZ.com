@@ -36,6 +36,7 @@ namespace SSNZ.IntFootball.Models
             }
         }
         public bool IsActive { get; set; }
+        public decimal ChanceToWin { get; set; }
 
     }
 }

@@ -210,3 +210,11 @@ Pre {
 .PlaylistSideBar {
     font-size: 9pt;
 }
+
+.TeamImage {
+    margin-left: 4px;
+    max-width: 22px; 
+    border-color: DarkGray;
+    border-style: Solid;
+    border-width: 1px;
+}

@@ -4,13 +4,14 @@
 
 <div ng-controller="teamController">
 
-    <h2><img ng-src="~/Content/IntFootball/Teams/{{team.FlagName}}" CssClass="TeamImage" style="width: 35px; padding-bottom: 4px;" /> {{team.TeamName}}</h2>
+    <h2><img ng-src="~/Content/IntFootball/Teams/{{team.FlagName}}" Class="TeamImage" style="width: 35px; padding-bottom: 4px;" /> {{team.TeamName}}</h2>
     <br />
 
     <div class="row">
         <div class="col-md-12">
             <table class="table table-striped table-bordered">
                 <tr>
+                    <th>Tournament</th>
                     <th>Game #</th>
                     <th>Game Time</th>
                     <th>Round</th>
@@ -20,11 +21,11 @@
                     <th>Score</th>
                     <th></th>
                     <th>Location</th>
-                    <th>Tournament</th>
                     <th>Coach</th>
                     @*<th>Fifa Ranking</th>*@
                 </tr>
                 <tr ng-repeat="item in games">
+                    <td>{{item.TournamentName}}</td>
                     <td>{{item.GameNumber}}</td>
                     <td>{{item.GameTime | date:'dd-MMM-yyyy HH:mm'}}</td>
                     <td>{{item.RoundNumber}}</td>
@@ -32,7 +33,7 @@
                     <td>{{item.RoundCode}}</td>
                     <td style="text-align: right;">
                         <a href="/IntFootball/Team?TeamCode={{item.Team1Code}}">{{item.Team1Name}}</a>
-                        <img ng-src="~/Content/IntFootball/Teams/{{item.Team1FlagName}}" CssClass="TeamImage" />
+                        <img ng-src="~/Content/IntFootball/Teams/{{item.Team1FlagName}}" Class="TeamImage" />
                     </td>
                     <td style="text-align: center;">
                         <div ng-if="item.Team1NormalTimeScore >= 0">
@@ -45,12 +46,11 @@
                         </div>
                     </td>
                     <td style="text-align: left;">
-                        <img ng-src="~/Content/IntFootball/Teams/{{item.Team2FlagName}}" CssClass="TeamImage" />
+                        <img ng-src="~/Content/IntFootball/Teams/{{item.Team2FlagName}}" Class="TeamImage" />
                         <a href="/IntFootball/Team?TeamCode={{item.Team2Code}}">{{item.Team2Name}}</a>
                     </td>
                     <td>{{item.Location}}</td>
-                    <td>{{item.TournamentName}}</td>
-                    <td><img ng-src="~/Content/IntFootball/Teams/{{item.CoachFlag}}" CssClass="TeamImage" ng-if="item.CoachFlag != ''" />{{item.CoachName}}</td>                    
+                    <td><img ng-src="~/Content/IntFootball/Teams/{{item.CoachFlag}}" Class="TeamImage" ng-if="item.CoachFlag != ''" />{{item.CoachName}}</td>
                 </tr>
             </table>
         </div>
@@ -84,7 +84,7 @@
                         }
                         <td style="text-align: right;">
                             <a href="@Url.Action("Team", "IntFootball", new { teamCode = {{item.Team1Code })">{{item.Team1Name</a>
-                            <img src="@Url.Content("~/Content/IntFootball/Teams/" + {{item.Team1FlagName)" CssClass="TeamImage" />
+                            <img src="@Url.Content("~/Content/IntFootball/Teams/" + {{item.Team1FlagName)" Class="TeamImage" />
                         </td>
                         <td style="text-align: center;">
                             <span id="lblScore">@result.TeamScoresText</span>
@@ -104,7 +104,7 @@
                             }
                         </td>
                         <td style="text-align: left;">
-                            <img src="@Url.Content("~/Content/IntFootball/Teams/" + {{item.Team2FlagName)" CssClass="TeamImage" />
+                            <img src="@Url.Content("~/Content/IntFootball/Teams/" + {{item.Team2FlagName)" Class="TeamImage" />
                             <a href="@Url.Action("Team", "IntFootball", new { teamCode = {{item.Team2Code })">{{item.Team2Name</a>
                         </td>
                         <td>{{item.Location</td>

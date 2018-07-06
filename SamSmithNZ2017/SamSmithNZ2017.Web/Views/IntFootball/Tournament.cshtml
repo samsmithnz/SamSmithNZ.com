@@ -134,7 +134,8 @@
                 <tr>
                     <th>Placing</th>
                     <th>Team</th>
-                    <th ng-if="tournamentTeams.length > 0 && tournamentTeams[0].FifaRanking > 0">Starting ELO Rating</th>
+                    <th ng-if="ChanceToWin">Chance to win</th>
+                    @*<th ng-if="tournamentTeams.length > 0 && tournamentTeams[0].FifaRanking > 0">Starting ELO Rating</th>*@
                     <th ng-if="tournamentTeams.length > 0 && tournamentTeams[0].FifaRanking > 0">Current ELO Rating</th>
                     @*<th>Coach</th>*@
                     <th>Region</th>
@@ -142,15 +143,17 @@
                 <tr ng-repeat="item in tournamentTeams">
                     <td><span ng-if="item.Placing != 0">{{item.Placing}}</span></td>
                     <td>
-                        <img ng-src="~/Content/IntFootball/Teams/{{item.FlagName}}" CssClass="TeamImage" />
+                        <img ng-src="~/Content/IntFootball/Teams/{{item.FlagName}}" Class="TeamImage" "  />
                         <a href="/IntFootball/Team?teamCode={{item.TeamCode}}">{{item.TeamName}}</a>
                     </td>
-                    <td ng-if="item.FifaRanking > 0">{{item.FifaRanking}}</td>
+                    <td ng-if="ChanceToWin && item.ChanceToWin > 0">{{item.ChanceToWin | number: 1}}%</td>
+                    <td ng-if="ChanceToWin && item.ChanceToWin == 0"></td>
+                    @*<td ng-if="item.FifaRanking > 0">{{item.FifaRanking}}</td>*@
                     <td ng-if="item.FifaRanking > 0">{{item.ELORating}} ({{item.ELORatingDifference}})</td>
                     @*<td>
-                            <img ng-src="~/Content/IntFootball/Teams/{{item.CoachNationalityFlagName}}" CssClass="TeamImage" ng-if="item.CoachNationalityFlagName != ''" />
-                            {{item.CoachName}}
-                        </td>*@
+            <img ng-src="~/Content/IntFootball/Teams/{{item.CoachNationalityFlagName}}" Class="TeamImage" ng-if="item.CoachNationalityFlagName != ''" />
+            {{item.CoachName}}
+        </td>*@
                     <td>{{item.RegionName}}</td>
                 </tr>
             </table>
@@ -167,7 +170,7 @@
                     <div class="col-sm-12">
                         <div class="col-sm-3" ng-repeat="player in item.Players">
                             &bull;<a href="/IntFootball/Team?teamCode={{player.TeamCode}}">
-                                <img ng-src="~/Content/IntFootball/Teams/{{player.FlagName}}" CssClass="TeamImage" />
+                                <img ng-src="~/Content/IntFootball/Teams/{{player.FlagName}}" Class="TeamImage" />
                             </a>
                             <span ng-if="player.IsActive"><b>&nbsp;{{player.PlayerName}}&nbsp;</b></span>
                             <span ng-if="!player.IsActive">&nbsp;{{player.PlayerName}}&nbsp;</span>
@@ -186,7 +189,7 @@
                         <td>{{item.PlayerName}}</td>
                         <td>{{item.GoalsScored}}</td>
                         <td>
-                            <img ng-src="~/Content/IntFootball/Teams/{{item.FlagName}}" CssClass="TeamImage" />
+                            <img ng-src="~/Content/IntFootball/Teams/{{item.FlagName}}" Class="TeamImage" />
                             <a href="/IntFootball/Team?teamCode={{item.TeamCode}}">{{item.TeamName}}</a>
                         </td>
                     </tr>
