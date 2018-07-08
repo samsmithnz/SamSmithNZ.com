@@ -52,6 +52,8 @@ namespace SSNZ.IntFootball.Data
             List<TeamELORating> teamRatingList = new List<TeamELORating>();
             foreach (Game item in gameList)
             {
+                //Calculate the ELO rating for each team, adding it to the teamRatingList object if it's not already in there
+                //TODO: Chance this so that it saves ELO updates PER game, instead of just the final ELO rating
                 TeamELORating team1 = GetTeamELORating(tournamentCode, item.Team1Code, item.Team1Name, GetTournamentTeamFifaRanking(item.Team1Code, tournamentTeams), teamRatingList);
                 TeamELORating team2 = GetTeamELORating(tournamentCode, item.Team2Code, item.Team2Name, GetTournamentTeamFifaRanking(item.Team2Code, tournamentTeams), teamRatingList);
                 EloRating.Matchup match = new EloRating.Matchup();

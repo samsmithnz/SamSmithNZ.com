@@ -24,31 +24,59 @@ namespace SamSmithNZ2017.Controllers
             return View();
         }
 
-        public ActionResult Tournament(int tournamentCode)
+        public ActionResult Tournament(int? tournamentCode)
         {
-            return View();
+            if (tournamentCode == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
-        public ActionResult Group(int tournamentCode, int roundNumber, string roundCode)
+        public ActionResult Group(int? tournamentCode, int? roundNumber, string roundCode)
         {
-            return View();
+            if (tournamentCode == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
-        public ActionResult Playoffs(int tournamentCode, int roundNumber)
+        public ActionResult Playoffs(int? tournamentCode, int? roundNumber)
         {
-            return View();
+            if (tournamentCode == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
-        public ActionResult Team(int teamCode)
+        public ActionResult Team(int? teamCode)
         {
-            return View();
+            if (teamCode == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult TournamentDetails(int tournamentCode)
         {
             return RedirectToAction("Tournament", new { tournamentCode = tournamentCode });
         }
-        
+
         public ActionResult GroupDetails(int tournamentCode, int roundNumber, bool isLastRound)
         {
             return RedirectToAction("Group", new { tournamentCode = tournamentCode, roundNumber = roundNumber, roundCode = "" });

@@ -37,6 +37,8 @@ namespace SSNZ.IntFootball.Models
         }
         public bool IsActive { get; set; }
         public decimal ChanceToWin { get; set; }
-
+        public int GF { get; set; }
+        public int GA { get; set; }
+        public int GD { get; set; }
     }
 }

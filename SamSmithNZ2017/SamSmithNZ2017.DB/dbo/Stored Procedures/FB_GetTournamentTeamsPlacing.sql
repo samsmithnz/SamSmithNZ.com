@@ -9,7 +9,7 @@ BEGIN
 	IF (@TournamentCode <= 19)
 	BEGIN
 		INSERT INTO #tmp_final_placing
-		SELECT final_placing, final_placing, team_code 
+		SELECT final_placing, CONVERT(VARCHAR(50), final_placing), team_code 
 		FROM wc_tournament_team_final_placing
 		WHERE tournament_code = @TournamentCode
 	END
@@ -152,6 +152,24 @@ BEGIN
 		AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
 	END
 
+	CREATE TABLE #TeamRecord(TeamCode INT, GF INT, GA INT, GD INT)--, PKs INT, PKsMissed INT)
+	INSERT INTO #TeamRecord
+	SELECT g.team_1_code, 
+		SUM(g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0)),
+		SUM(g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0)), 
+		NULL  
+	FROM wc_game g
+	WHERE g.tournament_code = @TournamentCode
+	GROUP BY g.team_1_code
+	UNION
+	SELECT g.team_2_code, 
+		SUM(g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0)), 
+		SUM(g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0)),
+		NULL  
+	FROM wc_game g
+	WHERE g.tournament_code = @TournamentCode
+	GROUP BY g.team_2_code
+
 	SELECT DISTINCT fp.FinalPlacing AS Placing, 
 		t.team_code AS TeamCode, 
 		t.team_name AS TeamName, 
@@ -164,7 +182,10 @@ BEGIN
 		e.elo_rating AS ELORating,
 		te.is_active AS IsActive,
 		fp.SortOrder,
-		cw.chance_to_win * 100 AS ChanceToWin
+		ISNULL(cw.chance_to_win,0) * CONVERT(DECIMAL(8,4), 100) AS ChanceToWin,
+		SUM(tr.GF) AS GF,
+		SUM(tr.GA) AS GA,		
+		SUM(tr.GF) - SUM(tr.GA) AS GD
 	FROM #tmp_final_placing fp
 	JOIN wc_team t ON fp.TeamCode = t.team_code
 	JOIN wc_tournament_team_entry te ON te.team_code = t.team_code
@@ -172,12 +193,28 @@ BEGIN
 	LEFT JOIN wc_team ct ON ct.team_name = te.coach_nationality
 	LEFT JOIN wc_tournament_team_elo_rating e ON te.tournament_code = e.tournament_code AND te.team_code = e.team_code
 	LEFT JOIN wc_tournament_team_chance_to_win cw ON te.tournament_code = cw.tournament_code AND te.team_code = cw.team_code
+	JOIN #TeamRecord tr ON tr.TeamCode = fp.TeamCode
 	WHERE te.tournament_code = @TournamentCode
 	--AND fp.TeamCode = 29
-	ORDER BY cw.chance_to_win * 100 DESC,
+	GROUP BY fp.FinalPlacing,
+		t.team_code, 
+		t.team_name, 
+		t.flag_name, 
+		r.region_code, 
+		r.region_abbrev, 
+		ISNULL(te.fifa_ranking,0), 
+		te.coach_name, 
+		ISNULL(ct.flag_name,''),
+		e.elo_rating,
+		te.is_active,
+		fp.SortOrder,
+		ISNULL(cw.chance_to_win,0) * CONVERT(DECIMAL(8,4), 100)
+	ORDER BY ISNULL(cw.chance_to_win,0) * CONVERT(DECIMAL(8,4), 100) DESC,
 		fp.SortOrder, 
 		e.elo_rating DESC, 
 		t.team_name
 
 	DROP TABLE #tmp_final_placing
+	DROP TABLE #TeamRecord
 END
+GO

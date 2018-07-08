@@ -107,7 +107,7 @@ BEGIN
 		AND te.team_code = @LosingTeamCode
 
 		UPDATE c
-		SET c.chance_to_win = 0
+		SET c.chance_to_win = CONVERT(DECIMAL(6,4), 0)
 		FROM wc_tournament_team_chance_to_win c
 		WHERE c.tournament_code = @TournamentCode
 		AND c.team_code = @LosingTeamCode

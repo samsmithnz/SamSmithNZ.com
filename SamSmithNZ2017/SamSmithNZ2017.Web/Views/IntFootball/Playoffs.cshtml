@@ -827,7 +827,7 @@
                     <div>
                         <img ng-src="~/Content/IntFootball/Teams/{{findGame(62).Team2FlagName}}" Class="TeamImage" align="top" ng-if="findGame(62).Team2FlagName != ''" />
                         <a ng-if="findGame(62).Team2Code > 0" href="/IntFootball/Team?teamCode={{findGame(62).Team2Code}}">{{findGame(62).Team2Name}}</a> {{findGame(62).Team2ResultInformation}}
-                        <span ng-if="findGame(62) == null || findGame(62).Team1Code == 0">Winner Game 60</span>
+                        <span ng-if="findGame(62) == null || findGame(62).Team2Code == 0">Winner Game 60</span>
                     </div>
                 </td>
                 <td rowspan="2" class="PlayoffScore" id="tdCol_K5" ng-if="showSemis == true">
