@@ -21,7 +21,7 @@ namespace SamSmithNZ2017.Controllers
             return View();
         }
 
-        public ActionResult LevelCreation(int width, int height)
+        public ActionResult LevelCreation(int width = 8, int height = 8)
         {
 
             string fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/Data.xml"));
@@ -34,7 +34,7 @@ namespace SamSmithNZ2017.Controllers
             return View(new LevelCreationModel(result));
         }
 
-        public ActionResult CampaignCreation(int width, int height)
+        public ActionResult CampaignCreation(int width = 4, int height = 4)
         {
 
             string fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/Data.xml"));
