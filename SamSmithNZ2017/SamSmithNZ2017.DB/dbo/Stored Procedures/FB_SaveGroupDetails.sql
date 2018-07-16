@@ -160,12 +160,12 @@ BEGIN
 											AND round_number = @RoundNumber
 											AND group_ranking <= @TeamsFromEachGroupThatAdvance))
 	BEGIN
-			UPDATE wc_group_stage
-			SET has_qualified_for_next_round = 0
-			WHERE tournament_code = @TournamentCode
-			AND round_number = @RoundNumber
-			AND team_code = @team_code
-			AND group_ranking <= @TeamsFromEachGroupThatAdvance
+		UPDATE wc_group_stage
+		SET has_qualified_for_next_round = 0
+		WHERE tournament_code = @TournamentCode
+		AND round_number = @RoundNumber
+		AND team_code = @team_code
+		AND group_ranking <= @TeamsFromEachGroupThatAdvance
 	
 
 		--Finally set any teams that have qualified for the next round in 3rd place positions
@@ -198,8 +198,6 @@ BEGIN
 		CLOSE Cursor1
 		DEALLOCATE Cursor1
 	END
-
-
 
 	--Update the playoff's if the group is done.
 	DECLARE @GroupRanking INT

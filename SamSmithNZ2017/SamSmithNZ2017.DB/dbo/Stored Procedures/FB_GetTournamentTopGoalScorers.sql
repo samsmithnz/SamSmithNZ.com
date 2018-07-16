@@ -14,6 +14,7 @@ BEGIN
 	JOIN wc_team t ON p.team_code = t.team_code
 	JOIN wc_tournament_team_entry te ON t.team_code = te.team_code AND te.tournament_code = ga.tournament_code
 	WHERE ga.tournament_code = @TournamentCode
+	AND g.is_own_goal = 0 --don't count own goals for the total goal total
 	GROUP BY p.player_name, 
 		t.team_code,
 		t.team_name,

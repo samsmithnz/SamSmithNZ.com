@@ -135,7 +135,7 @@
                 <tr>
                     <th>Placing</th>
                     <th>Team</th>
-                    <th ng-if="ChanceToWin">Chance to win</th>
+                    <th ng-if="ChanceToWin && tournamentTeams.length > 0 && tournamentTeams[0].ChanceToWin < 100">Chance to win</th>
                     @*<th ng-if="tournamentTeams.length > 0 && tournamentTeams[0].FifaRanking > 0">Starting ELO Rating</th>*@
                     <th ng-if="tournamentTeams.length > 0 && tournamentTeams[0].FifaRanking > 0">Current ELO Rating</th>
                     @*<th>Coach</th>*@
@@ -147,11 +147,15 @@
                 <tr ng-repeat="item in tournamentTeams">
                     <td><span ng-if="item.Placing != 0">{{item.Placing}}</span></td>
                     <td>
-                        <img ng-src="~/Content/IntFootball/Teams/{{item.FlagName}}" Class="TeamImage" "     />
-                        <a href="/IntFootball/Team?teamCode={{item.TeamCode}}">{{item.TeamName}}</a>
+                        <img ng-src="~/Content/IntFootball/Teams/{{item.FlagName}}" Class="TeamImage" />
+                        <a href="/IntFootball/Team?teamCode={{item.TeamCode}}">
+                            {{item.TeamName}}
+                        </a>
                     </td>
-                    <td ng-if="ChanceToWin && item.ChanceToWin > 0">{{item.ChanceToWin | number: 1}}%</td>
-                    <td ng-if="ChanceToWin && item.ChanceToWin == 0"></td>
+                    <td ng-if="ChanceToWin && item.ChanceToWin > 0 && tournamentTeams[0].ChanceToWin < 100">
+                        {{item.ChanceToWin | number: 1}}%
+                    </td>
+                    <td ng-if="ChanceToWin && item.ChanceToWin == 0 && tournamentTeams[0].ChanceToWin < 100"></td>
                     @*<td ng-if="item.FifaRanking > 0">{{item.FifaRanking}}</td>*@
                     <td ng-if="item.FifaRanking > 0">{{item.ELORating}} ({{item.ELORatingDifference}})</td>
                     @*<td>

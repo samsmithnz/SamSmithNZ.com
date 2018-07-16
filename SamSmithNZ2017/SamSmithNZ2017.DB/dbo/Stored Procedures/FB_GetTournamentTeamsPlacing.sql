@@ -18,7 +18,7 @@ BEGIN
 		--1st Place
 		INSERT INTO #tmp_final_placing 
 		SELECT 1, '1st', 
-			CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) > g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN g.team_1_code ELSE g.team_2_code END
+			CASE WHEN g.team_1_normal_time_score IS NULL THEN NULL ELSE CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) > g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN g.team_1_code ELSE g.team_2_code END END
 		FROM wc_game g
 		WHERE g.tournament_code = @TournamentCode
 		AND g.round_code = 'FF'
@@ -26,15 +26,31 @@ BEGIN
 		--2nd Place
 		INSERT INTO #tmp_final_placing 
 		SELECT 2, '2nd', 
-			CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) < g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN g.team_1_code ELSE g.team_2_code END
+			CASE WHEN g.team_1_normal_time_score IS NULL THEN NULL ELSE CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) < g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN g.team_1_code ELSE g.team_2_code END END
 		FROM wc_game g
 		WHERE g.tournament_code = @TournamentCode
 		AND g.round_code = 'FF'
 
+		--Final
+		INSERT INTO #tmp_final_placing 
+		SELECT 4, 'Final pending', 
+			g.team_1_code
+		FROM wc_game g
+		WHERE g.tournament_code = @TournamentCode
+		AND g.round_code = 'FF'
+		AND g.team_1_normal_time_score IS NULL
+		UNION
+		SELECT 4, 'Final pending', 
+			g.team_2_code
+		FROM wc_game g
+		WHERE g.tournament_code = @TournamentCode
+		AND g.round_code = 'FF'
+		AND g.team_2_normal_time_score IS NULL
+
 		--3rd Place
 		INSERT INTO #tmp_final_placing 
 		SELECT 3, '3rd', 
-			CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) > g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN g.team_1_code ELSE g.team_2_code END
+			CASE WHEN g.team_1_normal_time_score IS NULL THEN NULL ELSE CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) > g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN g.team_1_code ELSE g.team_2_code END END
 		FROM wc_game g
 		WHERE g.tournament_code = @TournamentCode
 		AND g.round_code = '3P'
@@ -42,10 +58,26 @@ BEGIN
 		--4th Place
 		INSERT INTO #tmp_final_placing 
 		SELECT 4, '4th', 
-			CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) < g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN g.team_1_code ELSE g.team_2_code END
+			CASE WHEN g.team_1_normal_time_score IS NULL THEN NULL ELSE CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) < g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN g.team_1_code ELSE g.team_2_code END END
 		FROM wc_game g
 		WHERE g.tournament_code = @TournamentCode
 		AND g.round_code = '3P'
+
+		--3rd-4th Place
+		INSERT INTO #tmp_final_placing 
+		SELECT 4, '3rd place game pending', 
+			g.team_1_code
+		FROM wc_game g
+		WHERE g.tournament_code = @TournamentCode
+		AND g.round_code = '3P'
+		AND g.team_1_normal_time_score IS NULL
+		UNION
+		SELECT 4, '3rd place game pending', 
+			g.team_2_code
+		FROM wc_game g
+		WHERE g.tournament_code = @TournamentCode
+		AND g.round_code = '3P'
+		AND g.team_2_normal_time_score IS NULL
 
 		--Top 4
 		INSERT INTO #tmp_final_placing 
@@ -59,8 +91,8 @@ BEGIN
 		JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_1_code = te.team_code
 		WHERE g.tournament_code = @TournamentCode
 		AND g.round_code = 'SF'
-		AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
-		--AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
+		AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
+		--AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
 		INSERT INTO #tmp_final_placing 
 		SELECT 4, 
 			CASE WHEN te.is_active = 1 THEN 'Top 4' END,
@@ -72,9 +104,9 @@ BEGIN
 		JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_2_code = te.team_code
 		WHERE g.tournament_code = @TournamentCode
 		AND g.round_code = 'SF'
-		--AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
-		AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
-
+		--AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
+		AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
+		
 		--5th - 8th Place
 		INSERT INTO #tmp_final_placing 
 		SELECT CASE WHEN te.is_active = 1 THEN 5 ELSE 6 END, 
@@ -87,8 +119,8 @@ BEGIN
 		JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_1_code = te.team_code
 		WHERE g.tournament_code = @TournamentCode
 		AND g.round_code = 'QF'
-		AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
-		--AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
+		AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE not Teamcode IS NULL)
+		--AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
 		INSERT INTO #tmp_final_placing 
 		SELECT CASE WHEN te.is_active = 1 THEN 5 ELSE 6 END, 
 			CASE WHEN te.is_active = 1 THEN 'Top 8' ELSE 'Knocked out in quarter finals' END,
@@ -100,8 +132,8 @@ BEGIN
 		JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_2_code = te.team_code
 		WHERE g.tournament_code = @TournamentCode
 		AND g.round_code = 'QF'
-		--AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
-		AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
+		--AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
+		AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
 
 		--9th - 16th Place
 		INSERT INTO #tmp_final_placing 
@@ -115,8 +147,8 @@ BEGIN
 		JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_1_code = te.team_code
 		WHERE g.tournament_code = @TournamentCode
 		AND g.round_code = '16'
-		AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
-		--AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
+		AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
+		--AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
 		INSERT INTO #tmp_final_placing 
 		SELECT CASE WHEN te.is_active = 1 THEN 9 ELSE 10 END, 
 			CASE WHEN te.is_active = 1 THEN 'Top 16' ELSE 'Knocked out in top 16' END,
@@ -128,8 +160,8 @@ BEGIN
 		JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_2_code = te.team_code
 		WHERE g.tournament_code = @TournamentCode
 		AND g.round_code = '16'
-		--AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
-		AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
+		--AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
+		AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
 
 		--17th - 32nd Place
 		INSERT INTO #tmp_final_placing 
@@ -139,8 +171,8 @@ BEGIN
 		FROM wc_game g
 		JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_1_code = te.team_code
 		WHERE g.tournament_code = @TournamentCode
-		AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
-		--AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
+		AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
+		--AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
 		INSERT INTO #tmp_final_placing 
 		SELECT DISTINCT CASE WHEN te.is_active = 1 THEN 17 ELSE 18 END, 
 			CASE WHEN te.is_active = 1 THEN 'Top 32' ELSE 'Knocked out in group stage' END, 
@@ -148,8 +180,8 @@ BEGIN
 		FROM wc_game g
 		JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_2_code = te.team_code
 		WHERE g.tournament_code = @TournamentCode
-		--AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
-		AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing)
+		--AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
+		AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
 	END
 
 	CREATE TABLE #TeamRecord(TeamCode INT, GF INT, GA INT, GD INT)--, PKs INT, PKsMissed INT)
