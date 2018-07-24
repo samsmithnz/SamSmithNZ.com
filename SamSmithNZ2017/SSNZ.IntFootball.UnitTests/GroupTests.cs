@@ -59,6 +59,9 @@ namespace SSNZ.IntFootball.UnitTests
             Assert.IsTrue(results[0].TeamName != "");
             Assert.IsTrue(results[0].TournamentCode >= 0);
             Assert.IsTrue(results[0].Wins >= 0);
+            Assert.IsTrue(results[0].ELORating >= 0);
+            Assert.IsTrue(results[0].TeamWithdrew == false);
+
         }
 
     }

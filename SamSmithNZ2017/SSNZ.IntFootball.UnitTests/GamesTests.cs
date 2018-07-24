@@ -60,35 +60,65 @@ namespace SSNZ.IntFootball.UnitTests
             //assert
             Assert.IsTrue(results != null);
             Assert.IsTrue(results.Count > 0);
-            Assert.IsTrue(results[0].CoachFlag == null);
-            Assert.IsTrue(results[0].CoachName == null);
-            Assert.IsTrue(results[0].GameCode > 0);
-            Assert.IsTrue(results[0].GameNumber > 0);
-            Assert.IsTrue(results[0].GameTime > DateTime.MinValue);
-            Assert.IsTrue(results[0].Location != "");
-            Assert.IsTrue(results[0].RoundCode == "F");
-            Assert.IsTrue(results[0].RoundName != "");
-            Assert.IsTrue(results[0].RoundNumber > 0);
-            Assert.IsTrue(results[0].Team1Code > 0);
-            Assert.IsTrue(results[0].Team1FlagName != "");
-            Assert.IsTrue(results[0].Team1Name != "");
-            Assert.IsTrue(results[0].Team1NormalTimeScore >= 0);
-            Assert.IsTrue(results[0].Team1ExtraTimeScore == null);
-            Assert.IsTrue(results[0].Team1PenaltiesScore == null);
-            Assert.IsTrue(results[0].Team1Withdrew == false);
-            Assert.IsTrue(results[0].Team2Code > 0);
-            Assert.IsTrue(results[0].Team2FlagName != "");
-            Assert.IsTrue(results[0].Team2Name != "");
-            Assert.IsTrue(results[0].Team2NormalTimeScore >= 0);
-            Assert.IsTrue(results[0].Team2ExtraTimeScore == null);
-            Assert.IsTrue(results[0].Team2PenaltiesScore == null);
-            Assert.IsTrue(results[0].Team2Withdrew == false);
-            Assert.IsTrue(results[0].TournamentCode == 19);
-            Assert.IsTrue(results[0].TournamentName != "");
-            Assert.IsTrue(results[0].IsOwnGoal == false);
-            Assert.IsTrue(results[0].IsPenalty == false);
-            Assert.IsTrue(results[0].RowType == 1);
+            foreach (Game result in results)
+            {
+                if (result.GameCode == 11)
+                {
+                    TestGame(result);
+                    break;
+                }
+            }
         }
+
+        [TestMethod()]
+        public async Task GameTest()
+        {
+            //arrange
+            GameDataAccess da = new GameDataAccess();
+            int gameCode = 11;
+
+            //act
+            Game result = await da.GetItemAsync(gameCode);
+
+            //assert
+            Assert.IsTrue(result != null);
+            TestGame(result);
+        }
+
+        private bool TestGame(Game result)
+        {
+            Assert.IsTrue(result.CoachFlag == null);
+            Assert.IsTrue(result.CoachName == null);
+            Assert.IsTrue(result.GameCode > 0);
+            Assert.IsTrue(result.GameNumber > 0);
+            Assert.IsTrue(result.GameTime > DateTime.MinValue);
+            Assert.IsTrue(result.Location != "");
+            Assert.IsTrue(result.RoundCode == "F");
+            Assert.IsTrue(result.RoundName != "");
+            Assert.IsTrue(result.RoundNumber > 0);
+            Assert.IsTrue(result.Team1Code > 0);
+            Assert.IsTrue(result.Team1FlagName != "");
+            Assert.IsTrue(result.Team1Name != "");
+            Assert.IsTrue(result.Team1NormalTimeScore >= 0);
+            Assert.IsTrue(result.Team1ExtraTimeScore == null);
+            Assert.IsTrue(result.Team1PenaltiesScore == null);
+            Assert.IsTrue(result.Team1Withdrew == false);
+            Assert.IsTrue(result.Team2Code > 0);
+            Assert.IsTrue(result.Team2FlagName != "");
+            Assert.IsTrue(result.Team2Name != "");
+            Assert.IsTrue(result.Team2NormalTimeScore >= 0);
+            Assert.IsTrue(result.Team2ExtraTimeScore == null);
+            Assert.IsTrue(result.Team2PenaltiesScore == null);
+            Assert.IsTrue(result.Team2Withdrew == false);
+            Assert.IsTrue(result.TournamentCode == 19);
+            Assert.IsTrue(result.TournamentName != "");
+            Assert.IsTrue(result.IsOwnGoal == false);
+            Assert.IsTrue(result.IsPenalty == false);
+            Assert.IsTrue(result.RowType == 1);
+            return true;
+        }
+
+
 
         [TestMethod]
         public async Task GamesGermanyPlayoffPenaltiesScoreTest()
@@ -401,8 +431,14 @@ namespace SSNZ.IntFootball.UnitTests
         {
             //arrange
             Game game = new Game();
+            game.Team1Code = 1;
+            game.Team2Code = 2;
             game.Team1EloRating = 1000;
             game.Team2EloRating = 2000;
+            game.Team1PreGameEloRating = 2000;
+            game.Team1PostGameEloRating = 2000;
+            game.Team2PreGameEloRating = 2000;
+            game.Team2PostGameEloRating = 2000;
 
             //act
 
@@ -415,13 +451,66 @@ namespace SSNZ.IntFootball.UnitTests
         {
             //arrange
             Game game = new Game();
+            game.Team1Code = 1;
+            game.Team2Code = 2;
             game.Team1EloRating = 1000;
             game.Team2EloRating = 1000;
+            game.Team1PreGameEloRating = 2000;
+            game.Team1PostGameEloRating = 2000;
+            game.Team2PreGameEloRating = 2000;
+            game.Team2PostGameEloRating = 2000;
 
             //act
 
             //assert
             Assert.IsTrue(game.Team1ChanceToWin == game.Team2ChanceToWin);
         }
+
+        [TestMethod]
+        public void GamesTeamsAreEqualELONoTeamsTest()
+        {
+            //arrange
+            Game game = new Game();
+            game.Team1EloRating = null;
+            game.Team2EloRating = null;
+            game.Team1PreGameEloRating = 2000;
+            game.Team1PostGameEloRating = 2000;
+            game.Team2PreGameEloRating = 2000;
+            game.Team2PostGameEloRating = 2000;
+
+            //act
+
+            //assert
+            Assert.IsTrue(game.Team1ChanceToWin == game.Team2ChanceToWin && game.Team1ChanceToWin == -1);
+        }
+
+        [TestMethod]
+        public void Team1TotalGoalsTest()
+        {
+            //arrange
+            Game game = new Game();
+            game.Team1NormalTimeScore = 1;
+            game.Team1ExtraTimeScore = 2;
+
+            //act
+
+            //assert
+            Assert.IsTrue(game.Team1TotalGoals == 3);
+        }
+
+        [TestMethod]
+        public void Team2TotalGoalsTest()
+        {
+            //arrange
+            Game game = new Game();
+            game.Team2NormalTimeScore = 1;
+            game.Team2ExtraTimeScore = 2;
+
+            //act
+
+            //assert
+            Assert.IsTrue(game.Team2TotalGoals == 3);
+        }
+
     }
 }

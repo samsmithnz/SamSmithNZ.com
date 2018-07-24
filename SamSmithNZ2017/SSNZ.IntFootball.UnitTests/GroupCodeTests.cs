@@ -42,6 +42,7 @@ namespace SSNZ.IntFootball.UnitTests
             Assert.IsTrue(results != null);
             Assert.IsTrue(results.Count > 0);
             Assert.IsTrue(results[0].RoundCode == "A");
+            Assert.IsTrue(results[0].IsLastRound == false);
         }
 
     }

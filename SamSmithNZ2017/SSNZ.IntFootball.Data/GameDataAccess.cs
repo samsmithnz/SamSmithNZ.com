@@ -76,6 +76,8 @@ namespace SSNZ.IntFootball.Data
             parameters.Add("@Team2NormalTimeScore", game.Team2NormalTimeScore, DbType.Int32);
             parameters.Add("@Team2ExtraTimeScore", game.Team2ExtraTimeScore, DbType.Int32);
             parameters.Add("@Team2PenaltiesScore", game.Team2PenaltiesScore, DbType.Int32);
+            parameters.Add("@Team1ELORating", game.Team1EloRating, DbType.Int32);
+            parameters.Add("@Team2ELORating", game.Team2EloRating, DbType.Int32);
 
             await base.PostItemAsync("FB_SaveGame", parameters);
             return true;

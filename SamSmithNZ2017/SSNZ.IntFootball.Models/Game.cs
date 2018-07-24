@@ -26,12 +26,16 @@ namespace SSNZ.IntFootball.Models
         public int? Team1ExtraTimeScore { get; set; }
         public int? Team1PenaltiesScore { get; set; }
         public int? Team1EloRating { get; set; }
+        public int? Team1PreGameEloRating { get; set; }
+        public int? Team1PostGameEloRating { get; set; }
         public int Team2Code { get; set; }
         public string Team2Name { get; set; }
         public int? Team2NormalTimeScore { get; set; }
         public int? Team2ExtraTimeScore { get; set; }
         public int? Team2PenaltiesScore { get; set; }
         public int? Team2EloRating { get; set; }
+        public int? Team2PreGameEloRating { get; set; }
+        public int? Team2PostGameEloRating { get; set; }
         public string Team1FlagName { get; set; }
         public string Team2FlagName { get; set; }
         public bool Team1Withdrew { get; set; }

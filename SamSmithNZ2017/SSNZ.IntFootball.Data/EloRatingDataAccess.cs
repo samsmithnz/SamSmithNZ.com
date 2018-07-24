@@ -11,7 +11,7 @@ namespace SSNZ.IntFootball.Data
 {
     public class EloRatingDataAccess : GenericDataAccess<EloRating>
     {
-        public async Task<bool> UpdateTournamentELORatings(int tournamentCode)
+        public async Task<List<TeamELORating>> UpdateTournamentELORatings(int tournamentCode)
         {
             List<TeamELORating> results = await CalculateEloForTournamentAsync(tournamentCode);
 
@@ -20,19 +20,21 @@ namespace SSNZ.IntFootball.Data
                 await SaveTeamELORatingAsync(tournamentCode, item.TeamCode, item.ELORating);
             }
 
-            return true;
+            return results;
         }
 
         private int GetTournamentTeamFifaRanking(int teamCode, List<TournamentTeam> tournamentTeams)
         {
+            int result = 0;
             foreach (TournamentTeam item in tournamentTeams)
             {
                 if (item.TeamCode == teamCode)
                 {
-                    return item.FifaRanking;
+                    result=item.FifaRanking;
+                    break;
                 }
             }
-            return 0;
+            return result;
         }
 
         public async Task<List<TeamELORating>> CalculateEloForTournamentAsync(int tournamentCode)
@@ -50,17 +52,17 @@ namespace SSNZ.IntFootball.Data
             List<TournamentTeam> tournamentTeams = await da3.GetQualifiedTeamsAsync(tournamentCode);
 
             List<TeamELORating> teamRatingList = new List<TeamELORating>();
-            foreach (Game item in gameList)
+            foreach (Game game in gameList)
             {
                 //Calculate the ELO rating for each team, adding it to the teamRatingList object if it's not already in there
-                //TODO: Chance this so that it saves ELO updates PER game, instead of just the final ELO rating
-                TeamELORating team1 = GetTeamELORating(tournamentCode, item.Team1Code, item.Team1Name, GetTournamentTeamFifaRanking(item.Team1Code, tournamentTeams), teamRatingList);
-                TeamELORating team2 = GetTeamELORating(tournamentCode, item.Team2Code, item.Team2Name, GetTournamentTeamFifaRanking(item.Team2Code, tournamentTeams), teamRatingList);
+                //TODO: Change this so that it saves ELO updates PER game, instead of just the final ELO rating
+                TeamELORating team1 = GetTeamELORating(tournamentCode, game.Team1Code, game.Team1Name, GetTournamentTeamFifaRanking(game.Team1Code, tournamentTeams), teamRatingList);
+                TeamELORating team2 = GetTeamELORating(tournamentCode, game.Team2Code, game.Team2Name, GetTournamentTeamFifaRanking(game.Team2Code, tournamentTeams), teamRatingList);
                 EloRating.Matchup match = new EloRating.Matchup();
                 match.User1Score = team1.ELORating;
                 match.User2Score = team2.ELORating;
-                int? result = WhoWon(item);
-                kRating = CalculateKFactor(item);
+                int? result = WhoWon(game);
+                kRating = CalculateKFactor(game);
                 if (result == null)
                 {
                     //the game hasn't started yet, do nothing
@@ -89,6 +91,16 @@ namespace SSNZ.IntFootball.Data
                     team1.GameCount++;
                     team2.ELORating = match.User2Score;
                     team2.GameCount++;
+                    if (game.Team1EloRating != team1.ELORating || game.Team2EloRating != team2.ELORating)
+                    {
+                        game.Team1EloRating = team1.ELORating;
+                        game.Team2EloRating = team2.ELORating;
+                        await da.SaveItemAsync(game);
+                    }
+                }
+                if (game.Team1Code == 10 || game.Team2Code == 10)
+                {
+                    System.Diagnostics.Debug.WriteLine("Game: " + game.GameNumber + ", Team1: " + game.Team1Name + ", Team1Elo: " + game.Team1EloRating + ", Team2: " + game.Team2Name + ", Team2Elo: " + game.Team2EloRating);
                 }
             }
 

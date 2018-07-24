@@ -23,6 +23,12 @@ namespace SSNZ.IntFootball.UnitTests
             //assert
             Assert.IsTrue(results != null);
             Assert.IsTrue(results.Count > 0);
+            Assert.IsTrue(results[0].PlayerName == "Harry Kane");
+            Assert.IsTrue(results[0].FlagName != "");
+            Assert.IsTrue(results[0].GoalsScored > 0);
+            Assert.IsTrue(results[0].IsActive == false);
+            Assert.IsTrue(results[0].TeamCode == 10);
+            Assert.IsTrue(results[0].TeamName == "England");
         }
     }
 }

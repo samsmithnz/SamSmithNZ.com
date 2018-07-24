@@ -69,9 +69,13 @@ namespace SSNZ.IntFootball.UnitTests
             Assert.IsTrue(item.CoHostFlagName == "");
             Assert.IsTrue(item.CoHostTeamCode == 0);
             Assert.IsTrue(item.CoHostTeamName == null);
+            Assert.IsTrue(item.CoHostFlagName2 == "");
+            Assert.IsTrue(item.CoHostTeamCode2 == 0);
+            Assert.IsTrue(item.CoHostTeamName2 == null);
             Assert.IsTrue(item.CompetitionCode == 1);
             Assert.IsTrue(item.FormatCode == 1);
             Assert.IsTrue(item.GameCount == 64);
+            Assert.IsTrue(item.GamesCompleteCount == 64);
             Assert.IsTrue(item.HostFlagName == "22px-Flag_of_South_Africa_svg.png");
             Assert.IsTrue(item.HostTeamCode == 27);
             Assert.IsTrue(item.HostTeamName == "South Africa");
@@ -111,7 +115,8 @@ namespace SSNZ.IntFootball.UnitTests
             Assert.IsTrue(item.TournamentName == "South Africa 2010");
             Assert.IsTrue(item.TournamentYear == 2010);
             Assert.IsTrue(item.TotalGoals == 145);
-            Assert.IsTrue(item.TotalPenalties == 14);
+            Assert.IsTrue(item.TotalShootoutGoals == 14);
+            Assert.IsTrue(item.TotalPenalties == 9);
         }
 
         //[TestMethod()]
