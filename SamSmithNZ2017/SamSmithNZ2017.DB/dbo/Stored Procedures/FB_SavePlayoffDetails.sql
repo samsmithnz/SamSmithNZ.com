@@ -99,6 +99,16 @@ BEGIN
 		WHERE te.tournament_code = @TournamentCode
 		AND te.team_code = @WinningTeamCode
 
+		--If the 3rd place and final games are done, mark them as done.
+		IF ((@RoundCode = '3P' OR @RoundCode = 'FF') AND @WinningTeamCode > 0 AND @LosingTeamCode > 0)
+		BEGIN
+			UPDATE te
+			SET te.is_active = 0
+			FROM wc_tournament_team_entry te
+			WHERE te.tournament_code = @TournamentCode
+			AND te.team_code = @WinningTeamCode
+		END
+
 		--Remove the losing team	
 		UPDATE te
 		SET te.is_active = 0

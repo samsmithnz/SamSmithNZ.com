@@ -53,7 +53,6 @@ BEGIN
 			t.[name] AS TournamentName, 
 			ISNULL(te.coach_name,'') AS CoachName, 
 			ISNULL(t3.flag_name,'') AS CoachFlag,
-			ISNULL(te.fifa_ranking,0) AS FifaRanking, 
 			NULL AS IsPenalty, 
 			NULL AS IsOwnGoal, 
 			1 AS SortOrder 
@@ -104,7 +103,6 @@ BEGIN
 			t.[name] AS TournamentName, 
 			ISNULL(te.coach_name,'') AS CoachName, 
 			ISNULL(t3.flag_name,'') AS CoachFlag,
-			ISNULL(te.fifa_ranking,0) AS FifaRanking, 
 			NULL AS IsPenalty, 
 			NULL AS IsOwnGoal, 
 			1 AS SortOrder 
@@ -159,7 +157,6 @@ BEGIN
 			t.[name] AS TournamentName, 
 			NULL AS CoachName, 
 			NULL AS CoachFlag,
-			0 AS FifaRanking, 
 			NULL AS IsPenalty, 
 			NULL AS IsOwnGoal, 
 			1 AS SortOrder
@@ -208,7 +205,6 @@ BEGIN
 			'' AS TournamentName,
 			'' AS CoachName, 
 			'' AS CoachFlag, 
-			0 AS FifaRanking, 
 			gl.is_penalty AS IsPenalty, 
 			gl.is_own_goal AS IsOwnGoal, 
 			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS SortOrder
@@ -258,7 +254,6 @@ BEGIN
 			'' AS TournamentName,
 			'' AS CoachName, 
 			'' AS CoachFlag, 
-			0 AS FifaRanking, 
 			gl.is_penalty AS IsPenalty, 
 			gl.is_own_goal AS IsOwnGoal, 
 			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS SortOrder
@@ -308,7 +303,6 @@ BEGIN
 			'' AS TournamentName,
 			'' AS CoachName, 
 			'' AS CoachFlag, 
-			0 AS FifaRanking, 
 			gl.is_penalty AS IsPenalty, 
 			gl.is_own_goal AS IsOwnGoal, 
 			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS sort_order
@@ -358,7 +352,6 @@ BEGIN
 			'' AS TournamentName,
 			'' AS CoachName, 
 			'' AS CoachFlag, 
-			0 AS FifaRanking, 
 			gl.is_penalty AS IsPenalty, 
 			gl.is_own_goal AS IsOwnGoal, 
 			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS sort_order
@@ -407,7 +400,6 @@ BEGIN
 			'' AS TournamentName,
 			'' AS CoachName, 
 			'' AS CoachFlag, 
-			0 AS FifaRanking, 
 			0 AS IsPenalty, 
 			0 AS IsOwnGoal,  
 			penalty_order AS sort_order
@@ -455,7 +447,6 @@ BEGIN
 			'' AS TournamentName,
 			'' AS CoachName, 
 			'' AS CoachFlag, 
-			0 AS FifaRanking, 
 			0 AS IsPenalty, 
 			0 AS IsOwnGoal,  
 			penalty_order AS sort_order

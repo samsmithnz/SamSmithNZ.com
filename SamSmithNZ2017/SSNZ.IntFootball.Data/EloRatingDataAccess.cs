@@ -23,20 +23,6 @@ namespace SSNZ.IntFootball.Data
             return results;
         }
 
-        private int GetTournamentTeamFifaRanking(int teamCode, List<TournamentTeam> tournamentTeams)
-        {
-            int result = 0;
-            foreach (TournamentTeam item in tournamentTeams)
-            {
-                if (item.TeamCode == teamCode)
-                {
-                    result=item.FifaRanking;
-                    break;
-                }
-            }
-            return result;
-        }
-
         public async Task<List<TeamELORating>> CalculateEloForTournamentAsync(int tournamentCode)
         {
             double diff = 400;
@@ -50,14 +36,35 @@ namespace SSNZ.IntFootball.Data
 
             TournamentTeamDataAccess da3 = new TournamentTeamDataAccess();
             List<TournamentTeam> tournamentTeams = await da3.GetQualifiedTeamsAsync(tournamentCode);
+            //Update and refresh all of the tournament team ELO ratings
+            foreach (TournamentTeam tournamentTeam in tournamentTeams)
+            {
+                await SaveTeamELORatingAsync(tournamentCode, tournamentTeam.TeamCode, tournamentTeam.StartingEloRating);
+            }
+            tournamentTeams = await da3.GetQualifiedTeamsAsync(tournamentCode);
 
             List<TeamELORating> teamRatingList = new List<TeamELORating>();
             foreach (Game game in gameList)
             {
+                int? team1StartingEloRating = GetTournamentTeamCurrentEloRanking(game.Team1Code, tournamentTeams);
+                int? team2StartingEloRating = GetTournamentTeamCurrentEloRanking(game.Team2Code, tournamentTeams);
+                bool gameIsDirty = false;
+
+                if (game.Team1Code == 10 || game.Team2Code == 10)
+                {
+                    System.Diagnostics.Debug.WriteLine("Game: " + game.GameNumber + ", Team1: " + game.Team1Name + ", Team1Elo: " + game.Team1EloRating + ", Team2: " + game.Team2Name + ", Team2Elo: " + game.Team2EloRating);
+                }
+
+                if (game.Team1PreGameEloRating == team1StartingEloRating || game.Team2PreGameEloRating != team2StartingEloRating)
+                {
+                    game.Team1PreGameEloRating = team1StartingEloRating;
+                    game.Team2PreGameEloRating = team2StartingEloRating;
+                    gameIsDirty = true;
+                }
                 //Calculate the ELO rating for each team, adding it to the teamRatingList object if it's not already in there
                 //TODO: Change this so that it saves ELO updates PER game, instead of just the final ELO rating
-                TeamELORating team1 = GetTeamELORating(tournamentCode, game.Team1Code, game.Team1Name, GetTournamentTeamFifaRanking(game.Team1Code, tournamentTeams), teamRatingList);
-                TeamELORating team2 = GetTeamELORating(tournamentCode, game.Team2Code, game.Team2Name, GetTournamentTeamFifaRanking(game.Team2Code, tournamentTeams), teamRatingList);
+                TeamELORating team1 = GetTeamELORating(tournamentCode, game.Team1Code, game.Team1Name, team1StartingEloRating, teamRatingList);
+                TeamELORating team2 = GetTeamELORating(tournamentCode, game.Team2Code, game.Team2Name, team2StartingEloRating, teamRatingList);
                 EloRating.Matchup match = new EloRating.Matchup();
                 match.User1Score = team1.ELORating;
                 match.User2Score = team2.ELORating;
@@ -91,16 +98,14 @@ namespace SSNZ.IntFootball.Data
                     team1.GameCount++;
                     team2.ELORating = match.User2Score;
                     team2.GameCount++;
-                    if (game.Team1EloRating != team1.ELORating || game.Team2EloRating != team2.ELORating)
+                    if (gameIsDirty == true || game.Team1PostGameEloRating != team1.ELORating || game.Team2PostGameEloRating != team2.ELORating)
                     {
-                        game.Team1EloRating = team1.ELORating;
-                        game.Team2EloRating = team2.ELORating;
+                        game.Team1PostGameEloRating = team1.ELORating;
+                        game.Team2PostGameEloRating = team2.ELORating;
+                        SetTournamentTeamCurrentEloRanking(game.Team1Code, tournamentTeams, team1.ELORating);
+                        SetTournamentTeamCurrentEloRanking(game.Team2Code, tournamentTeams, team2.ELORating);
                         await da.SaveItemAsync(game);
                     }
-                }
-                if (game.Team1Code == 10 || game.Team2Code == 10)
-                {
-                    System.Diagnostics.Debug.WriteLine("Game: " + game.GameNumber + ", Team1: " + game.Team1Name + ", Team1Elo: " + game.Team1EloRating + ", Team2: " + game.Team2Name + ", Team2Elo: " + game.Team2EloRating);
                 }
             }
 
@@ -112,6 +117,33 @@ namespace SSNZ.IntFootball.Data
             //da3.SaveItemAsync();
 
             return teamRatingList;
+        }
+
+        private int GetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams)
+        {
+            int result = 0;
+            foreach (TournamentTeam item in tournamentTeams)
+            {
+                if (item.TeamCode == teamCode)
+                {
+                    result = item.ELORating;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        private bool SetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams, int eloRating)
+        {
+            foreach (TournamentTeam item in tournamentTeams)
+            {
+                if (item.TeamCode == teamCode)
+                {
+                    item.ELORating = eloRating;
+                    break;
+                }
+            }
+            return true;
         }
 
         public async Task<bool> SaveTeamELORatingAsync(int tournamentCode, int teamCode, int eloRating)
@@ -251,7 +283,7 @@ namespace SSNZ.IntFootball.Data
             return kFactor;
         }
 
-        private TeamELORating GetTeamELORating(int tournamentCode, int teamCode, string teamName, int initialFifaELORanking, List<TeamELORating> teamList)
+        private TeamELORating GetTeamELORating(int tournamentCode, int teamCode, string teamName, int? currentELORanking, List<TeamELORating> teamList)
         {
             foreach (TeamELORating item in teamList)
             {
@@ -260,11 +292,11 @@ namespace SSNZ.IntFootball.Data
                     return item;
                 }
             }
-            if (initialFifaELORanking < 500)
+            if (currentELORanking < 500 || currentELORanking == null)
             {
-                initialFifaELORanking = 1000;
+                currentELORanking = 1000;
             }
-            TeamELORating newTeam = new TeamELORating(tournamentCode, teamCode, teamName, initialFifaELORanking);
+            TeamELORating newTeam = new TeamELORating(tournamentCode, teamCode, teamName, (int)currentELORanking);
             teamList.Add(newTeam);
             return newTeam;
         }

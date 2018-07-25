@@ -22,9 +22,8 @@ BEGIN
 		[location] VARCHAR(100), 
 		tournament_code INT, tournament_name VARCHAR(50),
 		coach_name VARCHAR(50), coach_flag VARCHAR(100), 
-		fifa_ranking INT, 
-		ispen BIT, 
-		isog BIT, 
+		isPen BIT, 
+		isOg BIT, 
 		sortOrder int)
 
 	INSERT INTO #tmp_games_for_assigning

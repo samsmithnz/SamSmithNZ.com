@@ -16,6 +16,7 @@ namespace SSNZ.IntFootball.Models
         public int RegionCode { get; set; }
         public string RegionName { get; set; }
         public int FifaRanking { get; set; }
+        public int StartingEloRating { get; set; }
         public string CoachName { get; set; }
         public string CoachNationalityFlagName { get; set; }
         public int ELORating { get; set; }
@@ -23,7 +24,7 @@ namespace SSNZ.IntFootball.Models
         {
             get
             {
-                int result = ELORating - FifaRanking;
+                int result = ELORating - StartingEloRating;
                 if (result > 0)
                 {
                     return "+" + result.ToString();

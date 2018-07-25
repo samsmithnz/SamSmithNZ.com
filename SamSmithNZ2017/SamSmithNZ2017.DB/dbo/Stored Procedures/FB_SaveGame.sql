@@ -6,8 +6,10 @@
 	@Team2NormalTimeScore INT, 
 	@Team2ExtraTimeScore INT, 
 	@Team2PenaltiesScore INT,
-	@Team1ELORating INT = NULL,
-	@Team2ELORating INT = NULL
+	@Team1StartingELORating INT = NULL,
+	@Team2StartingELORating INT = NULL,
+	@Team1EndingELORating INT = NULL,
+	@Team2EndingELORating INT = NULL
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -19,8 +21,10 @@ BEGIN
 		g.team_2_normal_time_score = @Team2NormalTimeScore,
 		g.team_2_extra_time_score = @Team2ExtraTimeScore,
 		g.team_2_penalties_score = @Team2PenaltiesScore,
-		g.team_1_elo_rating = @Team1ELORating,
-		g.team_2_elo_rating = @Team2ELORating
+		g.team_1_pregame_elo_rating = @Team1StartingELORating,
+		g.team_2_pregame_elo_rating = @Team2StartingELORating,
+		g.team_1_postgame_elo_rating = @Team1EndingELORating, 
+		g.team_2_postgame_elo_rating = @Team2EndingELORating
 	FROM wc_game g
 	WHERE g.game_code = @GameCode
 

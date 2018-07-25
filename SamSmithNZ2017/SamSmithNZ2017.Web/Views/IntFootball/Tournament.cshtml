@@ -136,8 +136,8 @@
                     <th>Placing</th>
                     <th>Team</th>
                     <th ng-if="ChanceToWin && tournamentTeams.length > 0 && tournamentTeams[0].ChanceToWin < 100">Chance to win</th>
-                    @*<th ng-if="tournamentTeams.length > 0 && tournamentTeams[0].FifaRanking > 0">Starting ELO Rating</th>*@
-                    <th ng-if="tournamentTeams.length > 0 && tournamentTeams[0].FifaRanking > 0">Current ELO Rating</th>
+                    <th ng-if="tournamentTeams.length > 0 && tournamentTeams[0].StartingEloRating > 0">Starting ELO Rating</th>
+                    <th ng-if="tournamentTeams.length > 0 && tournamentTeams[0].ELORating > 0">Current ELO Rating</th>
                     @*<th>Coach</th>*@
                     <th>GF</th>
                     <th>GA</th>
@@ -156,12 +156,12 @@
                         {{item.ChanceToWin | number: 1}}%
                     </td>
                     <td ng-if="ChanceToWin && item.ChanceToWin == 0 && tournamentTeams[0].ChanceToWin < 100"></td>
-                    @*<td ng-if="item.FifaRanking > 0">{{item.FifaRanking}}</td>*@
-                    <td ng-if="item.FifaRanking > 0">{{item.ELORating}} ({{item.ELORatingDifference}})</td>
+                    <td ng-if="item.StartingEloRating > 0">{{item.StartingEloRating}}</td>
+                    <td ng-if="item.ELORating > 0">{{item.ELORating}} ({{item.ELORatingDifference}})</td>
                     @*<td>
-                            <img ng-src="~/Content/IntFootball/Teams/{{item.CoachNationalityFlagName}}" Class="TeamImage" ng-if="item.CoachNationalityFlagName != ''" />
-                            {{item.CoachName}}
-                        </td>*@
+            <img ng-src="~/Content/IntFootball/Teams/{{item.CoachNationalityFlagName}}" Class="TeamImage" ng-if="item.CoachNationalityFlagName != ''" />
+            {{item.CoachName}}
+        </td>*@
                     <td>{{item.GF}}</td>
                     <td>{{item.GA}}</td>
                     <td>{{item.GD}}</td>
