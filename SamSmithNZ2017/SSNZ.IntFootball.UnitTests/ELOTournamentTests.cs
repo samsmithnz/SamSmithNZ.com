@@ -48,7 +48,7 @@ namespace SSNZ.IntFootball.UnitTests
 
             foreach (Tournament tournament in tournaments)
             {
-                if (tournament.TournamentCode == 21)
+                if (tournament.TournamentCode == 17)
                 {
                     EloRatingDataAccess daELO = new EloRatingDataAccess();
                     List<TeamELORating> results = await daELO.UpdateTournamentELORatings(tournament.TournamentCode);

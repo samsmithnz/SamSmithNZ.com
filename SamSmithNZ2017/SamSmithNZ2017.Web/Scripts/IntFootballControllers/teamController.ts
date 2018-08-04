@@ -10,6 +10,12 @@
 
         $scope.team = null;
         $scope.games = [];
+        $scope.gamesExpectedWon = 0;
+        $scope.gamesExpectedLoss = 0;
+        $scope.gamesUnexpectedWin = 0;
+        $scope.gamesUnexpectedLoss = 0;
+        $scope.gamesUnexpectedDraw = 0;
+        $scope.gamesUnknown = 0;
 
         var onError = function (data) {
             //errorHandlerService.errorHandler(data);
@@ -54,10 +60,30 @@
             target4.innerHTML = lblBreadCrumb3;
             //console.log(target4.innerHTML);
 
+            gameService.getGamesByTeam($scope.teamCode).then(onGetGamesEventComplete, onError);
         }
 
         var onGetGamesEventComplete = function (response) {
             $scope.games = response.data;
+
+            for (var i = 0; i <= response.data.length - 1; i++) {
+                if ($scope.team.TeamCode == response.data[i].Team1Code) {
+                    $scope.gamesExpectedWon += response.data[i].Team1OddsCountExpectedWin;
+                    $scope.gamesExpectedLoss += response.data[i].Team1OddsCountExpectedLoss;
+                    $scope.gamesUnexpectedWin += response.data[i].Team1OddsCountUnexpectedWin;
+                    $scope.gamesUnexpectedLoss += response.data[i].Team1OddsCountUnexpectedLoss;
+                    $scope.gamesUnexpectedDraw += response.data[i].Team1OddsCountUnexpectedDraw;
+                    $scope.gamesUnknown += response.data[i].Team1OddsCountUnknown;
+                }
+                else if ($scope.team.TeamCode == response.data[i].Team2Code) {
+                    $scope.gamesExpectedWon += response.data[i].Team2OddsCountExpectedWin;
+                    $scope.gamesExpectedLoss += response.data[i].Team2OddsCountExpectedLoss;
+                    $scope.gamesUnexpectedWin += response.data[i].Team2OddsCountUnexpectedWin;
+                    $scope.gamesUnexpectedLoss += response.data[i].Team2OddsCountUnexpectedLoss;
+                    $scope.gamesUnexpectedDraw += response.data[i].Team2OddsCountUnexpectedDraw;
+                    $scope.gamesUnknown += response.data[i].Team2OddsCountUnknown;
+                }
+            }
             //console.log($scope.games);
         }
 
@@ -65,7 +91,60 @@
         $scope.teamCode = getUrlParameter('TeamCode');
 
         teamService.getTeam($scope.teamCode).then(onGetTeamEventComplete, onError);
-        gameService.getGamesByTeam($scope.teamCode).then(onGetGamesEventComplete, onError);
+
+        //Style the game rows to group game details with goal details
+        $scope.getDidFavoriteWinStyle = function (team1Code, currentTeamCode, team1ChanceToWin, team1ResultWonGame, team2ResultWonGame) {
+            var trStyle = "";
+            var green = "#CCFF99";
+            var red = "#FFCCCC";
+            var yellow = "lightgoldenrodyellow";
+
+            var currentTeamResultWonGame = false;
+            var currentTeamChanceToWin = 0;
+
+            if (team1Code == currentTeamCode) {
+                currentTeamResultWonGame = team1ResultWonGame;
+                //currentTeamChanceToWin = team1ChanceToWin;
+            }
+            else {
+                currentTeamResultWonGame = team2ResultWonGame;
+                //currentTeamChanceToWin = 100.0 - team1ChanceToWin;
+            }
+
+            if (team1ChanceToWin < 0) {
+                trStyle = "#FFFFFF";
+                //$scope.gamesUnknown++;
+            }
+            else {
+                if (team1ResultWonGame == false && team2ResultWonGame == false) {
+                    trStyle = yellow;
+                }
+                else {
+                    if (currentTeamChanceToWin >= 50) {
+                        if (currentTeamResultWonGame == true) {
+                            trStyle = green;
+                            //$scope.gamesExpectedWon++;
+                        }
+                        else {
+                            trStyle = red;
+                            //$scope.gamesExpectedLoss++;
+                        }
+                    }
+                    else {
+                        if (currentTeamResultWonGame == true) {
+                            trStyle = green;
+                            //$scope.gamesUnexpectedWin++;
+                        }
+                        else {
+                            trStyle = red;
+                            //$scope.gamesUnexpectedLoss++;
+                        }
+                    }
+                }
+            }
+            //console.log("Style: " + trStyle);
+            return trStyle;
+        };
 
     }
 

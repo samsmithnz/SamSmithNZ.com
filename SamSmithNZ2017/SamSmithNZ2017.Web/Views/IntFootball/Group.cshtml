@@ -17,7 +17,7 @@
                 &nbsp;<span style="border-style: solid; border-width: 1px; border-color: darkgray; background-color: #CCFF99;">&nbsp;Team advances to next round&nbsp;</span>
             </span>
             <span ng-if="teamWithdrew == true">
-                &nbsp;<span style="border-style: solid; border-width: 1px; border-color: darkgray; background-color: #ffcccc;">&nbsp;Team withdrew prior to start of tournament&nbsp;</span>
+                &nbsp;<span style="border-style: solid; border-width: 1px; border-color: darkgray; background-color: #FFCCCC;">&nbsp;Team withdrew prior to start of tournament&nbsp;</span>
             </span>
         </div>
     </div>
@@ -100,7 +100,7 @@
                                 {{item.Team1PenaltiesScore}} - {{item.Team2PenaltiesScore}} {{item.Team1ResultInformation}}{{item.Team2ResultInformation}}
                             </div>
                         </div>
-                        <div ng-if="item.Team1NormalTimeScore == null && item.RowType == 1 && item.Team1EloRating >= 0">
+                        <div ng-if="item.Team1NormalTimeScore == null && item.RowType == 1 && item.Team1PreGameEloRating >= 0">
                             Chance to win:<br />
                             {{item.Team1ChanceToWin | number : 2}}% - {{item.Team2ChanceToWin | number : 2}}%
                         </div>

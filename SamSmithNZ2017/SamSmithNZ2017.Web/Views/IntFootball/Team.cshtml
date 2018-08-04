@@ -4,7 +4,14 @@
 
 <div ng-controller="teamController">
 
-    <h2><img ng-src="~/Content/IntFootball/Teams/{{team.FlagName}}" Class="TeamImage" style="width: 35px; padding-bottom: 4px;" /> {{team.TeamName}}</h2>
+    <h2><img ng-src="~/Content/IntFootball/Teams/{{team.FlagName}}" Class="TeamImage" /> {{team.TeamName}}</h2>
+    <b>Statistics:</b>
+    <ul>
+        <li>Games: {{games.length}}</li>
+        <li>Expected results: {{(gamesExpectedWon + gamesExpectedLoss)}} ({{(gamesExpectedWon + gamesExpectedLoss) / (gamesExpectedWon + gamesExpectedLoss + gamesUnexpectedWin + gamesUnexpectedLoss + gamesUnexpectedDraw) * 100 | number : 2}}%)</li>
+        <li>Unexpected results: {{gamesUnexpectedWin + gamesUnexpectedLoss + gamesUnexpectedDraw}} ({{(gamesUnexpectedWin + gamesUnexpectedLoss + gamesUnexpectedDraw) / (gamesExpectedWon + gamesExpectedLoss + gamesUnexpectedWin + gamesUnexpectedLoss + gamesUnexpectedDraw) * 100 | number : 2}}%)</li>
+        <li>Unknown results: {{gamesUnknown}}</li>
+    </ul>
     <br />
 
     <div class="row">
@@ -12,7 +19,7 @@
             <table class="table table-striped table-bordered">
                 <tr>
                     <th>Tournament</th>
-                    <th>Game #</th>
+                    @*<th>Game #</th>*@
                     <th>Game Time</th>
                     <th>Round</th>
                     <th>Group Name</th>
@@ -20,13 +27,20 @@
                     <th></th>
                     <th>Score</th>
                     <th></th>
+                    <th>Odds Analysis</th>
                     <th>Location</th>
                     <th>Coach</th>
                     @*<th>Fifa Ranking</th>*@
+                    @*<th>Team 1 chance to win</th>*@
+                    @*<th>Team 1 Elo Rating</th>*@
+                    @*<th>Team 2 Elo Rating</th>*@
+                    @*<th>Team 2 chance to win</th>*@
+
+                    @*<th>{{team.TeamName}} won?</th>*@
                 </tr>
                 <tr ng-repeat="item in games">
                     <td>{{item.TournamentName}}</td>
-                    <td>{{item.GameNumber}}</td>
+                    @*<td>{{item.GameNumber}}</td>*@
                     <td>{{item.GameTime | date:'dd-MMM-yyyy HH:mm'}}</td>
                     <td>{{item.RoundNumber}}</td>
                     <td>{{item.RoundName}}</td>
@@ -34,6 +48,11 @@
                     <td style="text-align: right;">
                         <a href="/IntFootball/Team?TeamCode={{item.Team1Code}}">{{item.Team1Name}}</a>
                         <img ng-src="~/Content/IntFootball/Teams/{{item.Team1FlagName}}" Class="TeamImage" />
+                        <div style="font-size: 10px; font-weight: bold;">
+                            <span ng-if="item.Team1ChanceToWin >= 0">Prob to win: {{item.Team1ChanceToWin | number : 2}}%</span><br />
+                            <span ng-if="item.Team1PostGameEloRating == null">Pregame ELO: {{item.Team1PreGameEloRating}}</span>
+                            <span ng-if="item.Team1PostGameEloRating != null">Game ELO: {{item.Team1PreGameEloRating}} -> {{item.Team1PostGameEloRating}} (<span ng-if="item.Team1PostGameEloRating-item.Team1PreGameEloRating >= 0">+</span>{{item.Team1PostGameEloRating-item.Team1PreGameEloRating}})</span>
+                        </div>
                     </td>
                     <td style="text-align: center;">
                         <div ng-if="item.Team1NormalTimeScore >= 0">
@@ -48,77 +67,24 @@
                     <td style="text-align: left;">
                         <img ng-src="~/Content/IntFootball/Teams/{{item.Team2FlagName}}" Class="TeamImage" />
                         <a href="/IntFootball/Team?TeamCode={{item.Team2Code}}">{{item.Team2Name}}</a>
+                        <div style="font-size: 10px; font-weight: bold;">
+                            <span ng-if="item.Team2ChanceToWin >= 0">Prob to win: {{item.Team2ChanceToWin | number : 2}}%</span><br />
+                            <span ng-if="item.Team2PostGameEloRating == null">Pregame ELO: {{item.Team2PreGameEloRating}}</span>
+                            <span ng-if="item.Team2PostGameEloRating != null">Game ELO:{{item.Team2PreGameEloRating}} -> {{item.Team2PostGameEloRating}} (<span ng-if="item.Team2PostGameEloRating-item.Team2PreGameEloRating >= 0">+</span>{{item.Team2PostGameEloRating-item.Team2PreGameEloRating}})</span>
+                        </div>
+                    </td>
+                    <td ng-style="{'background-color': getDidFavoriteWinStyle(item.Team1Code, team.TeamCode, item.Team1ChanceToWin, item.Team1ResultWonGame, item.Team2ResultWonGame)}">
+                        <div ng-if="item.Team1ChanceToWin>=0">
+                            <span ng-if="item.Team1Code == team.TeamCode">{{item.Team1OddsStatusText}}</span>
+                            <span ng-if="item.Team2Code == team.TeamCode">{{item.Team2OddsStatusText}}</span>
+                        </div>
                     </td>
                     <td>{{item.Location}}</td>
-                    <td><img ng-src="~/Content/IntFootball/Teams/{{item.CoachFlag}}" Class="TeamImage" ng-if="item.CoachFlag != ''" />{{item.CoachName}}</td>
+                    <td><img ng-src="~/Content/IntFootball/Teams/{{item.CoachFlag}}" Class="TeamImage" ng-if="item.CoachFlag != ''" />&nbsp;{{item.CoachName}}</td>
+
                 </tr>
             </table>
         </div>
     </div>
-
-    @*@Html.Partial("GamePartial", new SamSmithNZ2015.Models.IntFootball.GameViewModel(Model.GameList, true, false, false))*@
-
-    @*@model SamSmithNZ2015.Models.IntFootball.GameViewModel
-
-        <div id="divGames">
-            <asp:CheckBox ID="chkShowGoals" runat="server" Text="Show Goal Details" AutoPostBack="true" />
-            <table class="tableborders">
-
-                @foreach (SamSmithNZ2015.Core.IntFootball.Game item in Model.GameList)
-                {
-                    SamSmithNZ2015.Models.IntFootball.GameResult result = SamSmithNZ2015.Models.IntFootball.GameViewModel.GetGameResult(item);
-                    <tr>
-                        @if (Model.ShowDebugElements == true)
-                        {
-                            <td>{{item.GameNumber</td>
-                        }
-                        <td>{{item.GameTime.ToString("d-MMM-yyyy")</td>
-                        @if (Model.IsTeamVersion == true)
-                        {
-                            <td>{{item.RoundNumber</td>
-                            <td>{{item.RoundName</td>
-                        }
-                        @if (Model.IsGroupVersion == false)
-                        {
-                            <td>{{item.RoundCode</td>
-                        }
-                        <td style="text-align: right;">
-                            <a href="@Url.Action("Team", "IntFootball", new { teamCode = {{item.Team1Code })">{{item.Team1Name</a>
-                            <img src="@Url.Content("~/Content/IntFootball/Teams/" + {{item.Team1FlagName)" Class="TeamImage" />
-                        </td>
-                        <td style="text-align: center;">
-                            <span id="lblScore">@result.TeamScoresText</span>
-                            @if (string.IsNullOrEmpty(result.TeamScoresText) == false)
-                            {
-                                <br />
-                            }
-                            <span id="lblExtra">@result.TeamExtrasText</span>
-                            @if (string.IsNullOrEmpty(result.TeamExtrasText) == false)
-                            {
-                                <br />
-                            }
-                            <span id="lblPenalties">@result.TeamPenaltiesText</span>
-                            @if (string.IsNullOrEmpty(result.TeamPenaltiesText) == false)
-                            {
-                                <br />
-                            }
-                        </td>
-                        <td style="text-align: left;">
-                            <img src="@Url.Content("~/Content/IntFootball/Teams/" + {{item.Team2FlagName)" Class="TeamImage" />
-                            <a href="@Url.Action("Team", "IntFootball", new { teamCode = {{item.Team2Code })">{{item.Team2Name</a>
-                        </td>
-                        <td>{{item.Location</td>
-                        @if (Model.IsGroupVersion == false)
-                        {
-                            <td>[Unknown]</td>
-                            <td>[Unknown]</td>
-                            <td>[Unknown]</td>
-                        }
-                    </tr>
-                }
-            </table>
-
-        </div>*@
-
 
 </div>

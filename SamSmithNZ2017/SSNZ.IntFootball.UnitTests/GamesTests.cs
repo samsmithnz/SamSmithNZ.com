@@ -433,10 +433,8 @@ namespace SSNZ.IntFootball.UnitTests
             Game game = new Game();
             game.Team1Code = 1;
             game.Team2Code = 2;
-            game.Team1EloRating = 1000;
-            game.Team2EloRating = 2000;
-            game.Team1PreGameEloRating = 2000;
-            game.Team1PostGameEloRating = 2000;
+            game.Team1PreGameEloRating = 1000;
+            game.Team1PostGameEloRating = 1000;
             game.Team2PreGameEloRating = 2000;
             game.Team2PostGameEloRating = 2000;
 
@@ -453,8 +451,6 @@ namespace SSNZ.IntFootball.UnitTests
             Game game = new Game();
             game.Team1Code = 1;
             game.Team2Code = 2;
-            game.Team1EloRating = 1000;
-            game.Team2EloRating = 1000;
             game.Team1PreGameEloRating = 2000;
             game.Team1PostGameEloRating = 2000;
             game.Team2PreGameEloRating = 2000;
@@ -471,8 +467,6 @@ namespace SSNZ.IntFootball.UnitTests
         {
             //arrange
             Game game = new Game();
-            game.Team1EloRating = null;
-            game.Team2EloRating = null;
             game.Team1PreGameEloRating = 2000;
             game.Team1PostGameEloRating = 2000;
             game.Team2PreGameEloRating = 2000;
@@ -510,6 +504,95 @@ namespace SSNZ.IntFootball.UnitTests
 
             //assert
             Assert.IsTrue(game.Team2TotalGoals == 3);
+        }
+
+        [TestMethod]
+        public async Task GamesEnglandOddsTest()
+        {
+            //arrange
+            GameDataAccess da = new GameDataAccess();
+            int teamCode = 10; //England
+            int gamesExpectedWon = 0;
+            int gamesExpectedLoss = 0;
+            int gamesUnexpectedWin = 0;
+            int gamesUnexpectedLoss = 0;
+            int gamesUnexpectedDraw = 0;
+            int gamesUnknown = 0;
+           
+            //act
+            List<Game> results = await da.GetListAsyncByTeam(teamCode);
+            foreach (Game item in results)
+            {
+                if (teamCode == item.Team1Code)
+                {
+                    gamesExpectedWon += item.Team1OddsCountExpectedWin;
+                    gamesExpectedLoss += item.Team1OddsCountExpectedLoss;
+                    gamesUnexpectedWin += item.Team1OddsCountUnexpectedWin;
+                    gamesUnexpectedLoss += item.Team1OddsCountUnexpectedLoss;
+                    gamesUnexpectedDraw += item.Team1OddsCountUnexpectedDraw;
+                    gamesUnknown += item.Team1OddsCountUnknown;
+                }
+                else if (teamCode == item.Team2Code)
+                {
+                    gamesExpectedWon += item.Team2OddsCountExpectedWin;
+                    gamesExpectedLoss += item.Team2OddsCountExpectedLoss;
+                    gamesUnexpectedWin += item.Team2OddsCountUnexpectedWin;
+                    gamesUnexpectedLoss += item.Team2OddsCountUnexpectedLoss;
+                    gamesUnexpectedDraw += item.Team2OddsCountUnexpectedDraw;
+                    gamesUnknown += item.Team2OddsCountUnknown;
+                }
+            }
+
+            //assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count > 0);
+            int totalGamesCheck = (gamesExpectedWon + gamesExpectedLoss + gamesUnexpectedWin + gamesUnexpectedLoss + gamesUnexpectedDraw + gamesUnknown);
+            Assert.IsTrue(totalGamesCheck == results.Count);
+        }
+
+        [TestMethod]
+        public async Task GamesNewZealandOddsTest()
+        {
+            //arrange
+            GameDataAccess da = new GameDataAccess();
+            int teamCode = 1; //NewZealand
+            int gamesExpectedWon = 0;
+            int gamesExpectedLoss = 0;
+            int gamesUnexpectedWin = 0;
+            int gamesUnexpectedLoss = 0;
+            int gamesUnexpectedDraw = 0;
+            int gamesUnknown = 0;
+            
+            //act
+            List<Game> results = await da.GetListAsyncByTeam(teamCode);
+            foreach (Game item in results)
+            {
+                if (teamCode == item.Team1Code)
+                {
+                    gamesExpectedWon += item.Team1OddsCountExpectedWin;
+                    gamesExpectedLoss += item.Team1OddsCountExpectedLoss;
+                    gamesUnexpectedWin += item.Team1OddsCountUnexpectedWin;
+                    gamesUnexpectedLoss += item.Team1OddsCountUnexpectedLoss;
+                    gamesUnexpectedDraw += item.Team1OddsCountUnexpectedDraw;
+                    gamesUnknown += item.Team1OddsCountUnknown;
+                }
+                else if (teamCode == item.Team2Code)
+                {
+                    gamesExpectedWon += item.Team2OddsCountExpectedWin;
+                    gamesExpectedLoss += item.Team2OddsCountExpectedLoss;
+                    gamesUnexpectedWin += item.Team2OddsCountUnexpectedWin;
+                    gamesUnexpectedLoss += item.Team2OddsCountUnexpectedLoss;
+                    gamesUnexpectedDraw += item.Team2OddsCountUnexpectedDraw;
+                    gamesUnknown += item.Team2OddsCountUnknown;
+                }
+            }
+
+            //assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count > 0);
+            int totalGamesCheck = (gamesExpectedWon + gamesExpectedLoss + gamesUnexpectedWin + gamesUnexpectedLoss + gamesUnexpectedDraw + gamesUnknown);
+            Assert.IsTrue(totalGamesCheck == results.Count);
+            Assert.IsTrue(gamesUnexpectedDraw >= 3);
         }
 
     }

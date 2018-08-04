@@ -52,7 +52,7 @@ namespace SSNZ.IntFootball.Data
 
                 if (game.Team1Code == 10 || game.Team2Code == 10)
                 {
-                    System.Diagnostics.Debug.WriteLine("Game: " + game.GameNumber + ", Team1: " + game.Team1Name + ", Team1Elo: " + game.Team1EloRating + ", Team2: " + game.Team2Name + ", Team2Elo: " + game.Team2EloRating);
+                    System.Diagnostics.Debug.WriteLine("Game: " + game.GameNumber + ", Team1: " + game.Team1Name + ", Team1Elo: " + game.Team1PreGameEloRating + ", Team2: " + game.Team2Name + ", Team2Elo: " + game.Team2PreGameEloRating);
                 }
 
                 if (game.Team1PreGameEloRating == team1StartingEloRating || game.Team2PreGameEloRating != team2StartingEloRating)
