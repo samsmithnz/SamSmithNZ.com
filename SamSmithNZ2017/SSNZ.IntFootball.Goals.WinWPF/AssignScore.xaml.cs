@@ -96,10 +96,20 @@ namespace SSNZ.IntFootball.Goals.WinWPF
                             _game.Team1ExtraTimeScore = Convert.ToInt32(txtTeam1ExtraTime.Text);
                             _game.Team2ExtraTimeScore = Convert.ToInt32(txtTeam2ExtraTime.Text);
                         }
+                        else
+                        {
+                            _game.Team1ExtraTimeScore = null;
+                            _game.Team2ExtraTimeScore = null;
+                        }
                         if (txtTeam1Penalties.Text.Length > 0 || txtTeam2Penalties.Text.Length > 0)
                         {
                             _game.Team1PenaltiesScore = Convert.ToInt32(txtTeam1Penalties.Text);
                             _game.Team2PenaltiesScore = Convert.ToInt32(txtTeam2Penalties.Text);
+                        }
+                        else
+                        {
+                            _game.Team1PenaltiesScore = null;
+                            _game.Team2PenaltiesScore = null;
                         }
                     }
 

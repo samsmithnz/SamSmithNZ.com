@@ -30,5 +30,14 @@ namespace SSNZ.IntFootball.Data
             return await base.PostItemAsync("FB_SaveGoal", parameters);
         }
 
+        public async Task<bool> DeleteItemAsync(Goal goal)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@GoalCode", goal.GoalCode, DbType.Int32);
+
+            return await base.PostItemAsync("FB_DeleteGoal", parameters);
+
+        }
+
     }
 }

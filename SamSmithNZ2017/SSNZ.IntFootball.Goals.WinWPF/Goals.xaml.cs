@@ -88,6 +88,7 @@ namespace SSNZ.IntFootball.Goals.WinWPF
 
             AssignGoals AssignGoalsi = new AssignGoals();
             await AssignGoalsi.ShowForm(_tournamentCode, _gameCode, goal.GoalCode);
+            await LoadGoals(_gameCode);
         }
 
         private async void btnAddGoal_Click(object sender, RoutedEventArgs e)

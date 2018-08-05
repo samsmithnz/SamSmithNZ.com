@@ -28,6 +28,9 @@
                 <DataTrigger Binding="{Binding TotalGoalTableGoals, Converter={StaticResource PolarValueConv}}" Value="+1">
                     <Setter Property="Background" Value="{StaticResource ProfitBrush}" />
                 </DataTrigger>
+                <DataTrigger Binding="{Binding TotalGoalTableGoals, Converter={StaticResource PolarValueConv}}" Value="-1">
+                    <Setter Property="Background" Value="{StaticResource ProfitBrush}" />
+                </DataTrigger>
             </Style.Triggers>
         </Style>
     </Window.Resources>

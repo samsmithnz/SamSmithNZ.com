@@ -199,193 +199,196 @@ BEGIN
 		DEALLOCATE Cursor1
 	END
 
-	--Update the playoff's if the group is done.
-	DECLARE @GroupRanking INT
-	DECLARE @TeamCode INT
-
-	DECLARE Cursor1 CURSOR LOCAL FOR
-		SELECT gs.round_code, gs.group_ranking, gs.team_code
-		FROM wc_group_stage gs
-		WHERE tournament_code = @TournamentCode
-		AND round_number = @RoundNumber
-		AND has_qualified_for_next_round = 1
-		ORDER BY gs.round_code, gs.group_ranking
-
-	OPEN Cursor1
-
-	--loop through all the items
-	FETCH NEXT FROM Cursor1 INTO @RoundCode, @GroupRanking, @TeamCode
-	WHILE (@@FETCH_STATUS <> -1)
+	IF (@TournamentCode = 21)
 	BEGIN
+		--Update the playoff's if the group is done.
+		DECLARE @GroupRanking INT
+		DECLARE @TeamCode INT
+
+		DECLARE Cursor1 CURSOR LOCAL FOR
+			SELECT gs.round_code, gs.group_ranking, gs.team_code
+			FROM wc_group_stage gs
+			WHERE tournament_code = @TournamentCode
+			AND round_number = @RoundNumber
+			AND has_qualified_for_next_round = 1
+			ORDER BY gs.round_code, gs.group_ranking
+
+		OPEN Cursor1
+
+		--loop through all the items
+		FETCH NEXT FROM Cursor1 INTO @RoundCode, @GroupRanking, @TeamCode
+		WHILE (@@FETCH_STATUS <> -1)
+		BEGIN
 	
-		--Round of 16
+			--Round of 16
 	
-		--Winners Group C	Match 50	Runners-up Group D
-		IF (@RoundCode = 'C' AND @GroupRanking = 1) 
-		BEGIN
-			UPDATE g
-			SET team_1_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 50
-		END	
-		ELSE IF (@RoundCode = 'D' AND @GroupRanking = 2)
-		BEGIN
-			UPDATE g
-			SET team_2_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 50
-		END
+			--Winners Group C	Match 50	Runners-up Group D
+			IF (@RoundCode = 'C' AND @GroupRanking = 1) 
+			BEGIN
+				UPDATE g
+				SET team_1_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 50
+			END	
+			ELSE IF (@RoundCode = 'D' AND @GroupRanking = 2)
+			BEGIN
+				UPDATE g
+				SET team_2_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 50
+			END
 
-		--Winners Group A	Match 49	Runners-up Group B
-		ELSE IF (@RoundCode = 'A' AND @GroupRanking = 1) 
-		BEGIN
-			UPDATE g
-			SET team_1_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 49
-		END	
-		ELSE IF (@RoundCode = 'B' AND @GroupRanking = 2)
-		BEGIN
-			UPDATE g
-			SET team_2_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 49
-		END
+			--Winners Group A	Match 49	Runners-up Group B
+			ELSE IF (@RoundCode = 'A' AND @GroupRanking = 1) 
+			BEGIN
+				UPDATE g
+				SET team_1_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 49
+			END	
+			ELSE IF (@RoundCode = 'B' AND @GroupRanking = 2)
+			BEGIN
+				UPDATE g
+				SET team_2_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 49
+			END
 
-		--Winners Group B	Match 51	Runners-up Group A
-		ELSE IF (@RoundCode = 'B' AND @GroupRanking = 1) 
-		BEGIN
-			UPDATE g
-			SET team_1_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 51
-		END	
-		ELSE IF (@RoundCode = 'A' AND @GroupRanking = 2)
-		BEGIN
-			UPDATE g
-			SET team_2_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 51
-		END
+			--Winners Group B	Match 51	Runners-up Group A
+			ELSE IF (@RoundCode = 'B' AND @GroupRanking = 1) 
+			BEGIN
+				UPDATE g
+				SET team_1_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 51
+			END	
+			ELSE IF (@RoundCode = 'A' AND @GroupRanking = 2)
+			BEGIN
+				UPDATE g
+				SET team_2_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 51
+			END
 
-		--Winners Group D	Match 52	Runners-up Group C
-		ELSE IF (@RoundCode = 'D' AND @GroupRanking = 1) 
-		BEGIN
-			UPDATE g
-			SET team_1_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 52
-		END	
-		ELSE IF (@RoundCode = 'C' AND @GroupRanking = 2)
-		BEGIN
-			UPDATE g
-			SET team_2_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 52
-		END
+			--Winners Group D	Match 52	Runners-up Group C
+			ELSE IF (@RoundCode = 'D' AND @GroupRanking = 1) 
+			BEGIN
+				UPDATE g
+				SET team_1_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 52
+			END	
+			ELSE IF (@RoundCode = 'C' AND @GroupRanking = 2)
+			BEGIN
+				UPDATE g
+				SET team_2_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 52
+			END
 
-		--Winners Group E	Match 53	Runners-up Group F
-		ELSE IF (@RoundCode = 'E' AND @GroupRanking = 1) 
-		BEGIN
-			UPDATE g
-			SET team_1_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 53
-		END	
-		ELSE IF (@RoundCode = 'F' AND @GroupRanking = 2)
-		BEGIN
-			UPDATE g
-			SET team_2_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 53
-		END
+			--Winners Group E	Match 53	Runners-up Group F
+			ELSE IF (@RoundCode = 'E' AND @GroupRanking = 1) 
+			BEGIN
+				UPDATE g
+				SET team_1_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 53
+			END	
+			ELSE IF (@RoundCode = 'F' AND @GroupRanking = 2)
+			BEGIN
+				UPDATE g
+				SET team_2_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 53
+			END
 
-		--Winners Group G	Match 54	Runners-up Group H
-		ELSE IF (@RoundCode = 'G' AND @GroupRanking = 1) 
-		BEGIN
-			UPDATE g
-			SET team_1_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 54
-		END	
-		ELSE IF (@RoundCode = 'H' AND @GroupRanking = 2)
-		BEGIN
-			UPDATE g
-			SET team_2_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 54
-		END
+			--Winners Group G	Match 54	Runners-up Group H
+			ELSE IF (@RoundCode = 'G' AND @GroupRanking = 1) 
+			BEGIN
+				UPDATE g
+				SET team_1_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 54
+			END	
+			ELSE IF (@RoundCode = 'H' AND @GroupRanking = 2)
+			BEGIN
+				UPDATE g
+				SET team_2_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 54
+			END
 
-		--Winners Group F	Match 55	Runners-up Group E
-		ELSE IF (@RoundCode = 'F' AND @GroupRanking = 1) 
-		BEGIN
-			UPDATE g
-			SET team_1_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 55
-		END	
-		ELSE IF (@RoundCode = 'E' AND @GroupRanking = 2)
-		BEGIN
-			UPDATE g
-			SET team_2_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 55
-		END
+			--Winners Group F	Match 55	Runners-up Group E
+			ELSE IF (@RoundCode = 'F' AND @GroupRanking = 1) 
+			BEGIN
+				UPDATE g
+				SET team_1_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 55
+			END	
+			ELSE IF (@RoundCode = 'E' AND @GroupRanking = 2)
+			BEGIN
+				UPDATE g
+				SET team_2_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 55
+			END
 
-		--Winners Group H	Match 56	Runners-up Group G
-		ELSE IF (@RoundCode = 'H' AND @GroupRanking = 1) 
-		BEGIN
-			UPDATE g
-			SET team_1_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 56
-		END	
-		ELSE IF (@RoundCode = 'G' AND @GroupRanking = 2)
-		BEGIN
-			UPDATE g
-			SET team_2_code = @TeamCode
-			FROM wc_game g
-			WHERE g.tournament_code = @TournamentCode
-			AND g.round_number = @RoundNumber + 1
-			AND g.game_number = 56
-		END
+			--Winners Group H	Match 56	Runners-up Group G
+			ELSE IF (@RoundCode = 'H' AND @GroupRanking = 1) 
+			BEGIN
+				UPDATE g
+				SET team_1_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 56
+			END	
+			ELSE IF (@RoundCode = 'G' AND @GroupRanking = 2)
+			BEGIN
+				UPDATE g
+				SET team_2_code = @TeamCode
+				FROM wc_game g
+				WHERE g.tournament_code = @TournamentCode
+				AND g.round_number = @RoundNumber + 1
+				AND g.game_number = 56
+			END
 		
 
-		FETCH NEXT FROM Cursor1 INTO @RoundCode, @GroupRanking, @TeamCode
-	END
+			FETCH NEXT FROM Cursor1 INTO @RoundCode, @GroupRanking, @TeamCode
+		END
 
-	CLOSE Cursor1
-	DEALLOCATE Cursor1
+		CLOSE Cursor1
+		DEALLOCATE Cursor1
+	END
 
 	--
 	/*

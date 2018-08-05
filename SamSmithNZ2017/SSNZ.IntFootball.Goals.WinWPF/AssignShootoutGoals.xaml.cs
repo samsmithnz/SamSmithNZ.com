@@ -164,5 +164,16 @@ namespace SSNZ.IntFootball.Goals.WinWPF
             return true;
         }
 
+        private async void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            PenaltyShootoutGoal goal = new PenaltyShootoutGoal();
+            goal.PenaltyCode = _penaltyCode;
+
+            PenaltyShootoutGoalDataAccess da = new PenaltyShootoutGoalDataAccess();
+            await da.DeleteItemAsync(goal);
+
+            _bResult = true;
+            this.Close();
+        }
     }
 }

@@ -14,7 +14,7 @@
         <Slider Height="25" Margin="134,70,0,0" Name="sliNormalTime" VerticalAlignment="Top" Maximum="120" TickPlacement="TopLeft" IsSnapToTickEnabled="True" IsSelectionRangeEnabled="False" ValueChanged="sliNormalTime_ValueChanged" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="452" />
         <CheckBox Content="Is _Penalty" Height="16" HorizontalAlignment="Left" Margin="84,133,0,0" Name="chkIsPenalty" VerticalAlignment="Top" Checked="chkIsPenalty_Checked"  TabIndex="3" />
         <CheckBox Content="Is _Own Goal" Height="16" HorizontalAlignment="Left" Margin="159,133,0,0" Name="chkIsOwnGoal" VerticalAlignment="Top" Grid.ColumnSpan="2" Checked="chkIsOwnGoal_Checked" TabIndex="4" />
-        <Button Content="Delete" Height="25" Margin="12,0,0,12" Name="btnDelete" UseLayoutRounding="False" Width="75" HorizontalAlignment="Left" VerticalAlignment="Bottom" IsTabStop="False" />
+        <Button Content="Delete" Height="25" Margin="12,0,0,12" Name="btnDelete" UseLayoutRounding="False" Width="75" HorizontalAlignment="Left" VerticalAlignment="Bottom" IsTabStop="False" Click="btnDelete_Click" />
         <Label Content="Injury Time:" Height="26" HorizontalAlignment="Left" Margin="12,99,0,0" Name="label1" VerticalAlignment="Top" Width="Auto" />
         <Slider Height="25" HorizontalAlignment="Left" IsSelectionRangeEnabled="False" IsSnapToTickEnabled="True" Margin="134,99,0,0" Minimum="0" Maximum="10" Name="sliInjuryTime" TickPlacement="TopLeft" VerticalAlignment="Top" Width="40" ValueChanged="sliInjuryTime_ValueChanged" />
         <Label Content="Goal Appearance:" Height="30" HorizontalAlignment="Left" Margin="11,164,0,0" Name="lblGoalAppearanceLabel" VerticalAlignment="Top" Width="Auto" />

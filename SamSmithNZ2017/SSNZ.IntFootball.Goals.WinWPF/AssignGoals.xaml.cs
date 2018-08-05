@@ -236,5 +236,16 @@ namespace SSNZ.IntFootball.Goals.WinWPF
             return true;
         }
 
+        private async void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            Goal goal = new Goal();
+            goal.GoalCode = _goalCode;
+
+            GoalDataAccess da = new GoalDataAccess();
+            await da.DeleteItemAsync(goal);
+
+            _bResult = true;
+            this.Close();
+        }
     }
 }
