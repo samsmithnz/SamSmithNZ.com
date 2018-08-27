@@ -297,6 +297,7 @@
     <Content Include="Content\FooFighters\AlbumCovers\walkingafteryou.jpg" />
     <Content Include="Content\FooFighters\favicon.ico" />
     <Content Include="Content\FooFighters\foofighters.png" />
+    <Content Include="Content\GameDev\unity.jpg" />
     <Content Include="Content\GuitarTab\bucket1_bl.gif" />
     <Content Include="Content\GuitarTab\bucket1_br.gif" />
     <Content Include="Content\GuitarTab\bucket1_header_bg.gif" />
@@ -1444,7 +1445,6 @@
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\GameDev\" />
     <Folder Include="Views\SteamOld\" />
   </ItemGroup>
   <ItemGroup>

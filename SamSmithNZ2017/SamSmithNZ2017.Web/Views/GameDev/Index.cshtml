@@ -34,25 +34,28 @@
     I'm trying to develop a turn based strategy game, using the Unity engine.
     <br />
     <br />
-    <span style="font: bold 12px verdana;">The game development blog is located here: <a href="http://turnbasedengine.blogspot.com/" target="_blank">http://turnbasedengine.blogspot.com/</a>.</span>
+    <span style="font: bold 12px verdana;">The game development blog is located here: <a href="https://turnbasedengine.blogspot.com/" target="_blank">https://turnbasedengine.blogspot.com/</a>.</span>
+    <br />
+    <br />
+    <span style="font: bold 12px verdana;">Here my <a href="https://github.com/samsmithnz/OpenTile" target="_blank">"OpenTile" GitHub repo</a>. OpenTile contains the building blocks to implement for basic path finding with Dijkstra's algorithm, show possible available tiles (for movement), cover, as well as a number of other utility functions.</span>
     <br />
     <br />
     Here is the <a href="@Url.Action("LevelCreation", "GameDev", new { width = 8, height = 8 })">mission level creation</a> prototype. I used this to create dynamic levels with rivers/ roads in my game.
     <br />
     <br />
-    Additionally, here is a <a href="@Url.Action("CampaignCreation", "GameDev", new { width = 4, height = 4 })">campaign level creation</a> prototype. 
+    Additionally, here is a <a href="@Url.Action("CampaignCreation", "GameDev", new { width = 4, height = 4 })">campaign level creation</a> prototype.
     <br />
     <br />
 
     @* @foreach (SyndicationItem RssItem in Model.FeedItems)
-    {
-        <div>
-            <h3>@RssItem.PublishDate.ToString("dddd, dd-MMM-yyy")</h3>
-            <hr />
-            <h2>@RssItem.Title.Text</h2>
-            <div style="clear: both; padding: 10px">@Html.Raw(@RssItem.Summary.Text)</div>
+        {
+            <div>
+                <h3>@RssItem.PublishDate.ToString("dddd, dd-MMM-yyy")</h3>
+                <hr />
+                <h2>@RssItem.Title.Text</h2>
+                <div style="clear: both; padding: 10px">@Html.Raw(@RssItem.Summary.Text)</div>
 
-        </div>
-    }*@
+            </div>
+        }*@
 </body>
 </html>
