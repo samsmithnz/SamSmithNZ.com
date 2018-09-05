@@ -16,7 +16,14 @@ namespace SSNZ.IntFootball.Data
             parameters.Add("@RoundCode", roundCode, DbType.String);
 
             return await base.GetListAsync("FB_GetGroups", parameters);
-        }      
+        }   
+        
+        public async Task<bool> DeleteItemAsync(Group group)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+
+            return await base.PostItemAsync("FB_DeleteGroup", parameters);
+        }
 
     }
 }

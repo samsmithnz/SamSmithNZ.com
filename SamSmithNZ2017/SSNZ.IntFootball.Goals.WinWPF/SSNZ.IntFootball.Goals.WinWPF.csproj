@@ -61,6 +61,15 @@
     <Compile Include="AssignScore.xaml.cs">
       <DependentUpon>AssignScore.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Groups.xaml.cs">
+      <DependentUpon>Groups.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TeamsPopup.xaml.cs">
+      <DependentUpon>TeamsPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Teams.xaml.cs">
+      <DependentUpon>Teams.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +129,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AssignShootoutGoals.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Groups.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TeamsPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Teams.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

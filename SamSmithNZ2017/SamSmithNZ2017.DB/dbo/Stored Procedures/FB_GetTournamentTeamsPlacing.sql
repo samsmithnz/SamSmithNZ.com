@@ -119,7 +119,7 @@ BEGIN
 		JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_1_code = te.team_code
 		WHERE g.tournament_code = @TournamentCode
 		AND g.round_code = 'QF'
-		AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE not Teamcode IS NULL)
+		AND g.team_1_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE not TeamCode IS NULL)
 		--AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
 		INSERT INTO #tmp_final_placing 
 		SELECT CASE WHEN te.is_active = 1 THEN 5 ELSE 6 END, 

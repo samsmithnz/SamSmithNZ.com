@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[FB_GetTournaments]
-	--@CompetitonCode INT = 1,
+	@CompetitionCode INT = NULL,
 	@TournamentCode INT = NULL
 AS
 BEGIN
@@ -64,8 +64,8 @@ BEGIN
 	LEFT JOIN wc_game g ON t.tournament_code = g.tournament_code
 	JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
 	JOIN vWC_TournamentCompletionStatistics tcs ON t.tournament_code = tcs.tournament_code 
-	WHERE t.competition_code = 1 --WORLDCUP --(t.competition_code = @CompetitonCode OR @CompetitonCode IS NULL)
-	AND (t.tournament_code = @TournamentCode OR @TournamentCode IS NULL)
+	WHERE (t.tournament_code = @TournamentCode OR @TournamentCode IS NULL)
+	AND (t.competition_code = @CompetitionCode OR @CompetitionCode IS NULL)
 	GROUP BY t.competition_code, 
 		t.tournament_code, 
 		[year] , 

@@ -113,15 +113,17 @@
             <br />
             <img ng-src="~/Content/IntFootball/WorldCupQualification/{{tournament.QualificationImage}}" />
             <span style="padding-bottom: 1px; margin: 0px; display: block; font-size: 90%">
-                <span style="border-bottom: #000cff 1px solid; border-left: #000cff 1px solid; background-color: #000cff; color: #000cff; border-top: #000cff 1px solid; border-right: #000cff 1px solid">&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp;Countries qualified for World Cup
+                <span style="border-bottom: #000cff 1px solid; border-left: #000cff 1px solid; background-color: #000cff; color: #000cff; border-top: #000cff 1px solid; border-right: #000cff 1px solid">&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp;Countries qualified
             </span>
             <span style="padding-bottom: 1px; margin: 0px; display: block; font-size: 90%">
-                <span style="border-bottom: #ffb400 1px solid; border-left: #ffb400 1px solid; background-color: #ffb400; color: #ffb400; border-top: #ffb400 1px solid; border-right: #ffb400 1px solid">&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp;Country failed to qualify
+                <span ng-if="CompetitionCode!=3" style="border-bottom: #ffb400 1px solid; border-left: #ffb400 1px solid; background-color: #ffb400; color: #ffb400; border-top: #ffb400 1px solid; border-right: #ffb400 1px solid">&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+                <span ng-if="CompetitionCode==3" style="border-bottom: #ffb400 1px solid; border-left: #ffb400 1px solid; background-color: #ffb400; color: #ffb400; border-top: #ff0000 1px solid; border-right: #ff0000 1px solid">&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+                &nbsp;Country failed to qualify
             </span>
             <span style="padding-bottom: 1px; margin: 0px; display: block; font-size: 90%">
-                <span style="border-bottom: black 1px solid; border-left: black 1px solid; background-color: black; color: black; border-top: black 1px solid; border-right: black 1px solid">&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp;Countries that did not enter World Cup
+                <span style="border-bottom: black 1px solid; border-left: black 1px solid; background-color: black; color: black; border-top: black 1px solid; border-right: black 1px solid">&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp;Countries that did not enter
             </span>
-            <span style="padding-bottom: 1px; margin: 0px; display: block; font-size: 90%"><span style="border-bottom: #ababab 1px solid; border-left: #ababab 1px solid; background-color: #ababab; color: #ababab; border-top: #ababab 1px solid; border-right: #ababab 1px solid">&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp;Country not a FIFA member</span>
+            <span style="padding-bottom: 1px; margin: 0px; display: block; font-size: 90%"><span style="border-bottom: #ababab 1px solid; border-left: #ababab 1px solid; background-color: #ababab; color: #ababab; border-top: #ababab 1px solid; border-right: #ababab 1px solid">&nbsp;&nbsp;&nbsp;&nbsp;</span> &nbsp;Country not a member</span>
             <br /><br />
         </div>
     </div>

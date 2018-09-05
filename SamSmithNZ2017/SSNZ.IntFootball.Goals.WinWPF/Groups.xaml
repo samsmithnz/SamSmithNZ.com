@@ -1,0 +1,74 @@
+﻿<Window x:Class="SSNZ.IntFootball.Goals.WinWPF.Groups"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SSNZ.IntFootball.Goals.WinWPF"
+        Title="Groups" Height="346" Width="1163" ShowInTaskbar="True" WindowStartupLocation="CenterScreen" Icon="/SSNZ.IntFootball.Goals.WinWPF;component/Soccer.ico">
+    <Window.Resources>
+        <Style x:Key="ItemContStyle" TargetType="{x:Type ListViewItem}">
+            <Style.Resources>
+                <LinearGradientBrush x:Key="ProfitBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Offset="0.1" Color="#AA00CC00" />
+                    <GradientStop Offset="0.8" Color="#55008800" />
+                </LinearGradientBrush>
+                <LinearGradientBrush x:Key="LossBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Offset="0.1" Color="#AACC0000" />
+                    <GradientStop Offset="0.8" Color="#55880000" />
+                </LinearGradientBrush>
+                <!-- Reduces a customer's Balance to either -1, 0, or +1 -->
+                <local:NumberToPolarValueConverter x:Key="PolarValueConv" />
+            </Style.Resources>
+            <!-- Stretch the content so that we can right-align values in the Balance column. -->
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Style.Triggers>
+                <!-- When penalty shootout goals are required, color them red. -->
+                <DataTrigger  Binding="{Binding TotalPenaltyShootoutTableGoals, Converter={StaticResource PolarValueConv}}" Value="+1">
+                    <Setter Property="Background" Value="{StaticResource LossBrush}" />
+                </DataTrigger>
+                <!-- When goals are required, color the row green. -->
+                <DataTrigger Binding="{Binding TotalGoalTableGoals, Converter={StaticResource PolarValueConv}}" Value="+1">
+                    <Setter Property="Background" Value="{StaticResource ProfitBrush}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding TotalGoalTableGoals, Converter={StaticResource PolarValueConv}}" Value="-1">
+                    <Setter Property="Background" Value="{StaticResource ProfitBrush}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+
+    <Grid>
+        <Label Content="Group: " Height="25" HorizontalAlignment="Left" x:Name="label2" VerticalAlignment="Top" Width="Auto" Margin="13,10,0,0" />
+        <ComboBox Height="25" HorizontalAlignment="Left" Margin="67,10,0,0" x:Name="cboGroup" VerticalAlignment="Top" Width="234" ItemsSource="{Binding}" TabIndex="0" SelectionChanged="cboGroup_Changed" />
+        <Button Content="Add _Team" Height="25" x:Name="btnAddTeam" Width="137.909" UseLayoutRounding="False" Margin="67,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="btnAddTeam_Click"  TabIndex="5" IsDefault="True"/>
+
+        <ListView Margin="12,70,12,50" Name="lstGroups" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource ItemContStyle}" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Group" DisplayMemberBinding="{Binding Path=GroupCode}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                     <GridViewColumn Header="Team" DisplayMemberBinding="{Binding Path=TeamName}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Remove Team">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Remove" Click="btnRemoveTeam_Click" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Close" Height="25" x:Name="btnClose" Width="137.909" UseLayoutRounding="False" Margin="13,280,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="btnClose_Click"  TabIndex="5" IsDefault="True"/>
+
+    </Grid>
+</Window>

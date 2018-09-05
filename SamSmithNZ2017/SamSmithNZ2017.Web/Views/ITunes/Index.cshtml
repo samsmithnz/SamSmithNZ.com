@@ -13,9 +13,9 @@
                     <li class="tableofcontentsitem">
                         1. <a href="#TopArtists">All Time Top Artists</a>
                     </li>
-                    <li class="tableofcontentsitem">
+                    @*<li class="tableofcontentsitem">
                         2. <a href="#BiggestMovers">All Time Biggest Movers</a>
-                    </li>
+                    </li>*@
                 </ul>
             </td>
         </tr>
@@ -49,7 +49,7 @@
         }*@
     </table>
 
-    <a name="BiggestMovers"></a>
+    @*<a name="BiggestMovers"></a>
     <h2 class="sectionTitle">All Time Biggest Movers</h2>
     <img ng-hide="movements" id="spinner1" src="~/Content/Images/spinner_small.gif" />
     <table class="tableborders" ng-show="movements">
@@ -61,12 +61,5 @@
             <td class="cellborders">{{item.TrackName}}</td>
             <td class="cellborders">+{{item.ChangeThisMonth}}</td>
         </tr>
-        @*@foreach (SamSmithNZ2015.Core.iTunes.Movement item in Model.Movement)
-        {
-            <tr class="alternatingColors">
-                <td class="cellborders">@item.TrackName</td>
-                <td class="cellborders">+@item.ChangeThisMonth</td>
-            </tr>
-        }*@
-    </table>
+    </table>*@
 </div>

@@ -16,9 +16,10 @@ namespace SSNZ.IntFootball.UnitTests
         {
             //arrange
             TournamentDataAccess da = new TournamentDataAccess();
+            int competitionCode = 1;
 
             //act
-            List<Tournament> results = await da.GetListAsync();
+            List<Tournament> results = await da.GetListAsync(competitionCode);
 
             //assert
             Assert.IsTrue(results != null);
@@ -29,9 +30,10 @@ namespace SSNZ.IntFootball.UnitTests
         public async Task TournamentsFirstItemTest()
         {
             TournamentDataAccess da = new TournamentDataAccess();
+            int competitionCode = 1;
 
             //act
-            List<Tournament> results = await da.GetListAsync();
+            List<Tournament> results = await da.GetListAsync(competitionCode);
 
 
             //assert

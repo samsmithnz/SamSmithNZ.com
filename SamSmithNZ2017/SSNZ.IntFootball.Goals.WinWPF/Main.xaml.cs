@@ -33,7 +33,7 @@ namespace SSNZ.IntFootball.Goals.WinWPF
             {
                 btnTournamentGames.IsEnabled = false;
                 TournamentDataAccess da = new TournamentDataAccess();
-                List<Tournament> tournaments = await da.GetListAsync();
+                List<Tournament> tournaments = await da.GetListAsync(null);
                 cboTournament.DataContext = tournaments;
                 cboTournament.DisplayMemberPath = "TournamentName";
                 cboTournament.SelectedValuePath = "TournamentCode";
@@ -61,16 +61,40 @@ namespace SSNZ.IntFootball.Goals.WinWPF
         {
             if (cboTournament.SelectedValue != null)
             {
-                Games Gamesi = new Games();
-                await Gamesi.ShowForm(Convert.ToInt16(cboTournament.SelectedValue));
+                Games games = new Games();
+                await games.ShowForm(Convert.ToInt16(cboTournament.SelectedValue));
             }
             else
             {
-                MessageBox.Show("Tournament Not Selected");
+                MessageBox.Show("Tournament not selected");
             }
         }
 
+        private async void btnTournamentTeams_Click(object sender, RoutedEventArgs e)
+        {
+            if (cboTournament.SelectedValue != null)
+            {
+                Teams teams = new Teams();
+                await teams.ShowForm(Convert.ToInt16(cboTournament.SelectedValue));
+            }
+            else
+            {
+                MessageBox.Show("Tournament not selected");
+            }
+        }
 
+        private async void btnTournamentGroups_Click(object sender, RoutedEventArgs e)
+        {
+            if (cboTournament.SelectedValue != null)
+            {
+                Groups groups = new Groups();
+                await groups.ShowForm(Convert.ToInt16(cboTournament.SelectedValue));
+            }
+            else
+            {
+                MessageBox.Show("Tournament not selected");
+            }
+        }
 
     }
 }

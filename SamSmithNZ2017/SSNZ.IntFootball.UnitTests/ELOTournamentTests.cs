@@ -43,12 +43,14 @@ namespace SSNZ.IntFootball.UnitTests
         [TestMethod()]
         public async Task ELOTournamentRefresh()
         {
+            int competitionCode = 1;
+
             TournamentDataAccess daTournament = new TournamentDataAccess();
-            List<Tournament> tournaments = await daTournament.GetListAsync();
+            List<Tournament> tournaments = await daTournament.GetListAsync(competitionCode);
 
             foreach (Tournament tournament in tournaments)
             {
-                if (tournament.TournamentCode ==3)
+                if (tournament.TournamentCode == 21)
                 {
                     EloRatingDataAccess daELO = new EloRatingDataAccess();
                     List<TeamELORating> results = await daELO.UpdateTournamentELORatings(tournament.TournamentCode);

@@ -423,6 +423,7 @@
     <Content Include="Content\IntFootball\teams\22px-Flag_of_Wales_2_svg.png" />
     <Content Include="Content\IntFootball\teams\22px-Flag_of_Zaire_svg.png" />
     <Content Include="Content\IntFootball\teams\23px-Flag_of_Panama.svg.png" />
+    <Content Include="Content\IntFootball\teams\23px-Flag_of_Venezuela_%28state%29.svg.png" />
     <Content Include="Content\IntFootball\teams\Blank.png" />
     <Content Include="Content\IntFootball\teams\Flag_of_Bosnia_and_Herzegovina.svg.png" />
     <Content Include="Content\IntFootball\WorldCup.png" />
@@ -478,6 +479,7 @@
     <Content Include="Content\IntFootball\WorldCupQualification\220px-1950_world_cup_qualification.png" />
     <Content Include="Content\IntFootball\WorldCupQualification\220px-1958_world_cup_qualification.png" />
     <Content Include="Content\IntFootball\WorldCupQualification\220px-1962_world_cup_qualification.png" />
+    <Content Include="Content\IntFootball\WorldCupQualification\220px-UEFA_Euro_1996_Qualifiers_Map.png" />
     <Content Include="Content\IntFootball\WorldCupQualification\300px-1954_world_cup_qualification.png" />
     <Content Include="Content\IntFootball\WorldCupQualification\305px-1966_world_cup_qualification.png" />
     <Content Include="Content\IntFootball\WorldCupQualification\305px-1970_world_cup_qualification.png" />

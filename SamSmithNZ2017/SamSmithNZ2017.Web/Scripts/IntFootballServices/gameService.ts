@@ -14,7 +14,7 @@
 
         this.getGamesByTeam = function (teamCode) {
             let url: string = baseUrl + 'api/Game/GetGamesByTeam?TeamCode=' + teamCode;
-            console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
 

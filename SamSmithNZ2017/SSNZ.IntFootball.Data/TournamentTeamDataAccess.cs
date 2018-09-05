@@ -25,5 +25,23 @@ namespace SSNZ.IntFootball.Data
             return await base.GetListAsync("FB_GetTournamentTeamsPlacing", parameters);
         }
 
+        public async Task<bool> SaveItemAsync(TournamentTeam tournamentTeam)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@TournamentCode", tournamentTeam.TournamentCode, DbType.Int32);
+            parameters.Add("@TeamCode", tournamentTeam.TeamCode, DbType.Int32);
+
+            return await base.PostItemAsync("FB_SaveTournamentTeam", parameters);
+        }
+
+        public async Task<bool> DeleteItemAsync(TournamentTeam tournamentTeam)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@TournamentCode", tournamentTeam.TournamentCode, DbType.Int32);
+            parameters.Add("@TeamCode", tournamentTeam.TeamCode, DbType.Int32);
+
+            return await base.PostItemAsync("FB_DeleteTournamentTeam", parameters);
+        }
+
     }
 }

@@ -8,10 +8,10 @@ namespace SSNZ.IntFootball.Service.Controllers
 {
     public class TournamentController : ApiController
     {
-        public async Task<List<Tournament>> GetTournaments()
+        public async Task<List<Tournament>> GetTournaments(int competitionCode = 1)
         {
             TournamentDataAccess da = new TournamentDataAccess();
-            return await da.GetListAsync();
+            return await da.GetListAsync(competitionCode);
         }
         public async Task<Tournament> GetTournament(int tournamentCode)
         {

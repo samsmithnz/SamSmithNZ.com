@@ -8,12 +8,13 @@ namespace SSNZ.IntFootball.Data
 {
     public class TournamentDataAccess : GenericDataAccess<Tournament>
     {
-        public async Task<List<Tournament>> GetListAsync()
+        public async Task<List<Tournament>> GetListAsync(int? competitionCode)
         {
             DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@CompetitionCode", competitionCode, DbType.Int32);
 
             return await base.GetListAsync("FB_GetTournaments", parameters);
-        }    
+        }
 
         public async Task<Tournament> GetItemAsync(int tournamentCode)
         {
@@ -21,7 +22,7 @@ namespace SSNZ.IntFootball.Data
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
 
             return await base.GetItemAsync("FB_GetTournaments", parameters);
-        }      
+        }
 
     }
 }
