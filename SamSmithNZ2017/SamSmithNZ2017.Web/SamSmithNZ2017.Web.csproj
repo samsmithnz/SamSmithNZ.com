@@ -245,12 +245,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Data.xml" />
+    <Content Include="Content\AboutMe\blogger.png" />
     <Content Include="Content\AboutMe\facebook-icon.png" />
+    <Content Include="Content\AboutMe\facebook.png" />
+    <Content Include="Content\AboutMe\github.png" />
     <Content Include="Content\AboutMe\gplus-icon.png" />
     <Content Include="Content\AboutMe\linkedin-icon.png" />
+    <Content Include="Content\AboutMe\linkedin.png" />
     <Content Include="Content\AboutMe\pinterest-icon.png" />
     <Content Include="Content\AboutMe\rss-icon.png" />
     <Content Include="Content\AboutMe\twitter-icon.png" />
+    <Content Include="Content\AboutMe\twitter.png" />
     <Content Include="Content\AboutMe\youtube-icon.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
