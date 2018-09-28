@@ -254,6 +254,7 @@
     <Content Include="Content\AboutMe\linkedin.png" />
     <Content Include="Content\AboutMe\pinterest-icon.png" />
     <Content Include="Content\AboutMe\rss-icon.png" />
+    <Content Include="Content\AboutMe\stackoverflow.png" />
     <Content Include="Content\AboutMe\twitter-icon.png" />
     <Content Include="Content\AboutMe\twitter.png" />
     <Content Include="Content\AboutMe\youtube-icon.png" />
