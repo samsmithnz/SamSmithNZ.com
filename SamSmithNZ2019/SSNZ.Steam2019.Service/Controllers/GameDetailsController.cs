@@ -28,12 +28,12 @@ namespace SSNZ.Steam2019.Service.Controllers
             return await da.GetDataAsync(_redisService, steamID, appID, getStats, achievementToSearch);
         }
 
-        //// GET
-        //[HttpGet]
-        //public async Task<GameDetail> GetGameWithFriendDetails(string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null)
-        //{
-        //    GameDetailsDA da = new GameDetailsDA();
-        //    return await da.GetDataWithFriend(steamID, appID, friendSteamId, getStats, achievementToSearch);
-        //}
+        // GET
+        [HttpGet]
+        public async Task<GameDetail> GetGameWithFriendDetails(string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null)
+        {
+            GameDetailsDA da = new GameDetailsDA();
+            return await da.GetDataWithFriendAsync(_redisService, steamID, appID, friendSteamId, getStats, achievementToSearch);
+        }
     }
 }

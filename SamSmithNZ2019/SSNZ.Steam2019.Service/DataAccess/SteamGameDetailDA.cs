@@ -17,20 +17,18 @@ namespace SSNZ.Steam2019.Service.DataAccess
         public async Task<SteamGameDetail> GetDataAsync(IRedisService redisService, string appID)
         {
             SteamGameDetail gameDetail = null;
-            string gameDetailRedisName = "gameDetail-" + appID;
-            TimeSpan cacheExpirationTime = new TimeSpan(0, 0, 30);
-
-            //Get the details of the game
-            string gameDetailJSON = null;
+            string cacheKeyName = "gameDetail-" + appID;
+            TimeSpan cacheExpirationTime = new TimeSpan(24, 0, 0);
 
             //Check the cache
+            string cachedJSON = null;
             if (redisService != null)
             {
-                gameDetailJSON = await redisService.GetAsync(gameDetailRedisName);
+                cachedJSON = await redisService.GetAsync(cacheKeyName);
             }
-            if (gameDetailJSON != null)
+            if (cachedJSON != null)
             {
-                gameDetail = Newtonsoft.Json.JsonConvert.DeserializeObject<SteamGameDetail>(gameDetailJSON);
+                gameDetail = Newtonsoft.Json.JsonConvert.DeserializeObject<SteamGameDetail>(cachedJSON);
             }
             else
             {
@@ -48,7 +46,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
                     gameDetail = JsonConvert.DeserializeObject<SteamGameDetail>(jsonResult);
                 }
                 //set the cache with the updated record
-                await redisService.SetAsync(gameDetailRedisName, Newtonsoft.Json.JsonConvert.SerializeObject(gameDetail), cacheExpirationTime);
+                await redisService.SetAsync(cacheKeyName, Newtonsoft.Json.JsonConvert.SerializeObject(gameDetail), cacheExpirationTime);
             }
             return gameDetail;
         }

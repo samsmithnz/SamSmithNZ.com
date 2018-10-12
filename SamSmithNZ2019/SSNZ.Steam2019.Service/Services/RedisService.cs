@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using StackExchange.Redis;
 using System;
+using System.Diagnostics;
 
 namespace SSNZ.Steam2019.Service.Services
 {
@@ -16,7 +17,12 @@ namespace SSNZ.Steam2019.Service.Services
 
         public async Task<string> GetAsync(string key)
         {
-            return await _database.StringGetAsync(key);
+            string result = await _database.StringGetAsync(key);
+            if (string.IsNullOrEmpty(result)==false)
+            {
+                Debug.WriteLine("Getting item from cache: " + key);
+            }
+            return result;
         }
 
         public async Task<bool> ExistsAsync(string key)
@@ -26,6 +32,7 @@ namespace SSNZ.Steam2019.Service.Services
 
         public async Task<bool> SetAsync(string key, string data, TimeSpan expirationTime)
         {
+            Debug.WriteLine("Setting item into cache: " + key);
             return await _database.StringSetAsync(key, data, expirationTime);
         }
     }

@@ -4,6 +4,7 @@ using System.IO;
 using StackExchange.Redis;
 using System.Threading.Tasks;
 using SSNZ.Steam2019.Service.Models;
+using SSNZ.Steam2019.Service.Services;
 
 namespace SSNZ.Steam2019.ConsoleApp
 {
@@ -62,7 +63,8 @@ namespace SSNZ.Steam2019.ConsoleApp
                 SteamGameDetails da = new SteamGameDetails();
                 string steamId = "76561197971691578";
                 string appId = "200510"; //Xcom
-                await da.GetGameDetails(steamId, appId);
+                RedisService redisService = new RedisService(db);
+                await da.GetGameDetails(redisService, steamId, appId);
             }
         }
     }

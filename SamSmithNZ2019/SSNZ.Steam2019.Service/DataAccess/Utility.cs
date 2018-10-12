@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
+using System.Diagnostics;
 
 namespace SSNZ.Steam2019.Service.DataAccess
 {
@@ -41,7 +42,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
                 result = reader.ReadToEnd();
                 //Convert all http calls to https
                 //result = result.Replace("http://", "https://");
-
+                Debug.WriteLine("Getting item from external API: " + address.ToString());
             }
             catch (WebException e)
             {

@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SSNZ.Steam2019.Service.Models;
+using SSNZ.Steam2019.Service.Services;
 
 namespace SSNZ.Steam2019.Service.DataAccess
 {
     public class FriendsDA
     {
-        public async Task<List<Friend>> GetDataAsync(string steamID)
+        public async Task<List<Friend>> GetDataAsync(IRedisService redisService, string steamID)
         {
             List<Friend> processedFriendList = new List<Friend>();
 
@@ -17,7 +18,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
             {
                 //Get all friends
                 SteamFriendDA da = new SteamFriendDA();
-                SteamFriendList friendList = await da.GetDataAsync(steamID);
+                SteamFriendList friendList = await da.GetDataAsync(redisService, steamID);
 
                 //Don't forget to add the current user to the comma seperated list
                 string commaSeperatedSteamIDs = steamID.ToString();
@@ -77,7 +78,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
                 {
                     //get the player details for all friends
                     SteamPlayerDetailDA da2 = new SteamPlayerDetailDA();
-                    SteamPlayerDetail playerDetails = await da2.GetDataAsync(CommaSeperatedItem);
+                    SteamPlayerDetail playerDetails = await da2.GetDataAsync(redisService, CommaSeperatedItem);
 
                     //Transfer the steam player details to the clean friend objects
                     if (playerDetails != null)
@@ -121,11 +122,11 @@ namespace SSNZ.Steam2019.Service.DataAccess
         }
 
 
-        public async Task<List<Friend>> GetFriendsWithSameGame(string steamId, string appId)
+        public async Task<List<Friend>> GetFriendsWithSameGame(IRedisService redisService, string steamId, string appId)
         {
             //Get all friends
             SteamFriendDA da = new SteamFriendDA();
-            SteamFriendList friendList = await da.GetDataAsync(steamId);
+            SteamFriendList friendList = await da.GetDataAsync(redisService, steamId);
 
             //Search my friends to see if they have the game we are searching for
             string commaSeperatedSteamIDs = "";
@@ -139,7 +140,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
                         break;
                     }
                     SteamOwnedGamesDA da2 = new SteamOwnedGamesDA();
-                    SteamOwnedGames friendGames = await da2.GetDataAsync(item.steamid);
+                    SteamOwnedGames friendGames = await da2.GetDataAsync(redisService, item.steamid);
                     if (friendGames != null && friendGames.response != null && friendGames.response.games != null)
                     {
                         foreach (Message item2 in friendGames.response.games)
@@ -158,7 +159,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
 
             //Get the friend details for this friend that has the right game
             SteamPlayerDetailDA da3 = new SteamPlayerDetailDA();
-            SteamPlayerDetail playerDetails = await da3.GetDataAsync(commaSeperatedSteamIDs);
+            SteamPlayerDetail playerDetails = await da3.GetDataAsync(redisService, commaSeperatedSteamIDs);
 
             //Transfer the steam player details to the clean friend objects
             List<Friend> processedFriendList = new List<Friend>();
@@ -167,7 +168,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
                 foreach (SteamPlayer item in playerDetails.response.players)
                 {
                     GameDetailsDA da4 = new GameDetailsDA();
-                    Tuple<List<Achievement>, string> tempResults = await da4.GetAchievementDataAsync(item.steamid, appId, null, null);
+                    Tuple<List<Achievement>, string> tempResults = await da4.GetAchievementDataAsync(redisService, item.steamid, appId, null, null);
                     if (tempResults.Item2 == null)
                     {
                         Friend friend = new Friend

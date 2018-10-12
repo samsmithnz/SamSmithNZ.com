@@ -4,19 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SSNZ.Steam2019.Service.Models;
+using SSNZ.Steam2019.Service.Services;
 
 namespace SSNZ.Steam2019.Service.DataAccess
 {
     public class PlayerGamesDA
     {
 
-        public async Task<List<Game>> GetDataAsync(string steamID)
+        public async Task<List<Game>> GetDataAsync(IRedisService redisService, string steamID)
         {
             List<Game> games = new List<Game>();
 
             //get games for Player
             SteamOwnedGamesDA da = new SteamOwnedGamesDA();
-            SteamOwnedGames ownedGames = await da.GetDataAsync(steamID);
+            SteamOwnedGames ownedGames = await da.GetDataAsync(redisService, steamID);
 
             //Check that the player has games to process
             if (ownedGames != null && ownedGames.response != null && ownedGames.response.games != null)

@@ -17,7 +17,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
 
             //Get the list of owned games for the user
             SteamOwnedGamesDA da2 = new SteamOwnedGamesDA();
-            SteamOwnedGames gameOwnedGames = await da2.GetDataAsync(steamID);
+            SteamOwnedGames gameOwnedGames = await da2.GetDataAsync(redisService, steamID);
 
             //Merge the two datasets into a clean gamedetail object
             GameDetail result = new GameDetail();
@@ -47,7 +47,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
             if (gameDetail != null)
             {
                 //Get the achievements
-                Tuple<List<Achievement>, string> tempResults = await GetAchievementDataAsync(steamID, appID, gameDetail, achievementToSearch);
+                Tuple<List<Achievement>, string> tempResults = await GetAchievementDataAsync(redisService, steamID, appID, gameDetail, achievementToSearch);
                 result.Achievements = tempResults.Item1;
                 result.ErrorMessage = tempResults.Item2;
 
@@ -121,33 +121,33 @@ namespace SSNZ.Steam2019.Service.DataAccess
             return result;
         }
 
-        //public async Task<GameDetail> GetDataWithFriend(string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null)
-        //{
-        //    GameDetail details = await GetDataAsync(steamID, appID, getStats, achievementToSearch);
-        //    GameDetail friendDetails = await GetDataAsync(friendSteamId, appID, getStats, achievementToSearch);
+        public async Task<GameDetail> GetDataWithFriendAsync(IRedisService redisService, string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null)
+        {
+            GameDetail details = await GetDataAsync(redisService, steamID, appID, getStats, achievementToSearch);
+            GameDetail friendDetails = await GetDataAsync(redisService, friendSteamId, appID, getStats, achievementToSearch);
 
-        //    //if the friend details return correctly, (this can fail sometimes if the friend has a private project), then continue:
-        //    if (friendDetails == null || friendDetails.Achievements == null || friendDetails.Achievements.Count == 0)
-        //    {
-        //        details = null;
-        //    }
-        //    else
-        //    {
-        //        details.FriendPercentAchieved = friendDetails.PercentAchieved;
-        //        details.FriendTotalAchieved = friendDetails.TotalAchieved;
-        //        foreach (Achievement item in details.Achievements)
-        //        {
-        //            //Get the friends achievements for this game
-        //            Achievement friendItem = FindFriendItem(item.ApiName, friendDetails.Achievements);
-        //            if (friendItem != null)
-        //            {
-        //                item.FriendAchieved = friendItem.Achieved;
-        //            }
-        //        }
-        //    }
+            //if the friend details return correctly, (this can fail sometimes if the friend has a private project), then continue:
+            if (friendDetails == null || friendDetails.Achievements == null || friendDetails.Achievements.Count == 0)
+            {
+                details = null;
+            }
+            else
+            {
+                details.FriendPercentAchieved = friendDetails.PercentAchieved;
+                details.FriendTotalAchieved = friendDetails.TotalAchieved;
+                foreach (Achievement item in details.Achievements)
+                {
+                    //Get the friends achievements for this game
+                    Achievement friendItem = FindFriendItem(item.ApiName, friendDetails.Achievements);
+                    if (friendItem != null)
+                    {
+                        item.FriendAchieved = friendItem.Achieved;
+                    }
+                }
+            }
 
-        //    return details;
-        //}
+            return details;
+        }
 
         private Achievement FindFriendItem(string apiName, List<Achievement> friendAchievements)
         {
@@ -163,18 +163,18 @@ namespace SSNZ.Steam2019.Service.DataAccess
             return result;
         }
 
-        public async Task<Tuple<List<Achievement>, string>> GetAchievementDataAsync(string steamID, string appID, SteamGameDetail steamGameDetails, string achievementToSearch)
+        public async Task<Tuple<List<Achievement>, string>> GetAchievementDataAsync(IRedisService redisService, string steamID, string appID, SteamGameDetail steamGameDetails, string achievementToSearch)
         {
             //Get the achievements for the app
             SteamPlayerAchievementsForAppDA da = new SteamPlayerAchievementsForAppDA();
-            Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> playerData = await da.GetDataAsync(steamID, appID);
+            Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> playerData = await da.GetDataAsync(redisService, steamID, appID);
 
             List<Achievement> results = new List<Achievement>();
             if (playerData != null && playerData.Item1 != null)
             {
                 //Get the global achievement stats for the app
                 SteamGlobalAchievementPercentagesForAppDA da2 = new SteamGlobalAchievementPercentagesForAppDA();
-                SteamGlobalAchievementsForApp globalData = await da2.GetDataAsync(appID);
+                SteamGlobalAchievementsForApp globalData = await da2.GetDataAsync(redisService, appID);
 
                 if (playerData.Item1.playerstats.achievements != null)
                 {
