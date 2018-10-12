@@ -59,6 +59,19 @@
             }
         });
 
+        //$scope.$watchGroup(['selectedAchievementFilter'], function (newValues, oldValues, scope) {
+        //    if (newValues[0] != oldValues[0]) {
+        //        //console.log("newValue:" + newValues[0]);
+        //        console.log("selectedAchievementFilter:" + $scope.selectedAchievementFilter);
+        //        if (newValues[0] == null) {
+        //            gameDetailsService.getGameDetails($scope.steamId, appId).then(onGetGameDetailsEventComplete, onError);
+        //        }
+        //        else {
+        //            gameDetailsService.getGameWithFriendDetails($scope.steamId, appId, newValues[0]).then(onGetGameDetailsEventComplete, onError);
+        //        }
+        //    }
+        //});
+
         $scope.showFriendChanges = function () {
             //$scope.onlyShowFriendChanges = !$scope.onlyShowFriendChanges;
             //console.log($scope.onlyShowFriendChanges);
@@ -100,7 +113,7 @@
                 }
             }
         };
-        
+
     }
 
     function getUrlParameter(param: string) {

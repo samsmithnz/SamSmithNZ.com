@@ -61,6 +61,25 @@
                     <span ng-show="appFriends.length == 0">None of your Steam friends have this app</span>
                 </td>
             </tr>
+
+
+            <!--
+            <tr ng-hide="gameDetails && gameDetails.AchievementsStats || error">
+                <td colspan="2">
+                    <img id="spinner1" src="~/Content/Images/spinner_small.gif" />
+                </td>
+            </tr>
+            <tr ng-show="gameDetails && gameDetails.AchievementsStats">
+                <td>
+                    Filter achievements by API Name:
+                </td>
+                <td>
+                    <select ng-show="gameDetails.AchievementsStats.length > 0" class="form-control" ng-model="selectedAchievementFilter" ng-options="achievement.Value as achievement.Key for achievement in gameDetails.AchievementsStats">
+                        <option value="">[Please select achievement to filter]</option>
+                    </select>
+                </td>
+            </tr>
+                -->
         </table>
 
         <br />
@@ -88,6 +107,7 @@
                     <span ng-if="item.GlobalPercent.toFixed(1) == 0 && item.GlobalPercent.toFixed(2) > 0">{{item.GlobalPercent | number : 3}}%</span>
                     <span ng-if="item.GlobalPercent.toFixed(2) == 0 && item.GlobalPercent.toFixed(3) > 0">{{item.GlobalPercent | number : 4}}%</span>
                     <span ng-if="item.GlobalPercent.toFixed(3) == 0 && item.GlobalPercent.toFixed(4) > 0">{{item.GlobalPercent | number : 5}}%</span>
+                    <span ng-if="item.GlobalPercent.toFixed(4) == 0">{{item.GlobalPercent | number : 2}}%</span>
                 </td>
                 <td class="cellborders">{{item.Name}}: {{item.Description}}</td>
                 <td class="cellborders" ng-hide="selectedFriend">{{item.ApiName}}</td>
