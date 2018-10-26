@@ -13,7 +13,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
     {
 
         //http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=200510&key=35D42236AAC777BEDB12CDEB625EF289&steamid=76561197971691578&l=en&format=xml
-        public async Task<Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError>> GetDataAsync(IRedisService redisService, string steamID, string appID)
+        public async Task<Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError>> GetDataAsync(IRedisService redisService, string steamID, string appID, bool useCache)
         {
             SteamPlayerAchievementsForAppError errorResult = null;
             SteamPlayerAchievementsForApp playerAchievements = null;
@@ -22,7 +22,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
 
             //Check the cache
             string cachedJSON = null;
-            if (redisService != null)
+            if (redisService != null && useCache == true)
             {
                 cachedJSON = await redisService.GetAsync(cacheKeyName);
             }

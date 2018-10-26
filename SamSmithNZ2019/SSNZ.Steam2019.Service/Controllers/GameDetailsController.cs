@@ -13,7 +13,7 @@ namespace SSNZ.Steam2019.Service.Controllers
     [ApiController]
     public class GameDetailsController : ControllerBase
     {
-        private  IRedisService _redisService;
+        private IRedisService _redisService;
 
         public GameDetailsController(IRedisService redisService)
         {
@@ -21,19 +21,19 @@ namespace SSNZ.Steam2019.Service.Controllers
         }
 
         // GET
-        [HttpGet]
-        public async Task<GameDetail> GetGameDetails(string steamID, string appID, bool getStats = true, string achievementToSearch = null)
+        [HttpGet("{steamID}")]
+        public async Task<GameDetail> GetGameDetails(string steamID, string appID, bool getStats = true, string achievementToSearch = null, bool useCache = true)
         {
             GameDetailsDA da = new GameDetailsDA();
-            return await da.GetDataAsync(_redisService, steamID, appID, getStats, achievementToSearch);
+            return await da.GetDataAsync(_redisService, steamID, appID, getStats, achievementToSearch, useCache);
         }
 
         // GET
         [HttpGet]
-        public async Task<GameDetail> GetGameWithFriendDetails(string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null)
+        public async Task<GameDetail> GetGameWithFriendDetails(string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null, bool useCache = true)
         {
             GameDetailsDA da = new GameDetailsDA();
-            return await da.GetDataWithFriendAsync(_redisService, steamID, appID, friendSteamId, getStats, achievementToSearch);
+            return await da.GetDataWithFriendAsync(_redisService, steamID, appID, friendSteamId, getStats, achievementToSearch, useCache);
         }
     }
 }

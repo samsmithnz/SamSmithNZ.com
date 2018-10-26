@@ -11,13 +11,13 @@ namespace SSNZ.Steam2019.Service.DataAccess
     public class PlayerGamesDA
     {
 
-        public async Task<List<Game>> GetDataAsync(IRedisService redisService, string steamID)
+        public async Task<List<Game>> GetDataAsync(IRedisService redisService, string steamID, bool useCache)
         {
             List<Game> games = new List<Game>();
 
             //get games for Player
             SteamOwnedGamesDA da = new SteamOwnedGamesDA();
-            SteamOwnedGames ownedGames = await da.GetDataAsync(redisService, steamID);
+            SteamOwnedGames ownedGames = await da.GetDataAsync(redisService, steamID, useCache);
 
             //Check that the player has games to process
             if (ownedGames != null && ownedGames.response != null && ownedGames.response.games != null)

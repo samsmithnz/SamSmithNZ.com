@@ -14,7 +14,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
     {
 
         //http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=35D42236AAC777BEDB12CDEB625EF289&steamid=76561197971691578&relationship=friend&format=xml      
-        public async Task<SteamFriendList> GetDataAsync(IRedisService redisService, string steamID)
+        public async Task<SteamFriendList> GetDataAsync(IRedisService redisService, string steamID, bool useCache)
         {
             SteamFriendList friendList = null;
             string cacheKeyName = "friendList-" + steamID;
@@ -22,7 +22,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
 
             //Check the cache
             string cachedJSON = null;
-            if (redisService != null)
+            if (redisService != null && useCache == true)
             {
                 cachedJSON = await redisService.GetAsync(cacheKeyName);
             }

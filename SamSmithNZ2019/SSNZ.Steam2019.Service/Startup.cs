@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SSNZ.Steam2019.Service.Services;
 using StackExchange.Redis;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace SSNZ.Steam2019.Service
 {
@@ -30,6 +31,17 @@ namespace SSNZ.Steam2019.Service
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "SSNZ Steam API",
+                    Description = "My SSNZ Steam ASP.NET Core Web API",
+                    TermsOfService = "None",
+                    Contact = new Contact() { Name = "Sam Smith", Email = "samsmithnz@gmail.com", Url = "www.samsmithnz.com" }
+                });
+            });
 
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -41,7 +53,7 @@ namespace SSNZ.Steam2019.Service
             services.AddSingleton<IRedisService, RedisService>();
             var connectionMultiplexer = ConnectionMultiplexer.Connect(connectionString);
             var database = connectionMultiplexer.GetDatabase(0);
-            services.AddScoped<IDatabase>(_ => database);
+            services.AddSingleton<IDatabase>(_ => database);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,8 +68,14 @@ namespace SSNZ.Steam2019.Service
                 app.UseHsts();
             }
 
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
         }
     }
 }

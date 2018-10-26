@@ -21,11 +21,11 @@ namespace SSNZ.Steam2019.Service.Controllers
         }
 
         // GET
-        [HttpGet]
-        public async Task<Player> GetPlayer(string steamID)
+        [HttpGet("{steamID}")]
+        public async Task<Player> GetPlayer(string steamID, bool useCache = true)
         {
             PlayerDA da = new PlayerDA();
-            return await da.GetDataAsync(_redisService, steamID);
+            return await da.GetDataAsync(_redisService, steamID, useCache);
         }
     }
 }

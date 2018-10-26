@@ -14,7 +14,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
     {
 
         //http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=200510
-        public async Task<SteamGlobalAchievementsForApp> GetDataAsync(IRedisService redisService, string appID)
+        public async Task<SteamGlobalAchievementsForApp> GetDataAsync(IRedisService redisService, string appID, bool useCache)
         {
             SteamGlobalAchievementsForApp globalAchievementsForApp = null;
             string cacheKeyName = "globalAchievements-" + appID;
@@ -22,7 +22,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
 
             //Check the cache
             string cachedJSON = null;
-            if (redisService != null)
+            if (redisService != null && useCache == true)
             {
                 cachedJSON = await redisService.GetAsync(cacheKeyName);
             }

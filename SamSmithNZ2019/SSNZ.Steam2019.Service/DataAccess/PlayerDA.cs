@@ -11,13 +11,13 @@ namespace SSNZ.Steam2019.Service.DataAccess
     public class PlayerDA
     {
 
-        public async Task<Player> GetDataAsync(IRedisService redisService, string steamID)
+        public async Task<Player> GetDataAsync(IRedisService redisService, string steamID, bool useCache)
         {
             Player result = new Player();
             
             //Get Player Details
             SteamPlayerDetailDA da = new SteamPlayerDetailDA();
-            SteamPlayerDetail playerDetail = await da.GetDataAsync(redisService, steamID);
+            SteamPlayerDetail playerDetail = await da.GetDataAsync(redisService, steamID, useCache);
             if (playerDetail == null)
             {
                 return null; // RedirectToAction("SteamIsDown", "Steam");
