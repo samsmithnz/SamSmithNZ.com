@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace SSNZ.Steam2019.Service
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute]
     public class Program
     {
         public static void Main(string[] args)

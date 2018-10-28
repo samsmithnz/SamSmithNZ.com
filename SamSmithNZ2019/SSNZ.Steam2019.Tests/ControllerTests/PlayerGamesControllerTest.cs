@@ -57,6 +57,28 @@ namespace SSNZ.Steam2019.Tests.ControllerTests
         }
 
         [TestMethod]
+        public async Task PlayerGamesSamWithoutCacheTest()
+        {
+            //Arrange
+            PlayerGamesController controller = new PlayerGamesController(_redisService);
+            string steamId = "76561197971691578";
+
+            //Act
+            List<Game> results = await controller.GetPlayer(steamId, false);
+
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count >= 0);
+            Assert.IsTrue(results[0].AppID == "15100");
+            Assert.IsTrue(results[0].GameName == "Assassin's Creed");
+            Assert.IsTrue(results[0].CommunityIsVisible == true);
+            Assert.IsTrue(results[0].IconURL == "cd8f7a795e34e16449f7ad8d8190dce521967917");
+            Assert.IsTrue(results[0].LogoURL == "5450218e6f8ea246272cddcb2ab9a453b0ca7ef5");
+            Assert.IsTrue(results[0].TotalMinutesPlayed == 185);
+            Assert.IsTrue(results[0].TotalTimeString == "3 hrs");
+        }
+
+        [TestMethod]
         public async Task PlayerGamesSamWithNoIconTest()
         {
             //Arrange

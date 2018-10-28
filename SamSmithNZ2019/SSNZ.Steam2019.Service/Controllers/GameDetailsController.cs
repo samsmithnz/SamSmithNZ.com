@@ -21,7 +21,7 @@ namespace SSNZ.Steam2019.Service.Controllers
         }
 
         // GET
-        [HttpGet("{steamID}")]
+        [HttpGet("{steamID},{appID}")]
         public async Task<GameDetail> GetGameDetails(string steamID, string appID, bool getStats = true, string achievementToSearch = null, bool useCache = true)
         {
             GameDetailsDA da = new GameDetailsDA();
@@ -29,7 +29,7 @@ namespace SSNZ.Steam2019.Service.Controllers
         }
 
         // GET
-        [HttpGet]
+        [HttpGet("{steamID},{appID},{friendSteamId}")]
         public async Task<GameDetail> GetGameWithFriendDetails(string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null, bool useCache = true)
         {
             GameDetailsDA da = new GameDetailsDA();

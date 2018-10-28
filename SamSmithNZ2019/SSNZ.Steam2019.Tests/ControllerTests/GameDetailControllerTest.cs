@@ -33,6 +33,7 @@ namespace SSNZ.Steam2019.Tests.ControllerTests
             _redisService = new RedisService(db);
         }
 
+        [TestCategory("RegressionTest")]
         [TestMethod]
         public async Task GameDetailsSamXCOMTest()
         {
@@ -43,6 +44,37 @@ namespace SSNZ.Steam2019.Tests.ControllerTests
 
             //Act
             GameDetail result = await controller.GetGameDetails(steamId, appId);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.AppID == "200510");
+            Assert.IsTrue(result.GameName == "XCOM: Enemy Unknown");
+            Assert.IsTrue(result.IconURL == "48be2fee1d0d511b5c7313e1359beafd36ea92ed");
+            Assert.IsTrue(result.LogoURL == "eaa298d2b0d908b2c4f5370d2c8c59a8eff887c6");
+            Assert.IsTrue(result.PercentAchieved == 1m);
+            Assert.IsTrue(result.TotalAchieved == 85);
+            Assert.IsTrue(result.Achievements.Count == 85);
+            Assert.IsTrue(result.Achievements[0].ApiName == "ACHIEVEMENT_28");
+            Assert.IsTrue(result.Achievements[0].Name == "We Happy Few ");
+            Assert.IsTrue(result.Achievements[0].Description == "Complete a mission without losing a soldier.");
+            Assert.IsTrue(result.Achievements[0].Achieved == true);
+            Assert.IsTrue(result.Achievements[0].IconURL != "");
+            Assert.IsTrue(result.Achievements[0].IconGrayURL != "");
+            Assert.IsTrue(result.Achievements[0].GlobalPercent >= 0);
+            Assert.IsTrue(result.Achievements[0].FriendAchieved == false);
+        }
+
+        [TestCategory("RegressionTest")]
+        [TestMethod]
+        public async Task GameDetailsSamXCOMWithoutCacheTest()
+        {
+            //Arrange
+            GameDetailsController controller = new GameDetailsController(_redisService);
+            string steamId = "76561197971691578";
+            string appId = "200510"; //Xcom
+
+            //Act
+            GameDetail result = await controller.GetGameDetails(steamId, appId, true, null, false);
 
             //Assert
             Assert.IsTrue(result != null);

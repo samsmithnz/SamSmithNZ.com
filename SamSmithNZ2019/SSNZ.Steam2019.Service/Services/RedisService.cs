@@ -25,10 +25,10 @@ namespace SSNZ.Steam2019.Service.Services
             return result;
         }
 
-        public async Task<bool> ExistsAsync(string key)
-        {
-            return await _database.KeyExistsAsync(key);
-        }
+        //public async Task<bool> ExistsAsync(string key)
+        //{
+        //    return await _database.KeyExistsAsync(key);
+        //}
 
         public async Task<bool> SetAsync(string key, string data, TimeSpan expirationTime)
         {

@@ -51,6 +51,23 @@ namespace SSNZ.Steam2019.Tests.ControllerTests
             Assert.IsTrue(result.IsPublic == true);
         }
 
+        [TestMethod]
+        public async Task PlayerControllerSamWithoutCacheTest()
+        {
+            //Arrange
+            PlayerController controller = new PlayerController(_redisService);
+            string steamId = "76561197971691578";
+
+            //Act
+            Player result = await controller.GetPlayer(steamId, false);
+
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.SteamID == "76561197971691578");
+            Assert.IsTrue(result.PlayerName == "Sam");
+            Assert.IsTrue(result.IsPublic == true);
+        }
+
 
     }
 }

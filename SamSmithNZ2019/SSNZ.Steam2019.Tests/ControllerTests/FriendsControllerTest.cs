@@ -33,7 +33,8 @@ namespace SSNZ.Steam2019.Tests.ControllerTests
             var db = cache.GetDatabase();
             _redisService = new RedisService(db);
         }
-
+        
+        [TestCategory("RegressionTest")]
         [TestMethod]
         public async Task FriendsSamFirstTest()
         {
@@ -42,7 +43,42 @@ namespace SSNZ.Steam2019.Tests.ControllerTests
             string steamId = "76561197971691578";
 
             //Act
-            List<Friend> results = await controller.GetFriends(steamId);
+            List<Friend> results = await controller.GetFriends(steamId, true);
+
+            //Assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count >= 0);
+            Friend result = null;
+            foreach (Friend item in results)
+            {
+                if (item.SteamId == "76561198034342716")
+                {
+                    result = item;
+                    break;
+                }
+            }
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.SteamId == "76561198034342716");
+            Assert.IsTrue(result.Name == "Alex");
+            Assert.IsTrue(result.Avatar != "");
+            Assert.IsTrue(result.AvatarFull != "");
+            Assert.IsTrue(result.AvatarMedium != "");
+            Assert.IsTrue(result.FriendSince >= 0);
+            Assert.IsTrue(result.LastLogoff >= 0);
+            Assert.IsTrue(result.ProfileURL != "");
+            Assert.IsTrue(result.TimeCreated >= 0);
+        }
+        
+        [TestCategory("RegressionTest")]
+        [TestMethod]
+        public async Task FriendsSamFirstWithoutCacheTest()
+        {
+            //Arrange
+            FriendsController controller = new FriendsController(_redisService);
+            string steamId = "76561197971691578";
+
+            //Act
+            List<Friend> results = await controller.GetFriends(steamId, false);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -68,6 +104,7 @@ namespace SSNZ.Steam2019.Tests.ControllerTests
             Assert.IsTrue(result.TimeCreated >= 0);
         }
 
+        [TestCategory("RegressionTest")]
         [TestMethod]
         public async Task FriendsAlexTest()
         {
@@ -95,6 +132,7 @@ namespace SSNZ.Steam2019.Tests.ControllerTests
             //Assert.IsTrue(result.Name == "Sam");
         }
 
+        [TestCategory("RegressionTest")]
         [TestMethod]
         public async Task FriendsRandomTest()
         {
@@ -110,6 +148,7 @@ namespace SSNZ.Steam2019.Tests.ControllerTests
             Assert.IsTrue(results.Count >= 0);
         }
 
+        [TestCategory("RegressionTest")]
         [TestMethod]
         public async Task FriendsRandomWithMoreThan100FriendsTest()
         {
@@ -125,6 +164,7 @@ namespace SSNZ.Steam2019.Tests.ControllerTests
             Assert.IsTrue(results.Count > 100);
         }
 
+        [TestCategory("RegressionTest")]
         [TestMethod]
         public async Task FriendsRandomWithExactly99FriendsTest()
         {
@@ -140,6 +180,7 @@ namespace SSNZ.Steam2019.Tests.ControllerTests
             Assert.IsTrue(results.Count >= 0);
         }
 
+        [TestCategory("RegressionTest")]
         [TestMethod]
         public async Task FriendsSameGameSamXcomTest()
         {
@@ -169,6 +210,7 @@ namespace SSNZ.Steam2019.Tests.ControllerTests
 
         }
 
+        [TestCategory("RegressionTest")]
         [TestMethod]
         public async Task FriendsSameGameSamCiv6Test()
         {
@@ -201,6 +243,7 @@ namespace SSNZ.Steam2019.Tests.ControllerTests
 
         }
 
+        [TestCategory("RegressionTest")]
         [TestMethod]
         public async Task FriendsSameGameStewXcomTest()
         {

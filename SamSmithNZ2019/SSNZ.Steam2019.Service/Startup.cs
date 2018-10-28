@@ -17,6 +17,7 @@ using Swashbuckle.AspNetCore.Swagger;
 
 namespace SSNZ.Steam2019.Service
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute]
     public class Startup
     {
         //From: https://github.com/spetz/asp-net-core-samples/tree/master/src/8.Redis/App
