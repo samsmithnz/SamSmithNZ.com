@@ -20,6 +20,7 @@ namespace SSNZ.Steam2019.Service
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseApplicationInsights()
                 .UseStartup<Startup>();
     }
 }

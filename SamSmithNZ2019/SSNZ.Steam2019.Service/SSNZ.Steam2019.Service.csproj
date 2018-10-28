@@ -4,14 +4,21 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <DockerTargetOS>Linux</DockerTargetOS>
     <UserSecretsId>e4bc78a3-2d36-4055-b1e1-5246da17260e</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/65b8d298-e5bd-4735-912e-8b9c510c4e00/resourcegroups/SSSandbox/providers/microsoft.insights/components/ssnzapplicationinsights</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/65b8d298-e5bd-4735-912e-8b9c510c4e00/resourcegroups/SSSandbox/providers/microsoft.insights/components/ssnzapplicationinsights</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.1916590" />
     <PackageReference Include="StackExchange.Redis" Version="2.0.510" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>
