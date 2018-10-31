@@ -10,7 +10,7 @@
         //Read config settings
         //var baseUrl = configSettings.webApiBaseUrl;
         //var baseUrl = 'http://localhost:12730/';
-        var baseUrl = 'https://ssnzsteamservice.azurewebsites.net/';
+        var baseUrl = 'https://ssnzsteam2019webservice.azurewebsites.net/';
 
         this.getGameDetails = function (steamId, appId) {
             let url: string =  baseUrl + 'api/GameDetails/GetGameDetails?steamId=' + steamId + '&appId=' + appId;

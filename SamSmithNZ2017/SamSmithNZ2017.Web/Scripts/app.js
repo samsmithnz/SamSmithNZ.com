@@ -51,5 +51,5 @@ var app = angular.module("MandMCounterApp", []);
 //            // Return the logging function.
 //            return (log);
 //        }
-//    ]); 
+//    ]);
 //# sourceMappingURL=app.js.map

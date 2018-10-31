@@ -10,7 +10,7 @@
         //Read config settings
         //var baseUrl = configSettings.webApiBaseUrl;
         //var baseUrl = 'http://localhost:12730/';
-        var baseUrl = 'https://ssnzitunesservice.azurewebsites.net/';
+        var baseUrl = 'https://ssnzituneswebservice.azurewebsites.net/';
 
         this.getTopArtistsByPlaylist = function (playlistCode, showJustSummary) {
             let url: string = baseUrl + 'api/TopArtists/GetTopArtistsByPlaylist?playlistCode=' + playlistCode + '&showJustSummary=' + showJustSummary;

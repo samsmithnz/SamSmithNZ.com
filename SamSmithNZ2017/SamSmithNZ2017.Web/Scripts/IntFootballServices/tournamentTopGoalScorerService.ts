@@ -10,7 +10,7 @@
         //Read config settings
         //var baseUrl = configSettings.webApiBaseUrl;
         //var baseUrl = 'http://localhost:12730/';
-        var baseUrl = 'https://ssnzintfootballservice.azurewebsites.net/';
+        var baseUrl = 'https://ssnzintfootballwebservice.azurewebsites.net/';
 
         this.getTournamentTopGoalScores = function (tournamentCode) {
             let url: string = baseUrl + 'api/TournamentTopGoalScorer/GetTournamentTopGoalScorers?TournamentCode=' + tournamentCode;

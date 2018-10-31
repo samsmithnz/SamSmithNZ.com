@@ -10,7 +10,7 @@
         //Read config settings
         //var baseUrl = configSettings.webApiBaseUrl;
         //var baseUrl = 'http://localhost:12730/';
-        var baseUrl = 'https://ssnzsteamservice.azurewebsites.net/';
+        var baseUrl = 'https://ssnzsteam2019webservice.azurewebsites.net/';
 
         this.getFriends = function (steamId) {
             let url: string =  baseUrl + 'api/Friends/GetFriends?steamId=' + steamId;

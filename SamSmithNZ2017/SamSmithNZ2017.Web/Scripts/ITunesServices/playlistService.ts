@@ -10,7 +10,7 @@
         //Read config settings
         //var baseUrl = configSettings.webApiBaseUrl;
         //var baseUrl = 'http://localhost:12730/';
-        var baseUrl = 'https://ssnzitunesservice.azurewebsites.net/';
+        var baseUrl = 'https://ssnzituneswebservice.azurewebsites.net/';
 
         this.getPlaylists = function () {
             let url: string =  baseUrl + 'api/playlist/GetPlaylists';
