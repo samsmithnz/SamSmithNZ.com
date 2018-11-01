@@ -10,7 +10,7 @@ using SSNZ.Steam2019.Service.Services;
 
 namespace SSNZ.Steam2019.Service.Controllers
 {
-    //[EnableCors("MyCorsPolicy")]
+    [EnableCors("MyCorsPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class PlayerController : ControllerBase
