@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SSNZ.Steam2019.Service.Controllers
 {
+    //[EnableCors("MyCorsPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class HomeController : Controller

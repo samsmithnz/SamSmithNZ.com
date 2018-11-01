@@ -31,6 +31,12 @@ namespace SSNZ.Steam2019.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(o => o.AddPolicy("MyCorsPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerGen(c =>
             {
@@ -71,6 +77,7 @@ namespace SSNZ.Steam2019.Service
 
             app.UseStaticFiles();
             app.UseHttpsRedirection();
+            app.UseCors("MyCorsPolicy"); //https://stackoverflow.com/questions/31942037/how-to-enable-cors-in-asp-net-core
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
