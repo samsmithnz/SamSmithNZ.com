@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace SSNZ.Steam2019.Service.Controllers
 {
     //[EnableCors("MyCorsPolicy")]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [Route("api/[controller]")]
     [ApiController]
     public class HomeController : Controller
