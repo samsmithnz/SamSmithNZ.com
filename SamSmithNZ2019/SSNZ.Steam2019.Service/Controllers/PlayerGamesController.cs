@@ -24,7 +24,7 @@ namespace SSNZ.Steam2019.Service.Controllers
 
         // GET
         [HttpGet("{steamID}")]
-        public async Task<List<Game>> GetPlayer(string steamID, bool useCache = true)
+        public async Task<List<Game>> GetPlayer(string steamID, bool useCache = false)
         {
             PlayerGamesDA da = new PlayerGamesDA();
             return await da.GetDataAsync(_redisService, steamID, useCache);

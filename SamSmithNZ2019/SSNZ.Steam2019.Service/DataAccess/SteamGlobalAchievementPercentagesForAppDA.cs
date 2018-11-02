@@ -13,7 +13,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
     public class SteamGlobalAchievementPercentagesForAppDA
     {
 
-        //http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=200510
+        //https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=200510
         public async Task<SteamGlobalAchievementsForApp> GetDataAsync(IRedisService redisService, string appID, bool useCache)
         {
             SteamGlobalAchievementsForApp globalAchievementsForApp = null;
@@ -32,7 +32,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
             }
             else
             {
-                string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=" + appID.ToString();
+                string jsonRequestString = "https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=" + appID.ToString();
                 string jsonResult = await Utility.GetPageAsStringAsync(new Uri(jsonRequestString));
 
                 globalAchievementsForApp = JsonConvert.DeserializeObject<SteamGlobalAchievementsForApp>(jsonResult);

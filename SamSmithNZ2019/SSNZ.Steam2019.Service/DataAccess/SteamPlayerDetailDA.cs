@@ -12,7 +12,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
 {
     public class SteamPlayerDetailDA
     {
-        //http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=35D42236AAC777BEDB12CDEB625EF289&steamids=76561197971691578&format=xml
+        //https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=35D42236AAC777BEDB12CDEB625EF289&steamids=76561197971691578&format=xml
         public async Task<SteamPlayerDetail> GetDataAsync(IRedisService redisService, string commaSeperatedSteamIDs, bool useCache)
         {
             SteamPlayerDetail playerDetail = null;
@@ -31,7 +31,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
             }
             else
             {
-                string jsonRequestString = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + Utility.MySteamWebAPIKey + "&steamids=" + commaSeperatedSteamIDs;
+                string jsonRequestString = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + Utility.MySteamWebAPIKey + "&steamids=" + commaSeperatedSteamIDs;
                 string jsonResult = await Utility.GetPageAsStringAsync(new Uri(jsonRequestString));
 
                 playerDetail = JsonConvert.DeserializeObject<SteamPlayerDetail>(jsonResult);

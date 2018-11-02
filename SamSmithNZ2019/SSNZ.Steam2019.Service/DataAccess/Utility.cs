@@ -11,9 +11,9 @@ namespace SSNZ.Steam2019.Service.DataAccess
 {
     public static class Utility
     {
-        //http://steamcommunity.com/dev
-        //http://developer.valvesoftware.com/wiki/Steam_Web_API#GetPlayerSummaries_.2v0001.29
-        //http://portablesteamwebapi.codeplex.com/documentation
+        //https://steamcommunity.com/dev
+        //https://developer.valvesoftware.com/wiki/Steam_Web_API#GetPlayerSummaries_.2v0001.29
+        //https://portablesteamwebapi.codeplex.com/documentation
         public static string MySteamWebAPIKey = "35D42236AAC777BEDB12CDEB625EF289";
 
         public static string ConvertMinutesToFriendlyTime(long minutes)

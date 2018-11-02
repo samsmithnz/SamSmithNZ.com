@@ -12,7 +12,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
     public class SteamPlayerAchievementsForAppDA
     {
 
-        //http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=200510&key=35D42236AAC777BEDB12CDEB625EF289&steamid=76561197971691578&l=en&format=xml
+        //https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=200510&key=35D42236AAC777BEDB12CDEB625EF289&steamid=76561197971691578&l=en&format=xml
         public async Task<Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError>> GetDataAsync(IRedisService redisService, string steamID, string appID, bool useCache)
         {
             SteamPlayerAchievementsForAppError errorResult = null;
@@ -32,7 +32,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
             }
             else
             {
-                string jsonRequestString = "http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=" + appID.ToString() + "&key=" + Utility.MySteamWebAPIKey + "&steamid=" + steamID + "&l=en";
+                string jsonRequestString = "https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=" + appID.ToString() + "&key=" + Utility.MySteamWebAPIKey + "&steamid=" + steamID + "&l=en";
                 string jsonResult = await Utility.GetPageAsStringAsync(new Uri(jsonRequestString));
 
                 //If the Json returned an error, process it into a AppError object
