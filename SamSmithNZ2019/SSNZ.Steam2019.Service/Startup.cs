@@ -66,6 +66,7 @@ namespace SSNZ.Steam2019.Service
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors("MyCorsPolicy"); //https://stackoverflow.com/questions/31942037/how-to-enable-cors-in-asp-net-core
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -77,7 +78,6 @@ namespace SSNZ.Steam2019.Service
 
             app.UseStaticFiles();
             app.UseHttpsRedirection();
-            app.UseCors("MyCorsPolicy"); //https://stackoverflow.com/questions/31942037/how-to-enable-cors-in-asp-net-core
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
