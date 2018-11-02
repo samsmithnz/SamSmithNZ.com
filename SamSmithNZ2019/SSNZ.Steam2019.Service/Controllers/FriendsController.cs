@@ -23,16 +23,16 @@ namespace SSNZ.Steam2019.Service.Controllers
         }
 
         // GET
-        [HttpGet("{steamId}")]
-        public async Task<List<Friend>> GetFriends(string steamId, bool useCache = false)
+        [HttpGet("GetFriends")]
+        public async Task<List<Friend>> GetFriends(string steamId, bool useCache = true)
         {
             FriendsDA da = new FriendsDA();
             return await da.GetDataAsync(_redisService, steamId, useCache);
         }
 
         // GET
-        [HttpGet("{steamId},{appId}")]
-        public async Task<List<Friend>> GetFriendsWithSameGame(string steamId, string appId, bool useCache = false)
+        [HttpGet("GetFriendsWithSameGame")]
+        public async Task<List<Friend>> GetFriendsWithSameGame(string steamId, string appId, bool useCache = true)
         {
             FriendsDA da = new FriendsDA();
             return await da.GetFriendsWithSameGame(_redisService, steamId, appId, useCache);

@@ -23,16 +23,16 @@ namespace SSNZ.Steam2019.Service.Controllers
         }
 
         // GET
-        [HttpGet("{steamID},{appID}")]
-        public async Task<GameDetail> GetGameDetails(string steamID, string appID, bool getStats = true, string achievementToSearch = null, bool useCache = false)
+        [HttpGet("GetGameDetails")]
+        public async Task<GameDetail> GetGameDetails(string steamID, string appID, bool getStats = true, string achievementToSearch = null, bool useCache = true)
         {
             GameDetailsDA da = new GameDetailsDA();
             return await da.GetDataAsync(_redisService, steamID, appID, getStats, achievementToSearch, useCache);
         }
 
         // GET
-        [HttpGet("{steamID},{appID},{friendSteamId}")]
-        public async Task<GameDetail> GetGameWithFriendDetails(string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null, bool useCache = false)
+        [HttpGet("GetGameWithFriendDetails")]
+        public async Task<GameDetail> GetGameWithFriendDetails(string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null, bool useCache = true)
         {
             GameDetailsDA da = new GameDetailsDA();
             return await da.GetDataWithFriendAsync(_redisService, steamID, appID, friendSteamId, getStats, achievementToSearch, useCache);

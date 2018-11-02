@@ -10,7 +10,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
 {
     public class GameDetailsDA
     {
-        public async Task<GameDetail> GetDataAsync(IRedisService redisService, string steamID, string appID, bool getStats = true, string achievementToSearch = null, bool useCache = false)
+        public async Task<GameDetail> GetDataAsync(IRedisService redisService, string steamID, string appID, bool getStats = true, string achievementToSearch = null, bool useCache = true)
         {
             SteamGameDetailDA da = new SteamGameDetailDA();
             SteamGameDetail gameDetail = await da.GetDataAsync(redisService, appID, useCache);
@@ -121,7 +121,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
             return result;
         }
 
-        public async Task<GameDetail> GetDataWithFriendAsync(IRedisService redisService, string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null, bool useCache = false)
+        public async Task<GameDetail> GetDataWithFriendAsync(IRedisService redisService, string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null, bool useCache = true)
         {
             GameDetail details = await GetDataAsync(redisService, steamID, appID, getStats, achievementToSearch, useCache);
             GameDetail friendDetails = await GetDataAsync(redisService, friendSteamId, appID, getStats, achievementToSearch, useCache);

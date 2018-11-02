@@ -44,8 +44,11 @@ namespace SSNZ.Steam2019.Service.DataAccess
                 {
                     friendList = JsonConvert.DeserializeObject<SteamFriendList>(jsonResult);
                 }
-                //set the cache with the updated record
-                await redisService.SetAsync(cacheKeyName, Newtonsoft.Json.JsonConvert.SerializeObject(friendList), cacheExpirationTime);
+                if (redisService != null)
+                {
+                    //set the cache with the updated record
+                    await redisService.SetAsync(cacheKeyName, Newtonsoft.Json.JsonConvert.SerializeObject(friendList), cacheExpirationTime);
+                }
             }
 
             return friendList;
