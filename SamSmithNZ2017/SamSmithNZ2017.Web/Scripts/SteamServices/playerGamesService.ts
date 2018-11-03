@@ -14,7 +14,7 @@
 
         this.getPlayerGames = function (steamId) {
             let url: string =  baseUrl + 'api/PlayerGames/GetPlayer?steamId=' + steamId; //todo: refactor to call API function "GetPlayerGames"
-           //console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
 

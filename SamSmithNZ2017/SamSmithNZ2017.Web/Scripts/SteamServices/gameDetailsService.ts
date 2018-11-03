@@ -14,13 +14,13 @@
 
         this.getGameDetails = function (steamId, appId) {
             let url: string =  baseUrl + 'api/GameDetails/GetGameDetails?steamId=' + steamId + '&appId=' + appId;
-           //console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
 
         this.getGameWithFriendDetails = function (steamId, appId, friendSteamId) {
             let url: string =  baseUrl + 'api/GameDetails/GetGameWithFriendDetails?steamId=' + steamId + '&appId=' + appId + '&friendSteamId=' + friendSteamId;
-           //console.log(url);
+            //console.log(url);
             return $http.get(url);
         };
 

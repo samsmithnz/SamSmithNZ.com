@@ -12,12 +12,14 @@
 
         var onError = function (data) {
             //errorHandlerService.errorHandler(data);
-            console.log("Error!!");
+            console.log("Error loading player games!!");
             console.log(data);
         };
 
         var onGetPlayerGamesEventComplete = function (response) {
             $scope.games = response.data;
+            //console.log("Player games:");
+            //console.log($scope.games);
         }
 
         //console.log("Steam Ids: Hidden: " + $('#txtSteamId').val() + ', URL: ' + getUrlParameter('SteamId'));
@@ -34,7 +36,7 @@
                 return null;
             }
             else {
-                return 'http://media.steampowered.com/steamcommunity/public/images/apps/' + appID + '/' + iconURL + '.jpg';
+                return 'https://media.steampowered.com/steamcommunity/public/images/apps/' + appID + '/' + iconURL + '.jpg';
             }
         }
 

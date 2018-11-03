@@ -12,18 +12,28 @@
 
         $scope.friends = [];
 
-        var onError = function (data) {
+        var onErrorFriends = function (data) {
             //errorHandlerService.errorHandler(data);
-            console.log("Error!!");
-            console.log(data);
+            console.log("Error friends!!");
+            //console.log(data);
+        };
+
+        var onErrorPlayer = function (data) {
+            //errorHandlerService.errorHandler(data);
+            console.log("Error player!!");
+            //console.log(data);
         };
 
         var onGetFriendsEventComplete = function (response) {
             $scope.friends = response.data;
+            //console.log("friends:");
+            //console.log($scope.friends);
         }
 
         var onGetPlayerEventComplete = function (response) {
             $scope.player = response.data;
+            //console.log("player:");
+            //console.log($scope.player);
         }
 
         var steamId = getUrlParameter('SteamId');
@@ -32,8 +42,8 @@
             //console.log("Steam Id not found");
         }
 
-        friendsService.getFriends(steamId).then(onGetFriendsEventComplete, onError);
-        playerService.getPlayer(steamId).then(onGetPlayerEventComplete, onError);
+        friendsService.getFriends(steamId).then(onGetFriendsEventComplete, onErrorFriends);
+        playerService.getPlayer(steamId).then(onGetPlayerEventComplete, onErrorPlayer);
     }
 
     function getUrlParameter(param: string) {

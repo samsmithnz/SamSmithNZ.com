@@ -13,14 +13,14 @@
         var baseUrl = 'https://ssnzsteam2019webservice.azurewebsites.net/';
 
         this.getFriends = function (steamId) {
-            let url: string =  baseUrl + 'api/Friends/GetFriends?steamId=' + steamId;
-           //console.log(url);
+            let url: string = baseUrl + 'api/Friends/GetFriends?steamId=' + steamId;
+            //console.log(url);
             return $http.get(url);
         };
 
         this.getFriendsWithSameGame = function (steamId, appId) {
-            let url: string =  baseUrl + 'api/Friends/GetFriendsWithSameGame?steamId=' + steamId + '&appId=' + appId;
-           //console.log(url);
+            let url: string = baseUrl + 'api/Friends/GetFriendsWithSameGame?steamId=' + steamId + '&appId=' + appId;
+            //console.log(url);
             return $http.get(url);
         };
 

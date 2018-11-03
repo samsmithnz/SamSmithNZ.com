@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSNZ.Steam2019.Service", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSNZ.Steam2019.Tests", "SSNZ.Steam2019.Tests\SSNZ.Steam2019.Tests.csproj", "{E13CDA64-4E3C-4F98-BAB9-56ED2FEBF23F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSNZ.SamSmithNZ2019.Web", "SSNZ.SamSmithNZ2019.Web\SSNZ.SamSmithNZ2019.Web.csproj", "{59763748-1455-4337-AB0F-B1DBC0A41E18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E13CDA64-4E3C-4F98-BAB9-56ED2FEBF23F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E13CDA64-4E3C-4F98-BAB9-56ED2FEBF23F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E13CDA64-4E3C-4F98-BAB9-56ED2FEBF23F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59763748-1455-4337-AB0F-B1DBC0A41E18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59763748-1455-4337-AB0F-B1DBC0A41E18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59763748-1455-4337-AB0F-B1DBC0A41E18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59763748-1455-4337-AB0F-B1DBC0A41E18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
