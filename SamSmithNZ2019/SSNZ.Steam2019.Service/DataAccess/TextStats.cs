@@ -51,14 +51,14 @@ namespace SSNZ.Steam2019.Service.DataAccess
         public List<KeyValuePair<string, int>> SortList(bool sortAsc)
         {
             List<KeyValuePair<string, int>> myList = this.TextStatistics.ToList();
-            if (sortAsc == true)
-            {
-                myList.Sort((x, y) => x.Value.CompareTo(y.Value));
-            }
-            else
-            {
-                myList.Sort((x, y) => y.Value.CompareTo(x.Value));
-            }
+            //if (sortAsc == true)
+            //{
+            //    myList.Sort((x, y) => x.Value.CompareTo(y.Value));
+            //}
+            //else
+            //{
+            myList.Sort((x, y) => y.Value.CompareTo(x.Value));
+            //}
             return myList;
         }
     }

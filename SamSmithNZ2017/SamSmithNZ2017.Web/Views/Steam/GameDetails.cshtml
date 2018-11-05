@@ -7,7 +7,7 @@
 
     <img ng-hide="player" src="~/Content/Images/spinner_small.gif" />
     <div ng-cloak>
-        <h2 class="sectionTitle" ng-show="player"><b>{{player.PlayerName}}'s Statistics for {{gameDetails.GameName}}</b></h2>
+        <h2 class="sectionTitle" ng-show="player"><b>{{player.PlayerName}}'s statistics for {{gameDetails.GameName}}</b></h2>
         <br />
         <a href="~/Steam/Index?SteamId={{steamId}}" ng-show="player">{{player.PlayerName}}'s Game List</a> <span ng-show="player">&nbsp;&gt;&nbsp;</span> {{gameDetails.GameName}}
         <br />
@@ -37,14 +37,14 @@
                     </div>
                 </td>
             </tr>
-            <tr ng-show="selectedFriend">
+            @*<tr ng-show="selectedFriend">
                 <td>Friend achievements Completed:</td>
                 <td>
                     <span>{{gameDetails.FriendTotalAchieved}} ({{gameDetails.FriendPercentAchieved * 100 | number : 2}}%)</span>
                 </td>
-            </tr>
+            </tr>*@
 
-            <tr ng-hide="appFriends || error">
+            @*<tr ng-hide="appFriends || error">
                 <td colspan="2">
                     <img id="spinner1" src="~/Content/Images/spinner_small.gif" />
                 </td>
@@ -57,10 +57,9 @@
                     <select ng-show="appFriends.length > 0" class="form-control" ng-model="selectedFriend" ng-options="friend.SteamId as friend.Name for friend in appFriends">
                         <option value="">[Please select friend]</option>
                     </select>
-                    @*<label ng-show="appFriends.length > 0 && selectedFriend != null"><input type="checkbox" ng-model="onlyShowFriendChanges" ng-checked="showFriendChanges()" />Only show differences</label>*@
                     <span ng-show="appFriends.length == 0">None of your Steam friends have this app</span>
                 </td>
-            </tr>
+            </tr>*@
 
 
             <!--
@@ -91,8 +90,8 @@
                 <th class="headerborders"></th>
                 <th class="headerborders">Global Completion %</th>
                 <th class="headerborders">Description</th>
-                <th class="headerborders" ng-hide="selectedFriend">API Name</th>
-                <th class="headerborders" ng-show="selectedFriend">Friend has achieved this?</th>
+                @*<th class="headerborders" ng-hide="selectedFriend">API Name</th>
+                <th class="headerborders" ng-show="selectedFriend">Friend has achieved this?</th>*@
             </tr>
             <tr ng-repeat="item in gameDetails.Achievements | filter: achievementFilter" class="alternatingColors" ng-style="{'background-color': getFriendStyle(selectedFriend, item.Achieved, item.FriendAchieved)}">
                 <td class="cellborders">{{$index + 1}}</td>
@@ -110,11 +109,11 @@
                     <span ng-if="item.GlobalPercent.toFixed(4) == 0">{{item.GlobalPercent | number : 2}}%</span>
                 </td>
                 <td class="cellborders">{{item.Name}}: {{item.Description}}</td>
-                <td class="cellborders" ng-hide="selectedFriend">{{item.ApiName}}</td>
+                @*<td class="cellborders" ng-hide="selectedFriend">{{item.ApiName}}</td>
                 <td class="cellborders" ng-show="selectedFriend">
                     <img ng-show="item.FriendAchieved" ng-src="{{item.IconURL}}" />
                     <img ng-show="!item.FriendAchieved" ng-src="{{item.IconGrayURL}}" />
-                </td>
+                </td>*@
             </tr>
         </table>
     </div>

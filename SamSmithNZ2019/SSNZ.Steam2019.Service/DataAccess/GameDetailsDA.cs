@@ -121,47 +121,47 @@ namespace SSNZ.Steam2019.Service.DataAccess
             return result;
         }
 
-        public async Task<GameDetail> GetDataWithFriendAsync(IRedisService redisService, string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null, bool useCache = true)
-        {
-            GameDetail details = await GetDataAsync(redisService, steamID, appID, getStats, achievementToSearch, useCache);
-            GameDetail friendDetails = await GetDataAsync(redisService, friendSteamId, appID, getStats, achievementToSearch, useCache);
+        //public async Task<GameDetail> GetDataWithFriendAsync(IRedisService redisService, string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null, bool useCache = true)
+        //{
+        //    GameDetail details = await GetDataAsync(redisService, steamID, appID, getStats, achievementToSearch, useCache);
+        //    GameDetail friendDetails = await GetDataAsync(redisService, friendSteamId, appID, getStats, achievementToSearch, useCache);
 
-            //if the friend details return correctly, (this can fail sometimes if the friend has a private project), then continue:
-            if (friendDetails == null || friendDetails.Achievements == null || friendDetails.Achievements.Count == 0)
-            {
-                details = null;
-            }
-            else
-            {
-                details.FriendPercentAchieved = friendDetails.PercentAchieved;
-                details.FriendTotalAchieved = friendDetails.TotalAchieved;
-                foreach (Achievement item in details.Achievements)
-                {
-                    //Get the friends achievements for this game
-                    Achievement friendItem = FindFriendItem(item.ApiName, friendDetails.Achievements);
-                    if (friendItem != null)
-                    {
-                        item.FriendAchieved = friendItem.Achieved;
-                    }
-                }
-            }
+        //    //if the friend details return correctly, (this can fail sometimes if the friend has a private project), then continue:
+        //    if (friendDetails == null || friendDetails.Achievements == null || friendDetails.Achievements.Count == 0)
+        //    {
+        //        details = null;
+        //    }
+        //    else
+        //    {
+        //        details.FriendPercentAchieved = friendDetails.PercentAchieved;
+        //        details.FriendTotalAchieved = friendDetails.TotalAchieved;
+        //        foreach (Achievement item in details.Achievements)
+        //        {
+        //            //Get the friends achievements for this game
+        //            Achievement friendItem = FindFriendItem(item.ApiName, friendDetails.Achievements);
+        //            if (friendItem != null)
+        //            {
+        //                item.FriendAchieved = friendItem.Achieved;
+        //            }
+        //        }
+        //    }
 
-            return details;
-        }
+        //    return details;
+        //}
 
-        private Achievement FindFriendItem(string apiName, List<Achievement> friendAchievements)
-        {
-            Achievement result = null;
-            foreach (Achievement item in friendAchievements)
-            {
-                if (item.ApiName == apiName)
-                {
-                    result = item;
-                    break;
-                }
-            }
-            return result;
-        }
+        //private Achievement FindFriendItem(string apiName, List<Achievement> friendAchievements)
+        //{
+        //    Achievement result = null;
+        //    foreach (Achievement item in friendAchievements)
+        //    {
+        //        if (item.ApiName == apiName)
+        //        {
+        //            result = item;
+        //            break;
+        //        }
+        //    }
+        //    return result;
+        //}
 
         public async Task<Tuple<List<Achievement>, string>> GetAchievementDataAsync(IRedisService redisService, string steamID, string appID, SteamGameDetail steamGameDetails, string achievementToSearch, bool useCache)
         {

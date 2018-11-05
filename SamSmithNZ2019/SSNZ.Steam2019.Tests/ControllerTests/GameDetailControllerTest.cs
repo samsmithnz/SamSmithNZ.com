@@ -9,6 +9,7 @@ using StackExchange.Redis;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
+using System.Collections.Generic;
 
 namespace SSNZ.Steam2019.Tests.ControllerTests
 {
@@ -183,131 +184,141 @@ namespace SSNZ.Steam2019.Tests.ControllerTests
             Assert.IsTrue(result.ErrorMessage == null);
         }
 
-        [TestMethod]
-        public async Task GameDetailsWithFriendSamXCOMFriendWithStewTest()
-        {
-            //Arrange
-            GameDetailsController controller = new GameDetailsController(_redisService);
-            string steamId = "76561197971691578"; //Sam
-            string friendSteamId = "76561197990013217"; //Stew
-            string appId = "200510"; //Xcom
+        //[TestMethod]
+        //public async Task GameDetailsWithFriendSamXCOMFriendWithStewTest()
+        //{
+        //    //Arrange
+        //    GameDetailsController controller = new GameDetailsController(_redisService);
+        //    string steamId = "76561197971691578"; //Sam
+        //    string friendSteamId = "76561197971691578"; //Stew
+        //    string appId = "8930"; //HL2
 
-            //Act
-            GameDetail result = await controller.GetGameWithFriendDetails(steamId, appId, friendSteamId);
+        //    //Act
+        //    FriendsController controller2 = new FriendsController(_redisService);
+        //    List<Friend> friends = await controller2.GetFriends(steamId);
+        //    foreach (Friend item in friends)
+        //    {
+        //        GameDetail result2 = await controller.GetGameWithFriendDetails(steamId, appId, item.SteamId);
+        //        if (result2 != null && steamId != item.SteamId)
+        //        {
+        //            Assert.IsTrue(result2 != null);
+        //        }
+        //    }
+        //    GameDetail result = await controller.GetGameWithFriendDetails(steamId, appId, friendSteamId);
 
-            //Assert
-            Assert.IsTrue(result == null);
-            //Assert.IsTrue(result.AppID == "200510");
-            //Assert.IsTrue(result.GameName == "XCOM: Enemy Unknown");
-            //Assert.IsTrue(result.IconURL == "48be2fee1d0d511b5c7313e1359beafd36ea92ed");
-            //Assert.IsTrue(result.LogoURL == "eaa298d2b0d908b2c4f5370d2c8c59a8eff887c6");
-            //Assert.IsTrue(result.PercentAchieved == 1m);
-            //Assert.IsTrue(result.TotalAchieved == 85);
-            //Assert.IsTrue(result.Achievements.Count == 85);
-            //Assert.IsTrue(result.FriendPercentAchieved >= 0.8m);
-            //Assert.IsTrue(result.FriendTotalAchieved >= 68);
-            //bool foundAPI1 = false;
-            //bool foundAPI2 = false;
-            //bool foundAPI3 = false;
-            //foreach (Achievement item in result.Achievements)
-            //{
-            //    if (item.ApiName == "ACHIEVEMENT_28")
-            //    {
-            //        foundAPI1 = true;
-            //        Assert.IsTrue(item.ApiName == "ACHIEVEMENT_28");
-            //        Assert.IsTrue(item.Name == "We Happy Few ");
-            //        Assert.IsTrue(item.Description == "Complete a mission without losing a soldier.");
-            //        Assert.IsTrue(item.Achieved == true);
-            //        Assert.IsTrue(item.IconURL != "");
-            //        Assert.IsTrue(item.IconGrayURL != "");
-            //        Assert.IsTrue(item.GlobalPercent >= 0);
-            //        Assert.IsTrue(item.FriendAchieved == true);
-            //    }
-            //    else if (item.ApiName == "ACHIEVEMENT_38")
-            //    {
-            //        foundAPI2 = true;
-            //        Assert.IsTrue(item.ApiName == "ACHIEVEMENT_38");
-            //        Assert.IsTrue(item.Name == "A Continental Fellow");
-            //        Assert.IsTrue(item.Description == "Win the game from each of the 5 starting locations.");
-            //        Assert.IsTrue(item.Achieved == true);
-            //        Assert.IsTrue(item.IconURL != "");
-            //        Assert.IsTrue(item.IconGrayURL != "");
-            //        Assert.IsTrue(item.GlobalPercent >= 0);
-            //        Assert.IsTrue(item.FriendAchieved == false);
-            //    }
-            //    else if (item.IsVisible == false)
-            //    {
-            //        foundAPI3 = true;
-            //    }
-            //    if (foundAPI2 == true && foundAPI1 == true && foundAPI3 == true)
-            //    {
-            //        break;
-            //    }
-            //}
-            //Assert.IsTrue(foundAPI1 == true);
-            //Assert.IsTrue(foundAPI2 == true);
-            //Assert.IsTrue(foundAPI3 == false);
-        }
+        //    //Assert
+        //    Assert.IsTrue(result == null);
+        //    //Assert.IsTrue(result.AppID == "200510");
+        //    //Assert.IsTrue(result.GameName == "XCOM: Enemy Unknown");
+        //    //Assert.IsTrue(result.IconURL == "48be2fee1d0d511b5c7313e1359beafd36ea92ed");
+        //    //Assert.IsTrue(result.LogoURL == "eaa298d2b0d908b2c4f5370d2c8c59a8eff887c6");
+        //    //Assert.IsTrue(result.PercentAchieved == 1m);
+        //    //Assert.IsTrue(result.TotalAchieved == 85);
+        //    //Assert.IsTrue(result.Achievements.Count == 85);
+        //    //Assert.IsTrue(result.FriendPercentAchieved >= 0.8m);
+        //    //Assert.IsTrue(result.FriendTotalAchieved >= 68);
+        //    //bool foundAPI1 = false;
+        //    //bool foundAPI2 = false;
+        //    //bool foundAPI3 = false;
+        //    //foreach (Achievement item in result.Achievements)
+        //    //{
+        //    //    if (item.ApiName == "ACHIEVEMENT_28")
+        //    //    {
+        //    //        foundAPI1 = true;
+        //    //        Assert.IsTrue(item.ApiName == "ACHIEVEMENT_28");
+        //    //        Assert.IsTrue(item.Name == "We Happy Few ");
+        //    //        Assert.IsTrue(item.Description == "Complete a mission without losing a soldier.");
+        //    //        Assert.IsTrue(item.Achieved == true);
+        //    //        Assert.IsTrue(item.IconURL != "");
+        //    //        Assert.IsTrue(item.IconGrayURL != "");
+        //    //        Assert.IsTrue(item.GlobalPercent >= 0);
+        //    //        Assert.IsTrue(item.FriendAchieved == true);
+        //    //    }
+        //    //    else if (item.ApiName == "ACHIEVEMENT_38")
+        //    //    {
+        //    //        foundAPI2 = true;
+        //    //        Assert.IsTrue(item.ApiName == "ACHIEVEMENT_38");
+        //    //        Assert.IsTrue(item.Name == "A Continental Fellow");
+        //    //        Assert.IsTrue(item.Description == "Win the game from each of the 5 starting locations.");
+        //    //        Assert.IsTrue(item.Achieved == true);
+        //    //        Assert.IsTrue(item.IconURL != "");
+        //    //        Assert.IsTrue(item.IconGrayURL != "");
+        //    //        Assert.IsTrue(item.GlobalPercent >= 0);
+        //    //        Assert.IsTrue(item.FriendAchieved == false);
+        //    //    }
+        //    //    else if (item.IsVisible == false)
+        //    //    {
+        //    //        foundAPI3 = true;
+        //    //    }
+        //    //    if (foundAPI2 == true && foundAPI1 == true && foundAPI3 == true)
+        //    //    {
+        //    //        break;
+        //    //    }
+        //    //}
+        //    //Assert.IsTrue(foundAPI1 == true);
+        //    //Assert.IsTrue(foundAPI2 == true);
+        //    //Assert.IsTrue(foundAPI3 == false);
+        //}
 
-        [TestMethod]
-        public async Task GameDetailsWithFriendSamCiv6FriendWithAlexTest()
-        {
-            //Arrange
-            GameDetailsController controller = new GameDetailsController(_redisService);
-            string steamId = "76561197971691578"; //Sam
-            string friendSteamId = "76561198034342716"; //Alex
-            string appId = "289070"; //Civ 6
+        //[TestMethod]
+        //public async Task GameDetailsWithFriendSamCiv6FriendWithAlexTest()
+        //{
+        //    //Arrange
+        //    GameDetailsController controller = new GameDetailsController(_redisService);
+        //    string steamId = "76561197971691578"; //Sam
+        //    string friendSteamId = "76561198034342716"; //Alex
+        //    string appId = "289070"; //Civ 6
 
-            //Act
-            GameDetail result = await controller.GetGameWithFriendDetails(steamId, appId, friendSteamId);
+        //    //Act
+        //    GameDetail result = await controller.GetGameWithFriendDetails(steamId, appId, friendSteamId);
 
-            //Assert
-            Assert.IsTrue(result == null);
-            //Assert.IsTrue(result.AppID == "289070");
-            //Assert.IsTrue(result.GameName == "Sid Meier's Civilization VI");
-            //Assert.IsTrue(result.IconURL == "9dc914132fec244adcede62fb8e7524a72a7398c");
-            //Assert.IsTrue(result.LogoURL == "356443a094f8e20ce21293039d7226eac3d3b4d9");
-            //Assert.IsTrue(result.PercentAchieved >= 0m);
-            //Assert.IsTrue(result.TotalAchieved >= 0);
-            //Assert.IsTrue(result.Achievements.Count >= 0);
-            //Assert.IsTrue(result.FriendPercentAchieved >= 0.0m);
-            //Assert.IsTrue(result.FriendTotalAchieved >= 0);
-            //bool foundAPI1 = false;
-            //bool foundAPI2 = false;
-            //foreach (Achievement item in result.Achievements)
-            //{
-            //    if (item.ApiName == "ACHIEVEMENT_28")
-            //    {
-            //        foundAPI1 = true;
-            //        Assert.IsTrue(item.ApiName == "ACHIEVEMENT_28");
-            //        Assert.IsTrue(item.Name == "We Happy Few ");
-            //        Assert.IsTrue(item.Description == "Complete a mission without losing a soldier.");
-            //        Assert.IsTrue(item.Achieved == true);
-            //        Assert.IsTrue(item.IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/9ef3538334062eceed71992328e6b1a6b577b5d7.jpg");
-            //        Assert.IsTrue(item.IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/8cb928ad8be98984f1c739fa6f9b4f34ae0ea17e.jpg");
-            //        Assert.IsTrue(item.GlobalPercent >= 0);
-            //        Assert.IsTrue(item.FriendAchieved == true);
-            //    }
-            //    else if (item.ApiName == "ACHIEVEMENT_38")
-            //    {
-            //        foundAPI2 = true;
-            //        Assert.IsTrue(item.ApiName == "ACHIEVEMENT_38");
-            //        Assert.IsTrue(item.Name == "A Continental Fellow");
-            //        Assert.IsTrue(item.Description == "Win the game from each of the 5 starting locations.");
-            //        Assert.IsTrue(item.Achieved == true);
-            //        Assert.IsTrue(item.IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/1efdb8b427c628de17a49a55ad5afb495dd35cf0.jpg");
-            //        Assert.IsTrue(item.IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/3d74016b994db08005c2aafe05db4740f22f5876.jpg");
-            //        Assert.IsTrue(item.GlobalPercent >= 0);
-            //        Assert.IsTrue(item.FriendAchieved == false);
-            //    }
-            //    if (foundAPI2 == true && foundAPI1 == true)
-            //    {
-            //        break;
-            //    }
-            //}
-            //Assert.IsTrue(foundAPI1 == true);
-            //Assert.IsTrue(foundAPI2 == true);
-        }
+        //    //Assert
+        //    Assert.IsTrue(result == null);
+        //    //Assert.IsTrue(result.AppID == "289070");
+        //    //Assert.IsTrue(result.GameName == "Sid Meier's Civilization VI");
+        //    //Assert.IsTrue(result.IconURL == "9dc914132fec244adcede62fb8e7524a72a7398c");
+        //    //Assert.IsTrue(result.LogoURL == "356443a094f8e20ce21293039d7226eac3d3b4d9");
+        //    //Assert.IsTrue(result.PercentAchieved >= 0m);
+        //    //Assert.IsTrue(result.TotalAchieved >= 0);
+        //    //Assert.IsTrue(result.Achievements.Count >= 0);
+        //    //Assert.IsTrue(result.FriendPercentAchieved >= 0.0m);
+        //    //Assert.IsTrue(result.FriendTotalAchieved >= 0);
+        //    //bool foundAPI1 = false;
+        //    //bool foundAPI2 = false;
+        //    //foreach (Achievement item in result.Achievements)
+        //    //{
+        //    //    if (item.ApiName == "ACHIEVEMENT_28")
+        //    //    {
+        //    //        foundAPI1 = true;
+        //    //        Assert.IsTrue(item.ApiName == "ACHIEVEMENT_28");
+        //    //        Assert.IsTrue(item.Name == "We Happy Few ");
+        //    //        Assert.IsTrue(item.Description == "Complete a mission without losing a soldier.");
+        //    //        Assert.IsTrue(item.Achieved == true);
+        //    //        Assert.IsTrue(item.IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/9ef3538334062eceed71992328e6b1a6b577b5d7.jpg");
+        //    //        Assert.IsTrue(item.IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/8cb928ad8be98984f1c739fa6f9b4f34ae0ea17e.jpg");
+        //    //        Assert.IsTrue(item.GlobalPercent >= 0);
+        //    //        Assert.IsTrue(item.FriendAchieved == true);
+        //    //    }
+        //    //    else if (item.ApiName == "ACHIEVEMENT_38")
+        //    //    {
+        //    //        foundAPI2 = true;
+        //    //        Assert.IsTrue(item.ApiName == "ACHIEVEMENT_38");
+        //    //        Assert.IsTrue(item.Name == "A Continental Fellow");
+        //    //        Assert.IsTrue(item.Description == "Win the game from each of the 5 starting locations.");
+        //    //        Assert.IsTrue(item.Achieved == true);
+        //    //        Assert.IsTrue(item.IconURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/1efdb8b427c628de17a49a55ad5afb495dd35cf0.jpg");
+        //    //        Assert.IsTrue(item.IconGrayURL == "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/200510/3d74016b994db08005c2aafe05db4740f22f5876.jpg");
+        //    //        Assert.IsTrue(item.GlobalPercent >= 0);
+        //    //        Assert.IsTrue(item.FriendAchieved == false);
+        //    //    }
+        //    //    if (foundAPI2 == true && foundAPI1 == true)
+        //    //    {
+        //    //        break;
+        //    //    }
+        //    //}
+        //    //Assert.IsTrue(foundAPI1 == true);
+        //    //Assert.IsTrue(foundAPI2 == true);
+        //}
 
         [TestMethod]
         public async Task GameDetailsSamNoIconTest()
@@ -328,22 +339,22 @@ namespace SSNZ.Steam2019.Tests.ControllerTests
             //Assert.IsTrue(result.LogoURL == "");
         }
 
-        [TestMethod]
-        public async Task GameDetailsWithFriendSamCiv6FriendWithStewTest()
-        {
-            //Arrange
-            GameDetailsController controller = new GameDetailsController(_redisService);
-            string steamId = "76561197971691578"; //Sam
-            string friendSteamId = "76561197990013217"; //Stew
-            string appId = "289070"; //Civ 6
+        //[TestMethod]
+        //public async Task GameDetailsWithFriendSamCiv6FriendWithStewTest()
+        //{
+        //    //Arrange
+        //    GameDetailsController controller = new GameDetailsController(_redisService);
+        //    string steamId = "76561197971691578"; //Sam
+        //    string friendSteamId = "76561197990013217"; //Stew
+        //    string appId = "289070"; //Civ 6
 
-            //Act
-            GameDetail result = await controller.GetGameWithFriendDetails(steamId, appId, friendSteamId);
+        //    //Act
+        //    GameDetail result = await controller.GetGameWithFriendDetails(steamId, appId, friendSteamId);
 
-            //Assert
-            Assert.IsTrue(result == null);
+        //    //Assert
+        //    Assert.IsTrue(result == null);
 
-        }
+        //}
 
         [TestMethod]
         public async Task GameDetailsSamCompanyOfHeroes2Test()

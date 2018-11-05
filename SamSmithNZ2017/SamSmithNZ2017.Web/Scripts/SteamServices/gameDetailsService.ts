@@ -18,11 +18,11 @@
             return $http.get(url);
         };
 
-        this.getGameWithFriendDetails = function (steamId, appId, friendSteamId) {
-            let url: string =  baseUrl + 'api/GameDetails/GetGameWithFriendDetails?steamId=' + steamId + '&appId=' + appId + '&friendSteamId=' + friendSteamId;
-            //console.log(url);
-            return $http.get(url);
-        };
+        //this.getGameWithFriendDetails = function (steamId, appId, friendSteamId) {
+        //    let url: string =  baseUrl + 'api/GameDetails/GetGameWithFriendDetails?steamId=' + steamId + '&appId=' + appId + '&friendSteamId=' + friendSteamId;
+        //    //console.log(url);
+        //    return $http.get(url);
+        //};
 
     }
 })();
