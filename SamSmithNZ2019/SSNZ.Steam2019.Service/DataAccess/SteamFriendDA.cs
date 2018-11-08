@@ -36,7 +36,7 @@ namespace SSNZ.Steam2019.Service.DataAccess
                 string jsonResult = await Utility.GetPageAsStringAsync(new Uri(jsonRequestString));
 
                 //If the json returned a few new lines, return null, the player wasn't found
-                if (jsonResult == "{\n\n}")
+                if (jsonResult == "{\n\n}" || jsonResult == "{}")
                 {
                     friendList = null;
                 }

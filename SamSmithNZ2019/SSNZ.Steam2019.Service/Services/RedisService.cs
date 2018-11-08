@@ -17,10 +17,14 @@ namespace SSNZ.Steam2019.Service.Services
 
         public async Task<string> GetAsync(string key)
         {
-            string result = await _database.StringGetAsync(key);
-            if (string.IsNullOrEmpty(result)==false)
+            string result = null;
+            if (_database.IsConnected(key) == true)
             {
-                Debug.WriteLine("Getting item from cache: " + key);
+                result = await _database.StringGetAsync(key);
+                if (string.IsNullOrEmpty(result) == false)
+                {
+                    Debug.WriteLine("Getting item from cache: " + key);
+                }
             }
             return result;
         }
@@ -32,8 +36,15 @@ namespace SSNZ.Steam2019.Service.Services
 
         public async Task<bool> SetAsync(string key, string data, TimeSpan expirationTime)
         {
-            Debug.WriteLine("Setting item into cache: " + key);
-            return await _database.StringSetAsync(key, data, expirationTime);
+            if (_database.IsConnected(key) == true)
+            {
+                Debug.WriteLine("Setting item into cache: " + key);
+                return await _database.StringSetAsync(key, data, expirationTime);
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
