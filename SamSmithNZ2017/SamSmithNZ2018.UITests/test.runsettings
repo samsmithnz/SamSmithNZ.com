@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+
+  <!-- Parameters used by tests at runtime -->
+  <TestRunParameters>
+    <Parameter name="SSNZWebUrl" value="https://www.samsmithnz.com/" />
+    <Parameter name="SSNZSteamServiceUrl" value="https://ssnzsteam2019webservice.azurewebsites.net/" />
+    <Parameter name="SSNZFFServiceUrl" value="https://ssnzfoofighterswebservice.azurewebsites.net/" />
+    <Parameter name="SSNZIntFootballServiceUrl" value="https://ssnzintfootballwebservice.azurewebsites.net/" />
+    <Parameter name="SSNZITunesServiceUrl" value="https://ssnzituneswebservice.azurewebsites.net/" />
+    <Parameter name="SSNZGuitarTabServiceUrl" value="https://ssnzguitartabservice.azurewebsites.net/" />
+    <Parameter name="SSNZMAndMServiceUrl" value="https://ssnzmandmcounterservice.azurewebsites.net/" />
+  </TestRunParameters>
+
+</RunSettings>
