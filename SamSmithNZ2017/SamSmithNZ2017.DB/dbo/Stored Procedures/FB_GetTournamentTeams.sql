@@ -3,7 +3,6 @@
 AS
 BEGIN
 	SELECT 0 AS Placing, 
-		te.tournament_code AS TournamentCode,
 		t.team_code AS TeamCode, 
 		t.team_name AS TeamName, 
 		t.flag_name AS FlagName, 

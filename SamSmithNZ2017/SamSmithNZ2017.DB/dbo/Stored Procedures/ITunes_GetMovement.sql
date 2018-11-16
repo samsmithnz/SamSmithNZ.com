@@ -25,9 +25,10 @@ BEGIN
 			AND rating = 100
 			ORDER BY play_count - previous_play_count DESC, artist_name + ' - ' + track_name
 		
-			SELECT artist_name + ' - ' + track_name AS TrackName, 
+			SELECT DISTINCT artist_name + ' - ' + track_name AS TrackName, 
 				play_count AS PlayCount, 
 				play_count - previous_play_count AS ChangeThisMonth
+				--0 AS ChangeThisMonth
 			FROM itTrack t
 			JOIN itPlaylist p ON t.playlist_code = p.playlist_code
 			WHERE (p.playlist_code = @PlaylistCode OR @PlaylistCode IS NULL)

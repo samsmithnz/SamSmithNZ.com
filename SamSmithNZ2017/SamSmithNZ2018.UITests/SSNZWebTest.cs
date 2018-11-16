@@ -23,7 +23,7 @@ namespace SamSmithNZ2018.UITests
         {
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.AddArguments("headless");
-            chromeOptions.AddArgument("no-sandbox");
+            //chromeOptions.AddArgument("no-sandbox");
             _Driver = new ChromeDriver(chromeOptions);
 
             if (TestContext.Properties == null || TestContext.Properties.Count == 0)

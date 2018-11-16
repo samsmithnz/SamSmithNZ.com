@@ -264,6 +264,15 @@
     <Build Include="dbo\Stored Procedures\FB_DeletePenaltyShootoutGoal.sql" />
     <Build Include="dbo\Stored Procedures\FB_SaveTournamentTeam.sql" />
     <Build Include="dbo\Stored Procedures\FB_DeleteTournamentTeam.sql" />
+    <Build Include="dbo\Tables\LegoColors.sql" />
+    <Build Include="dbo\Tables\LegoInventories.sql" />
+    <Build Include="dbo\Tables\LegoSets.sql" />
+    <Build Include="dbo\Tables\LegoThemes.sql" />
+    <Build Include="dbo\Tables\LegoParts.sql" />
+    <Build Include="dbo\Tables\LegoPartRelationships.sql" />
+    <Build Include="dbo\Tables\LegoPartCategories.sql" />
+    <Build Include="dbo\Tables\LegoInventorySets.sql" />
+    <Build Include="dbo\Tables\LegoInventoryParts.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />
