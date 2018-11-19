@@ -13,6 +13,11 @@ namespace SamSmithNZ2017.Controllers
             return View();
         }
 
+        public ActionResult Index2()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             return View();

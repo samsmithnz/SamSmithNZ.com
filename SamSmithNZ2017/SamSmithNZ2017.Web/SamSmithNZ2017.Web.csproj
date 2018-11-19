@@ -333,6 +333,13 @@
     <Content Include="Content\Images\AboutMe\youtube-icon.png" />
     <Content Include="Content\Images\Logo_Small.jpg" />
     <Content Include="Content\Images\Logo_Tiny.jpg" />
+    <Content Include="Content\Images\NewHomePage\background.jpg" />
+    <Content Include="Content\Images\NewHomePage\foofighters.jpg" />
+    <Content Include="Content\Images\NewHomePage\guitar2.jpg" />
+    <Content Include="Content\Images\NewHomePage\records.png" />
+    <Content Include="Content\Images\NewHomePage\soccer.jpg" />
+    <Content Include="Content\Images\NewHomePage\steam.jpg" />
+    <Content Include="Content\Images\NewHomePage\unity.png" />
     <Content Include="Content\IntFootball\bg-menu-main.png" />
     <Content Include="Content\IntFootball\BlogLink.gif" />
     <Content Include="Content\IntFootball\collapse.gif" />
@@ -1375,6 +1382,7 @@
     <Content Include="Views\FooFighters\About.cshtml" />
     <Content Include="Views\MandMCounter\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutMandMCounter.cshtml" />
+    <Content Include="Views\Home\Index2.cshtml" />
     <None Include="Views\Test\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

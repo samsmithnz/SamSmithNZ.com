@@ -1,6 +1,5 @@
 ﻿body {
-    /*padding-top: 50px;
-    padding-bottom: 20px;*/
+    padding-top: 50px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -76,6 +75,7 @@ textarea {
 .AlignedMiddle {
     vertical-align: middle;
 }
+
 .headerImg {
     border: 0px;
     width: 64px;
@@ -101,14 +101,13 @@ textarea {
     outline-offset: 0px;
 }
 
-a
-{
-    color:blue;
+a {
+    color: blue;
 }
-a:hover
-{
-    color:darkblue;
-}
+
+    a:hover {
+        color: darkblue;
+    }
 
 .toptr {
     vertical-align: top;
@@ -213,8 +212,87 @@ Pre {
 
 .TeamImage {
     margin-left: 4px;
-    max-width: 22px; 
+    max-width: 22px;
     border-color: DarkGray;
     border-style: Solid;
     border-width: 1px;
 }
+
+
+
+/*New home page and header */
+#headerwrap {
+    background: url(Images/NewHomePage/background.jpg) no-repeat center top;
+    margin-top: 0px;
+    padding-top: 50px;
+    background-attachment: relative;
+    background-position: center center;
+    min-height: 450px;
+    width: 100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+    #headerwrap h1 {
+        margin-top: 60px;
+        color: white;
+        font-size: 40px;
+        font-weight: 900;
+        letter-spacing: 1px;
+        visibility: hidden;
+    }
+
+    #headerwrap h2 {
+        color: white;
+        visibility: hidden;
+    }
+
+    #headerwrap .img-responsive {
+        margin: 0 auto;
+    }
+
+/*.mt {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}*/
+
+.slideDown {
+    animation-name: slideDown;
+    -webkit-animation-name: slideDown;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    animation-timing-function: ease;
+    -webkit-animation-timing-function: ease;
+    visibility: visible !important;
+}
+
+.centered {
+    text-align: center;
+}
+
+.btn-cta {
+    color: #ffffff;
+    background-color: transparent;
+    border-color: #ffffff;
+    font-family: 'Ruda', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+    .btn-cta:hover,
+    .btn-cta:focus,
+    .btn-cta:active,
+    .btn-cta.active,
+    .open .dropdown-toggle.btn-cta {
+        color: #2f2f2f;
+        background-color: #ffffff;
+        border-color: #2f2f2f;
+    }
+
