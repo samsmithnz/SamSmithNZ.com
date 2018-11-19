@@ -222,11 +222,8 @@ Pre {
 
 /*New home page and header */
 #headerwrap {
-    background: url(Images/NewHomePage/background.jpg) no-repeat center top;
     margin-top: 0px;
-    padding-top: 50px;
-    background-attachment: relative;
-    background-position: center center;
+    padding-top: 0px;
     min-height: 450px;
     width: 100%;
     -webkit-background-size: 100%;
