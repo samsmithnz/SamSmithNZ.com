@@ -6,7 +6,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-    <div class="container">
+    <div id="headerwrap" style="background: url(@Url.Content("~/Content/Images/NewHomePage/background.jpg")) no-repeat center top; background-position: center center; background-size: 100% 100%; background-attachment: relative;">
+        <div class="container">
+            <div class="row centered">
+                <div class="col-lg-8 col-lg-offset-2 mt">
+                    <h1 class="animation slideDown" style="color:white;">This website is a sandbox for my projects, focusing on new technologies involving .NET, Azure, and development best practices.</h1>
+                    <p class="mt"><a href="@Url.Action("About", "Home")"><button type="button" class="btn btn-cta btn-lg">LEARN MORE</button></a></p>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+    </div>
+    <div class="container" style="padding-top: 0px; margin-top: 0px;">
         @if (User.Identity.IsAuthenticated)
         {
             if (User.IsInRole("WebAdmin") == false && User.IsInRole("FBAdmin") == false && User.IsInRole("FBUser") == false)
@@ -14,74 +25,54 @@
                 <span style="color: red;">Note: You do not have a role assigned. Please contact samsmithnz at gmail.com to get access to the correct area.</span><br />
             }
         }
-        <!-- Example row of columns -->
         <div class="row">
-            <div class="col-md-4">
-                <h2><a href="@Url.Action("Index", "GuitarTab")">Guitar Tab</a></h2>
-                <p>I've been collecting guitar tab for my favorite bands since 1997. I've then edited, standardized and ranked the tabs as I play them.</p>
-                <p><a class="btn" href="@Url.Action("Index", "GuitarTab")">View details &raquo;</a></p>
+            <div class="col-lg-4 col-md-4 col-xs-12 desc" style="padding-top:20px;">
+                <h3><b>Guitar Tab</b></h3>
+                <a class="b-link-fade b-animate-go" href="@Url.Action("Index", "GuitarTab")">
+                    <img width="350" height="200" src="~/Content/Images/NewHomePage/guitar2.jpg" alt="">
+                </a>
+                <p>I've been collecting guitar tab for my favorite bands since 1997. I've then edited, standardized and ranked the tabs as I play them. <a href="@Url.Action("Index", "GuitarTab")">View Guitar Tab &raquo;</a></p>
             </div>
-            <div class="col-md-4">
-                <h2><a href="@Url.Action("Index", "Steam", new { steamID = "76561197971691578" })">My Steam Account</a></h2>
-                <p>Tapping into my Steam Account via the <a href="https://steamcommunity.com/dev" target="_blank">Steam Web API</a>. I'm trying to develop better insights and interesting views of achievements.</p>
-                <p><a class="btn" href="@Url.Action("Index", "Steam", new { steamID = "76561197971691578" })">View details &raquo;</a></p>
+            <div class="col-lg-4 col-md-4 col-xs-12 desc" style="padding-top:20px;">
+                <h3><b>Steam Analytics</b></h3>
+                <a class="b-link-fade b-animate-go" href="@Url.Action("Index", "Steam", new { steamID = "76561197971691578" })">
+                    <img width="350" height="200" src="~/Content/Images/NewHomePage/steam.jpg" alt="">
+                </a>
+                <p>Tapping into my Steam Account via the <a href="https://steamcommunity.com/dev" target="_blank">Steam Web API</a>. I'm trying to develop better insights and interesting views of achievements. <a href="@Url.Action("Index", "Steam", new { steamID = "76561197971691578" })">View Steam Analytics &raquo;</a></p>
             </div>
-            <div class="col-md-4">
-                <h2><a href="@Url.Action("Index", "IntFootball")">World Cup Analytics</a></h2>
-                <p>A collection of statistics from all World Cups...</p>
-                <p><a class="btn" href="@Url.Action("Index", "IntFootball")">View details &raquo;</a></p>
-
-            </div>
-        </div>
-
-        <!-- Example row of columns -->
-        <div class="row">
-            <div class="col-md-4">
-                <h2><a href="@Url.Action("Index", "FooFighters")">Foo Fighters Gigography</a></h2>
-                <p>This is a collection of Foo Fighter shows over the past 20 years. Much of this data was colloraborated together with <a href="https://www.foofighterslive.com" target="_blank">www.foofighterslive.com</a>, and is up to date until about 2016.</p>
-                <p><a class="btn" href="@Url.Action("Index", "FooFighters")">View details &raquo;</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2><a href="@Url.Action("Index", "iTunes")">iTunes Analysis</a></h2>
-                <p>I've been saving my iTunes library files for analysis since 2006. This project is a result of this work. </p>
-                <p><a class="btn" href="@Url.Action("Index", "iTunes")">View details &raquo;</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2><a href="@Url.Action("Index", "GameDev")">Game Development</a></h2>
-                <p>This is my attempt to create my own turn based strategy game with Unity3D...</p>
-                <p><a class="btn" href="@Url.Action("Index", "GameDev")">View details &raquo;</a></p>
+            <div class="col-lg-4 col-md-4 col-xs-12 desc" style="padding-top:20px;">
+                <h3><b>World Cup Analysis</b></h3>
+                <a class="b-link-fade b-animate-go" href="@Url.Action("Index", "IntFootball")">
+                    <img width="350" height="200" src="~/Content/Images/NewHomePage/soccer.jpg" alt="">
+                </a>
+                <p>A collection of statistics from all World Cups... <a href="@Url.Action("Index", "IntFootball")">View World Cup Analysis &raquo;</a></p>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-4">
-                <h2><a href="@Url.Action("About", "Home")">About SamSmithNZ.Com</a></h2>
-                <p>This website is roughly 20 years old.</p>
-                <p><a class="btn" href="@Url.Action("About", "Home")">View details &raquo;</a></p>
+            <div class="col-lg-4 col-md-4 col-xs-12 desc" style="padding-top:20px;">
+                <h3><b>Foo Fighters Gigography</b></h3>
+                <a class="b-link-fade b-animate-go" href="@Url.Action("Index", "FooFighters")">
+                    <img width="350" height="200" src="~/Content/Images/NewHomePage/foofighters.jpg" alt="">
+                </a>
+                <p>This is a collection of Foo Fighter shows over the past 20 years. Much of this data was colloraborated together with <a href="https://www.foofighterslive.com" target="_blank">www.foofighterslive.com</a>, and is up to date until about 2016. <a href="@Url.Action("Index", "FooFighters")">View Foo Fighters Gigography &raquo;</a></p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-12 desc" style="padding-top:20px;">
+                <h3><b>iTunes Listening Analysis</b></h3>
+                <a class="b-link-fade b-animate-go" href="@Url.Action("Index", "iTunes")">
+                    <img width="350" height="200" src="~/Content/Images/NewHomePage/records.png" alt="">
+                </a>
+                <p>I've been saving my iTunes library files for analysis since 2006. This project is a result of this work. <a href="@Url.Action("Index", "iTunes")">View iTunes Listening Analysis &raquo;</a></p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-12 desc" style="padding-top:20px;">
+                <h3><b>Game Development</b></h3>
+                <a class="b-link-fade b-animate-go" href="@Url.Action("Index", "GameDev")">
+                    <img width="350" height="200" src="~/Content/Images/NewHomePage/unity.png" alt="">
+                </a>
+                <p>This is my attempt to create my own turn based strategy game with Unity3D... <a href="@Url.Action("Index", "GameDev")">View Game Development &raquo;</a></p>
             </div>
         </div>
-        @*<!-- Example row of columns -->
-        <div class="row">
-            <div class="col-md-4">
-                <h2><a href="@Url.Action("Index", "Problems")">Project Euler Problems</a></h2>
-                <p>My solutions and notes to Project Euler problems, a series of challenging mathematical/computer programming problems.</p>
-                <p><a class="btn" href="@Url.Action("Index", "Problems")">View details &raquo;</a></p>
-            </div>
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- SamSmithNZSteam -->
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-2315986579277492"
-                     data-ad-slot="1982797969"
-                     data-ad-format="auto"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
 
-        </div>*@
     </div>
 
 </body>

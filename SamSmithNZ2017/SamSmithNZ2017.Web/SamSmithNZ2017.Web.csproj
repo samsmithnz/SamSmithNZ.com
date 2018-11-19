@@ -1382,7 +1382,7 @@
     <Content Include="Views\FooFighters\About.cshtml" />
     <Content Include="Views\MandMCounter\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutMandMCounter.cshtml" />
-    <Content Include="Views\Home\Index2.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Views\Test\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1397,7 +1397,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\IndexOld.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
