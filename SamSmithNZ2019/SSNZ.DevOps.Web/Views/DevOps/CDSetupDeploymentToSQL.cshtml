@@ -1,0 +1,123 @@
+﻿@using SSNZ.DevOps.Web.Models
+@{
+    ViewBag.Title = "Setup a deployment to SQL";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("DevOps", "Index", "DevOps")</li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("PartialViews/_DevOpsMenu", new DevOpsMenu2ViewModel(null, null, null, new DevOpsMenuViewModel(false, false, false, false, true, false, false, false), null))
+                <hr />
+
+                <a name="1" class="anchor"></a>
+                <h3>Overview</h3>
+                Database deployments are achieved by installing a dacpac file, the result of a database project build, targeted on the server with SQLPackage.exe. Dacpac's work well for us because they contain refactor code<br />
+                <br />
+                <b>Things to keep in mind when developing for dacpacs:</b>
+                <ol>
+                    <li>
+                        Make sure all scripts in the pre and post deployment folders are written so they can be run repeatedly. This allows the dacpac to be deployed on any old version of the database (old versions should be minimized in DevOps environments)
+                    </li>
+                    <li>
+                        Don't delete database columns, at least not immediately. These are considered breaking changes. If for example a task replaces a "IsGreenServer" bit variable with "ServerColorCode" int variable, it's recommended to add the new "ServerColorCode" column alongside the "IsGreenServer" bit column and migrate the data with the post deployment script, marking the IsGreenServer column as depreciated and deleting the column at a later time when it will not affect any connected code
+                    </li>
+                    <li>
+                        When adding or editing (see point 2 above for the recommended method to edit/delete columns) columns to tables, remember that the deployments create a temp table to store the data for the edited table, create the new table and then insert the data from the temp table to the new table. The implication of this is that new columns with a NOT NULL flag either need a default or they will break the deployment.
+                    </li>
+                </ol>
+                <hr />
+
+                <a name="2" class="anchor"></a>
+                <h3>Creating the deployment workflow</h3>
+                <span class="DevOpsTFSWarning">Note: This document assumes that the steps to setup a deployment server have already been completed</span><br /><br />
+                We require 4 steps to deploy the dacpac to the database. (Note: these steps should be the same for both TFS and Azure DevOps)<br />
+                <img src="~/images/DevOps/CD/CDDatabaseTFS.png" class="DevOpsImage" /><br /><br />
+
+                <ul>
+                    <li>
+                        <a name="2_1" class="anchor"></a>
+                        <b>Step 1: Using a "Windows Machine File Copy" task</b>, copy the PowerShell scripts from the database project to a folder on the target server. I've been following the format: <pre>d:\TFSDeploymentPackages\[Application]\DSC</pre>
+                        <img src="~/images/DevOps/CD/CDDatabaseTFSStep1.png" class="DevOpsImage" /><br /><br />
+                    </li>
+                    <li>
+                        <a name="2_2" class="anchor"></a>
+                        <b>Step 2: Using a "PowerShell on TargetMachines" task</b>, copy the database backups from production to the Dev/QA server and then restore the databases (hence, this task is not required on production deployments). Note that this task relies on the idea that the bainadmin_sql administrator is used to copy files from the backup share. On some servers, a different user will be required to access the backups.<br />
+                        <img src="~/images/DevOps/CD/CDDatabaseTFSStep2.png" class="DevOpsImage" /><br /><br />
+                    </li>
+                    <li>
+                        <a name="2_3" class="anchor"></a>
+                        <b>Step 3: Using a "Windows Machine File Copy" task</b>, copy the DacPac file from the build server to a folder on the target server I've been following the format: <pre>d:\TFSDeploymentPackages\[Application].</pre> The latest version of this PowerShell script can be downloaded from here: <a href="~/images/DevOps/PS/CopyAndRestoreDatabaseBackups.ps1">CopyAndRestoreDatabaseBackups.ps1</a><br /><br />
+                        <img src="~/images/DevOps/CD/CDDatabaseTFSStep3.png" class="DevOpsImage" /><br /><br />
+                    </li>
+                    <li>
+                        <a name="2_4" class="anchor"></a>
+                        <b>Step 4: Using a "WinRM - SQL Server DB Deployment" (TFS 2015)/ "SQL Server Database Deploy(Preview)" (Azure DevOps) task</b>, run the DacPac file on the target server on the database being deployed. Internally, WinRM is using the SQLPackage.exe application to deploy the DacPac<br />
+                        <img src="~/images/DevOps/CD/CDDatabaseTFSStep4.png" class="DevOpsImage" /><br /><br />
+                    </li>
+                    <li>
+                        <a name="2_5" class="anchor"></a>
+                        <b>Troubleshooting deployment of dacpac's and SQLPackage.exe</b>. There is not great reporting into TFS/Azure DevOps from failed SQLPackage.exe deployments. <i>#WorkInProgress</i> <img src="~/images/DevOps/WorkInProgress.png" class="DevOpsWorkInProgress" title="This is an open item, as we continue to look for better ways to report back this information to TFS/Azure DevOps" />
+                        <br />
+                        This is a common, and unhelpful message:
+                        <pre>Deployment failed on machine WTRNTQA2V.bain.com with following message : System.Exception: *** Could not deploy package.</pre>
+                        To troubleshoot, run SQLPackage.exe on the server
+                        <ol>
+                            <li>
+                                Remote into the SQL Server using the administrator account the project is deploying the code with - probably BainAdmin_SQL
+                            </li>
+                            <li>
+                                Opening a command line prompt at the SQLPackage.exe location. This is located in the SQL installation:
+                                <ul>
+                                    <li>SQL 2012: C:\Program Files (x86)\Microsoft SQL Server\<b>110</b>\DAC\bin</li>
+                                    <li>SQL 2014: C:\Program Files (x86)\Microsoft SQL Server\<b>120</b>\DAC\bin</li>
+                                </ul>
+                            </li>
+                            <li>
+                                Run SQLPackage.exe using the settings from TFS. See the sample below for an example. Note that each database variable requires it's own '/Variables' option.<br />
+                                <div class="codeHeader lang-html" data-bi-name="code-header">
+                                    <span class="language">Command Line</span>
+                                    <button class="action" data-bi-name="copy" onclick="selectElementContentsById('txtSQLCmd')"><svg class="vector-icon" focusable="false" viewBox="0 0 14 14"><path d="M13 6.8V14H4v-3H0V0h5.2l3 3h1L13 6.8zM4 3h2.8l-2-2H1v9h3V3zm8 5H8V4H5v9h7V8zM9 7h2.8L9 4.2V7z"></path></svg> Copy</button>
+                                </div>
+                                <pre id="txtSQLCmd">SqlPackage.exe /SourceFile:"D:\TFSDeploymentPackages\PAS\EP\PETS.EP.DB.dacpac" /Action:Publish /TargetServerName:"localhost" /TargetDatabaseName:"PETSEP" /TargetTimeout:120  /Variables:basis=basis /Variables:PETSCore=PETSCore /Variables:Revenue=Revenue /Variables:hcpd=hcpd /Variables:psa=psa /Variables:PETSPSA=PETSPSA</pre>
+                            </li>
+                        </ol>
+                    </li>
+                </ul>
+                <hr />
+
+                <a name="3" class="anchor"></a>
+                <b>Further reading:</b>
+                <ul>
+                    <li><a href="https://msdn.microsoft.com/en-IN/library/ee210546.aspx" target="_blank">DacPac [Microsoft documentation]</a></li>
+                    <li><a href="https://msdn.microsoft.com/en-us/library/hh550080(v=vs.103).aspx" target="_blank">SQLPackage.exe [Microsoft documentation])</a></li>
+                    <li><a href="https://msdn.microsoft.com/en-us/library/aa384426(v=vs.85).aspx" target="_blank">What is WinRM? [Microsoft Article]</a></li>
+                </ul>
+                <hr />
+
+                <a name="4" class="anchor"></a>
+                <b>Version history:</b>
+                <ul>
+                    <li>20-Sep-2018: Content updated to replace most references of VSTS with Azure DevOps to match rebranding</li>
+                    <li>16-Jun-2017: Initial release of DevOps content</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

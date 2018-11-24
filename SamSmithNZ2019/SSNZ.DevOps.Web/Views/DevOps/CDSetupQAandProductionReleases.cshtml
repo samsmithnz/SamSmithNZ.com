@@ -1,0 +1,69 @@
+﻿@using SSNZ.DevOps.Web.Models
+@{
+    ViewBag.Title = "Setup releases for QA and Production";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("DevOps", "Index", "DevOps")</li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("PartialViews/_DevOpsMenu", new DevOpsMenu2ViewModel(null, null, null, new DevOpsMenuViewModel(false, false, false, false, false, false, false, true), null))
+                <hr />
+
+                <a name="1" class="anchor"></a>
+                <h3>Overview</h3>
+                <b>Now that the continuous integration and delivery process is setup for DEV, the strategy for QA, Stage, Production or any other environments can be created.</b> Deploying and promoting work through each of the environments to production gives the team the confidence that they can deploy to production at any time. As the build is promoted through each environment, only a few builds are actually deployed to a QA environment, and only a few of these QA releases are deployed to production.<br />
+                <b>Note that scheduling functionality is not available in TFS 2015</b><br />
+                <img src="~/images/DevOps/CD/DeploymentToEachEnvironmentWorkflow.png" class="DevOpsImage" /><br /><br />
+                <hr />
+
+                <a name="2" class="anchor"></a>
+                <h3>QA Deployments</h3>
+                <b>Most complex agile projects will need a regular QA release, likely scheduled once or twice a day to promote the most recent Dev release.</b> In the QA environment deployment conditions, the QA build is scheduled to run once a day, at midnight, (as long as there is a successful Dev release).<br />
+                <img src="~/images/DevOps/CD/QAProductionDeployments1.png" class="DevOpsImage" /><br />
+                <hr />
+
+                <a name="3" class="anchor"></a>
+                <h3>Production Deployments</h3>
+                <b>Like QA, Production should rely on a successful deployment in all prior environments and should have at least one approval.</b> <br />
+                <img src="~/images/DevOps/CD/QAProductionDeployments2.png" class="DevOpsImage" /><br />
+                <br />
+                Additionally, it is strongly recommended that a production deployment require <u>at least</u> one approval from one or more senior members of the team.<br />
+                <img src="~/images/DevOps/CD/QAProductionDeployments3.png" class="DevOpsImage" /><br />
+                <hr />
+
+                <a name="4" class="anchor"></a>
+                <b>Further reading:</b>
+                <ul>
+                    <li><a href="https://www.visualstudio.com/en-us/docs/build/concepts/definitions/release/environments" target="_blank">Environments in Release Management [Microsoft Article]</a></li>
+                    <li><a href="https://www.visualstudio.com/en-us/docs/build/concepts/definitions/release/triggers" target="_blank">Environment triggers in Release Management [Microsoft Article]</a></li>
+                </ul>
+                <hr />
+
+                <a name="5" class="anchor"></a>
+                <b>Version history:</b>
+                <ul>
+                    <li>14-Jul-2017: Updates to include final QA and production content</li>
+                    <li>16-Jun-2017: Initial release of DevOps content</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

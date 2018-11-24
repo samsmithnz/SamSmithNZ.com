@@ -1,0 +1,59 @@
+﻿@using SSNZ.DevOps.Web.Models
+@{
+    ViewBag.Title = "Setup a deployment of a Windows Service";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("DevOps", "Index", "DevOps")</li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("PartialViews/_DevOpsMenu", new DevOpsMenu2ViewModel(null, null, null, new DevOpsMenuViewModel(false, false, false, false, false, false, true, false), null))
+                <hr />
+
+                <a name="1" class="anchor"></a>
+                <h3>Overview</h3>
+                To deploy a Windows Service, we need to run a PowerShell script to install/update the service on the target server. Note that this does not require the Windows Service to be packaged in a MSI<br />
+                <br />
+                <b>The PowerShell script can be downloaded here: <a href="~/images/DevOps/PS/DeployWindowsService.ps1">DeployWindowsService.ps1</a></b><br /><br />
+                The PowerShell script should be called with parameters similar to this: 
+                <div class="codeHeader lang-html" data-bi-name="code-header">
+                    <span class="language">PowerShell</span>
+                    <button class="action" data-bi-name="copy" onclick="selectElementContentsById('txtSQLCmd')"><svg class="vector-icon" focusable="false" viewBox="0 0 14 14"><path d="M13 6.8V14H4v-3H0V0h5.2l3 3h1L13 6.8zM4 3h2.8l-2-2H1v9h3V3zm8 5H8V4H5v9h7V8zM9 7h2.8L9 4.2V7z"></path></svg> Copy</button>
+                </div>
+                <pre id="txtSQLCmd">'D:\CompassADService\Powershell\DeployWindowsService.ps1' -serviceName CompassADService -displayName CompassADService -sourceLocation  D:\CompassADService\* -destinationLocation "C:\Program Files (x86)\CompassADService\" -SqlServerName WTRENTSQLDEV1V
+                </pre>
+                <hr />
+
+                <a name="2" class="anchor"></a>
+                <b>Further reading:</b>
+                <ul>
+                    <li><a href="https://blog.siliconvalve.com/2016/10/04/continuous-deployment-of-windows-services-using-vsts/" target="_blank">Continous deployment of Windows Services using Azure DevOps [Useful blog post]</a></li>
+                </ul>
+                <hr />
+
+                <a name="3" class="anchor"></a>
+                <b>Version history:</b>
+                <ul>
+                    <li>20-Sep-2018: Content updated to replace most references of VSTS with Azure DevOps to match rebranding</li>
+                    <li>28-Mar-2018: Initial release of DevOps content for Windows Services</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

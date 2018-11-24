@@ -1,0 +1,71 @@
+﻿@using SSNZ.DevOps.Web.Models
+@{
+    ViewBag.Title = "Continuous Integration (CI)";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("DevOps", "Index", "DevOps")</li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("PartialViews/_DevOpsMenu", new DevOpsMenu2ViewModel(null, null, new DevOpsMenuViewModel(true, false, false, false, false, false, false, false), null, null))
+                <hr />
+
+                <b>The goal of CI (Continuous Integration) is to capture bugs as early in the development process as possible (also known as shift left).</b> This is achieved through automated builds that are repeatable and extensible, ensuring that the cleanest and highest quality code exists.<br /><br />
+                <br /><img src="~/images/DevOps/CI/CI.png" class="DevOpsImage" /><br />
+                Additional goals of CI include:<br />
+                <ul>
+                    <li>
+                        Everyone on the team has full visibility into the state of the build process, with a number of steps to ensure quality consistency:
+                        <ul>
+                            <li><u>Code compilation</u>: Ensuring the code builds without compilation errors</li>
+                            <li><u>Unit test execution</u>: Ensuring all unit tests continue to pass</li>
+                            <li><u>Code coverage</u>: Measure the percent of code that all unit tests collectively touch. While not perfect, it helps to prove the effectiveness of unit tests</li>
+                            <li><u>Code analysis</u>: Ensuring that static code analysis pass, highlighting well known performance and security rules</li>
+                            <li><u>Code reviews</u>: Continual peer based reviews, to ensure consistency and consensus amongst the team</li>
+                            <li><u>Automated Testing</u>: Managed by the QA group, these tests use scripting to imitate a real user and open and click around the application performing various actions</li>
+                        </ul>
+                    </li>
+                    <li>Drive effectiveness of repeatable builds through a known and familiar process across the team</li>
+                    <li>Provide real-time view of quality through automated unit and functional tests</li>
+                    <li>Provide a history of build quality trends and better predict future defects</li>
+                </ul>
+                <br />
+
+                Below is a build example for the "AppStack" application in TFS, showing a successful build (but some warnings that need to be resolved):<br />
+                <br /><img src="~/images/DevOps/CI/CIBuild.png" class="DevOpsImage" /><br />
+                <hr />
+
+                <b>Further reading:</b>
+                <ul>
+                    <li><a href="https://en.wikipedia.org/wiki/Continuous_integration">Continuous Integration (CI)</a></li>
+                    <li>
+                        <a href="https://en.wikipedia.org/wiki/Shift_left_testing" target="_blank">Shift Left</a>
+                        <br /><img src="~/images/DevOps/CI/CIShiftLeft.png" class="DevOpsImage" /><br /><br />
+                    </li>
+                </ul>
+                <hr />
+
+                <b>Version history:</b>
+                <ul>
+                    <li>16-Jun-2017: Initial release of DevOps content</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

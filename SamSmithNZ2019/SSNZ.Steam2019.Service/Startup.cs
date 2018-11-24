@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.Azure.KeyVault;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -68,6 +69,19 @@ namespace SSNZ.Steam2019.Service
             var connectionMultiplexer = ConnectionMultiplexer.Connect(connectionString);
             var database = connectionMultiplexer.GetDatabase(0);
             services.AddSingleton<IDatabase>(_ => database);
+
+            // Get the secret value from configuration. This can be done anywhere
+            // we have access to IConfiguration. This does not call the Key Vault
+            // API, because the secrets were loaded at startup.
+            //var secretName = "SecretPassword";
+            //var secretValue = _configuration[secretName];
+
+            //services.AddSingleton<string>(secretValue);
+
+            // I put my GetToken method in a Utils class. Change for wherever you placed your method.
+            //var kv = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(Utils.GetToken));
+            //var sec = await kv.GetSecretAsync(WebConfigurationManager.AppSettings["SecretUri"]);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

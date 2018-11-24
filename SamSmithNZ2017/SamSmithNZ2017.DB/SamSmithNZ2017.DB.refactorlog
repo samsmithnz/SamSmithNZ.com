@@ -14,4 +14,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="chance_to_win" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="bd34a62a-f6f5-4041-931c-e810fea69d8f" ChangeDateTime="11/21/2018 01:36:24">
+    <Property Name="ElementName" Value="[dbo].[LegoSets].[owned]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LegoSets]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ownerName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="886a894d-d12e-45cc-85ab-2b14ee95612c" ChangeDateTime="11/21/2018 01:36:28">
+    <Property Name="ElementName" Value="[dbo].[LegoSets].[owner_code]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LegoSets]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ownerCode" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="388ff043-3af9-4160-aec6-44f29603ba43" ChangeDateTime="11/21/2018 01:36:55">
+    <Property Name="ElementName" Value="[dbo].[LegoSets].[ownerCode]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LegoSets]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="owner_code" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="92487949-9e94-4ddb-b328-67aeedfd000a" ChangeDateTime="11/21/2018 01:37:01">
+    <Property Name="ElementName" Value="[dbo].[LegoSets].[ownerName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LegoSets]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="owner_name" />
+  </Operation>
 </Operations>

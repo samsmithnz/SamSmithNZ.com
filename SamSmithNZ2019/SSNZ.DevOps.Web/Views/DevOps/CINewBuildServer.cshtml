@@ -1,0 +1,99 @@
+﻿@using SSNZ.DevOps.Web.Models
+@{
+    ViewBag.Title = "Create a new build server";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("DevOps", "Index", "DevOps")</li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("PartialViews/_DevOpsMenu", new DevOpsMenu2ViewModel(null, null, new DevOpsMenuViewModel(false, false, false, true, false, false, false, false), null, null))
+                <hr />
+
+                <span class="DevOpsTFSWarning">Note that this page contains both TFS 2015 and Azure DevOps content. Use the tabs below to show the relevant content</span><br />
+
+                <a name="1" class="anchor"></a>
+                <h3>Overview</h3>
+                <b>A build server is a tool that enables continuous integration. </b>It enables reproducible and traceable packages that can be tested and deployed to various environments. As more code and people are added, eventually one build server will not have enought capacity and more will need to be created.<br />
+                <img src="~/images/DevOps/CI/CIBuildNewBuildServer1.png" class="DevOpsImage" /><br />
+                <hr />
+
+                <a name="2" class="anchor"></a>
+                <h3>To setup a new server</h3>
+                <br />
+                <ul class="nav nav-tabs">
+                    <li><a data-toggle="tab" href="#tfs1">TFS 2015</a></li>
+                    <li class="active"><a data-toggle="tab" href="#vsts1">Azure DevOps</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <br />
+                    <div id="tfs1" class="tab-pane fade">
+                        <ul>
+                            <li>Request the latest Windows server (currently Windows 2016)</li>
+                            <li>Ensure the C: has 100GB and the D: has 100GB too.</li>
+                            <li>Install the full version of Visual Studio 2017 on the C:. You will need 50GB of space (hence the C:\ request in the previous step)</li>
+                            <li>Find a TFS Project Collection administrator, who has access to setup the agent pool</li>
+                            <li>Browse to <a href="http://tfs.bain.com:8080/tfs/_admin/_AgentPool" target="_blank">Agent Pools</a> and create a new agent pool</li>
+                            <li>
+                                Follow these instructions to install the agent on the server: <a href="https://www.visualstudio.com/en-us/docs/build/actions/agents/v2-windows" target="_blank">Instructions to install a new agent</a>, using https://tfs.bain.com as the server URL:<br /><br />
+                                <img src="~/images/DevOps/CI/CINewVSTSServer3.png" class="DevOpsImage" /><br />
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="vsts1" class="tab-pane fade in active">
+                        <ul>
+                            <li>Request the latest Windows server (currently Windows 2016)</li>
+                            <li>Ensure the C: has 100GB and the D: has 100GB too.</li>
+                            <li>Install the full version of Visual Studio 2017 on the C:. You will need 50GB of space (hence the C:\ request in the previous step)</li>
+                            <li>Find a Azure DevOps Project Collection administrator, who has access to setup the agent pool - this user needs to be logged in on the build server to setup the agent</li>
+                            <li>Browse to <a href="https://bain.visualstudio.com/_admin/_AgentPool" target="_blank">Agent Pools</a> and create a new agent pool or use one of the existing pools</li>
+                            <li>
+                                Follow these instructions to install the agent on the server: <a href="https://www.visualstudio.com/en-us/docs/build/actions/agents/v2-windows" target="_blank">Instructions to install a new agent</a>, using https://bain.visualstudio.com as the server URL, d:\_work as the work folder (otherwise it creates a _work folder on C:\), and the personal access token below: (Typically a zip is downloaded, unzipped to C:\agent, and then the .config script is run)<br />
+                                <div class="codeHeader lang-html" data-bi-name="code-header">
+                                    <span class="language">Personal access token (Note that this code expires 10-Nov-2018)</span>
+                                    <button class="action" data-bi-name="copy" onclick="selectElementContentsById('txtToken')"><svg class="vector-icon" focusable="false" viewBox="0 0 14 14"><path d="M13 6.8V14H4v-3H0V0h5.2l3 3h1L13 6.8zM4 3h2.8l-2-2H1v9h3V3zm8 5H8V4H5v9h7V8zM9 7h2.8L9 4.2V7z"></path></svg> Copy</button>
+                                </div>
+                                <pre id="txtToken">uibojq2kw3aiiw6zqvc6tmzdf4zwcybc6foymlmb2ipwu7tzu34a</pre><br />
+                                <img src="~/images/DevOps/CI/CINewVSTSServer3.png" class="DevOpsImage" /><br />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+
+                <a name="3" class="anchor"></a>
+                <b>Further reading:</b>
+                <ul>
+                    <li><a href="https://www.visualstudio.com/en-us/docs/build/concepts/agents/agents" target="_blank">Build and Release Agents [Microsoft.com Documentation]</a></li>
+                    <li><a href="https://blogs.msdn.microsoft.com/visualstudioalm/2017/04/10/deploying-to-on premises-environments-with-visual-studio-team-services-or-team-foundation-server/" target="_blank">Setting up on premise build servers for Azure DevOps [Microsoft Blog]</a></li>
+                    <li><a href="https://www.visualstudio.com/en-us/docs/setup-admin/team-services/use-personal-access-tokens-to-authenticate" target="_blank">Creating Personal Access tokens to authenticate on premise build servers for Azure DevOps [Microsoft Documentation]</a></li>
+                </ul>
+                <br />
+
+                <a name="4" class="anchor"></a>
+                <b>Version history:</b>
+                <ul>
+                    <li>20-Sep-2018: Content updated to replace most references of VSTS with Azure DevOps to match rebranding</li>
+                    <li>16-Jun-2017: Initial release of DevOps content</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

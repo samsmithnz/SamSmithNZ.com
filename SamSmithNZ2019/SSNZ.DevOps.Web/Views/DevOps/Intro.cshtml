@@ -1,0 +1,72 @@
+﻿@using SSNZ.DevOps.Web.Models
+@{
+    ViewBag.Title = "Introduction to DevOps";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("DevOps", "Index", "DevOps")</li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("PartialViews/_DevOpsMenu", new DevOpsMenu2ViewModel(new DevOpsMenuViewModel(true, false, false, false, false, false, false, false), null, null, null, null))
+                <hr />
+
+                <b>DevOps is the union of people, process, and products to enable continuous delivery of value to end users.</b><br />
+                DevOps refers to a set of practices that emphasize the collaboration and communication of both software development and operations while automating the process of software delivery. <br />
+                <hr />
+
+                <b>The ultimate goal of DevOps is a collaboration between developers and operations to achieve continuous deployment</b>, where code can be deployed to production at any time, which requires a multi-step approach whereby organizations:<br />
+                <ul>
+                    <li>Model and measure the cycle time in existing processes</li>
+                    <li>Identify delays in the process</li>
+                    <li>Develop action plans to minimize current delays and eliminate potential future delays</li>
+                    <li>DevOps requires an iterative plan, develop, release &Aacute; deploy and maintain cycle</li>
+                </ul>
+                <br />
+                <img src="~/images/DevOps/Overview/DevOpsLifecycle.png" class="DevOpsImage" /><br /><br />
+
+                <b>DevOps is typically broken into two phases, with 4 segments each:</b>
+                <ul>
+                    <li>@Html.ActionLink("Continuous Integration (or CI)", "CI", "DevOps"): All code is automatically merged, built, and tested to ensure quality, before a final "build artifacts", a series of outputs (files), that are required to run the application. This is left, dark green side of the helix image above.</li>
+                    <li>@Html.ActionLink("Continuous Delivery (or CD)", "CD", "DevOps"): The build artifacts from the CI step are deployed to successive environments (usually Dev->QA->Production). This is right, light green side of the helix image above.</li>
+                </ul>
+                <img src="~/images/DevOps/Overview/DevOpsHelix.png" class="DevOpsImage" /><br /><br />
+
+                At a high level, a solution goes through the following workflow as part of the development, testing and deployment process. Only a few builds are deployed to a staging or QA environment, and only a few of these are deployed to production.<br />
+                <img src="~/images/DevOps/CD/DeploymentToEachEnvironmentWorkflow.png" class="DevOpsImage" /><br /><br />
+                <hr />
+
+                <b>Further Reading:</b>
+                <ul>
+                    <li><a href="https://www.visualstudio.com/learn/what-is-devops/" target="_blank">What is DevOps? [Microsoft.com Article]</a></li>
+                    <li><a href="https://channel9.msdn.com/Series/DevOps-Fundamentals" target="_blank">DevOps Fundamentals [Channel9.msdn.com video series]</a></li>
+                    <li><a href="http://gxcdocs.local.bain.com/gxc3/files/Insights//POVDevOpsIntersectionAgileCloud.pptx">POV on DevOps and intersection with Agile [GXC Insight]</a></li>
+                    <li><a href="https://www.visualstudio.com/learn/what-is-continuous-delivery/" target="_blank">What is continuous delivery? [Microsoft.com Article]</a></li>
+                    <li><a href="https://docs.microsoft.com/en-us/aspnet/web-forms/overview/deployment/deploying-web-applications-in-enterprise-scenarios/application-lifecycle-management-from-development-to-production" target="_blank">From development to production lifecycle [Microsoft article]</a></li>
+                    <li><a href="https://www.mindtheproduct.com/2016/02/what-the-hell-are-ci-cd-and-devops-a-cheatsheet-for-the-rest-of-us/" target="_blank">The Product Managers’ Guide to Continuous Delivery and DevOps [Random article]</a></li>
+                </ul>
+                <hr />
+
+                <b>Version history:</b>
+                <ul>
+                    <li>16-Jun-2017: Initial release of DevOps content</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -17,6 +17,7 @@ namespace SamSmithNZ2018.UITests
         private string _SSNZITunesServiceUrl = null;
         private string _SSNZGuitarTabServiceUrl = null;
         private string _SSNZMAndMServiceUrl = null;
+        private string _SSNZLegoServiceUrl = null;
 
         [TestInitialize]
         public void SetupTests()
@@ -35,6 +36,7 @@ namespace SamSmithNZ2018.UITests
                 _SSNZITunesServiceUrl = "https://ssnzituneswebservice.azurewebsites.net/";
                 _SSNZGuitarTabServiceUrl = "https://ssnzguitartabservice.azurewebsites.net/";
                 _SSNZMAndMServiceUrl = "https://ssnzmandmcounterservice.azurewebsites.net/";
+                _SSNZLegoServiceUrl = "https://ssnzlegowebservice.azurewebsites.net/";
             }
             else
             {
@@ -44,7 +46,7 @@ namespace SamSmithNZ2018.UITests
                 _SSNZIntFootballServiceUrl = TestContext.Properties["SSNZIntFootballServiceUrl"].ToString();
                 _SSNZITunesServiceUrl = TestContext.Properties["SSNZITunesServiceUrl"].ToString();
                 _SSNZGuitarTabServiceUrl = TestContext.Properties["SSNZGuitarTabServiceUrl"].ToString();
-                _SSNZMAndMServiceUrl = TestContext.Properties["SSNZMAndMServiceUrl"].ToString();
+                _SSNZLegoServiceUrl = TestContext.Properties["SSNZLegoServiceUrl"].ToString();
             }
         }
 
@@ -159,12 +161,29 @@ namespace SamSmithNZ2018.UITests
             bool ssnzMAndMServiceLoaded = false;
 
             //Act
-            //string mandmURL = this._SSNZMAndMServiceUrl + "";
-            //_Driver.Navigate().GoToUrl(mandmURL);
-            //ssnzMAndMServiceLoaded = (_Driver.Url == mandmURL);
+            string mandmURL = this._SSNZMAndMServiceUrl + "";
+            _Driver.Navigate().GoToUrl(mandmURL);
+            ssnzMAndMServiceLoaded = (_Driver.Url == mandmURL);
 
             //Assert
             Assert.IsTrue(ssnzMAndMServiceLoaded == false);
+        }
+
+        [TestMethod]
+        [TestCategory("SkipWhenLiveUnitTesting")]
+        [TestCategory("SmokeTest")]
+        public void GotoSSNZLegoServiceTest()
+        {
+            //Arrange
+            bool ssnzLegoServiceLoaded = false;
+
+            //Act
+            string legoURL = this._SSNZLegoServiceUrl + "";
+            _Driver.Navigate().GoToUrl(legoURL);
+            ssnzLegoServiceLoaded = (_Driver.Url == legoURL);
+
+            //Assert
+            Assert.IsTrue(ssnzLegoServiceLoaded == false);
         }
 
         [TestCleanup()]

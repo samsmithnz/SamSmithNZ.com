@@ -1,0 +1,268 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+.DevOpsImage {
+    border: 1px solid darkgray;
+    max-width: 1024px;
+}
+
+
+.DevOpsInfinityImage {
+    width: 70%;
+}
+
+.DevOpsBanner {
+    height: 100px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    float: left;
+    width: 50%;
+}
+
+.DevOpsBetaTag {
+    color: green;
+    font-size: 20px;
+    top: -1.5em;
+}
+
+.DevOpsTFSWarning {
+    font-size: 9pt;
+    color: blue;
+}
+
+.DevOpsWorkInProgress {
+    height: 24px;
+}
+
+.DevOpsBlue {
+    color: blue;
+}
+
+/*
+    From this webpage: 
+    https://docs.microsoft.com/en-us/azure/redis-cache/cache-web-app-howto
+*/
+
+.language {
+    font-size: 12.8px;
+    line-height: 25.6px;
+}
+
+.vector-icon {
+    position: relative;
+    top: 2px;
+    height: 14px;
+    width: 14px;
+    fill: currentColor;
+}
+
+.codeHeaderTitle {
+    font-family: segoe-ui_semibold, "Segoe UI Semibold", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;
+    margin-top: 24px;
+}
+
+.codeHeader {
+    background-color: #f5f5f5;
+    color: #707070;
+    display: flex;
+    flex-direction: row;
+    font-size: 0.8rem;
+    border: 1px solid #e0e0e0;
+    border-bottom: 0;
+    margin-top: 16px;
+    min-height: 30px;
+}
+
+html.theme_night .codeHeader {
+    border-color: #333;
+    background-color: #222324;
+    color: #ccc;
+}
+
+.alert .codeHeader {
+    line-height: 25.6px;
+}
+
+.codeHeaderTitle + .codeHeader {
+    margin-top: 4px;
+}
+
+.codeHeader > .language {
+    padding: 2px 16px;
+    flex-grow: 1;
+}
+
+.codeHeader > .action {
+    padding: 2px 10px;
+    background: transparent;
+    border: 0 solid #e0e0e0;
+    color: #707070;
+    cursor: pointer;
+}
+
+.action {
+    font-size: 12.8px;
+    border-left: 1px solid #e0e0e0;
+    color: #707070;
+    cursor: pointer;
+}
+
+html.theme_night .codeHeader > .action {
+    color: #ccc;
+}
+
+.mainContainer[dir='ltr'] .codeHeader > .action {
+    border-left-width: 1px;
+}
+
+.mainContainer[dir='rtl'] .codeHeader > .action {
+    border-right-width: 1px;
+}
+
+html.theme_night .codeHeader > .action {
+    border-color: #333;
+}
+
+.codeHeader > .action:hover {
+    background-color: #e6e6e6;
+    color: #222;
+}
+
+html.theme_night .codeHeader > .action:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.codeHeader + pre {
+    margin-top: 0;
+}
+
+
+.toc {
+    border: 1px solid #a2a9b1;
+    background-color: #f8f9fa;
+    display: table;
+    padding: 7px 7px 0px 7px;
+    font-size: 80%
+}
+
+    #toc ul, .toc ul {
+        list-style-type: none;
+        list-style-image: none;
+    }
+
+.tocnumber {
+    color: #222;
+    font-weight: normal;
+}
+
+.tocselected {
+    color: blue;
+    font-weight: bold;
+    pointer-events: none;
+    cursor: default;
+}
+
+/*To fix a bug with anchors where the page would someones redirect to the wrong spot*/
+a.anchor {
+    display: block;
+    position: relative;
+    top: -60px;
+    visibility: hidden;
+}
+
+
+/*To make the tab borders stick out a little more*/
+.nav-tabs {
+    border-bottom: 1px solid #cccccc;
+}
+
+    .nav-tabs > li {
+        float: left;
+        margin-bottom: -1px;
+    }
+
+        .nav-tabs > li > a {
+            border: 1px solid transparent;
+            border-radius: 0 0px 0 0;
+            line-height: 1.428571429;
+            margin-right: 2px;
+        }
+
+            .nav-tabs > li > a:hover {
+                border-color: #e6e6e6 #e6e6e6 #cccccc;
+            }
+
+        .nav-tabs > li.active > a,
+        .nav-tabs > li.active > a:hover,
+        .nav-tabs > li.active > a:focus {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            border-bottom-color: transparent;
+            color: #555555;
+            cursor: default;
+        }
+
+    .nav-tabs.nav-justified {
+        border-bottom: 0;
+        width: 100%;
+    }
+
+        .nav-tabs.nav-justified > li {
+            float: none;
+        }
+
+            .nav-tabs.nav-justified > li > a {
+                text-align: center;
+            }
+
+@media (min-width: 768px) {
+    .nav-tabs.nav-justified > li {
+        display: table-cell;
+        width: 1%;
+    }
+}
+
+.nav-tabs.nav-justified > li > a {
+    border-bottom: 1px solid #cccccc;
+    margin-right: 0;
+}
+
+.nav-tabs.nav-justified > .active > a {
+    border-bottom-color: #ffffff;
+}

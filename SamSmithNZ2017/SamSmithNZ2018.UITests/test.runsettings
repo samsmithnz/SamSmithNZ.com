@@ -10,6 +10,7 @@
     <Parameter name="SSNZITunesServiceUrl" value="https://ssnzituneswebservice.azurewebsites.net/" />
     <Parameter name="SSNZGuitarTabServiceUrl" value="https://ssnzguitartabservice.azurewebsites.net/" />
     <Parameter name="SSNZMAndMServiceUrl" value="https://ssnzmandmcounterservice.azurewebsites.net/" />
+    <Parameter name="SSNZLegoServiceUrl" value="https://ssnzlegowebservice.azurewebsites.net/" />
   </TestRunParameters>
 
 </RunSettings>

@@ -1,0 +1,65 @@
+﻿@using SSNZ.DevOps.Web.Models
+@{
+    ViewBag.Title = "Branch policies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("DevOps", "Index", "DevOps")</li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("PartialViews/_DevOpsMenu", new DevOpsMenu2ViewModel(null, new DevOpsMenuViewModel(false, false, false, true, false, false, false, false), null, null, null))
+                <hr />
+
+                <a name="1" class="anchor"></a>
+                <h3>Branch Policies</h3>
+                <div>
+                    <b>It's also useful to set branch policies</b>. This is typically found on the master branch, but should be anywhere where you are merging code from feature branches, for example if you have a develop or sprint branch. On the VSTS branches page, this is indicated by the badge icon and can be edited in the branch policies menu item
+                    <br /><br />
+                    <img src="~/images/DevOps/Code/CodeReviewsBranches.png" class="DevOpsImage" /><br /><br />
+
+                    <b>The branch policy page has a number of options</b>. Once a branch is protected, a number of extra options are displayed
+                    <ul>
+                        <li>Here the minimum number of reviewers can be specified. It's recommended this be at least one, not including the user requesting the pull request</li>
+                        <li>This can specify that a work item is checked for. It's recommended that the "optional" setting be used, but if the team has stricter rules, "required" will work too</li>
+                        <li>The build validation section helps to specify which builds must be successful for the pull request to complete. This is very useful to ensure that unit tests and code analysis passes</li>
+                        <li>Finally, in the automatic code reviewer section, specific types of reviews can be set. For example, all SQL files could be approved by the DBA, or all HTML/CSS files could be approved by a UX/UI specialist</li>
+                    </ul>
+                    <img src="~/images/DevOps/Code/BranchPolicySetup.png" class="DevOpsImage" /><br />
+                    <hr />
+
+                    <a name="3" class="anchor"></a>
+                    <b>Further reading:</b>
+                    <ul>
+                        <li><a href="https://docs.microsoft.com/en-us/vsts/git/manage-your-branches" target="_blank">Manage Branches in VSTS [Microsoft.com documentation]</a></li>
+                        <li><a href="https://docs.microsoft.com/en-us/vsts/git/tutorial/branches?tabs=visual-studio" target="_blank">Create work in branches [Microsoft.com documentation]</a></li>
+                        <li><a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow" target="_blank">Feature Branching [Atlassian.com documentation]</a></li>
+                    </ul>
+                </div>
+                <hr />
+
+                <a name="4" class="anchor"></a>
+                <b>Version history:</b>
+                <ul>
+                    <li>1-Nov-2017: Added new section</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

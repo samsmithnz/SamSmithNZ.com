@@ -1,0 +1,123 @@
+﻿@using SSNZ.DevOps.Web.Models
+@{
+    ViewBag.Title = "Implement Code Coverage in the build";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("DevOps", "Index", "DevOps")</li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("PartialViews/_DevOpsMenu", new DevOpsMenu2ViewModel(null, null, new DevOpsMenuViewModel(false, false, false, false, false, true, false, false), null, null))
+                <hr />
+
+                <span class="DevOpsTFSWarning">Note that this page contains only Azure DevOps content. There is no TFS 2015 option for code coverage currently documented.</span><br />
+
+                <a name="1" class="anchor"></a>
+                <h3>Overview</h3>
+                <b>Code coverage is a metric that allows us to measure the reach of our automated unit tests.</b> It is not a measure of quality, but if a feature is added and code coverage drops, it indicates that the test may not be effective to cover the new code. There are Azure DevOps widgets that can be posted on the dashboard to track current code coverage and code coverage changes over time.<br />
+                <img src="~/images/DevOps/CI/CICodeCoverage1.png" class="DevOpsImage" /><br /><br />
+                <hr />
+
+                <a name="2" class="anchor"></a>
+                <h3>How to setup</h3>
+
+                <a name="2_1" class="anchor"></a>
+                <b>Setup the test task for code coverage</b><br /><br />
+                <ul class="nav nav-tabs">
+                    <li><a data-toggle="tab" href="#vsts_a_1">VSTS .Net Framework</a></li>
+                    <li class="active"><a data-toggle="tab" href="#vsts_b_1">VSTS .Net Core</a></li>
+                </ul>
+                <div class="tab-content">
+                    <br />
+                    <div id="vsts_a_1" class="tab-pane fade">
+                        In the "Test Assemblies" task, in the execution options section, just check the "Code Coverage" checkbox. That is it for .NET Frameworks!<br />
+                        <img src="~/images/DevOps/CI/CICodeCoverage2.png" class="DevOpsImage" /><br /><br />
+                    </div>
+                    <div id="vsts_b_1" class="tab-pane fade in active">
+                        Step 1: While the ASP.NET Core test task works for most testing, it does not yet include code coverage. We can work around this by disabling the Test task and adding a new "Visual Studio Test" task. The test dll's should be specified in the "test files" textbox, referencing the test files location in the artifacts folder.  <br />
+                        <img src="~/images/DevOps/CI/CICodeCoverage3.png" class="DevOpsImage" /><br /><br />
+
+                        Step 2: In the test project, add a new "CodeCoverage.runsettings" file, and paste in the following content. Note that this particular file is ignoring the moq.dll, which is included in code coverage - but we only want to measure our code. <br />
+                        <div class="codeHeader lang-html" data-bi-name="code-header">
+                            <span class="language">CodeCoverage.runsettings</span>
+                            <button class="action" data-bi-name="copy" onclick="selectElementContentsById('txtRunsettings')"><svg class="vector-icon" focusable="false" viewBox="0 0 14 14"><path d="M13 6.8V14H4v-3H0V0h5.2l3 3h1L13 6.8zM4 3h2.8l-2-2H1v9h3V3zm8 5H8V4H5v9h7V8zM9 7h2.8L9 4.2V7z"></path></svg> Copy</button>
+                        </div>
+                        <pre id="txtRunsettings">
+&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;RunSettings&gt;
+    &lt;RunConfiguration&gt;
+        &lt;MaxCpuCount&gt;0&lt;/MaxCpuCount&gt;
+    &lt;/RunConfiguration&gt;
+    &lt;DataCollectionRunSettings&gt;
+        &lt;DataCollectors&gt;
+            &lt;DataCollector friendlyName="Code Coverage" uri="datacollector://Microsoft/CodeCoverage/2.0" assemblyQualifiedName="Microsoft.VisualStudio.Coverage.DynamicCoverageDataCollector, Microsoft.VisualStudio.TraceCollector, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"&gt;
+                &lt;Configuration&gt;
+                    &lt;CodeCoverage&gt;
+                        &lt;!-- Match assembly file paths: --&gt;
+                        &lt;ModulePaths&gt;
+                            &lt;Include&gt;
+                                &lt;ModulePath&gt;.*\.dll$&lt;/ModulePath&gt;
+                            &lt;/Include&gt;        
+                            &lt;Exclude&gt;
+                                &lt;ModulePath&gt;.*moq.dll&lt;/ModulePath&gt;
+                            &lt;/Exclude&gt;
+                        &lt;/ModulePaths&gt;
+                    &lt;/CodeCoverage&gt;
+                &lt;/Configuration&gt;
+            &lt;/DataCollector&gt;
+        &lt;/DataCollectors&gt;
+    &lt;/DataCollectionRunSettings&gt;
+&lt;/RunSettings&gt;
+</pre>
+                        <img src="~/images/DevOps/CI/CICodeCoverage5.png" class="DevOpsImage" /><br /><br />
+
+                        Step 3: In the "execute options" section of the test task, in the "other console options" textbox, we need to add a reference to the CodeCoverage.runsettings file. Note that as the CodeCoverage.runsettings file is not copied, compiled or moved to the artifacts folder, we reference it in the correct project in the source folder<br />
+                        <div class="codeHeader lang-html" data-bi-name="code-header">
+                            <span class="language">Other console options</span>
+                            <button class="action" data-bi-name="copy" onclick="selectElementContentsById('txtOtherOptions')"><svg class="vector-icon" focusable="false" viewBox="0 0 14 14"><path d="M13 6.8V14H4v-3H0V0h5.2l3 3h1L13 6.8zM4 3h2.8l-2-2H1v9h3V3zm8 5H8V4H5v9h7V8zM9 7h2.8L9 4.2V7z"></path></svg> Copy</button>
+                        </div>
+                        <pre id="txtOtherOptions">
+--collect:"Code Coverage" --Settings:$(Build.SourcesDirectory)\AppStack2.Tests\CodeCoverage.runsettings
+                        </pre>
+                        <img src="~/images/DevOps/CI/CICodeCoverage4.png" class="DevOpsImage" /><br /><br />
+
+                        Step 4: Now a code coverage file can be downloaded and opened in Visual Studio (this should match the code coverage that is calculated in Visual Studio). Additionally, metrics will now appear correctly on the project dashboard.<br /><br />
+                    </div>
+                </div>
+                <hr />
+
+                <a name="4" class="anchor"></a>
+                <b>Further reading:</b>
+                <ul>
+                    <li><a href="https://en.wikipedia.org/wiki/Code_coverage" target="_blank">Code Coverage [Wikipedia]</a></li>
+                    <li><a href="https://docs.microsoft.com/en-us/rest/api/vsts/test/code%20coverage?view=vsts-rest-5.0" target="_blank">Code Coverage [Microsoft.com documentation]</a></li>
+                    <li><a href="https://confluence.atlassian.com/clover/about-code-coverage-71599496.html" target="_blank">About Code Coverage [Atlassian.com documentation]</a></li>
+                </ul>
+                <hr />
+
+                <a name="5" class="anchor"></a>
+                <b>Version history:</b>
+                <ul>
+                    <li>22-Sep-2018: Initial release of Code Coverage content</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

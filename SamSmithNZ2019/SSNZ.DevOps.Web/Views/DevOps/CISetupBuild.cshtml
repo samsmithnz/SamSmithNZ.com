@@ -1,0 +1,262 @@
+﻿@using SSNZ.DevOps.Web.Models
+@{
+    ViewBag.Title = "Setup a build";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("DevOps", "Index", "DevOps")</li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("PartialViews/_DevOpsMenu", new DevOpsMenu2ViewModel(null, null, new DevOpsMenuViewModel(false, false, true, false, false, false, false, false), null, null))
+                <hr />
+
+                <span class="DevOpsTFSWarning">Note that this page contains both TFS 2015 and Azure DevOps content. Use the tabs below to show the relevant content</span><br />
+
+                <a name="1" class="anchor"></a>
+                <h3>Overview</h3>
+                A build is the cornerstone of the Continuous Integration process. <br />
+                <img src="~/images/DevOps/CI/CIBuildWorkflow.png" class="DevOpsImage" /><br /><br />
+                <hr />
+
+                <a name="2" class="anchor"></a>
+                <h3>How to setup</h3>
+
+                <a name="2_1" class="anchor"></a>
+                <b>Step 1: Create a new build definition</b><br /><br />
+                <ul class="nav nav-tabs">
+                    <li><a data-toggle="tab" href="#tfs_1">TFS 2015</a></li>
+                    <li><a data-toggle="tab" href="#vsts_a_1">VSTS .Net Framework</a></li>
+                    <li class="active"><a data-toggle="tab" href="#vsts_b_1">VSTS .Net Core</a></li>
+                </ul>
+                <div class="tab-content">
+                    <br />
+                    <div id="tfs_1" class="tab-pane fade">
+                        Create a new build definition, selecting the repository and default agent queue (TFS2015BuildPool). Select a "Visual Studio" template. Note that the build must not use the old XAML definition format<br />
+                        <img src="~/images/DevOps/CI/CIBuildWorkflowStep2.png" class="DevOpsImage" /><br /><br />
+                    </div>
+                    <div id="vsts_a_1" class="tab-pane fade">
+                        <span style="color: red"><b>Important Note:</b></span> users have to be a member of the Build Administrators group in Azure DevOps to be able to edit and maintain builds. It is recommended to add the teams to this group to enable them to work with builds.<br />
+                        <img src="~/images/DevOps/CI/CIBuildPermissions.png" class="DevOpsImage" /><br /><br />
+
+                        By default, Azure DevOps has YAML enabled, to use the visual designer, select the link at the bottom
+                        <img src="~/images/DevOps/CI/CIBuildWorkflowVSTSStep1.png" class="DevOpsImage" /><br /><br />
+
+                        Create a new build definition, selecting the " ASP.NET" template.<br />
+                        <img src="~/images/DevOps/CI/CIBuildWorkflowVSTSStep2.png" class="DevOpsImage" /><br /><br />
+                    </div>
+                    <div id="vsts_b_1" class="tab-pane fade in active">
+                        <span style="color: red"><b>Important Note:</b></span> users have to be a member of the Build Administrators group in Azure DevOps to be able to edit and maintain builds. It is recommended to add the teams to this group to enable them to work with builds.<br />
+                        <img src="~/images/DevOps/CI/CIBuildPermissions.png" class="DevOpsImage" /><br /><br />
+
+                        By default, Azure DevOps has YAML enabled, to use the visual designer, select the link at the bottom
+                        <img src="~/images/DevOps/CI/CIBuildWorkflowVSTSStep1.png" class="DevOpsImage" /><br /><br />
+
+                        Create a new build definition, selecting the "ASP.NET Core" template. <br />
+                        <img src="~/images/DevOps/CI/CIBuildWorkflowVSTSbStep2.png" class="DevOpsImage" /><br /><br />
+                    </div>
+                </div>
+
+                <a name="2_2" class="anchor"></a>
+                <b>Step 2: Create a new build workflow</b><br /><br />
+                <ul class="nav nav-tabs">
+                    <li><a data-toggle="tab" href="#tfs_2">TFS 2015</a></li>
+                    <li><a data-toggle="tab" href="#vsts_a_2">VSTS .Net Framework</a></li>
+                    <li class="active"><a data-toggle="tab" href="#vsts_b_2">VSTS .Net Core</a></li>
+                </ul>
+                <div class="tab-content">
+                    <br />
+                    <div id="tfs_2" class="tab-pane fade">
+                        By default, most of the tasks should build without edits... but how fun is that? <br />
+                        <img src="~/images/DevOps/CI/CIBuildWorkflowStep3.png" class="DevOpsImage" /><br /><br />
+
+                        There are a few customizations that are recommended from the initial default build:<br />
+                        <ol>
+                            <li>
+                                The "NuGet Installer" task is used to specify the solution to build<br />
+                                <img src="~/images/DevOps/CI/CIBuildWorkflowStep3Task1.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                The "Visual Studio Build" task is used to setup the actual build, requiring making 4 customizations:<br />
+                                <img src="~/images/DevOps/CI/CIBuildWorkflowStep3Task2.png" class="DevOpsImage" /><br /><br />
+                                <ol>
+                                    <li>
+                                        In the 'Solution' textbox, browse to and specify the solution to build<br />
+                                    </li>
+                                    <li>
+                                        Add the following options to the MSBuild Arguments textbox, to help build a web package for each application and enable code analysis. This helps later to deploy the websites to IIS.
+                                        <div class="codeHeader lang-html" data-bi-name="code-header">
+                                            <span class="language">MSBuild Arguments</span>
+                                            <button class="action" data-bi-name="copy" onclick="selectElementContentsById('txtMSBuildArgs')"><svg class="vector-icon" focusable="false" viewBox="0 0 14 14"><path d="M13 6.8V14H4v-3H0V0h5.2l3 3h1L13 6.8zM4 3h2.8l-2-2H1v9h3V3zm8 5H8V4H5v9h7V8zM9 7h2.8L9 4.2V7z"></path></svg> Copy</button>
+                                        </div>
+                                        <pre id="txtMSBuildArgs">/p:DeployOnBuild=True /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:PackageLocation="$(build.stagingDirectory)" /p:RunCodeAnalysis=true</pre>
+                                    </li>
+                                    <li>Check the "Clean" and "Restore NuGet Packages" checkboxes to ensure each build runs cleanly</li>
+                                    <li>The Visual Studio version should match the Visual Studio version of the solution. Note that in TFS 2015, Visual Studio 2017 is not available - so use Visual Studio 2015 instead, this should still work for most situations <i>#WorkInProgress</i> <img src="~/images/DevOps/WorkInProgress.png" class="DevOpsWorkInProgress" title="TODO: Upgrade to TFS 2017 or migrate to VSTS for Visual Studio 2017 solutions" /></li>
+                                </ol>
+                            </li>
+                            <li>The "Visual Studio Test" task is used to setup the tests to run as part of the build. No customizations should be required until the project involves Integration or Selenium tests, at which point this will need to be customized to include the appropriate tests</li>
+                            <li>The final 3 tasks ("Index Sources & Publish Symbols", "Copy Files", & "Publish Build Artifacts") should not need to be customized</li>
+                        </ol>
+                    </div>
+                    <div id="vsts_a_2" class="tab-pane fade">
+                        By default, a ASP.NET build should build without any edits.<br />
+                        <img src="~/images/DevOps/CI/CIBuildWorkflowVSTSStep3.png" class="DevOpsImage" /><br /><br />
+
+                        However, there are a few customizations that are recommended for the initial default build:<br />
+                        <ol>
+                            <li>
+                                The "Process" task specifies the build definition name, and the path to the solution. The artifact name should be left as its default, 'drop'.<br />
+                                <img src="~/images/DevOps/CI/CIBuildWorkflowVSTSStep3Task0a.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                The "Get sources" task specifies the type of source control (in VSTS, usually 'This Project'), the source control type (Git or TFVC), and the branch (usually 'Master'). <br />
+                                <img src="~/images/DevOps/CI/CIBuildWorkflowVSTSStep3Task0.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                The "NuGet Installer" task specifies the solution to build. (This is currently on version 0.*)<br />
+                                <img src="~/images/DevOps/CI/CIBuildWorkflowVSTSStep3Task1.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                The "Visual Studio Build" task sets up the actual build, with a few customizations: (This is currently on version 1.*)<br />
+                                <img src="~/images/DevOps/CI/CIBuildWorkflowVSTSStep3Task2.png" class="DevOpsImage" /><br /><br />
+                                <ol>
+                                    <li>The display name can be kept at its default value</li>
+                                    <li>The Visual Studio version should match the Visual Studio version of the solution.</li>
+                                    <li>
+                                        Add the following options to the MSBuild Arguments textbox, to help build a web package for each application and enable code analysis. This helps later to deploy the websites to IIS.
+                                        <div class="codeHeader lang-html" data-bi-name="code-header">
+                                            <span class="language">MSBuild Arguments</span>
+                                            <button class="action" data-bi-name="copy" onclick="selectElementContentsById('txtMSBuildArgsVSTS')"><svg class="vector-icon" focusable="false" viewBox="0 0 14 14"><path d="M13 6.8V14H4v-3H0V0h5.2l3 3h1L13 6.8zM4 3h2.8l-2-2H1v9h3V3zm8 5H8V4H5v9h7V8zM9 7h2.8L9 4.2V7z"></path></svg> Copy</button>
+                                        </div>
+                                        <pre id="txtMSBuildArgsVSTS">/p:DeployOnBuild=True /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:PackageLocation="$(build.stagingDirectory)" /p:RunCodeAnalysis=true</pre>
+                                    </li>
+                                    <li>Platform and Configuration can be kept at its default value</li>
+                                    <li>Check the "Clean" checkbox to ensure each build runs cleanly (note that this option is not checked in the screenshot)</li>
+                                </ol>
+                            </li>
+                            <li>The "Test Assemblies" task is used to setup the tests to run as part of the build. No customizations should be required until the project involves Integration or Selenium tests, at which point this will need to be customized to include the appropriate tests</li>
+                            <li>The final 2 tasks ("Publish symbols path" and "Publish Artifact") should not need to be customized</li>
+                        </ol>
+                    </div>
+                    <div id="vsts_b_2" class="tab-pane fade in active">
+                        By default, a ASP.NET Core build should build without any edits. <br />
+                        <img src="~/images/DevOps/CI/CIBuildWorkflowVSTSStep3b.png" class="DevOpsImage" /><br /><br />
+
+                        See the ASP.NET Framework tab for information about customizations.
+                        Note that ASP.NET Core tasks can be combined with .NET Framework tasks, but you need to specifically list the .NET Core projects that will be built.<br />
+                    </div>
+                </div>
+                <br />
+
+                <a name="2_3" class="anchor"></a>
+                <b>Step 3: Set build definition options</b><br /><br />
+                <ul class="nav nav-tabs">
+                    <li><a data-toggle="tab" href="#tfs_3">TFS 2015</a></li>
+                    <li class="active"><a data-toggle="tab" href="#vsts_a_3">VSTS .Net Framework &amp; .NET Core</a></li>
+                </ul>
+                <div class="tab-content">
+                    <br />
+                    <div id="tfs_3" class="tab-pane fade">
+                        <ol>
+                            <li>
+                                The "Options" tab is used to create work items on build failures, but this is not recommended until the build is stable - it can generate a lot of extra email traffic.<br />
+                                <img src="~/images/DevOps/CI/CIBuildWorkflowStep4Task1.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                The "Repository" tab is used to specify the source control type. If the project is using Git in TFS2015, this needs to be updated, otherwise it can be left in it's default state.<br />
+                                <img src="~/images/DevOps/CI/CIBuildWorkflowStep4Task2.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                The "Variables" tab is used to set variables. This is where passwords can be set for any user's authentication. Be sure to remember to check the little padlock icon to hide any passwords.<br />
+                                <img src="~/images/DevOps/CI/CIBuildWorkflowStep4Task3.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                The "Triggers" tab is used to set when the build should trigger. Most dev builds will check 'Continuous integration (CI)', so that the build starts on every check-in of code, but QA builds will likely be scheduled. Gated Check-in's are not recommended at this time, see Sam for more details.<br />
+                                <img src="~/images/DevOps/CI/CIBuildWorkflowStep4Task4.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                The "General" tab is used to set the 'Default agent queue', which should be set to 'TFS2015BuildPool'.<br />
+                                <img src="~/images/DevOps/CI/CIBuildWorkflowStep4Task5.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                The "Retention" and "History" tabs do not need any customizations.<br />
+                            </li>
+                        </ol>
+                    </div>
+                    <div id="vsts_a_3" class="tab-pane fade in active">
+                        <ol>
+                            <li>
+                                The "Variables" tab is used to set variables. This is where passwords can be set for any users authentication. Be sure to remember to check the little padlock icon to hide any passwords.<br />
+                                <img src="~/images/DevOps/CI/CIBuildWorkflowVSTSStep4Task3.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                The "Triggers" tab is used to set when the build should trigger. Most dev builds will check 'Continuous integration (CI)', so that the build starts on every check-in of code, but QA builds will likely be scheduled. Gated Check-in's are not recommended at this time, see Sam for more details.<br />
+                                <img src="~/images/DevOps/CI/CIBuildWorkflowVSTSStep4Task4.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                The "Options" tab is used to create work items on build failures, but this is not recommended until the build is stable - it can generate a lot of extra email traffic.<br />
+                                <img src="~/images/DevOps/CI/CIBuildWorkflowVSTSStep4Task1.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                The "Retention" and "History" tabs do not need any customizations.<br />
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <hr />
+
+                <a name="3" class="anchor"></a>
+                <b>Monitoring a build</b><br /><br />
+                There are a number of ways to monitor the build to ensure it completes successfully.<br />
+                <ol>
+                    <li>
+                        On the team project dashboard, add a build widget to show the last 10 builds and the status of each build<br />
+                        <img src="~/images/DevOps/CI/CIBuildMonitoring1.png" class="DevOpsImage" /><br /><br />
+                    </li>
+                    <li>
+                        In the team project alerts, setup an email to be delivered every time a build completes. Best practice is to set it up for the entire team to see the status, which encourages users to fix builds when they fail. If the quantity of successful builds is too high, consider adjusting to only send build failure emails.<br />
+                        <img src="~/images/DevOps/CI/CIBuildMonitoring2.png" class="DevOpsImage" /><br /><br />
+                    </li>
+                </ol>
+                There are so many things that can go wrong in a build, depending on complexity of the build. Click on a build to view a variety of information, including any warnings (a good reminder if they have been repressed in Visual Studio), test results, and a link to the final build artifacts.<br />
+                <img src="~/images/DevOps/CI/CIBuildMonitoring3.png" class="DevOpsImage" /><br /><br />
+
+                <a name="4" class="anchor"></a>
+                <b>Further reading:</b>
+                <ul>
+                    <li><a href="https://www.visualstudio.com/en-us/docs/build/apps/aspnet/ci/build-aspnet-4" target="_blank">Build your ASP.NET 4 app [Microsoft.com ASP.NET build overview]</a></li>
+                    <li><a href="https://docs.microsoft.com/en-us/aspnet/web-forms/overview/deployment/web-deployment-in-the-enterprise/understanding-the-build-process" target="_blank">Understanding the build process [Microsoft.com detailed documentation]</a></li>
+                </ul>
+                <hr />
+
+                <a name="5" class="anchor"></a>
+                <b>Version history:</b>
+                <ul>
+                    <li>22-Sep-2018: Updated branding from VSTS to Azure DevOps and defaulted the tabs to ASP.NET Core</li>
+                    <li>20-Aug-2018: Split server information into a new "Current Build Server" page</li>
+                    <li>9-Feb-2018: Updated build and test server list after setup and configuration of new servers and a new test agent pool</li>
+                    <li>29-Jan-2018: Updated build server list and functionality and added .Net Core build information</li>
+                    <li>5-Jan-2018: Updated build server list and functionality</li>
+                    <li>16-Jun-2017: Initial release of DevOps content</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

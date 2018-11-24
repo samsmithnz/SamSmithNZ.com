@@ -1,0 +1,100 @@
+﻿@using SSNZ.DevOps.Web.Models
+@{
+    ViewBag.Title = "Setting up Application Insights";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("DevOps", "Index", "DevOps")</li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("PartialViews/_DevOpsMenu", new DevOpsMenu2ViewModel(null, null, null, null, new DevOpsMenuViewModel(false, true, false, false, false, false, false, false)))
+                <hr />
+
+                <a name="1" class="anchor"></a>
+                <h3>Overview</h3>
+                <b>Microsoft Azure's Application Insights helps to achieve monitoring in our projects.</b> Features include:<br />
+
+                <ul>
+                    <li>Detect and diagnose exceptions and application performance issues</li>
+                    <li>Monitor website performance and metrics</li>
+                    <li>Interactive data analytics</li>
+                </ul>
+                <img src="~/images/DevOps/Monitor/AppInsights.png" class="DevOpsImage" /><br /><br />
+                There are a number of metrics that Application Insights provides real time monitoring for:<br />
+                <ul>
+                    <li>
+                        <u>Failures</u>: Any exceptions, frequency of exceptions, classified by response code, exception type and dependency failure.
+                        <br /><img src="~/images/DevOps/Monitor/Failures.png" class="DevOpsImage" /><br /><br />
+                    </li>
+                    <li>
+                        <u>Performance</u>: Page request load times, API requests, dependency requests and frequency of all events
+                        <br /><img src="~/images/DevOps/Monitor/Performance.png" class="DevOpsImage" /><br /><br />
+                    </li>
+                    @*<li>
+                <u>Availability</u>: A release pipeline stages each successive environment, copying files and configuring the application as needed
+                <br /><img src="~/images/DevOps/Monitor/.png" class="DevOpsImage" /><br />
+            </li>*@
+                    <li>
+                        <u>Live Metrics</u>: Select and filter metrics and performances counters to watch in real time
+                        <br /><img src="~/images/DevOps/Monitor/LiveMetrics.png" class="DevOpsImage" /><br /><br />
+                    </li>
+                    <li>
+                        <u>User Flows</u>: Shows visualizations of how users navigate between pages and features of your site
+                        <br /><img src="~/images/DevOps/Monitor/UserFlows.png" class="DevOpsImage" /><br /><br />
+                    </li>
+                    <li>
+                        <u>Application Maps</u>: helps to spot performance bottlenecks of failure hotspots across components in your application
+                        <br /><img src="~/images/DevOps/Monitor/ApplicationMap.png" class="DevOpsImage" /><br /><br />
+                    </li>
+                    <li>
+                        <u>Alerts</u>: notifies the team about changes in performance or usage metrics in your web application
+                        <br /><img src="~/images/DevOps/Monitor/Alerts.png" class="DevOpsImage" /><br /><br />
+                        Additionally, alerts start with a canned set of "smart" alerts for common issues
+                        <br /><img src="~/images/DevOps/Monitor/AlertsSmartDetectionRules.png" class="DevOpsImage" /><br />
+                    </li>
+                </ul>
+                <hr />
+
+                <a name="2" class="anchor"></a>
+                <h3>How to setup</h3>
+                <b>To setup, pick one of the relevant options, and follow the instructions:</b>
+                <ul>
+                    <li><a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-asp-net">Adding Application Insights to your ASP.NET project [Microsoft documentation]</a></li>
+                    <li><a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-asp-net-core">Adding Application Insights to your ASP.NET Core project [Microsoft documentation]</a></li>
+                    <li><a href="https://blogs.msdn.microsoft.com/premier_developer/2017/05/11/add-application-insights-to-an-angular-spa/">Adding Application Insights to your Angular-CLI project [Microsoft blog]</a></li>
+                </ul>
+                <hr />
+
+                <a name="3" class="anchor"></a>
+                <b>Further reading:</b>
+                <ul>
+                    <li><a href="https://azure.microsoft.com/en-us/services/application-insights/">Application Insights home page [Microsoft.com product page]</a></li>
+                </ul>
+                <hr />
+
+                <a name="4" class="anchor"></a>
+                <b>Version history:</b>
+                <ul>
+                    <li>11-Jul-2018: Initial release of DevOps monitoring content</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

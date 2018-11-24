@@ -1,0 +1,318 @@
+﻿@using SSNZ.DevOps.Web.Models
+@{
+    ViewBag.Title = "Setup a deployment to IIS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("DevOps", "Index", "DevOps")</li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("PartialViews/_DevOpsMenu", new DevOpsMenu2ViewModel(null, null, null, new DevOpsMenuViewModel(false, false, false, false, false, true, false, false), null))
+                <hr />
+
+                <span class="DevOpsTFSWarning">Note that this page contains both TFS 2015 and Azure DevOps content. Use the tabs below to show the relevant content</span><br />
+
+                <a name="1" class="anchor"></a>
+                <h3>Overview</h3>
+                <b>Web and web service deployments are achieved by deploying a package file, the result of a web application build, targeted on the server with MSDeploy.exe.</b>
+                <br /><br />
+
+                <ul class="nav nav-tabs">
+                    <li id="tfsli2"><a data-toggle="tab" href="#tfs2">TFS 2015</a></li>
+                    <li id="vstsli2" class="active"><a data-toggle="tab" href="#vsts2">Azure DevOps</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tfs2" class="tab-pane fade">
+
+                        <a name="2" class="anchor"></a>
+                        <h3>How to setup the TFS 2015 deployment workflow</h3>
+                        <span class="DevOpsTFSWarning">Note: These sections assume that the steps to <a href="@Url.Action("CDSetupDeploymentServer", "DevOps")">setup a deployment server</a> have already been completed</span><br /><br />
+
+                        <ul>
+                            <li>
+                                <a name="2_1" class="anchor"></a>
+                                <b>Step 1: Setup MSDeploy on the server</b><br />
+                                MSDeploy deploys the actual packages to IIS.<br />
+                                If MSDeploy has not been installed correctly, a variation of this message will be displayed. Use the reference at the bottom of the page to install it. <br />
+                                <pre>Deployment failed on machine wtrintraweb1v.bain.com with following message : System.Exception: Cannot find MsDeploy.exe location. Verify MsDeploy.exe is installed on and try operation again.</pre>
+                                <br />
+                            </li>
+
+                            <li>
+                                <a name="2_2" class="anchor"></a>
+                                <b>Step 2: Add environment variables for each appsetting requiring configuration</b><br />
+                                Access the "configure variables" option on the dev environment:<br />
+                                <img src="~/images/DevOps/CD/CDNewReleaseWorkflow4.png" class="DevOpsImage"><br /><br />
+                                Then add every web.config appsettings and connectionstring variable needed to substitute for this environement. This can be an extensive list for websites, depending on the number of variables. <br />
+                                TFS 2015 note: Note that variables with no value or blank (''), will not be picked up in TFS 2015 - so make sure at least one space is entered (' '). <i>#WorkInProgress</i> <img src="~/images/DevOps/WorkInProgress.png" class="DevOpsWorkInProgress" title="Todo: This extra space workaround does not always work :('" /><br />
+                                <img src="~/images/DevOps/CD/CDIIS1.png" class="DevOpsImage" /><br /><br />
+                            </li>
+
+                            <li>
+                                <a name="2_3" class="anchor"></a>
+                                <b>Step 3: Setup a parameters.xml file. This is a special TFS 2015 step</b><br />
+                                The parameters.xml file in the web application will contain all of the substitutions needed to make in the web.config to appsettings. These are the same variables just setup in step 3. Note that connection strings are handled differently and are not included by this step.<br />
+                                For example, to create a subsitution for the appsetting "AppSetting1" in the web.config file (add a &lt;parameter&gt; entry for each appsetting needed to substitute). Note that the double underscores (__) on the front and back of the "defaultvalue" property are required for the substitution to work correctly.<br />
+                                <div class="codeHeader lang-html" data-bi-name="code-header">
+                                    <span class="language">XML</span>
+                                    <button class="action" data-bi-name="copy" onclick="selectElementContentsById('txtParametersXML')"><svg class="vector-icon" focusable="false" viewBox="0 0 14 14"><path d="M13 6.8V14H4v-3H0V0h5.2l3 3h1L13 6.8zM4 3h2.8l-2-2H1v9h3V3zm8 5H8V4H5v9h7V8zM9 7h2.8L9 4.2V7z"></path></svg> Copy</button>
+                                </div>
+                                <pre id="txtParametersXML">
+&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;parameters&gt;
+    &lt;parameter name="<span class="DevOpsBlue">AppSetting1</span>" description="<span class="DevOpsBlue">AppSetting1</span> description" defaultvalue="<span class="DevOpsBlue">__AppSetting1__</span>" tags=""&gt;
+        &lt;parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@@key='<span class="DevOpsBlue">AppSetting1</span>']/@@value"&gt;
+        &lt;/parameterentry&gt;
+    &lt;/parameter&gt;
+&lt;/parameters&gt;
+</pre>                <br />
+                                To help generate the parameters, use this tool: @Html.ActionLink("TFS 2015 parameter generator", "TFS2015Parameters")<br /><br />
+                            </li>
+
+                            @*<a name="2_4" class="anchor"></a>
+                                There are eight steps required to deploy an web application from TFS2015<br />*@
+                            @*<img src="~/images/DevOps/CD/CDIISTFS.png" class="DevOpsImage" /><br /><br />*@
+
+                            <li>
+                                <a name="2_4" class="anchor"></a>
+                                <b>Step 4: Using a "Windows Machine File Copy" task, copy the PowerShell scripts from a project. These scripts will be used later in the process. </b><br />
+                                <ul>
+                                    <li>The main script needed for TFS 2015 deployments is <a href="~/images/DevOps/PS/SetWebConfigSettings.ps1">SetWebConfigSettings.ps1</a> PowerShell file. These can't be stored in the web project, as the web project is packaged into a zip, so it's easier to put them into a separate project <i>#WorkInProgress</i> <img src="~/images/DevOps/WorkInProgress.png" class="DevOpsWorkInProgress" title="The location of the PowerShell files and solutions when there is only a single web project" /></li>
+                                    <li>Browse to the source folder, for where the PowerShell files are being copied from</li>
+                                    <li>Specify the web servers this task applies to. It's best practice to use a variable so this can be configured easily between environments</li>
+                                    <li>Add the admin user and password, using environment variables to not expose passwords</li>
+                                    <li>Specify the destination folder. Best practice is to use a consistent folder structure, in this case D:\TFSDeploymenPackages\DSC, to copy the PowerShell to a DSC folder</li>
+                                </ul>
+                                <img src="~/images/DevOps/CD/CDIISTFSStep2.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                <a name="2_5" class="anchor"></a>
+                                <b>Step 5: Using a "Windows Machine File Copy" task, copy the website package from the build folder</b><br />
+                                <ul>
+                                    <li>Browse to the source folder, where the website package zip file is located</li>
+                                    <li>Specify the web servers this task applies to. It's best practice to use a variable so this can be configured easily between environments</li>
+                                    <li>Add the admin user and password, using environment variables to not expose passwords</li>
+                                    <li>Specify the destination folder. Best practice is to use a consistent folder structure, in this case D:\TFSDeploymenPackages\DSC, to copy the PowerShell to a DSC folder</li>
+                                </ul>
+                                <img src="~/images/DevOps/CD/CDIISTFSStep3.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                <a name="2_6" class="anchor"></a>
+                                <b>Step 6: Using a "PowerShell on Target Machines" task, complete the web.config appsettings substitutions.</b> This is achieved using the SetWebConfigSettings.ps1 PowerShell script copied over from step 2. Note that this step is only required in TFS 2015<br />
+                                <img src="~/images/DevOps/CD/CDIISTFSStep4.png" class="DevOpsImage" /><br /><br />
+                                <ul>
+                                    <li>Specify the web servers this task applies to. It's best practice to use a variable so this can be configured easily between environments</li>
+                                    <li>Add the admin user and password, using environment variables to not expose passwords</li>
+                                    <li>Select HTTP as the protocol <i>#WorkInProgress</i> <img src="~/images/DevOps/WorkInProgress.png" class="DevOpsWorkInProgress" title="Todo: get HTTPS to work" /></li>
+                                    <li>Provide the location of the SetWebConfigSettings.ps1 PowerShell script</li>
+                                    <li>
+                                        In the 'Script Arguments', provide all of the substitutions. The parameters required are:<br />
+                                        <div class="codeHeader lang-html" data-bi-name="code-header">
+                                            <span class="language">SetWebConfigSettings.ps1 PowerShell arguments</span>
+                                            <button class="action" data-bi-name="copy" onclick="selectElementContentsById('txtScriptArguments')"><svg class="vector-icon" focusable="false" viewBox="0 0 14 14"><path d="M13 6.8V14H4v-3H0V0h5.2l3 3h1L13 6.8zM4 3h2.8l-2-2H1v9h3V3zm8 5H8V4H5v9h7V8zM9 7h2.8L9 4.2V7z"></path></svg> Copy</button>
+                                        </div>
+                                        <pre id="txtScriptArguments">-parametersFilePath d:\TFSDeploymentPackages\AppStack\SSNZ.DevOps.Web.SetParameters.xml -appVariables @@{"DevEnvironment" = "$(DevEnvironment)"; "WebAPIServiceLocation" = "$(WebAPIServiceLocation)"; "FeatureEnabled_DevOps" = "$(FeatureEnabled_DevOps)"}</pre>
+                                        <ul>
+                                            <li>"-parametersFilePath": The location of the SetParameters.xml file. This should be the location used to copy the web package files from in step 3</li>
+                                            <li>"-appVariables": Any application variables in the web.config appsettings section. See the syntax above for how AppStack substitutes 'DevEnvironment', 'WebAPIServiceLocation' and 'FeatureEnabled_DevOps'</li>
+                                            <li>Note that connection strings are handled slightly differently, and are set in step 5 below</li>
+                                        </ul><br />
+                                        To help generate the parameters, use this tool: @Html.ActionLink("TFS 2015 parameter generator", "TFS2015Parameters")<br />
+                                    </li>
+                                </ul>
+                                <br />
+                            </li>
+                            <li>
+                                <a name="2_7" class="anchor"></a>
+                                <b>Step 7: Using a "WinRM- IIS Web App Deployment" task, deploy the web package to the IIS server. This task needs to be created for each website or service.</b><br />
+                                <ul>
+                                    <li>Specify the web servers this task applies to. It's best practice to use a variable so this can be configured easily between environments</li>
+                                    <li>Add the admin user and password, using environment variables to not expose passwords</li>
+                                    <li>Select HTTP as the protocol <i>#WorkInProgress</i> <img src="~/images/DevOps/WorkInProgress.png" class="DevOpsWorkInProgress" title="Todo: get HTTPS to work" /></li>
+                                    <li>Specify the location of the web deploy package zip file. This should be the destination location from step 3</li>
+                                    <li>Specify the location of the web deploy package parameters.xml file. This should be the destination location from step 3</li>
+                                    <li>
+                                        'Override Parameters' are required to set the connection string, which is controlled in the environment variables. In the environment variables, create a variable with the same name as the connectionstring in the web.config file
+                                        <br />
+                                        <img src="~/images/DevOps/CD/CDIISTFSStep4a.png" class="DevOpsImage" /><br />
+
+                                        Then set the parameters as below, replacing the "DefaultConnectionString" text with the name of the connection string to manage. Note that the rest of the "-Web.config Connection String" is generated by the parameters file and needs to be also be present. The connection string variable uses the connection string specified in the environment variables
+                                        <div class="codeHeader lang-html" data-bi-name="code-header">
+                                            <span class="language">SetWebConfigSettings.ps1 PowerShell arguments</span>
+                                            <button class="action" data-bi-name="copy" onclick="selectElementContentsById('txtOverrideParameters')"><svg class="vector-icon" focusable="false" viewBox="0 0 14 14"><path d="M13 6.8V14H4v-3H0V0h5.2l3 3h1L13 6.8zM4 3h2.8l-2-2H1v9h3V3zm8 5H8V4H5v9h7V8zM9 7h2.8L9 4.2V7z"></path></svg> Copy</button>
+                                        </div>
+                                        <pre id="txtOverrideParameters">name="DefaultConnectionString-Web.config Connection String",value=$(connectionString)</pre>
+
+                                    </li>
+                                    <li>Set the 'website name' to be the location of the web application on the IIS server. In this case AppStack application is under the "Default Web Site'. Note that the value of the $(connectionstring) below should be wrapped in quotes: "$(connectionstring)"</li>
+                                </ul>
+                                <img src="~/images/DevOps/CD/CDIISTFSStep5.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                <a name="2_8" class="anchor"></a>
+                                <b>Step 8: Using a "WinRM - IIS Web App Management" task, setup the application pool for the website and/or web service</b>. This task needs to be created for each website or service.<br />
+                                <ul>
+                                    <li>Use a 'webServerName' variable to help with configuring machines</li>
+                                    <li>Enter in the user and password variable</li>
+                                    <li>Select HTTP as the protocol <i>#WorkInProgress</i> <img src="~/images/DevOps/WorkInProgress.png" class="DevOpsWorkInProgress" title="Todo: get HTTPS to work" /></li>
+                                    <li>Check the 'Create or update application pool checkbox</li>
+                                    <li>Add the application pool name, .Net Version, Managed Pipeline Mode and Identity, as needed. Most of these can probably be left in their default values</li>
+                                    <li>
+                                        As most Bain applications also require 'ASP.NET impersonation', but this is not an option, add the following text to the 'Additional AppCmd.exe Commands' textbox, (multiple commands can be used as long as each is on a new line). (See the reference at the bottom of the article for more details). Note that other authenication modes should be set in the web.config file.<br />
+                                        <div class="codeHeader lang-html" data-bi-name="code-header">
+                                            <span class="language">Additional appcmd.exe commands</span>
+                                            <button class="action" data-bi-name="copy" onclick="selectElementContentsById('txtTFSAppCmdOverrides')"><svg class="vector-icon" focusable="false" viewBox="0 0 14 14"><path d="M13 6.8V14H4v-3H0V0h5.2l3 3h1L13 6.8zM4 3h2.8l-2-2H1v9h3V3zm8 5H8V4H5v9h7V8zM9 7h2.8L9 4.2V7z"></path></svg> Copy</button>
+                                        </div>
+                                        <pre id="txtTFSAppCmdOverrides">set config /commit:WEBROOT /section:identity /impersonate:true</pre>
+                                    </li>
+                                    <li>
+                                        In the Advanced section, add the following code to bind the application pool to the application in the 'Additional AppCmd.exe Commands' textbox, with the path to the application including the website and the application pool name<br />
+                                        <div class="codeHeader lang-html" data-bi-name="code-header">
+                                            <span class="language">Additional AppCmd.exe Commands</span>
+                                            <button class="action" data-bi-name="copy" onclick="selectElementContentsById('txtAdditionalAppCmd')"><svg class="vector-icon" focusable="false" viewBox="0 0 14 14"><path d="M13 6.8V14H4v-3H0V0h5.2l3 3h1L13 6.8zM4 3h2.8l-2-2H1v9h3V3zm8 5H8V4H5v9h7V8zM9 7h2.8L9 4.2V7z"></path></svg> Copy</button>
+                                        </div>
+                                        <pre id="txtAdditionalAppCmd">set app "Default Web Site/AppStack" /applicationPool:AppStackPool</pre>
+                                    </li>
+                                </ul>
+                                <img src="~/images/DevOps/CD/CDIISTFSStep1.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            @*<li>
+                                    <b>Troubleshooting deployment of packages from TFS 2015 to IIS</b><br />
+                                    No known extra steps required<br />
+                                </li>*@
+                        </ul>
+
+                    </div>
+                    <div id="vsts2" class="tab-pane fade in active">
+
+                        <a name="3" class="anchor"></a>
+                        <h3>How to setup the Azure DevOps deployment workflow</h3>
+                        <span class="DevOpsTFSWarning">Note: These sections assume that the steps to <a href="@Url.Action("CDSetupDeploymentServer", "DevOps")">setup a deployment server</a> have already been completed</span><br /><br />
+
+                        <ul>
+                            <li>
+                                <a name="3_1" class="anchor"></a>
+                                <b>Step 1: Setup MSDeploy on the server</b><br />
+                                MSDeploy deploys the actual packages to IIS.<br />
+                                If MSDeploy has not been installed correctly, a variation of this message will be displayed. Use the reference at the bottom of the page to install it. <br />
+                                <pre>Deployment failed on machine wtrintraweb1v.bain.com with following message : System.Exception: Cannot find MsDeploy.exe location. Verify MsDeploy.exe is installed on and try operation again.</pre>
+                            </li>
+
+                            <li>
+                                <a name="3_2" class="anchor"></a>
+                                <b>Step 2: Setup ASP.Net Core for IIS (ASP.NET Core only)</b><br />
+                                The ".Net Core Windows Server Hosting Bundle" is required to run ASP.NET Core projects in IIS.
+                                The installation download is provided below in the references.
+                                Note that installing this module this does require a reboot, otherwise you may receive a "HTTP Error 502.5 - Process Failure" error.<br /><br />
+                            </li>
+
+                            <li>
+                                <a name="3_3" class="anchor"></a>
+                                <b>Step 3: Configure the IIS deployment phase</b>. Most options are fine in their default states, except for:<br />
+                                <ul>
+                                    <li>Select the Deployment group, we previously configured. This will usually be the same name as the environement</li>
+                                    <li>Using tags, you can make deployment to multiple servers (load balancing) extremely easy. If you only have one server, this can be skipped</li>
+                                    <li>WARNING FOR FIRST DEPLOYS: Note that the deploy phase will fail if the "AppOffline" flag is checked. The manage phase will fail if the AppPool is bound to the application that hasn't been deployed yet.</li>
+                                </ul>
+                                <img src="~/images/DevOps/CD/CDIISvsts2.png" class="DevOpsImage"><br /><br />
+                            </li>
+
+                            <li>
+                                <a name="3_3" class="anchor"></a>
+                                <b>Step 3: Using a "IIS Web App Deploy" task</b>, deploy the web application for the website and/or web service. This task needs to be created for each website or service.<br />
+                                <ul>
+                                    <li>Run this task before the "Manage IIS" task - this ensures the best chance of deployment success</li>
+                                    <li>Add the virtual application (aka website name). This is the web application, not the IIS site</li>
+                                    <li>Add the web application name</li>
+                                    <li>Browse to the package of folder to deploy. Usually this is a .zip package file</li>
+                                    <li>
+                                        <ul>
+                                            <li>
+                                                <b>For a .NET Framework application</b>: Open the 'File Transforms &amp; Variable Substitution Options' carrot and check the 'XML variable substitution' checkbox. This will map variables in the environment variables to variables in the web.config file, hence the variables in the environment variables popup must match the web.config appsettings values. See the references below for more details about variable transforms. <i>#WorkInProgress</i> <img src="~/images/DevOps/WorkInProgress.png" class="DevOpsWorkInProgress" title="Todo: this could potentially change the way variables are named in the web.config file" />
+                                            </li>
+                                            <li><b>For a .NET Core application</b>: Open the 'File Transforms &amp; Variable Substitution Options' carrot and <u>uncheck</u> the 'XML variable substitution' checkbox. In the "JSON variable substitution" textbox, specify the location of the JSON file to substitute - normally just "**/appsettings.json". See the references below for more details about variable transforms. </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <img src="~/images/DevOps/CD/CDIISVSTS3.png" class="DevOpsImage" /><br /><br />
+                            </li>
+                            <li>
+                                <a name="3_4" class="anchor"></a>
+                                <b>Step 4: Using a "IIS Web App Manage" task</b>, setup the application pool for the website and/or web service. This task needs to be created for each website or service.<br />
+                                <ul>
+                                    <li>Run this task after the "Deploy IIS" task - this ensures the best chance of deployment success</li>
+                                    <li>The items with a "chain link" icon, are configured in the deployment phase step.</li>
+                                    <li>Set the physical path to the D:\Intranet\wwwroot unless the IIS data is stored on the C:</li>
+                                    <li>Check the 'Create or update app pool' checkbox</li>
+                                    <li>Check the 'Configure authentication' checkbox</li>
+                                    <li>Setup the application pool with the correct settings. For ASP.NET Core applications, set the Framework to "No Managed Code"</li>
+                                    <li>Most Bain applications require the 'Windows authentication' checkbox to be selected</li>
+                                    <li>
+                                        As most Bain applications also require 'ASP.NET impersonation', but this is not an option, add the following text to the 'Additional AppCmd.exe Commands' textbox, (multiple commands can be used as long as each is on a new line). (See the reference at the bottom of the article for more details).<br />
+                                        <div class="codeHeader lang-html" data-bi-name="code-header">
+                                            <span class="language">Additional appcmd.exe commands</span>
+                                            <button class="action" data-bi-name="copy" onclick="selectElementContentsById('txtAppCmdOverrides')"><svg class="vector-icon" focusable="false" viewBox="0 0 14 14"><path d="M13 6.8V14H4v-3H0V0h5.2l3 3h1L13 6.8zM4 3h2.8l-2-2H1v9h3V3zm8 5H8V4H5v9h7V8zM9 7h2.8L9 4.2V7z"></path></svg> Copy</button>
+                                        </div>
+                                        <pre id="txtAppCmdOverrides">set config /commit:WEBROOT /section:identity /impersonate:true</pre>
+                                    </li>
+                                    <li>
+                                        To bind the application pool to the application, use the 'Additional AppCmd.exe Commands' textbox, (multiple commands can be used as long as each is on a new line), with the path to the application including the website and the application pool name.<br />
+                                        <div class="codeHeader lang-html" data-bi-name="code-header">
+                                            <span class="language">Additional AppCmd.exe Commands</span>
+                                            <button class="action" data-bi-name="copy" onclick="selectElementContentsById('txtAdditionalAppCmd')"><svg class="vector-icon" focusable="false" viewBox="0 0 14 14"><path d="M13 6.8V14H4v-3H0V0h5.2l3 3h1L13 6.8zM4 3h2.8l-2-2H1v9h3V3zm8 5H8V4H5v9h7V8zM9 7h2.8L9 4.2V7z"></path></svg> Copy</button>
+                                        </div>
+                                        <pre id="txtAdditionalAppCmd">set app "Default Web Site/AppStack" /applicationPool:AppStackPool</pre>
+                                    </li>
+                                </ul>
+                                <img src="~/images/DevOps/CD/CDIISVSTS2.png" class="DevOpsImage"><br /><br />
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <hr />
+
+                <a name="4" class="anchor"></a>
+                <b>Further reading:</b>
+                <ul>
+                    <li><a href="https://www.iis.net/downloads/microsoft/web-deploy" target="_blank">Web Deploy and MSDeploy.exe [Microsoft article]</a>. Download the correct English x86/x64 bit version, copy the file to the server and run a <b>Complete</b> installation</li>
+                    <li><a href="https://msdn.microsoft.com/en-us/library/aa384426(v=vs.85).aspx" target="_blank">What is WinRM? [Microsoft article]</a></li>
+                    <li><a href="https://technet.microsoft.com/en-us/library/cc730708%28v=ws.10%29.aspx?f=255&MSPPError=-2147217396" target="_blank">Configure ASP.NET Impersonation Authentication [Microsoft article]</a></li>
+                    <li><a href="https://docs.microsoft.com/en-us/iis/get-started/getting-started-with-iis/getting-started-with-appcmdexe" target="_blank">Getting Started with AppCmd.exe [Microsoft article]</a></li>
+                    <li><a href="https://docs.microsoft.com/en-us/vsts/build-release/tasks/transforms-variable-substitution" target="_blank">File transforms and variable substitution refrence [Microsoft Documentation]</a></li>
+                    <li><a href="https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/?tabs=aspnetcore2x" target="_blank">Details on hosting ASP.NET Core on IIS [Microsoft Documentation]</a></li>
+                    <li><a href="https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/?tabs=aspnetcore2x#install-the-net-core-windows-server-hosting-bundle" target="_blank">Details on installing the ".NET Core Windows Server Hosting Bundle" [Microsoft Documentation]</a></li>
+                </ul>
+                <hr />
+
+                <a name="5" class="anchor"></a>
+                <b>Version history:</b>
+                <ul>
+                    <li>20-Sep-2018: Content updated to replace most references of VSTS with Azure DevOps to match rebranding</li>
+                    <li>29-Jan-2018: Updated with instructions to deploy ASP.NET Core to IIS</li>
+                    <li>23-Sep-2017: Updated to handle new Azure DevOps UI and workflow</li>
+                    <li>23-Jun-2017: Rearranged order of the TFS 2015 tasks</li>
+                    <li>16-Jun-2017: Initial release of DevOps content</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

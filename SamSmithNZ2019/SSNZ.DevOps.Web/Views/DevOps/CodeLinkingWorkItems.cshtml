@@ -1,0 +1,89 @@
+﻿@using SSNZ.DevOps.Web.Models
+@{
+    ViewBag.Title = "Setup a new release";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("DevOps", "Index", "DevOps")</li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("PartialViews/_DevOpsMenu", new DevOpsMenu2ViewModel(null, new DevOpsMenuViewModel(false, false, false, false, false, true, false, false), null, null, null))
+                <hr />
+
+                <a name="1" class="anchor"></a>
+                <h3>Tracking progress with Work Items</h3>
+                <div>
+                    <b>Linking a work item to a branch allows the team to track the progress of the work from idea to deployment.</b> In the work item, you can click the "Create a new branch" link in the development section, or on the Kanban board, select "New branch" in the drop down menu.<br /><br />
+                    <img src="~/images/DevOps/Code/KanbanBoardLinkedWorkItem.png" class="DevOpsImage" /><br /><br />
+
+                    The popup allows the team to enter a name of the branch. <br /><br />
+                    <img src="~/images/DevOps/Code/NewBranchPopup.png" class="DevOpsImage" /><br /><br />
+
+                    At this stage, in the work item in the development section we can see the current state of the work, in particular the developer section shows what stage the work is in. <br /><br />
+                    <img src="~/images/DevOps/Code/WorkItem.png" class="DevOpsImage" /><br /><br />
+
+                    In this case, a branch ("CodeReviewDocs") has been created and is assigned to a developer (Sam). <br /><br />
+                    <img src="~/images/DevOps/Code/DevelopmentUpdate1.png" class="DevOpsImage" /><br /><br />
+
+                    Next, on the "Sync" tab in Team Explorer within Visual Studio, switch to the master branch and click the sync link to fetch all of the information - including the new branch just created. <br /><br />
+                    <img src="~/images/DevOps/Code/BranchSync.png" class="DevOpsImage" /><br /><br />
+
+                    Then on the "Branches" tab in Team Explorer within Visual studio, expand the remotes/origin folder to select, right click to show the context menu and then click "Checkout" to fetch the new branch and pull it to your local environment. <br /><br />
+                    <img src="~/images/DevOps/Code/CheckoutFeatureBranch.png" class="DevOpsImage" /><br /><br />
+
+                    Then, the "mystery of development" happens. In the end, the developer output is a well developed and tested output is ready to be pushed to the server and a pull request created.<br /><br />
+                    <img src="~/images/DevOps/Code/MagicHappensHere.png" class="DevOpsImage" /><br /><br />
+
+                    As soon as the pull request is created, the development section of the work item will update to show that the pull request has been created and is active.<br />
+                    <img src="~/images/DevOps/Code/DevelopmentUpdate2.png" class="DevOpsImage" /><br /><br />
+
+                    This section of the work item will continue to show pull request progress, here showing that the code reviews have been approved<br />
+                    <img src="~/images/DevOps/Code/DevelopmentUpdate3.png" class="DevOpsImage" /><br /><br />
+
+                    Once the pull request is completed, this section will update to show the completed status<br />
+                    <img src="~/images/DevOps/Code/DevelopmentUpdate4.png" class="DevOpsImage" /><br /><br />
+
+                    Next, after the build on the master branch runs - once this is completed, the status will show here<br />
+                    <img src="~/images/DevOps/Code/DevelopmentUpdate5.png" class="DevOpsImage" /><br /><br />
+
+                    Clicking this build link shows the build status, with links back to the work item, the test results and code coverage, and most importantly, the details of where this build was deployed. In this case, the build has been deployed to Dev and QA, but is awaiting approval to deploy to production.<br />
+                    <img src="~/images/DevOps/Code/DevelopmentUpdate6.png" class="DevOpsImage" /><br /><br />
+
+                    Additionally, with the pull request completed, the work item has automatically moved to the done column - no more waiting for the developers to remember to close the completed items - they are done when the work is done!<br />
+                    <img src="~/images/DevOps/Code/KanbanBoardLinkedWorkItemDone.png" class="DevOpsImage" /><br /><br />
+                    <hr />
+                    <a name="3" class="anchor"></a>
+                    <b>Further reading:</b>
+                    <ul>
+                        <li><a href="https://docs.microsoft.com/en-us/vsts/work/track/link-work-items-support-traceability" target="_blank">Link work items to support traceability and manage dependencies [Microsoft.com documentation]</a></li>
+                    </ul>
+
+                </div>
+                <hr />
+
+                <a name="4" class="anchor"></a>
+                <b>Version history:</b>
+                <ul>
+                    <li>1-Nov-2017: Added new section</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

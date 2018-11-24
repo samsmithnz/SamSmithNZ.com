@@ -1,0 +1,99 @@
+﻿@using SSNZ.DevOps.Web.Models
+@model DevOpsMenu2ViewModel
+
+
+@if (Model != null && Model.CIMenu != null && Model.CIMenu.MainHeader == true)
+{
+    <a href="@Url.Action("CI", "DevOps")" class="tocselected"><span class="tocnumber">3</span>&nbsp;<span>Continuous Integration (CI) (Build + Test)</span></a>
+}
+else
+{
+    <a href="@Url.Action("CI", "DevOps")"><span class="tocnumber">3</span>&nbsp;<span>Continuous Integration (CI) (Build + Test)</span></a>
+}
+<ul>
+    @if (Model != null && Model.CIMenu != null && Model.CIMenu.Section1 == true)
+    {
+        <li>
+            <a href="@Url.Action("CICurrentBuildServers", "DevOps")" class="tocselected"><span class="tocnumber">3.1</span>&nbsp;<span>Current build servers</span></a>
+            <ul>
+                <li><a href="#1"><span class="tocnumber">3.1.1. </span>Overview</a></li>
+                <li><a href="#4"><span class="tocnumber">3.1.2. </span>Further reading</a></li>
+                <li><a href="#5"><span class="tocnumber">3.1.3. </span>Version history</a></li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li><a href="@Url.Action("CICurrentBuildServers", "DevOps")"><span class="tocnumber">3.1</span>&nbsp;<span>Current build servers</span></a></li>
+    }
+    @if (Model != null && Model.CIMenu != null && Model.CIMenu.Section2 == true)
+    {
+        <li>
+            <a href="@Url.Action("CISetupBuild", "DevOps")" class="tocselected"><span class="tocnumber">3.2</span>&nbsp;<span>Setup a build</span></a>
+            <ul>
+                <li><a href="#1"><span class="tocnumber">3.2.1. </span>Overview</a></li>
+                <li>
+                    <a href="#2"><span class="tocnumber">3.2.2. </span>How to setup</a>
+                    <ul>
+                        <li><a href="#2_1"><span class="tocnumber">Step 1: </span>Create a new build definition</a></li>
+                        <li><a href="#2_2"><span class="tocnumber">Step 2: </span>Create a new build workflow</a></li>
+                        <li><a href="#2_3"><span class="tocnumber">Step 3: </span>Set build definition options</a></li>
+                    </ul>
+                </li>
+                <li><a href="#3"><span class="tocnumber">3.2.3. </span>Monitoring a build</a></li>
+                <li><a href="#4"><span class="tocnumber">3.2.4. </span>Further reading</a></li>
+                <li><a href="#5"><span class="tocnumber">3.2.5. </span>Version history</a></li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li><a href="@Url.Action("CISetupBuild", "DevOps")"><span class="tocnumber">3.2</span>&nbsp;<span>Setup a build</span></a></li>
+    }
+    @if (Model != null && Model.CIMenu != null && Model.CIMenu.Section3 == true)
+    {
+        <li>
+            <a href="@Url.Action("CINewBuildServer", "DevOps")" class="tocselected"><span class="tocnumber">3.3</span>&nbsp;<span>Create a new build server</span></a>
+            <ul>
+                <li><a href="#1"><span class="tocnumber">3.3.1. </span>Overview</a></li>
+                <li><a href="#2"><span class="tocnumber">3.3.2. </span>How to setup</a></li>
+                <li><a href="#4"><span class="tocnumber">3.3.3. </span>Further reading</a></li>
+                <li><a href="#5"><span class="tocnumber">3.3.4. </span>Version history</a></li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li><a href="@Url.Action("CINewBuildServer", "DevOps")"><span class="tocnumber">3.3</span>&nbsp;<span>Create a new build server</span></a></li>
+    }
+    @if (Model != null && Model.CIMenu != null && Model.CIMenu.Section4 == true)
+    {
+        <li>
+            <a href="@Url.Action("CINewTestServer", "DevOps")" class="tocselected"><span class="tocnumber">3.4</span>&nbsp;<span>Create a new test server</span></a>
+        </li>
+    }
+    else
+    {
+        <li>
+            <a href="@Url.Action("CINewTestServer", "DevOps")"><span class="tocnumber">3.4</span>&nbsp;<span>Create a new test server</span></a>
+        </li>
+    }
+    @if (Model != null && Model.CIMenu != null && Model.CIMenu.Section5 == true)
+    {
+        <li>
+            <a href="@Url.Action("CICodeCoverage", "DevOps")" class="tocselected"><span class="tocnumber">3.5</span>&nbsp;<span>Implement Code Coverage in the build</span></a>
+            <ul>
+                <li><a href="#1"><span class="tocnumber">3.5.1. </span>Overview</a></li>
+                <li><a href="#2"><span class="tocnumber">3.5.2. </span>How to setup</a></li>
+                <li><a href="#4"><span class="tocnumber">3.5.3. </span>Further reading</a></li>
+                <li><a href="#5"><span class="tocnumber">3.5.4. </span>Version history</a></li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li>
+            <a href="@Url.Action("CICodeCoverage", "DevOps")"><span class="tocnumber">3.5</span>&nbsp;<span>Implement Code Coverage in the build</span></a>
+        </li>
+    }
+</ul>

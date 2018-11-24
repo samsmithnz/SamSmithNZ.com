@@ -1,0 +1,149 @@
+﻿@using SSNZ.DevOps.Web.Models
+@model DevOpsMenu2ViewModel
+
+@if (Model != null && Model.CDMenu != null && Model.CDMenu.MainHeader == true)
+{
+    <a href="@Url.Action("CD", "DevOps")" class="tocselected"><span class="tocnumber">4</span>&nbsp;<span>Continuous Delivery (CD) (Release, Deploy + Operate)</span></a>
+}
+else
+{
+    <a href="@Url.Action("CD", "DevOps")"><span class="tocnumber">4</span>&nbsp;<span>Continuous Delivery (CD) (Release, Deploy + Operate)</span></a>
+}
+<ul>
+    @if (Model != null && Model.CDMenu != null && Model.CDMenu.Section1 == true)
+    {
+        <li><a href="@Url.Action("CDPlanning", "DevOps")" class="tocselected"><span class="tocnumber">4.1</span>&nbsp;<span>Planning for CD</span></a></li>
+    }
+    else
+    {
+        <li><a href="@Url.Action("CDPlanning", "DevOps")"><span class="tocnumber">4.1</span>&nbsp;<span>Planning for CD</span></a></li>
+    }
+    @if (Model != null && Model.CDMenu != null && Model.CDMenu.Section2 == true)
+    {
+        <li>
+            <a href="@Url.Action("CDSetupNewRelease", "DevOps")" class="tocselected"><span class="tocnumber">4.2</span>&nbsp;<span>Setup a new release</span></a>
+            <ul>
+                <li><a href="#1"><span class="tocnumber">4.2.1. </span>Overview</a></li>
+                <li><a href="#2"><span class="tocnumber">4.2.2. </span>How to setup</a></li>
+                <li><a href="#3"><span class="tocnumber">4.2.3. </span>Further reading</a></li>
+                <li><a href="#4"><span class="tocnumber">4.2.4. </span>Version history</a></li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li><a href="@Url.Action("CDSetupNewRelease", "DevOps")"><span class="tocnumber">4.2</span>&nbsp;<span>Setup a new release</span></a></li>
+    }
+    @if (Model != null && Model.CDMenu != null && Model.CDMenu.Section3 == true)
+    {
+        <li>
+            <a href="@Url.Action("CDSetupDeploymentServer", "DevOps")" class="tocselected"><span class="tocnumber">4.3</span>&nbsp;<span>Setup a server to receive deployments</span></a>
+            <ul>
+                <li><a href="#1"><span class="tocnumber">4.3.1. </span>Overview</a></li>
+                <li><a href="#2"><span class="tocnumber">4.3.2. </span>How to setup</a></li>
+                <li><a href="#3"><span class="tocnumber">4.3.3. </span>TFS 2015/ VSTS specific setups</a></li>
+                <li><a href="#4"><span class="tocnumber">4.3.4. </span>Further reading</a></li>
+                <li><a href="#5"><span class="tocnumber">4.3.5. </span>Version history</a></li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li><a href="@Url.Action("CDSetupDeploymentServer", "DevOps")"><span class="tocnumber">4.3</span>&nbsp;<span>Setup a server to receive deployments</span></a></li>
+    }
+    @if (Model != null && Model.CDMenu != null && Model.CDMenu.Section4 == true)
+    {
+        <li>
+            <a href="@Url.Action("CDSetupDeploymentToSQL", "DevOps")" class="tocselected"><span class="tocnumber">4.4</span>&nbsp;<span>Setup a deployment to SQL</span></a>
+            <ul>
+                <li><a href="#1"><span class="tocnumber">4.4.1. </span>Overview</a></li>
+                <li>
+                    <a href="#2"><span class="tocnumber">4.4.2. </span>Creating the deployment workflow</a>
+                    <ul>
+                        <li><a href="#2_1"><span class="tocnumber">Step 1: </span>Windows Machine File Copy</a></li>
+                        <li><a href="#2_2"><span class="tocnumber">Step 2: </span>PowerShell on TargetMachines</a></li>
+                        <li><a href="#2_3"><span class="tocnumber">Step 3: </span>Windows Machine File Copy</a></li>
+                        <li><a href="#2_4"><span class="tocnumber">Step 4: </span>"WinRM - SQL Server DB Deployment"/ "SQL Server Database Deploy(Preview)"</a></li>
+                        <li><a href="#2_5"><span class="tocnumber"></span>Troubleshooting deployment of dacpac's and SQLPackage.exe</a></li>
+                    </ul>
+                </li>
+                <li><a href="#3"><span class="tocnumber">4.4.3. </span>Further reading</a></li>
+                <li><a href="#4"><span class="tocnumber">4.4.4. </span>Version history</a></li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li><a href="@Url.Action("CDSetupDeploymentToSQL", "DevOps")"><span class="tocnumber">4.4</span>&nbsp;<span>Setup a deployment to SQL</span></a></li>
+    }
+    @if (Model != null && Model.CDMenu != null && Model.CDMenu.Section5 == true)
+    {
+        <li>
+            <a href="@Url.Action("CDSetupDeploymentToIIS", "DevOps")" class="tocselected"><span class="tocnumber">4.5</span>&nbsp;<span>Setup a deployment to IIS</span></a>
+            <ul>
+                <li><a href="#1"><span class="tocnumber">4.5.1. </span>Overview</a></li>
+                <li>
+                    <a href="#2"><span class="tocnumber">4.5.2. </span><b>How to setup the TFS 2015 deployment workflow</b></a>
+                    <ul>
+                        <li><a href="#2_1" onclick="updateTFSVSTSScript('vstsli2', 'tfsli2', 'vsts2', 'tfs2')"><span class="tocnumber">Step 1: </span>Setup MSDeploy on the server</a></li>
+                        <li><a href="#2_2" onclick="updateTFSVSTSScript('vstsli2', 'tfsli2', 'vsts2', 'tfs2')"><span class="tocnumber">Step 2: </span>Add environment variables for each appsetting</a></li>
+                        <li><a href="#2_3" onclick="updateTFSVSTSScript('vstsli2', 'tfsli2', 'vsts2', 'tfs2')"><span class="tocnumber">Step 3: </span>Setup a parameters.xml file</a></li>
+                        <li><a href="#2_4" onclick="updateTFSVSTSScript('vstsli2', 'tfsli2', 'vsts2', 'tfs2')"><span class="tocnumber">Step 4: </span>Copy PowerShell scripts to target machines</a></li>
+                        <li><a href="#2_5" onclick="updateTFSVSTSScript('vstsli2', 'tfsli2', 'vsts2', 'tfs2')"><span class="tocnumber">Step 5: </span>Copy web packages to target machines</a></li>
+                        <li><a href="#2_6" onclick="updateTFSVSTSScript('vstsli2', 'tfsli2', 'vsts2', 'tfs2')"><span class="tocnumber">Step 6: </span>Substitute web.config app settings</a></li>
+                        <li><a href="#2_7" onclick="updateTFSVSTSScript('vstsli2', 'tfsli2', 'vsts2', 'tfs2')"><span class="tocnumber">Step 7: </span>Deploy the web package to target machines</a></li>
+                        <li><a href="#2_8" onclick="updateTFSVSTSScript('vstsli2', 'tfsli2', 'vsts2', 'tfs2')"><span class="tocnumber">Step 8: </span>Setup application pool</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#3"><span class="tocnumber">4.5.3. </span><b>How to setup the VSTS deployment workflow</b></a>
+                    <ul>
+                        <li><a href="#3_1" onclick="updateTFSVSTSScript('tfsli2', 'vstsli2', 'tfs2', 'vsts2')"><span class="tocnumber">Step 1: </span>Setup MS Deploy on the server</a></li>
+                        <li><a href="#3_2" onclick="updateTFSVSTSScript('tfsli2', 'vstsli2', 'tfs2', 'vsts2')"><span class="tocnumber">Step 2: </span>Setup ASP.Net Core for IIS</a></li>
+                        <li><a href="#3_3" onclick="updateTFSVSTSScript('tfsli2', 'vstsli2', 'tfs2', 'vsts2')"><span class="tocnumber">Step 3: </span>Configure the IIS Deployment phase</a></li>
+                        <li><a href="#3_4" onclick="updateTFSVSTSScript('tfsli2', 'vstsli2', 'tfs2', 'vsts2')"><span class="tocnumber">Step 4: </span>IIS Web App Manage</a></li>
+                        <li><a href="#3_5" onclick="updateTFSVSTSScript('tfsli2', 'vstsli2', 'tfs2', 'vsts2')"><span class="tocnumber">Step 5: </span>IIS Web App Deploy</a></li>
+                    </ul>
+                </li>
+                <li><a href="#4"><span class="tocnumber">4.5.4. </span>Further reading</a></li>
+                <li><a href="#5"><span class="tocnumber">4.5.5. </span>Version history</a></li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li><a href="@Url.Action("CDSetupDeploymentToIIS", "DevOps")"><span class="tocnumber">4.5</span>&nbsp;<span>Setup a deployment to IIS</span></a></li>
+    }
+    @if (Model != null && Model.CDMenu != null && Model.CDMenu.Section6 == true)
+    {
+        <li>
+            <a href="@Url.Action("CDSetupDeploymentOfWindowsService", "DevOps")" class="tocselected"><span class="tocnumber">4.6</span>&nbsp;<span>Setup a deployment of a Windows Service</span></a>
+            <ul>
+                <li><a href="#1"><span class="tocnumber">4.6.1. </span>Overview</a></li>
+                <li><a href="#2"><span class="tocnumber">4.6.2. </span>Further reading</a></li>
+                <li><a href="#3"><span class="tocnumber">4.6.3. </span>Version history</a></li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li><a href="@Url.Action("CDSetupDeploymentOfWindowsService", "DevOps")"><span class="tocnumber">4.6</span>&nbsp;<span>Setup a deployment of a Windows Service</span></a></li>
+    }
+    @if (Model != null && Model.CDMenu != null && Model.CDMenu.Section7 == true)
+    {
+        <li>
+            <a href="@Url.Action("CDSetupQAandProductionReleases", "DevOps")" class="tocselected"><span class="tocnumber">4.7</span>&nbsp;<span>Setup releases for QA and Production</span></a>
+            <ul>
+                <li><a href="#1"><span class="tocnumber">4.7.1. </span>Overview</a></li>
+                <li><a href="#2"><span class="tocnumber">4.7.2. </span>QA Deployments</a></li>
+                <li><a href="#3"><span class="tocnumber">4.7.3. </span>Production Deployments</a></li>
+                <li><a href="#4"><span class="tocnumber">4.7.4. </span>Further reading</a></li>
+                <li><a href="#5"><span class="tocnumber">4.7.5. </span>Version history</a></li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li><a href="@Url.Action("CDSetupQAandProductionReleases", "DevOps")"><span class="tocnumber">4.7</span>&nbsp;<span>Setup releases for QA and Production</span></a></li>
+    }
+</ul>

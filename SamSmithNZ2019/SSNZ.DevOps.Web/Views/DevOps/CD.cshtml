@@ -1,0 +1,56 @@
+﻿@using SSNZ.DevOps.Web.Models
+@{
+    ViewBag.Title = "Continuous Delivery (CD)";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("DevOps", "Index", "DevOps")</li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @ViewBag.Title
+                </h3>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("PartialViews/_DevOpsMenu", new DevOpsMenu2ViewModel(null, null, null, new DevOpsMenuViewModel(true, false, false, false, false, false, false, false), null))
+                <hr />
+
+                <b>The goal of CD is to automate and minimize the time to deploy code and mitigate production incidents, reducing the feedback loop from idea to delivery</b><br />
+                <img src="~/images/DevOps/CD/CD.png" class="DevOpsImage" /><br /><br />
+                The CD process typically starts after a successful continuous integration<br />
+                <ul>
+                    <li><u>Provisioning</u>: Create ('provision') new servers as needed to handle high loads. [Note: This step will not be part of the initial DevOps roll out]</li>
+                    <li><u>Configuration</u>: Setup the target server as needed, installing missing frameworks and/or web services. [Note: This step will not be part of the initial DevOps roll out]</li>
+                    <li><u>Deployment</u>: A release pipeline stages each successive environment, copying files and configuring the application as needed</li>
+                </ul>
+                <br />
+                <span>Below is a release example for the "AppStack" application in TFS, showing a successful release to Dev and QA, but awaiting approval to release to production (in the popup):</span><br />
+                <br /><img src="~/images/DevOps/CD/CDRelease.png" class="DevOpsImage" /><br />
+                <hr />
+
+                <b>Further reading:</b>
+                <ul>
+                    <li><a href="https://en.wikipedia.org/wiki/Continuous_delivery">Continuous Delivery (CD) [Wikipedia entry]</a></li>
+                </ul>
+                <hr />
+
+                <b>Version history:</b>
+                <ul>
+                    <li>16-Jun-2017: Initial release of DevOps content</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
