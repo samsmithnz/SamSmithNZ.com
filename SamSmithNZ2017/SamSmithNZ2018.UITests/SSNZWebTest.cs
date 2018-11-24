@@ -46,6 +46,7 @@ namespace SamSmithNZ2018.UITests
                 _SSNZIntFootballServiceUrl = TestContext.Properties["SSNZIntFootballServiceUrl"].ToString();
                 _SSNZITunesServiceUrl = TestContext.Properties["SSNZITunesServiceUrl"].ToString();
                 _SSNZGuitarTabServiceUrl = TestContext.Properties["SSNZGuitarTabServiceUrl"].ToString();
+                _SSNZMAndMServiceUrl = TestContext.Properties["SSNZMAndMServiceUrl"].ToString();
                 _SSNZLegoServiceUrl = TestContext.Properties["SSNZLegoServiceUrl"].ToString();
             }
         }
@@ -161,12 +162,12 @@ namespace SamSmithNZ2018.UITests
             bool ssnzMAndMServiceLoaded = false;
 
             //Act
-            string mandmURL = this._SSNZMAndMServiceUrl + "";
+            string mandmURL = this._SSNZMAndMServiceUrl + "api/MandMCounter/GetDataForUnit?unit=cup&quantity=1";
             _Driver.Navigate().GoToUrl(mandmURL);
             ssnzMAndMServiceLoaded = (_Driver.Url == mandmURL);
 
             //Assert
-            Assert.IsTrue(ssnzMAndMServiceLoaded == false);
+            Assert.IsTrue(ssnzMAndMServiceLoaded == true);
         }
 
         [TestMethod]
@@ -178,12 +179,12 @@ namespace SamSmithNZ2018.UITests
             bool ssnzLegoServiceLoaded = false;
 
             //Act
-            string legoURL = this._SSNZLegoServiceUrl + "";
+            string legoURL = this._SSNZLegoServiceUrl + "api/LegoOwnedSets"; ;
             _Driver.Navigate().GoToUrl(legoURL);
             ssnzLegoServiceLoaded = (_Driver.Url == legoURL);
 
             //Assert
-            Assert.IsTrue(ssnzLegoServiceLoaded == false);
+            Assert.IsTrue(ssnzLegoServiceLoaded == true);
         }
 
         [TestCleanup()]
