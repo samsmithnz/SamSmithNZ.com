@@ -1,5 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[LegoGetOwnedSets]
-	@OwnerCode INT = 1
+	@OwnerCode INT = 1,
+	@SetNum VARCHAR(100) = NULL
 AS
 BEGIN
 	SELECT s.set_num AS SetNum,
@@ -15,6 +16,6 @@ BEGIN
 	JOIN LegoInventories i ON s.set_num = i.set_num
 	JOIN LegoThemes t ON t.id = s.theme_id
 	WHERE o.owner_code = @OwnerCode
-	--WHERE s.set_num = '75218-1'
+	AND (@SetNum IS NULL OR s.set_num = @SetNum) --'75218-1'
 	ORDER BY s.[name]
 END

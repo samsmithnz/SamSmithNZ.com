@@ -19,6 +19,7 @@ var app = angular.module("FooFightersApp", ['ngSanitize']);
 var app = angular.module("ITunesApp", ['angularMoment']);
 var app = angular.module("IntFootballApp", ['angularMoment']);
 var app = angular.module("MandMCounterApp", []);
+var app = angular.module("LegoApp", []);
 //app.run(["$rootScope", function ($rootScope) {
 //    $rootScope.popup = "Ari Lerner";
 //    //$rootScope.partnerSetUpData = [];

@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
-using Microsoft.Azure.KeyVault;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using SSNZ.Steam2019.Service.Services;
 using StackExchange.Redis;
 using Swashbuckle.AspNetCore.Swagger;
+using System.IO;
 
 namespace SSNZ.Steam2019.Service
 {
@@ -100,7 +92,6 @@ namespace SSNZ.Steam2019.Service
             RewriteOptions option = new RewriteOptions();
             option.AddRedirect("^$", "swagger");
             app.UseRewriter(option);
-
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseHttpsRedirection();

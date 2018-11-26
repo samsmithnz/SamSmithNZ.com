@@ -19,6 +19,7 @@
 
         var onGetSetEventComplete = function (response) {
             $scope.set = response.data;
+            console.log(response.data);
         } 
 
         var onGetSetPartsEventComplete = function (response) {

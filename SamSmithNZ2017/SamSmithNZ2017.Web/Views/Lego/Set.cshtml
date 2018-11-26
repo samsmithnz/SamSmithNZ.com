@@ -3,11 +3,15 @@
 }
 
 <div ng-controller="setController">
+    <div class="BreadCrumbs">
+        &nbsp;&nbsp;&nbsp;  @Html.ActionLink("Home", "Index", "Lego") >
+    </div>
+    <h3><b>{{set.SetName}}</b> ({{set.SetYear}})</h3>
+    <span>Total parts: {{set.NumberOfParts}}</span><br />
+    <span>Theme: {{set.ThemeName}}</span>
+    <h3>Parts:</h3>
     <div class="row">
         <div class="col-md-12">
-            <div style="visibility: hidden">
-                {"Quantity":4,"ColorId":0,"ColorName":"Light Bluish Gray","PartNum":"2714b","PartName":"Bar 8L - Two Stop Rings / One Pin, Technic Figure Ski Pole [Flat End]","PartCategoryName":"Bars, Ladders and Fences"},
-            </div>
             <div class="row">
                 <div ng-repeat="item in setParts">
                     <div class="clearfix" ng-if="$index % 12 == 0"></div>

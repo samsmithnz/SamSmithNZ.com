@@ -11,13 +11,13 @@
         var baseUrl = 'https://ssnzlegowebservice.azurewebsites.net/';
 
         this.getOwnedSets = function () {
-            let url: string = baseUrl + 'api/LegoOwnedSets';
+            let url: string = baseUrl + 'api/LegoOwnedSets/GetOwnedSets';
             //console.log(url);
             return $http.get(url);
         };
 
         this.getSet = function (setNum) {
-            let url: string = baseUrl + 'api/LegoOwnedSet?setNum=' + setNum;
+            let url: string = baseUrl + 'api/LegoOwnedSets/GetSet?setNum=' + setNum;
             //console.log(url);
             return $http.get(url);
         }
