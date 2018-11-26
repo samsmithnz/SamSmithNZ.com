@@ -179,7 +179,7 @@ namespace SamSmithNZ2018.UITests
             bool ssnzLegoServiceLoaded = false;
 
             //Act
-            string legoURL = this._SSNZLegoServiceUrl + "api/LegoOwnedSets"; ;
+            string legoURL = this._SSNZLegoServiceUrl + "api/LegoOwnedSets/GetOwnedSets"; ;
             _Driver.Navigate().GoToUrl(legoURL);
             ssnzLegoServiceLoaded = (_Driver.Url == legoURL);
 

@@ -17,7 +17,7 @@ namespace SamSmithNZ2017.Web.Controllers
         public ActionResult Set(string setNum)
         {
             ViewBag.Title = "Lego set parts";
-            return View(setNum);
+            return View();
         }
     }
 }

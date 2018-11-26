@@ -219,3 +219,9 @@ $RECYCLE.BIN/
 **/Scripts/LegoControllers/*.js
 **/Scripts/LegoServices/*.map
 **/Scripts/LegoServices/*.js
+**/Scripts/MandMCounterControllers/*.map
+**/Scripts/MandMCounterControllers/*.js
+**/Scripts/MandMCounterServices/*.map
+**/Scripts/MandMCounterServices/*.js
+**/Scripts/app.js
+**/Scripts/app.js.map

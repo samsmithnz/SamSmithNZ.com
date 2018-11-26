@@ -16,7 +16,7 @@
         };
 
         var onGetOwnedSetsEventComplete = function (response) {
-            console.log(response.data);            
+            //console.log(response.data);            
             $scope.sets = response.data;
         }
 

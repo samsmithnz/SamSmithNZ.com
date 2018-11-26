@@ -15,11 +15,18 @@ namespace SSNZ.Lego.Service.Controllers
     public class LegoOwnedSetsController : ControllerBase
     {
         // GET api/values
-        [HttpGet]
-        public async Task<List<LegoOwnedSets>> Get()
+        [HttpGet("GetOwnedSets")]
+        public async Task<List<LegoOwnedSets>> GetOwnedSets()
         {
             LegoOwnedSetsDA da = new LegoOwnedSetsDA();
             return await da.GetLegoOwnedSetsAsync();
+        }
+
+        [HttpGet("GetSet")]
+        public async Task<List<LegoOwnedSets>> GetSet(string setNum)
+        {
+            LegoOwnedSetsDA da = new LegoOwnedSetsDA();
+            return await da.GetLegoOwnedSetAsync(setNum);
         }
 
         //// GET api/values

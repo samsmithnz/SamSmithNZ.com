@@ -11,7 +11,7 @@
         var baseUrl = 'https://ssnzlegowebservice.azurewebsites.net/';
 
         this.getSetParts = function (setNum) {
-            let url: string = baseUrl + 'api/LegoParts/Get?setNum=' + setNum;
+            let url: string = baseUrl + 'api/LegoParts?setNum=' + setNum;
             //console.log(url);
             return $http.get(url);
         };

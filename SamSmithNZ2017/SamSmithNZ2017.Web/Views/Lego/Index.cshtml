@@ -12,18 +12,18 @@
                     <th>Theme</th>
                     <th>Number of parts</th>
                 </tr>
-                <tr ng-repeat="item in tournaments">
+                <tr ng-repeat="item in sets">
                     <td>
-                        <a href="/Lego/Tournament?setNum={{item.setNum}}">{{item.setName}}</a>
+                        <a href="/Lego/Set?setNum={{item.SetNum}}">{{item.SetName}}</a>
                     </td>
                     <td>
-                        {{item.setYear}}
+                        {{item.SetYear}}
                     </td>
                     <td>
-                        {{item.themeName}}
+                        {{item.ThemeName}}
                     </td>
                     <td>
-                        {{item.numberOfParts}}
+                        {{item.NumberOfParts}}
                     </td>
                 </tr>
             </table>

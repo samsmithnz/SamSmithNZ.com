@@ -4,12 +4,11 @@
     angular
         .module('LegoApp')
         .controller('setController', setController);
-    setController.$inject = ['$scope', '$http', 'setPartsService'];
+    setController.$inject = ['$scope', '$http', 'setService', 'setPartsService'];
 
-    function setController($scope, $http, setPartsService) {
+    function setController($scope, $http, setService, setPartsService) {
 
-        $scope.tournament = [];
-        $scope.currentDate = new Date();
+        $scope.setParts = null;
         $scope.setNum = null;
 
         var onError = function (data) {
@@ -18,44 +17,17 @@
             console.log(data);
         };
 
-        var onGetTournamentsEventComplete = function (response) {
-            $scope.tournaments = response.data;
+        var onGetSetEventComplete = function (response) {
+            $scope.set = response.data;
+        } 
 
-            var lnkBreadCrumb2Visibility = 'false';
-            var lnkBreadCrumb2Href = '';
-            var lblBreadCrumbData2 = 'Tournament list';
-            var lblBreadCrumbSeperator2Visibility = 'hidden';
-            var lblBreadCrumb3Visibility = 'hidden';
-            var lblBreadCrumb3 = '';
-
-            //lnkBreadCrumb2
-            if (lnkBreadCrumb2Visibility == 'true') {
-                var target1 = <HTMLAnchorElement>document.querySelector('#lnkBreadCrumb2');
-                target1.innerHTML = lblBreadCrumbData2;
-                target1.href = lnkBreadCrumb2Href;
-                //console.log(target1.innerHTML);
-            }
-            else {
-                var target1a = document.querySelector('#lnkBreadCrumb2');
-                var c = $('#lnkBreadCrumb2').contents().unwrap();
-                console.log(c[0].nodeValue);
-                c[0].nodeValue = lblBreadCrumbData2;
-                //console.log(lblBreadCrumbData2);
-            }
-
-            //lblBreadCrumbSeperator2
-            var target3 = <HTMLElement>document.querySelector('#lblBreadCrumbSeperator2');
-            target3.style.visibility = lblBreadCrumbSeperator2Visibility;
-            //console.log(target3.innerHTML);
-
-            //lblBreadCrumb3
-            var target4 = <HTMLElement>document.querySelector('#lblBreadCrumb3');
-            target4.style.visibility = lblBreadCrumb3Visibility;
-            target4.innerHTML = lblBreadCrumb3;
-            //console.log(target4.innerHTML);
+        var onGetSetPartsEventComplete = function (response) {
+            $scope.setParts = response.data;
         }
+
         $scope.setNum = getUrlParameter('SetNum');
-        setPartsService.getSetParts($scope.setNum).then(onGetTournamentsEventComplete, onError);
+        setService.getSet($scope.setNum).then(onGetSetEventComplete, onError);
+        setPartsService.getSetParts($scope.setNum).then(onGetSetPartsEventComplete, onError);
     }
 
     function getUrlParameter(param: string) {
