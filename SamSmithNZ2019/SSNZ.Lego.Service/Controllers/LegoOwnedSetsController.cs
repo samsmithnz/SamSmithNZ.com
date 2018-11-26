@@ -23,7 +23,7 @@ namespace SSNZ.Lego.Service.Controllers
         }
 
         [HttpGet("GetSet")]
-        public async Task<List<LegoOwnedSets>> GetSet(string setNum)
+        public async Task<LegoOwnedSets> GetSet(string setNum)
         {
             LegoOwnedSetsDA da = new LegoOwnedSetsDA();
             return await da.GetLegoOwnedSetAsync(setNum);
