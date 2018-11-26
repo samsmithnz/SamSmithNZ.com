@@ -16,8 +16,8 @@
             return $http.get(url);
         };
 
-        this.getSet = function () {
-            let url: string = baseUrl + 'api/LegoOwnedSet?setNum=' + setNum;';
+        this.getSet = function (setNum) {
+            let url: string = baseUrl + 'api/LegoOwnedSet?setNum=' + setNum;
             //console.log(url);
             return $http.get(url);
         }
