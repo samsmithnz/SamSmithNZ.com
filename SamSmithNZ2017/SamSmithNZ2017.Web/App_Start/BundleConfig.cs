@@ -69,8 +69,16 @@ namespace SamSmithNZ2017
                         "~/Scripts/MandMCounterControllers/", "*.js", searchSubdirectories: true
                 ));
 
+            bundles.Add(new ScriptBundle("~/bundles/legoServicesJS").IncludeDirectory(
+                        "~/Scripts/LegoServices/", "*.js", searchSubdirectories: true
+                ));
 
-            
+            bundles.Add(new ScriptBundle("~/bundles/legoControllersJS").IncludeDirectory(
+                        "~/Scripts/LegoControllers/", "*.js", searchSubdirectories: true
+                ));
+
+
+
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.

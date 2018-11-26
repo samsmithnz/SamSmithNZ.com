@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutLego.cshtml";
+}
+
+<div ng-controller="indexController">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>Set name</th>
+                    <th>Year</th>
+                    <th>Theme</th>
+                    <th>Number of parts</th>
+                </tr>
+                <tr ng-repeat="item in tournaments">
+                    <td>
+                        <a href="/Lego/Tournament?setNum={{item.setNum}}">{{item.setName}}</a>
+                    </td>
+                    <td>
+                        {{item.setYear}}
+                    </td>
+                    <td>
+                        {{item.themeName}}
+                    </td>
+                    <td>
+                        {{item.numberOfParts}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

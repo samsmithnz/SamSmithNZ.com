@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using SSNZ.Lego.DataAccess;
 using SSNZ.Lego.Models;
 
 namespace SSNZ.Lego.Service.Controllers
 {
+    [EnableCors("MyCorsPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class LegoOwnedSetsController : ControllerBase

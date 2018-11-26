@@ -215,3 +215,7 @@ $RECYCLE.BIN/
 **/Scripts/IntFootballControllers/*.js
 **/Scripts/IntFootballServices/*.map
 **/Scripts/IntFootballServices/*.js
+**/Scripts/LegoControllers/*.map
+**/Scripts/LegoControllers/*.js
+**/Scripts/LegoServices/*.map
+**/Scripts/LegoServices/*.js

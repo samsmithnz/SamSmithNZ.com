@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My Lego Collection</title>
+    <link rel="shortcut icon" sizes="32x32" href="~/Content/IntFootball/favicon.ico">
+    @Styles.Render("~/Content/globalCSS")
+    @Scripts.Render("~/bundles/globalJS")
+    @Scripts.Render("~/bundles/legoServicesJS")
+    @Scripts.Render("~/bundles/legoControllersJS")
+    <script type="text/javascript">var appInsights = window.appInsights || function (config) { function r(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, u = document, e = window, o = "script", s = u.createElement(o), i, f; for (s.src = config.url || "//az416426.vo.msecnd.net/scripts/a/ai.0.js", u.getElementsByTagName(o)[0].parentNode.appendChild(s), t.cookie = u.cookie, t.queue = [], i = ["Event", "Exception", "Metric", "PageView", "Trace"]; i.length;)r("track" + i.pop()); return r("setAuthenticatedUserContext"), r("clearAuthenticatedUserContext"), config.disableExceptionTracking || (i = "onerror", r("_" + i), f = e[i], e[i] = function (config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t["_" + i](config, r, u, e, o), s }), t }({ instrumentationKey: "3319a8e9-0255-441c-ae08-fe623a5f813f" }); window.appInsights = appInsights; appInsights.trackPageView();</script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-22707453-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+</head>
+<body ng-app="LegoApp" style="padding-top:0px;">
+    <div class="headerandlogo">
+        <table class="PercentWidth100">
+            <tr>
+                <td class="PercentWidth100">
+                    <a href="@Url.Action("Index", "Lego")" class="headerText">
+                        <img src="@Url.Content("~/Content/Lego/Lego.png")" alt="" class="headerImg" />
+                        <span class="headerText">My Lego Collection</span>
+                    </a>
+                </td>
+                <td align="right">
+                    @*<div>
+                        <a href="@Url.Action("About", "Lego")">About</a>
+                    </div>*@
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="contentFrame">
+        @*<div class="BreadCrumbs" style="padding-left: 1.5em;">
+            &nbsp;&nbsp;&nbsp;  @Html.ActionLink("Home", "Index", "Lego") >
+        </div>*@
+        <div style="padding-left: 1.5em;">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="contentMain">
+            @RenderBody()
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="tableofcontents" style="width: 100%; text-align: center;">
+            Copyright &copy;2000 - @DateTime.Now.Year SamSmithNZ.com
+        </div>
+    </div>
+</body>
+</html>

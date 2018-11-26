@@ -12,40 +12,49 @@ namespace SSNZ.Lego.DownloadFilesApp
 {
     class Program
     {
-                static async Task Main(string[] args)
+        static async Task Main(string[] args)
         {
             try
             {
                 //Get configuration values
                 IConfiguration config = new ConfigurationBuilder()
                       .AddJsonFile("appsettings.json", true, true)
-                      .Build();            
+                      .Build();
                 string legoPartFilesToDownloadURL = config["legoPartFilesToDownloadURL"];
                 string csvFilesToDownloadURL = config["csvFilesToDownloadURL"];
                 string storageConnectionString = config["storageConnectionString"];
-                string tempFolderLocationLegoParts = Path.GetTempPath() + config["tempFolderLocationLegoParts"];
                 string tempFolderLocationCSVFiles = Path.GetTempPath() + config["tempFolderLocationCSVFiles"];
+                string tempFolderLocationLegoParts = Path.GetTempPath() + config["tempFolderLocationLegoParts"];
+                string tempFolderLocationLegoPartsUnZipped = Path.GetTempPath() + config["tempFolderLocationLegoPartsUnZipped"];
 
                 //Confirm that the temp folder can be accessed and is clear
-                if (LocalFileManagement.PrepareTempFolderForDownloads(tempFolderLocationLegoParts) == false || LocalFileManagement.PrepareTempFolderForDownloads(tempFolderLocationCSVFiles) == false)
+                if (LocalFileManagement.PrepareTempFolderForDownloads(tempFolderLocationCSVFiles) == false ||
+                      LocalFileManagement.PrepareTempFolderForDownloads(tempFolderLocationLegoParts) == false ||
+                      LocalFileManagement.PrepareTempFolderForDownloads(tempFolderLocationLegoPartsUnZipped) == false)
                 {
                     PressAKeyToExit("Temp folder preparation failed - process aborted");
                 }
                 else
                 {
-                    //Get list of colors from database
+                    //Get csv files to process
                     List<string> csvFiles = GetLegoCSVFiles();
-                    //Download all files from URL to temp folder
+                    //Download all files from URL to temp foldter
                     await LocalFileManagement.DownloadFilesToTempFolder(csvFilesToDownloadURL, tempFolderLocationCSVFiles, csvFiles);
                     //Upload files to Azure Blob, if they have changed (checksum?)
-                    await AzureBlobManagement.UploadFilesToStorageAccountBlobs(storageConnectionString, "legocsvfiles", tempFolderLocationCSVFiles, csvFiles);
+                    await AzureBlobManagement.UploadFilesToStorageAccountBlobs(storageConnectionString, "legocsvfiles", tempFolderLocationCSVFiles, csvFiles, false);
+
+                    //LocalFileManagement.PrepareTempFolderForDownloads(tempFolderLocationLegoPartsUnZipped);
 
                     //Get list of colors from database
                     List<string> colorFiles = GetColorFiles();
                     //Download all files from URL to temp folder
                     await LocalFileManagement.DownloadFilesToTempFolder(legoPartFilesToDownloadURL, tempFolderLocationLegoParts, colorFiles);
+                    //Unzip all color zips into a new folder
+                    LocalFileManagement.UnZipFiles(tempFolderLocationLegoParts, tempFolderLocationLegoPartsUnZipped, colorFiles);
+                    //Get the unzipped files
+                    List<string> unzippedColorFiles = LocalFileManagement.GetUnZippedFiles(tempFolderLocationLegoPartsUnZipped);
                     //Upload files to Azure Blob, if they have changed (checksum?)
-                    await AzureBlobManagement.UploadFilesToStorageAccountBlobs(storageConnectionString, "legopartimages", tempFolderLocationLegoParts, colorFiles);
+                    await AzureBlobManagement.UploadFilesToStorageAccountBlobs(storageConnectionString, "legopartimages", tempFolderLocationLegoPartsUnZipped, unzippedColorFiles, true);
 
                     //Bonus: Trigger azure function to start data factory import
                     //Bonus: If new color detected, run this process again

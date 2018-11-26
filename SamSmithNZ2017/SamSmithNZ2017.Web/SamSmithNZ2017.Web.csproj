@@ -220,6 +220,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IntFootballController.cs" />
     <Compile Include="Controllers\iTunesController.cs" />
+    <Compile Include="Controllers\LegoController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MandMCounterController.cs" />
     <Compile Include="Controllers\SteamController.cs" />
@@ -511,6 +512,7 @@
     <Content Include="Content\IntFootball\Yellow_card_svg.png" />
     <Content Include="Content\ITunes\favicon.ico" />
     <Content Include="Content\ITunes\iTunes.png" />
+    <Content Include="Content\Lego\Lego.png" />
     <Content Include="Content\MandMCounter\favicon.ico" />
     <Content Include="Content\MandMCounter\MandM.png" />
     <Content Include="Content\Steam\favicon.ico" />
@@ -1329,6 +1331,11 @@
     <TypeScriptCompile Include="Scripts\FooFightersServices\yearService.ts" />
     <TypeScriptCompile Include="Scripts\FooFightersServices\songService.ts" />
     <TypeScriptCompile Include="Scripts\FooFightersServices\albumService.ts" />
+    <TypeScriptCompile Include="Scripts\LegoControllers\setController.ts" />
+    <TypeScriptCompile Include="Scripts\LegoServices\setService.ts" />
+    <TypeScriptCompile Include="Scripts\LegoServices\setPartsService.ts" />
+    <TypeScriptCompile Include="Scripts\LegoControllers\indexController.ts" />
+    <TypeScriptCompile Include="Scripts\LegoControllers\layoutController.ts" />
     <TypeScriptCompile Include="Scripts\IntFootballControllers\indexController.ts" />
     <TypeScriptCompile Include="Scripts\IntFootballControllers\groupController.ts" />
     <TypeScriptCompile Include="Scripts\IntFootballControllers\playOffsController.ts" />
@@ -1383,6 +1390,9 @@
     <Content Include="Views\MandMCounter\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutMandMCounter.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutLego.cshtml" />
+    <Content Include="Views\Lego\Index.cshtml" />
+    <Content Include="Views\Lego\Set.cshtml" />
     <None Include="Views\Test\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

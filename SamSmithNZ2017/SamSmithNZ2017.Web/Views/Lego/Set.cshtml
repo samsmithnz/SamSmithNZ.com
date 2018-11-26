@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutLego.cshtml";
+}
+
+<div ng-controller="setController">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>World Cup</th>
+                    <th>Round 1</th>
+                    <th>Round 2</th>
+                    <th>Round 3</th>
+                    <th>Goals per game</th>
+                    <th>Goals</th>
+                    <th>PK Goals</th>
+                    <th>Games</th>
+                    @*<th>% Data Loaded</th>*@
+                    <th>Data Missing</th>
+                </tr>
+                <tr ng-repeat="item in tournaments">
+                    <td>
+                        <img ng-src="~/Content/IntFootball/teams/{{item.HostFlagName}}" />
+                        <img ng-src="~/Content/IntFootball/teams/{{item.CoHostFlagName}}" ng-if="item.CoHostFlagName!=''" />
+                        <img ng-src="~/Content/IntFootball/teams/{{item.CoHostFlagName2}}" ng-if="item.CoHostFlagName2!=''" />
+                        <a href="/IntFootball/Tournament?tournamentCode={{item.TournamentCode}}">{{item.TournamentName}}</a>
+                    </td>
+                    <td>
+                        <a href="/IntFootball/Group?tournamentCode={{item.TournamentCode}}&roundNumber=1" ng-if="item.GameCount > 0 && item.R1FormatRoundCode > 0 && item.R1IsGroupStage == true">Group Stage</a>
+                        <a href="/IntFootball/Playoffs?tournamentCode={{item.TournamentCode}}&roundNumber=1" ng-if="item.GameCount > 0 && item.R1FormatRoundCode > 0 && item.R1IsGroupStage == false">Playoffs</a>
+                    </td>
+                    <td>
+                        <a href="/IntFootball/Group?tournamentCode={{item.TournamentCode}}&roundNumber=2" ng-if="item.GameCount > 0 && item.R2FormatRoundCode > 0 && item.R2IsGroupStage == true">Group Stage</a>
+                        <a href="/IntFootball/Playoffs?tournamentCode={{item.TournamentCode}}&roundNumber=2" ng-if="item.GameCount > 0 && item.R2FormatRoundCode > 0 && item.R2IsGroupStage == false">Playoffs</a>
+                    </td>
+                    <td>
+                        <a href="/IntFootball/Group?tournamentCode={{item.TournamentCode}}&roundNumber=3" ng-if="item.GameCount > 0 && item.R3FormatRoundCode > 0  && item.R3IsGroupStage == true">Group Stage</a>
+                        <a href="/IntFootball/Playoffs?tournamentCode={{item.TournamentCode}}&roundNumber=3" ng-if="item.GameCount > 0 && item.R3FormatRoundCode > 0  && item.R3IsGroupStage == false">Playoffs</a>
+                    </td>
+                    <td><span ng-if="item.MinGameTime != null">{{item.TotalGoals/item.GamesCompleteCount | number:2}}</span><span ng-if="item.GameCount > item.GamesCompleteCount && item.GamesCompleteCount > 0"> ({{item.GamesCompleteCount}}/{{item.GameCount}} games completed)</span></td>
+                    <td><span ng-if="item.MinGameTime != null">{{item.TotalGoals}}</span></td>
+                    <td><span ng-if="item.MinGameTime != null">{{item.TotalPenalties}}</span></td>
+                    <td><span ng-if="item.MinGameTime != null">{{item.GameCount}}</span></td>
+                    @*<td><span ng-if="item.MinGameTime != null">{{item.TotalShootoutGoals}}</span></td>*@
+                    @*<td><span ng-if="item.MinGameTime != null">{{item.ImportingTotalPercentComplete * 100 | number:2}}%</span></td>*@
+                    <td>
+                        <span ng-if="item.MinGameTime != null">
+                            <span ng-if="item.ImportingTeamPercent < 1">Teams Missing: {{(1 - item.ImportingTeamPercent) * 100 | number:2}}%; </span>
+                            <span ng-if="item.ImortingGamePercent < 1">Games Missing: {{(1 - item.ImportingGamePercent) * 100 | number:2}}%; </span>
+                            <span ng-if="item.ImportingPlayerPercent < 1">Team Rosters Missing: {{(1 - item.ImportingPlayerPercent) * 100 | number:2}}%; </span>
+                            <span ng-if="item.ImportingGoalsPercent < 1">Player Goal Assignments Missing: {{(1 - item.ImportingGoalsPercent) * 100 | number:2}}%; </span>
+                            <span ng-if="item.ImportingPenaltyShootoutGoalsPercent < 1">Player Penalty Shootouts Assignments Missing: {{(1 - item.ImportingPenaltyShootoutGoalsPercent) * 100 | number:2}}%; </span>
+                            @*<span ng-if="item.ImportingPlayerPercent < 1 && item.ImportingGoalsPercent < 1 && item.ImportingPenaltyShootoutGoalsPercent < 1">Team Rosters & Player Goal Assignments</span>
+                <span ng-if="item.ImportingGoalsPercent < 1 && item.ImportingPenaltyShootoutGoalsPercent < 1">All Player Goal Assignments</span>*@
+                        </span>
+                        <span ng-if="item.MinGameTime == null">
+                            <span>(Tournament not started)</span>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

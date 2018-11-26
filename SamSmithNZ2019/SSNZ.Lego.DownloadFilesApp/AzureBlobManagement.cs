@@ -12,7 +12,7 @@ namespace SSNZ.Lego.DownloadFilesApp
     {
         //Load up to the storage account, adapted from the Azure quick start for blob storage: 
         //https://github.com/Azure-Samples/storage-blobs-dotnet-quickstart/blob/master/storage-blobs-dotnet-quickstart/Program.cs
-        public static async Task UploadFilesToStorageAccountBlobs(string storageConnectionString, string containerName, string tempFolderLocation, List<string> files)
+        public static async Task UploadFilesToStorageAccountBlobs(string storageConnectionString, string containerName, string tempFolderLocation, List<string> files, bool filesHaveFullPath)
         {
             CloudStorageAccount storageAccount = null;
             CloudBlobContainer cloudBlobContainer = null;
@@ -51,19 +51,25 @@ namespace SSNZ.Lego.DownloadFilesApp
 
                     foreach (string file in files)
                     {
+                        string fileToUpload = file;
+                        if (filesHaveFullPath == false)
+                        {
+                            fileToUpload = tempFolderLocation + @"\" + file;
+                        }
                         Console.WriteLine("Uploading to Blob storage as blob '{0}'", file);
                         Console.WriteLine();
 
                         // Get a reference to the blob address, then upload the file to the blob.
                         // Use the value of localFileName for the blob name.
-                        if (File.Exists(tempFolderLocation + @"\" + file) == true)
+                        if (File.Exists(fileToUpload) == true)
                         {
-                            CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(file);
-                            await cloudBlockBlob.UploadFromFileAsync(tempFolderLocation + @"\" + file);
+                            //Now strip the full path off so we can store any folders with the files we extracted
+                            CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(fileToUpload.Replace(tempFolderLocation + @"\", ""));
+                            await cloudBlockBlob.UploadFromFileAsync(fileToUpload);
                         }
                         else
                         {
-                            Console.WriteLine("File '" + tempFolderLocation + @"\" + file + "' not found...");
+                            Console.WriteLine("File '" + fileToUpload + "' not found...");
                         }
                     }
 
