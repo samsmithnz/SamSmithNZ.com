@@ -223,5 +223,5 @@ $RECYCLE.BIN/
 **/Scripts/MandMCounterControllers/*.js
 **/Scripts/MandMCounterServices/*.map
 **/Scripts/MandMCounterServices/*.js
-**/Scripts/app.js
 **/Scripts/app.js.map
+**/Scripts/app.js

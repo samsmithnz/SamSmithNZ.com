@@ -8,7 +8,7 @@
     <Parameter name="SSNZFFServiceUrl" value="https://ssnzfoofighterswebservice.azurewebsites.net/" />
     <Parameter name="SSNZIntFootballServiceUrl" value="https://ssnzintfootballwebservice.azurewebsites.net/" />
     <Parameter name="SSNZITunesServiceUrl" value="https://ssnzituneswebservice.azurewebsites.net/" />
-    <Parameter name="SSNZGuitarTabServiceUrl" value="https://ssnzguitartabservice.azurewebsites.net/" />
+    <Parameter name="ssnzguitarserviceUrl" value="https://ssnzguitarservice.azurewebsites.net/" />
     <Parameter name="SSNZMAndMServiceUrl" value="https://ssnzmandmcounterservice.azurewebsites.net/" />
     <Parameter name="SSNZLegoServiceUrl" value="https://ssnzlegowebservice.azurewebsites.net/" />
   </TestRunParameters>

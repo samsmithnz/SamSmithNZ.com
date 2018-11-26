@@ -18,8 +18,8 @@
                     <div class="col-sm-1 col-xs-2" style="height: 125px;">
                         <b>{{item.Quantity}}x</b><br />
                         <img ng-src="https://ssnzlegopartscdn.azureedge.net/legopartimages/{{item.ColorId}}/{{item.PartNum}}.png" class="img-rounded" style="width:50px;" onerror="if (this.src != '@Url.Content("~/Content/Lego/lego.gif")') this.src = '@Url.Content("~/Content/Lego/lego.gif")';" /><br />
-                        {{item.ColorName}}<br />
-                        PartNum: {{item.PartNum}}<br />
+                        <span style="font-size: 9px;">{{item.ColorName}}</span><br />
+                        <span style="font-size: 9px;">PartNum: {{item.PartNum}}</span><br />
 
                     </div>
                 </div>

@@ -337,6 +337,8 @@
     <Content Include="Content\Images\NewHomePage\background.jpg" />
     <Content Include="Content\Images\NewHomePage\foofighters.jpg" />
     <Content Include="Content\Images\NewHomePage\guitar2.jpg" />
+    <Content Include="Content\Images\NewHomePage\lego.jpg" />
+    <Content Include="Content\Images\NewHomePage\mandms.jpeg" />
     <Content Include="Content\Images\NewHomePage\records.png" />
     <Content Include="Content\Images\NewHomePage\soccer.jpg" />
     <Content Include="Content\Images\NewHomePage\steam.jpg" />
@@ -1472,9 +1474,7 @@
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\SteamOld\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

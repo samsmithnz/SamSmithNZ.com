@@ -15,7 +15,7 @@ namespace SamSmithNZ2018.UITests
         private string _SSNZFFServiceUrl = null;
         private string _SSNZIntFootballServiceUrl = null;
         private string _SSNZITunesServiceUrl = null;
-        private string _SSNZGuitarTabServiceUrl = null;
+        private string _ssnzguitarserviceUrl = null;
         private string _SSNZMAndMServiceUrl = null;
         private string _SSNZLegoServiceUrl = null;
 
@@ -34,7 +34,7 @@ namespace SamSmithNZ2018.UITests
                 _SSNZFFServiceUrl = "https://ssnzfoofighterswebservice.azurewebsites.net/";
                 _SSNZIntFootballServiceUrl = "https://ssnzintfootballwebservice.azurewebsites.net/";
                 _SSNZITunesServiceUrl = "https://ssnzituneswebservice.azurewebsites.net/";
-                _SSNZGuitarTabServiceUrl = "https://ssnzguitartabservice.azurewebsites.net/";
+                _ssnzguitarserviceUrl = "https://ssnzguitarservice.azurewebsites.net/";
                 _SSNZMAndMServiceUrl = "https://ssnzmandmcounterservice.azurewebsites.net/";
                 _SSNZLegoServiceUrl = "https://ssnzlegowebservice.azurewebsites.net/";
             }
@@ -45,7 +45,7 @@ namespace SamSmithNZ2018.UITests
                 _SSNZFFServiceUrl = TestContext.Properties["SSNZFFServiceUrl"].ToString();
                 _SSNZIntFootballServiceUrl = TestContext.Properties["SSNZIntFootballServiceUrl"].ToString();
                 _SSNZITunesServiceUrl = TestContext.Properties["SSNZITunesServiceUrl"].ToString();
-                _SSNZGuitarTabServiceUrl = TestContext.Properties["SSNZGuitarTabServiceUrl"].ToString();
+                _ssnzguitarserviceUrl = TestContext.Properties["ssnzguitarserviceUrl"].ToString();
                 _SSNZMAndMServiceUrl = TestContext.Properties["SSNZMAndMServiceUrl"].ToString();
                 _SSNZLegoServiceUrl = TestContext.Properties["SSNZLegoServiceUrl"].ToString();
             }
@@ -139,18 +139,18 @@ namespace SamSmithNZ2018.UITests
         [TestMethod]
         [TestCategory("SkipWhenLiveUnitTesting")]
         [TestCategory("SmokeTest")]
-        public void GotoSSNZGuitarTabServiceTest()
+        public void GotossnzguitarserviceTest()
         {
             //Arrange
-            bool ssnzGuitarTabServiceLoaded = false;
+            bool ssnzguitarserviceLoaded = false;
 
             //Act
-            string guitartabURL = this._SSNZGuitarTabServiceUrl + "";
+            string guitartabURL = this._ssnzguitarserviceUrl + "";
             _Driver.Navigate().GoToUrl(guitartabURL);
-            ssnzGuitarTabServiceLoaded = (_Driver.Url == guitartabURL);
+            ssnzguitarserviceLoaded = (_Driver.Url == guitartabURL);
 
             //Assert
-            Assert.IsTrue(ssnzGuitarTabServiceLoaded);
+            Assert.IsTrue(ssnzguitarserviceLoaded);
         }
 
         [TestMethod]
@@ -216,7 +216,7 @@ namespace SamSmithNZ2018.UITests
         //    bool ssnzFFServiceLoaded = false;
         //    bool ssnzIntFootballServiceLoaded = false;
         //    bool ssnzITunesServiceLoaded = false;
-        //    bool ssnzGuitarTabServiceLoaded = false;
+        //    bool ssnzguitarserviceLoaded = false;
         //    bool ssnzMAndMServiceLoaded = false;
 
         //    //Act
@@ -240,9 +240,9 @@ namespace SamSmithNZ2018.UITests
         //    _Driver.Navigate().GoToUrl(itunesURL);
         //    ssnzITunesServiceLoaded = (_Driver.Url == itunesURL);
 
-        //    string guitartabURL = this._SSNZGuitarTabServiceUrl + "";
+        //    string guitartabURL = this._ssnzguitarserviceUrl + "";
         //    _Driver.Navigate().GoToUrl(guitartabURL);
-        //    ssnzGuitarTabServiceLoaded = (_Driver.Url == guitartabURL);
+        //    ssnzguitarserviceLoaded = (_Driver.Url == guitartabURL);
 
         //    //string mandmURL = this._SSNZMAndMServiceUrl + "";
         //    //_Driver.Navigate().GoToUrl(mandmURL);
@@ -254,7 +254,7 @@ namespace SamSmithNZ2018.UITests
         //    Assert.IsTrue(ssnzFFServiceLoaded);
         //    Assert.IsTrue(ssnzIntFootballServiceLoaded);
         //    Assert.IsTrue(ssnzITunesServiceLoaded);
-        //    Assert.IsTrue(ssnzGuitarTabServiceLoaded);
+        //    Assert.IsTrue(ssnzguitarserviceLoaded);
         //    Assert.IsTrue(ssnzMAndMServiceLoaded == false);
         //}
     }

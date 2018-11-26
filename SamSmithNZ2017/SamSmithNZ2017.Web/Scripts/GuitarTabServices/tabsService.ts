@@ -10,7 +10,7 @@
         //Read config settings
         //var baseUrl = configSettings.webApiBaseUrl;
         //var baseUrl = 'http://localhost:12730/';
-        var baseUrl = 'https://ssnzguitartabservice.azurewebsites.net/';
+        var baseUrl = 'https://ssnzguitarservice.azurewebsites.net/';
 
         this.getTabs = function (albumCode) {
             let url: string = baseUrl + 'api/Tab/GetTabs?AlbumCode=' + albumCode;
