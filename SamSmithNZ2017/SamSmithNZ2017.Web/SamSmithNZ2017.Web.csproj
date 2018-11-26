@@ -512,6 +512,8 @@
     <Content Include="Content\IntFootball\Yellow_card_svg.png" />
     <Content Include="Content\ITunes\favicon.ico" />
     <Content Include="Content\ITunes\iTunes.png" />
+    <Content Include="Content\Lego\favicon.ico" />
+    <Content Include="Content\Lego\lego.gif" />
     <Content Include="Content\Lego\Lego.png" />
     <Content Include="Content\MandMCounter\favicon.ico" />
     <Content Include="Content\MandMCounter\MandM.png" />
