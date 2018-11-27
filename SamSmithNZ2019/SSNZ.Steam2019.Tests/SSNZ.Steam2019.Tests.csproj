@@ -51,10 +51,4 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="CodeCoverage.runsettings">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
