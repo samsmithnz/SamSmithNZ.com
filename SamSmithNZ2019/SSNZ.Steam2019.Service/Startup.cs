@@ -25,18 +25,24 @@ namespace SSNZ.Steam2019.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Add Cors
             services.AddCors(o => o.AddPolicy("MyCorsPolicy", builder =>
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
+            //services.AddCors();
+
+            //Add framework services
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(options =>
                 {
                     options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
                 });
+
+            //Add swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
@@ -49,13 +55,16 @@ namespace SSNZ.Steam2019.Service
                 });
             });
 
+            //Get the appsettings.json file
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
 
+            //get the connection string
             string connectionString = config["CacheConnection"];
 
+            //setup redis 
             services.AddSingleton<IRedisService, RedisService>();
             var connectionMultiplexer = ConnectionMultiplexer.Connect(connectionString);
             var database = connectionMultiplexer.GetDatabase(0);
@@ -78,7 +87,13 @@ namespace SSNZ.Steam2019.Service
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseCors("MyCorsPolicy"); //https://stackoverflow.com/questions/31942037/how-to-enable-cors-in-asp-net-core
+            //app.UseCors("MyCorsPolicy"); //https://stackoverflow.com/questions/31942037/how-to-enable-cors-in-asp-net-core
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
