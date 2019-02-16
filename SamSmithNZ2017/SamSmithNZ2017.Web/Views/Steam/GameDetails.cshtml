@@ -90,8 +90,8 @@
                 <th class="headerborders"></th>
                 <th class="headerborders">Global Completion %</th>
                 <th class="headerborders">Description</th>
-                @*<th class="headerborders" ng-hide="selectedFriend">API Name</th>
-                <th class="headerborders" ng-show="selectedFriend">Friend has achieved this?</th>*@
+                <th class="headerborders" ng-hide="selectedFriend">API Name</th>
+                @*<th class="headerborders" ng-show="selectedFriend">Friend has achieved this?</th>*@
             </tr>
             <tr ng-repeat="item in gameDetails.Achievements | filter: achievementFilter" class="alternatingColors" ng-style="{'background-color': getFriendStyle(selectedFriend, item.Achieved, item.FriendAchieved)}">
                 <td class="cellborders">{{$index + 1}}</td>
@@ -109,11 +109,11 @@
                     <span ng-if="item.GlobalPercent.toFixed(4) == 0">{{item.GlobalPercent | number : 2}}%</span>
                 </td>
                 <td class="cellborders">{{item.Name}}: {{item.Description}}</td>
-                @*<td class="cellborders" ng-hide="selectedFriend">{{item.ApiName}}</td>
-                <td class="cellborders" ng-show="selectedFriend">
-                    <img ng-show="item.FriendAchieved" ng-src="{{item.IconURL}}" />
-                    <img ng-show="!item.FriendAchieved" ng-src="{{item.IconGrayURL}}" />
-                </td>*@
+                <td class="cellborders" ng-hide="selectedFriend">{{item.ApiName}}</td>
+                @*<td class="cellborders" ng-show="selectedFriend">
+            <img ng-show="item.FriendAchieved" ng-src="{{item.IconURL}}" />
+            <img ng-show="!item.FriendAchieved" ng-src="{{item.IconGrayURL}}" />
+        </td>*@
             </tr>
         </table>
     </div>
