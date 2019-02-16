@@ -26,12 +26,12 @@ namespace SSNZ.Steam2019.Service
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((context, config) =>
-                {
-                    AzureServiceTokenProvider azureServiceTokenProvider = new AzureServiceTokenProvider();
-                    KeyVaultClient keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
-                    config.AddAzureKeyVault(@"https://ssnzkeyvault.vault.azure.net/", keyVaultClient, new DefaultKeyVaultSecretManager());
-                })
+                //.ConfigureAppConfiguration((context, config) =>
+                //{
+                //    AzureServiceTokenProvider azureServiceTokenProvider = new AzureServiceTokenProvider();
+                //    KeyVaultClient keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+                //    config.AddAzureKeyVault(@"https://ssnzkeyvault.vault.azure.net/", keyVaultClient, new DefaultKeyVaultSecretManager());
+                //})
                 .UseApplicationInsights()
                 .UseStartup<Startup>();
     }
