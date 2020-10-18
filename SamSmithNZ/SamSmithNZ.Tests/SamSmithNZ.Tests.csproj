@@ -33,4 +33,10 @@
     <ProjectReference Include="..\SamSmithNZ.Service\SamSmithNZ.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="CodeCoverage.runsettings">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -11,6 +11,7 @@ using SamSmithNZ.Service.DataAccess.FooFighters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service
@@ -28,8 +29,9 @@ namespace SamSmithNZ.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers()
+                .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null); //Force PascalCase (and disable camelCase)          
 
-            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SamSmithNZ.Service", Version = "v1" });

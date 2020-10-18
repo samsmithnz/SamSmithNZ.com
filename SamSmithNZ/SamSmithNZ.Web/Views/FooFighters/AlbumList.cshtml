@@ -1,0 +1,35 @@
+﻿@using SamSmithNZ.Service.Models.FooFighters
+@model List<Album>
+@{
+    ViewData["Title"] = "Albums";
+    Layout = "~/Views/Shared/_LayoutFooFighters.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>Album Name</th>
+                <th>Release Date</th>
+                <th>Cover</th>
+            </tr>
+            @foreach (Album item in Model)
+            {
+                <tr>
+                    <td><a href="~/FooFighters/Album/GetAlbum?AlbumCode=@item.AlbumCode">@item.AlbumName</a></td>
+                    @if (item.AlbumReleaseDate > DateTime.MinValue)
+                    {
+                        <td>@item.AlbumReleaseDate.ToString("dd-MMM-yyyy")</td>
+                    }
+                    else
+                    {
+                        <td>None Known</td>
+                    }
+                    <td>
+                        <img src="~/FooFighters/AlbumCovers/@item.AlbumImage" alt="" style="width: 150px; height:150px;" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

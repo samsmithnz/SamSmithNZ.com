@@ -1,0 +1,54 @@
+﻿@using SamSmithNZ.Service.Models.FooFighters
+@model List<Song>
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_LayoutFooFighters.cshtml";
+}
+
+<div>
+    <div class="row">
+        <div class="col-md-12">
+            <span style="font-size:10pt">This is a colloraboration with <a href="https://www.foofighterslive.com" target="_blank">www.foofighterslive.com</a>. While this isn't completely in sync with www.foofighterslive.com, it is very close. Thank you to Simon for this opportunity.</span>
+            <br />
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>Song</th>
+                    <th>First Show Played</th>
+                    <th>Last Show Played</th>
+                    <th>Times Played Live</th>
+                    <th>Album</th>
+                </tr>
+                @foreach (Song item in Model)
+                {
+                    <tr>
+                        <td><a href="~/FooFighters/Song/GetSong?SongCode=@item.SongCode">@item.SongName</a></td>
+                        @if (item.FirstPlayedShowCode > 0)
+                        {
+                            <td><a href="~/FooFighters/Show/GetShow?ShowCode=@item.FirstPlayedShowCode">@item.FirstPlayed?.ToString("dd-MMM-yyyy")</a></td>
+                        }
+                        else
+                        {
+                            <td>None Known</td>
+                        }
+                        @if (item.LastPlayedShowCode > 0)
+                        {
+                            <td><a href="~/FooFighters/Show/GetShow?ShowCode=@item.LastPlayedShowCode">@item.LastPlayed?.ToString("dd-MMM-yyyy")</a></td>
+                        }
+                        else
+                        {
+                            <td>None Known</td>
+                        }
+                        <td>@item.TimesPlayed</td>
+                        <td><a href="~/FooFighters/Album/GetAlbum?AlbumCode=@item.AlbumCode">@item.AlbumName</a></td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

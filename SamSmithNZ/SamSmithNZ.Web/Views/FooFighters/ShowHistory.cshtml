@@ -1,0 +1,101 @@
+﻿@using SamSmithNZ.Service.Models.FooFighters
+@using SamSmithNZ.Web.Models.FooFighters
+@model ShowHistoryViewModel
+@{
+    ViewData["Title"] = "Show History";
+    Layout = "~/Views/Shared/_LayoutFooFighters.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12 form-inline">
+        <form asp-controller="FooFighters" asp-action="ShowHistoryYearPost" method="post">
+            <select asp-for="YearCode" asp-items="Model.Years"></select>
+        </form>
+        @*
+            <label for="cboYear">Select Year:</label>
+            <select id="cboYear" name="cboYear" class="form-control" ng-model="selectedYear" ng-options="item.YearCode as item.YearText for item in years" ng-change="updateShows()" style="width: 350px;"></select>
+        *@
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <hr />
+    </div>
+</div>
+
+@if (Model.AverageSetlists.Count > 0)
+{
+    @*<div class="row">
+            <div class="col-md-12 form-inline">
+                <span>This is the </span><select name="dboType" class="form-control" ng-model="setlistType" ng-change="updateSetlists()" style="width:153px;"><option value="0">average setlist</option><option value="1">total list of songs</option></select><span> for {{selectedYear}}. (Note that shows with more than </span>
+                <select name="cboMinimumSongs" class="form-control" ng-options="item for item in minimumSongArray" ng-model="minimumSongCount" ng-change="updateSetlists()" style="width:64px;"></select>
+                <span>songs were included)</span><br /><br />
+            </div>
+        </div>*@
+    <div class="row">
+        <div class="col-md-12">
+            <span>@Model.AverageSetlists.Count songs displayed below</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>#</th>
+                    <th>Average Order</th>
+                    <th>Song</th>
+                    <th>Times played in @Model.YearCode</th>
+                </tr>
+                @for (int i = 0; i < Model.AverageSetlists.Count; i++)
+                {
+                    AverageSetlist item = Model.AverageSetlists[i];
+                    <tr>
+                        <td>@((i+1).ToString())</td>
+                        <td>@item.AvgShowSongOrder.ToString("0.0")</td>
+                        <td><a href="~/FooFighters/Song/GetSong?SongCode=@item.SongCode">@item.SongName</a></td>
+                        <td>@item.SongCount</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+        </div>
+    </div>
+}
+
+@if (Model.Shows.Count > 0)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>Show Date</th>
+                    <th>Location</th>
+                    <th>City</th>
+                    <th>Song Count</th>
+                </tr>
+                @foreach (Show item in Model.Shows)
+                {
+                    <tr>
+                        <td><a href="~/FooFighters/Show/GetShow?ShowCode=@item.ShowCode">@item.ShowDate.ToString("dd-MMM-yyyy")</a></td>
+                        <td>@item.ShowLocation</td>
+                        <td>@item.ShowCity</td>
+                        <td>@item.NumberOfSongsPlayed</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+        </div>
+    </div>
+}
+

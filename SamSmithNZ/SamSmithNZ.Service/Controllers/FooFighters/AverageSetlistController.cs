@@ -7,7 +7,7 @@ using SamSmithNZ.Service.Models.FooFighters;
 
 namespace SamSmithNZ.Service.Controllers.FooFighters
 {
-    [Route("api/[controller]")]
+    [Route("api/foofighters/[controller]")]
     [ApiController]
     public class AverageSetlistController : ControllerBase
     {
@@ -18,6 +18,7 @@ namespace SamSmithNZ.Service.Controllers.FooFighters
             _repo = repo;
         }
 
+        [HttpGet("GetAverageSetlist")]
         public async Task<List<AverageSetlist>> GetAverageSetlist(int yearCode, int minimumSongCount = 0, bool showAllSongs = false)
         {
             return await _repo.GetListAsync(yearCode, minimumSongCount, showAllSongs);

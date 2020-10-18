@@ -1,19 +1,94 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+variables:
+   buildConfiguration: Release
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+stages:
+  - stage: ContinuousIntegration
+    displayName: Continous Integration
+    jobs:
+      - job: BuildDotNet5
+        displayName: 'Build (.NET 5) job'
+        pool:
+          vmImage: windows-latest
+        steps:
+        - task: UseDotNet@2
+          displayName: 'Install .Net 5 SDK'
+          inputs:
+            packageType: 'sdk'
+            version: '5.0.100-rc.2.20479.15'
+        - task: DotNetCoreCLI@2
+          displayName: 'Publish dotnet 5 projects'
+          inputs:
+            command: publish
+            publishWebProjects: false
+            projects: |
+             SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
+             SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj
+            arguments: '--configuration Release --output $(build.artifactstagingdirectory) --runtime win-x64'
+            zipAfterPublish: true
+        - task: PublishBuildArtifacts@1
+          displayName: 'Publish Artifact'
+          inputs:
+            PathtoPublish: '$(build.artifactstagingdirectory)'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+      - job: TestDotNet5
+        displayName: 'Testing (.NET 5) job'
+        pool:
+          vmImage: windows-latest
+        steps:
+        - task: UseDotNet@2
+          displayName: 'Install .Net 5 SDK'
+          inputs:
+            packageType: 'sdk'
+            version: '5.0.100-rc.2.20479.15'
+        - task: DotNetCoreCLI@2
+          displayName: 'Test dotnet 5 projects'
+          inputs:
+            command: test
+            projects: |
+              SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj
+            arguments: '--configuration debug --logger trx --collect "Code coverage" --settings:$(Build.SourcesDirectory)\SamSmithNZ/SamSmithNZ.Tests\CodeCoverage.runsettings'
+
+
+  - stage: Prod
+    displayName: Prod Deployment
+    #condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'master'))
+    dependsOn: ContinuousIntegration
+    jobs:
+      - job: DeployDotNet5
+        displayName: 'Deploy web service'
+        pool:
+          vmImage: windows-latest       
+        steps:
+        - task: DownloadBuildArtifacts@0
+          displayName: 'Download the build artifacts'
+          inputs:
+            buildType: 'current'
+            downloadType: 'single'
+            artifactName: 'drop'
+            downloadPath: '$(build.artifactstagingdirectory)'
+        - task: AzureCLI@2
+          displayName: 'Deploy infrastructure with ARM templates'
+          inputs:
+            azureSubscription: 'SamSmithNZ VS Azure Connection'
+            scriptType: ps
+            scriptPath: $(build.artifactstagingdirectory)\drop\EnvironmentARMTemplate\PowerShell\DeployInfrastructureWebService.ps1
+            arguments: -appPrefix "samsapp" -environment "prod" -webAppEnvironment "prod" -resourceGroupName "SSSandbox" -resourceGroupLocation "East US" -resourceGroupLocationShort "eu" -dataKeyVaultName "tbd" -templatesLocation "$(build.artifactstagingdirectory)\drop\EnvironmentARMTemplate\Templates" -sqlDatabaseName "ssnzdb" -sqlAdministratorLoginUser "" -sqlAdministratorLoginPassword ""
+          enabled: "false"
+        - task: AzureRmWebAppDeployment@3
+          displayName: 'App Service Deploy: web service'
+          inputs:
+            azureSubscription: 'SamSmithNZ VS Azure Connection'
+            WebAppName: 'ssnz-prod-eu-service'
+            ResourceGroupName: 'SSSandbox'
+            #DeployToSlotFlag: true
+            #SlotName: '${{parameters.stagingSlotName}}'
+            Package: '$(build.artifactstagingdirectory)/drop/SamSmithNZ.Service.zip'
+            RemoveAdditionalFilesFlag: true
+            TakeAppOfflineFlag: true
+            RenameFilesFlag: true
+            JSONFiles: '**/appsettings.json'
+            #AppSettings: '-ASPNETCORE_ENVIRONMENT "Development"'
+          #enabled: "false"

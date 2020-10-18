@@ -7,7 +7,7 @@ using SamSmithNZ.Service.Models.FooFighters;
 
 namespace SamSmithNZ.Service.Controllers.FooFighters
 {
-    [Route("api/[controller]")]
+    [Route("api/foofighters/[controller]")]
     [ApiController]
     public class SongController : ControllerBase
     {
@@ -18,21 +18,25 @@ namespace SamSmithNZ.Service.Controllers.FooFighters
             _repo = repo;
         }
 
+        [HttpGet("GetSongs")]
         public async Task<List<Song>> GetSongs()
         {
             return await _repo.GetListAsync();
         }
 
+        [HttpGet("GetSongsByAlbum")]
         public async Task<List<Song>> GetSongsByAlbum(int albumCode)
         {
             return await _repo.GetListForAlbumAsync(albumCode);
         }
 
+        [HttpGet("GetSongsByShow")]
         public async Task<List<Song>> GetSongsByShow(int showCode)
         {
             return await _repo.GetListForShowAsync(showCode);
         }
 
+        [HttpGet("GetSong")]
         public async Task<Song> GetSong(int songCode)
         {
             return await _repo.GetItemAsync(songCode);

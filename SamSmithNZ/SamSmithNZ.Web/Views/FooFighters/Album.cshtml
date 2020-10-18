@@ -1,0 +1,68 @@
+﻿@using SamSmithNZ.Service.Models.FooFighters
+@using SamSmithNZ.Web.Models.FooFighters
+@model AlbumViewModel
+@{
+    ViewData["Title"] = Model.Album.AlbumName;
+    Layout = "~/Views/Shared/_LayoutFooFighters.cshtml";
+}
+
+<div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>@Model.Album.AlbumName</h2>
+            <table>
+                <tr>
+                    <td>
+                        <span style="font-weight: bold;">Year Released:</span>
+                    </td>
+                    <td>
+                        @Model.Album.AlbumReleaseDate.ToString("yyyy")
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <img src="~/FooFighters/AlbumCovers/@Model.Album.AlbumImage" alt="" style="width: 150px; height:150px;" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <span style="font-weight: bold;">Track list:</span>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th></th>
+                    <th>Song</th>
+                    <th>First Show Played</th>
+                    <th>Last Show Played</th>
+                    <th>Times Played Live</th>
+                </tr>
+                @foreach (Song item in Model.Songs)
+                {
+                    <tr>
+                        <td>@item.SongOrder</td>
+                        <td><a href="/FooFighters/Song/GetSong?SongCode=@item.SongCode">@item.SongName</a></td>
+                        @if (item.FirstPlayedShowCode > 0)
+                        {
+                            <td><a href="~/FooFighters/Show/GetShow?ShowCode=@item.FirstPlayedShowCode">@item.FirstPlayed?.ToString("dd-MMM-yyyy")</a></td>
+                        }
+                        else
+                        {
+                            <td>None Known</td>
+                        }
+                        @if (item.LastPlayedShowCode > 0)
+                        {
+                            <td><a href="~/FooFighters/Show/GetShow?ShowCode=@item.LastPlayedShowCode">@item.LastPlayed?.ToString("dd-MMM-yyyy")</a></td>
+                        }
+                        else
+                        {
+                            <td>None Known</td>
+                        }
+                        <td>@item.TimesPlayed</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

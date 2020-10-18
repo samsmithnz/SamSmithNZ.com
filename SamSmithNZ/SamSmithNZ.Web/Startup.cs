@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SamSmithNZ.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,9 @@ namespace SamSmithNZ.Web
         {
             services.AddControllersWithViews();
             services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
+
+            //Add DI for the service api client 
+            services.AddScoped<IFooFightersServiceAPIClient, FooFightersServiceAPIClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
