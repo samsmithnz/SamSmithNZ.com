@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SamSmithNZ.Service.DataAccess.FooFighters
+namespace SamSmithNZ.Service.DataAccess.FooFighters.Interfaces
 {
     public interface IYearDataAccess 
     {
-        Task<List<Year>> GetListAsync();
+        Task<List<Year>> GetList();
               
     }
 }

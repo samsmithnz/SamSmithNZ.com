@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SamSmithNZ.Service.DataAccess.FooFighters;
+using SamSmithNZ.Service.DataAccess.FooFighters.Interfaces;
 using SamSmithNZ.Service.Models.FooFighters;
 
 namespace SamSmithNZ.Service.Controllers.FooFighters
@@ -21,7 +22,7 @@ namespace SamSmithNZ.Service.Controllers.FooFighters
         [HttpGet("GetYears")]
         public async Task<List<Year>> GetYears()
         {
-            return await _repo.GetListAsync();
+            return await _repo.GetList();
         }
 
     }

@@ -1,0 +1,37 @@
+﻿using Dapper;
+using Microsoft.Extensions.Configuration;
+using SamSmithNZ.Service.DataAccess.Base;
+using SamSmithNZ.Service.DataAccess.GuitarTab.Interfaces;
+using SamSmithNZ.Service.Models.GuitarTab;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Threading.Tasks;
+
+namespace SamSmithNZ.Service.DataAccess.GuitarTab
+{
+    public class SearchDataAccess : BaseDataAccess<Search>, ISearchDataAccess
+    {
+        public SearchDataAccess(IConfiguration configuration)
+        {
+            base.SetupConnectionString(configuration);
+        }
+
+        public async Task<List<Search>> GetList(Guid? recordid)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@RecordId", recordid, DbType.Guid);
+
+            return await base.GetList("Tab_GetSearchResults", parameters);
+        }
+
+        public async Task<Guid> SaveItem(string searchText)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@SearchText", searchText, DbType.String);
+
+            return await base.GetScalarItem<Guid>("Tab_SaveSearchParameters", parameters);
+        }
+
+    }
+}

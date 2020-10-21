@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guitar Tab Library</title>
+    <link rel="shortcut icon" sizes="32x32" href="~/GuitarTab/favicon.ico">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body ng-app="GuitarTabApp" ng-controller="layoutController" style="padding-top:0px;">
+    <div class="headerandlogo">
+        <table class="PercentWidth100">
+            <tr>
+                <td class="col-md-4">
+                    <a href="@Url.Action("Index", "GuitarTab")" class="headerText">
+                        <img src="~/GuitarTab/GuitarHeader.png" alt="" class="headerImg" />
+                        <span class="headerText">Guitar Tab Library (v4)</span>
+                    </a>
+                </td>
+                <td class="col-md-4">
+                    <div class="HeaderStatus" style="height: 28px;">
+                        @*@Html.Partial("_LoginPartial")*@
+                    </div>
+                </td>
+                <td class="col-md-4 pull-right">
+                    <span class="AlignedRight">
+                        <span>Search for guitar tab:</span>
+                        <input id="txtSearch" type="text" maxlength="100" ng-keyup="$event.keyCode == 13 ? searchGuitarTabs() : null" />
+                        <input id="butSearch" type="button" value="Search!" ng-click="searchGuitarTabs()" />
+                    </span>
+                    <span>
+                        <a href="@Url.Action("About", "GuitarTab")">About</a>
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <table class="PercentWidth100">
+                <tr class="toptr">
+                    <td class="sideBar">
+                        <br />
+                        @*@if (isGuitarTabAdmin == true)
+                            {
+                                <a href="~/GuitarTab/EditAlbum?AlbumCode=0">Add new album</a><br /><br />
+                            }*@
+                        <b>Jump to Artist:</b><br />
+                        <div class="ArtistSideBar">
+                            <img ng-hide="artists" id="spinner1" src="~/Images/spinner_small.gif" />
+                            <ul class="bulletedList" style="margin-bottom: 0px;" ng-repeat="item in artists">
+                                <li><a href="~/GuitarTab/Index#{{item.ArtistNameTrimed}}">{{item.ArtistName}}</a></li>
+                            </ul>
+                        </div>
+
+                    </td>
+                    <td class="contentMain">
+                        <div class="BreadCrumbs">
+                            @Html.ActionLink("Home", "Index", null, null) > <span id="lblBreadCrumbLocation">loading...</span>
+                        </div>
+                        <h2>@ViewBag.Title</h2>
+                        @RenderBody()
+                        @*<input id="txtViewHiddenTabs" type="hidden" value="@isGuitarTabAdmin.ToString().ToLower()" />*@
+                    </td>
+                </tr>
+            </table>
+            <input id="txtSearchAction" type="hidden" value='@Url.Action("SearchResults", "GuitarTab", new { searchText = "" } )' />
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2000- @DateTime.Now.Year - SamSmithNZ.com
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

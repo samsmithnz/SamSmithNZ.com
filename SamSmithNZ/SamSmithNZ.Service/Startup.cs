@@ -8,6 +8,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SamSmithNZ.Service.DataAccess.FooFighters;
+using SamSmithNZ.Service.DataAccess.FooFighters.Interfaces;
+using SamSmithNZ.Service.DataAccess.GuitarTab.Interfaces;
+using SamSmithNZ.Service.DataAccess.WorldCup.Interfaces;
+using SamSmithNZ.Service.DataAccess.GuitarTab;
+using SamSmithNZ.Service.DataAccess.WorldCup;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,11 +42,36 @@ namespace SamSmithNZ.Service
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SamSmithNZ.Service", Version = "v1" });
             });
 
-            services.AddScoped<IAlbumDataAccess, AlbumDataAccess>();
+            //Foo Fighters
+            services.AddScoped<SamSmithNZ.Service.DataAccess.FooFighters.Interfaces.IAlbumDataAccess, SamSmithNZ.Service.DataAccess.FooFighters.AlbumDataAccess>();
             services.AddScoped<IAverageSetlistDataAccess, AverageSetlistDataAccess>();
             services.AddScoped<IShowDataAccess, ShowDataAccess>();
             services.AddScoped<ISongDataAccess, SongDataAccess>();
             services.AddScoped<IYearDataAccess, YearDataAccess>();
+
+            //Guitar Tab
+            services.AddScoped<SamSmithNZ.Service.DataAccess.GuitarTab.Interfaces.IAlbumDataAccess, SamSmithNZ.Service.DataAccess.GuitarTab.AlbumDataAccess>();
+            services.AddScoped<IArtistDataAccess, ArtistDataAccess>();
+            services.AddScoped<IRatingDataAccess, RatingDataAccess>();
+            services.AddScoped<ISearchDataAccess, SearchDataAccess>();
+            services.AddScoped<ITabDataAccess, TabDataAccess>();
+            services.AddScoped<ITrackOrderDataAccess, TrackOrderDataAccess>();
+            services.AddScoped<ITuningDataAccess, TuningDataAccess>();
+
+            //Int Football
+            services.AddScoped<IEloRatingDataAccess, EloRatingDataAccess>();
+            services.AddScoped<IGameDataAccess, GameDataAccess>();
+            services.AddScoped<IGameGoalAssignmentDataAccess, GameGoalAssignmentDataAccess>();
+            services.AddScoped<IGoalDataAccess, GoalDataAccess>();
+            services.AddScoped<IGroupCodeDataAccess, GroupCodeDataAccess>();
+            services.AddScoped<IGroupDataAccess, GroupDataAccess>();
+            services.AddScoped<IPenaltyShootoutGoalDataAccess, PenaltyShootoutGoalDataAccess>();
+            services.AddScoped<IPlayerDataAccess, PlayerDataAccess>();
+            services.AddScoped<ITeamDataAccess, TeamDataAccess>();
+            services.AddScoped<ITournamentDataAccess, TournamentDataAccess>();
+            services.AddScoped<ITournamentTeamDataAccess, TournamentTeamDataAccess>();
+            services.AddScoped<ITournamentTopGoalScorerDataAccess, TournamentTopGoalScorerDataAccess>();
+
 
             services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
 

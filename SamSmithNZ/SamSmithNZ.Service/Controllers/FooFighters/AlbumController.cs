@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SamSmithNZ.Service.DataAccess.FooFighters;
+using SamSmithNZ.Service.DataAccess.FooFighters.Interfaces;
 using SamSmithNZ.Service.Models.FooFighters;
 
 namespace SamSmithNZ.Service.Controllers.FooFighters
@@ -21,13 +22,13 @@ namespace SamSmithNZ.Service.Controllers.FooFighters
         [HttpGet("GetAlbums")]
         public async Task<List<Album>> GetAlbums()
         {
-            return await _repo.GetListAsync();
+            return await _repo.GetList();
         }
 
         [HttpGet("GetAlbum")]
         public async Task<Album> GetAlbum(int albumCode)
         {
-            return await _repo.GetItemAsync(albumCode);
+            return await _repo.GetItem(albumCode);
         }
 
     }

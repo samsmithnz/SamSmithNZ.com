@@ -1,0 +1,80 @@
+﻿@*@model SamSmithNZ2015.Models.GuitarTab.TabViewModel*@
+@{
+    //ViewBag.Title = "Edit \"" + @Model.Tab.TrackName + "\"";
+    Layout = "~/Views/Shared/_LayoutGuitarTab.cshtml";
+}
+
+<script>
+    $("document").ready(function () {
+        $("#frmSaveTrack").validate({
+            rules: {
+                'txtTrackName': {
+                    required: true,
+                    maxlength: 100
+                },
+                'txtOrder': {
+                    required: true,
+                    range: [1, 100]
+                }
+            },
+            messages: {
+                'txtTrackName': {
+                    required: 'Track Name required',
+                    maxlength: 'Must be under 100 characters'
+                },
+                'txtOrder': {
+                    required: 'Track Order required',
+                    maxlength: 'Must be between 1 and 100'
+                }
+            }
+        });
+    });
+</script>
+<style type="text/css">
+    label.error {
+        color: red;
+    }
+</style>
+
+<div ng-controller="editTabController">
+    @*@using (Html.BeginForm("SaveTrack", "GuitarTab", new { albumCode = @Model.Tab.AlbumCode, trackCode = @Model.Tab.TrackCode }, FormMethod.Post, new { @id = "frmSaveTrack" }))*@
+    <table class="form-group">
+        <tr>
+            <td style="text-align:right;">Name: </td>
+            <td><input id="txtTabName" type="text" class="form-control" value="{{tab.TabName}}"></td>
+            @*<td>@Html.TextBox("txtTrackName", @Model.Tab.TrackName)</td>*@
+        </tr>
+        <tr>
+            <td style="text-align:right;">Order: </td>
+            <td><input id="txtOrder" type="text" class="form-control" value="{{tab.TabOrder}}"></td>
+            @*<td>@Html.TextBox("txtOrder", @Model.Tab.TrackOrder)</td>*@
+        </tr>
+        <tr>
+            <td style="text-align:right;">Rating: </td>
+            <td>
+                <select id="cboRating" class="form-control">
+                    <option ng-repeat="item in ratings" value="{{item.RatingCode}}" ng-selected="tab.Rating == item.RatingCode">{{item.RatingCode}}</option>
+                </select>
+            </td>
+            @*<td>@Html.DropDownList("cboRating", new SelectList(Model.RatingList, "RatingCode", "RatingCode", @Model.Tab.Rating))</td>*@
+        </tr>
+        <tr>
+            <td style="text-align:right;">Tuning: </td>
+            <td>
+                <select id="cboTuning" class="form-control">
+                    <option ng-repeat="item in tunings" value="{{item.TuningCode}}" ng-selected="tab.TuningCode == item.TuningCode">{{item.TuningName}}</option>
+                </select>
+            </td>
+            @*<td>@Html.DropDownList("cboTuning", new SelectList(Model.TuningList, "TuningCode", "TuningName", @Model.Tab.TuningCode))</td>*@
+        </tr>
+        <tr>
+            <td style="vertical-align:top; text-align:right;">Tab Text: </td>
+            <td><textarea id="txtTabText" cols="100" rows="20" class="form-group" style="font-family: monospace; font-size:8pt; max-width:800px;">{{tab.TabText}}</textarea></td>
+            @*<td>@Html.TextArea("txtTrackText", @Model.Tab.TrackText, new { cols = "100", rows = "20" })</td>*@
+        </tr>
+    </table>
+    <div class="form-group">
+        <input id="SaveTrack" type="button" class="form-group" value="Save Changes" ng-click="saveTab()" />
+    </div>
+    <br />
+</div>

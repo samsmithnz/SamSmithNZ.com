@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SamSmithNZ.Web.Services;
+using SamSmithNZ.Web.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,8 @@ namespace SamSmithNZ.Web
 
             //Add DI for the service api client 
             services.AddScoped<IFooFightersServiceAPIClient, FooFightersServiceAPIClient>();
+            services.AddScoped<IGuitarTabServiceAPIClient, GuitarTabServiceAPIClient>();
+            services.AddScoped<IWorldCupServiceAPIClient, WorldCupServiceAPIClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

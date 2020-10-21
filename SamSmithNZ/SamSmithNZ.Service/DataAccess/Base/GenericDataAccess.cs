@@ -23,9 +23,9 @@
 //        /// <param name="storedProcedureName">Stored Procedure name string</param>
 //        /// <param name="parameters">Dapper DynamicParameters object</param>
 //        /// <returns>Returns object as defined by T</returns>
-//        public async Task<T> GetItemAsync(string storedProcedureName, DynamicParameters parameters = null)
+//        public async Task<T> GetItem(string storedProcedureName, DynamicParameters parameters = null)
 //        {
-//            IEnumerable<T> items = await this.GetListAsync(storedProcedureName, parameters);
+//            IEnumerable<T> items = await this.GetList(storedProcedureName, parameters);
 //            return items.SingleOrDefault();
 //        }
 
@@ -36,7 +36,7 @@
 //        /// <param name="storedProcedureName">Stored Procedure name string</param>
 //        /// <param name="parameters">Dapper DynamicParameters object</param>
 //        /// <returns>Returns object as defined by T</returns>
-//        public async Task<List<T>> GetListAsync(string storedProcedureName, DynamicParameters parameters = null)
+//        public async Task<List<T>> GetList(string storedProcedureName, DynamicParameters parameters = null)
 //        {
 //            IEnumerable<T> items;
 //            try
@@ -60,7 +60,7 @@
 //        /// <param name="storedProcedureName">Stored Procedure name string</param>
 //        /// <param name="parameters">Dapper DynamicParameters object</param>
 //        /// <returns>Boolean (true) if successful. </returns>
-//        public async Task<bool> PostItemAsync(string storedProcedureName, DynamicParameters parameters = null, int? timeoutOverride = null)
+//        public async Task<bool> SaveItem(string storedProcedureName, DynamicParameters parameters = null, int? timeoutOverride = null)
 //        {
 //            try
 //            {

@@ -1,15 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SamSmithnNZ.Tests;
+using SamSmithNZ.Service.Controllers.FooFighters;
 using SamSmithNZ.Service.DataAccess.FooFighters;
 using SamSmithNZ.Service.Models.FooFighters;
-using SamSmithnNZ.Tests;
-using System.Text.Json;
-using SamSmithNZ.Service.Controllers.FooFighters;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Tests.FooFighters
 {

@@ -1,0 +1,45 @@
+﻿@using SamSmithNZ.Web.Models.WorldCup
+@model PlayoffPart2ViewModel
+
+@if (@Model.CurrentGame != null && Model.CurrentGame.Team1Code > 0 && Model.CurrentGame.Team2Code > 0)
+{
+    if (@Model.ReturnTeam1 == true)
+    {
+        <td rowspan="2" class="PlayoffTeam" id="@Model.ExtraDetailsTDName" runat="server">
+            &nbsp;
+            @if (string.IsNullOrEmpty(Model.CurrentGame.Team1FlagName) == false)
+            {
+                <img src="~/WorldCup/Teams/@Model.CurrentGame.Team1FlagName" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" />
+            }
+            <a href="@Url.Action(" Team", "WorldCup" , new { teamCode=@Model.CurrentGame.Team1Code })">@Model.CurrentGame.Team1Name</a> @Model.TeamExtraText
+        </td>
+    }
+    else
+    {
+        <td rowspan="2" class="PlayoffTeam" id="@Model.ExtraDetailsTDName" runat="server">
+            &nbsp;
+            @if (string.IsNullOrEmpty(Model.CurrentGame.Team2FlagName) == false)
+            {
+                <img src="~/WorldCup/Teams/@Model.CurrentGame.Team2FlagName" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" />
+            }
+            <a href="@Url.Action(" Team", "WorldCup" , new { teamCode=@Model.CurrentGame.Team1Code })">@Model.CurrentGame.Team2Name</a> @Model.TeamExtraText
+        </td>
+    }
+}
+else
+{
+    <td rowspan="2" class="PlayoffTeam" id="@Model.ExtraDetailsTDName" runat="server">
+        &nbsp;
+        @Model.AlternativeText
+    </td>
+}
+<td rowspan="2" class="PlayoffScore" id="@Model.ScoreDetailsTDName" runat="server">
+    @if ((@Model.ReturnTeam1 == true && @Model.Team1Score > @Model.Team2Score) || (@Model.ReturnTeam1 == false && @Model.Team1Score < @Model.Team2Score))
+    {
+        <b>@Model.TeamScoreText</b>
+    }
+    else
+    {
+        @Model.TeamScoreText
+    }
+</td>

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SamSmithNZ.Web.Services
+namespace SamSmithNZ.Web.Services.Interfaces
 {
     public interface IFooFightersServiceAPIClient
     {

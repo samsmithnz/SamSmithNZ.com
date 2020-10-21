@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SamSmithNZ.Service.DataAccess.FooFighters
+namespace SamSmithNZ.Service.DataAccess.FooFighters.Interfaces
 {
     public interface IShowDataAccess 
     {
@@ -13,9 +13,9 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
 
         //Task<List<Show>> GetListByFFLCodeAsync();
 
-        Task<Show> GetItemAsync(int showCode);
+        Task<Show> GetItem(int showCode);
 
-        Task<bool> SaveItemAsync(Show show);        
+        Task<bool> SaveItem(Show show);        
     }
 }
 

@@ -1,0 +1,61 @@
+﻿@using SamSmithNZ.Service.Models.GuitarTab
+@using SamSmithNZ.Web.Models.GuitarTab
+@model List<KeyValuePair<Artist, List<Album>>>
+@{
+    ViewBag.Title = "Album List";
+    Layout = "~/Views/Shared/_LayoutGuitarTab.cshtml";
+    bool isGuitarTabAdmin = true;
+}
+
+<div>
+    <table id="theTable">
+        <tbody>
+            @foreach (KeyValuePair<Artist, List<Album>> item in Model)
+            {
+                Artist artist = item.Key;
+                List<Album> artistAlbums = item.Value;
+                <tr>
+                    <td>
+                        <br />
+                        <b><a name="@artist.ArtistNameTrimed"></a>@artist.ArtistName<br /></b>
+                        @for (int i = 0; i < artistAlbums.Count; i++)
+                        {
+                            Album album = artistAlbums[i];
+                            <span>
+                                <a href="~/GuitarTab/Album?AlbumCode=@album.AlbumCode">@album.AlbumName</a>
+                                @if (isGuitarTabAdmin == true)
+                                {
+                                    <a href="~/GuitarTab/EditAlbum?AlbumCode=@album.AlbumCode">
+                                        <img src="~/guitartab/pencil.gif" alt="" style="height: 12px; border-width: 0;" />
+                                    </a>
+                                }
+                                @if (album.BassAlbumCode > 0)
+                                {
+                                    <a href="~/GuitarTab/Album?AlbumCode=@album.BassAlbumCode">&nbsp;(Bass)</a>
+                                }
+                                @if (isGuitarTabAdmin == true)
+                                {
+                                    if (album.BassAlbumCode > 0)
+                                    {
+                                        <a href="~/GuitarTab/EditAlbum?AlbumCode=@album.BassAlbumCode">
+                                            <img src="~/guitartab/pencil.gif" alt="" style="height: 12px; border-width: 0;" />
+                                        </a>
+                                    }
+                                }
+                                @if (album.AlbumYear > 0)
+                                {
+                                    <span> (@album.AlbumYear)</span>
+                                }
+                                @if (i < artistAlbums.Count - 1)
+                                {
+                                    <span> | </span>
+                                }
+                            </span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

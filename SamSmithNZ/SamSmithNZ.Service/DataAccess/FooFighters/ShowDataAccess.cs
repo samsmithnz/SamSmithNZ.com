@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.DataAccess.Base;
+using SamSmithNZ.Service.DataAccess.FooFighters.Interfaces;
 using SamSmithNZ.Service.Models.FooFighters;
 using System.Collections.Generic;
 using System.Data;
@@ -39,7 +40,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
         //    return await base.GetList("FFL_GetShows", parameters);
         //}
 
-        public async Task<Show> GetItemAsync(int showCode)
+        public async Task<Show> GetItem(int showCode)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@showCode", showCode, DbType.Int32);
@@ -47,7 +48,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
             return await base.GetItem("FFL_GetShows", parameters);
         }
 
-        public async Task<bool> SaveItemAsync(Show show)
+        public async Task<bool> SaveItem(Show show)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@ShowCode", show.ShowCode, DbType.Int32);

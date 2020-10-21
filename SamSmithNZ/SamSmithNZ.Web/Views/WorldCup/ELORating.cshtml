@@ -1,0 +1,12 @@
+﻿@model List<SamSmithNZ2015.Core.IntFootball.TeamRating>
+@{
+    ViewBag.Title = "ELORating";
+    Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
+}
+
+<h2>ELO Rating</h2>
+
+@foreach (SamSmithNZ2015.Core.IntFootball.TeamRating item in @Model)
+{
+    @item.TeamName
+}

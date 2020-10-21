@@ -1,0 +1,975 @@
+﻿@using SamSmithNZ.Service.Models.WorldCup
+@using SamSmithNZ.Web.Models.WorldCup
+@model PlayoffsViewModel
+@{
+    ViewBag.Title = "Playoff Details";
+    Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
+    bool showDebugElements = false;
+}
+
+<div>
+    @if (showDebugElements == true)
+    {
+        <div>
+            show16s: @Model.Show16s<br />
+            showQuarters: @Model.ShowQuarters<br />
+            showSemis: @Model.ShowSemis<br />
+            show3rdPlace: @Model.Show3rdPlace<br />
+            showFinals: @Model.ShowFinals<br />
+        </div>
+    }
+
+    <style type="text/css">
+        .Col_A {
+            background-color: White /* Peru */;
+            text-align: center;
+        }
+
+        .Col_B {
+            background-color: White /* LightGreen */;
+            text-align: center;
+        }
+
+        .Col_C {
+            background-color: White /* CornFlowerBlue */;
+            text-align: center;
+        }
+
+        .Col_D {
+            background-color: White /* Tomato */;
+            text-align: center;
+        }
+
+        .Col_E {
+            background-color: White /* Wheat*/;
+            text-align: center;
+        }
+
+        .Col_F {
+            background-color: White /* LightGreen */;
+            text-align: center;
+        }
+
+        .Col_G {
+            background-color: White /* CornFlowerBlue */;
+            text-align: center;
+        }
+
+        .Col_H {
+            background-color: White /* Tomato */;
+            text-align: center;
+        }
+
+        .Col_I {
+            background-color: White /* Wheat*/;
+            text-align: center;
+        }
+
+        .Col_J {
+            background-color: White /* LightGreen */;
+            text-align: center;
+        }
+
+        .Col_K {
+            background-color: White /* CornFlowerBlue */;
+            text-align: center;
+        }
+
+        .Col_L {
+            background-color: White /* Tomato */;
+            text-align: center;
+        }
+
+        .Col_M {
+            background-color: White /* Wheat*/;
+            text-align: center;
+        }
+
+        .Col_N {
+            background-color: White /* LightGreen */;
+            text-align: center;
+        }
+
+        .Col_O {
+            background-color: White /* CornFlowerBlue */;
+            text-align: center;
+        }
+
+        .PlayoffHeader {
+            background-color: #f2f2f2;
+            border-bottom: #aaa 1px solid;
+            border-left: #aaa 1px solid;
+            border-top: #aaa 1px solid;
+            border-right: #aaa 1px solid;
+            text-align: center;
+        }
+
+        .PlayoffTeam {
+            background-color: White /* LightGreen */;
+            text-align: left;
+            border-bottom: #aaa 1px solid;
+            border-left: #aaa 1px solid;
+            border-top: #aaa 1px solid;
+            border-right: #aaa 1px solid;
+        }
+
+        .PlayoffScore {
+            background-color: White /* CornFlowerBlue */; /*#f9f9f9*/
+            text-align: center;
+            border-bottom: #aaa 1px solid;
+            border-left: #aaa 1px solid;
+            border-top: #aaa 1px solid;
+            border-right: #aaa 1px solid;
+        }
+
+        .PlayoffTimeLocation {
+            background-color: White /* LightGreen */;
+            text-align: left;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .Border1 {
+            border-bottom: darkgray 1px solid;
+        }
+
+        .Border2 {
+            border-bottom: darkgray 1px solid;
+            border-top: darkgray 2px solid;
+        }
+
+        .Border3 {
+            border-bottom: darkgray 1px solid;
+            border-top: darkgray 2px solid;
+            border-right: darkgray 3px solid;
+        }
+
+        .Border4 {
+            border-bottom: darkgray 0px solid;
+            border-left: darkgray 0px solid;
+            border-top: darkgray 2px solid;
+            border-right: darkgray 0px solid;
+        }
+    </style>
+
+
+
+    <div id="divPlayoffTable">
+        <table border="0" cellpadding="0" cellspacing="0" class="PlayoffTable" style="border-collapse: separate;">
+            @*<tr>
+                    <td class="Col_A" id="tdCol_A0"></td>
+                    <td class="Col_B" id="tdCol_B0" ng-if="show16s == true">
+                        Col_B
+                    </td>
+                    <td class="Col_C" id="tdCol_C0" ng-if="show16s == true">
+                        Col_C
+                    </td>
+                    <td class="Col_D" id="tdCol_D0" ng-if="show16s == true">
+                        Col_D
+                    </td>
+                    <td class="Col_E" id="tdCol_E0" ng-if="show16s == true">
+                        Col_E
+                    </td>
+                    <td class="Col_F" id="tdCol_F0" ng-if="showQuarters == true">
+                        Col_F
+                    </td>
+                    <td class="Col_G" id="tdCol_G0" ng-if="showQuarters == true">
+                        Col_G
+                    </td>
+                    <td class="Col_H" id="tdCol_H0" ng-if="showQuarters == true">
+                        Col_H
+                    </td>
+                    <td class="Col_I" id="tdCol_I0" ng-if="showQuarters == true">
+                        Col_I
+                    </td>
+                    <td class="Col_J" id="tdCol_J0" ng-if="showSemis == true">
+                        Col_J
+                    </td>
+                    <td class="Col_K" id="tdCol_K0" ng-if="showSemis == true">
+                        Col_K
+                    </td>
+                    <td class="Col_L" id="tdCol_L0" ng-if="showSemis == true">
+                        Col_L
+                    </td>
+                    <td class="Col_M" id="tdCol_M0" ng-if="showSemis == true">
+                        Col_M
+                    </td>
+                    <td class="Col_N" id="tdCol_N0" ng-if="show3rdPlace == true || showFinals == true">
+                        Col_N
+                    </td>
+                    <td class="Col_O" id="tdCol_O0" ng-if="show3rdPlace == true || showFinals == true">
+                        Col_O
+                    </td>
+                </tr>*@
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    <td colspan="2" class="PlayoffHeader" id="tdCol_B1" ng-if="show16s == true">
+                        Round of 16
+                    </td>
+                }
+                @if (Model.Show16s == true)
+                {
+                    <td colspan="2" class="Col_D" id="tdCol_D1" ng-if="show16s == true"></td>
+                }
+                @if (Model.ShowQuarters == true)
+                {
+                    <td colspan="2" class="PlayoffHeader" id="tdCol_F1" ng-if="showQuarters == true">
+                        Quarter-finals
+                    </td>
+                    <td colspan="2" class="Col_H" id="tdCol_H1" ng-if="showQuarters == true"></td>
+                }
+                @if (Model.ShowSemis == true)
+                {
+                    <td colspan="2" class="PlayoffHeader" id="tdCol_J1" ng-if="showSemis == true">
+                        Semi-finals
+                    </td>
+                    <td colspan="2" class="Col_L" id="tdCol_L1" ng-if="showSemis == true"></td>
+                }
+                @if (Model.Show3rdPlace == true || Model.ShowFinals == true)
+                {
+                    <td colspan="2" class="PlayoffHeader" id="tdCol_N1" ng-if="show3rdPlace == true || showFinals == true">
+                        Final
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                <!-- Top 16 -->
+                @if (Model.Show16s == true)
+                {
+                    <td width="175" class="Col_B" id="tdCol_B2" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                    <td width="50" class="Col_C" id="tdCol_C1" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                    <td width="15" class="Col_D" id="tdCol_D2" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                    <td width="20" class="Col_E" id="tdCol_E1" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                }
+                @if (Model.ShowQuarters == true)
+                {
+                    <!-- Quarters -->
+                    <td width="175" class="Col_F" id="tdCol_F2" ng-if="showQuarters == true">
+                        &nbsp;
+                    </td>
+                    <td width="50" class="Col_G" id="tdCol_G1" ng-if="showQuarters == true">
+                        &nbsp;
+                    </td>
+                    <td width="15" class="Col_H" id="tdCol_H2" ng-if="showQuarters == true">
+                        &nbsp;
+                    </td>
+                    <td width="20" class="Col_I" id="tdCol_I1" ng-if="showQuarters == true">
+                        &nbsp;
+                    </td>
+                }
+                <!-- Semis -->
+                @if (Model.ShowSemis == true)
+                {
+                    <td width="175" class="Col_J" id="tdCol_J2" ng-if="showSemis == true">
+                        &nbsp;
+                    </td>
+                    <td width="50" class="Col_K" id="tdCol_K1" ng-if="showSemis == true">
+                        &nbsp;
+                    </td>
+                    <td width="15" class="Col_L" id="tdCol_L2" ng-if="showSemis == true">
+                        &nbsp;
+                    </td>
+                    <td width="20" class="Col_M" id="tdCol_M1" ng-if="showSemis == true">
+                        &nbsp;
+                    </td>
+                }
+                <!-- Final -->
+                @if (Model.Show3rdPlace == true || Model.ShowFinals == true)
+                {
+                    <td width="175" class="Col_N" id="tdCol_N2" ng-if="show3rdPlace == true || showFinals == true">
+                        &nbsp;
+                    </td>
+                    <td width="50" class="Col_O" id="tdCol_O1" ng-if="show3rdPlace == true || showFinals == true">
+                        &nbsp;
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B3" ng-if="show16s == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">49</span>
+                    </td>
+                    <td rowspan="4" class="Border1 Col_D" id="tdCol_D3" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                    <td rowspan="7" class="Border1 Col_E" id="tdCol_E2" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                }
+                @if (Model.ShowQuarters == true)
+                {
+                    <td colspan="2" rowspan="3" class="Col_F" id="tdCol_F3" ng-if="showQuarters == true"></td>
+                    <td rowspan="7" class="Border1 Col_H" id="tdCol_H3" ng-if="showQuarters == true">
+                        &nbsp;
+                    </td>
+                    <td rowspan="13" class="Border1 Col_I" id="tdCol_I2" ng-if="showQuarters == true">
+                        &nbsp;
+                    </td>
+                }
+                @if (Model.ShowSemis == true)
+                {
+                    <td colspan="2" rowspan="9" class="Col_J" id="tdCol_J3" ng-if="showSemis == true"></td>
+                    <td rowspan="13" class="Border1 Col_L" id="tdCol_L3" ng-if="showSemis == true">
+                        &nbsp;
+                    </td>
+                    <td rowspan="25" class="Border1 Col_M" id="tdCol_M2" ng-if="showSemis == true">
+                        &nbsp;
+                    </td>
+                }
+                @if (Model.Show3rdPlace == true || Model.ShowFinals == true)
+                {
+                    <td colspan="2" rowspan="21" class="Col_N" id="tdCol_N3" ng-if="show3rdPlace == true || showFinals == true"></td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 49, showDebugElements, true, "tdCol_B4", "tdCol_C2"))
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowQuarters == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_F4" ng-if="showQuarters == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">57</span>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 49, showDebugElements, false, "tdCol_B5", "tdCol_C3"))
+                    <td rowspan="6" class="Border3 Col_D" id="tdCol_D4" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowQuarters == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 57, showDebugElements, true, "tdCol_F5", "tdCol_G2"))
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B6" ng-if="show16s == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">50</span>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    <td rowspan="12" class="Border2 Col_E" id="tdCol_E3" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                }
+                @if (Model.ShowQuarters == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 57, showDebugElements, false, "tdCol_F6", "tdCol_G3"))
+                    <td rowspan="12" class="Border3 Col_D" id="tdCol_H4" ng-if="showQuarters == true">
+                        &nbsp;
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 50, showDebugElements, true, "tdCol_B7", "tdCol_C4"))
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowQuarters == true)
+                {
+                    <td colspan="2" rowspan="6" class="Col_F" id="tdCol_F7" ng-if="showQuarters == true"></td>
+                }
+                @if (Model.ShowSemis == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_J4" ng-if="showSemis == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">61</span>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 50, showDebugElements, false, "tdCol_B8", "tdCol_C5"))
+                    <td rowspan="6" class="Border2 Col_D" id="tdCol_D5" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowSemis == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 61, showDebugElements, true, "tdCol_J5", "tdCol_K2"))
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B9" ng-if="show16s == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">53</span>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowQuarters == true)
+                {
+                    <td rowspan="24" class="Border2 Col_I" id="tdCol_I3" ng-if="showQuarters == true">
+                        &nbsp;
+                    </td>
+                }
+                @if (Model.ShowSemis == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 61, showDebugElements, false, "tdCol_J6", "tdCol_K3"))
+                    <td rowspan="24" class="Border3 Col_L" id="tdCol_L4" ng-if="showSemis == true">
+                        &nbsp;
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 53, showDebugElements, true, "tdCol_B10", "tdCol_C6"))
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowQuarters == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_F8" ng-if="showQuarters == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">58</span>
+                    </td>
+                }
+                @if (Model.ShowSemis == true)
+                {
+                    <td colspan="2" rowspan="18" class="Col_J" id="tdCol_J7" ng-if="showSemis == true"></td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 53, showDebugElements, false, "tdCol_B11", "tdCol_C7"))
+                    <td rowspan="6" class="Border3 Col_D" id="tdCol_D6" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowQuarters == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 58, showDebugElements, true, "tdCol_F9", "tdCol_G4"))
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B12" ng-if="show16s == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">54</span>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    <td rowspan="12" class="Border2 Col_E" id="tdCol_E4" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                }
+                @if (Model.ShowQuarters == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 58, showDebugElements, false, "tdCol_F10", "tdCol_G5"))
+                    <td rowspan="12" class="Border2 Col_H" id="tdCol_H5" ng-if="showQuarters == true">
+                        &nbsp;
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 54, showDebugElements, true, "tdCol_B13", "tdCol_C8"))
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowQuarters == true)
+                {
+                    <td colspan="2" rowspan="6" class="Col_F" id="tdCol_F11" ng-if="showQuarters == true"></td>
+                }
+                @if (Model.Show3rdPlace == true || Model.ShowFinals == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_N4" ng-if="show3rdPlace == true || showFinals == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">64</span>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 54, showDebugElements, false, "tdCol_B14", "tdCol_C9"))
+                    <td rowspan="6" class="Border2 Col_D" id="tdCol_D7" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 64, showDebugElements, true, "tdCol_N5", "tdCol_O2"))
+
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B15" ng-if="show16s == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">51</span>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowSemis == true)
+                {
+                    <td rowspan="23" style="border-top: black 2px solid;" class="Col_M" id="tdCol_M3" ng-if="showSemis == true">
+                        &nbsp;
+                    </td>
+                }
+                @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 64, showDebugElements, false, "tdCol_N6", "tdCol_O3"))
+
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 52, showDebugElements, true, "tdCol_B16", "tdCol_C10"))
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowQuarters == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_F12" ng-if="showQuarters == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">59</span>
+                    </td>
+                }
+                @if (Model.Show3rdPlace == true || Model.ShowFinals == true)
+                {
+                    <td colspan="2" rowspan="10" class="Col_N" id="tdCol_N7" ng-if="show3rdPlace == true || showFinals == true"></td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 51, showDebugElements, false, "tdCol_B17", "tdCol_C11"))
+                    <td rowspan="6" class="Border3 Col_D" id="tdCol_D8" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowQuarters == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 59, showDebugElements, true, "tdCol_F13", "tdCol_G6"))
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B18" ng-if="show16s == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">52</span>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    <td rowspan="12" class="Border2 Col_E" id="tdCol_E5" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                }
+                @if (Model.ShowQuarters == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 59, showDebugElements, false, "tdCol_F14", "tdCol_G7"))
+                    <td rowspan="12" class="Border3 Col_H" id="tdCol_H6" ng-if="showQuarters == true">
+                        &nbsp;
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 51, showDebugElements, true, "tdCol_B19", "tdCol_C12"))
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowQuarters == true)
+                {
+                    <td colspan="2" rowspan="6" class="Col_F" id="tdCol_F15" ng-if="showQuarters == true"></td>
+                }
+                @if (Model.ShowSemis == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_J8" ng-if="showSemis == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">62</span>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 52, showDebugElements, false, "tdCol_B20", "tdCol_C13"))
+                    <td rowspan="6" class="Border2 Col_D" id="tdCol_D9" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowSemis == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 62, showDebugElements, true, "tdCol_J9", "tdCol_K4"))
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B21" ng-if="show16s == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">55</span>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowQuarters == true)
+                {
+                    <td rowspan="11" style="border-top: black 2px solid;" class="Col_I" id="tdCol_I4" ng-if="showQuarters == true">
+                        &nbsp;
+                    </td>
+                }
+                @if (Model.ShowSemis == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 62, showDebugElements, false, "tdCol_J10", "tdCol_K5"))
+                    <td rowspan="11" class="Border4 Col_L" id="tdCol_L5" ng-if="showSemis == true">
+                        &nbsp;
+                    </td>
+                }
+                @if (Model.Show3rdPlace == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffHeader" id="tdCol_N8" ng-if="show3rdPlace == true">
+                        Third place
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 55, showDebugElements, true, "tdCol_B22", "tdCol_C14"))
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowQuarters == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_F16" ng-if="showQuarters == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">60</span>
+                    </td>
+                }
+                @if (Model.ShowSemis == true)
+                {
+                    <td colspan="2" rowspan="9" class="Col_J" id="tdCol_J11" ng-if="showSemis == true"></td>
+                }
+                @if (Model.Show3rdPlace == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_N9" ng-if="show3rdPlace == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">63</span>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 55, showDebugElements, false, "tdCol_B23", "tdCol_C15"))
+                    <td rowspan="6" class="Border3 Col_D" id="tdCol_D10" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowQuarters == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 60, showDebugElements, true, "tdCol_F17", "tdCol_G8"))
+                }
+                @if (Model.Show3rdPlace == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 63, showDebugElements, true, "tdCol_N10", "tdCol_O4"))
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    <td colspan="2" rowspan="2" class="PlayoffTimeLocation" id="tdCol_B24" ng-if="show16s == true">
+                        <span style="color: red; font-weight: bold;" ng-if="showDebugInformation==true">56</span>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    <td rowspan="5" style="border-top: black 2px solid;" class="Col_E" id="tdCol_E6" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                }
+                @if (Model.ShowQuarters == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 60, showDebugElements, false, "tdCol_F18", "tdCol_G9"))
+                    <td rowspan="5" style="border-top: black 2px solid;" class="Col_H" id="tdCol_H7" ng-if="showQuarters == true">
+                        &nbsp;
+                    </td>
+                }
+                @if (Model.Show3rdPlace == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 63, showDebugElements, false, "tdCol_N11", "tdCol_O5"))
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 56, showDebugElements, true, "tdCol_B25", "tdCol_C16"))
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.ShowQuarters == true)
+                {
+                    <td colspan="2" rowspan="3" class="Col_F" id="tdCol_F19" ng-if="showQuarters == true"></td>
+                }
+                @if (Model.Show3rdPlace == true || Model.ShowFinals == true)
+                {
+                    <td colspan="2" rowspan="3" class="Col_N" id="tdCol_N12" ng-if="show3rdPlace == true || showFinals == true"></td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+                @if (Model.Show16s == true)
+                {
+                    @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 56, showDebugElements, false, "tdCol_B26", "tdCol_C17"))
+                    <td rowspan="2" style="border-top: black 2px solid;" class="Col_D" id="tdCol_D11" ng-if="show16s == true">
+                        &nbsp;
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td height="5" class="Col_A"></td>
+            </tr>
+        </table>
+        <br />
+
+        @*@await Html.PartialAsync("_GamePartial", new GameViewModel(Model.Games, false, true, showDebugElements))*@
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+            <br />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Game #</th>
+                    <th>Game Time</th>
+                    <th>Round</th>
+                    <th></th>
+                    <th>Score</th>
+                    <th></th>
+                    <th>Location</th>
+                </tr>
+                @foreach (Game item in Model.Games)
+                {
+                    <tr style="background-color: @Model.GetGameRowStyle(item.GameCode);">
+                        <td>
+                            @if (item.RowType == 1)
+                            {
+                                <div>@item.GameNumber</div>
+                            }
+                        </td>
+                        <td>
+                            @if (item.RowType == 1)
+                            {
+                                <div>@item.GameTime.ToString("dd-MMM-yyyy HH:mm")</div>
+                            }
+                        </td>
+                        <td>
+                            @if (item.RowType == 1)
+                            {
+                                <div>@item.RoundName</div>
+                            }
+                        </td>
+                        <td style="text-align: right;">
+                            @if (item.RowType == 1 && item.Team1Code > 0)
+                            {
+                                <div>
+                                    @*<span ng-if="item.Team1NormalTimeScore">(@item.Team1ChanceToWin | percent to win) </span>*@
+                                    <a href="/WorldCup/Team?TeamCode=@item.Team1Code">@item.Team1Name</a>
+                                    <img src="~/WorldCup/Teams/@item.Team1FlagName" Class="TeamImage" />
+                                </div>
+                            }
+                            else if (item.RowType >= 2)
+                            {
+                                <div>
+                                    @if (item.RowType == 2 && item.Team1NormalTimeScore != null)
+                                    {
+                                        <div>
+                                            @item.Team1Name
+                                            <img src="~/WorldCup/Soccerball_svg.png" /> @item.Team1NormalTimeScore'
+                                            @if (item.Team1ExtraTimeScore > 0)
+                                            {<span>+@item.Team1ExtraTimeScore'</span>}
+                                            @if (item.IsPenalty == true)
+                                            {<span> (pen)</span>}
+                                            @if (item.IsOwnGoal == true)
+                                            {<span> (og)</span>}
+                                        </div>
+                                    }
+                                    @if (item.RowType == 3 && item.Team1PenaltiesScore >= 0)
+                                    {
+                                        <div>
+                                            @item.Team1Name @if (item.Team1PenaltiesScore == 1)
+                                            {<img src="~/WorldCup/Soccerball_svg.png" />}
+                                            @if (item.Team1PenaltiesScore == 0)
+                                            {<img src="~/WorldCup/Soccerball_Miss_svg.png" />}
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </td>
+                        <td style="text-align: center;">
+                            @if (item.Team1NormalTimeScore >= 0 && item.RowType == 1)
+                            {
+                                <div>
+                                    @if (item.Team1PenaltiesScore == null && item.Team1NormalTimeScore != null)
+                                    {
+                                        <span>
+                                            @item.Team1ResultRegulationTimeScore - @item.Team2ResultRegulationTimeScore @item.Team1ResultInformation@item.Team2ResultInformation
+                                        </span>
+                                    }
+                                    else if (item.Team1PenaltiesScore != null && item.Team1PenaltiesScore >= 0)
+                                    {
+                                        <div>
+                                            <span>@item.Team1ResultRegulationTimeScore - @item.Team2ResultRegulationTimeScore (aet)</span>
+                                            <br />
+                                            @item.Team1PenaltiesScore - @item.Team2PenaltiesScore @item.Team1ResultInformation@item.Team2ResultInformation
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            @if (item.Team1NormalTimeScore == null && item.RowType == 1 && item.Team1ChanceToWin >= 0 && item.Team2ChanceToWin > 0)
+                            {
+                                <div>
+                                    Chance to win:<br />
+                                    @((item.Team1ChanceToWin - @item.Team2ChanceToWin).ToString("0.00%"))
+                                </div>
+                            }
+                            @if (item.RowType == 3 && item.ShowPenaltyShootOutLabel == true)
+                            {
+                                <div>
+                                    <u>Penalty Shootout</u>
+                                </div>
+                            }
+                        </td>
+                        <td style="text-align: left;">
+                            @if (item.RowType == 1 && item.Team2Code > 0)
+                            {
+                                <div>
+                                    <img src="~/WorldCup/Teams/@item.Team2FlagName" Class="TeamImage" />
+                                    <a href="/WorldCup/Team?TeamCode=@item.Team2Code">@item.Team2Name</a>
+                                </div>
+                            }
+                            else if (item.RowType >= 2)
+                            {
+                                <div>
+                                    @if (item.RowType == 2 && item.Team2NormalTimeScore != null)
+                                    {
+                                        <div>
+                                            @item.Team2Name <img src="~/WorldCup/Soccerball_svg.png" /> @item.Team2NormalTimeScore'
+                                            @if (item.IsPenalty == true)
+                                            {<span> (pen)</span>}@if (item.IsOwnGoal == true)
+                                            {<span> (og)</span>}
+                                        </div>
+                                    }
+                                    @if (item.RowType == 3 && item.Team2PenaltiesScore >= 0)
+                                    {
+                                        <div>
+                                            @item.Team2Name @if (item.Team2PenaltiesScore == 1)
+                                            {<img src="~/WorldCup/Soccerball_svg.png" />}
+                                            @if (item.Team2PenaltiesScore == 0)
+                                            {<img src="~/WorldCup/Soccerball_Miss_svg.png" />}
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            @if (item.RowType == 1)
+                            {
+                                <div>@item.Location</div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+</div>

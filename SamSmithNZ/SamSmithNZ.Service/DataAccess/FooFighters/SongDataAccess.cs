@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.DataAccess.Base;
+using SamSmithNZ.Service.DataAccess.FooFighters.Interfaces;
 using SamSmithNZ.Service.Models.FooFighters;
 using System.Collections.Generic;
 using System.Data;
@@ -15,7 +16,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
             base.SetupConnectionString(configuration);
         }
 
-        public async Task<List<Song>> GetListAsync()
+        public async Task<List<Song>> GetList()
         {
             return await base.GetList("FFL_GetSongs");
         }
@@ -36,7 +37,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
             return await base.GetList("FFL_GetSongs", parameters);
         }
 
-        public async Task<Song> GetItemAsync(int songCode)
+        public async Task<Song> GetItem(int songCode)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@SongCode", songCode, DbType.Int32);
@@ -44,7 +45,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
             return await base.GetItem("FFL_GetSongs", parameters);
         }
 
-        public async Task<bool> SaveItemAsync(int songCode, int showCode, int showSongOrder)
+        public async Task<bool> SaveItem(int songCode, int showCode, int showSongOrder)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@SongCode", songCode, DbType.Int32);

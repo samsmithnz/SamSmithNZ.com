@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World Cup Analytics</title>
+    <link rel="shortcut icon" sizes="32x32" href="~/WorldCup/favicon.ico">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body style="padding-top:0px;">
+    <div class="headerandlogo">
+        <table class="PercentWidth100">
+            <tr>
+                <td class="PercentWidth100">
+                    <a href="@Url.Action("Index", "WorldCup")" class="headerText">
+                        <img src="~/WorldCup/WorldCup.png" alt="" class="headerImg" />
+                        <span class="headerText">World Cup Analytics</span>
+                    </a>
+                </td>
+                <td align="right">
+                    <div>
+                        <a href="@Url.Action("About", "WorldCup")">About</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="BreadCrumbs" style="padding-left: 1.5em;">
+                &nbsp;&nbsp;&nbsp;  @Html.ActionLink("Home", "Index", "WorldCup") >
+                <a href="/WorldCup/Tournament?tournamentCode={{item.TournamentCode}}" id="lnkBreadCrumb2">loading...</a>@*<span id="lblBreadCrumbData2">loading...</span>*@<span id="lblBreadCrumbSeperator2" style="visibility: hidden">&nbsp;&gt;&nbsp;</span><span id="lblBreadCrumb3" style="visibility: hidden"></span>
+            </div>
+            <div style="padding-left: 1.5em;">
+                <h2>@ViewBag.Title</h2>
+            </div>
+            <div class="contentMain">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2000- @DateTime.Now.Year - SamSmithNZ.com
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

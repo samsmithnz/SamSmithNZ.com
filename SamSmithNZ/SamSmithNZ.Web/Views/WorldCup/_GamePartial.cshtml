@@ -1,0 +1,88 @@
+﻿@using SamSmithNZ.Service.Models.WorldCup
+@using SamSmithNZ.Web.Models.WorldCup
+@model GameViewModel
+
+<div id="divGames">
+    @*<asp:CheckBox ID="chkShowGoals" runat="server" Text="Show Goal Details" AutoPostBack="true" />*@
+    <table class="tableborders">
+        <tr style="height: 30px;">
+            @if (Model.ShowDebugElements == true)
+            {
+                <th class="headerborders" style="width: 75px;">Game #</th>
+            }
+            <th class="headerborders" style="width: 150px;">Game Time</th>
+            @if (Model.IsTeamVersion == true)
+            {
+                <th class="headerborders" style="width: 150px;">Round</th>
+                <th class="headerborders" style="width: 150px;">Group Name</th>
+            }
+            @if (Model.IsGroupVersion == false)
+            {
+                <th class="headerborders" style="width: 150px;">Round</th>
+            }
+            <th class="headerborders" style="width: 185px; text-align: right;"></th>
+            <th class="headerborders" style="width: 100px; text-align: center;">Score</th>
+            <th class="headerborders" style="width: 185px; text-align: left;"></th>
+            <th class="headerborders" style="width: 185px;">Location</th>
+            @if (Model.IsGroupVersion == false)
+            {
+                <th class="headerborders" style="width: 150px;">Tournament</th>
+                <th class="headerborders" style="width: 150px;">Coach</th>
+                <th class="headerborders" style="width: 100px;">Fifa Ranking</th>
+            }
+        </tr>
+        @foreach (Game item in Model.Games)
+        {
+            GameResult result = GameViewModel.GetGameResult(item);
+            <tr>
+                @if (Model.ShowDebugElements == true)
+                {
+                    <td class="cellborders">@item.GameNumber</td>
+                }
+                <td class="cellborders">@item.GameTime.ToString("d-MMM-yyyy")</td>
+                @if (Model.IsTeamVersion == true)
+                {
+                    <td class="cellborders">@item.RoundNumber</td>
+                    <td class="cellborders">@item.RoundName</td>
+                }
+                @if (Model.IsGroupVersion == false)
+                {
+                    <td class="cellborders">@item.RoundCode</td>
+                }
+                <td class="cellborders" style="text-align: right;">
+                    <a href="@Url.Action("Team", "WorldCup", new { teamCode = @item.Team1Code })">@item.Team1Name</a>
+                    <img src="~/WorldCup/Teams/@item.Team1FlagName" CssClass="TeamImage" />
+                </td>
+                <td class="cellborders" style="text-align: center;">
+                    <span id="lblScore">@result.TeamScoresText</span>
+                    @if (string.IsNullOrEmpty(result.TeamScoresText) == false)
+                    {
+                        <br />
+                    }
+                    <span id="lblExtra">@result.TeamExtrasText</span>
+                    @if (string.IsNullOrEmpty(result.TeamExtrasText) == false)
+                    {
+                        <br />
+                    }
+                    <span id="lblPenalties">@result.TeamPenaltiesText</span>
+                    @if (string.IsNullOrEmpty(result.TeamPenaltiesText) == false)
+                    {
+                        <br />
+                    }
+                </td>
+                <td class="cellborders" style="text-align: left;">
+                    <img src="~/WorldCup/Teams/@item.Team2FlagName" CssClass="TeamImage" />
+                    <a href="@Url.Action("Team", "IntFootball", new { teamCode = @item.Team2Code })">@item.Team2Name</a>
+                </td>
+                <td class="cellborders">@item.Location</td>
+                @if (Model.IsGroupVersion == false)
+                {
+                    <td class="cellborders">[Unknown]</td>
+                    <td class="cellborders">[Unknown]</td>
+                    <td class="cellborders">[Unknown]</td>
+                }
+            </tr>
+        }
+    </table>
+
+</div>

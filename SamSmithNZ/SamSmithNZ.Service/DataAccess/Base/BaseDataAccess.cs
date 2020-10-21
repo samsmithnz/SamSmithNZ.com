@@ -68,6 +68,31 @@ namespace SamSmithNZ.Service.DataAccess.Base
             return result;
         }
 
+        public async Task<R> GetScalarItem<R>(string query, DynamicParameters parameters = null)
+        {
+            if (ConnectionString == null)
+            {
+                throw new Exception("ConnectionString not set");
+            }
+
+            R result;
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            try
+            {
+                await connection.OpenAsync();
+                IEnumerable<R> results = await connection.QueryAsync<R>(query, parameters, commandType: CommandType.StoredProcedure);
+                result = results.FirstOrDefault<R>();
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open)
+                {
+                    await connection.CloseAsync();
+                }
+            }
+            return result;
+        }
+
         public async Task<bool> SaveItem(string query, DynamicParameters parameters = null)
         {
             if (ConnectionString == null)

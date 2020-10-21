@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.DataAccess.Base;
+using SamSmithNZ.Service.DataAccess.FooFighters.Interfaces;
 using SamSmithNZ.Service.Models.FooFighters;
 using System.Collections.Generic;
 using System.Data;
@@ -15,7 +16,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
             base.SetupConnectionString(configuration);
         }
 
-        public async Task<List<AverageSetlist>> GetListAsync(int yearCode, int minimumSongCount, bool showAllSongs)
+        public async Task<List<AverageSetlist>> GetList(int yearCode, int minimumSongCount, bool showAllSongs)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@YearCode", yearCode, DbType.Int32);

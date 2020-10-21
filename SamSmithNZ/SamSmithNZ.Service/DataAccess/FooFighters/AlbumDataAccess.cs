@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.DataAccess.Base;
+using SamSmithNZ.Service.DataAccess.FooFighters.Interfaces;
 using SamSmithNZ.Service.Models.FooFighters;
 using System.Collections.Generic;
 using System.Data;
@@ -15,12 +16,12 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
             base.SetupConnectionString(configuration);
         }
 
-        public async Task<List<Album>> GetListAsync()
+        public async Task<List<Album>> GetList()
         {
             return await base.GetList("FFL_GetAlbums");
         }
 
-        public async Task<Album> GetItemAsync(int albumCode)
+        public async Task<Album> GetItem(int albumCode)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@albumCode", albumCode, DbType.Int32);

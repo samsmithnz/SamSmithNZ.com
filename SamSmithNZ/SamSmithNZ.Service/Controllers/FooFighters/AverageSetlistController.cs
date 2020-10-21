@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SamSmithNZ.Service.DataAccess.FooFighters;
+using SamSmithNZ.Service.DataAccess.FooFighters.Interfaces;
 using SamSmithNZ.Service.Models.FooFighters;
 
 namespace SamSmithNZ.Service.Controllers.FooFighters
@@ -21,7 +22,7 @@ namespace SamSmithNZ.Service.Controllers.FooFighters
         [HttpGet("GetAverageSetlist")]
         public async Task<List<AverageSetlist>> GetAverageSetlist(int yearCode, int minimumSongCount = 0, bool showAllSongs = false)
         {
-            return await _repo.GetListAsync(yearCode, minimumSongCount, showAllSongs);
+            return await _repo.GetList(yearCode, minimumSongCount, showAllSongs);
         }
 
     }

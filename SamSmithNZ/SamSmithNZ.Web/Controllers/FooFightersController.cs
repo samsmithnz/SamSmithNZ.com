@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.Models.FooFighters;
 using SamSmithNZ.Web.Models.FooFighters;
 using SamSmithNZ.Web.Services;
+using SamSmithNZ.Web.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
