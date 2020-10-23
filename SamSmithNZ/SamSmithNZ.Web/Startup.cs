@@ -32,6 +32,7 @@ namespace SamSmithNZ.Web
             services.AddScoped<IFooFightersServiceAPIClient, FooFightersServiceAPIClient>();
             services.AddScoped<IGuitarTabServiceAPIClient, GuitarTabServiceAPIClient>();
             services.AddScoped<IWorldCupServiceAPIClient, WorldCupServiceAPIClient>();
+            services.AddScoped<ISteamServiceAPIClient, SteamServiceAPIClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,82 @@
+﻿using Microsoft.Extensions.Configuration;
+using SamSmithNZ.Service.Models.Steam;
+using SamSmithNZ.Web.Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+namespace SamSmithNZ.Web.Services
+{
+    public class SteamServiceAPIClient : BaseServiceAPIClient, ISteamServiceAPIClient
+    {
+        private readonly IConfiguration _configuration;
+
+        public SteamServiceAPIClient(IConfiguration configuration)
+        {
+            _configuration = configuration;
+            HttpClient client = new HttpClient
+            {
+                BaseAddress = new Uri(_configuration["AppSettings:WebServiceURL"])
+            };
+            base.SetupClient(client);
+        }
+
+        public async Task<Player> GetPlayer(string steamID, bool useCache)
+        {
+            Uri url = new Uri($"api/Steam/Player/GetPlayer?SteamID=" + steamID, UriKind.Relative);
+            Player result = await base.ReadMessageItem<Player>(url);
+            if (result == null)
+            {
+                return new Player();
+            }
+            else
+            {
+                return result;
+            }
+        }
+
+        public async Task<List<Game>> GetPlayerGames(string steamID, bool useCache)
+        {
+            Uri url = new Uri($"api/Steam/PlayerGames/GetPlayerGames?SteamID=" + steamID, UriKind.Relative);
+            List<Game> results = await base.ReadMessageList<Game>(url);
+            if (results == null)
+            {
+                return new List<Game>();
+            }
+            else
+            {
+                return results;
+            }
+        }
+
+        public async Task<GameDetail> GetGameDetail(string steamID, string appID, bool useCache)
+        {
+            Uri url = new Uri($"api/Steam/GameDetails/GetGameDetails?SteamID=" + steamID + "&appID=" + appID, UriKind.Relative);
+            GameDetail result = await base.ReadMessageItem<GameDetail>(url);
+            if (result == null)
+            {
+                return new GameDetail();
+            }
+            else
+            {
+                return result;
+            }
+        }
+
+        public async Task<List<Friend>> GetFriends(string steamID, bool useCache)
+        {
+            Uri url = new Uri($"api/Steam/Friends/GetFriends?SteamID=" + steamID, UriKind.Relative);
+            List<Friend> result = await base.ReadMessageList<Friend>(url);
+            if (result == null)
+            {
+                return new List<Friend>();
+            }
+            else
+            {
+                return result;
+            }
+        }
+    }
+}

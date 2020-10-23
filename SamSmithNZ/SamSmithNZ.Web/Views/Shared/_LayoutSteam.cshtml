@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Steam Stats</title>
+    <link rel="shortcut icon" sizes="32x32" href="~/Steam/favicon.ico">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body style="padding-top:0px;">
+    <div class="headerandlogo">
+        <table class="PercentWidth100">
+            <tr>
+                <td class="PercentWidth100">
+                    <a href="@Url.Action("Index", "Steam", new { steamID = "76561197971691578" })" class="headerText">
+                        <img src="~/Steam/steam.png" alt="" class="headerImg" />
+                        <span class="headerText">Steam Stats v3</span>
+                    </a>
+                </td>
+                @*<td style="width: auto;">
+                </td>
+                <td align="right">
+                    <div>
+                        <a href="@Url.Action("About", "Steam", new { steamID = "76561197971691578" })">About</a>
+                    </div>
+                </td>*@
+            </tr>
+        </table>
+    </div>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <table class="PercentWidth100">
+                <tr>
+                    @*<td class="sideBar">
+                        <br />
+                        <b>Friends list for {{player.PlayerName}}:</b>
+                        <br />
+                        <br />
+                        <div class="PlaylistSideBar">
+                            <div ng-repeat="item in friends">
+                                <img ng-src="{{item.Avatar}}" /> <a href="~/Steam/Index?SteamId={{item.SteamId}}">{{item.Name}}</a><br />
+                            </div>
+                        </div>
+                    </td>*@
+                    <td class="contentMain">
+                        @RenderBody()
+                    </td>
+                </tr>
+            </table>
+            <input id="txtSteamId" type="hidden" value="76561197971691578" />
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <hr />
+        <p>
+            Powered by <a href="http://steampowered.com" target="_blank">Steam</a>.
+            This site is not affiliated with Valve, Steam, or any of their partners. All copyrights reserved to their respective owners. All times are in UTC.
+        </p>
+        <hr />
+        <div class="container">
+            &copy; 2000- @DateTime.Now.Year - SamSmithNZ.com
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

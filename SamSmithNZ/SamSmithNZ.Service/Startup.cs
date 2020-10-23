@@ -18,6 +18,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
+using SamSmithNZ.Service.Models.Steam;
+using StackExchange.Redis;
 
 namespace SamSmithNZ.Service
 {
@@ -42,6 +45,8 @@ namespace SamSmithNZ.Service
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SamSmithNZ.Service", Version = "v1" });
             });
 
+            services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
+
             //Foo Fighters
             services.AddScoped<SamSmithNZ.Service.DataAccess.FooFighters.Interfaces.IAlbumDataAccess, SamSmithNZ.Service.DataAccess.FooFighters.AlbumDataAccess>();
             services.AddScoped<IAverageSetlistDataAccess, AverageSetlistDataAccess>();
@@ -58,7 +63,7 @@ namespace SamSmithNZ.Service
             services.AddScoped<ITrackOrderDataAccess, TrackOrderDataAccess>();
             services.AddScoped<ITuningDataAccess, TuningDataAccess>();
 
-            //Int Football
+            //Worldcup
             services.AddScoped<IEloRatingDataAccess, EloRatingDataAccess>();
             services.AddScoped<IGameDataAccess, GameDataAccess>();
             services.AddScoped<IGameGoalAssignmentDataAccess, GameGoalAssignmentDataAccess>();
@@ -72,8 +77,14 @@ namespace SamSmithNZ.Service
             services.AddScoped<ITournamentTeamDataAccess, TournamentTeamDataAccess>();
             services.AddScoped<ITournamentTopGoalScorerDataAccess, TournamentTopGoalScorerDataAccess>();
 
-
-            services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
+            //Steam
+            services.AddSingleton<IRedisService, RedisService>();
+            ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration["CacheConnection"]);
+            if (connectionMultiplexer != null)
+            {
+                IDatabase database = connectionMultiplexer.GetDatabase();
+                services.AddSingleton<IDatabase>(_ => database);
+            }
 
         }
 

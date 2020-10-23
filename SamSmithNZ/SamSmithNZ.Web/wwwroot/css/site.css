@@ -124,6 +124,7 @@ a {
     background-repeat: repeat-x;*/
     border-top: 1px solid rgb(167, 215, 249);
     border-left: 1px solid rgb(167, 215, 249);
+    border-right: 1px solid rgb(167, 215, 249);
     border-bottom: 1px solid rgb(167, 215, 249);
     display: block;
 }

@@ -1,0 +1,139 @@
+﻿@using SamSmithNZ.Service.Models.Steam;
+@using SamSmithNZ.Web.Models.Steam;
+@model GameDetailViewModel
+@{
+    ViewBag.Title = "Game Details";
+    Layout = "~/Views/Shared/_LayoutSteam.cshtml";
+}
+
+<div>
+    @if (Model.Player != null)
+    {
+        <h2 class="sectionTitle" ng-show="player"><b>@Model.Player.PlayerName's statistics for @Model.GameDetail.GameName</b></h2>
+
+        <br />
+    }
+    @if (Model.Player != null)
+    {
+        <a href="~/Steam/Index?SteamId=@Model.SteamId">@Model.Player.PlayerName's Game List</a> <span>&nbsp;&gt;&nbsp;</span> @Model.GameDetail.GameName
+        <br />
+        <br />
+    }
+    @if (Model.GameDetail != null)
+    {
+        <img src="http://media.steampowered.com/steamcommunity/public/images/apps/@(Model.GameDetail.AppID)/@(Model.GameDetail.LogoURL).jpg" @*src="~/Steam/steam32by32.png"*@ />
+        <br />
+    }
+</div>
+@if (Model.GameDetail.Achievements != null && Model.GameDetail.Achievements.Count > 0)
+{
+    <div>
+        <table>
+            <tr>
+                <td>Achievements completed:</td>
+                <td>
+                    <span>@Model.GameDetail.TotalAchieved (@((Model.GameDetail.PercentAchieved * 100).ToString("0.00"))%)</span>
+                </td>
+            </tr>
+            <!--
+            <tr ng-hide="gameDetails && gameDetails.AchievementsStats || error">
+                <td colspan="2">
+                    <img id="spinner1" src="~/Images/spinner_small.gif" />
+                </td>
+            </tr>
+            <tr ng-show="gameDetails && gameDetails.AchievementsStats">
+                <td>
+                    Filter achievements by API Name:
+                </td>
+                <td>
+                    <select ng-show="gameDetails.AchievementsStats.length > 0" class="form-control" ng-model="selectedAchievementFilter" ng-options="achievement.Value as achievement.Key for achievement in gameDetails.AchievementsStats">
+                        <option value="">[Please select achievement to filter]</option>
+                    </select>
+                </td>
+            </tr> -->
+        </table>
+
+        @*<form asp-controller="WorldCup" asp-action="GroupPost" asp-route-tournamentCode="@Model.TournamentCode" asp-route-roundNumber="@Model.RoundNumber" method="post">
+                <span>Group: </span><select asp-for="RoundCode" asp-items="Model.GroupCodes"></select>
+                <button type="submit">Update</button>
+            </form>*@
+
+        <br />
+        <form asp-controller="Steam" asp-action="GameDetailsPost" asp-route-steamid="@Model.SteamId" asp-route-appid="@Model.GameDetail.AppID" method="post">
+            <span>Achievements: (@Model.GameDetail.TotalAchieved / @Model.TotalAchievements): @*| filter: achievementFilter).length*@</span><input id="chkShowAchievements" type="checkbox" asp-for="ShowCompletedAchievements" onChange="this.form.submit()" />
+            <label for="chkShowAchievements" style="font-weight: normal;">Show only completed achievements</label>
+        </form>
+        <table class="tableborders">
+            <tr>
+                <th class="headerborders">#</th>
+                <th class="headerborders"></th>
+                <th class="headerborders">Global Completion %</th>
+                <th class="headerborders">Description</th>
+                <th class="headerborders" @*ng-hide="selectedFriend"*@>API Name</th>
+                @*<th class="headerborders" ng-show="selectedFriend">Friend has achieved this?</th>*@
+            </tr>
+            @for (int i = 0; i < Model.GameDetail.Achievements.Count; i++)
+            {
+                Achievement item = Model.GameDetail.Achievements[i];
+                <tr ng-repeat="item in gameDetails.Achievements | filter: achievementFilter" class="alternatingColors" @*style="background-color: @Model.getFriendStyle(selectedFriend, item.Achieved, item.FriendAchieved)"*@>
+                    <td class="cellborders">@(i+1)</td>
+                    <td class="cellborders">
+                        @if (item.IsVisible == true)
+                        {
+                            @if (item.Achieved == true)
+                            {
+                                <img src="@item.IconURL" style="width: 64px; height: 64px;" />
+                            }
+                            else
+                            {
+                                <img src="@item.IconGrayURL" style="width: 64px; height: 64px;" />
+                            }
+                        }
+                        else
+                        {
+                            <img src="~/Steam/alien.png" />
+                        }
+                    </td>
+                    <td class="cellborders">
+                        @*<span style="color:red;">{{item.GlobalPercent | number : 2%</span>*@
+                        @if (decimal.Round(item.GlobalPercent, 1) > 0)
+                        {
+                            <span>@item.GlobalPercent.ToString("0.00")%</span>
+                        }
+                        else if (decimal.Round(item.GlobalPercent, 1) == 0 && decimal.Round(item.GlobalPercent, 2) > 0)
+                        {
+                            <span>@item.GlobalPercent.ToString("0.000")%</span>
+                        }
+                        else if (decimal.Round(item.GlobalPercent, 2) == 0 && decimal.Round(item.GlobalPercent, 3) > 0)
+                        {
+                            <span>@item.GlobalPercent.ToString("0.0000")%</span>
+                        }
+                        else if (decimal.Round(item.GlobalPercent, 3) == 0 && decimal.Round(item.GlobalPercent, 4) > 0)
+                        {
+                            <span>@item.GlobalPercent.ToString("0.00000")%</span>
+                        }
+                        else if (decimal.Round(item.GlobalPercent, 4) == 0)
+                        {
+                            <span>@item.GlobalPercent.ToString("0.00")%</span>
+                        }
+                    </td>
+                    <td class="cellborders">@item.Name: @item.Description</td>
+                    <td class="cellborders" @*ng-hide="selectedFriend"*@>@item.ApiName</td>
+                    @*<td class="cellborders" ng-show="selectedFriend">
+                            <img ng-show="item.FriendAchieved" ng-src="{{item.IconURL" />
+                            <img ng-show="!item.FriendAchieved" ng-src="{{item.IconGrayURL" />
+                        </td>*@
+                </tr>
+            }
+        </table>
+    </div>
+}
+@if (Model.GameDetail.Achievements != null && Model.GameDetail.Achievements.Count == 0)
+{
+    <span>No achievements found for this game</span>
+    @if (Model.GameDetail.ErrorMessage != null)
+    {
+        <span>(@Model.GameDetail.ErrorMessage)</span>
+    }
+    <br />
+}
