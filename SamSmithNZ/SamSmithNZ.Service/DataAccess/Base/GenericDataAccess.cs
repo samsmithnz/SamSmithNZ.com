@@ -55,11 +55,11 @@
 //        }
 
 //        /// <summary>
-//        /// Posts data to the database. If you need to return anything aside from a successful boolean call, use the other base functions
+//        /// Posts data to the database. If you need to return anything aside from a successful bool call, use the other base functions
 //        /// </summary>
 //        /// <param name="storedProcedureName">Stored Procedure name string</param>
 //        /// <param name="parameters">Dapper DynamicParameters object</param>
-//        /// <returns>Boolean (true) if successful. </returns>
+//        /// <returns>bool (true) if successful. </returns>
 //        public async Task<bool> SaveItem(string storedProcedureName, DynamicParameters parameters = null, int? timeoutOverride = null)
 //        {
 //            try
@@ -201,7 +201,7 @@
 //                        {
 //                            sb.Append("'");
 //                        }
-//                        if (value.GetType().ToString() == "System.Boolean")
+//                        if (value.GetType().ToString() == "System.bool")
 //                        {
 //                            if (value == true)
 //                            {

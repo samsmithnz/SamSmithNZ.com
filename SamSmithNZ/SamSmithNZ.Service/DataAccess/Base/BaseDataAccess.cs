@@ -19,7 +19,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
             ConnectionString = configuration["ConnectionStrings:DefaultConnectionString"];
         }
 
-        public async Task<List<T>> GetList(string query, DynamicParameters parameters = null)
+        public async Task<List<T>> GetList(string query, DynamicParameters parameters = null, int timeOut = 15) //15 seconds is the default timeout
         {
             if (ConnectionString == null)
             {
@@ -31,7 +31,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
             try
             {
                 await connection.OpenAsync();
-                results = await connection.QueryAsync<T>(query, parameters, commandType: CommandType.StoredProcedure);
+                results = await connection.QueryAsync<T>(query, parameters, commandType: CommandType.StoredProcedure, commandTimeout: timeOut);
             }
             finally
             {
@@ -93,7 +93,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
             return result;
         }
 
-        public async Task<bool> SaveItem(string query, DynamicParameters parameters = null)
+        public async Task<bool> SaveItem(string query, DynamicParameters parameters = null, int timeOut = 15) //15 seconds is the default timeout
         {
             if (ConnectionString == null)
             {
@@ -105,7 +105,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
             try
             {
                 await connection.OpenAsync();
-                await connection.ExecuteScalarAsync<bool>(query, parameters, commandType: CommandType.StoredProcedure);
+                await connection.ExecuteScalarAsync<bool>(query, parameters, commandType: CommandType.StoredProcedure, commandTimeout: timeOut);
                 result = true;
             }
             finally

@@ -21,6 +21,8 @@ using System.Threading.Tasks;
 using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
 using SamSmithNZ.Service.Models.Steam;
 using StackExchange.Redis;
+using SamSmithNZ.Service.DataAccess.ITunes;
+using SamSmithNZ.Service.DataAccess.ITunes.Interfaces;
 
 namespace SamSmithNZ.Service
 {
@@ -85,6 +87,12 @@ namespace SamSmithNZ.Service
                 IDatabase database = connectionMultiplexer.GetDatabase();
                 services.AddSingleton<IDatabase>(_ => database);
             }
+
+            //ITunes
+            services.AddScoped<IMovementDataAccess, MovementDataAccess>();
+            services.AddScoped<IPlaylistDataAccess, PlaylistDataAccess>();
+            services.AddScoped<ITopArtistsDataAccess, TopArtistsDataAccess>();
+            services.AddScoped<ITrackDataAccess, TrackDataAccess>();
 
         }
 

@@ -68,7 +68,7 @@ namespace SamSmithNZ.Tests.GuitarTab
             Assert.IsTrue(foundTCATS == true);
         }
 
-        private void TestTCATS(Album results)
+        private static void TestTCATS(Album results)
         {
             Assert.IsTrue(results != null);
             Assert.IsTrue(results.AlbumCode == 14);
@@ -97,8 +97,8 @@ namespace SamSmithNZ.Tests.GuitarTab
             Album item = await controller.GetAlbum(albumCode, true);
 
             //update
-            string albumName = "";
-            string artistName = "";
+            string albumName;
+            string artistName;
             if (item.AlbumName == "Test Album1")
             {
                 albumName = "Test Album2";

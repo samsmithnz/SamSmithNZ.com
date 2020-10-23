@@ -28,21 +28,21 @@ namespace SamSmithNZ.Service.Models.WorldCup
         public DateTime? MaxGameTime { get; set; }
         public int FormatCode { get; set; }
         public int R1FormatRoundCode { get; set; }
-        public Boolean R1IsGroupStage { get; set; }
+        public bool R1IsGroupStage { get; set; }
         public int R1NumberOfTeamsInGroup { get; set; }
         public int R1NumberOfGroupsInRound { get; set; }
         public int R1NumberOfTeamsFromGroupThatAdvance { get; set; }
         public int R1TotalNumberOfTeamsThatAdvance { get; set; }
         public string R1FirstGroupCode { get; set; }
         public int R2FormatRoundCode { get; set; }
-        public Boolean R2IsGroupStage { get; set; }
+        public bool R2IsGroupStage { get; set; }
         public int R2NumberOfTeamsInGroup { get; set; }
         public int R2NumberOfGroupsInRound { get; set; }
         public int R2NumberOfTeamsFromGroupThatAdvance { get; set; }
         public int R2TotalNumberOfTeamsThatAdvance { get; set; }
         public string R2FirstGroupCode { get; set; }
         public int R3FormatRoundCode { get; set; }
-        public Boolean R3IsGroupStage { get; set; }
+        public bool R3IsGroupStage { get; set; }
         public int R3NumberOfTeamsInGroup { get; set; }
         public int R3NumberOfGroupsInRound { get; set; }
         public int R3NumberOfTeamsFromGroupThatAdvance { get; set; }
