@@ -31,6 +31,12 @@ namespace SamSmithNZ.Service.Controllers.FooFighters
             return await _repo.GetListBySongAsync(songCode);
         }
 
+        [HttpGet("GetListByFFLCode")]
+        public async Task<List<Show>> GetListByFFLCode( )
+        {
+            return await _repo.GetListByFFLCode();
+        }
+
         [HttpGet("GetShow")]
         public async Task<Show> GetShow(int showCode)
         {

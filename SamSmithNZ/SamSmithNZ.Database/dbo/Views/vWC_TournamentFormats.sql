@@ -1,0 +1,25 @@
+﻿CREATE VIEW [dbo].[vWC_TournamentFormats]
+AS
+SELECT tf.format_code,
+tfr1.format_round_code AS r1_format_round_code, 
+tfr1.is_group_stage AS r1_is_group_stage, 
+tfr1.number_of_teams_in_group AS r1_number_of_teams_in_group, 
+tfr1.number_of_groups_in_round AS r1_number_of_groups_in_round, 
+tfr1.number_of_teams_from_group_that_advance AS r1_number_of_teams_from_group_that_advance, 
+tfr1.total_number_of_teams_that_advance AS r1_total_number_of_teams_that_advance,
+tfr2.format_round_code AS r2_format_round_code, 
+tfr2.is_group_stage AS r2_is_group_stage, 
+tfr2.number_of_teams_in_group AS r2_number_of_teams_in_group, 
+tfr2.number_of_groups_in_round AS r2_number_of_groups_in_round, 
+tfr2.number_of_teams_from_group_that_advance AS r2_number_of_teams_from_group_that_advance, 
+tfr2.total_number_of_teams_that_advance AS r2_total_number_of_teams_that_advance,
+tfr3.format_round_code AS r3_format_round_code, 
+tfr3.is_group_stage AS r3_is_group_stage, 
+tfr3.number_of_teams_in_group AS r3_number_of_teams_in_group, 
+tfr3.number_of_groups_in_round AS r3_number_of_groups_in_round, 
+tfr3.number_of_teams_from_group_that_advance AS r3_number_of_teams_from_group_that_advance, 
+tfr3.total_number_of_teams_that_advance AS r3_total_number_of_teams_that_advance
+from wc_tournament_format tf
+JOIN wc_tournament_format_round tfr1 ON tf.round_1_format_code = tfr1.format_round_code
+JOIN wc_tournament_format_round tfr2 ON tf.round_2_format_code = tfr2.format_round_code
+JOIN wc_tournament_format_round tfr3 ON tf.round_3_format_code = tfr3.format_round_code

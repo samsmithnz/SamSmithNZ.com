@@ -11,7 +11,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters.Interfaces
 
         Task<List<Show>> GetListBySongAsync(int songCode);
 
-        //Task<List<Show>> GetListByFFLCodeAsync();
+        Task<List<Show>> GetListByFFLCode();
 
         Task<Show> GetItem(int showCode);
 

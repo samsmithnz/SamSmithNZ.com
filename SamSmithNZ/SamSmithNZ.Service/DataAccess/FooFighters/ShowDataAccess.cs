@@ -32,13 +32,13 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
             return await base.GetList("FFL_GetShows", parameters);
         }
 
-        //public async Task<List<Show>> GetListByFFLCodeAsync()
-        //{
-        //    DynamicParameters parameters = new DynamicParameters();
-        //    parameters.Add("@GetFFLCodes", true, DbType.Int32);
+        public async Task<List<Show>> GetListByFFLCode()
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@GetFFLCodes", true, DbType.Int32);
 
-        //    return await base.GetList("FFL_GetShows", parameters);
-        //}
+            return await base.GetList("FFL_GetShows", parameters);
+        }
 
         public async Task<Show> GetItem(int showCode)
         {
