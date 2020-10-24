@@ -22,7 +22,7 @@ namespace SamSmithNZ.Service.Controllers.WorldCup
         [HttpGet("GetTournamentQualifyingTeams")]
         public async Task<List<TournamentTeam>> GetTournamentQualifyingTeams(int tournamentCode)
         {
-            return await _repo.GetQualifiedTeamsAsync(tournamentCode);
+            return await _repo.GetQualifiedTeams(tournamentCode);
         }
 
         [HttpGet("GetTournamentPlacingTeams")]

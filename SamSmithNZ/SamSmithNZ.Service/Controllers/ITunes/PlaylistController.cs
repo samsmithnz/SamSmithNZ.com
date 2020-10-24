@@ -6,7 +6,7 @@ using SamSmithNZ.Service.DataAccess.ITunes;
 using SamSmithNZ.Service.DataAccess.ITunes.Interfaces;
 using SamSmithNZ.Service.Models.ITunes;
 
-namespace SSNZ.ITunes.Service.Controllers
+namespace SamSmithNZ.Service.Controllers.ITunes
 {
     [Route("api/itunes/[controller]")]
     [ApiController]
@@ -19,11 +19,13 @@ namespace SSNZ.ITunes.Service.Controllers
             _repo = repo;
         }
 
+        [HttpGet("GetPlaylists")]
         public async Task<List<Playlist>> GetPlaylists()
         {
             return await _repo.GetList();
         }
 
+        [HttpGet("GetPlaylist")]
         public async Task<Playlist> GetPlaylist(int playlistCode)
         {
             return await _repo.GetItem(playlistCode);

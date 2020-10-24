@@ -38,7 +38,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return await base.SaveItem("FB_SaveGoal", parameters);
         }
 
-        public async Task<bool> DeleteItemAsync(Goal goal)
+        public async Task<bool> DeleteItem(Goal goal)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@GoalCode", goal.GoalCode, DbType.Int32);

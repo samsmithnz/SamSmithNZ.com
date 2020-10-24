@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iTunes Analysis</title>
+    <link rel="shortcut icon" sizes="32x32" href="~/ITunes/favicon.ico">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body style="padding-top:0px;">
+    <div class="headerandlogo">
+        <table class="PercentWidth100">
+            <tr>
+                <td class="PercentWidth100">
+                    <a href="@Url.Action("Index", "iTunes")" class="headerText">
+                        <img src="~/ITunes/ITunes.png" alt="" class="headerImg" />
+                        <span class="headerText">iTunes Analysis</span>
+                    </a>
+                </td>
+                @*<td align="right">
+                    <div>
+                        <a href="@Url.Action("About", "ITunes")">About</a>
+                    </div>
+                </td>*@
+            </tr>
+        </table>
+    </div>
+    <div class="contentFrame">
+        <table class="PercentWidth100">
+            <tr class="toptr">
+                @*<td class="sideBar">
+                    <br />
+                    <b>&nbsp;Jump to Playlist:</b><br /><br />
+                    <div class="PlaylistSideBar">
+                        <div ng-repeat="item in playlists">
+                            &nbsp;&nbsp;<a href="~/ITunes/Playlist?PlayListCode={{item.PlaylistCode}}&ShowJustSummary=true">{{item.PlaylistDate | date:'MMM-yyyy'}}</a><br />
+                        </div>
+                    </div>
+                </td>*@
+                <td class="contentMain">
+                    <h2 class="sectionTitle"><b>@ViewBag.Title</b></h2>
+                    @RenderBody()
+                </td>
+            </tr>
+        </table>
+    </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2000- @DateTime.Now.Year - SamSmithNZ.com
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

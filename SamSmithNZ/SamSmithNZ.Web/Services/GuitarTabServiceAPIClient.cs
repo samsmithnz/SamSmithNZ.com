@@ -136,7 +136,7 @@ namespace SamSmithNZ.Web.Services
         public async Task<bool> DeleteTab(int tabCode)
         {
             Uri url = new Uri($"api/GuitarTab/Tab/DeleteTab?tabCode=" + tabCode, UriKind.Relative);
-            Tab tab = await base.ReadMessageItem<Tab>(url);
+            await base.ReadMessageItem<Tab>(url);
             return true;
         }
 

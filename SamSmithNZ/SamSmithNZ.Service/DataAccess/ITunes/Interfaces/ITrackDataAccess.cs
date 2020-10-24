@@ -7,8 +7,8 @@ namespace SamSmithNZ.Service.DataAccess.ITunes.Interfaces
     public interface ITrackDataAccess
     {
         Task<List<Track>> GetList(int playlistCode, bool showJustSummary);
-        Task<bool> SaveItem(Track track);
-        Task<List<Track>> ValidateTracksForPlaylist(int playlistCode);
-        Task<bool> SetTrackRanksForPlaylist(int playlistCode);
+        //Task<bool> SaveItem(Track track);
+        //Task<List<Track>> ValidateTracksForPlaylist(int playlistCode);
+        //Task<bool> SetTrackRanksForPlaylist(int playlistCode);
     }
 }

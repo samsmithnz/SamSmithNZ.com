@@ -2,9 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.Models.GuitarTab;
 using SamSmithNZ.Web.Models.GuitarTab;
-using SamSmithNZ.Web.Services;
 using SamSmithNZ.Web.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +20,7 @@ namespace SamSmithNZ.Web.Controllers
             _configuration = configuration;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             List<Artist> artists = await _ServiceApiClient.GetArtists();
             List<Album> albums = await _ServiceApiClient.GetAlbums();
@@ -42,7 +40,7 @@ namespace SamSmithNZ.Web.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Album(int albumCode)
+        public async Task<IActionResult> Album(int albumCode)
         {
             Album album = await _ServiceApiClient.GetAlbum(albumCode);
             List<Tab> tabs = await _ServiceApiClient.GetTabs(albumCode);
@@ -54,22 +52,22 @@ namespace SamSmithNZ.Web.Controllers
             });
         }
 
-        public ActionResult SearchResults(string searchText)
+        public IActionResult SearchResults(string searchText)
         {
             return View();
         }
 
-        public ActionResult EditAlbum(int albumCode)
+        public IActionResult EditAlbum(int albumCode)
         {
             return View();
         }
 
-        public ActionResult EditTab(int tabCode)
+        public IActionResult EditTab(int tabCode)
         {
             return View();
         }
 
-        public ActionResult AlbumTabList(int albumCode)
+        public IActionResult AlbumTabList(int albumCode)
         {
             return RedirectToAction("Album", new { albumCode = albumCode });
         }

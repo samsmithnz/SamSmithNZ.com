@@ -8,7 +8,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup.Interfaces
     {
         Task<List<Goal>> GetList(int gameCode);
         Task<bool> SaveItem(Goal goal);
-        Task<bool> DeleteItemAsync(Goal goal);
+        Task<bool> DeleteItem(Goal goal);
 
     }
 }

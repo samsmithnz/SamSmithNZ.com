@@ -1,0 +1,86 @@
+﻿@using SamSmithNZ.Service.Models.ITunes;
+@using SamSmithNZ.Web.Models.ITunes;
+@model IndexViewModel
+@{
+    ViewBag.Title = "ITunes Analysis Summary";
+    Layout = "~/Views/Shared/_LayoutITunes.cshtml";
+}
+
+<h2>iTunes Statistics</h2>
+
+<table class="tableofcontents" padding="0" cellspacing="0">
+    <tr>
+        <td style="width: 100%;">
+            <ul style="text-align: left; padding: 0px;">
+                <li class="tableofcontentsitem">
+                    1. <a href="#TopArtists">All Time Top Artists</a>
+                </li>
+                @*<li class="tableofcontentsitem">
+                        2. <a href="#BiggestMovers">All Time Biggest Movers</a>
+                    </li>*@
+            </ul>
+        </td>
+    </tr>
+</table>
+
+<a name="TopArtists"></a>
+<h2 class="sectionTitle">All Time Top Artists</h2>
+<table class="tableborders">
+    <tr>
+        <th class="headerborders">Ranking</th>
+        <th class="headerborders">Artist</th>
+    </tr>
+    @for (int i = 0; i < Model.TopArtists.Count; i++)
+    {
+        TopArtists item = Model.TopArtists[i];
+        <tr class="alternatingColors">
+            @if (i < 10)
+            {
+                <td class="cellborders">@(i+1)</td>
+                <td class="cellborders">@item.ArtistName</td>
+            }
+        </tr>
+    }
+
+    @*@{
+            int iCount = 0;
+        }
+        @foreach (SamSmithNZ2015.Core.iTunes.TopArtists item in Model.TopArtists)
+        {
+            iCount = iCount + 1;
+            if (iCount <= 10)
+            {
+                <tr class="alternatingColors">
+                    <td class="cellborders">@iCount</td>
+                    <td class="cellborders">@item.ArtistName</td>
+                </tr>
+            }
+        }*@
+</table>
+
+
+<h2>iTunes playlists</h2>
+<div class="row">
+    <div class="col-md-12">
+        @foreach (Playlist item in Model.Playlists)
+        {
+            <div>
+                &nbsp;&nbsp;<a href="~/ITunes/Playlist?PlayListCode=@item.PlaylistCode&ShowJustSummary=true">@item.PlaylistDate.ToString("MMM-yyyy")</a><br />
+            </div>
+        }
+    </div>
+</div>
+
+@*<a name="BiggestMovers"></a>
+    <h2 class="sectionTitle">All Time Biggest Movers</h2>
+    <img ng-hide="movements" id="spinner1" src="~/Content/Images/spinner_small.gif" />
+    <table class="tableborders" ng-show="movements">
+        <tr>
+            <th class="headerborders">Track</th>
+            <th class="headerborders">Change</th>
+        </tr>
+        <tr class="alternatingColors" ng-repeat="item in movements">
+            <td class="cellborders">{{item.TrackName}}</td>
+            <td class="cellborders">+{{item.ChangeThisMonth}}</td>
+        </tr>
+    </table>*@

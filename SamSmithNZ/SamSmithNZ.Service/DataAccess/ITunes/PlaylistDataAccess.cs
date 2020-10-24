@@ -31,21 +31,21 @@ namespace SamSmithNZ.Service.DataAccess.ITunes
             return await base.GetItem("ITunes_GetPlaylists", parameters);
         }
 
-        public async Task<int> SaveItem(DateTime dteDate)
-        {
-            DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@PlaylistDate", dteDate, DbType.DateTime);
+        //public async Task<int> SaveItem(DateTime dteDate)
+        //{
+        //    DynamicParameters parameters = new DynamicParameters();
+        //    parameters.Add("@PlaylistDate", dteDate, DbType.DateTime);
 
-            return await base.GetScalarItem<int>("ITunes_ImportCreateNewPlayList", parameters);
-        }
+        //    return await base.GetScalarItem<int>("ITunes_ImportCreateNewPlayList", parameters);
+        //}
 
-        public async Task<bool> DeleteItem(int playlistCode)
-        {
-            DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@PlaylistCode", playlistCode, DbType.Int32);
+        //public async Task<bool> DeleteItem(int playlistCode)
+        //{
+        //    DynamicParameters parameters = new DynamicParameters();
+        //    parameters.Add("@PlaylistCode", playlistCode, DbType.Int32);
 
-            return await base.SaveItem("ITunes_ImportDeletePlaylistTracks", parameters);
-        }
+        //    return await base.SaveItem("ITunes_ImportDeletePlaylistTracks", parameters);
+        //}
 
     }
 }

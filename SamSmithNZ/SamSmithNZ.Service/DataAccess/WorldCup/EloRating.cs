@@ -9,11 +9,9 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
     public class EloRating
     {
 
-        ///
-        /// 
-        /// 
-        /// The desired Diff
-        /// The desired KFactor
+
+        // The desired Diff
+        // The desired KFactor
         //private int r;
 
         /// <summary>
@@ -23,7 +21,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         /// <param name="user1WonMatch">Whether User 1 was the winner (if both user 1 and user 2 are false, it's a draw)</param>
         /// <param name="user2WonMatch">Whether User 2 was the winner</param>
         /// <param name="diff">The desired Diff, currently a constant of 400</param>
-        /// <param name="kFactor">The K factor. My K factor currently takes into account the type of game & the goals difference</param>
+        /// <param name="kFactor">The K factor. My K factor currently takes into account the type of game and the goals difference</param>
         /// <returns></returns>
         public static Matchup UpdateEloRatingScores(Matchup matchup, bool user1WonMatch, bool user2WonMatch, double diff, double kFactor)
         {

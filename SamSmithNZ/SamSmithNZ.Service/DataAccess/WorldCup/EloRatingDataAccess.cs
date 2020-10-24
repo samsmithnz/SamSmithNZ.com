@@ -11,7 +11,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 {
     public class EloRatingDataAccess : BaseDataAccess<EloRating>, IEloRatingDataAccess
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
         public EloRatingDataAccess(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -42,13 +42,13 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             List<Team> teamList = await da2.GetList();
 
             TournamentTeamDataAccess da3 = new TournamentTeamDataAccess(_configuration);
-            List<TournamentTeam> tournamentTeams = await da3.GetQualifiedTeamsAsync(tournamentCode);
+            List<TournamentTeam> tournamentTeams = await da3.GetQualifiedTeams(tournamentCode);
             //Update and refresh all of the tournament team ELO ratings
             foreach (TournamentTeam tournamentTeam in tournamentTeams)
             {
                 await SaveTeamELORatingAsync(tournamentCode, tournamentTeam.TeamCode, tournamentTeam.StartingEloRating);
             }
-            tournamentTeams = await da3.GetQualifiedTeamsAsync(tournamentCode);
+            tournamentTeams = await da3.GetQualifiedTeams(tournamentCode);
 
             List<TeamELORating> teamRatingList = new List<TeamELORating>();
             foreach (Game game in gameList)
@@ -166,7 +166,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="game"></param>
+        /// <param name="item"></param>
         /// <returns>1 if team 1 won, 2 if team 2 won, 0 if draw</returns>
         private int? WhoWon(Game item)
         {
@@ -228,8 +228,8 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
                 }
                 else if (item.Team1NormalTimeScore >= 0)
                 {
-                    team1Score = team1Score + item.Team1NormalTimeScore;
-                    team2Score = team2Score + item.Team2NormalTimeScore;
+                    team1Score += item.Team1NormalTimeScore;
+                    team2Score += item.Team2NormalTimeScore;
                     //if (item.Team1NormalTimeScore > item.Team2NormalTimeScore)
                     //{
                     //    return 1;
@@ -246,7 +246,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         private double CalculateKFactor(Game item)
         {
-            double kFactor = 0;
+            double kFactor;
             //K is the weight constant for the tournament played:
 
             //60 for World Cup finals;
@@ -266,19 +266,19 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             int? goals = CalculateGoalDifference(item);
             if (goals < 0)
             {
-                goals = goals * -1;
+                goals *= -1; //the same as games = goals * -1
             }
             if (goals == 2)
             {
-                kFactor = kFactor * 1.5d;
+                kFactor *= 1.5d;
             }
             else if (goals == 3)
             {
-                kFactor = kFactor * 2d;
+                kFactor *= 2d;
             }
             else if (goals >= 4)
             {
-                kFactor = kFactor * 3.5d;// (1.75d + ((Convert.ToDouble(goals) - 3d) / 8d));
+                kFactor *= 3.5d;// (1.75d + ((Convert.ToDouble(goals) - 3d) / 8d));
             }
 
             ////K factor is then adjusted for total goals scored - if teams can score goals, they can get results.

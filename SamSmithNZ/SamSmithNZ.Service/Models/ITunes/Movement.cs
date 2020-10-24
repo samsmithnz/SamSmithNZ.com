@@ -9,7 +9,7 @@ namespace SamSmithNZ.Service.Models.ITunes
     {
         public Movement() { }
 
-        public String TrackName { get; set; }
+        public string TrackName { get; set; }
         public int PlayCount { get; set; }
         public int ChangeThisMonth { get; set; }
     }

@@ -23,14 +23,14 @@ namespace SamSmithNZ.Web.Controllers
             _configuration = configuration;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             List<Tournament> tournaments = await _ServiceApiClient.GetTournaments();
 
             return View(tournaments);
         }
 
-        public async Task<ActionResult> Tournament(int tournamentCode)
+        public async Task<IActionResult> Tournament(int tournamentCode)
         {
             Tournament tournament = await _ServiceApiClient.GetTournament(tournamentCode);
             List<TournamentTeam> teams = await _ServiceApiClient.GetTournamentPlacingTeams(tournamentCode);
@@ -50,7 +50,7 @@ namespace SamSmithNZ.Web.Controllers
             return View(tournamentViewModel);
         }
 
-        public async Task<ActionResult> Group(int tournamentCode, int roundNumber, string roundCode)
+        public async Task<IActionResult> Group(int tournamentCode, int roundNumber, string roundCode)
         {
             List<GroupCode> groupCodes = await _ServiceApiClient.GetGroupCodes(tournamentCode, roundNumber);
             if (string.IsNullOrEmpty(roundCode) == true && groupCodes.Count > 0)
@@ -94,7 +94,7 @@ namespace SamSmithNZ.Web.Controllers
                 });
         }
 
-        public async Task<ActionResult> Playoffs(int tournamentCode, int roundNumber)
+        public async Task<IActionResult> Playoffs(int tournamentCode, int roundNumber)
         {
             List<Game> games = await _ServiceApiClient.GetPlayoffGames(tournamentCode, roundNumber);
 
@@ -106,7 +106,7 @@ namespace SamSmithNZ.Web.Controllers
             return View(playoffsViewModel);
         }
 
-        public async Task<ActionResult> Team(int teamCode)
+        public async Task<IActionResult> Team(int teamCode)
         {
             Team team = await _ServiceApiClient.GetTeam(teamCode);
             List<Game> games = await _ServiceApiClient.GetGamesByTeam(teamCode);
@@ -119,7 +119,7 @@ namespace SamSmithNZ.Web.Controllers
             return View(teamViewModel);
         }
 
-        public ActionResult ELORating(int tournamentCode)
+        public IActionResult ELORating(int tournamentCode)
         {
             //SamSmithNZ2015.Core.WorldCup.DataAccess.GameDataAccess da = new SamSmithNZ2015.Core.WorldCup.DataAccess.GameDataAccess();
             //List<Game> gameList = da.GetItems(tournamentCode);
@@ -132,7 +132,7 @@ namespace SamSmithNZ.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult WCOddsPost(string maxRange = "", bool chkShowActive = true, bool chkShowEliminated = false)
+        public IActionResult WCOddsPost(string maxRange = "", bool chkShowActive = true, bool chkShowEliminated = false)
         {
             if (System.Diagnostics.Debugger.IsAttached == true)
             {
@@ -147,7 +147,7 @@ namespace SamSmithNZ.Web.Controllers
             //return RedirectToAction("Index", "FootballPool", new { maxRange = maxRange, chkShowActive = chkShowActive, chkShowEliminated = chkShowEliminated });
         }
 
-        public ActionResult WCOdds(string maxRange = "", bool showActive = true, bool showEliminated = false, int tournamentCode = 20)
+        public IActionResult WCOdds(string maxRange = "", bool showActive = true, bool showEliminated = false, int tournamentCode = 20)
         {
             if (System.Diagnostics.Debugger.IsAttached == true)
             {
@@ -231,7 +231,7 @@ namespace SamSmithNZ.Web.Controllers
         }
 
         //From https://github.com/sghall/d3-multi-series-charts       
-        public ActionResult WCOddsGraph(int tournamentCode = 20)
+        public IActionResult WCOddsGraph(int tournamentCode = 20)
         {
             if (System.Diagnostics.Debugger.IsAttached == true)
             {

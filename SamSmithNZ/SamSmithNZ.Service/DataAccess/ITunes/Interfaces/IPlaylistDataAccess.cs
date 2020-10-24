@@ -11,8 +11,8 @@ namespace SamSmithNZ.Service.DataAccess.ITunes.Interfaces
     {
         Task<List<Playlist>> GetList();
         Task<Playlist> GetItem(int playlistCode);
-        Task<int> SaveItem(DateTime dteDate);
-        Task<bool> DeleteItem(int playlistCode);
+        //Task<int> SaveItem(DateTime dteDate);
+        //Task<bool> DeleteItem(int playlistCode);
 
     }
 }

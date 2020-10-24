@@ -14,6 +14,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "YAML", "YAML", "{FC37186D-7
 		..\azure-pipelines.yml = ..\azure-pipelines.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamSmithNZ.WorldCupGoals.WPF", "SamSmithNZ.WorldCupGoals.WPF\SamSmithNZ.WorldCupGoals.WPF.csproj", "{1155A141-3DF8-4D40-A12B-F28A781C1762}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A3A53F95-9C8E-4DA0-82F5-8508921F8B96}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +39,10 @@ Global
 		{1D88CBCE-D8D5-42B7-AB3A-C3E36067954C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D88CBCE-D8D5-42B7-AB3A-C3E36067954C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D88CBCE-D8D5-42B7-AB3A-C3E36067954C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1155A141-3DF8-4D40-A12B-F28A781C1762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1155A141-3DF8-4D40-A12B-F28A781C1762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1155A141-3DF8-4D40-A12B-F28A781C1762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1155A141-3DF8-4D40-A12B-F28A781C1762}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

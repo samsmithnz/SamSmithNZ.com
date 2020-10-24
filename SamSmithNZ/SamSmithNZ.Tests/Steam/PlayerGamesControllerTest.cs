@@ -21,15 +21,15 @@ namespace SamSmithNZ.Tests.Steam
         [ClassInitialize]
         public static void InitTestSuite(TestContext testContext)
         {
-            var config = new ConfigurationBuilder()
+            IConfigurationRoot config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
 
             string connectionString = config["CacheConnection"];
 
-            var cache = ConnectionMultiplexer.Connect(connectionString);
-            var db = cache.GetDatabase();
+            ConnectionMultiplexer cache = ConnectionMultiplexer.Connect(connectionString);
+            IDatabase db = cache.GetDatabase();
             _redisService = new RedisService(db);
         }
 

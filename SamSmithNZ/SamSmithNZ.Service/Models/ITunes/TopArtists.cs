@@ -7,9 +7,9 @@ namespace SamSmithNZ.Service.Models.ITunes
 {
     public class TopArtists 
     {
-        public TopArtists() { }
+        public TopArtists() { } 
 
-        public String ArtistName { get; set; }
+        public string ArtistName { get; set; }
         public int ArtistCount { get; set; }
     }
 }
