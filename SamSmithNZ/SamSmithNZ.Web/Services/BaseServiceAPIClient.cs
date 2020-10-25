@@ -57,7 +57,7 @@ namespace SamSmithNZ.Web.Services
             HttpResponseMessage response = await _client.PostAsync(url, content);
             if (response.IsSuccessStatusCode == true)
             {
-                return await JsonSerializer.DeserializeAsync<bool>(await response.Content.ReadAsStreamAsync());
+                return true;// await JsonSerializer.DeserializeAsync<bool>(await response.Content.ReadAsStreamAsync());
             }
             else
             {

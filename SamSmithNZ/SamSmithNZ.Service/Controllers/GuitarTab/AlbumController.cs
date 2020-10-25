@@ -20,13 +20,13 @@ namespace SamSmithNZ.Service.Controllers.GuitarTab
         }
 
         [HttpGet("GetAlbums")]
-        public async Task<List<Album>> GetAlbums(bool isAdmin)
+        public async Task<List<Album>> GetAlbums(bool isAdmin = false)
         {
             return await _repo.GetList(isAdmin);
         }
 
         [HttpGet("GetAlbum")]
-        public async Task<Album> GetAlbum(int albumCode, bool isAdmin)
+        public async Task<Album> GetAlbum(int albumCode, bool isAdmin = false)
         {
             return await _repo.GetItem(albumCode, isAdmin);
         }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace SamSmithNZ.Web.Models.GuitarTab
 {
-    public class IndexViewModel : BaseViewModel
+    public class SearchViewModel : BaseViewModel
     {
-        public List<KeyValuePair<Artist, List<Album>>> ArtistAlbums { get; set; }
+        public List<Search> SearchResults { get; set; }
     }
 }

@@ -16,13 +16,14 @@ namespace SamSmithNZ.Service.DataAccess.GuitarTab
             base.SetupConnectionString(configuration);
         }
 
-        public async Task<List<Artist>> GetList(bool? includeAllItems)
+        public async Task<List<Artist>> GetList(bool? includeAllItems, bool isAdmin)
         {
             DynamicParameters parameters = new DynamicParameters();
             if (includeAllItems != null)
             {
                 parameters.Add("@IncludeInIndex", includeAllItems, DbType.Boolean);
             }
+            parameters.Add("@IsAdmin", isAdmin, DbType.Boolean);
 
             return await base.GetList("Tab_GetArtists", parameters);
         }

@@ -1,0 +1,42 @@
+﻿@using SamSmithNZ.Web.Models.MandMCounter
+@model IndexViewModel
+@{
+    ViewBag.Title = "M&M Counter";
+    Layout = "~/Views/Shared/_LayoutMandMCounter.cshtml";
+}
+
+<h2>M&amp;M counter</h2>
+<hr />
+<br />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="MandMCounter" asp-action="RunVolumeCalculation" method="post">
+            <h4>For unit</h4>
+            <span>Volume units: </span><select asp-for="VolumeUnit" asp-items="Model.UnitsForVolume" class="form-control"></select><br />
+            <input id="txtQuantity" name="txtQuantity" type="text"  class="form-control"/><br />
+            <input type="submit" value="Calculate unit volume" />
+        </form>
+    </div>
+    @*<div class="col-md-4">
+        <h4>For rectangle</h4>
+        <span>Container units: </span><select asp-for="ContainerUnit" asp-items="Model.UnitsForContainer" class="form-control"></select><br />
+        <input id="txtHeight" type="text"  class="form-control"/><br />
+        <input id="txtWidth" type="text"  class="form-control"/><br />
+        <input id="txtLength" type="text"  class="form-control"/><br />
+    </div>
+    <div class="col-md-4">
+        <h4>For cylinder</h4>
+        <span>Container units: </span><select asp-for="ContainerUnit" asp-items="Model.UnitsForContainer" class="form-control"></select><br />
+        <input id="txtHeight" type="text"  class="form-control"/><br />
+        <input id="txtRadius" type="text"  class="form-control"/><br />
+    </div>*@
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <hr />
+        M&Ms: @Model.MandMResult.ToString("0.0") <br />
+        Peanut M&Ms: @Model.PeanutMandMResult.ToString("0.0") <br />
+        Skittles: @Model.SkittlesResult.ToString("0.0") <br />
+    </div>
+</div>

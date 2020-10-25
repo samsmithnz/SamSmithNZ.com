@@ -22,9 +22,16 @@ namespace SamSmithNZ.Web.Services
             base.SetupClient(client);
         }
 
-        public async Task<List<Album>> GetAlbums()
+        public async Task<List<Album>> GetAlbums(bool isAdmin)
         {
-            Uri url = new Uri($"api/GuitarTab/Album/GetAlbums", UriKind.Relative);
+            string urlPath = $"api/GuitarTab/Album/GetAlbums";
+            //This is to disguise the isadmin from logs unless it's being used (avoid isadmin=false)
+            if (isAdmin == true)
+            {
+                urlPath += "?isAdmin=" + isAdmin;
+            }
+
+            Uri url = new Uri(urlPath, UriKind.Relative);
             List<Album> results = await base.ReadMessageList<Album>(url);
             if (results == null)
             {
@@ -36,9 +43,16 @@ namespace SamSmithNZ.Web.Services
             }
         }
 
-        public async Task<Album> GetAlbum(int albumCode)
+        public async Task<Album> GetAlbum(int albumCode, bool isAdmin)
         {
-            Uri url = new Uri($"api/GuitarTab/Album/GetAlbum?AlbumCode=" + albumCode, UriKind.Relative);
+            string urlPath = $"api/GuitarTab/Album/GetAlbum?AlbumCode=" + albumCode;
+            //This is to disguise the isadmin from logs unless it's being used (avoid isadmin=false)
+            if (isAdmin == true)
+            {
+                urlPath += "?isAdmin=" + isAdmin;
+            }
+
+            Uri url = new Uri(urlPath, UriKind.Relative);
             Album result = await base.ReadMessageItem<Album>(url);
             if (result == null)
             {
@@ -57,9 +71,16 @@ namespace SamSmithNZ.Web.Services
             return result;
         }
 
-        public async Task<List<Artist>> GetArtists()
+        public async Task<List<Artist>> GetArtists(bool isAdmin)
         {
-            Uri url = new Uri($"api/GuitarTab/Artist/GetArtists", UriKind.Relative);
+            string urlPath = $"api/GuitarTab/Artist/GetArtists";
+            //This is to disguise the isadmin from logs unless it's being used (avoid isadmin=false)
+            if (isAdmin == true)
+            {
+                urlPath += "?isAdmin=" + isAdmin;
+            }
+
+            Uri url = new Uri(urlPath, UriKind.Relative);
             List<Artist> results = await base.ReadMessageList<Artist>(url);
             if (results == null)
             {
@@ -85,9 +106,9 @@ namespace SamSmithNZ.Web.Services
             }
         }
 
-        public async Task<List<Search>> GetSearchResults()
+        public async Task<List<Search>> GetSearchResults(string searchText)
         {
-            Uri url = new Uri($"api/GuitarTab/Search/GetSearchResults", UriKind.Relative);
+            Uri url = new Uri($"api/GuitarTab/Search/GetSearchResults?searchText=" + searchText, UriKind.Relative);
             List<Search> results = await base.ReadMessageList<Search>(url);
             if (results == null)
             {
@@ -136,7 +157,7 @@ namespace SamSmithNZ.Web.Services
         public async Task<bool> DeleteTab(int tabCode)
         {
             Uri url = new Uri($"api/GuitarTab/Tab/DeleteTab?tabCode=" + tabCode, UriKind.Relative);
-            await base.ReadMessageItem<Tab>(url);
+            await base.GetMessageScalar<bool>(url);
             return true;
         }
 
@@ -153,6 +174,7 @@ namespace SamSmithNZ.Web.Services
                 return results;
             }
         }
+
         public async Task<List<Tuning>> GetTunings()
         {
             Uri url = new Uri($"api/GuitarTab/Tuning/GetTunings", UriKind.Relative);

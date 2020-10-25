@@ -1,16 +1,15 @@
 ﻿@using SamSmithNZ.Service.Models.GuitarTab
 @using SamSmithNZ.Web.Models.GuitarTab
-@model List<KeyValuePair<Artist, List<Album>>>
+@model IndexViewModel
 @{
     ViewBag.Title = "Album List";
     Layout = "~/Views/Shared/_LayoutGuitarTab.cshtml";
-    bool isGuitarTabAdmin = true;
 }
 
 <div>
     <table id="theTable">
         <tbody>
-            @foreach (KeyValuePair<Artist, List<Album>> item in Model)
+            @foreach (KeyValuePair<Artist, List<Album>> item in Model.ArtistAlbums)
             {
                 Artist artist = item.Key;
                 List<Album> artistAlbums = item.Value;
@@ -23,7 +22,7 @@
                             Album album = artistAlbums[i];
                             <span>
                                 <a href="~/GuitarTab/Album?AlbumCode=@album.AlbumCode">@album.AlbumName</a>
-                                @if (isGuitarTabAdmin == true)
+                                @if (Model.IsAdmin == true)
                                 {
                                     <a href="~/GuitarTab/EditAlbum?AlbumCode=@album.AlbumCode">
                                         <img src="~/guitartab/pencil.gif" alt="" style="height: 12px; border-width: 0;" />
@@ -33,7 +32,7 @@
                                 {
                                     <a href="~/GuitarTab/Album?AlbumCode=@album.BassAlbumCode">&nbsp;(Bass)</a>
                                 }
-                                @if (isGuitarTabAdmin == true)
+                                @if (Model.IsAdmin == true)
                                 {
                                     if (album.BassAlbumCode > 0)
                                     {

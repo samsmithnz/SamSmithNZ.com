@@ -27,7 +27,6 @@ namespace SamSmithNZ.Service.Controllers.GuitarTab
             {
                 recordId = await _repo.SaveItem(searchText);
             }
-
             return await _repo.GetList(recordId);
         }
 

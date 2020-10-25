@@ -15,7 +15,7 @@
                 <td class="col-md-4">
                     <a href="@Url.Action("Index", "GuitarTab")" class="headerText">
                         <img src="~/GuitarTab/GuitarHeader.png" alt="" class="headerImg" />
-                        <span class="headerText">Guitar Tab Library (v4)</span>
+                        <span class="headerText">Guitar Tab Library (v5)</span>
                     </a>
                 </td>
                 <td class="col-md-4">
@@ -23,15 +23,16 @@
                         @*@Html.Partial("_LoginPartial")*@
                     </div>
                 </td>
-                <td class="col-md-4 pull-right">
-                    <span class="AlignedRight">
-                        <span>Search for guitar tab:</span>
-                        <input id="txtSearch" type="text" maxlength="100" ng-keyup="$event.keyCode == 13 ? searchGuitarTabs() : null" />
-                        <input id="butSearch" type="button" value="Search!" ng-click="searchGuitarTabs()" />
-                    </span>
-                    <span>
-                        <a href="@Url.Action("About", "GuitarTab")">About</a>
-                    </span>
+                <td class="col-md-6 pull-right">
+                    <form asp-controller="GuitarTab" asp-action="SearchPost" method="post">
+                        <span class="AlignedRight">
+                            <span>Search for guitar tab:</span>
+                            <input id="txtSearch" name="txtSearch" type="text" maxlength="100" keyup="$event.keyCode == 13 ? this.form.submit() : null" /><input id="btnSearch" type="submit" value="Search!" />
+                        </span>
+                    </form>
+                    @*<span>
+                            <a href="@Url.Action("About", "GuitarTab")">About</a>
+                        </span>*@
                 </td>
             </tr>
         </table>
@@ -40,13 +41,13 @@
         <main role="main" class="pb-3">
             <table class="PercentWidth100">
                 <tr class="toptr">
-                    <td class="sideBar">
-                        <br />
-                        @*@if (isGuitarTabAdmin == true)
-                            {
-                                <a href="~/GuitarTab/EditAlbum?AlbumCode=0">Add new album</a><br /><br />
-                            }*@
-                        <b>Jump to Artist:</b><br />
+                    <!--<td class="sideBar">
+                        <br />-->
+                    @*@if (isGuitarTabAdmin == true)
+                        {
+                            <a href="~/GuitarTab/EditAlbum?AlbumCode=0">Add new album</a><br /><br />
+                        }*@
+                    <!--<b>Jump to Artist:</b><br />
                         <div class="ArtistSideBar">
                             <img ng-hide="artists" id="spinner1" src="~/Images/spinner_small.gif" />
                             <ul class="bulletedList" style="margin-bottom: 0px;" ng-repeat="item in artists">
@@ -54,10 +55,10 @@
                             </ul>
                         </div>
 
-                    </td>
+                    </td>-->
                     <td class="contentMain">
                         <div class="BreadCrumbs">
-                            @Html.ActionLink("Home", "Index", null, null) > <span id="lblBreadCrumbLocation">loading...</span>
+                            @Html.ActionLink("Home", "Index", null, null) > <span id="lblBreadCrumbLocation">@ViewBag.Title</span>
                         </div>
                         <h2>@ViewBag.Title</h2>
                         @RenderBody()

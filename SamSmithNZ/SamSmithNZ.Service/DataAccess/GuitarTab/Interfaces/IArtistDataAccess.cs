@@ -6,7 +6,7 @@ namespace SamSmithNZ.Service.DataAccess.GuitarTab.Interfaces
 {
     public interface IArtistDataAccess
     {
-        Task<List<Artist>> GetList(bool? includeAllItems);
+        Task<List<Artist>> GetList(bool? includeAllItems, bool isAdmin);
 
     }
 }
