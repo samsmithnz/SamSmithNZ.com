@@ -28,4 +28,10 @@
     <ProjectReference Include="..\SamSmithNZ.Service\SamSmithNZ.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\Robots.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
