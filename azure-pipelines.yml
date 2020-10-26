@@ -4,6 +4,14 @@ trigger:
 variables:
    buildConfiguration: Release
 
+resources:
+  repositories:
+  - repository: MandMCounterRepo # The name used to reference this repository in the checkout step
+    type: github
+    endpoint: 'GitHub SamSmithNZ connection'
+    name: SamSmithNZ/MandMCounter
+
+
 stages:
   - stage: BuildAndTest
     displayName: Build and test 
@@ -13,6 +21,7 @@ stages:
         pool:
           vmImage: windows-latest
         steps:
+        - checkout: self
         - task: UseDotNet@2
           displayName: 'Install .Net 5 SDK'
           inputs:
@@ -80,6 +89,7 @@ stages:
         pool:
           vmImage: windows-latest
         steps:
+        - checkout: self
         - task: UseDotNet@2
           displayName: 'Install .Net 5 SDK'
           inputs:
@@ -93,6 +103,29 @@ stages:
               SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj
             arguments: '--configuration debug --logger trx --collect "Code coverage" --settings:$(Build.SourcesDirectory)\SamSmithNZ/SamSmithNZ.Tests\CodeCoverage.runsettings'
 
+      - job: BuildAndTestMandMProject
+        pool:
+          vmImage: windows-latest
+        steps:
+        - checkout: MandMCounterRepo
+        - task: DotNetCoreCLI@2
+          displayName: Test
+          inputs:
+            command: test
+            projects: '**/MandMCounter.Tests.csproj'
+            arguments: '--configuration release'
+        - task: DotNetCoreCLI@2
+          displayName: Publish
+          inputs:
+            command: publish
+            publishWebProjects: false
+            projects: '**/MandMCounter.Service.csproj'
+            arguments: '--configuration release --output $(build.artifactstagingdirectory)'
+            zipAfterPublish: True
+        - task: PublishBuildArtifacts@1
+          displayName: 'Publish Artifact'
+          inputs:
+            PathtoPublish: '$(build.artifactstagingdirectory)'
 
   - stage: Deployment
     displayName: Deployment
@@ -142,6 +175,20 @@ stages:
             DeployToSlotFlag: true
             SlotName: 'staging'
             Package: '$(build.artifactstagingdirectory)/drop/SamSmithNZ.Web.zip'
+            RemoveAdditionalFilesFlag: true
+            TakeAppOfflineFlag: true
+            RenameFilesFlag: true
+            JSONFiles: '**/appsettings.json'
+            #AppSettings: '-ASPNETCORE_ENVIRONMENT "Development"'
+        - task: AzureRmWebAppDeployment@3
+          displayName: 'App Service Deploy: MandMCounter web service'
+          inputs:
+            azureSubscription: 'SamSmithNZ VS Azure Connection'
+            WebAppName: 'mandm-prod-eu-service'
+            ResourceGroupName: 'SSSandbox'
+            #DeployToSlotFlag: true
+            #SlotName: 'staging'
+            Package: '$(build.artifactstagingdirectory)/drop/MandMCounter.Service.zip'
             RemoveAdditionalFilesFlag: true
             TakeAppOfflineFlag: true
             RenameFilesFlag: true

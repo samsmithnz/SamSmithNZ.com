@@ -80,7 +80,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Show>> GetShowsBySong(int songCode)
         {
-            Uri url = new Uri($"api/FooFighters/Show/GetShowsByYear?SongCode=" + songCode, UriKind.Relative);
+            Uri url = new Uri($"api/FooFighters/Show/GetShowsBySong?SongCode=" + songCode, UriKind.Relative);
             List<Show> results = await base.ReadMessageList<Show>(url);
             if (results == null)
             {
