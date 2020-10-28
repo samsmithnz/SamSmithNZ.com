@@ -18,11 +18,19 @@ namespace SamSmithNZ.Web.Controllers
             _configuration = configuration;
         }
 
-        public async Task<IActionResult> Index(float? mandMResult = null, float? peanutMandMResult = null, float? skittlesResult = null)
+        public async Task<IActionResult> Index(string volumeUnit = null, float? quantity = null, float? mandMResult = null, float? peanutMandMResult = null, float? skittlesResult = null)
         {
             List<string> unitsForVolume = await _ServiceApiClient.GetUnitsForVolume();
             List<string> unitsForContainer = await _ServiceApiClient.GetUnitsForContainer();
             IndexViewModel model = new IndexViewModel(unitsForVolume, unitsForContainer);
+            if (volumeUnit!=null)
+            {
+                model.VolumeUnit = volumeUnit;
+            }
+            if (quantity != null)
+            {
+                model.Quantity = (float)quantity;
+            }
             if (mandMResult != null)
             {
                 model.MandMResult = (float)mandMResult;
@@ -49,9 +57,11 @@ namespace SamSmithNZ.Web.Controllers
 
             return RedirectToAction("Index", new
             {
-                mandMResult = mandMResult,
-                peanutMandMResult = peanutMandMResult,
-                skittlesResult = skittlesResult
+                volumeUnit = VolumeUnit,
+                quantity = txtQuantity,
+                mandMResult = mandMResult.ToString("0.0"),
+                peanutMandMResult = peanutMandMResult.ToString("0.0"),
+                skittlesResult = skittlesResult.ToString("0.0")
                 //tournamentCode = tournamentCode,
                 //roundNumber = roundNumber,
                 //roundCode = roundCode

@@ -23,9 +23,9 @@ namespace SamSmithNZ.Web.Controllers
             _configuration = configuration;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int competitionCode = 1)
         {
-            List<Tournament> tournaments = await _ServiceApiClient.GetTournaments();
+            List<Tournament> tournaments = await _ServiceApiClient.GetTournaments(competitionCode);
 
             return View(tournaments);
         }

@@ -14,7 +14,7 @@
         <form asp-controller="MandMCounter" asp-action="RunVolumeCalculation" method="post">
             <h4>For unit</h4>
             <span>Volume units: </span><select asp-for="VolumeUnit" asp-items="Model.UnitsForVolume" class="form-control"></select><br />
-            <input id="txtQuantity" name="txtQuantity" type="text"  class="form-control"/><br />
+            <input id="txtQuantity" name="txtQuantity" type="text" class="form-control" value="@Model.Quantity"/><br />
             <input type="submit" value="Calculate unit volume" />
         </form>
     </div>

@@ -87,7 +87,7 @@
                         <div style="font-size: 10px; font-weight: bold;">
                             @if (item.Team1ChanceToWin >= 0)
                             {
-                            <span>Prob to win: @item.Team1ChanceToWin.ToString("0.00")%</span><br />
+                                <span>Prob to win: @item.Team1ChanceToWin.ToString("0.00")%</span><br />
                             }
                             @if (item.Team1PostGameEloRating == null && item.Team1PreGameEloRating != null)
                             {
@@ -127,7 +127,7 @@
                         <div style="font-size: 10px; font-weight: bold;">
                             @if (item.Team2ChanceToWin >= 0)
                             {
-                            <span>Prob to win: @item.Team2ChanceToWin.ToString("0.00")%</span><br />
+                                <span>Prob to win: @item.Team2ChanceToWin.ToString("0.00")%</span><br />
                             }
                             @if (item.Team2PostGameEloRating == null && item.Team2PreGameEloRating != null)
                             {
@@ -135,8 +135,10 @@
                             }
                             @if (item.Team2PostGameEloRating != null)
                             {
-                                <span>Game ELO: @item.Team2PreGameEloRating -> @item.Team2PostGameEloRating (@if (item.Team2PostGameEloRating - item.Team2PreGameEloRating >= 0)
-                                {<span>+</span>}@(item.Team2PostGameEloRating-item.Team2PreGameEloRating))</span>
+                                <span>
+                                    Game ELO: @item.Team2PreGameEloRating -> @item.Team2PostGameEloRating (@if (item.Team2PostGameEloRating - item.Team2PreGameEloRating >= 0)
+                                    {<span>+</span>}@(item.Team2PostGameEloRating-item.Team2PreGameEloRating))
+                                </span>
                             }
                         </div>
                     </td>
@@ -156,7 +158,12 @@
                         }
                     </td>
                     <td>@item.Location</td>
-                    <td><img src="~/WorldCup/Teams/@item.CoachFlag" Class="TeamImage" ng-if="item.CoachFlag != ''" />&nbsp;@item.CoachName</td>
+                    <td>
+                        @if (item.CoachFlag != "")
+                        {
+                            <img src="~/WorldCup/Teams/@item.CoachFlag" Class="TeamImage"/> @item.CoachName
+                        }
+                    </td>
 
                 </tr>
             }

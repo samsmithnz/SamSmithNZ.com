@@ -17,7 +17,7 @@
             Search item = Model.SearchResults[i];
             <tr ng-repeat="item in searchResults">
                 <td>
-                    @(i + 1). <a href="~/GuitarTab/Album?AlbumCode=@item.AlbumCode"><span>@item.ArtistAlbumResult</span>@if (item.IsBassTab == true) {<span> (Bass Tab)</span>}<span> @item.TrackResult</span></a>
+                    @(i + 1). <a href="~/GuitarTab/Album?AlbumCode=@item.AlbumCode#@item.TrackName.Replace(" ","")"><span>@item.ArtistAlbumResult</span>@if (item.IsBassTab == true) {<span> (Bass Tab)</span>}<span> @item.TrackResult</span></a>
                 </td>
             </tr>
         }

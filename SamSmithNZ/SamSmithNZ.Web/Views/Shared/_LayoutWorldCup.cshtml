@@ -31,7 +31,9 @@
         <main role="main" class="pb-3">
             <div class="BreadCrumbs" style="padding-left: 1.5em;">
                 &nbsp;&nbsp;&nbsp;  @Html.ActionLink("Home", "Index", "WorldCup") >
-                <a href="/WorldCup/Tournament?tournamentCode={{item.TournamentCode}}" id="lnkBreadCrumb2">loading...</a>@*<span id="lblBreadCrumbData2">loading...</span>*@<span id="lblBreadCrumbSeperator2" style="visibility: hidden">&nbsp;&gt;&nbsp;</span><span id="lblBreadCrumb3" style="visibility: hidden"></span>
+                @ViewBag.Title
+                @*<a href="/WorldCup/Tournament?tournamentCode={{item.TournamentCode}}" id="lnkBreadCrumb2"></a>*@@*<span id="lblBreadCrumbData2">loading...</span>*@<span id="lblBreadCrumbSeperator2" style="visibility: hidden">&nbsp;&gt;&nbsp;</span><span id="lblBreadCrumb3" style="visibility: hidden"></span>
+
             </div>
             <div style="padding-left: 1.5em;">
                 <h2>@ViewBag.Title</h2>
