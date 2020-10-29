@@ -11,7 +11,7 @@
             {
                 <img src="~/WorldCup/Teams/@Model.CurrentGame.Team1FlagName" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" />
             }
-            <a href="@Url.Action(" Team", "WorldCup" , new { teamCode=@Model.CurrentGame.Team1Code })">@Model.CurrentGame.Team1Name</a> @Model.TeamExtraText
+            <a href="@Url.Action("Team", "WorldCup" , new { teamCode=@Model.CurrentGame.Team1Code })">@Model.CurrentGame.Team1Name</a> @Model.TeamExtraText
         </td>
     }
     else
@@ -22,7 +22,7 @@
             {
                 <img src="~/WorldCup/Teams/@Model.CurrentGame.Team2FlagName" CssClass="flagicon" width="22" bordercolor="DarkGray" borderstyle="Solid" borderwidth="1px" align="top" />
             }
-            <a href="@Url.Action(" Team", "WorldCup" , new { teamCode=@Model.CurrentGame.Team1Code })">@Model.CurrentGame.Team2Name</a> @Model.TeamExtraText
+            <a href="@Url.Action("Team", "WorldCup" , new { teamCode=@Model.CurrentGame.Team1Code })">@Model.CurrentGame.Team2Name</a> @Model.TeamExtraText
         </td>
     }
 }
