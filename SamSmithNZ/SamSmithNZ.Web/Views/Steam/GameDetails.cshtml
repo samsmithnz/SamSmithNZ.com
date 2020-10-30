@@ -59,7 +59,7 @@
             </form>*@
 
         <br />
-        <form asp-controller="Steam" asp-action="GameDetailsPost" asp-route-steamid="@Model.SteamId" asp-route-appid="@Model.GameDetail.AppID" method="post">
+        <form asp-controller="Steam" asp-action="GameDetailsPost" asp-route-steamid="@Model.SteamId" asp-route-appid="@Model.AppId" method="post">
             <span>Achievements: (@Model.GameDetail.TotalAchieved / @Model.TotalAchievements): @*| filter: achievementFilter).length*@</span><input id="chkShowAchievements" type="checkbox" asp-for="ShowCompletedAchievements" onChange="this.form.submit()" />
             <label for="chkShowAchievements" style="font-weight: normal;">Show only completed achievements</label>
         </form>

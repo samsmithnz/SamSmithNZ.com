@@ -32,6 +32,7 @@ namespace SamSmithNZ.Web.Models.Steam
         }
 
         public string SteamId { get; set; }
+        public string AppId { get; set; }
         public Player Player { get; set; }
         public GameDetail GameDetail { get; set; }
         public int TotalAchievements { get; set; }

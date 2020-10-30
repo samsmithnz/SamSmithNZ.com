@@ -46,6 +46,7 @@ namespace SamSmithNZ.Web.Controllers
             return View(new GameDetailViewModel(gameDetail, showCompletedAchievements)
             {
                 SteamId = steamID,
+                AppId = appID,
                 Player = player
             });
         }

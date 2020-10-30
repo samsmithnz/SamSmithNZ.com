@@ -72,7 +72,7 @@
                 </td>
                 <td class="cellborders" style="text-align: left;">
                     <img src="~/WorldCup/Teams/@item.Team2FlagName" CssClass="TeamImage" />
-                    <a href="@Url.Action("Team", "IntFootball", new { teamCode = @item.Team2Code })">@item.Team2Name</a>
+                    <a href="@Url.Action("Team", "WorldCup", new { teamCode = @item.Team2Code })">@item.Team2Name</a>
                 </td>
                 <td class="cellborders">@item.Location</td>
                 @if (Model.IsGroupVersion == false)
