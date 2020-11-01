@@ -10,25 +10,28 @@ namespace SamSmithNZ.Web.Models.Steam
     {
         public GameDetailViewModel(GameDetail gameDetail, bool showCompletedAchievements)
         {
-            GameDetail = gameDetail;
             if (gameDetail != null && gameDetail.Achievements != null)
             {
                 TotalAchievements = gameDetail.Achievements.Count;
             }
 
-            if (showCompletedAchievements == true)
+            this.GameDetail = gameDetail;
+
+            //Filter achievements
+            if (showCompletedAchievements == false)
             {
                 //Only show active achievements
                 List<Achievement> achievements = new List<Achievement>();
                 foreach (Achievement item in gameDetail.Achievements)
                 {
-                    if (item.Achieved == true)
+                    if (item.Achieved == false)
                     {
                         achievements.Add(item);
                     }
                 }
-                GameDetail.Achievements = achievements;
+                this.GameDetail.Achievements = achievements;
             }
+
         }
 
         public string SteamId { get; set; }
