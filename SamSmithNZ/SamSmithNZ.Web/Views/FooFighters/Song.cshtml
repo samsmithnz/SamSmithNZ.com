@@ -23,7 +23,7 @@
                                 <span style="font-weight: bold;">Album:</span>
                             </td>
                             <td>
-                                <a href="~/FooFighters/Album/GetAlbum?AlbumCode=@Model.Song.AlbumCode">@Model.Song.AlbumName</a>
+                                <a href="~/FooFighters/Album?AlbumCode=@Model.Song.AlbumCode">@Model.Song.AlbumName</a>
                             </td>
                         </tr>
                         <tr>
@@ -33,7 +33,7 @@
                             <td>
                                 @if (Model.Song.FirstPlayed != null)
                                 {
-                                    <a href="~/FooFighters/Show/GetShow?ShowCode=@Model.Song.FirstPlayedShowCode">@Model.Song.FirstPlayed?.ToString("dd-MMM-yyyy")</a>
+                                    <a href="~/FooFighters/Show?ShowCode=@Model.Song.FirstPlayedShowCode">@Model.Song.FirstPlayed?.ToString("dd-MMM-yyyy")</a>
                                 }
                                 else
                                 {
@@ -48,7 +48,7 @@
                             <td>
                                 @if (Model.Song.LastPlayed != null)
                                 {
-                                    <a href="~/FooFighters/Show/GetShow?ShowCode=@Model.Song.LastPlayedShowCode">@Model.Song.LastPlayed?.ToString("dd-MMM-yyyy")</a>
+                                    <a href="~/FooFighters/Show?ShowCode=@Model.Song.LastPlayedShowCode">@Model.Song.LastPlayed?.ToString("dd-MMM-yyyy")</a>
                                 }
                                 else
                                 {
@@ -122,7 +122,7 @@
                 {
                     <tr>
                         <td>
-                            <a href="~/FooFighters/Show/GetShow?ShowCode=@item.ShowCode">@item.ShowDate.ToString("dd-MMM-yyyy")</a>
+                            <a href="~/FooFighters/Show?ShowCode=@item.ShowCode">@item.ShowDate.ToString("dd-MMM-yyyy")</a>
                         </td>
                         <td>@item.ShowLocation</td>
                         <td>@item.ShowCity</td>

@@ -55,7 +55,7 @@
                     <tr>
                         <td>@((i+1).ToString())</td>
                         <td>@item.AvgShowSongOrder.ToString("0.0")</td>
-                        <td><a href="~/FooFighters/Song/GetSong?SongCode=@item.SongCode">@item.SongName</a></td>
+                        <td><a href="~/FooFighters/Song?SongCode=@item.SongCode">@item.SongName</a></td>
                         <td>@item.SongCount</td>
                     </tr>
                 }
@@ -83,7 +83,7 @@
                 @foreach (Show item in Model.Shows)
                 {
                     <tr>
-                        <td><a href="~/FooFighters/Show/GetShow?ShowCode=@item.ShowCode">@item.ShowDate.ToString("dd-MMM-yyyy")</a></td>
+                        <td><a href="~/FooFighters/Show?ShowCode=@item.ShowCode">@item.ShowDate.ToString("dd-MMM-yyyy")</a></td>
                         <td>@item.ShowLocation</td>
                         <td>@item.ShowCity</td>
                         <td>@item.NumberOfSongsPlayed</td>

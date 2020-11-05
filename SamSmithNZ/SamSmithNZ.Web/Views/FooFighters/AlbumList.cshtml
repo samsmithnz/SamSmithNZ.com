@@ -16,7 +16,7 @@
             @foreach (Album item in Model)
             {
                 <tr>
-                    <td><a href="~/FooFighters/Album/GetAlbum?AlbumCode=@item.AlbumCode">@item.AlbumName</a></td>
+                    <td><a href="~/FooFighters/Album?AlbumCode=@item.AlbumCode">@item.AlbumName</a></td>
                     @if (item.AlbumReleaseDate > DateTime.MinValue)
                     {
                         <td>@item.AlbumReleaseDate.ToString("dd-MMM-yyyy")</td>
