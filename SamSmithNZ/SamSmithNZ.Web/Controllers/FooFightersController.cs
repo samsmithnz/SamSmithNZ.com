@@ -53,8 +53,13 @@ namespace SamSmithNZ.Web.Controllers
             return View(yearCode);
         }
 
-        public async Task<IActionResult> Song(int songCode = 0)
+        public async Task<IActionResult> Song(int songCode = 0, int? songkey = null)
         {
+            //for backward compatibility
+            if (songkey != null)
+            {
+                songCode = (int)songkey;
+            }
             Song song = await _ServiceApiClient.GetSong(songCode);
             List<Show> shows = await _ServiceApiClient.GetShowsBySong(songCode);
 
@@ -65,8 +70,13 @@ namespace SamSmithNZ.Web.Controllers
             });
         }
 
-        public async Task<IActionResult> Show(int showCode = 0)
+        public async Task<IActionResult> Show(int showCode = 0, int? showkey = null)
         {
+            //for backward compatibility
+            if (showkey != null)
+            {
+                showCode = (int)showkey;
+            }
             Show show = await _ServiceApiClient.GetShow(showCode);
             List<Song> songs = await _ServiceApiClient.GetSongsByShow(showCode);
 
@@ -77,8 +87,13 @@ namespace SamSmithNZ.Web.Controllers
             });
         }
 
-        public async Task<IActionResult> Album(int albumCode = 0)
+        public async Task<IActionResult> Album(int albumCode = 0, int? albumkey = null)
         {
+            //for backward compatibility
+            if (albumkey != null)
+            {
+                albumCode = (int)albumkey;
+            }
             Album album = await _ServiceApiClient.GetAlbum(albumCode);
             List<Song> songs = await _ServiceApiClient.GetSongsByAlbum(albumCode);
 
