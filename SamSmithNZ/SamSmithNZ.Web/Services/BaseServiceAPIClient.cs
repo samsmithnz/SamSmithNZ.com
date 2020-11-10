@@ -1,5 +1,8 @@
-﻿using System;
+﻿using SamSmithNZ.Service.Models.FooFighters;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -21,7 +24,15 @@ namespace SamSmithNZ.Web.Services
             HttpResponseMessage response = await _client.GetAsync(url);
             if (response.IsSuccessStatusCode == true)
             {
-                return await JsonSerializer.DeserializeAsync<List<T>>(await response.Content.ReadAsStreamAsync());
+                Stream stream = await response.Content.ReadAsStreamAsync();
+                if (stream != null && stream.Length > 0)
+                {
+                    return await JsonSerializer.DeserializeAsync<List<T>>(stream);
+                }
+                else
+                {
+                    return default;
+                }
             }
             else
             {
@@ -37,7 +48,15 @@ namespace SamSmithNZ.Web.Services
             HttpResponseMessage response = await _client.GetAsync(url);
             if (response.IsSuccessStatusCode == true)
             {
-                return await JsonSerializer.DeserializeAsync<T>(await response.Content.ReadAsStreamAsync());
+                Stream stream = await response.Content.ReadAsStreamAsync();
+                if (stream != null && stream.Length > 0)
+                {
+                    return await JsonSerializer.DeserializeAsync<T>(stream);
+                }
+                else
+                {
+                    return default;
+                }
             }
             else
             {
@@ -57,7 +76,7 @@ namespace SamSmithNZ.Web.Services
             HttpResponseMessage response = await _client.PostAsync(url, content);
             if (response.IsSuccessStatusCode == true)
             {
-                return true;// await JsonSerializer.DeserializeAsync<bool>(await response.Content.ReadAsStreamAsync());
+                return true;
             }
             else
             {
@@ -70,12 +89,21 @@ namespace SamSmithNZ.Web.Services
             }
         }
 
+        //The type, R, is different than T. For example, if T is an Album, R is typically a string or int.
         public async Task<R> GetMessageScalar<R>(Uri url)
         {
             HttpResponseMessage response = await _client.GetAsync(url);
             if (response.IsSuccessStatusCode == true)
             {
-                return await JsonSerializer.DeserializeAsync<R>(await response.Content.ReadAsStreamAsync());
+                Stream stream = await response.Content.ReadAsStreamAsync();
+                if (stream != null && stream.Length > 0)
+                {
+                    return await JsonSerializer.DeserializeAsync<R>(stream);
+                }
+                else
+                {
+                    return default;
+                }
             }
             else
             {
@@ -87,6 +115,6 @@ namespace SamSmithNZ.Web.Services
 #pragma warning restore CS8603 // Possible null reference return.
             }
         }
-      
+
     }
 }

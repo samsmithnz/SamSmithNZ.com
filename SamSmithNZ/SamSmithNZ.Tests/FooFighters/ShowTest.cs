@@ -118,5 +118,31 @@ namespace SamSmithNZ.Tests.FooFighters
             Assert.IsTrue(result.ShowLocation != "");
         }
 
+        [TestMethod()]
+        public async Task Show4Test()
+        {
+            //arrange
+            ShowController controller = new ShowController(new ShowDataAccess(base.Configuration));
+            int showKey = 842;
+
+            //act
+            Show result = await controller.GetShow(showKey);
+
+            //assert
+            Assert.IsTrue(result == null);
+            ////Assert.IsTrue(result.IsCancelledShow == false);
+            ////Assert.IsTrue(result.IsPostponedShow == false);
+            ////Assert.IsTrue(result.Notes != "");
+            ////Assert.IsTrue(result.NumberOfRecordings >= 0);
+            //Assert.IsTrue(result.NumberOfSongsPlayed >= 0);
+            ////Assert.IsTrue(result.NumberOfUnconfirmedRecordings >= 0);
+            ////Assert.IsTrue(result.OtherPerformers != "");
+            //Assert.IsTrue(result.ShowCity == "Portland, OR");
+            ////Assert.IsTrue(result.ShowCountry == "United States");
+            //Assert.IsTrue(result.ShowDate >= DateTime.MinValue);
+            //Assert.IsTrue(result.ShowCode == 3);
+            //Assert.IsTrue(result.ShowLocation != "");
+        }
+
     }
 }
