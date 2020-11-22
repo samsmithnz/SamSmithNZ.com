@@ -1,0 +1,12 @@
+﻿@model SamSmithNZ.Web.Models.GameDev.LevelCreationModel
+@{
+    Layout = "~/Views/Shared/_LayoutGameDev.cshtml";
+    ViewBag.Title = "Level creation testing";
+}
+
+
+This is a prototype I've been working on to create dynamic levels. <a href="@Url.Action("LevelCreation", "GameDev", new { width = 8, height = 8 })">Refresh Level</a>.
+<br />
+<br />
+<pre>@Model.Content</pre>
+

@@ -16,7 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\GameDev\CampaignCreation.cshtml" />
+    <None Include="Views\GameDev\Index.cshtml" />
+    <None Include="Views\GameDev\LevelCreation.cshtml" />
     <None Include="Views\MandMCounter\Index.cshtml" />
+    <None Include="wwwroot\GameDev\Data.xml" />
   </ItemGroup>
 
   <ItemGroup>
