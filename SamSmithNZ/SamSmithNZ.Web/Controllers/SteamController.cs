@@ -63,14 +63,14 @@ namespace SamSmithNZ.Web.Controllers
                 });
         }
 
-        public IActionResult About()
+        public IActionResult SteamIsDown()
         {
             return View();
         }
 
-        public IActionResult SteamIsDown()
+        public IActionResult About()
         {
-            return View();
+            return RedirectToAction("About", "Home");
         }
 
     }

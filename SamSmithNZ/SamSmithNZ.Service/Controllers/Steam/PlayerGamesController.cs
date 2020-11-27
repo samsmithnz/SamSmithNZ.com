@@ -25,8 +25,15 @@ namespace SamSmithNZ.Service.Controllers.Steam
         [HttpGet("GetPlayerGames")]
         public async Task<List<Game>> GetPlayerGames(string steamID, bool useCache = true)
         {
-            PlayerGamesDA da = new PlayerGamesDA();
-            return await da.GetDataAsync(_redisService, steamID, useCache);
+            if (string.IsNullOrEmpty(steamID) == false)
+            {
+                PlayerGamesDA da = new PlayerGamesDA();
+                return await da.GetDataAsync(_redisService, steamID, useCache);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

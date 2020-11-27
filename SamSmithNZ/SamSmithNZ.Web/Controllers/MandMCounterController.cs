@@ -23,7 +23,7 @@ namespace SamSmithNZ.Web.Controllers
             List<string> unitsForVolume = await _ServiceApiClient.GetUnitsForVolume();
             List<string> unitsForContainer = await _ServiceApiClient.GetUnitsForContainer();
             IndexViewModel model = new IndexViewModel(unitsForVolume, unitsForContainer);
-            if (volumeUnit!=null)
+            if (volumeUnit != null)
             {
                 model.VolumeUnit = volumeUnit;
             }
@@ -49,11 +49,16 @@ namespace SamSmithNZ.Web.Controllers
 
         public async Task<IActionResult> RunVolumeCalculation(string VolumeUnit, string txtQuantity)
         {
+            float mandMResult = 0f;
+            float peanutMandMResult = 0f;
+            float skittlesResult = 0f;
             float quantity;
-            float.TryParse(txtQuantity, out quantity);
-            float mandMResult = await _ServiceApiClient.GetMandMDataForUnit(VolumeUnit, quantity);
-            float peanutMandMResult = await _ServiceApiClient.GetPeanutMandMDataForUnit(VolumeUnit, quantity);
-            float skittlesResult = await _ServiceApiClient.GetSkittlesDataForUnit(VolumeUnit, quantity);
+            if (float.TryParse(txtQuantity, out quantity) == true)
+            {
+                mandMResult = await _ServiceApiClient.GetMandMDataForUnit(VolumeUnit, quantity);
+                peanutMandMResult = await _ServiceApiClient.GetPeanutMandMDataForUnit(VolumeUnit, quantity);
+                skittlesResult = await _ServiceApiClient.GetSkittlesDataForUnit(VolumeUnit, quantity);
+            }
 
             return RedirectToAction("Index", new
             {
@@ -62,10 +67,13 @@ namespace SamSmithNZ.Web.Controllers
                 mandMResult = mandMResult.ToString("0.0"),
                 peanutMandMResult = peanutMandMResult.ToString("0.0"),
                 skittlesResult = skittlesResult.ToString("0.0")
-                //tournamentCode = tournamentCode,
-                //roundNumber = roundNumber,
-                //roundCode = roundCode
             });
+
+        }
+
+        public IActionResult About()
+        {
+            return RedirectToAction("About", "Home");
         }
     }
 }

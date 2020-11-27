@@ -47,5 +47,10 @@ namespace SamSmithNZ.Web.Controllers
                 Tracks = tracks
             });
         }
+
+        public IActionResult About()
+        {
+            return RedirectToAction("About", "Home");
+        }
     }
 }

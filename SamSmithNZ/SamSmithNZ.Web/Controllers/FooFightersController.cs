@@ -111,5 +111,10 @@ namespace SamSmithNZ.Web.Controllers
         {
             return RedirectToAction("ShowList");
         }
+
+        public IActionResult About()
+        {
+            return RedirectToAction("About", "Home");
+        }
     }
 }

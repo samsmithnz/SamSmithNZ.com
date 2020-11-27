@@ -119,7 +119,7 @@ namespace SamSmithNZ.Web.Controllers
             return View(teamViewModel);
         }
 
-        public IActionResult ELORating(int tournamentCode)
+        public IActionResult ELORating() //int tournamentCode)
         {
             //SamSmithNZ2015.Core.WorldCup.DataAccess.GameDataAccess da = new SamSmithNZ2015.Core.WorldCup.DataAccess.GameDataAccess();
             //List<Game> gameList = da.GetItems(tournamentCode);
@@ -344,6 +344,11 @@ namespace SamSmithNZ.Web.Controllers
 
         //    //return new System.Web.HtmlString(fileName);
         //}
+
+        public IActionResult About()
+        {
+            return RedirectToAction("About", "Home");
+        }
 
     }
 }

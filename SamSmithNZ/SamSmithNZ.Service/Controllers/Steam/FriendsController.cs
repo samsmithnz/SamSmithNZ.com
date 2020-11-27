@@ -25,8 +25,15 @@ namespace SamSmithNZ.Service.Controllers.Steam
         [HttpGet("GetFriends")]
         public async Task<List<Friend>> GetFriends(string steamId, bool useCache = true)
         {
-            FriendsDA da = new FriendsDA();
-            return await da.GetDataAsync(_redisService, steamId, useCache);
+            if (string.IsNullOrEmpty(steamId) == false)
+            {
+                FriendsDA da = new FriendsDA();
+                return await da.GetDataAsync(_redisService, steamId, useCache);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         //// GET

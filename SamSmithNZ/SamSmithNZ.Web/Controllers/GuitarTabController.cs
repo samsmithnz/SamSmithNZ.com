@@ -40,9 +40,9 @@ namespace SamSmithNZ.Web.Controllers
             });
         }
 
-        public ActionResult About()
+        public IActionResult About()
         {
-            return View();
+            return RedirectToAction("About", "Home");
         }
 
         public async Task<IActionResult> Album(int albumCode, bool isAdmin = false)
@@ -92,8 +92,8 @@ namespace SamSmithNZ.Web.Controllers
 
         [HttpPost]
         public async Task<IActionResult> SaveAlbum(int albumCode, string txtArtist, string txtAlbumName, string txtYear,
-            bool chkIsBassTab, bool chkIncludeInIndex, bool chkIncludeOnWebsite, bool chkIsMiscCollectionAlbum,
-            string txtTrackList)
+            bool chkIsBassTab, bool chkIncludeInIndex, bool chkIncludeOnWebsite, bool chkIsMiscCollectionAlbum)
+            //string txtTrackList)
         {
             Album album = new Album
             {

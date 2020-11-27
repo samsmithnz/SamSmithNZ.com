@@ -25,8 +25,15 @@ namespace SamSmithNZ.Service.Controllers.Steam
         [HttpGet("GetGameDetails")]
         public async Task<GameDetail> GetGameDetails(string steamID, string appID, bool getStats = true, string achievementToSearch = null, bool useCache = true)
         {
-            GameDetailsDA da = new GameDetailsDA();
-            return await da.GetDataAsync(_redisService, steamID, appID, getStats, achievementToSearch, useCache);
+            if (string.IsNullOrEmpty(steamID) == false && string.IsNullOrEmpty(appID) == false)
+            {
+                GameDetailsDA da = new GameDetailsDA();
+                return await da.GetDataAsync(_redisService, steamID, appID, getStats, achievementToSearch, useCache);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         //// GET

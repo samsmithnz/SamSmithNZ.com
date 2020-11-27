@@ -45,5 +45,10 @@ namespace SamSmithNZ.Web.Controllers
             return View(new LevelCreationModel(result));
         }
 
+        public IActionResult About()
+        {
+            return RedirectToAction("About", "Home");
+        }
+
     }
 }
