@@ -14,7 +14,7 @@ namespace SamSmithNZ.Web.Models.Steam
 
         public string GetImagePath(string appID, string iconURL)
         {
-            if (iconURL == null)
+            if (string.IsNullOrEmpty(iconURL) == true)
             {
                 return "~/Steam/steam32by32.png";
             }

@@ -51,8 +51,9 @@ namespace SamSmithNZ.Web.Controllers
             });
         }
 
+        [HttpGet]
         [HttpPost]
-        public IActionResult GameDetailsPost(string steamID, string appID, bool showCompletedAchievements)
+        public IActionResult GameDetailsPost(string steamID, string appID, bool showCompletedAchievements = false)
         {
             return RedirectToAction("GameDetails",
                 new

@@ -35,7 +35,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
                 string jsonRequestString = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + Utility.MySteamWebAPIKey + "&steamid=" + steamID + "&include_appinfo=1";
                 string jsonResult = await Utility.GetPageAsStringAsync(new Uri(jsonRequestString));
 
-                if (jsonResult == "{\n\t\"response\": {\n\n\t}\n}")
+                if (jsonResult == "{\n\t\"response\": {\n\n\t}\n}" || jsonResult == "<html>\n<head>\n<title>500 Internal Server Error</title>\n</head>\n<body>\n<h1>Internal Server Error</h1>\n</body>\n</html>")
                 {
                     ownedGames = null;
                 }
@@ -44,7 +44,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
                     ownedGames = JsonConvert.DeserializeObject<SteamOwnedGames>(jsonResult);
                 }
                 //set the cache with the updated record
-                if (redisService != null)
+                if (redisService != null && ownedGames != null)
                 {
                     await redisService.SetAsync(cacheKeyName, Newtonsoft.Json.JsonConvert.SerializeObject(ownedGames), cacheExpirationTime);
                 }

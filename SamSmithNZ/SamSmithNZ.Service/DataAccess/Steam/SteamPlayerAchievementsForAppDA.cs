@@ -41,12 +41,16 @@ namespace SamSmithNZ.Service.DataAccess.Steam
                     errorResult = JsonConvert.DeserializeObject<SteamPlayerAchievementsForAppError>(jsonResult);
                     return new Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError>(null, errorResult);
                 }
+                else if (jsonResult == "<html><head><title>Internal Server Error</title></head><body><h1>Internal Server Error</h1>Unknown problem determining WebApi request destination.</body></html>")
+                {
+                    playerAchievements = null;
+                }
                 else
                 {
                     playerAchievements = JsonConvert.DeserializeObject<SteamPlayerAchievementsForApp>(jsonResult);
                 }
                 //set the cache with the updated record
-                if (redisService != null)
+                if (redisService != null && playerAchievements != null)
                 {
                     await redisService.SetAsync(cacheKeyName, Newtonsoft.Json.JsonConvert.SerializeObject(playerAchievements), cacheExpirationTime);
                 }
