@@ -63,10 +63,10 @@ namespace SamSmithNZ.Web
                     pattern: "wp-login.php",
                     defaults: new { controller = "Spam", action = "Index" });
 
-                //Capture any old calls to IntFootball and redirect to worldcup
-                endpoints.MapControllerRoute(name: "intfootball",
-                    pattern: "intfootball/{*page}",
-                    defaults: new { controller = "WorldCup", action = "Index" });
+                ////Capture any old calls to IntFootball and redirect to worldcup
+                //endpoints.MapControllerRoute(name: "intfootball",
+                //    pattern: "intfootball/{*page}",
+                //    defaults: new { controller = "WorldCup", action = "Index" });
 
                 endpoints.MapControllerRoute(
                     name: "default",

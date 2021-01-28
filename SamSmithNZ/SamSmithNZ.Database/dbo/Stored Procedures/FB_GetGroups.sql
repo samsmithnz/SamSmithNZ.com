@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[FB_GetGroups]
 	@TournamentCode INT,
 	@RoundNumber INT,
-	@RoundCode VARCHAR(10)
+	@RoundCode VARCHAR(10) = NULL
 AS
 BEGIN
 	SELECT t.team_name AS TeamName, 
@@ -27,7 +27,7 @@ BEGIN
 	LEFT JOIN wc_tournament_team_elo_rating e ON gs.tournament_code = e.tournament_code AND gs.team_code = e.team_code
 	WHERE gs.tournament_code = @TournamentCode
 	AND gs.round_number = @RoundNumber
-	AND gs.round_code = @RoundCode
+	AND (gs.round_code = @RoundCode OR @RoundCode IS NULL)
 	ORDER BY gs.group_ranking
 END
 
