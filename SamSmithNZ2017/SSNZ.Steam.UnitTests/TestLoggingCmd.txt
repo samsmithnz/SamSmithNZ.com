@@ -1,7 +1,0 @@
-﻿Open a Visual Studio 2017 command prompt
-
-vstest.console.exe  C:\Projects\SSNZTFSGit\SamSmithNZ2017\SSNZ.Steam.UnitTests\bin\Debug\SSNZ.Steam.UnitTests.dll /logger:trx /parallel
-
-vstest.console.exe C:\Projects\BainTFSDefault\PETS\Main\PETS.CCS\PETS.CCS.TestsAsync\bin\Debug\PETS.CCS.TestsAsync.dll C:\Projects\BainTFSDefault\PETS\Main\PETS.CCS\PETS.CCS.Tests\bin\Debug\PETS.CCS.Tests.dll /logger:trx /parallel
-
-vstest.console.exe C:\Projects\BainTFSDefault\PETS\Main\PETS.CCS\PETS.CCS.TestsAsync\bin\Debug\PETS.CCS.TestsAsync.dll C:\Projects\BainTFSDefault\PETS\Main\PETS.CCS\PETS.CCS.Tests\bin\Debug\PETS.CCS.Tests.dll /logger:trx /inisolation /TestCaseFilter:"Name~Save"
