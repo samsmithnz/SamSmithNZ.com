@@ -62,7 +62,7 @@ jobs:
     - name: Test
       run: dotnet test MandMCounter/MandMCounter.Tests/MandMCounter.Tests.csproj --configuration release
     - name: Publish
-      run: dotnet publish MandMCounter/MandMCounter.Tests/MandMCounter.Tests/MandMCounter.Service.csproj --configuration release --output ${{ github.workspace }}
+      run: dotnet publish MandMCounter/MandMCounter.Service/MandMCounter.Service.csproj --configuration release --output ${{ github.workspace }}
     - name: Publish Artifact
       uses: actions/upload-artifact@v2
       with:
