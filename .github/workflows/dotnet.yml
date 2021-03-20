@@ -19,9 +19,13 @@ jobs:
       with:
         dotnet-version: 5.0.100
     - name: Publish dotnet 5 web projects
-      run: dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+      run: |
+        dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+        dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
     - name: Build utility dotnet 5 projects
-      run: dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+      run: |
+        dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+        dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
     - name: Build database project
       run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
     - name: 'Copy database files to: ${{ github.workspace }}'
