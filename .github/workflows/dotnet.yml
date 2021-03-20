@@ -134,7 +134,7 @@ jobs:
         $vsTestConsoleExe = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe"
         $targetTestDll = "**\SamSmithNZ.FunctionalTests\SamSmithNZ.FunctionalTests.dll"
         $testRunSettings = "/Settings:`"FunctionalTests/SamSmithNZ.FunctionalTests/test.runsettings`" "
-        $parameters = " -- ServiceUrl="https://ssnz-prod-eu-service-staging.azurewebsites.net/" WebsiteUrl="https://www.samsmithnz.com/" ="
+        $parameters = " -- ServiceUrl="https://ssnz-prod-eu-service-staging.azurewebsites.net/" WebsiteUrl="https://www.samsmithnz.com/" "
         #Note that the `" is an escape character to quote strings, and the `& is needed to start the command
         $command = "`& `"$vsTestConsoleExe`" `"$targetTestDll`" $testRunSettings $parameters "
         Write-Host "$command"
