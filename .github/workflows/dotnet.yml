@@ -1,8 +1,5 @@
 name: 'CI/CD'
 
-#Note: 'AZURE_SP' secret is required to be setup and added into GitHub Secrets: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets
-#Note: Connection string needs to be specified - this is different than Pipelines where the server, database, user, and password were specified separately. It's recommended you use secrets for the connection string.
-#Note: 'AZURE_SP' secret is required to be setup and added into GitHub Secrets: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets
 on:
   push:
     branches:
@@ -21,7 +18,9 @@ jobs:
       with:
         dotnet-version: 5.0.100
     - name: Publish dotnet 5 web projects
-      run: dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csprojSamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+      run: |
+        dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+        dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
     - name: Build utility dotnet 5 projects
       run: |
         dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
@@ -40,7 +39,7 @@ jobs:
         path: ${{ github.workspace }}
         
   TestDotNet:
-    name: Testing (.NET 5) job
+    name: Test .NET
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -51,10 +50,10 @@ jobs:
     - name: Test dotnet 5 projects
       run: dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug --logger trx --collect "Code coverage" --settings:${{ github.workspace }}\SamSmithNZ/SamSmithNZ.Tests\CodeCoverage.runsettings
       
-  BuildAndTestMandMProject:
+  BuildMandMsDependency:
+    name: Build the MandMs dependency
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
     - uses: actions/checkout@v2
       with:
         repository: SamSmithNZ/MandMCounter
@@ -68,16 +67,15 @@ jobs:
         path: ${{ github.workspace }}
         
   DeployToSlots:
-    name: Deploy web service
+    name: Deploy web apps
     runs-on: windows-latest
     needs:
     - BuildDotNet
     - TestDotNet
-    - BuildAndTestMandMProject
+    - BuildMandMsDependency
     steps:
     - uses: actions/checkout@v2
-    - # "Note: 'AZURE_SP' secret is required to be setup and added into GitHub Secrets: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets"
-      name: Azure Login
+    - name: Azure Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_SP }}
@@ -91,13 +89,13 @@ jobs:
       with:
         inlineScript: ${{ github.workspace }}\drop\EnvironmentARMTemplate\PowerShell\DeployInfrastructureWebService.ps1 -appPrefix "samsapp" -environment "prod" -webAppEnvironment "prod" -resourceGroupName "SSSandbox" -resourceGroupLocation "East US" -resourceGroupLocationShort "eu" -dataKeyVaultName "tbd" -templatesLocation "${{ github.workspace }}\drop\EnvironmentARMTemplate\Templates" -sqlDatabaseName "ssnzdb" -sqlAdministratorLoginUser "" -sqlAdministratorLoginPassword ""
         azcliversion: latest
-    - name: 'App Service Deploy: web service'
+    - name: 'App Service Deploy: SamSmithNZ web service'
       uses: Azure/webapps-deploy@v2
       with:
         app-name: ssnz-prod-eu-service
         package: ${{ github.workspace }}/drop/SamSmithNZ.Service.zip
         slot-name: staging
-    - name: 'App Service Deploy: website'
+    - name: 'App Service Deploy: SamSmithNZ website'
       uses: Azure/webapps-deploy@v2
       with:
         app-name: ssnz-prod-eu-web
@@ -108,8 +106,7 @@ jobs:
       with:
         app-name: mandm-prod-eu-service
         package: ${{ github.workspace }}/drop/MandMCounter.Service.zip
-    - # "Note: Connection string needs to be specified - this is different than Pipelines where the server, database, user, and password were specified separately. It's recommended you use secrets for the connection string."
-      name: Azure SQL dacpac publish
+    - name: Azure SQL dacpac publish
       uses: azure/sql-action@v1
       with:
         server-name: ssnzdbserver.database.windows.net
@@ -153,8 +150,7 @@ jobs:
     - RunSmokeTests
     steps:
     - uses: actions/checkout@v2
-    - # "Note: 'AZURE_SP' secret is required to be setup and added into GitHub Secrets: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets"
-      name: Azure Login
+    - name: Azure Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_SP }}
