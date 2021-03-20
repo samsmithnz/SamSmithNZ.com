@@ -1,8 +1,5 @@
 name: 'CI/CD'
 
-#Note: 'AZURE_SP' secret is required to be setup and added into GitHub Secrets: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets
-#Note: Connection string needs to be specified - this is different than Pipelines where the server, database, user, and password were specified separately. It's recommended you use secrets for the connection string.
-#Note: 'AZURE_SP' secret is required to be setup and added into GitHub Secrets: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets
 on:
   push:
     branches:
@@ -78,8 +75,7 @@ jobs:
     - BuildMandMsDependency
     steps:
     - uses: actions/checkout@v2
-    - # "Note: 'AZURE_SP' secret is required to be setup and added into GitHub Secrets: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets"
-      name: Azure Login
+    - name: Azure Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_SP }}
@@ -110,8 +106,7 @@ jobs:
       with:
         app-name: mandm-prod-eu-service
         package: ${{ github.workspace }}/drop/MandMCounter.Service.zip
-    - # "Note: Connection string needs to be specified - this is different than Pipelines where the server, database, user, and password were specified separately. It's recommended you use secrets for the connection string."
-      name: Azure SQL dacpac publish
+    - name: Azure SQL dacpac publish
       uses: azure/sql-action@v1
       with:
         server-name: ssnzdbserver.database.windows.net
@@ -155,8 +150,7 @@ jobs:
     - RunSmokeTests
     steps:
     - uses: actions/checkout@v2
-    - # "Note: 'AZURE_SP' secret is required to be setup and added into GitHub Secrets: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets"
-      name: Azure Login
+    - name: Azure Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_SP }}
