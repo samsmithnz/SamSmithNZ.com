@@ -68,7 +68,7 @@ jobs:
       with:
         path: ${{ github.workspace }}
         
-  DeployToSlots:
+  DeployWebAppsToSlots:
     name: Deploy web apps
     runs-on: linux-latest
     needs:
@@ -105,6 +105,22 @@ jobs:
       with:
         app-name: mandm-prod-eu-service
         package: MandMCounter.Service.zip
+        
+  DeploySQLDB:
+    name: Deploy SQL database
+    runs-on: windows-latest
+    needs:
+    - BuildDotNet
+    - TestDotNet
+    - BuildMandMsDependency
+    steps:
+    - uses: actions/checkout@v2
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_SP }}
+    - name: Download the build artifacts
+      uses: actions/download-artifact@v2
     - name: Azure SQL dacpac publish
       uses: azure/sql-action@v1
       with:
@@ -117,7 +133,8 @@ jobs:
     name: Run smoke tests on staging slots
     runs-on: windows-latest
     needs:
-    - DeployToSlots
+    - DeployWebAppsToSlots
+    - DeploySQLDB
     steps:
     - uses: actions/checkout@v2
     - name: Download the build artifacts
