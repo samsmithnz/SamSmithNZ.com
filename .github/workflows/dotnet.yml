@@ -30,10 +30,12 @@ jobs:
     - name: Build database project
       run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
     - name: 'Copy database files to: ${{ github.workspace }}'
-      run: Copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output/*' '${{ github.workspace }}\Database'
+      run: Copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*' '${{ github.workspace }}\Database'
     - name: Publish .NET 5 functional tests project
+      if: 0 == 1
       run: dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
     - name: 'Copy Selenium Files to: ${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
+      if: 0 == 1
       run: Copy 'SamSmithNZ/SamSmithNZ.FunctionalTests/bin/Release/net5.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
     - name: Publish Artifact
       uses: actions/upload-artifact@v2
@@ -43,6 +45,7 @@ jobs:
   TestDotNet:
     name: Test .NET
     runs-on: windows-latest
+    if: 0 == 1
     steps:
     - uses: actions/checkout@v2
     - name: Install .Net 5 SDK
@@ -55,6 +58,7 @@ jobs:
   BuildMandMsDependency:
     name: Build MandMs dependency
     runs-on: windows-latest
+    if: 0 == 1
     steps:
     - uses: actions/checkout@v2
       with:
@@ -71,6 +75,7 @@ jobs:
   DeployWebAppsToSlots:
     name: Deploy web apps
     runs-on: linux-latest
+    if: 0 == 1
     needs:
     - BuildDotNet
     - TestDotNet
@@ -109,6 +114,7 @@ jobs:
   DeploySQLDB:
     name: Deploy SQL database
     runs-on: windows-latest
+    if: 0 == 1
     needs:
     - BuildDotNet
     - TestDotNet
@@ -132,6 +138,7 @@ jobs:
   RunSmokeTests:
     name: Run smoke tests on staging slots
     runs-on: windows-latest
+    if: 0 == 1
     needs:
     - DeployWebAppsToSlots
     - DeploySQLDB
@@ -161,6 +168,7 @@ jobs:
   SwapStagingSlotsToProd:
     name: Swap staging slots to prod
     runs-on: linux-latest
+    if: 0 == 1
     needs:
     - RunSmokeTests
     steps:
