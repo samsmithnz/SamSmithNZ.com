@@ -1,0 +1,167 @@
+name: 'CI/CD'
+
+#Note: 'AZURE_SP' secret is required to be setup and added into GitHub Secrets: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets
+#Note: Connection string needs to be specified - this is different than Pipelines where the server, database, user, and password were specified separately. It's recommended you use secrets for the connection string.
+#Note: 'AZURE_SP' secret is required to be setup and added into GitHub Secrets: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets
+on:
+  push:
+    branches:
+    - master
+env:
+  buildConfiguration: Release
+jobs:
+  BuildDotNet:
+    name: Build .NET
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: microsoft/setup-msbuild@v1.0.2
+    - name: Install .Net 5 SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.100
+    - name: Publish dotnet 5 web projects
+      run: dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csprojSamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+    - name: Build utility dotnet 5 projects
+      run: dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csprojSamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+    - name: Build database project
+      run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
+    - name: 'Copy database files to: ${{ github.workspace }}'
+      run: Copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output/*' '${{ github.workspace }}\Database'
+    - name: Publish .NET 5 functional tests project
+      run: dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
+    - name: 'Copy Selenium Files to: ${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
+      run: Copy 'SamSmithNZ/SamSmithNZ.FunctionalTests/bin/Release/net5.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
+    - name: Publish Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        path: ${{ github.workspace }}
+        
+  TestDotNet:
+    name: Testing (.NET 5) job
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install .Net 5 SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.100
+    - name: Test dotnet 5 projects
+      run: dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug --logger trx --collect "Code coverage" --settings:${{ github.workspace }}\SamSmithNZ/SamSmithNZ.Tests\CodeCoverage.runsettings
+      
+  BuildAndTestMandMProject:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+      with:
+        repository: SamSmithNZ/MandMCounter
+    - name: Test
+      run: dotnet test **/MandMCounter.Tests.csproj --configuration release
+    - name: Publish
+      run: dotnet publish **/MandMCounter.Service.csproj --configuration release --output ${{ github.workspace }}
+    - name: Publish Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        path: ${{ github.workspace }}
+        
+  DeployToSlots:
+    name: Deploy web service
+    runs-on: windows-latest
+    needs:
+    - BuildDotNet
+    - TestDotNet
+    - BuildAndTestMandMProject
+    steps:
+    - uses: actions/checkout@v2
+    - # "Note: 'AZURE_SP' secret is required to be setup and added into GitHub Secrets: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets"
+      name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_SP }}
+    - name: Download the build artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: drop
+        path: ${{ github.workspace }}
+    - name: Deploy infrastructure with ARM templates
+      uses: azure/cli@v1.0.0
+      with:
+        inlineScript: ${{ github.workspace }}\drop\EnvironmentARMTemplate\PowerShell\DeployInfrastructureWebService.ps1 -appPrefix "samsapp" -environment "prod" -webAppEnvironment "prod" -resourceGroupName "SSSandbox" -resourceGroupLocation "East US" -resourceGroupLocationShort "eu" -dataKeyVaultName "tbd" -templatesLocation "${{ github.workspace }}\drop\EnvironmentARMTemplate\Templates" -sqlDatabaseName "ssnzdb" -sqlAdministratorLoginUser "" -sqlAdministratorLoginPassword ""
+        azcliversion: latest
+    - name: 'App Service Deploy: web service'
+      uses: Azure/webapps-deploy@v2
+      with:
+        app-name: ssnz-prod-eu-service
+        package: ${{ github.workspace }}/drop/SamSmithNZ.Service.zip
+        slot-name: staging
+    - name: 'App Service Deploy: website'
+      uses: Azure/webapps-deploy@v2
+      with:
+        app-name: ssnz-prod-eu-web
+        package: ${{ github.workspace }}/drop/SamSmithNZ.Web.zip
+        slot-name: staging
+    - name: 'App Service Deploy: MandMCounter web service'
+      uses: Azure/webapps-deploy@v2
+      with:
+        app-name: mandm-prod-eu-service
+        package: ${{ github.workspace }}/drop/MandMCounter.Service.zip
+    - # "Note: Connection string needs to be specified - this is different than Pipelines where the server, database, user, and password were specified separately. It's recommended you use secrets for the connection string."
+      name: Azure SQL dacpac publish
+      uses: azure/sql-action@v1
+      with:
+        server-name: ssnzdbserver.database.windows.net
+        connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
+        dacpac-package: ${{ github.workspace }}/drop/Database/SamSmithNZ.Database.dacpac
+        arguments: /p:BlockOnPossibleDataLoss=true
+        
+  RunSmokeTests:
+    name: Run smoke tests on staging slots
+    runs-on: windows-latest
+    needs:
+    - DeployToSlots
+    steps:
+    - uses: actions/checkout@v2
+    - name: Download the build artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: drop
+        path: ${{ github.workspace }}
+    - name: Install .Net 5 SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.100
+    - name: Run functional smoke tests on website and web service
+      run: |
+        $vsTestConsoleExe = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe"
+        $targetTestDll = "**\SamSmithNZ.FunctionalTests\SamSmithNZ.FunctionalTests.dll
+        "
+        $testRunSettings = "/Settings:`"${{ github.workspace }}/drop/FunctionalTests/SamSmithNZ.FunctionalTests/test.runsettings`" "
+        $parameters = " -- ServiceUrl="https://ssnz-prod-eu-service-staging.azurewebsites.net/" WebsiteUrl="https://www.samsmithnz.com/" ="
+        #Note that the `" is an escape character to quote strings, and the `& is needed to start the command
+        $command = "`& `"$vsTestConsoleExe`" `"$targetTestDll`" $testRunSettings $parameters "
+        Write-Host "$command"
+        Invoke-Expression $command
+      shell: powershell
+      
+  SwapStagingSlotsToProd:
+    name: Swap staging slots to prod
+    runs-on: windows-latest
+    needs:
+    - RunSmokeTests
+    steps:
+    - uses: actions/checkout@v2
+    - # "Note: 'AZURE_SP' secret is required to be setup and added into GitHub Secrets: https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets"
+      name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_SP }}
+    - name: 'Swap Slots: web service'
+      uses: Azure/cli@v1.0.0
+      with:
+        inlineScript: az webapp deployment slot swap --resource-group SSSandbox --name ssnz-prod-eu-service --slot staging --target-slot production
+    - name: 'Swap Slots: web'
+      uses: Azure/cli@v1.0.0
+      with:
+        inlineScript: az webapp deployment slot swap --resource-group SSSandbox --name ssnz-prod-eu-web --slot staging --target-slot production
+                    
