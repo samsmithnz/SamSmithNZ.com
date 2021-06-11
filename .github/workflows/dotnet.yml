@@ -52,7 +52,7 @@ jobs:
         
   TestDotNet:
     name: Test .NET
-    runs-on: windows-latest
+    runs-on: linux-latest
     steps:
     - uses: actions/checkout@v2
     - name: Install .Net 5 SDK
@@ -112,11 +112,11 @@ jobs:
         app-name: ssnz-prod-eu-web
         package: SamSmithNZ.Web.zip
         slot-name: staging
-    - name: 'App Service Deploy: MandMCounter web service'
-      uses: Azure/webapps-deploy@v2
-      with:
-        app-name: mandm-prod-eu-service
-        package: MandMCounter.Service.zip
+    #- name: 'App Service Deploy: MandMCounter web service'
+    #  uses: Azure/webapps-deploy@v2
+    #  with:
+    #    app-name: mandm-prod-eu-service
+    #    package: MandMCounter.Service.zip
         
   DeploySQLDB:
     name: Deploy SQL database
