@@ -19,6 +19,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A3A53F95-9C8E-4DA0-82F5-8508921F8B96}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		..\.github\workflows\dotnet.yml = ..\.github\workflows\dotnet.yml
 	EndProjectSection
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SamSmithNZ.Database", "SamSmithNZ.Database\SamSmithNZ.Database.sqlproj", "{9D1104AA-CF15-457B-BF19-41CE5445F3BE}"
@@ -29,7 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{4D13
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UtilityApps", "UtilityApps", "{A58047F7-CD2E-4F21-B9C7-E5AC3C55EC96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamSmithNZ.FFLSetlistScraper.WinForms", "SamSmithNZ.FFLSetlistScraper.WinForms\SamSmithNZ.FFLSetlistScraper.WinForms.csproj", "{569CBCC3-301D-4558-A003-4E6CF9414B1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamSmithNZ.FFLSetlistScraper.WinForms", "SamSmithNZ.FFLSetlistScraper.WinForms\SamSmithNZ.FFLSetlistScraper.WinForms.csproj", "{569CBCC3-301D-4558-A003-4E6CF9414B1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
