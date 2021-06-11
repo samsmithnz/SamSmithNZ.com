@@ -39,15 +39,20 @@ jobs:
     #- name: 'Copy Selenium Files to: ${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
     #  if: 0 == 1
     #  run: Copy 'SamSmithNZ/SamSmithNZ.FunctionalTests/bin/Release/net5.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
-    - name: Publish Artifact
+    - name: Publish webapi Artifact
       uses: actions/upload-artifact@v2
       with:
-        path: ${{ github.workspace }}
+        name: webapi
+        path: ${{ github.workspace }}/service
+    - name: Publish web Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: web
+        path: ${{ github.workspace }}/web
         
   TestDotNet:
     name: Test .NET
     runs-on: windows-latest
-    if: 0 == 1
     steps:
     - uses: actions/checkout@v2
     - name: Install .Net 5 SDK
@@ -81,7 +86,7 @@ jobs:
     needs:
     - BuildDotNet
     - TestDotNet
-    - BuildMandMsDependency
+    #- BuildMandMsDependency
     steps:
     - uses: actions/checkout@v2
     - name: Azure Login
@@ -90,11 +95,11 @@ jobs:
         creds: ${{ secrets.AZURE_SP }}
     - name: Download the build artifacts
       uses: actions/download-artifact@v2
-    - name: Deploy infrastructure with ARM templates
-      uses: azure/cli@v1.0.0
-      with:
-        inlineScript: EnvironmentARMTemplate\PowerShell\DeployInfrastructureWebService.ps1 -appPrefix "samsapp" -environment "prod" -webAppEnvironment "prod" -resourceGroupName "SSSandbox" -resourceGroupLocation "East US" -resourceGroupLocationShort "eu" -dataKeyVaultName "tbd" -templatesLocation "${{ github.workspace }}\drop\EnvironmentARMTemplate\Templates" -sqlDatabaseName "ssnzdb" -sqlAdministratorLoginUser "" -sqlAdministratorLoginPassword ""
-        azcliversion: latest
+    #- name: Deploy infrastructure with ARM templates
+    #  uses: azure/cli@v1.0.0
+    #  with:
+    #    inlineScript: EnvironmentARMTemplate\PowerShell\DeployInfrastructureWebService.ps1 -appPrefix "samsapp" -environment "prod" -webAppEnvironment "prod" -resourceGroupName "SSSandbox" -resourceGroupLocation "East US" -resourceGroupLocationShort "eu" -dataKeyVaultName "tbd" -templatesLocation "${{ github.workspace }}\drop\EnvironmentARMTemplate\Templates" -sqlDatabaseName "ssnzdb" -sqlAdministratorLoginUser "" -sqlAdministratorLoginPassword ""
+    #    azcliversion: latest
     - name: 'App Service Deploy: SamSmithNZ web service'
       uses: Azure/webapps-deploy@v2
       with:
