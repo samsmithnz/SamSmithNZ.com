@@ -10,11 +10,27 @@ env:
   dotNetConfiguration: Release
   runtimeTarget: win-x64
 jobs:
-  BuildDotNet:
+  build:
     name: Build .NET
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 #fetch-depth is needed for GitVersion
+        
+    #Install and calculate the new version with GitVersion  
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: 5.x
+    - name: Determine Version
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      id: gitversion # step id used as reference for output values
+    - name: Display GitVersion outputs
+      run: |
+        echo "Version: ${{ steps.gitversion.outputs.SemVer }}"
+        echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
+        
     #- uses: microsoft/setup-msbuild@v1.0.2
     - name: Install .Net 5 SDK
       uses: actions/setup-dotnet@v1
@@ -22,8 +38,8 @@ jobs:
         dotnet-version: 5.0.100
     - name: Publish dotnet 5 web projects
       run: |
-        dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/service #--runtime ${{env.runtimeTarget}}
-        dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web #--runtime ${{env.runtimeTarget}}
+        dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/service #--runtime ${{env.runtimeTarget}} -p:Version='${{ steps.gitversion.outputs.SemVer }}'
+        dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web #--runtime ${{env.runtimeTarget}} -p:Version='${{ steps.gitversion.outputs.SemVer }}'
     #- name: Build utility dotnet 5 projects
     #  if: 0 == 1
     #  run: |
@@ -62,6 +78,11 @@ jobs:
         dotnet-version: 5.0.100
     - name: Test dotnet 5 projects
       run: dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug --logger trx --collect "Code coverage" --settings:${{ github.workspace }}/SamSmithNZ/SamSmithNZ.Tests/CodeCoverage.runsettings
+    - name: Publish coverage report to coveralls.io
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: src/AzurePipelinesToGitHubActionsConverter.Tests/TestResults/coverage.info  
       
   BuildMandMsDependency:
     name: Build MandMs dependency
@@ -83,8 +104,9 @@ jobs:
   DeployWebAppsToSlots:
     name: Deploy web apps
     runs-on: ubuntu-latest
+    #if: github.ref == 'refs/heads/main'   
     needs:
-    - BuildDotNet
+    - build
     #- TestDotNet
     #- BuildMandMsDependency
     steps:
@@ -116,14 +138,27 @@ jobs:
     #  uses: Azure/webapps-deploy@v2
     #  with:
     #    app-name: mandm-prod-eu-service
-    #    package: MandMCounter.Service.zip
+    #    package: MandMCounter.Service.zip   
+    - name: Display GitVersion outputs
+      run: |
+        echo "Version: ${{ needs.build.outputs.Version }}" 
+        echo "CommitsSinceVersionSource: ${{ needs.build.outputs.CommitsSinceVersionSource }}" 
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ needs.build.outputs.Version }}
+        release_name: Release ${{ needs.build.outputs.Version }}
         
   DeploySQLDB:
     name: Deploy SQL database
     runs-on: windows-latest
     if: 0 == 1
     needs:
-    - BuildDotNet
+    - build
     - TestDotNet
     - BuildMandMsDependency
     steps:
