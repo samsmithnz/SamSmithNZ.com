@@ -29,6 +29,36 @@
 
     <h4>History</h4>
     <div>
+@{
+    //OS platform
+    string osPlatform = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
+
+    //.NET core version
+    string? aspDotnetVersion = Assembly
+        .GetEntryAssembly()?
+        .GetCustomAttribute<System.Runtime.Versioning.TargetFrameworkAttribute>()?
+        .FrameworkName;
+
+    //Application version
+    string? appVersion = Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version;
+
+    //Last build time
+    const int peHeaderOffset = 60;
+    const int linkerTimestampOffset = 8;
+    byte[] bytes = new byte[2048];
+    using (FileStream file = new FileStream(Assembly.GetEntryAssembly()?.Location ?? "", FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+    {
+        file.Read(bytes, 0, bytes.Length);
+    }
+    Int32 headerPos = BitConverter.ToInt32(bytes, peHeaderOffset);
+    Int32 secondsSince1970 = BitConverter.ToInt32(bytes, headerPos + linkerTimestampOffset);
+    DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+    string appAssemblyLastBuildDate = dt.AddSeconds(secondsSince1970).ToString("dd-MMM-yyyy hh:mm:sstt");
+}
+        
+        <span><b>OS Platform:</b> @osPlatform</span><br />
+        <span><b>ASP.NET Core version:</b> @aspDotnetVersion</span><br />
+        <span><b>Current application version:</b> @appVersion (Last built: @appAssemblyLastBuildDate)</span><br />
         There have been various versions of the site over the years on various domains.
         <ol>
             <li>1999-2002: SamSmith.co.nz: a basic HTML blog with a cgibin forum. Some static HTML pages were pre-generated with a VB6 application from an Access database</li>
@@ -37,7 +67,7 @@
             <li>2012-2014: SamSmithNZ.com with ASP.NET MVC4, and SQL database</li>
             <li>2014-2016: SamSmithNZ.com with ASP.NET MVC5, hosted on Azure PaaS with an Azure SQL database</li>
             <li>2017-2020: SamSmithNZ.com with ASP.NET MVC5, AngularJS, hosted on Azure PaaS, with a Azure SQL database, deployed with Azure DevOps</li>
-            <li>2021-(now): SamSmithNZ.com with ASP.NET and .NET 5, hosted on Azure PaaS, with Azure SQL, deployed with GitHub</li>
+            <li><b>2021-(now)</b>: SamSmithNZ.com with ASP.NET and .NET 5, hosted on Azure PaaS, with Azure SQL, deployed with GitHub</li>
         </ol>
     </div>
 
