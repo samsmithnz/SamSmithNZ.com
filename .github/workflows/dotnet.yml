@@ -60,7 +60,7 @@ jobs:
       with:
         dotnet-version: 5.0.100
     - name: Test dotnet 5 projects
-      run: dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug --logger trx --collect "Code coverage" --settings:${{ github.workspace }}\SamSmithNZ/SamSmithNZ.Tests/CodeCoverage.runsettings
+      run: dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug --logger trx --collect "Code coverage" --settings:${{ github.workspace }}/SamSmithNZ/SamSmithNZ.Tests/CodeCoverage.runsettings
       
   BuildMandMsDependency:
     name: Build MandMs dependency
