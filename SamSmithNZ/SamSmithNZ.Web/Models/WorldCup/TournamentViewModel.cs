@@ -7,6 +7,7 @@ namespace SamSmithNZ.Web.Models.WorldCup
     {
         public Tournament Tournament { get; set; }
         public bool ChanceToWin { get; set; }
+        public bool IsPlacingTeams { get; set; }
         public List<TournamentTeam> Teams { get; set; }
         public List<TournamentTopGoalScorer> Goals { get; set; }
     }
