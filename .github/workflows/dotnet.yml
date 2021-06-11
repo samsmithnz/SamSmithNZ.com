@@ -52,7 +52,7 @@ jobs:
         
   TestDotNet:
     name: Test .NET
-    runs-on: linux-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Install .Net 5 SDK
@@ -81,8 +81,7 @@ jobs:
         
   DeployWebAppsToSlots:
     name: Deploy web apps
-    runs-on: linux-latest
-    if: 0 == 1
+    runs-on: ubuntu-latest
     needs:
     - BuildDotNet
     - TestDotNet
@@ -174,10 +173,10 @@ jobs:
       
   SwapStagingSlotsToProd:
     name: Swap staging slots to prod
-    runs-on: linux-latest
-    if: 0 == 1
-    needs:
-    - RunSmokeTests
+    runs-on: ubuntu-latest
+    #if: 0 == 1
+    #needs:
+    #- RunSmokeTests
     steps:
     - uses: actions/checkout@v2
     - name: Azure Login
