@@ -13,6 +13,9 @@ jobs:
   build:
     name: Build .NET
     runs-on: windows-latest
+    outputs: # https://stackoverflow.com/questions/59175332/using-output-from-a-previous-job-in-a-new-one-in-a-github-action
+      Version: ${{ steps.gitversion.outputs.SemVer }}
+      CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}  
     steps:
     - uses: actions/checkout@v2
       with:
