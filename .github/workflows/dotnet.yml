@@ -107,7 +107,6 @@ jobs:
   DeployWebAppsToSlots:
     name: Deploy web apps
     runs-on: ubuntu-latest
-    #if: github.ref == 'refs/heads/main'   
     needs:
     - build
     #- TestDotNet
@@ -149,7 +148,7 @@ jobs:
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
-      if: needs.build.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
+      if: github.ref == 'refs/heads/main' && needs.build.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
