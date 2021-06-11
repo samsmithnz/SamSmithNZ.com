@@ -4,43 +4,75 @@ on:
   push:
     branches:
     - main
+  pull_request:
 env:
-  buildConfiguration: Release
+  dotNetVersion: net5.0
+  dotNetConfiguration: Release
+  runtimeTarget: win-x64
 jobs:
-  BuildDotNet:
+  build:
     name: Build .NET
     runs-on: windows-latest
+    outputs: # https://stackoverflow.com/questions/59175332/using-output-from-a-previous-job-in-a-new-one-in-a-github-action
+      Version: ${{ steps.gitversion.outputs.SemVer }}
+      CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}  
     steps:
     - uses: actions/checkout@v2
-    - uses: microsoft/setup-msbuild@v1.0.2
+      with:
+        fetch-depth: 0 #fetch-depth is needed for GitVersion
+        
+    #Install and calculate the new version with GitVersion  
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: 5.x
+    - name: Determine Version
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      id: gitversion # step id used as reference for output values
+    - name: Display GitVersion outputs
+      run: |
+        echo "Version: ${{ steps.gitversion.outputs.SemVer }}"
+        echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
+        
+    #- uses: microsoft/setup-msbuild@v1.0.2
     - name: Install .Net 5 SDK
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.100
     - name: Publish dotnet 5 web projects
       run: |
-        dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-        dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-    - name: Build utility dotnet 5 projects
-      run: |
-        dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-        dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-    - name: Build database project
-      run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
-    - name: 'Copy database files to: ${{ github.workspace }}'
-      run: Copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output/*' '${{ github.workspace }}\Database'
-    - name: Publish .NET 5 functional tests project
-      run: dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
-    - name: 'Copy Selenium Files to: ${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
-      run: Copy 'SamSmithNZ/SamSmithNZ.FunctionalTests/bin/Release/net5.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
-    - name: Publish Artifact
+        dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/service #--runtime ${{env.runtimeTarget}} -p:Version='${{ steps.gitversion.outputs.SemVer }}'
+        dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web #--runtime ${{env.runtimeTarget}} -p:Version='${{ steps.gitversion.outputs.SemVer }}'
+    #- name: Build utility dotnet 5 projects
+    #  if: 0 == 1
+    #  run: |
+    #    dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+    #    dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+    #- name: Build database project
+    #  run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
+    #- name: 'Copy database files to: ${{ github.workspace }}'
+    #  run: Copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*' '${{ github.workspace }}\Database'
+    #- name: Publish .NET 5 functional tests project
+    #  if: 0 == 1
+    #  run: dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
+    #- name: 'Copy Selenium Files to: ${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
+    #  if: 0 == 1
+    #  run: Copy 'SamSmithNZ/SamSmithNZ.FunctionalTests/bin/Release/net5.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
+    - name: Publish webapi Artifact
       uses: actions/upload-artifact@v2
       with:
-        path: ${{ github.workspace }}
+        name: service
+        path: ${{ github.workspace }}/service
+    - name: Publish web Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: web
+        path: ${{ github.workspace }}/web
         
   TestDotNet:
     name: Test .NET
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+    if: 0 == 1
     steps:
     - uses: actions/checkout@v2
     - name: Install .Net 5 SDK
@@ -48,29 +80,87 @@ jobs:
       with:
         dotnet-version: 5.0.100
     - name: Test dotnet 5 projects
-      run: dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug --logger trx --collect "Code coverage" --settings:${{ github.workspace }}\SamSmithNZ/SamSmithNZ.Tests\CodeCoverage.runsettings
+      run: dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug --logger trx --collect "Code coverage" --settings:${{ github.workspace }}/SamSmithNZ/SamSmithNZ.Tests/CodeCoverage.runsettings
+    - name: Publish coverage report to coveralls.io
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: src/AzurePipelinesToGitHubActionsConverter.Tests/TestResults/coverage.info  
       
   BuildMandMsDependency:
-    name: Build the MandMs dependency
+    name: Build MandMs dependency
     runs-on: windows-latest
+    if: 0 == 1
     steps:
     - uses: actions/checkout@v2
       with:
         repository: SamSmithNZ/MandMCounter
     - name: Test
-      run: dotnet test **/MandMCounter.Tests.csproj --configuration release
+      run: dotnet test MandMCounter/MandMCounter.Tests/MandMCounter.Tests.csproj --configuration release
     - name: Publish
-      run: dotnet publish **/MandMCounter.Service.csproj --configuration release --output ${{ github.workspace }}
+      run: dotnet publish MandMCounter/MandMCounter.Service/MandMCounter.Service.csproj --configuration release --output ${{ github.workspace }}
     - name: Publish Artifact
       uses: actions/upload-artifact@v2
       with:
         path: ${{ github.workspace }}
         
-  DeployToSlots:
+  DeployWebAppsToSlots:
     name: Deploy web apps
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs:
-    - BuildDotNet
+    - build
+    #- TestDotNet
+    #- BuildMandMsDependency
+    steps:
+    - uses: actions/checkout@v2
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_SP }}
+    - name: Download the build artifacts
+      uses: actions/download-artifact@v2
+    #- name: Deploy infrastructure with ARM templates
+    #  uses: azure/cli@v1.0.0
+    #  with:
+    #    inlineScript: EnvironmentARMTemplate\PowerShell\DeployInfrastructureWebService.ps1 -appPrefix "samsapp" -environment "prod" -webAppEnvironment "prod" -resourceGroupName "SSSandbox" -resourceGroupLocation "East US" -resourceGroupLocationShort "eu" -dataKeyVaultName "tbd" -templatesLocation "${{ github.workspace }}\drop\EnvironmentARMTemplate\Templates" -sqlDatabaseName "ssnzdb" -sqlAdministratorLoginUser "" -sqlAdministratorLoginPassword ""
+    #    azcliversion: latest
+    - name: 'App Service Deploy: SamSmithNZ web service'
+      uses: Azure/webapps-deploy@v2
+      with:
+        app-name: ssnz-prod-eu-service
+        package: service
+        slot-name: staging
+    - name: 'App Service Deploy: SamSmithNZ website'
+      uses: Azure/webapps-deploy@v2
+      with:
+        app-name: ssnz-prod-eu-web
+        package: web
+        slot-name: staging
+    #- name: 'App Service Deploy: MandMCounter web service'
+    #  uses: Azure/webapps-deploy@v2
+    #  with:
+    #    app-name: mandm-prod-eu-service
+    #    package: MandMCounter.Service.zip   
+    - name: Display GitVersion outputs
+      run: |
+        echo "Version: ${{ needs.build.outputs.Version }}" 
+        echo "CommitsSinceVersionSource: ${{ needs.build.outputs.CommitsSinceVersionSource }}" 
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      if: github.ref == 'refs/heads/main' && needs.build.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ needs.build.outputs.Version }}
+        release_name: Release ${{ needs.build.outputs.Version }}
+        
+  DeploySQLDB:
+    name: Deploy SQL database
+    runs-on: windows-latest
+    if: 0 == 1
+    needs:
+    - build
     - TestDotNet
     - BuildMandMsDependency
     steps:
@@ -81,44 +171,21 @@ jobs:
         creds: ${{ secrets.AZURE_SP }}
     - name: Download the build artifacts
       uses: actions/download-artifact@v2
-      with:
-        name: drop
-        path: ${{ github.workspace }}
-    - name: Deploy infrastructure with ARM templates
-      uses: azure/cli@v1.0.0
-      with:
-        inlineScript: ${{ github.workspace }}\drop\EnvironmentARMTemplate\PowerShell\DeployInfrastructureWebService.ps1 -appPrefix "samsapp" -environment "prod" -webAppEnvironment "prod" -resourceGroupName "SSSandbox" -resourceGroupLocation "East US" -resourceGroupLocationShort "eu" -dataKeyVaultName "tbd" -templatesLocation "${{ github.workspace }}\drop\EnvironmentARMTemplate\Templates" -sqlDatabaseName "ssnzdb" -sqlAdministratorLoginUser "" -sqlAdministratorLoginPassword ""
-        azcliversion: latest
-    - name: 'App Service Deploy: SamSmithNZ web service'
-      uses: Azure/webapps-deploy@v2
-      with:
-        app-name: ssnz-prod-eu-service
-        package: ${{ github.workspace }}/drop/SamSmithNZ.Service.zip
-        slot-name: staging
-    - name: 'App Service Deploy: SamSmithNZ website'
-      uses: Azure/webapps-deploy@v2
-      with:
-        app-name: ssnz-prod-eu-web
-        package: ${{ github.workspace }}/drop/SamSmithNZ.Web.zip
-        slot-name: staging
-    - name: 'App Service Deploy: MandMCounter web service'
-      uses: Azure/webapps-deploy@v2
-      with:
-        app-name: mandm-prod-eu-service
-        package: ${{ github.workspace }}/drop/MandMCounter.Service.zip
     - name: Azure SQL dacpac publish
       uses: azure/sql-action@v1
       with:
         server-name: ssnzdbserver.database.windows.net
         connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        dacpac-package: ${{ github.workspace }}/drop/Database/SamSmithNZ.Database.dacpac
+        dacpac-package: Database/SamSmithNZ.Database.dacpac
         arguments: /p:BlockOnPossibleDataLoss=true
         
   RunSmokeTests:
     name: Run smoke tests on staging slots
     runs-on: windows-latest
+    if: 0 == 1
     needs:
-    - DeployToSlots
+    - DeployWebAppsToSlots
+    - DeploySQLDB
     steps:
     - uses: actions/checkout@v2
     - name: Download the build artifacts
@@ -133,10 +200,9 @@ jobs:
     - name: Run functional smoke tests on website and web service
       run: |
         $vsTestConsoleExe = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe"
-        $targetTestDll = "**\SamSmithNZ.FunctionalTests\SamSmithNZ.FunctionalTests.dll
-        "
-        $testRunSettings = "/Settings:`"${{ github.workspace }}/drop/FunctionalTests/SamSmithNZ.FunctionalTests/test.runsettings`" "
-        $parameters = " -- ServiceUrl="https://ssnz-prod-eu-service-staging.azurewebsites.net/" WebsiteUrl="https://www.samsmithnz.com/" ="
+        $targetTestDll = "**\SamSmithNZ.FunctionalTests\SamSmithNZ.FunctionalTests.dll"
+        $testRunSettings = "/Settings:`"FunctionalTests/SamSmithNZ.FunctionalTests/test.runsettings`" "
+        $parameters = " -- ServiceUrl="https://ssnz-prod-eu-service-staging.azurewebsites.net/" WebsiteUrl="https://www.samsmithnz.com/" "
         #Note that the `" is an escape character to quote strings, and the `& is needed to start the command
         $command = "`& `"$vsTestConsoleExe`" `"$targetTestDll`" $testRunSettings $parameters "
         Write-Host "$command"
@@ -145,9 +211,11 @@ jobs:
       
   SwapStagingSlotsToProd:
     name: Swap staging slots to prod
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+    #if: 0 == 1
     needs:
-    - RunSmokeTests
+    #- RunSmokeTests
+    - DeployWebAppsToSlots
     steps:
     - uses: actions/checkout@v2
     - name: Azure Login
