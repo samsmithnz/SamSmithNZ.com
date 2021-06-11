@@ -6,37 +6,39 @@ on:
     - main
   pull_request:
 env:
-  buildConfiguration: Release
+  dotNetVersion: net5.0
+  dotNetConfiguration: Release
+  runtimeTarget: win-x64
 jobs:
   BuildDotNet:
     name: Build .NET
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: microsoft/setup-msbuild@v1.0.2
+    #- uses: microsoft/setup-msbuild@v1.0.2
     - name: Install .Net 5 SDK
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.100
     - name: Publish dotnet 5 web projects
       run: |
-        dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-        dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-    - name: Build utility dotnet 5 projects
-      if: 0 == 1
-      run: |
-        dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-        dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-    - name: Build database project
-      run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
-    - name: 'Copy database files to: ${{ github.workspace }}'
-      run: Copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*' '${{ github.workspace }}\Database'
-    - name: Publish .NET 5 functional tests project
-      if: 0 == 1
-      run: dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
-    - name: 'Copy Selenium Files to: ${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
-      if: 0 == 1
-      run: Copy 'SamSmithNZ/SamSmithNZ.FunctionalTests/bin/Release/net5.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
+        dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/service #--runtime ${{env.runtimeTarget}}
+        dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web #--runtime ${{env.runtimeTarget}}
+    #- name: Build utility dotnet 5 projects
+    #  if: 0 == 1
+    #  run: |
+    #    dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+    #    dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+    #- name: Build database project
+    #  run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
+    #- name: 'Copy database files to: ${{ github.workspace }}'
+    #  run: Copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*' '${{ github.workspace }}\Database'
+    #- name: Publish .NET 5 functional tests project
+    #  if: 0 == 1
+    #  run: dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
+    #- name: 'Copy Selenium Files to: ${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
+    #  if: 0 == 1
+    #  run: Copy 'SamSmithNZ/SamSmithNZ.FunctionalTests/bin/Release/net5.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
     - name: Publish Artifact
       uses: actions/upload-artifact@v2
       with:
