@@ -41,8 +41,8 @@ jobs:
         dotnet-version: 5.0.100
     - name: Publish dotnet 5 web projects
       run: |
-        dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/service #--runtime ${{env.runtimeTarget}} -p:Version='${{ steps.gitversion.outputs.SemVer }}'
-        dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web #--runtime ${{env.runtimeTarget}} -p:Version='${{ steps.gitversion.outputs.SemVer }}'
+        dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/service -p:Version='${{ steps.gitversion.outputs.SemVer }}' #--runtime ${{env.runtimeTarget}} 
+        dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web -p:Version='${{ steps.gitversion.outputs.SemVer }}' #--runtime ${{env.runtimeTarget}} 
     #- name: Build utility dotnet 5 projects
     #  if: 0 == 1
     #  run: |
