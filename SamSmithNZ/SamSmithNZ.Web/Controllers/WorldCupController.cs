@@ -30,11 +30,18 @@ namespace SamSmithNZ.Web.Controllers
         public async Task<IActionResult> Tournament(int tournamentCode)
         {
             Tournament tournament = await _ServiceApiClient.GetTournament(tournamentCode);
+            bool isPlacingTeams = true;
             List<TournamentTeam> teams = await _ServiceApiClient.GetTournamentPlacingTeams(tournamentCode);
+            if (teams.Count == 0)
+            {
+                isPlacingTeams = false;
+                teams = await _ServiceApiClient.GetTournamentQualifyingTeams(tournamentCode);
+            }
             List<TournamentTopGoalScorer> goals = await _ServiceApiClient.GetTournamentTopGoalScorers(tournamentCode);
             TournamentViewModel tournamentViewModel = new TournamentViewModel
             {
                 Tournament = tournament,
+                IsPlacingTeams = isPlacingTeams,
                 Teams = teams,
                 Goals = goals
             };

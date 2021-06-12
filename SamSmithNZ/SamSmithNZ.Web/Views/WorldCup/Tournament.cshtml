@@ -10,7 +10,7 @@
 {
     <div class="row">
         <div class="col-md-4">
-            <img src="~/WorldCup/WorldCupLogos/@Model.Tournament.LogoImage" />
+            <img src="~/WorldCup/WorldCupLogos/@Model.Tournament.LogoImage" style="max-width:220px" />
             <br /><br />
         </div>
 
@@ -52,7 +52,7 @@
                 @if (Model.Tournament.R1FormatRoundCode > 0 && Model.Tournament.R1IsGroupStage == true)
                 {
                     <div>
-                        <span>Round @(Model.Tournament.R1NumberOfGroupsInRound * Model.Tournament.R1NumberOfTeamsInGroup) teams split in @Model.Tournament.R1NumberOfGroupsInRound groups of @Model.Tournament.R1NumberOfTeamsInGroup</span><br />
+                        <span>Round 1:  @(Model.Tournament.R1NumberOfGroupsInRound * Model.Tournament.R1NumberOfTeamsInGroup) teams split in @Model.Tournament.R1NumberOfGroupsInRound groups of @Model.Tournament.R1NumberOfTeamsInGroup</span><br />
                         @if (Model.Tournament.MinGameTime != null)
                         {
                             @for (int i = 1; i <= Model.Tournament.R1NumberOfGroupsInRound; i++)
@@ -71,7 +71,7 @@
                 @if (Model.Tournament.R1FormatRoundCode > 0 && Model.Tournament.R1IsGroupStage == false)
                 {
                     <div>
-                        <span>Round @Model.Tournament.R1NumberOfTeamsInGroup Team Playoff</span><br />
+                        <span>Round 1: @Model.Tournament.R1NumberOfTeamsInGroup Team Playoff</span><br />
                         @if (Model.Tournament.MinGameTime != null)
                         {
                             <a href="/WorldCup/Playoffs?tournamentCode=@Model.Tournament.TournamentCode&roundNumber=1">Playoffs</a>
@@ -84,7 +84,7 @@
                 @if (Model.Tournament.R2FormatRoundCode > 0 && Model.Tournament.R2IsGroupStage == true)
                 {
                     <div>
-                        <span>Round @(Model.Tournament.R2NumberOfGroupsInRound * Model.Tournament.R2NumberOfTeamsInGroup) teams split in @Model.Tournament.R2NumberOfGroupsInRound groups of @Model.Tournament.R2NumberOfTeamsInGroup.</span><br />
+                        <span>Round 2: @(Model.Tournament.R2NumberOfGroupsInRound * Model.Tournament.R2NumberOfTeamsInGroup) teams split in @Model.Tournament.R2NumberOfGroupsInRound groups of @Model.Tournament.R2NumberOfTeamsInGroup.</span><br />
                         @if (Model.Tournament.MinGameTime != null)
                         {
                             @for (int i = 1; i <= Model.Tournament.R2NumberOfGroupsInRound; i++)
@@ -103,7 +103,7 @@
                 @if (Model.Tournament.R2FormatRoundCode > 0 && Model.Tournament.R2IsGroupStage == false)
                 {
                     <div>
-                        <span>Round @Model.Tournament.R2NumberOfTeamsInGroup Team Playoff</span><br />
+                        <span>Round 2: @Model.Tournament.R2NumberOfTeamsInGroup Team Playoff</span><br />
                         @if (Model.Tournament.MinGameTime != null)
                         {
                             <a href="/WorldCup/Playoffs?tournamentCode=@Model.Tournament.TournamentCode&roundNumber=2">Playoffs</a>
@@ -116,7 +116,7 @@
                 @if (Model.Tournament.R3FormatRoundCode > 0 && Model.Tournament.R3IsGroupStage == true)
                 {
                     <div>
-                        <span>Round @(Model.Tournament.R3NumberOfGroupsInRound * Model.Tournament.R3NumberOfTeamsInGroup) teams split in @Model.Tournament.R3NumberOfGroupsInRound groups of @Model.Tournament.R3NumberOfTeamsInGroup.</span><br />
+                        <span>Round 3: @(Model.Tournament.R3NumberOfGroupsInRound * Model.Tournament.R3NumberOfTeamsInGroup) teams split in @Model.Tournament.R3NumberOfGroupsInRound groups of @Model.Tournament.R3NumberOfTeamsInGroup.</span><br />
                         @if (Model.Tournament.MinGameTime != null)
                         {
                             @for (int i = 1; i <= Model.Tournament.R3NumberOfGroupsInRound; i++)
@@ -135,7 +135,7 @@
                 @if (Model.Tournament.R3FormatRoundCode > 0 && Model.Tournament.R3IsGroupStage == false)
                 {
                     <div>
-                        <span>Round @Model.Tournament.R3NumberOfTeamsInGroup Team Playoff</span><br />
+                        <span>Round 3: @Model.Tournament.R3NumberOfTeamsInGroup Team Playoff</span><br />
                         @if (Model.Tournament.MinGameTime != null)
                         {
                             <a href="/WorldCup/Playoffs?tournamentCode=@Model.Tournament.TournamentCode&roundNumber=3">Playoffs</a>
@@ -198,7 +198,10 @@
             }
             <table class="table table-striped table-bordered">
                 <tr>
-                    <th>Placing</th>
+                    @if (Model.IsPlacingTeams)
+                    {
+                        <th>Placing</th>
+                    }
                     <th style="width: 150px;">Team</th>
                     @if (Model.ChanceToWin == true && Model.Teams.Count > 0 && Model.Teams[0].ChanceToWin < 100)
                     {
@@ -220,12 +223,15 @@
                 @foreach (TournamentTeam item in Model.Teams)
                 {
                     <tr>
-                        <td>
-                            @if (item.Placing != "" && item.Placing != "0")
-                            {
-                                <span>@item.Placing</span>
-                            }
-                        </td>
+                        @if (Model.IsPlacingTeams)
+                        {
+                            <td>
+                                @if (item.Placing != "" && item.Placing != "0")
+                                {
+                                    <span>@item.Placing</span>
+                                }
+                            </td>
+                        }
                         <td>
                             <img src="~/WorldCup/Teams/@item.FlagName" Class="TeamImage" />
                             <a href="/WorldCup/Team?teamCode=@item.TeamCode">
@@ -265,6 +271,10 @@
                 <span>(bold player name indicates the player's team is still in the tournament)</span>
             }
             <br /><br />
+            @if (Model.Goals.Count == 0)
+            {
+                <span>No goals yet</span>
+            }
             @foreach (TournamentTopGoalScorer item in Model.Goals)
             {
                 <div>
@@ -292,28 +302,28 @@
                     }
                 </div>
                 @*
-                        <div>
-                            @if (item.GoalsScored > 1)
-                            {
-                                <span><b>@item.GoalsScored goals</b></span>
-                            }
-                            else if (item.GoalsScored == 1)
-                            {
-                                <span><b>@item.GoalsScored goal</b></span>
-                            }
-                            <br />
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="col-sm-3" ng-repeat="player in item.Players">
-                                        &bull;<a href="/WorldCup/Team?teamCode={{player.TeamCode">
-                                            <img src="~/WorldCup/Teams/{{player.FlagName" Class="TeamImage" />
-                                        </a>
-                                        <span ng-if="player.IsActive"><b>&nbsp;{{player.PlayerName&nbsp;</b></span>
-                                        <span ng-if="!player.IsActive">&nbsp;{{player.PlayerName&nbsp;</span>
-                                    </div>
-                                </div>
-                            </div>
-                        <br />
+                    <div>
+                    @if (item.GoalsScored > 1)
+                    {
+                    <span><b>@item.GoalsScored goals</b></span>
+                    }
+                    else if (item.GoalsScored == 1)
+                    {
+                    <span><b>@item.GoalsScored goal</b></span>
+                    }
+                    <br />
+                    <div class="row">
+                    <div class="col-sm-12">
+                    <div class="col-sm-3" ng-repeat="player in item.Players">
+                    &bull;<a href="/WorldCup/Team?teamCode={{player.TeamCode">
+                    <img src="~/WorldCup/Teams/{{player.FlagName" Class="TeamImage" />
+                    </a>
+                    <span ng-if="player.IsActive"><b>&nbsp;{{player.PlayerName&nbsp;</b></span>
+                    <span ng-if="!player.IsActive">&nbsp;{{player.PlayerName&nbsp;</span>
+                    </div>
+                    </div>
+                    </div>
+                    <br />
                     </div>
                 *@
             }
