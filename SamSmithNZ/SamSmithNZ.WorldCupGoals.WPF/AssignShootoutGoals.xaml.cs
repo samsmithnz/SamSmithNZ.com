@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.Models.WorldCup;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
+using System.Windows;
 
 namespace SamSmithNZ.WorldCupGoals.WPF
 {
@@ -44,7 +35,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             _penaltyCode = penaltyCode;
             _order = iOrder;
 
-            GameDataAccess da = new GameDataAccess(_configuration);
+            GameDataAccess da = new(_configuration);
             List<Game> games = await da.GetListByTournament(tournamentCode);
             Game game = null;
             foreach (Game item in games)
@@ -55,7 +46,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     break;
                 }
             }
-            PlayerDataAccess da2 = new PlayerDataAccess(_configuration);
+            PlayerDataAccess da2 = new(_configuration);
             List<Player> players = await da2.GetList(gameCode);
 
             lblGame.Content = "#" + game.GameNumber + ": " + game.GameTime.ToString("dd-MMM-yyyy hh:mm:sstt") + "   " + game.Team1Name + " vs " + game.Team2Name + ": " + Utility.GetGameScore(game);
@@ -71,7 +62,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             }
             else //it's an existing goal, load and populate the form
             {
-                PenaltyShootoutGoalDataAccess da3 = new PenaltyShootoutGoalDataAccess(_configuration);
+                PenaltyShootoutGoalDataAccess da3 = new(_configuration);
                 List<PenaltyShootoutGoal> goals = await da3.GetList(gameCode);
                 PenaltyShootoutGoal goal = null;
                 foreach (PenaltyShootoutGoal item in goals)
@@ -137,14 +128,14 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             {
                 bool bScored = Convert.ToBoolean(chkScored.IsChecked);
 
-                PenaltyShootoutGoal goal = new PenaltyShootoutGoal();
+                PenaltyShootoutGoal goal = new();
                 goal.PenaltyCode = _penaltyCode;
                 goal.GameCode = _gameCode;
                 goal.PlayerCode = Convert.ToInt32(cboPlayer.SelectedValue);
                 goal.PenaltyOrder = _order;
                 goal.Scored = bScored;
 
-                PenaltyShootoutGoalDataAccess da = new PenaltyShootoutGoalDataAccess(_configuration);
+                PenaltyShootoutGoalDataAccess da = new(_configuration);
                 await da.SaveItem(goal);
 
                 _bResult = bScored;
@@ -171,10 +162,10 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            PenaltyShootoutGoal goal = new PenaltyShootoutGoal();
+            PenaltyShootoutGoal goal = new();
             goal.PenaltyCode = _penaltyCode;
 
-            PenaltyShootoutGoalDataAccess da = new PenaltyShootoutGoalDataAccess(_configuration);
+            PenaltyShootoutGoalDataAccess da = new(_configuration);
             await da.DeleteItem(goal);
 
             _bResult = true;

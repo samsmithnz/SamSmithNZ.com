@@ -18,7 +18,7 @@ namespace SamSmithNZ.Service.DataAccess.GuitarTab
 
         public async Task<List<Artist>> GetList(bool? includeAllItems, bool isAdmin)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             if (includeAllItems != null)
             {
                 parameters.Add("@IncludeInIndex", includeAllItems, DbType.Boolean);

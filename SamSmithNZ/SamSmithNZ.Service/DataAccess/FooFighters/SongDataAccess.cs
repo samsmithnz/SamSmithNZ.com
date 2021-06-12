@@ -23,7 +23,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
 
         public async Task<List<Song>> GetListForAlbumAsync(int albumCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@AlbumCode", albumCode, DbType.Int32);
 
             return await base.GetList("FFL_GetSongs", parameters);
@@ -31,7 +31,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
 
         public async Task<List<Song>> GetListForShowAsync(int showCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@ShowCode", showCode, DbType.Int32);
 
             return await base.GetList("FFL_GetSongs", parameters);
@@ -39,7 +39,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
 
         public async Task<Song> GetItem(int songCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@SongCode", songCode, DbType.Int32);
 
             return await base.GetItem("FFL_GetSongs", parameters);
@@ -47,7 +47,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
 
         public async Task<bool> SaveItem(int songCode, int showCode, int showSongOrder)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@SongCode", songCode, DbType.Int32);
             parameters.Add("@ShowCode", showCode, DbType.Int32);
             parameters.Add("@ShowSongOrder", showSongOrder, DbType.Int32);

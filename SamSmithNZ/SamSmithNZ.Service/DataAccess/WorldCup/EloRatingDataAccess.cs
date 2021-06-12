@@ -35,13 +35,13 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             double diff = 400;
             double kRating = 32;
 
-            GameDataAccess da = new GameDataAccess(_configuration);
+            GameDataAccess da = new(_configuration);
             List<Game> gameList = await da.GetListByTournament(tournamentCode);
 
-            TeamDataAccess da2 = new TeamDataAccess(_configuration);
+            TeamDataAccess da2 = new(_configuration);
             List<Team> teamList = await da2.GetList();
 
-            TournamentTeamDataAccess da3 = new TournamentTeamDataAccess(_configuration);
+            TournamentTeamDataAccess da3 = new(_configuration);
             List<TournamentTeam> tournamentTeams = await da3.GetQualifiedTeams(tournamentCode);
             //Update and refresh all of the tournament team ELO ratings
             foreach (TournamentTeam tournamentTeam in tournamentTeams)
@@ -50,7 +50,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             }
             tournamentTeams = await da3.GetQualifiedTeams(tournamentCode);
 
-            List<TeamELORating> teamRatingList = new List<TeamELORating>();
+            List<TeamELORating> teamRatingList = new();
             foreach (Game game in gameList)
             {
                 int? team1StartingEloRating = GetTournamentTeamCurrentEloRanking(game.Team1Code, tournamentTeams);
@@ -72,7 +72,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
                 //TODO: Change this so that it saves ELO updates PER game, instead of just the final ELO rating
                 TeamELORating team1 = GetTeamELORating(tournamentCode, game.Team1Code, game.Team1Name, team1StartingEloRating, teamRatingList);
                 TeamELORating team2 = GetTeamELORating(tournamentCode, game.Team2Code, game.Team2Name, team2StartingEloRating, teamRatingList);
-                EloRating.Matchup match = new EloRating.Matchup();
+                EloRating.Matchup match = new();
                 match.User1Score = team1.ELORating;
                 match.User2Score = team2.ELORating;
                 int? result = WhoWon(game);
@@ -126,7 +126,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return teamRatingList;
         }
 
-        private int GetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams)
+        private static int GetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams)
         {
             int result = 0;
             foreach (TournamentTeam item in tournamentTeams)
@@ -140,7 +140,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return result;
         }
 
-        private bool SetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams, int eloRating)
+        private static bool SetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams, int eloRating)
         {
             foreach (TournamentTeam item in tournamentTeams)
             {
@@ -155,7 +155,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<bool> SaveTeamELORatingAsync(int tournamentCode, int teamCode, int eloRating)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
             parameters.Add("@TeamCode", teamCode, DbType.Int32);
             parameters.Add("@ELORating", eloRating, DbType.Int32);
@@ -168,7 +168,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         /// </summary>
         /// <param name="item"></param>
         /// <returns>1 if team 1 won, 2 if team 2 won, 0 if draw</returns>
-        private int? WhoWon(Game item)
+        private static int? WhoWon(Game item)
         {
             int? goals = CalculateGoalDifference(item);
             if (goals == null)
@@ -190,7 +190,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             }
         }
 
-        private int? CalculateGoalDifference(Game item)
+        private static int? CalculateGoalDifference(Game item)
         {
             if (item.Team1NormalTimeScore == null || item.Team2NormalTimeScore == null)
             {
@@ -244,7 +244,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         }
 
 
-        private double CalculateKFactor(Game item)
+        private static double CalculateKFactor(Game item)
         {
             double kFactor;
             //K is the weight constant for the tournament played:
@@ -290,7 +290,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return kFactor;
         }
 
-        private TeamELORating GetTeamELORating(int tournamentCode, int teamCode, string teamName, int? currentELORanking, List<TeamELORating> teamList)
+        private static TeamELORating GetTeamELORating(int tournamentCode, int teamCode, string teamName, int? currentELORanking, List<TeamELORating> teamList)
         {
             foreach (TeamELORating item in teamList)
             {
@@ -303,7 +303,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             {
                 currentELORanking = 1000;
             }
-            TeamELORating newTeam = new TeamELORating(tournamentCode, teamCode, teamName, (int)currentELORanking);
+            TeamELORating newTeam = new(tournamentCode, teamCode, teamName, (int)currentELORanking);
             teamList.Add(newTeam);
             return newTeam;
         }

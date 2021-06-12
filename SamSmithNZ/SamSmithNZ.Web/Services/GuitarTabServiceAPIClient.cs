@@ -15,9 +15,9 @@ namespace SamSmithNZ.Web.Services
         public GuitarTabServiceAPIClient(IConfiguration configuration)
         {
             _configuration = configuration;
-            HttpClient client = new HttpClient
+            HttpClient client = new()
             {
-                BaseAddress = new Uri(_configuration["AppSettings:WebServiceURL"])
+                BaseAddress = new(_configuration["AppSettings:WebServiceURL"])
             };
             base.SetupClient(client);
         }
@@ -31,7 +31,7 @@ namespace SamSmithNZ.Web.Services
                 urlPath += "?isAdmin=" + isAdmin;
             }
 
-            Uri url = new Uri(urlPath, UriKind.Relative);
+            Uri url = new(urlPath, UriKind.Relative);
             List<Album> results = await base.ReadMessageList<Album>(url);
             if (results == null)
             {
@@ -52,7 +52,7 @@ namespace SamSmithNZ.Web.Services
                 urlPath += "?isAdmin=" + isAdmin;
             }
 
-            Uri url = new Uri(urlPath, UriKind.Relative);
+            Uri url = new(urlPath, UriKind.Relative);
             Album result = await base.ReadMessageItem<Album>(url);
             if (result == null)
             {
@@ -66,7 +66,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<bool> SaveAlbum(Album item)
         {
-            Uri url = new Uri($"api/GuitarTab/Album/SaveAlbum", UriKind.Relative);
+            Uri url = new($"api/GuitarTab/Album/SaveAlbum", UriKind.Relative);
             bool result = await base.SaveMessageItem<Album>(url, item);
             return result;
         }
@@ -80,7 +80,7 @@ namespace SamSmithNZ.Web.Services
                 urlPath += "?isAdmin=" + isAdmin;
             }
 
-            Uri url = new Uri(urlPath, UriKind.Relative);
+            Uri url = new(urlPath, UriKind.Relative);
             List<Artist> results = await base.ReadMessageList<Artist>(url);
             if (results == null)
             {
@@ -94,7 +94,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Rating>> GetRatings()
         {
-            Uri url = new Uri($"api/GuitarTab/Rating/GetRatings", UriKind.Relative);
+            Uri url = new($"api/GuitarTab/Rating/GetRatings", UriKind.Relative);
             List<Rating> results = await base.ReadMessageList<Rating>(url);
             if (results == null)
             {
@@ -108,7 +108,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Search>> GetSearchResults(string searchText)
         {
-            Uri url = new Uri($"api/GuitarTab/Search/GetSearchResults?searchText=" + searchText, UriKind.Relative);
+            Uri url = new($"api/GuitarTab/Search/GetSearchResults?searchText=" + searchText, UriKind.Relative);
             List<Search> results = await base.ReadMessageList<Search>(url);
             if (results == null)
             {
@@ -122,7 +122,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Tab>> GetTabs(int albumCode, int sortOrder = 0)
         {
-            Uri url = new Uri($"api/GuitarTab/Tab/GetTabs?albumCode=" + albumCode + "&sortOrder=" + sortOrder, UriKind.Relative);
+            Uri url = new($"api/GuitarTab/Tab/GetTabs?albumCode=" + albumCode + "&sortOrder=" + sortOrder, UriKind.Relative);
             List<Tab> results = await base.ReadMessageList<Tab>(url);
             if (results == null)
             {
@@ -136,7 +136,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<Tab> GetTab(int tabCode)
         {
-            Uri url = new Uri($"api/GuitarTab/Tab/GetTab?tabCode=" + tabCode, UriKind.Relative);
+            Uri url = new($"api/GuitarTab/Tab/GetTab?tabCode=" + tabCode, UriKind.Relative);
             Tab results = await base.ReadMessageItem<Tab>(url);
             if (results == null)
             {
@@ -150,20 +150,20 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<bool> SaveTab(Tab item)
         {
-            Uri url = new Uri($"api/GuitarTab/Tab/SaveTab", UriKind.Relative);
+            Uri url = new($"api/GuitarTab/Tab/SaveTab", UriKind.Relative);
             return await base.SaveMessageItem<Tab>(url, item);
         }
 
         public async Task<bool> DeleteTab(int tabCode)
         {
-            Uri url = new Uri($"api/GuitarTab/Tab/DeleteTab?tabCode=" + tabCode, UriKind.Relative);
+            Uri url = new($"api/GuitarTab/Tab/DeleteTab?tabCode=" + tabCode, UriKind.Relative);
             await base.GetMessageScalar<bool>(url);
             return true;
         }
 
         public async Task<List<TrackOrder>> GetTrackOrders()
         {
-            Uri url = new Uri($"api/GuitarTab/TrackOrder/GetTrackOrders", UriKind.Relative);
+            Uri url = new($"api/GuitarTab/TrackOrder/GetTrackOrders", UriKind.Relative);
             List<TrackOrder> results = await base.ReadMessageList<TrackOrder>(url);
             if (results == null)
             {
@@ -177,7 +177,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Tuning>> GetTunings()
         {
-            Uri url = new Uri($"api/GuitarTab/Tuning/GetTunings", UriKind.Relative);
+            Uri url = new($"api/GuitarTab/Tuning/GetTunings", UriKind.Relative);
             List<Tuning> results = await base.ReadMessageList<Tuning>(url);
             if (results == null)
             {

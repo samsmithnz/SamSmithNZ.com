@@ -20,7 +20,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task ShowsExistForSongTest()
         {
             //arrange
-            ShowController controller = new ShowController(new ShowDataAccess(base.Configuration));
+            ShowController controller = new(new ShowDataAccess(base.Configuration));
             int songKey = 1;
 
             //act
@@ -35,7 +35,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task ShowsForSongTest()
         {
             //arrange
-            ShowController controller = new ShowController(new ShowDataAccess(base.Configuration));
+            ShowController controller = new(new ShowDataAccess(base.Configuration));
             int songKey = 1;
 
             //act
@@ -60,7 +60,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task ShowsExistForYearTest()
         {
             //arrange
-            ShowController controller = new ShowController(new ShowDataAccess(base.Configuration));
+            ShowController controller = new(new ShowDataAccess(base.Configuration));
             int yearCode = 1995;
 
             //act
@@ -75,7 +75,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task ShowsForYearTest()
         {
             //arrange
-            ShowController controller = new ShowController(new ShowDataAccess(base.Configuration));
+            ShowController controller = new(new ShowDataAccess(base.Configuration));
             int yearCode = 1995;
 
             //act
@@ -96,7 +96,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task Show3Test()
         {
             //arrange
-            ShowController controller = new ShowController(new ShowDataAccess(base.Configuration));
+            ShowController controller = new(new ShowDataAccess(base.Configuration));
             int showKey = 3;
 
             //act
@@ -122,7 +122,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task Show4Test()
         {
             //arrange
-            ShowController controller = new ShowController(new ShowDataAccess(base.Configuration));
+            ShowController controller = new(new ShowDataAccess(base.Configuration));
             int showKey = 842;
 
             //act

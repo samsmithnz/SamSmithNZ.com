@@ -20,7 +20,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task SongsExistTest()
         {
             //arrange
-            SongController controller = new SongController(new SongDataAccess(base.Configuration));
+            SongController controller = new(new SongDataAccess(base.Configuration));
 
             //act
             List<Song> items = await controller.GetSongs();
@@ -34,7 +34,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task SongThisIsACallTest()
         {
             //arrange
-            SongController controller = new SongController(new SongDataAccess(base.Configuration));
+            SongController controller = new(new SongDataAccess(base.Configuration));
             int songKey = 1;
 
             //act
@@ -61,7 +61,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task SomeThingFromNothingNullDatesTest()
         {
             //arrange
-            SongController controller = new SongController(new SongDataAccess(base.Configuration));
+            SongController controller = new(new SongDataAccess(base.Configuration));
             int songKey = 318;
 
             //act
@@ -88,7 +88,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task SongsForFooFightersAlbumTest()
         {
             //arrange
-            SongController controller = new SongController(new SongDataAccess(base.Configuration));
+            SongController controller = new(new SongDataAccess(base.Configuration));
             int albumKey = 1;
 
             //act
@@ -116,7 +116,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task SongShowTest()
         {
             //arrange
-            SongController controller = new SongController(new SongDataAccess(base.Configuration));
+            SongController controller = new(new SongDataAccess(base.Configuration));
             int showKey = 3;
 
             //act

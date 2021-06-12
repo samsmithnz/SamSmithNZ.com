@@ -18,7 +18,7 @@ namespace SamSmithNZ.Service.DataAccess.GuitarTab
 
         public async Task<List<Tab>> GetList(int albumCode, int sortOrder)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@AlbumCode", albumCode, DbType.Int32);
             parameters.Add("@SortOrder", sortOrder, DbType.Int32);
 
@@ -27,7 +27,7 @@ namespace SamSmithNZ.Service.DataAccess.GuitarTab
 
         public async Task<Tab> GetItem(int tabCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@TabCode", tabCode, DbType.Int32);
 
             List<Tab> results = await base.GetList("Tab_GetTabs", parameters);
@@ -45,7 +45,7 @@ namespace SamSmithNZ.Service.DataAccess.GuitarTab
 
         public async Task<bool> SaveItem(Tab item)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@TabCode", item.TabCode, DbType.Int32);
             parameters.Add("@AlbumCode", item.AlbumCode, DbType.Int32);
             parameters.Add("@TabName", item.TabName, DbType.String);
@@ -59,7 +59,7 @@ namespace SamSmithNZ.Service.DataAccess.GuitarTab
 
         public async Task<bool> DeleteItem(int tabCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@TabCode", tabCode, DbType.Int32);
 
             return await base.SaveItem("Tab_DeleteTab", parameters);

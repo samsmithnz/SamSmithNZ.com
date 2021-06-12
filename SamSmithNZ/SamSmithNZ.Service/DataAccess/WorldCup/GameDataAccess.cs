@@ -18,7 +18,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<List<Game>> GetList(int tournamentCode, int roundNumber, string roundCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
             parameters.Add("@RoundNumber", roundNumber, DbType.Int32);
             parameters.Add("@RoundCode", roundCode, DbType.String);
@@ -31,7 +31,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<List<Game>> GetListByTeam(int teamCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@TeamCode", teamCode, DbType.Int32);
 
             List<Game> results = await base.GetList("FB_GetGames", parameters);
@@ -41,7 +41,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<List<Game>> GetListByPlayoff(int tournamentCode, int roundNumber)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
             parameters.Add("@RoundNumber", roundNumber, DbType.Int32);
             parameters.Add("@IncludeGoals", true, DbType.String);
@@ -53,7 +53,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<List<Game>> GetListByTournament(int tournamentCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
 
             List<Game> results = await base.GetList("FB_GetGames", parameters);
@@ -63,12 +63,14 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<Game> GetItem(int gameCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@GameCode", gameCode, DbType.Int32);
 
             Game result = await base.GetItem("FB_GetGames", parameters);
-            List<Game> results = new List<Game>();
-            results.Add(result);
+            List<Game> results = new()
+            {
+                result
+            };
             results = ProcessGameResults(results);
 
             return results[0];
@@ -76,7 +78,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<bool> SaveItem(Game game)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@GameCode", game.GameCode, DbType.Int32);
             parameters.Add("@Team1NormalTimeScore", game.Team1NormalTimeScore, DbType.Int32);
             parameters.Add("@Team1ExtraTimeScore", game.Team1ExtraTimeScore, DbType.Int32);
@@ -94,7 +96,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         }
 
         //Process the game, to make it easier to process on the client side
-        private List<Game> ProcessGameResults(List<Game> games)
+        private static List<Game> ProcessGameResults(List<Game> games)
         {
             foreach (Game item in games)
             {

@@ -1,0 +1,14 @@
+{
+  "solution": {
+    "path": "SamSmithNZ.sln",
+    "projects": [
+      "SamSmithNZ.Database\\SamSmithNZ.Database.sqlproj",
+      "SamSmithNZ.FFLSetlistScraper.WinForms\\SamSmithNZ.FFLSetlistScraper.WinForms.csproj",
+      "SamSmithNZ.FunctionalTests\\SamSmithNZ.FunctionalTests.csproj",
+      "SamSmithNZ.Service\\SamSmithNZ.Service.csproj",
+      "SamSmithNZ.Tests\\SamSmithNZ.Tests.csproj",
+      "SamSmithNZ.Web\\SamSmithNZ.Web.csproj",
+      "SamSmithNZ.WorldCupGoals.WPF\\SamSmithNZ.WorldCupGoals.WPF.csproj"
+    ]
+  }
+}

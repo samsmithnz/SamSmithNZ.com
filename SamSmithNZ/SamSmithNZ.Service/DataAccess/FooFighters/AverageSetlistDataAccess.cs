@@ -18,7 +18,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
 
         public async Task<List<AverageSetlist>> GetList(int yearCode, int minimumSongCount, bool showAllSongs)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@YearCode", yearCode, DbType.Int32);
             parameters.Add("@ShowMinimumSongCount", minimumSongCount, DbType.Int32);
             parameters.Add("@ShowAllSongs", showAllSongs, DbType.Boolean);

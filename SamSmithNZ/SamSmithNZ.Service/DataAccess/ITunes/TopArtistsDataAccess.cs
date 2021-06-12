@@ -19,7 +19,7 @@ namespace SamSmithNZ.Service.DataAccess.ITunes
 
         public async Task<List<TopArtists>> GetList(int playlistCode, bool showJustSummary)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@PlaylistCode", playlistCode, DbType.Int32);
             parameters.Add("@ShowJustSummary", showJustSummary, DbType.Boolean);
 
@@ -28,7 +28,7 @@ namespace SamSmithNZ.Service.DataAccess.ITunes
      
         public async Task<List<TopArtists>> GetList(bool showJustSummary)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@ShowJustSummary", showJustSummary, DbType.Boolean);
 
             return await base.GetList("ITunes_GetTopArtists", parameters);

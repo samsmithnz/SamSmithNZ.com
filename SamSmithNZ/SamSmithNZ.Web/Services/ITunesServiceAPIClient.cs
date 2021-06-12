@@ -15,16 +15,16 @@ namespace SamSmithNZ.Web.Services
         public ITunesServiceAPIClient(IConfiguration configuration)
         {
             _configuration = configuration;
-            HttpClient client = new HttpClient
+            HttpClient client = new()
             {
-                BaseAddress = new Uri(_configuration["AppSettings:WebServiceURL"])
+                BaseAddress = new(_configuration["AppSettings:WebServiceURL"])
             };
             base.SetupClient(client);
         }
 
         public async Task<List<Movement>> GetMovementsByPlaylist(int playlistCode, bool showJustSummary)
         {
-            Uri url = new Uri($"api/itunes/Movement/GetMovementsByPlaylist?playlistCode=" + playlistCode + "&showJustSummary=" + showJustSummary, UriKind.Relative);
+            Uri url = new($"api/itunes/Movement/GetMovementsByPlaylist?playlistCode=" + playlistCode + "&showJustSummary=" + showJustSummary, UriKind.Relative);
             List<Movement> results = await base.ReadMessageList<Movement>(url);
             if (results == null)
             {
@@ -38,7 +38,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Movement>> GetMovementsSummary(bool showJustSummary)
         {
-            Uri url = new Uri($"api/itunes/Movement/GetMovementsSummary?showJustSummary=" + showJustSummary, UriKind.Relative);
+            Uri url = new($"api/itunes/Movement/GetMovementsSummary?showJustSummary=" + showJustSummary, UriKind.Relative);
             List<Movement> results = await base.ReadMessageList<Movement>(url);
             if (results == null)
             {
@@ -52,7 +52,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Playlist>> GetPlaylists(bool showJustSummary)
         {
-            Uri url = new Uri($"api/itunes/Playlist/GetPlaylists?showJustSummary=" + showJustSummary, UriKind.Relative);
+            Uri url = new($"api/itunes/Playlist/GetPlaylists?showJustSummary=" + showJustSummary, UriKind.Relative);
             List<Playlist> results = await base.ReadMessageList<Playlist>(url);
             if (results == null)
             {
@@ -66,7 +66,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<Playlist> GetPlaylist(int playlistCode)
         {
-            Uri url = new Uri($"api/itunes/Playlist/GetPlaylist?playlistCode=" + playlistCode, UriKind.Relative);
+            Uri url = new($"api/itunes/Playlist/GetPlaylist?playlistCode=" + playlistCode, UriKind.Relative);
             Playlist result = await base.ReadMessageItem<Playlist>(url);
             if (result == null)
             {
@@ -80,7 +80,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<TopArtists>> GetTopArtistsByPlaylist(int playlistCode, bool showJustSummary)
         {
-            Uri url = new Uri($"api/itunes/TopArtists/GetTopArtistsByPlaylist?playlistCode=" + playlistCode + "&showJustSummary=" + showJustSummary, UriKind.Relative);
+            Uri url = new($"api/itunes/TopArtists/GetTopArtistsByPlaylist?playlistCode=" + playlistCode + "&showJustSummary=" + showJustSummary, UriKind.Relative);
             List<TopArtists> results = await base.ReadMessageList<TopArtists>(url);
             if (results == null)
             {
@@ -94,7 +94,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<TopArtists>> GetTopArtistsSummary(bool showJustSummary)
         {
-            Uri url = new Uri($"api/itunes/TopArtists/GetTopArtistsSummary?showJustSummary=" + showJustSummary, UriKind.Relative);
+            Uri url = new($"api/itunes/TopArtists/GetTopArtistsSummary?showJustSummary=" + showJustSummary, UriKind.Relative);
             List<TopArtists> results = await base.ReadMessageList<TopArtists>(url);
             if (results == null)
             {
@@ -108,7 +108,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Track>> GetTracks(int playlistCode, bool showJustSummary)
         {
-            Uri url = new Uri($"api/itunes/Track/GetTracks?playlistCode=" + playlistCode + "&showJustSummary=" + showJustSummary, UriKind.Relative);
+            Uri url = new($"api/itunes/Track/GetTracks?playlistCode=" + playlistCode + "&showJustSummary=" + showJustSummary, UriKind.Relative);
             List<Track> results = await base.ReadMessageList<Track>(url);
             if (results == null)
             {

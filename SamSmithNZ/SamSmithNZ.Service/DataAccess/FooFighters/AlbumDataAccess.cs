@@ -23,7 +23,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
 
         public async Task<Album> GetItem(int albumCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@albumCode", albumCode, DbType.Int32);
 
             return await base.GetItem("FFL_GetAlbums", parameters);

@@ -18,7 +18,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task AlbumsExistTest()
         {
             //arrange
-            AlbumController controller = new AlbumController(new AlbumDataAccess(base.Configuration));
+            AlbumController controller = new(new AlbumDataAccess(base.Configuration));
 
             //act
             List<Album> items = await controller.GetAlbums(); 
@@ -34,7 +34,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task AlbumsGetFooFightersTest()
         {
             //arrange
-            AlbumController controller = new AlbumController(new AlbumDataAccess(base.Configuration));
+            AlbumController controller = new(new AlbumDataAccess(base.Configuration));
             int albumKey = 1;
 
             //act

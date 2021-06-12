@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.DataAccess.Steam
 {
     public class TextStats
     {
 
-        public Dictionary<string, int> TextStatistics = new Dictionary<string, int>();
-        private List<string> _blackList = new List<string>();
-        private bool _filterNumbers;
+        public Dictionary<string, int> TextStatistics = new();
+        private readonly List<string> _blackList = new();
+        private readonly bool _filterNumbers;
 
         public TextStats(List<string> blackList, bool filterNumbers)
         {
-            this.TextStatistics = new Dictionary<string, int>();
-            this._blackList = blackList;
-            this._filterNumbers = filterNumbers;
+            TextStatistics = new();
+            _blackList = blackList;
+            _filterNumbers = filterNumbers;
         }
 
         public bool AddItem(string text, char splitChar)
@@ -29,19 +26,19 @@ namespace SamSmithNZ.Service.DataAccess.Steam
             {
                 int intresult;
                 //Filter out "ACHIEVEMENT" and numbers
-                if (this._blackList.Contains(splititem.ToLower()) == true || (this._filterNumbers == true && int.TryParse(splititem, out intresult) == true))
+                if (_blackList.Contains(splititem.ToLower()) == true || (_filterNumbers == true && int.TryParse(splititem, out intresult) == true))
                 {
                     //do nothing
                 }
                 else
                 {
-                    if (this.TextStatistics.ContainsKey(splititem))
+                    if (TextStatistics.ContainsKey(splititem))
                     {
-                        this.TextStatistics[splititem] = this.TextStatistics[splititem] + 1;
+                        TextStatistics[splititem] = TextStatistics[splititem] + 1;
                     }
                     else if (string.IsNullOrEmpty(splititem) == false && splititem.Length >= 3)
                     {
-                        this.TextStatistics.Add(splititem, 1);
+                        TextStatistics.Add(splititem, 1);
                     }
                 }
             }
@@ -50,7 +47,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
 
         public List<KeyValuePair<string, int>> SortList(bool sortAsc)
         {
-            List<KeyValuePair<string, int>> myList = this.TextStatistics.ToList();
+            List<KeyValuePair<string, int>> myList = TextStatistics.ToList();
             //if (sortAsc == true)
             //{
             //    myList.Sort((x, y) => x.Value.CompareTo(y.Value));

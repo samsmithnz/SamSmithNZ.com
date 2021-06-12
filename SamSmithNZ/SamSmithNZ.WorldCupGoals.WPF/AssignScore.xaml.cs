@@ -39,7 +39,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         public async Task<bool> ShowForm(int gameCode)
         {
-            GameDataAccess da = new GameDataAccess(_configuration);
+            GameDataAccess da = new(_configuration);
             _game = await da.GetItem(gameCode);
 
             lblGameHeader.Content = "#" + _game.GameNumber + ": " + _game.GameTime.ToString("dd-MMM-yyyy hh:mm:sstt");
@@ -120,10 +120,10 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                         }
                     }
 
-                    GameDataAccess da = new GameDataAccess(_configuration);
+                    GameDataAccess da = new(_configuration);
                     await da.SaveItem(_game);
 
-                    EloRatingDataAccess daELO = new EloRatingDataAccess(_configuration);
+                    EloRatingDataAccess daELO = new(_configuration);
                     await daELO.UpdateTournamentELORatings(_game.TournamentCode);
 
                     lblStatus.Content = "Score saved...";

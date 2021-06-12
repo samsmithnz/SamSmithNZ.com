@@ -212,7 +212,7 @@ jobs:
   SwapStagingSlotsToProd:
     name: Swap staging slots to prod
     runs-on: ubuntu-latest
-    #if: 0 == 1
+    if: github.ref == 'refs/heads/main'
     needs:
     #- RunSmokeTests
     - DeployWebAppsToSlots
