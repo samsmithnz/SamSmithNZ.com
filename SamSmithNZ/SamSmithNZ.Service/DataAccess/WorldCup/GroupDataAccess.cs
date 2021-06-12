@@ -18,7 +18,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<List<Group>> GetList(int tournamentCode, int roundNumber, string roundCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
             parameters.Add("@RoundNumber", roundNumber, DbType.Int32);
             parameters.Add("@RoundCode", roundCode, DbType.String);
@@ -28,7 +28,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         
         public async Task<bool> DeleteItemAsync(Group group)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
 
             return await base.SaveItem("FB_DeleteGroup", parameters);
         }

@@ -66,6 +66,7 @@
     <Folder Include="dbo\Functions\" />
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="Security\" />
+    <Folder Include="dbo\Stored Procedures\Old" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\webpages_UsersInRoles.sql" />
@@ -169,59 +170,6 @@
     <Build Include="dbo\Stored Procedures\Tab_GetArtists.sql" />
     <Build Include="dbo\Stored Procedures\Tab_GetAlbums.sql" />
     <Build Include="dbo\Stored Procedures\Tab_DeleteTrack.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_SetFinalTournamentPlacing.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_SaveShootoutGoal.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_SaveGoal.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_ProcessPlayoffDetails.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_ProcessGroupDetails.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_NormalizeOdds.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetTournamentTeamPlayerList.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetTournamentName.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetTournamentList.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetTournamentDetails.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetTeamName.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetTeamList.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetTeamGameList.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetTeamDetails.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetStats_TournamentStatistics.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetStats_TotalGoalsByTournament.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetStats_FinalTournamentPlacing.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetQualifiedTeamsForTournament.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetPlayoffGameList.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetPlayerName.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetPlayerListForGame.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetPlayerGames.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetPlayerDetails.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetOddsSummary.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetOddsMinMax.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetGroupList.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetGroupGameList.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetGroupDetails.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetGameShootoutGoalList.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetGameListForGoalAssigning.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetGameList2.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetGameList.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_GetGameGoalList.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_CalculateRanking.sql">
-      <AnsiNulls>Off</AnsiNulls>
-      <QuotedIdentifier>Off</QuotedIdentifier>
-    </Build>
-    <Build Include="dbo\Stored Procedures\spWC_CalculateAllRankings.sql">
-      <AnsiNulls>Off</AnsiNulls>
-      <QuotedIdentifier>Off</QuotedIdentifier>
-    </Build>
-    <Build Include="dbo\Stored Procedures\spWC_AddTeamOdds.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_AddOddsForOldTournament.sql" />
-    <Build Include="dbo\Stored Procedures\spWC_AddMissingTeamOdds.sql" />
-    <Build Include="dbo\Stored Procedures\spIFB_GetTournamentTeamsPlacing.sql" />
-    <Build Include="dbo\Stored Procedures\spIFB_GetTournamentTeams.sql" />
-    <Build Include="dbo\Stored Procedures\spIFB_GetTournaments.sql" />
-    <Build Include="dbo\Stored Procedures\spIFB_GetTeamList.sql" />
-    <Build Include="dbo\Stored Procedures\spIFB_GetPlayoffGameList.sql" />
-    <Build Include="dbo\Stored Procedures\spIFB_GetGroupList.sql" />
-    <Build Include="dbo\Stored Procedures\spIFB_GetGroupDetails.sql" />
-    <Build Include="dbo\Stored Procedures\spIFB_GetGameListForTeam.sql" />
-    <Build Include="dbo\Stored Procedures\spIFB_GetGameList.sql" />
     <Build Include="Security\samdbuser.sql" />
     <Build Include="dbo\Stored Procedures\FFL_GetAlbums.sql" />
     <Build Include="dbo\Stored Procedures\FFL_GetShows.sql" />
@@ -278,6 +226,59 @@
     <Build Include="dbo\Tables\LegoOwner.sql" />
     <Build Include="dbo\Stored Procedures\LegoGetOwnedSets.sql" />
     <Build Include="dbo\Stored Procedures\LegoGetParts.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spIFB_GetGameList.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spIFB_GetGameListForTeam.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spIFB_GetGroupDetails.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spIFB_GetGroupList.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spIFB_GetPlayoffGameList.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spIFB_GetTeamList.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spIFB_GetTournaments.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spIFB_GetTournamentTeams.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spIFB_GetTournamentTeamsPlacing.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_AddMissingTeamOdds.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_AddOddsForOldTournament.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_AddTeamOdds.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_CalculateAllRankings.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\Old\spWC_CalculateRanking.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetGameGoalList.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetGameList.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetGameList2.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetGameListForGoalAssigning.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetGameShootoutGoalList.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetGroupDetails.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetGroupGameList.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetGroupList.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetOddsMinMax.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetOddsSummary.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetPlayerDetails.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetPlayerGames.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetPlayerListForGame.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetPlayerName.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetPlayoffGameList.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetQualifiedTeamsForTournament.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetStats_FinalTournamentPlacing.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetStats_TotalGoalsByTournament.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetStats_TournamentStatistics.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetTeamDetails.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetTeamGameList.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetTeamList.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetTeamName.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetTournamentDetails.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetTournamentList.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetTournamentName.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_GetTournamentTeamPlayerList.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_NormalizeOdds.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_ProcessGroupDetails.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_ProcessPlayoffDetails.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_SaveGoal.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_SaveShootoutGoal.sql" />
+    <Build Include="dbo\Stored Procedures\Old\spWC_SetFinalTournamentPlacing.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />

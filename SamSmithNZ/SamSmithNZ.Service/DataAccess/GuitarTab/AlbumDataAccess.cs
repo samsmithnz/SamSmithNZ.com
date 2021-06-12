@@ -18,7 +18,7 @@ namespace SamSmithNZ.Service.DataAccess.GuitarTab
 
         public async Task<List<Album>> GetList(bool isAdmin)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@IsAdmin", isAdmin, DbType.Boolean);
 
             return await base.GetList("Tab_GetAlbums", parameters);
@@ -26,7 +26,7 @@ namespace SamSmithNZ.Service.DataAccess.GuitarTab
 
         public async Task<Album> GetItem(int albumCode, bool isAdmin)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@AlbumCode", albumCode, DbType.Int32);
             parameters.Add("@IsAdmin", isAdmin, DbType.Boolean);
 
@@ -35,7 +35,7 @@ namespace SamSmithNZ.Service.DataAccess.GuitarTab
 
         public async Task<Album> SaveItem(Album item)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@AlbumCode", item.AlbumCode, DbType.Int32);
             parameters.Add("@ArtistName", item.ArtistName, DbType.String);
             parameters.Add("@AlbumName", item.AlbumName, DbType.String);

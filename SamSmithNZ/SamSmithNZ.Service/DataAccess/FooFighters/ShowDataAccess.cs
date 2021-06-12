@@ -18,7 +18,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
 
         public async Task<List<Show>> GetListByYearAsync(int yearCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@yearCode", yearCode, DbType.Int32);
 
             return await base.GetList("FFL_GetShows", parameters);
@@ -26,7 +26,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
 
         public async Task<List<Show>> GetListBySongAsync(int songCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@songCode", songCode, DbType.Int32);
 
             return await base.GetList("FFL_GetShows", parameters);
@@ -34,7 +34,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
 
         public async Task<List<Show>> GetListByFFLCode()
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@GetFFLCodes", true, DbType.Int32);
 
             return await base.GetList("FFL_GetShows", parameters);
@@ -42,7 +42,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
 
         public async Task<Show> GetItem(int showCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@showCode", showCode, DbType.Int32);
 
             return await base.GetItem("FFL_GetShows", parameters);
@@ -50,7 +50,7 @@ namespace SamSmithNZ.Service.DataAccess.FooFighters
 
         public async Task<bool> SaveItem(Show show)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@ShowCode", show.ShowCode, DbType.Int32);
             parameters.Add("@ShowDate", show.ShowDate, DbType.DateTime);
             parameters.Add("@ShowLocation", show.ShowLocation, DbType.String);

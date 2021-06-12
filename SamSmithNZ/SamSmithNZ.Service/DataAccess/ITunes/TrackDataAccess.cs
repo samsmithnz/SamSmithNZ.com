@@ -19,7 +19,7 @@ namespace SamSmithNZ.Service.DataAccess.ITunes
 
         public async Task<List<Track>> GetList(int playlistCode, bool showJustSummary)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@PlaylistCode", playlistCode, DbType.Int32);
             parameters.Add("@ShowJustSummary", showJustSummary, DbType.Boolean);
 
@@ -28,7 +28,7 @@ namespace SamSmithNZ.Service.DataAccess.ITunes
 
         //public async Task<Track> GetItem(int playlistCode, bool showJustSummary, String trackName)
         //{
-        //    DynamicParameters parameters = new DynamicParameters();
+        //    DynamicParameters parameters = new();
         //    parameters.Add("@PlaylistCode", playlistCode, DbType.Int32);
         //    parameters.Add("@ShowJustSummary", showJustSummary, DbType.Boolean);
         //    parameters.Add("@TrackName", trackName, DbType.String);
@@ -38,7 +38,7 @@ namespace SamSmithNZ.Service.DataAccess.ITunes
 
         //public async Task<bool> SaveItem(Track track)
         //{
-        //    DynamicParameters parameters = new DynamicParameters();
+        //    DynamicParameters parameters = new();
         //    parameters.Add("@PlaylistCode", track.PlaylistCode, DbType.Int32);
         //    parameters.Add("@TrackName", track.TrackName, DbType.String);
         //    parameters.Add("@AlbumName", track.AlbumName, DbType.String);
@@ -52,7 +52,7 @@ namespace SamSmithNZ.Service.DataAccess.ITunes
 
         //public async Task<List<Track>> ValidateTracksForPlaylist(int playlistCode)
         //{
-        //    DynamicParameters parameters = new DynamicParameters();
+        //    DynamicParameters parameters = new();
         //    parameters.Add("@PlaylistCode", playlistCode, DbType.Int32);
         //    int timeOut = 3600; //One hour
 
@@ -61,7 +61,7 @@ namespace SamSmithNZ.Service.DataAccess.ITunes
 
         //public async Task<bool> SetTrackRanksForPlaylist(int playlistCode)
         //{
-        //    DynamicParameters parameters = new DynamicParameters();
+        //    DynamicParameters parameters = new();
         //    parameters.Add("@PlaylistCode", playlistCode, DbType.Int32);
         //    int timeOut = 3600; //One hour
 

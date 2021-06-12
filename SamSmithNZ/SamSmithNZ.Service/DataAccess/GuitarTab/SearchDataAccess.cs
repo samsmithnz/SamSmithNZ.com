@@ -19,7 +19,7 @@ namespace SamSmithNZ.Service.DataAccess.GuitarTab
 
         public async Task<List<Search>> GetList(Guid? recordid)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@RecordId", recordid, DbType.Guid);
 
             return await base.GetList("Tab_GetSearchResults", parameters);
@@ -27,7 +27,7 @@ namespace SamSmithNZ.Service.DataAccess.GuitarTab
 
         public async Task<Guid> SaveItem(string searchText)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@SearchText", searchText, DbType.String);
 
             return await base.GetScalarItem<Guid>("Tab_SaveSearchParameters", parameters);

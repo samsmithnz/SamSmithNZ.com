@@ -18,7 +18,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<List<Tournament>> GetList(int? competitionCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@CompetitionCode", competitionCode, DbType.Int32);
 
             return await base.GetList("FB_GetTournaments", parameters);
@@ -26,7 +26,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<Tournament> GetItem(int tournamentCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
 
             return await base.GetItem("FB_GetTournaments", parameters);

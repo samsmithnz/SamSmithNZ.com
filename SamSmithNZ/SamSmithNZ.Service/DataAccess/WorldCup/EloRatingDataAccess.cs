@@ -155,7 +155,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<bool> SaveTeamELORatingAsync(int tournamentCode, int teamCode, int eloRating)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
             parameters.Add("@TeamCode", teamCode, DbType.Int32);
             parameters.Add("@ELORating", eloRating, DbType.Int32);

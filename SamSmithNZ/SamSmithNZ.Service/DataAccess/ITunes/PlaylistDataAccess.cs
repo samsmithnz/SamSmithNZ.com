@@ -18,14 +18,14 @@ namespace SamSmithNZ.Service.DataAccess.ITunes
         }
         public async Task<List<Playlist>> GetList()
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
 
             return await base.GetList("ITunes_GetPlaylists", parameters);
         }
 
         public async Task<Playlist> GetItem(int playlistCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@PlaylistCode", playlistCode, DbType.Int32);
 
             return await base.GetItem("ITunes_GetPlaylists", parameters);
@@ -33,7 +33,7 @@ namespace SamSmithNZ.Service.DataAccess.ITunes
 
         //public async Task<int> SaveItem(DateTime dteDate)
         //{
-        //    DynamicParameters parameters = new DynamicParameters();
+        //    DynamicParameters parameters = new();
         //    parameters.Add("@PlaylistDate", dteDate, DbType.DateTime);
 
         //    return await base.GetScalarItem<int>("ITunes_ImportCreateNewPlayList", parameters);
@@ -41,7 +41,7 @@ namespace SamSmithNZ.Service.DataAccess.ITunes
 
         //public async Task<bool> DeleteItem(int playlistCode)
         //{
-        //    DynamicParameters parameters = new DynamicParameters();
+        //    DynamicParameters parameters = new();
         //    parameters.Add("@PlaylistCode", playlistCode, DbType.Int32);
 
         //    return await base.SaveItem("ITunes_ImportDeletePlaylistTracks", parameters);

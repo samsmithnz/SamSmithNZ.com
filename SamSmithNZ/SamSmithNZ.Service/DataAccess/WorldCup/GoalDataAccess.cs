@@ -18,7 +18,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<List<Goal>> GetList(int gameCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@GameCode", gameCode, DbType.Int32);
 
             return await base.GetList("FB_GetGoals", parameters);
@@ -26,7 +26,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<bool> SaveItem(Goal goal)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@GoalCode", goal.GoalCode, DbType.Int32);
             parameters.Add("@GameCode", goal.GameCode, DbType.Int32);
             parameters.Add("@PlayerCode", goal.PlayerCode, DbType.Int32);
@@ -40,7 +40,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<bool> DeleteItem(Goal goal)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@GoalCode", goal.GoalCode, DbType.Int32);
 
             return await base.SaveItem("FB_DeleteGoal", parameters);

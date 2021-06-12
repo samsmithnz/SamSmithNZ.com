@@ -18,14 +18,14 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<List<Team>> GetList()
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
 
             return await base.GetList("FB_GetTeams", parameters);
         }
 
         public async Task<Team> GetItem(int teamCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@TeamCode", teamCode, DbType.Int32);
 
             return await base.GetItem("FB_GetTeams", parameters);

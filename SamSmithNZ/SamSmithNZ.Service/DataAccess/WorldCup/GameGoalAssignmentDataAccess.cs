@@ -18,7 +18,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<List<GameGoalAssignment>> GetList(int tournamentCode)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
 
             return await base.GetList("FB_GetGameGoalAssignments", parameters);

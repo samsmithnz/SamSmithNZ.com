@@ -19,7 +19,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
         public async Task<List<GroupCode>> GetList(int tournamentCode, int roundNumber)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            DynamicParameters parameters = new();
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
             parameters.Add("@RoundNumber", roundNumber, DbType.Int32);
 
