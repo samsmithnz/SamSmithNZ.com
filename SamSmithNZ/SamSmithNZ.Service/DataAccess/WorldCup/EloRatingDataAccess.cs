@@ -126,7 +126,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return teamRatingList;
         }
 
-        private int GetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams)
+        private static int GetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams)
         {
             int result = 0;
             foreach (TournamentTeam item in tournamentTeams)
@@ -140,7 +140,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return result;
         }
 
-        private bool SetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams, int eloRating)
+        private static bool SetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams, int eloRating)
         {
             foreach (TournamentTeam item in tournamentTeams)
             {
@@ -168,7 +168,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         /// </summary>
         /// <param name="item"></param>
         /// <returns>1 if team 1 won, 2 if team 2 won, 0 if draw</returns>
-        private int? WhoWon(Game item)
+        private static int? WhoWon(Game item)
         {
             int? goals = CalculateGoalDifference(item);
             if (goals == null)
@@ -190,7 +190,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             }
         }
 
-        private int? CalculateGoalDifference(Game item)
+        private static int? CalculateGoalDifference(Game item)
         {
             if (item.Team1NormalTimeScore == null || item.Team2NormalTimeScore == null)
             {
@@ -244,7 +244,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         }
 
 
-        private double CalculateKFactor(Game item)
+        private static double CalculateKFactor(Game item)
         {
             double kFactor;
             //K is the weight constant for the tournament played:
@@ -290,7 +290,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return kFactor;
         }
 
-        private TeamELORating GetTeamELORating(int tournamentCode, int teamCode, string teamName, int? currentELORanking, List<TeamELORating> teamList)
+        private static TeamELORating GetTeamELORating(int tournamentCode, int teamCode, string teamName, int? currentELORanking, List<TeamELORating> teamList)
         {
             foreach (TeamELORating item in teamList)
             {

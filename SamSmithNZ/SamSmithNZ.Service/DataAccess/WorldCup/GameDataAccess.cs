@@ -96,7 +96,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         }
 
         //Process the game, to make it easier to process on the client side
-        private List<Game> ProcessGameResults(List<Game> games)
+        private static List<Game> ProcessGameResults(List<Game> games)
         {
             foreach (Game item in games)
             {
