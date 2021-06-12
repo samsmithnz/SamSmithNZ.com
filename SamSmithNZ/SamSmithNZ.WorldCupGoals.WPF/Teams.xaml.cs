@@ -48,7 +48,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async Task LoadGrid(int tournamentCode)
         {
-            TournamentTeamDataAccess da = new TournamentTeamDataAccess(_configuration);
+            TournamentTeamDataAccess da = new(_configuration);
             List<TournamentTeam> teams = await da.GetQualifiedTeams(tournamentCode);
             lstTeams.DataContext = teams;
         }
@@ -66,9 +66,9 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             //}
 
             //get the teams to pass to the popup
-            TeamDataAccess da = new TeamDataAccess(_configuration);
+            TeamDataAccess da = new(_configuration);
             List<Team> teams = await da.GetList();
-            TournamentTeamDataAccess da2 = new TournamentTeamDataAccess(_configuration);
+            TournamentTeamDataAccess da2 = new(_configuration);
             List<TournamentTeam> tournamentTeams = await da2.GetQualifiedTeams(_tournamentCode);
 
             foreach (TournamentTeam item in tournamentTeams)
@@ -81,17 +81,17 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             }
 
             //display the teams popup            
-            TeamsPopup teamsPopup = new TeamsPopup();
+            TeamsPopup teamsPopup = new();
             int? teamCode = teamsPopup.ShowForm(teams);
 
             //process the selected team
             if (teamCode != null)
             {
-                TournamentTeam tournamentTeam = new TournamentTeam();
+                TournamentTeam tournamentTeam = new();
                 tournamentTeam.TournamentCode = _tournamentCode;
                 tournamentTeam.TeamCode = (int)teamCode;
 
-                TournamentTeamDataAccess da3 = new TournamentTeamDataAccess(_configuration);
+                TournamentTeamDataAccess da3 = new(_configuration);
                 await da3.SaveItem(tournamentTeam);
                 await LoadGrid(_tournamentCode);
             }
@@ -113,7 +113,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
             if (MessageBox.Show("Are you sure you want to remove this team from the tournament?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                TournamentTeamDataAccess da = new TournamentTeamDataAccess(_configuration);
+                TournamentTeamDataAccess da = new(_configuration);
                 dr.TournamentCode = _tournamentCode;
                 await da.DeleteItem(dr);
                 await LoadGrid(_tournamentCode);

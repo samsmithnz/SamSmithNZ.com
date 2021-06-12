@@ -44,7 +44,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             _gameCode = gameCode;
             _iGoalsToAssign = iGoalsToAssign;
 
-            GameDataAccess da = new GameDataAccess(_configuration);
+            GameDataAccess da = new(_configuration);
             List<Game> games = await da.GetListByTournament(tournamentCode);
             Game game = null;
             foreach (Game item in games)
@@ -65,7 +65,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async Task LoadShootoutGoals(int gameCode)
         {
-            PenaltyShootoutGoalDataAccess da = new PenaltyShootoutGoalDataAccess(_configuration);
+            PenaltyShootoutGoalDataAccess da = new(_configuration);
             List<PenaltyShootoutGoal> goals = await da.GetList(gameCode);
             lstGoals.DataContext = goals;
 

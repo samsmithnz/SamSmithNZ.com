@@ -13,7 +13,7 @@
 
 //        public GenericDataAccess()
 //        {
-//            this._connectionStringName = "DefaultConnection";
+//            _connectionStringName = "DefaultConnection";
 //        }
 
 //        /// <summary>
@@ -25,7 +25,7 @@
 //        /// <returns>Returns object as defined by T</returns>
 //        public async Task<T> GetItem(string storedProcedureName, DynamicParameters parameters = null)
 //        {
-//            IEnumerable<T> items = await this.GetList(storedProcedureName, parameters);
+//            IEnumerable<T> items = await GetList(storedProcedureName, parameters);
 //            return items.SingleOrDefault();
 //        }
 
@@ -41,12 +41,12 @@
 //            IEnumerable<T> items;
 //            try
 //            {
-//                await this.CreateConnectionAsync();
-//                items = await this.MySQLConnection.QueryAsync<T>(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
+//                await CreateConnectionAsync();
+//                items = await MySQLConnection.QueryAsync<T>(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
 //            }
 //            finally
 //            {
-//                this.CloseConnection();
+//                CloseConnection();
 //#if DEBUG
 //                System.Diagnostics.Debug.WriteLine(CreateSQLString(storedProcedureName, parameters));
 //#endif
@@ -64,12 +64,12 @@
 //        {
 //            try
 //            {
-//                await this.CreateConnectionAsync();
-//                await this.MySQLConnection.ExecuteAsync(storedProcedureName, parameters, commandType: CommandType.StoredProcedure, commandTimeout: timeoutOverride);
+//                await CreateConnectionAsync();
+//                await MySQLConnection.ExecuteAsync(storedProcedureName, parameters, commandType: CommandType.StoredProcedure, commandTimeout: timeoutOverride);
 //            }
 //            finally
 //            {
-//                this.CloseConnection();
+//                CloseConnection();
 //#if DEBUG
 //                System.Diagnostics.Debug.WriteLine(CreateSQLString(storedProcedureName, parameters));
 //#endif
@@ -89,12 +89,12 @@
 //            IEnumerable<N> items;
 //            try
 //            {
-//                await this.CreateConnectionAsync();
-//                items = await this.MySQLConnection.QueryAsync<N>(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
+//                await CreateConnectionAsync();
+//                items = await MySQLConnection.QueryAsync<N>(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
 //            }
 //            finally
 //            {
-//                this.CloseConnection();
+//                CloseConnection();
 //#if DEBUG
 //                System.Diagnostics.Debug.WriteLine(CreateSQLString(storedProcedureName, parameters));
 //#endif
@@ -123,11 +123,11 @@
 //            {
 //                throw new Exception("No connection string found");
 //            }
-//            else if (ConfigurationManager.ConnectionStrings[this._connectionStringName] == null)
+//            else if (ConfigurationManager.ConnectionStrings[_connectionStringName] == null)
 //            {
-//                throw new Exception(this._connectionStringName + " connection string not found");
+//                throw new Exception(_connectionStringName + " connection string not found");
 //            }
-//            string connectionString = ConfigurationManager.ConnectionStrings[this._connectionStringName].ToString();
+//            string connectionString = ConfigurationManager.ConnectionStrings[_connectionStringName].ToString();
 //            //string[] connectionStringItems = connectionString.Split(';');
 //            //string encryptedUid = Array.Find(connectionStringItems, p => p.StartsWith("uid", StringComparison.Ordinal)).Substring(4);
 //            //string decryptedUid = Encryption.GetDecryptedString(encryptedUid);

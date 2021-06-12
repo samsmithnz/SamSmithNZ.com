@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SamSmithNZ.Service.Models.WorldCup
+﻿namespace SamSmithNZ.Service.Models.WorldCup
 {
     public class TeamELORating
     {
@@ -15,7 +9,6 @@ namespace SamSmithNZ.Service.Models.WorldCup
             this.TeamName = teamName;
             this.ELORating = eloRating;
         }
-
         public int TournamentCode { get; set; }
         public int TeamCode { get; set; }
         public string TeamName { get; set; }

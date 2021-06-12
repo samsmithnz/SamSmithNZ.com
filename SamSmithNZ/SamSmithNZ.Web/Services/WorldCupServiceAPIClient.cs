@@ -17,20 +17,20 @@ namespace SamSmithNZ.Web.Services
             _configuration = configuration;
             HttpClient client = new HttpClient
             {
-                BaseAddress = new Uri(_configuration["AppSettings:WebServiceURL"])
+                BaseAddress = new(_configuration["AppSettings:WebServiceURL"])
             };
             base.SetupClient(client);
         }
 
         public async Task<bool> RefreshTournamentELORatings(int tournamentCode)
         {
-            Uri url = new Uri($"api/WorldCup/ELORating/RefreshTournamentELORatings?tournamentCode="+ tournamentCode, UriKind.Relative);
+            Uri url = new($"api/WorldCup/ELORating/RefreshTournamentELORatings?tournamentCode="+ tournamentCode, UriKind.Relative);
             return await base.GetMessageScalar<bool>(url);
         }
 
         public async Task<List<Game>> GetGames(int tournamentCode, int roundNumber, string roundCode)
         {
-            Uri url = new Uri($"api/WorldCup/Game/GetGames?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber + "&roundCode=" + roundCode, UriKind.Relative);
+            Uri url = new($"api/WorldCup/Game/GetGames?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber + "&roundCode=" + roundCode, UriKind.Relative);
             List<Game> results = await base.ReadMessageList<Game>(url);
             if (results == null)
             {
@@ -44,7 +44,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Game>> GetGamesByTeam(int teamCode)
         {
-            Uri url = new Uri($"api/WorldCup/Game/GetGamesByTeam?teamCode=" + teamCode, UriKind.Relative);
+            Uri url = new($"api/WorldCup/Game/GetGamesByTeam?teamCode=" + teamCode, UriKind.Relative);
             List<Game> results = await base.ReadMessageList<Game>(url);
             if (results == null)
             {
@@ -58,7 +58,7 @@ namespace SamSmithNZ.Web.Services
       
         public async Task<List<Game>> GetPlayoffGames(int tournamentCode, int roundNumber)
         {
-            Uri url = new Uri($"api/WorldCup/Game/GetPlayoffGames?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber, UriKind.Relative);
+            Uri url = new($"api/WorldCup/Game/GetPlayoffGames?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber, UriKind.Relative);
             List<Game> results = await base.ReadMessageList<Game>(url);
             if (results == null)
             {
@@ -72,7 +72,7 @@ namespace SamSmithNZ.Web.Services
       
         public async Task<Game> GetGame(int gameCode)
         {
-            Uri url = new Uri($"api/WorldCup/Game/GetGame?gameCode=" + gameCode, UriKind.Relative);
+            Uri url = new($"api/WorldCup/Game/GetGame?gameCode=" + gameCode, UriKind.Relative);
          Game results = await base.ReadMessageItem<Game>(url);
             if (results == null)
             {
@@ -86,7 +86,7 @@ namespace SamSmithNZ.Web.Services
       
         public async Task<List<GroupCode>> GetGroupCodes(int tournamentCode, int roundNumber)
         {
-            Uri url = new Uri($"api/WorldCup/GroupCode/GetGroupCodes?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber, UriKind.Relative);
+            Uri url = new($"api/WorldCup/GroupCode/GetGroupCodes?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber, UriKind.Relative);
             List<GroupCode> results = await base.ReadMessageList<GroupCode>(url);
             if (results == null)
             {
@@ -100,7 +100,7 @@ namespace SamSmithNZ.Web.Services
       
         public async Task<List<Group>> GetGroups(int tournamentCode, int roundNumber, string roundCode)
         {
-            Uri url = new Uri($"api/WorldCup/Group/GetGroups?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber + "&roundCode=" + roundCode, UriKind.Relative);
+            Uri url = new($"api/WorldCup/Group/GetGroups?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber + "&roundCode=" + roundCode, UriKind.Relative);
             List<Group> results = await base.ReadMessageList<Group>(url);
             if (results == null)
             {
@@ -114,7 +114,7 @@ namespace SamSmithNZ.Web.Services
        
         public async Task<List<Team>> GetTeams()
         {
-            Uri url = new Uri($"api/WorldCup/Team/GetTeams", UriKind.Relative);
+            Uri url = new($"api/WorldCup/Team/GetTeams", UriKind.Relative);
             List<Team> results = await base.ReadMessageList<Team>(url);
             if (results == null)
             {
@@ -128,7 +128,7 @@ namespace SamSmithNZ.Web.Services
         
         public async Task<Team> GetTeam(int teamCode)
         {
-            Uri url = new Uri($"api/WorldCup/Team/GetTeam?teamCode=" + teamCode, UriKind.Relative);
+            Uri url = new($"api/WorldCup/Team/GetTeam?teamCode=" + teamCode, UriKind.Relative);
             Team results = await base.ReadMessageItem<Team>(url);
             if (results == null)
             {
@@ -142,7 +142,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Tournament>> GetTournaments(int competitionCode = 1)
         {
-            Uri url = new Uri($"api/WorldCup/Tournament/GetTournaments?competitionCode=" + competitionCode, UriKind.Relative);
+            Uri url = new($"api/WorldCup/Tournament/GetTournaments?competitionCode=" + competitionCode, UriKind.Relative);
             List<Tournament> results = await base.ReadMessageList<Tournament>(url);
             if (results == null)
             {
@@ -156,7 +156,7 @@ namespace SamSmithNZ.Web.Services
   
         public async Task<Tournament> GetTournament(int tournamentCode)
         {
-            Uri url = new Uri($"api/WorldCup/Tournament/GetTournament?tournamentCode=" + tournamentCode, UriKind.Relative);
+            Uri url = new($"api/WorldCup/Tournament/GetTournament?tournamentCode=" + tournamentCode, UriKind.Relative);
             Tournament results = await base.ReadMessageItem<Tournament>(url);
             if (results == null)
             {
@@ -170,7 +170,7 @@ namespace SamSmithNZ.Web.Services
    
         public async Task<List<TournamentTeam>> GetTournamentQualifyingTeams(int tournamentCode)
         {
-            Uri url = new Uri($"api/WorldCup/TournamentTeam/GetTournamentQualifyingTeams?tournamentCode=" + tournamentCode, UriKind.Relative);
+            Uri url = new($"api/WorldCup/TournamentTeam/GetTournamentQualifyingTeams?tournamentCode=" + tournamentCode, UriKind.Relative);
             List<TournamentTeam> results = await base.ReadMessageList<TournamentTeam>(url);
             if (results == null)
             {
@@ -184,7 +184,7 @@ namespace SamSmithNZ.Web.Services
  
         public async Task<List<TournamentTeam>> GetTournamentPlacingTeams(int tournamentCode)
         {
-            Uri url = new Uri($"api/WorldCup/TournamentTeam/GetTournamentPlacingTeams?tournamentCode=" + tournamentCode, UriKind.Relative);
+            Uri url = new($"api/WorldCup/TournamentTeam/GetTournamentPlacingTeams?tournamentCode=" + tournamentCode, UriKind.Relative);
             List<TournamentTeam> results = await base.ReadMessageList<TournamentTeam>(url);
             if (results == null)
             {
@@ -198,7 +198,7 @@ namespace SamSmithNZ.Web.Services
        
         public async Task<List<TournamentTopGoalScorer>> GetTournamentTopGoalScorers(int tournamentCode)
         {
-            Uri url = new Uri($"api/WorldCup/TournamentTopGoalScorer/GetTournamentTopGoalScorers?tournamentCode=" + tournamentCode, UriKind.Relative);
+            Uri url = new($"api/WorldCup/TournamentTopGoalScorer/GetTournamentTopGoalScorers?tournamentCode=" + tournamentCode, UriKind.Relative);
             List<TournamentTopGoalScorer> results = await base.ReadMessageList<TournamentTopGoalScorer>(url);
             if (results == null)
             {

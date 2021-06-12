@@ -17,14 +17,14 @@ namespace SamSmithNZ.Web.Services
             _configuration = configuration;
             HttpClient client = new HttpClient
             {
-                BaseAddress = new Uri(_configuration["AppSettings:WebServiceURL"])
+                BaseAddress = new(_configuration["AppSettings:WebServiceURL"])
             };
             base.SetupClient(client);
         }
 
         public async Task<List<Album>> GetAlbums()
         {
-            Uri url = new Uri($"api/FooFighters/Album/GetAlbums", UriKind.Relative);
+            Uri url = new($"api/FooFighters/Album/GetAlbums", UriKind.Relative);
             List<Album> results = await base.ReadMessageList<Album>(url);
             if (results == null)
             {
@@ -38,7 +38,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<Album> GetAlbum(int albumCode)
         {
-            Uri url = new Uri($"api/FooFighters/Album/GetAlbum?AlbumCode=" + albumCode, UriKind.Relative);
+            Uri url = new($"api/FooFighters/Album/GetAlbum?AlbumCode=" + albumCode, UriKind.Relative);
             Album result = await base.ReadMessageItem<Album>(url);
             if (result == null)
             {
@@ -52,7 +52,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<AverageSetlist>> GetAverageSetlist(int yearCode, int minimumSongCount = 0, bool showAllSongs = false)
         {
-            Uri url = new Uri($"api/FooFighters/AverageSetlist/GetAverageSetlist?YearCode=" + yearCode + "&MinimumSongCount=" + minimumSongCount + "&showAllSongs=" + showAllSongs, UriKind.Relative);
+            Uri url = new($"api/FooFighters/AverageSetlist/GetAverageSetlist?YearCode=" + yearCode + "&MinimumSongCount=" + minimumSongCount + "&showAllSongs=" + showAllSongs, UriKind.Relative);
             List<AverageSetlist> results = await base.ReadMessageList<AverageSetlist>(url);
             if (results == null)
             {
@@ -66,7 +66,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Show>> GetShowsByYear(int yearCode)
         {
-            Uri url = new Uri($"api/FooFighters/Show/GetShowsByYear?YearCode=" + yearCode, UriKind.Relative);
+            Uri url = new($"api/FooFighters/Show/GetShowsByYear?YearCode=" + yearCode, UriKind.Relative);
             List<Show> results = await base.ReadMessageList<Show>(url);
             if (results == null)
             {
@@ -80,7 +80,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Show>> GetShowsBySong(int songCode)
         {
-            Uri url = new Uri($"api/FooFighters/Show/GetShowsBySong?SongCode=" + songCode, UriKind.Relative);
+            Uri url = new($"api/FooFighters/Show/GetShowsBySong?SongCode=" + songCode, UriKind.Relative);
             List<Show> results = await base.ReadMessageList<Show>(url);
             if (results == null)
             {
@@ -94,7 +94,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<Show> GetShow(int showCode)
         {
-            Uri url = new Uri($"api/FooFighters/Show/GetShow?ShowCode=" + showCode, UriKind.Relative);
+            Uri url = new($"api/FooFighters/Show/GetShow?ShowCode=" + showCode, UriKind.Relative);
             Show result = await base.ReadMessageItem<Show>(url);
             if (result == null)
             {
@@ -108,7 +108,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Song>> GetSongs()
         {
-            Uri url = new Uri($"api/FooFighters/Song/GetSongs", UriKind.Relative);
+            Uri url = new($"api/FooFighters/Song/GetSongs", UriKind.Relative);
             List<Song> results = await base.ReadMessageList<Song>(url);
             if (results == null)
             {
@@ -122,7 +122,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Song>> GetSongsByAlbum(int albumCode)
         {
-            Uri url = new Uri($"api/FooFighters/Song/GetSongsByAlbum?AlbumCode=" + albumCode, UriKind.Relative);
+            Uri url = new($"api/FooFighters/Song/GetSongsByAlbum?AlbumCode=" + albumCode, UriKind.Relative);
             List<Song> results = await base.ReadMessageList<Song>(url);
             if (results == null)
             {
@@ -136,7 +136,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Song>> GetSongsByShow(int showCode)
         {
-            Uri url = new Uri($"api/FooFighters/Song/GetSongsByShow?ShowCode=" + showCode, UriKind.Relative);
+            Uri url = new($"api/FooFighters/Song/GetSongsByShow?ShowCode=" + showCode, UriKind.Relative);
             List<Song> results = await base.ReadMessageList<Song>(url);
             if (results == null)
             {
@@ -150,7 +150,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<Song> GetSong(int songCode)
         {
-            Uri url = new Uri($"api/FooFighters/Song/GetSong?SongCode=" + songCode, UriKind.Relative);
+            Uri url = new($"api/FooFighters/Song/GetSong?SongCode=" + songCode, UriKind.Relative);
             Song result = await base.ReadMessageItem<Song>(url);
             if (result == null)
             {
@@ -164,7 +164,7 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<List<Year>> GetYears()
         {
-            Uri url = new Uri($"api/FooFighters/Year/GetYears" , UriKind.Relative);
+            Uri url = new($"api/FooFighters/Year/GetYears" , UriKind.Relative);
             List<Year> results = await base.ReadMessageList<Year>(url);
             if (results == null)
             {

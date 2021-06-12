@@ -21,7 +21,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task TabsExistTest()
         {
             //arrange
-            TabController controller = new TabController(new TabDataAccess(base.Configuration));
+            TabController controller = new(new TabDataAccess(base.Configuration));
             int albumCode = 14;
             int sortOrder = 0; //order by track order
 
@@ -38,7 +38,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task TabFirstItemTest()
         {
             //arrange
-            TabController controller = new TabController(new TabDataAccess(base.Configuration));
+            TabController controller = new(new TabDataAccess(base.Configuration));
             int tabCode = 500;
 
             //act
@@ -63,7 +63,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task Tab0ItemTest()
         {
             //arrange
-            TabController controller = new TabController(new TabDataAccess(base.Configuration));
+            TabController controller = new(new TabDataAccess(base.Configuration));
             int tabCode = 0;
 
             //act
@@ -78,7 +78,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task TabAlbumSortedbyTrackOrderTest()
         {
             //arrange
-            TabController controller = new TabController(new TabDataAccess(base.Configuration));
+            TabController controller = new(new TabDataAccess(base.Configuration));
             int albumCode = 14;
             int sortOrder = 0; //order by track order
 
@@ -116,7 +116,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task TabAlbumSortedbyTuningTest()
         {
             //arrange
-            TabController controller = new TabController(new TabDataAccess(base.Configuration));
+            TabController controller = new(new TabDataAccess(base.Configuration));
             int albumCode = 14;
             int sortOrder = 1; //order by tuning
 
@@ -151,10 +151,10 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task TabSaveAndDeleteTest()
         {
             //arrange
-            TabController controller = new TabController(new TabDataAccess(base.Configuration));
+            TabController controller = new(new TabDataAccess(base.Configuration));
             int albumCode = 246;
             int sortOrder = 0;
-            Tab newTab = new Tab();
+            Tab newTab = new();
             newTab.TabCode = 0;
             newTab.AlbumCode = albumCode;
             newTab.TabName = "Test track 14";

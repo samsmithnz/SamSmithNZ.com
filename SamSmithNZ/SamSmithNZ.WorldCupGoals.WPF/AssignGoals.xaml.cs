@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.Models.WorldCup;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SamSmithNZ.WorldCupGoals.WPF
 {
@@ -42,7 +35,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             _gameCode = gameCode;
             _goalCode = goalCode;
 
-            GameDataAccess da = new GameDataAccess(_configuration);
+            GameDataAccess da = new(_configuration);
             List<Game> games = await da.GetListByTournament(tournamentCode);
             Game game = null;
             foreach (Game item in games)

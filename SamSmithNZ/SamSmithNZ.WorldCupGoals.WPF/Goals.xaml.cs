@@ -43,7 +43,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             _gameCode = gameCode;
             _iGoalsToAssign = iGoalsToAssign;
 
-            GameDataAccess da = new GameDataAccess(_configuration);
+            GameDataAccess da = new(_configuration);
             List<Game> games = await da.GetListByTournament(tournamentCode);
             Game game = null;
             foreach (Game item in games)
