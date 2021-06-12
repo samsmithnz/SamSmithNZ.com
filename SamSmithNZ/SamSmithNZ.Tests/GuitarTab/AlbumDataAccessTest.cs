@@ -20,7 +20,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task AlbumsExistTest()
         {
             //arrange
-            AlbumController controller = new AlbumController(new AlbumDataAccess(base.Configuration));
+            AlbumController controller = new(new AlbumDataAccess(base.Configuration));
 
             //act
             List<Album> results = await controller.GetAlbums(true);
@@ -34,7 +34,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task AlbumsFirstItemTest()
         {
             //arrange
-            AlbumController controller = new AlbumController(new AlbumDataAccess(base.Configuration));
+            AlbumController controller = new(new AlbumDataAccess(base.Configuration));
             int albumCode = 14; //The Colour And The Shape
 
             //act
@@ -48,7 +48,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task AlbumsTCATSTest()
         {
             //arrange
-            AlbumController controller = new AlbumController(new AlbumDataAccess(base.Configuration));
+            AlbumController controller = new(new AlbumDataAccess(base.Configuration));
             int albumCode = 14; //The Colour And The Shape
 
             //act
@@ -90,7 +90,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task AlbumsSaveTest()
         {
             //arrange
-            AlbumController controller = new AlbumController(new AlbumDataAccess(base.Configuration));
+            AlbumController controller = new(new AlbumDataAccess(base.Configuration));
             int albumCode = 242;
 
             //act

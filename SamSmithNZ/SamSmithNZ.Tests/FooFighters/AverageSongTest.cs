@@ -20,7 +20,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task AverageSetlistExistTest()
         {
             //arrange
-            AverageSetlistController controller = new AverageSetlistController(new AverageSetlistDataAccess(base.Configuration));
+            AverageSetlistController controller = new(new AverageSetlistDataAccess(base.Configuration));
             int yearCode = 2015;
             int minimumSongCount = 0;
             bool showAllSongs = true;
@@ -37,7 +37,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task AverageSetlist2015Test()
         {
             //arrange
-            AverageSetlistController controller = new AverageSetlistController(new AverageSetlistDataAccess(base.Configuration));
+            AverageSetlistController controller = new(new AverageSetlistDataAccess(base.Configuration));
             int yearCode = 2015;
             int minimumSongCount = 0;
             bool showAllSongs = true;

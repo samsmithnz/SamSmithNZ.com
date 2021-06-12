@@ -27,7 +27,7 @@ namespace SamSmithNZ.Service.Controllers.Steam
         {
             if (string.IsNullOrEmpty(steamId) == false)
             {
-                FriendsDA da = new FriendsDA();
+                FriendsDA da = new();
                 return await da.GetDataAsync(_redisService, steamId, useCache);
             }
             else
