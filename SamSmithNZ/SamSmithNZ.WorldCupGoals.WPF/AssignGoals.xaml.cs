@@ -46,7 +46,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     break;
                 }
             }
-            PlayerDataAccess da2 = new PlayerDataAccess(_configuration);
+            PlayerDataAccess da2 = new(_configuration);
             List<Player> players = await da2.GetList(gameCode);
 
             lblGame.Content = "#" + game.GameNumber + ": " + game.GameTime.ToString("dd-MMM-yyyy hh:mm:sstt") + "   " + game.Team1Name + " vs " + game.Team2Name + ": " + Utility.GetGameScore(game);
@@ -62,7 +62,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             }
             else //it's an existing goal, load and populate the form
             {
-                GoalDataAccess da3 = new GoalDataAccess(_configuration);
+                GoalDataAccess da3 = new(_configuration);
                 List<Goal> goals = await da3.GetList(gameCode);
                 Goal goal = null;
                 foreach (Goal item in goals)
@@ -193,7 +193,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 bool isPenalty = Convert.ToBoolean(chkIsPenalty.IsChecked);
                 bool isOwnGoal = Convert.ToBoolean(chkIsOwnGoal.IsChecked);
 
-                Goal goal = new Goal();
+                Goal goal = new();
                 goal.GoalCode = _goalCode;
                 goal.GameCode = _gameCode;
                 goal.PlayerCode = Convert.ToInt32(cboPlayer.SelectedValue);
@@ -202,7 +202,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 goal.IsPenalty = isPenalty;
                 goal.IsOwnGoal = isOwnGoal;
 
-                GoalDataAccess da = new GoalDataAccess(_configuration);
+                GoalDataAccess da = new(_configuration);
                 await da.SaveItem(goal);
 
                 _result = true;
@@ -235,10 +235,10 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            Goal goal = new Goal();
+            Goal goal = new();
             goal.GoalCode = _goalCode;
 
-            GoalDataAccess da = new GoalDataAccess(_configuration);
+            GoalDataAccess da = new(_configuration);
             await da.DeleteItem(goal);
 
             _result = true;

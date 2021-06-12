@@ -15,7 +15,7 @@ namespace SamSmithNZ.Web.Services
         public GuitarTabServiceAPIClient(IConfiguration configuration)
         {
             _configuration = configuration;
-            HttpClient client = new HttpClient
+            HttpClient client = new()
             {
                 BaseAddress = new(_configuration["AppSettings:WebServiceURL"])
             };

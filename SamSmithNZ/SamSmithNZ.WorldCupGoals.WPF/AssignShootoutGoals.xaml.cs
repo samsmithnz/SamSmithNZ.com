@@ -46,7 +46,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     break;
                 }
             }
-            PlayerDataAccess da2 = new PlayerDataAccess(_configuration);
+            PlayerDataAccess da2 = new(_configuration);
             List<Player> players = await da2.GetList(gameCode);
 
             lblGame.Content = "#" + game.GameNumber + ": " + game.GameTime.ToString("dd-MMM-yyyy hh:mm:sstt") + "   " + game.Team1Name + " vs " + game.Team2Name + ": " + Utility.GetGameScore(game);
@@ -128,7 +128,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             {
                 bool bScored = Convert.ToBoolean(chkScored.IsChecked);
 
-                PenaltyShootoutGoal goal = new PenaltyShootoutGoal();
+                PenaltyShootoutGoal goal = new();
                 goal.PenaltyCode = _penaltyCode;
                 goal.GameCode = _gameCode;
                 goal.PlayerCode = Convert.ToInt32(cboPlayer.SelectedValue);
@@ -162,7 +162,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            PenaltyShootoutGoal goal = new PenaltyShootoutGoal();
+            PenaltyShootoutGoal goal = new();
             goal.PenaltyCode = _penaltyCode;
 
             PenaltyShootoutGoalDataAccess da = new(_configuration);

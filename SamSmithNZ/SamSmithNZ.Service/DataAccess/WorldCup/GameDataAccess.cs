@@ -67,8 +67,10 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             parameters.Add("@GameCode", gameCode, DbType.Int32);
 
             Game result = await base.GetItem("FB_GetGames", parameters);
-            List<Game> results = new List<Game>();
-            results.Add(result);
+            List<Game> results = new()
+            {
+                result
+            };
             results = ProcessGameResults(results);
 
             return results[0];

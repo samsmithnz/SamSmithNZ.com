@@ -23,9 +23,9 @@ namespace SamSmithNZ.Web.Models.GameDev
             int rowEntryPoint = 0;
             int colEntryPoint = 0;
             string originDirection = "";
-            List<Location> roadPath = new List<Location>();
+            List<Location> roadPath = new();
 
-            List<LevelPiece> levelPiecePoolWithoutRivers = new List<LevelPiece>();
+            List<LevelPiece> levelPiecePoolWithoutRivers = new();
             foreach (LevelPiece item in levelPiecePool)
             {
                 if (item.NorthSide == "" && item.SouthSide == "" && item.EastSide == "" && item.WestSide == "")
@@ -64,7 +64,7 @@ namespace SamSmithNZ.Web.Models.GameDev
                     int newRowEntryPoint = rowEntryPoint;
                     int newColEntryPoint = colEntryPoint;
                     //3. randomly choose a direction for the next river piece, until we reach the end. 
-                    switch (roadPath[roadPath.Count - 1].Exit)
+                    switch (roadPath[^1].Exit)
                     {
                         case "N":
                             newRowEntryPoint--;
@@ -79,7 +79,7 @@ namespace SamSmithNZ.Web.Models.GameDev
                             newColEntryPoint++;
                             break;
                     }
-                    string newEntry = GetOppositeDirection(roadPath[roadPath.Count - 1].Exit);
+                    string newEntry = GetOppositeDirection(roadPath[^1].Exit);
                     string newExit = GetRandomDirection(newEntry, originDirection);
                     bool blnFoundExistingRoundAtThisLocation = false;
                     foreach (Location newLoc in roadPath)
@@ -111,7 +111,7 @@ namespace SamSmithNZ.Web.Models.GameDev
             }
 
             //4. with this collection of an entry and exit, for each tile, select the relevant pieces from the piece list.
-            List<LevelPiece> levelPieces = new List<LevelPiece>();
+            List<LevelPiece> levelPieces = new();
 
             //4.1. Add campaign tiles if required
             if (isCampaign == true)
@@ -171,7 +171,7 @@ namespace SamSmithNZ.Web.Models.GameDev
                     }
                     if (foundItem != null)
                     {
-                        List<LevelPiece> subsetPieces = new List<LevelPiece>();
+                        List<LevelPiece> subsetPieces = new();
                         //there can be multiple pieces with the same direction/path.
                         foreach (LevelPiece piece in levelPiecePool)
                         {
@@ -228,9 +228,7 @@ namespace SamSmithNZ.Web.Models.GameDev
 
         private static int GetIndexFromLocation(Location item, int levelWidth)
         {
-            int index = 0;
-
-            index = (item.Row - 1) * levelWidth + item.Col;
+            int index = (item.Row - 1) * levelWidth + item.Col;
 
             return index;
         }

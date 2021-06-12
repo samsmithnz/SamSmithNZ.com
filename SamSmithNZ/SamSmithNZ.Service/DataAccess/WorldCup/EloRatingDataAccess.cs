@@ -35,13 +35,13 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             double diff = 400;
             double kRating = 32;
 
-            GameDataAccess da = new GameDataAccess(_configuration);
+            GameDataAccess da = new(_configuration);
             List<Game> gameList = await da.GetListByTournament(tournamentCode);
 
-            TeamDataAccess da2 = new TeamDataAccess(_configuration);
+            TeamDataAccess da2 = new(_configuration);
             List<Team> teamList = await da2.GetList();
 
-            TournamentTeamDataAccess da3 = new TournamentTeamDataAccess(_configuration);
+            TournamentTeamDataAccess da3 = new(_configuration);
             List<TournamentTeam> tournamentTeams = await da3.GetQualifiedTeams(tournamentCode);
             //Update and refresh all of the tournament team ELO ratings
             foreach (TournamentTeam tournamentTeam in tournamentTeams)
@@ -50,7 +50,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             }
             tournamentTeams = await da3.GetQualifiedTeams(tournamentCode);
 
-            List<TeamELORating> teamRatingList = new List<TeamELORating>();
+            List<TeamELORating> teamRatingList = new();
             foreach (Game game in gameList)
             {
                 int? team1StartingEloRating = GetTournamentTeamCurrentEloRanking(game.Team1Code, tournamentTeams);
@@ -72,7 +72,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
                 //TODO: Change this so that it saves ELO updates PER game, instead of just the final ELO rating
                 TeamELORating team1 = GetTeamELORating(tournamentCode, game.Team1Code, game.Team1Name, team1StartingEloRating, teamRatingList);
                 TeamELORating team2 = GetTeamELORating(tournamentCode, game.Team2Code, game.Team2Name, team2StartingEloRating, teamRatingList);
-                EloRating.Matchup match = new EloRating.Matchup();
+                EloRating.Matchup match = new();
                 match.User1Score = team1.ELORating;
                 match.User2Score = team2.ELORating;
                 int? result = WhoWon(game);
@@ -303,7 +303,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             {
                 currentELORanking = 1000;
             }
-            TeamELORating newTeam = new TeamELORating(tournamentCode, teamCode, teamName, (int)currentELORanking);
+            TeamELORating newTeam = new(tournamentCode, teamCode, teamName, (int)currentELORanking);
             teamList.Add(newTeam);
             return newTeam;
         }

@@ -64,7 +64,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async Task LoadGoals(int gameCode)
         {
-            GoalDataAccess da = new GoalDataAccess(_configuration);
+            GoalDataAccess da = new(_configuration);
             List<Goal> goals = await da.GetList(gameCode);
             lstGoals.DataContext = goals;
 
@@ -92,14 +92,14 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             //System.Data.DataRowView dr = (System.Data.DataRowView)lstGoals.ItemContainerGenerator.ItemFromContainer(dep);
             Goal goal = (Goal)lstGoals.ItemContainerGenerator.ItemFromContainer(dep);
 
-            AssignGoals AssignGoalsi = new AssignGoals();
+            AssignGoals AssignGoalsi = new();
             await AssignGoalsi.ShowForm(_tournamentCode, _gameCode, goal.GoalCode);
             await LoadGoals(_gameCode);
         }
 
         private async void AddGoal_Click(object sender, RoutedEventArgs e)
         {
-            AssignGoals AssignGoalsi = new AssignGoals();
+            AssignGoals AssignGoalsi = new();
             if (await AssignGoalsi.ShowForm(_tournamentCode, _gameCode, 0) == true)
             {
                 _iGoalsToAssign--;

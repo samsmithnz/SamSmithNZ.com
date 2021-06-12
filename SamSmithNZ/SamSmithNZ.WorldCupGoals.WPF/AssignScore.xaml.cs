@@ -123,7 +123,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     GameDataAccess da = new(_configuration);
                     await da.SaveItem(_game);
 
-                    EloRatingDataAccess daELO = new EloRatingDataAccess(_configuration);
+                    EloRatingDataAccess daELO = new(_configuration);
                     await daELO.UpdateTournamentELORatings(_game.TournamentCode);
 
                     lblStatus.Content = "Score saved...";

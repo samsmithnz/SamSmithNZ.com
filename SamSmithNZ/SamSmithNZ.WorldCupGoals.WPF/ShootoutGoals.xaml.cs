@@ -93,7 +93,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             //dsWorldCup.GameListForGoalAssigningRow dr = (dsWorldCup.GameListForGoalAssigningRow)lstGames.ItemContainerGenerator.ItemFromContainer(dep);
             PenaltyShootoutGoal dr = (PenaltyShootoutGoal)lstGoals.ItemContainerGenerator.ItemFromContainer(dep);
 
-            AssignShootoutGoals AssignShootoutGoalsi = new AssignShootoutGoals();
+            AssignShootoutGoals AssignShootoutGoalsi = new();
             await AssignShootoutGoalsi.ShowForm(_tournamentCode, _gameCode, Convert.ToInt32(dr.PenaltyCode), Convert.ToInt32(dr.PenaltyOrder));
 
             await LoadShootoutGoals(_gameCode);
@@ -101,7 +101,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async void AddGoal_Click(object sender, RoutedEventArgs e)
         {
-            AssignShootoutGoals AssignShootoutGoalsi = new AssignShootoutGoals();
+            AssignShootoutGoals AssignShootoutGoalsi = new();
             if (await AssignShootoutGoalsi.ShowForm(_tournamentCode, _gameCode, 0, Convert.ToInt32(_iMaxOrder + 1)) == true)
             {
                 _iGoalsToAssign--;
