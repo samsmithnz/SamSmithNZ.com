@@ -96,9 +96,9 @@
                         <tr>
                             <th>Game #</th>
                             <th>Game Time</th>
-                            <th>Round</th>
-                            <th>Group Name</th>
-                            <th>Round</th>
+                            @*<th>Round</th>
+                                <th>Group Name</th>
+                                <th>Round</th>*@
                             <th></th>
                             @*<th>Team 1 (Prob to win)</th>*@
                             <th>Score</th>
@@ -121,29 +121,32 @@
                                         <div>@item.GameTime.ToString("dd-MMM-yyyy HH:mm")</div>
                                     }
                                 </td>
-                                <td>
-                                    @if (item.RowType == 1)
-                                    {
-                                        <div>@item.RoundNumber</div>
-                                    }
-                                </td>
-                                <td>
-                                    @if (item.RowType == 1)
-                                    {
-                                        <div>@item.RoundName</div>
-                                    }
-                                </td>
-                                <td>
-                                    @if (item.RowType == 1)
-                                    {
-                                        <div>@item.RoundCode</div>
-                                    }
-                                </td>
+                                @*<td>
+                                        @if (item.RowType == 1)
+                                        {
+                                            <div>@item.RoundNumber</div>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.RowType == 1)
+                                        {
+                                            <div>@item.RoundName</div>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.RowType == 1)
+                                        {
+                                            <div>@item.RoundCode</div>
+                                        }
+                                    </td>*@
                                 <td style="text-align: right;">
                                     @if (item.RowType == 1)
                                     {
                                         <div>
-                                            @*<span ng-if="item.Team1NormalTimeScore">(@item.Team1ChanceToWin | percent to win) </span>*@
+                                            @*@if (item.Team1NormalTimeScore == null)
+                                                {
+                                                    <span>@item.Team1ChanceToWin.ToString("0")% to win</span>
+                                                }*@
                                             <a href="/WorldCup/Team?TeamCode=@item.Team1Code">@item.Team1Name</a>
                                             <img src="~/WorldCup/Teams/@item.Team1FlagName" Class="TeamImage" />
                                         </div>
@@ -182,8 +185,7 @@
                                     else if (item.Team1NormalTimeScore == null && item.RowType == 1 && item.Team1PreGameEloRating >= 0)
                                     {
                                         <div>
-                                            Chance to win:<br />
-                                            @((item.Team1ChanceToWin - item.Team2ChanceToWin).ToString("0.00%"))
+                                            @item.Team1ChanceToWin.ToString("0")% to win
                                         </div>
                                     }
                                 </td>
@@ -193,7 +195,10 @@
                                         <div>
                                             <img src="~/WorldCup/Teams/@item.Team2FlagName" Class="TeamImage" />
                                             <a href="/WorldCup/Team?TeamCode=@item.Team2Code">@item.Team2Name</a>
-                                            @*<span ng-if="item.Team2NormalTimeScore == null">(@item.Team2ChanceToWin | percent to win) </span>*@
+                                            @*@if (item.Team2NormalTimeScore == null)
+                                                {
+                                                    <span>@item.Team2ChanceToWin.ToString("0")% to win) </span>
+                                                }*@
                                         </div>
                                     }
                                     else if (item.RowType >= 2 && item.Team2NormalTimeScore != null)
