@@ -9,11 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamSmithNZ.Service", "SamSm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamSmithNZ.Tests", "SamSmithNZ.Tests\SamSmithNZ.Tests.csproj", "{1D88CBCE-D8D5-42B7-AB3A-C3E36067954C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "YAML", "YAML", "{FC37186D-7A0F-4AF6-98A7-C46AB79013D6}"
-	ProjectSection(SolutionItems) = preProject
-		..\azure-pipelines.yml = ..\azure-pipelines.yml
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamSmithNZ.WorldCupGoals.WPF", "SamSmithNZ.WorldCupGoals.WPF\SamSmithNZ.WorldCupGoals.WPF.csproj", "{1155A141-3DF8-4D40-A12B-F28A781C1762}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A3A53F95-9C8E-4DA0-82F5-8508921F8B96}"
