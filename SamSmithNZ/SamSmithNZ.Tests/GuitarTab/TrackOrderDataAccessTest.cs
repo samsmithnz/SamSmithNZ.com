@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace SamSmithNZ.Tests.GuitarTab
 {
     [TestClass]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class TrackOrderDataAccessTest : BaseIntegrationTest
     {
         [TestMethod()]
