@@ -56,13 +56,13 @@ namespace SamSmithNZ.Service.Models.WorldCup
         public int? Team1TotalGoals {
             get {
                 int? total = null;
-                if (Team1NormalTimeScore != null)
+                if (this.Team1NormalTimeScore != null)
                 {
-                    total = Team1NormalTimeScore;
+                    total = this.Team1NormalTimeScore;
                 }
-                if (Team1ExtraTimeScore != null)
+                if (this.Team1ExtraTimeScore != null)
                 {
-                    total += Team1ExtraTimeScore;
+                    total += this.Team1ExtraTimeScore;
                 }
                 return total;
             }
@@ -70,13 +70,13 @@ namespace SamSmithNZ.Service.Models.WorldCup
         public int? Team2TotalGoals {
             get {
                 int? total = null;
-                if (Team2NormalTimeScore != null)
+                if (this.Team2NormalTimeScore != null)
                 {
-                    total = Team2NormalTimeScore;
+                    total = this.Team2NormalTimeScore;
                 }
-                if (Team2ExtraTimeScore != null)
+                if (this.Team2ExtraTimeScore != null)
                 {
-                    total += Team2ExtraTimeScore;
+                    total += this.Team2ExtraTimeScore;
                 }
                 return total;
             }
@@ -86,13 +86,13 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public double Team1ChanceToWin {
             get {
-                if (Team1PreGameEloRating == null || Team1Code == 0)
+                if (this.Team1PreGameEloRating == null || this.Team1Code == 0)
                 {
                     return -1;
                 }
                 else
                 {
-                    double result = 1.0 / (Math.Pow(10, (((double)Team2PreGameEloRating - (double)Team1PreGameEloRating) / 400.0)) + 1.0) * 100;
+                    double result = 1.0 / (Math.Pow(10, (((double)this.Team2PreGameEloRating - (double)this.Team1PreGameEloRating) / 400.0)) + 1.0) * 100;
                     //System.Diagnostics.Debug.WriteLine("Calculating Team1ChanceToWin:" + result.ToString());
                     //return 1.0 / (10.0 ^ ((Team2PreGameEloRating - Team1PreGameEloRating) / 400.0) + 1.0);
                     //return  1.0 / (Math.Pow(10, (((double)Team2PreGameEloRating - (double)Team1PreGameEloRating) / 400.0)) + 1.0);
@@ -102,13 +102,13 @@ namespace SamSmithNZ.Service.Models.WorldCup
         }
         public double Team2ChanceToWin {
             get {
-                if (Team2PreGameEloRating == null || Team2Code == 0)
+                if (this.Team2PreGameEloRating == null || this.Team2Code == 0)
                 {
                     return -1;
                 }
                 else
                 {
-                    double result = 1.0 / (Math.Pow(10, (((double)Team1PreGameEloRating - (double)Team2PreGameEloRating) / 400.0)) + 1.0) * 100;
+                    double result = 1.0 / (Math.Pow(10, (((double)this.Team1PreGameEloRating - (double)this.Team2PreGameEloRating) / 400.0)) + 1.0) * 100;
                     //System.Diagnostics.Debug.WriteLine("Calculating Team2ChanceToWin:" + result.ToString());
                     //return 1.0 / (10.0 ^ ((Team2PreGameEloRating - Team1PreGameEloRating) / 400.0) + 1.0);
                     return result;
@@ -118,9 +118,9 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public bool Team1BeatOdds {
             get {
-                if (Team1ChanceToWin >= 50)
+                if (this.Team1ChanceToWin >= 50)
                 {
-                    if (Team1ResultWonGame == true)
+                    if (this.Team1ResultWonGame == true)
                     {
                         return true;
                     }
@@ -131,7 +131,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
                 }
                 else
                 {
-                    if (Team1ResultWonGame == true)
+                    if (this.Team1ResultWonGame == true)
                     {
                         return true;
                     }
@@ -154,7 +154,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public int Team1OddsCountExpectedWin {
             get {
-                if (Team1OddsResultExpectedWin == true)
+                if (this.Team1OddsResultExpectedWin == true)
                 {
                     return 1;
                 }
@@ -166,7 +166,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
         }
         public int Team1OddsCountExpectedLoss {
             get {
-                if (Team1OddsResultExpectedLoss == true)
+                if (this.Team1OddsResultExpectedLoss == true)
                 {
                     return 1;
                 }
@@ -178,7 +178,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
         }
         public int Team1OddsCountUnexpectedWin {
             get {
-                if (Team1OddsResultUnexpectedWin == true)
+                if (this.Team1OddsResultUnexpectedWin == true)
                 {
                     return 1;
                 }
@@ -190,7 +190,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
         }
         public int Team1OddsCountUnexpectedLoss {
             get {
-                if (Team1OddsResultUnexpectedLoss == true)
+                if (this.Team1OddsResultUnexpectedLoss == true)
                 {
                     return 1;
                 }
@@ -202,7 +202,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
         }
         public int Team1OddsCountUnexpectedDraw {
             get {
-                if (Team1OddsResultUnexpectedDraw == true)
+                if (this.Team1OddsResultUnexpectedDraw == true)
                 {
                     return 1;
                 }
@@ -214,7 +214,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
         }
         public int Team1OddsCountUnknown {
             get {
-                if (Team1OddsResultUnknown == true)
+                if (this.Team1OddsResultUnknown == true)
                 {
                     return 1;
                 }
@@ -226,7 +226,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
         }
         public int Team2OddsCountExpectedWin {
             get {
-                if (Team2OddsResultExpectedWin == true)
+                if (this.Team2OddsResultExpectedWin == true)
                 {
                     return 1;
                 }
@@ -238,7 +238,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
         }
         public int Team2OddsCountExpectedLoss {
             get {
-                if (Team2OddsResultExpectedLoss == true)
+                if (this.Team2OddsResultExpectedLoss == true)
                 {
                     return 1;
                 }
@@ -250,7 +250,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
         }
         public int Team2OddsCountUnexpectedWin {
             get {
-                if (Team2OddsResultUnexpectedWin == true)
+                if (this.Team2OddsResultUnexpectedWin == true)
                 {
                     return 1;
                 }
@@ -262,7 +262,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
         }
         public int Team2OddsCountUnexpectedLoss {
             get {
-                if (Team2OddsResultUnexpectedLoss == true)
+                if (this.Team2OddsResultUnexpectedLoss == true)
                 {
                     return 1;
                 }
@@ -274,7 +274,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
         }
         public int Team2OddsCountUnexpectedDraw {
             get {
-                if (Team2OddsResultUnexpectedDraw == true)
+                if (this.Team2OddsResultUnexpectedDraw == true)
                 {
                     return 1;
                 }
@@ -286,7 +286,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
         }
         public int Team2OddsCountUnknown {
             get {
-                if (Team2OddsResultUnknown == true)
+                if (this.Team2OddsResultUnknown == true)
                 {
                     return 1;
                 }
@@ -299,7 +299,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public bool Team1OddsResultUnknown {
             get {
-                if (Team1ChanceToWin == -1)
+                if (this.Team1ChanceToWin == -1)
                 {
                     return true;
                 }
@@ -312,13 +312,13 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public bool Team1OddsResultExpectedWin {
             get {
-                if (Team1ChanceToWin == -1)
+                if (this.Team1ChanceToWin == -1)
                 {
                     return false;
                 }
                 else
                 {
-                    if (Team1ChanceToWin >= 50 && Team1ResultWonGame == true)
+                    if (this.Team1ChanceToWin >= 50 && this.Team1ResultWonGame == true)
                     {
                         return true;
                     }
@@ -332,13 +332,13 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public bool Team1OddsResultExpectedLoss {
             get {
-                if (Team1ChanceToWin == -1)
+                if (this.Team1ChanceToWin == -1)
                 {
                     return false;
                 }
                 else
                 {
-                    if (Team1ChanceToWin < 50 && Team1ResultWonGame == false && Team2ResultWonGame == true)
+                    if (this.Team1ChanceToWin < 50 && this.Team1ResultWonGame == false && this.Team2ResultWonGame == true)
                     {
                         return true;
                     }
@@ -352,13 +352,13 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public bool Team1OddsResultUnexpectedWin {
             get {
-                if (Team1ChanceToWin == -1)
+                if (this.Team1ChanceToWin == -1)
                 {
                     return false;
                 }
                 else
                 {
-                    if (Team1ChanceToWin < 50 && Team1ResultWonGame == true)
+                    if (this.Team1ChanceToWin < 50 && this.Team1ResultWonGame == true)
                     {
                         return true;
                     }
@@ -372,13 +372,13 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public bool Team1OddsResultUnexpectedLoss {
             get {
-                if (Team1ChanceToWin == -1)
+                if (this.Team1ChanceToWin == -1)
                 {
                     return false;
                 }
                 else
                 {
-                    if (Team1ChanceToWin >= 50 && Team1ResultWonGame == false && Team2ResultWonGame == true)
+                    if (this.Team1ChanceToWin >= 50 && this.Team1ResultWonGame == false && this.Team2ResultWonGame == true)
                     {
                         return true;
                     }
@@ -392,13 +392,13 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public bool Team1OddsResultUnexpectedDraw {
             get {
-                if (Team1ChanceToWin == -1)
+                if (this.Team1ChanceToWin == -1)
                 {
                     return false;
                 }
                 else
                 {
-                    if (Team1ResultWonGame == false && Team2ResultWonGame == false && Team1NormalTimeScore != null)
+                    if (this.Team1ResultWonGame == false && this.Team2ResultWonGame == false && this.Team1NormalTimeScore != null)
                     {
                         return true;
                     }
@@ -412,33 +412,33 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public string Team1OddsStatusText {
             get {
-                if (Team1ChanceToWin == -1)
+                if (this.Team1ChanceToWin == -1)
                 {
                     return "";
                 }
-                else if (Team1OddsResultExpectedWin == true)
+                else if (this.Team1OddsResultExpectedWin == true)
                 {
-                    return Team1Name + " win: expected";
+                    return this.Team1Name + " win: expected";
                 }
-                else if (Team1OddsResultUnexpectedLoss == true)
+                else if (this.Team1OddsResultUnexpectedLoss == true)
                 {
-                    return Team1Name + " loss: upset (win expected)";
+                    return this.Team1Name + " loss: upset (win expected)";
                 }
-                else if (Team1OddsResultUnexpectedWin == true)
+                else if (this.Team1OddsResultUnexpectedWin == true)
                 {
-                    return Team1Name + " win: upset (loss expected)";
+                    return this.Team1Name + " win: upset (loss expected)";
                 }
-                else if (Team1OddsResultExpectedLoss == true)
+                else if (this.Team1OddsResultExpectedLoss == true)
                 {
-                    return Team1Name + " loss: expected";
+                    return this.Team1Name + " loss: expected";
                 }
-                else if (Team1OddsResultUnexpectedDraw == true && Team1ChanceToWin >= 50)
+                else if (this.Team1OddsResultUnexpectedDraw == true && this.Team1ChanceToWin >= 50)
                 {
-                    return Team1Name + " draw: upset (win expected)";
+                    return this.Team1Name + " draw: upset (win expected)";
                 }
-                else if (Team1OddsResultUnexpectedDraw == true && Team1ChanceToWin < 50)
+                else if (this.Team1OddsResultUnexpectedDraw == true && this.Team1ChanceToWin < 50)
                 {
-                    return Team1Name + " draw: upset (loss expected)";
+                    return this.Team1Name + " draw: upset (loss expected)";
                 }
 
                 return "";
@@ -447,7 +447,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public bool Team2OddsResultUnknown {
             get {
-                if (Team2ChanceToWin == -1)
+                if (this.Team2ChanceToWin == -1)
                 {
                     return true;
                 }
@@ -460,13 +460,13 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public bool Team2OddsResultExpectedWin {
             get {
-                if (Team2ChanceToWin == -1)
+                if (this.Team2ChanceToWin == -1)
                 {
                     return false;
                 }
                 else
                 {
-                    if (Team2ChanceToWin >= 50 && Team2ResultWonGame == true)
+                    if (this.Team2ChanceToWin >= 50 && this.Team2ResultWonGame == true)
                     {
                         return true;
                     }
@@ -480,13 +480,13 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public bool Team2OddsResultExpectedLoss {
             get {
-                if (Team2ChanceToWin == -1)
+                if (this.Team2ChanceToWin == -1)
                 {
                     return false;
                 }
                 else
                 {
-                    if (Team2ChanceToWin < 50 && Team2ResultWonGame == false && Team1ResultWonGame == true)
+                    if (this.Team2ChanceToWin < 50 && this.Team2ResultWonGame == false && this.Team1ResultWonGame == true)
                     {
                         return true;
                     }
@@ -500,13 +500,13 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public bool Team2OddsResultUnexpectedWin {
             get {
-                if (Team2ChanceToWin == -1)
+                if (this.Team2ChanceToWin == -1)
                 {
                     return false;
                 }
                 else
                 {
-                    if (Team2ChanceToWin < 50 && Team2ResultWonGame == true)
+                    if (this.Team2ChanceToWin < 50 && this.Team2ResultWonGame == true)
                     {
                         return true;
                     }
@@ -520,13 +520,13 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public bool Team2OddsResultUnexpectedLoss {
             get {
-                if (Team2ChanceToWin == -1)
+                if (this.Team2ChanceToWin == -1)
                 {
                     return false;
                 }
                 else
                 {
-                    if (Team2ChanceToWin >= 50 && Team2ResultWonGame == false && Team1ResultWonGame == true)
+                    if (this.Team2ChanceToWin >= 50 && this.Team2ResultWonGame == false && this.Team1ResultWonGame == true)
                     {
                         return true;
                     }
@@ -540,13 +540,13 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public bool Team2OddsResultUnexpectedDraw {
             get {
-                if (Team2ChanceToWin == -1)
+                if (this.Team2ChanceToWin == -1)
                 {
                     return false;
                 }
                 else
                 {
-                    if (Team1ResultWonGame == false && Team2ResultWonGame == false && Team2NormalTimeScore != null)
+                    if (this.Team1ResultWonGame == false && this.Team2ResultWonGame == false && this.Team2NormalTimeScore != null)
                     {
                         return true;
                     }
@@ -560,33 +560,33 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public string Team2OddsStatusText {
             get {
-                if (Team2ChanceToWin == -1)
+                if (this.Team2ChanceToWin == -1)
                 {
                     return "";
                 }
-                else if (Team2OddsResultExpectedWin == true)
+                else if (this.Team2OddsResultExpectedWin == true)
                 {
-                    return Team2Name + " win: expected";
+                    return this.Team2Name + " win: expected";
                 }
-                else if (Team2OddsResultUnexpectedLoss == true)
+                else if (this.Team2OddsResultUnexpectedLoss == true)
                 {
-                    return Team2Name + " loss: upset (win expected)";
+                    return this.Team2Name + " loss: upset (win expected)";
                 }
-                else if (Team2OddsResultUnexpectedWin == true)
+                else if (this.Team2OddsResultUnexpectedWin == true)
                 {
-                    return Team2Name + " win: upset (loss expected)";
+                    return this.Team2Name + " win: upset (loss expected)";
                 }
-                else if (Team2OddsResultExpectedLoss == true)
+                else if (this.Team2OddsResultExpectedLoss == true)
                 {
-                    return Team2Name + " loss: expected";
+                    return this.Team2Name + " loss: expected";
                 }
-                else if (Team2OddsResultUnexpectedDraw == true && Team2ChanceToWin >= 50)
+                else if (this.Team2OddsResultUnexpectedDraw == true && this.Team2ChanceToWin >= 50)
                 {
-                    return Team2Name + " draw: upset (win expected)";
+                    return this.Team2Name + " draw: upset (win expected)";
                 }
-                else if (Team2OddsResultUnexpectedDraw == true && Team2ChanceToWin < 50)
+                else if (this.Team2OddsResultUnexpectedDraw == true && this.Team2ChanceToWin < 50)
                 {
-                    return Team2Name + " draw: upset (loss expected)";
+                    return this.Team2Name + " draw: upset (loss expected)";
                 }
 
                 return "";
