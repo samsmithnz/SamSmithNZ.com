@@ -12,7 +12,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
         //https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=35D42236AAC777BEDB12CDEB625EF289&steamid=76561197971691578&include_appinfo=1&format=xml        
         public async Task<SteamOwnedGames> GetDataAsync(IRedisService redisService, string steamID, bool useCache)
         {
-            SteamOwnedGames ownedGames = null;
+            SteamOwnedGames ownedGames;
             string cacheKeyName = "ownedGames-" + steamID;
             TimeSpan cacheExpirationTime = new(2, 0, 0);
 

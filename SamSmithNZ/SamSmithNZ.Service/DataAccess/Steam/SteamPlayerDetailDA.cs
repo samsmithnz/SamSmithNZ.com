@@ -11,7 +11,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
         //https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=35D42236AAC777BEDB12CDEB625EF289&steamids=76561197971691578&format=xml
         public async Task<SteamPlayerDetail> GetDataAsync(IRedisService redisService, string commaSeperatedSteamIDs, bool useCache)
         {
-            SteamPlayerDetail playerDetail = null;
+            SteamPlayerDetail playerDetail;
             string cacheKeyName = "playerDetail-" + commaSeperatedSteamIDs;
             TimeSpan cacheExpirationTime = new(8, 0, 0);
 

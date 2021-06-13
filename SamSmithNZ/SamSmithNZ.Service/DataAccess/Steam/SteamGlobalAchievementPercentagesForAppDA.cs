@@ -12,7 +12,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
         //https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=200510
         public async Task<SteamGlobalAchievementsForApp> GetDataAsync(IRedisService redisService, string appID, bool useCache)
         {
-            SteamGlobalAchievementsForApp globalAchievementsForApp = null;
+            SteamGlobalAchievementsForApp globalAchievementsForApp;
             string cacheKeyName = "globalAchievements-" + appID;
             TimeSpan cacheExpirationTime = new(24, 0, 0);
 
