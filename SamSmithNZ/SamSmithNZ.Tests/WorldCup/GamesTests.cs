@@ -520,7 +520,8 @@ namespace SamSmithNZ.Tests.WorldCup
             int gamesUnexpectedLoss = 0;
             int gamesUnexpectedDraw = 0;
             int gamesUnknown = 0;
-           
+            int gamesNotPlayed = 0;
+
             //act
             List<Game> results = await controller.GetGamesByTeam(teamCode);
             foreach (Game item in results)
@@ -533,6 +534,10 @@ namespace SamSmithNZ.Tests.WorldCup
                     gamesUnexpectedLoss += item.Team1OddsCountUnexpectedLoss;
                     gamesUnexpectedDraw += item.Team1OddsCountUnexpectedDraw;
                     gamesUnknown += item.Team1OddsCountUnknown;
+                    if (item.Team1NormalTimeScore == null)
+                    {
+                        gamesNotPlayed++;
+                    }
                 }
                 else if (teamCode == item.Team2Code)
                 {
@@ -542,14 +547,18 @@ namespace SamSmithNZ.Tests.WorldCup
                     gamesUnexpectedLoss += item.Team2OddsCountUnexpectedLoss;
                     gamesUnexpectedDraw += item.Team2OddsCountUnexpectedDraw;
                     gamesUnknown += item.Team2OddsCountUnknown;
+                    if (item.Team2NormalTimeScore == null)
+                    {
+                        gamesNotPlayed++;
+                    }
                 }
             }
 
             //assert
             Assert.IsTrue(results != null);
             Assert.IsTrue(results.Count > 0);
-            int totalGamesCheck = (gamesExpectedWon + gamesExpectedLoss + gamesUnexpectedWin + gamesUnexpectedLoss + gamesUnexpectedDraw + gamesUnknown);
-            Assert.IsTrue(totalGamesCheck == results.Count);
+            int totalGamesCheck = (gamesExpectedWon + gamesExpectedLoss + gamesUnexpectedWin + gamesUnexpectedLoss + gamesUnexpectedDraw + gamesUnknown + gamesNotPlayed);
+            Assert.AreEqual(totalGamesCheck, results.Count);
         }
 
         [TestMethod]
@@ -564,7 +573,7 @@ namespace SamSmithNZ.Tests.WorldCup
             int gamesUnexpectedLoss = 0;
             int gamesUnexpectedDraw = 0;
             int gamesUnknown = 0;
-            
+
             //act
             List<Game> results = await controller.GetGamesByTeam(teamCode);
             foreach (Game item in results)
