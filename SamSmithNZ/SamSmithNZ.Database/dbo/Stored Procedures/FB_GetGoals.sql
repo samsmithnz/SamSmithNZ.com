@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[FB_GetGoals]
-	@GameCode INT
+	@GameCode INT = NULL
 AS
 SELECT g.goal_code AS GoalCode, 
 	g.game_code AS GameCode,
@@ -11,5 +11,5 @@ SELECT g.goal_code AS GoalCode,
 	g.is_own_goal AS IsOwnGoal
 FROM wc_goal g
 JOIN wc_player p ON g.player_code = p.player_code
-WHERE game_code = @GameCode
+WHERE (game_code = @GameCode OR @GameCode IS NULL)
 ORDER BY g.goal_time, g.injury_time

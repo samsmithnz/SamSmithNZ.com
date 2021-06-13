@@ -65,7 +65,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         private async Task LoadGoals(int gameCode)
         {
             GoalDataAccess da = new(_configuration);
-            List<Goal> goals = await da.GetList(gameCode);
+            List<Goal> goals = await da.GetListByGame(gameCode);
             lstGoals.DataContext = goals;
 
             if (_iGoalsToAssign == 0)
