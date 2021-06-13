@@ -16,7 +16,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task FriendsSamFirstTest()
         {
             //Arrange
-            FriendsDA da = new FriendsDA();
+            FriendsDA da = new();
             string steamId = "76561197971691578";
 
             //Act
@@ -50,7 +50,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task FriendsAlexTest()
         {
             //Arrange
-            FriendsDA da = new FriendsDA();
+            FriendsDA da = new();
             string steamId = "76561198034342716";
 
             //Act
@@ -77,7 +77,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task FriendsRandomTest()
         {
             //Arrange
-            FriendsDA da = new FriendsDA();
+            FriendsDA da = new();
             string steamId = "76561198154034472";
 
             //Act
@@ -92,7 +92,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task FriendsRandomWithMoreThan100FriendsTest()
         {
             //Arrange
-            FriendsDA da = new FriendsDA();
+            FriendsDA da = new();
             string steamId = "76561198129345768";
 
             //Act
@@ -107,7 +107,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task FriendsRandomWithExactly99FriendsTest()
         {
             //Arrange
-            FriendsDA da = new FriendsDA();
+            FriendsDA da = new();
             string steamId = "76561198140300853";
 
             //Act
@@ -122,7 +122,7 @@ namespace SamSmithNZ.Tests.Steam
         //public async Task FriendsSameGameSamXcomTest()
         //{
         //    //Arrange
-        //    FriendsDA da = new FriendsDA();
+        //    FriendsDA da = new();
         //    string steamId = "76561197971691578";
         //    string appId = "200510"; //Xcom
 
@@ -151,7 +151,7 @@ namespace SamSmithNZ.Tests.Steam
         //public async Task FriendsSameGameSamCiv6Test()
         //{
         //    //Arrange
-        //    FriendsDA da = new FriendsDA();
+        //    FriendsDA da = new();
         //    string steamId = "76561197971691578";
         //    string appId = "289070"; //Civ 6
 
@@ -183,7 +183,7 @@ namespace SamSmithNZ.Tests.Steam
         //public async Task FriendsSameGameStewXcomTest()
         //{
         //    //Arrange
-        //    FriendsDA da = new FriendsDA();
+        //    FriendsDA da = new();
         //    string steamId = "76561197990013217";
         //    string appId = "200510"; //Xcom
 

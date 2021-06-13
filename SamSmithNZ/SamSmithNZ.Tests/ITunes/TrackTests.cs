@@ -16,7 +16,7 @@ namespace SamSmithNZ.Tests.ITunes
         public async Task TrackTest()
         {
             //Arrange
-            TrackDataAccess da = new TrackDataAccess(base.Configuration);
+            TrackDataAccess da = new(base.Configuration);
             int playlistCode = 1;
             bool showJustSummary = true;
 

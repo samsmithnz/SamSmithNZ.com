@@ -72,7 +72,7 @@ namespace SamSmithNZ.Web.Services
         public async Task<bool> SaveMessageItem<T>(Uri url, T obj)
         {
             string jsonInString = JsonSerializer.Serialize(obj);
-            StringContent content = new StringContent(jsonInString, Encoding.UTF8, "application/json");
+            StringContent content = new(jsonInString, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _client.PostAsync(url, content);
             if (response.IsSuccessStatusCode == true)
             {

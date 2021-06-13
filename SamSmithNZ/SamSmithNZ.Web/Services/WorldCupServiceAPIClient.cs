@@ -34,7 +34,7 @@ namespace SamSmithNZ.Web.Services
             List<Game> results = await base.ReadMessageList<Game>(url);
             if (results == null)
             {
-                return new List<Game>();
+                return new();
             }
             else
             {
@@ -48,7 +48,7 @@ namespace SamSmithNZ.Web.Services
             List<Game> results = await base.ReadMessageList<Game>(url);
             if (results == null)
             {
-                return new List<Game>();
+                return new();
             }
             else
             {
@@ -62,7 +62,7 @@ namespace SamSmithNZ.Web.Services
             List<Game> results = await base.ReadMessageList<Game>(url);
             if (results == null)
             {
-                return new List<Game>();
+                return new();
             }
             else
             {
@@ -76,7 +76,7 @@ namespace SamSmithNZ.Web.Services
          Game results = await base.ReadMessageItem<Game>(url);
             if (results == null)
             {
-                return new Game();
+                return new();
             }
             else
             {

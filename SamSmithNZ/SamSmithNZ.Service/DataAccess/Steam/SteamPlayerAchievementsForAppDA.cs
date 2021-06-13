@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
 using SamSmithNZ.Service.Models.Steam;
+using System;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.DataAccess.Steam
 {
@@ -18,7 +15,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
             SteamPlayerAchievementsForAppError errorResult = null;
             SteamPlayerAchievementsForApp playerAchievements = null;
             string cacheKeyName = "playerAchievements-" + steamID + "-" + appID;
-            TimeSpan cacheExpirationTime = new TimeSpan(0, 1, 0);
+            TimeSpan cacheExpirationTime = new(0, 1, 0);
 
             //Check the cache
             string cachedJSON = null;

@@ -34,7 +34,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         {
             _tournamentCode = tournamentCode;
 
-            GroupCodeDataAccess da = new GroupCodeDataAccess(_configuration);
+            GroupCodeDataAccess da = new(_configuration);
             List<GroupCode> groupCodes = await da.GetList(_tournamentCode, 1);
 
             cboGroup.DataContext = groupCodes;
@@ -52,7 +52,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async Task LoadGrid()
         {
-            GroupDataAccess da = new GroupDataAccess(_configuration);
+            GroupDataAccess da = new(_configuration);
             List<Group> groups = await da.GetList(_tournamentCode, 1, _groupCode);
             lstGroups.DataContext = groups;
         }
@@ -66,19 +66,19 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         private async void AddTeam_Click(object sender, RoutedEventArgs e)
         {
             //get the teams to pass to the popup
-            List<Team> teams = new List<Team>();
-            TournamentTeamDataAccess da2 = new TournamentTeamDataAccess(_configuration);
+            List<Team> teams = new();
+            TournamentTeamDataAccess da2 = new(_configuration);
             List<TournamentTeam> tournamentTeams = await da2.GetQualifiedTeams(_tournamentCode);
 
             foreach (TournamentTeam item in tournamentTeams)
             {
-                Team team = new Team();
+                Team team = new();
                 team.TeamCode = item.TeamCode;
                 team.TeamName = item.TeamName;
             }
 
             //display the teams popup            
-            TeamsPopup teamsPopup = new TeamsPopup();
+            TeamsPopup teamsPopup = new();
             int? teamCode = teamsPopup.ShowForm(teams);
             Debug.WriteLine(teamCode);
             ////process the selected team
@@ -107,7 +107,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             }
             Group dr = (Group)lstGroups.ItemContainerGenerator.ItemFromContainer(dep);
 
-            GroupDataAccess da = new GroupDataAccess(_configuration);
+            GroupDataAccess da = new(_configuration);
             await da.DeleteItemAsync(dr);
         }
 
@@ -153,7 +153,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         //    //dsWorldCup.GameListForGoalAssigningRow dr = (dsWorldCup.GameListForGoalAssigningRow)lstGroups.ItemContainerGenerator.ItemFromContainer(dep);
         //    GameGoalAssignment dr = (GameGoalAssignment)lstGroups.ItemContainerGenerator.ItemFromContainer(dep);
 
-        //    Goals Goalsi = new Goals();
+        //    Goals Goalsi = new();
         //    if (await Goalsi.ShowForm(_tournamentCode, Convert.ToInt32(dr.GameCode), Convert.ToInt32(dr.TotalGoalTableGoals)) == true)
         //    {
         //        await LoadGrid(_tournamentCode);

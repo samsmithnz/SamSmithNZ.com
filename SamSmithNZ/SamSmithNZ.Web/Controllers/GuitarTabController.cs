@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.Models.GuitarTab;
 using SamSmithNZ.Web.Models.GuitarTab;
 using SamSmithNZ.Web.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,23 +11,21 @@ namespace SamSmithNZ.Web.Controllers
     public class GuitarTabController : Controller
     {
         private readonly IGuitarTabServiceAPIClient _ServiceApiClient;
-        private readonly IConfiguration _configuration;
 
-        public GuitarTabController(IGuitarTabServiceAPIClient ServiceApiClient, IConfiguration configuration)
+        public GuitarTabController(IGuitarTabServiceAPIClient ServiceApiClient)
         {
             _ServiceApiClient = ServiceApiClient;
-            _configuration = configuration;
         }
 
         public async Task<IActionResult> Index(bool isAdmin = false)
         {
             List<Artist> artists = await _ServiceApiClient.GetArtists(isAdmin);
             List<Album> albums = await _ServiceApiClient.GetAlbums(isAdmin);
-            List<KeyValuePair<Artist, List<Album>>> items = new List<KeyValuePair<Artist, List<Album>>>();
+            List<KeyValuePair<Artist, List<Album>>> items = new();
             foreach (Artist artist in artists)
             {
                 List<Album> artistAlbums = (albums.Where(a => a.ArtistName == artist.ArtistName)).ToList<Album>();
-                KeyValuePair<Artist, List<Album>> newItem = new KeyValuePair<Artist, List<Album>>(artist, artistAlbums);
+                KeyValuePair<Artist, List<Album>> newItem = new(artist, artistAlbums);
                 items.Add(newItem);
             }
 
@@ -95,7 +91,7 @@ namespace SamSmithNZ.Web.Controllers
             bool chkIsBassTab, bool chkIncludeInIndex, bool chkIncludeOnWebsite, bool chkIsMiscCollectionAlbum)
             //string txtTrackList)
         {
-            Album album = new Album
+            Album album = new()
             {
                 AlbumCode = albumCode,
                 ArtistName = txtArtist,
@@ -134,7 +130,7 @@ namespace SamSmithNZ.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveTab(int tabCode, int albumCode, string txtTabName, string txtTabText, string txtOrder, string cboRating, string cboTuning)
         {
-            Tab tab = new Tab
+            Tab tab = new()
             {
                 TabCode = tabCode,
                 AlbumCode = albumCode,
@@ -158,7 +154,7 @@ namespace SamSmithNZ.Web.Controllers
             //Get the current list of tabs, to establish the last position of the new tab
             List<Tab> tabs = await _ServiceApiClient.GetTabs(albumCode);
 
-            Tab tab = new Tab
+            Tab tab = new()
             {
                 TabCode = 0,
                 AlbumCode = albumCode,

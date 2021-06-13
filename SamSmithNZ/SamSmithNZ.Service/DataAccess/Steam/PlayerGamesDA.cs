@@ -10,10 +10,10 @@ namespace SamSmithNZ.Service.DataAccess.Steam
 
         public async Task<List<Game>> GetDataAsync(IRedisService redisService, string steamID, bool useCache)
         {
-            List<Game> games = new List<Game>();
+            List<Game> games = new();
 
             //get games for Player
-            SteamOwnedGamesDA da = new SteamOwnedGamesDA();
+            SteamOwnedGamesDA da = new();
             SteamOwnedGames ownedGames = await da.GetDataAsync(redisService, steamID, useCache);
 
             //Check that the player has games to process
@@ -22,7 +22,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
                 foreach (Message item in ownedGames.response.games)
                 {
                     //transfer to a clean game object
-                    Game newItem = new Game();
+                    Game newItem = new();
                     newItem.AppID = item.appid;
                     newItem.GameName = item.name;
                     if (string.IsNullOrEmpty(item.img_icon_url))

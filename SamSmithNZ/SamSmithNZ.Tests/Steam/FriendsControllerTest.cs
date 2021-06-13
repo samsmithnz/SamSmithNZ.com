@@ -21,15 +21,15 @@ namespace SamSmithNZ.Tests.Steam
         [ClassInitialize]
         public static void InitTestSuite(TestContext testContext)
         {
-            var config = new ConfigurationBuilder()
+            IConfigurationRoot config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
 
             string connectionString = config["CacheConnection"];
 
-            var cache = ConnectionMultiplexer.Connect(connectionString);
-            var db = cache.GetDatabase();
+            ConnectionMultiplexer cache = ConnectionMultiplexer.Connect(connectionString);
+            IDatabase db = cache.GetDatabase();
             _redisService = new RedisService(db);
         }
         
@@ -38,7 +38,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task FriendsSamFirstTest()
         {
             //Arrange
-            FriendsController controller = new FriendsController(_redisService);
+            FriendsController controller = new(_redisService);
             string steamId = "76561197971691578";
 
             //Act
@@ -73,7 +73,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task FriendsSamFirstWithoutCacheTest()
         {
             //Arrange
-            FriendsController controller = new FriendsController(_redisService);
+            FriendsController controller = new(_redisService);
             string steamId = "76561197971691578";
 
             //Act
@@ -108,7 +108,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task FriendsAlexTest()
         {
             //Arrange
-            FriendsController controller = new FriendsController(_redisService);
+            FriendsController controller = new(_redisService);
             string steamId = "76561198034342716";
 
             //Act
@@ -136,7 +136,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task FriendsRandomTest()
         {
             //Arrange
-            FriendsController controller = new FriendsController(_redisService);
+            FriendsController controller = new(_redisService);
             string steamId = "76561198154034472";
 
             //Act
@@ -152,7 +152,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task FriendsRandomWithMoreThan100FriendsTest()
         {
             //Arrange
-            FriendsController controller = new FriendsController(_redisService);
+            FriendsController controller = new(_redisService);
             string steamId = "76561198129345768";
 
             //Act
@@ -168,7 +168,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task FriendsRandomWithExactly99FriendsTest()
         {
             //Arrange
-            FriendsController controller = new FriendsController(_redisService);
+            FriendsController controller = new(_redisService);
             string steamId = "76561198140300853";
 
             //Act
@@ -184,7 +184,7 @@ namespace SamSmithNZ.Tests.Steam
         //public async Task FriendsSameGameSamXcomTest()
         //{
         //    //Arrange
-        //    FriendsController controller = new FriendsController(_redisService);
+        //    FriendsController controller = new(_redisService);
         //    string steamId = "76561197971691578";
         //    string appId = "200510"; //Xcom
 
@@ -214,7 +214,7 @@ namespace SamSmithNZ.Tests.Steam
         //public async Task FriendsSameGameSamCiv6Test()
         //{
         //    //Arrange
-        //    FriendsController controller = new FriendsController(_redisService);
+        //    FriendsController controller = new(_redisService);
         //    string steamId = "76561197971691578";
         //    string appId = "289070"; //Civ 6
 
@@ -247,7 +247,7 @@ namespace SamSmithNZ.Tests.Steam
         //public async Task FriendsSameGameStewXcomTest()
         //{
         //    //Arrange
-        //    FriendsController controller = new FriendsController(_redisService);
+        //    FriendsController controller = new(_redisService);
         //    string steamId = "76561197990013217";
         //    string appId = "200510"; //Xcom
 

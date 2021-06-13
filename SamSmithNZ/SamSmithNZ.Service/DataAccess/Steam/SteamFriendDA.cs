@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
 using SamSmithNZ.Service.Models.Steam;
-using System.Net;
+using System;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.DataAccess.Steam
 {
@@ -18,7 +14,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
         {
             SteamFriendList friendList = null;
             string cacheKeyName = "friendList-" + steamID;
-            TimeSpan cacheExpirationTime = new TimeSpan(12, 0, 0);
+            TimeSpan cacheExpirationTime = new(12, 0, 0);
 
             //Check the cache
             string cachedJSON = null;

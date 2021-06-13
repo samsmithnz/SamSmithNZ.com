@@ -1,23 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.Models.WorldCup;
 using SamSmithNZ.Web.Models.WorldCup;
 using SamSmithNZ.Web.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-
 namespace SamSmithNZ.Web.Controllers
 {
     public class WorldCupController : Controller
     {
         private readonly IWorldCupServiceAPIClient _ServiceApiClient;
-        private readonly IConfiguration _configuration;
 
-        public WorldCupController(IWorldCupServiceAPIClient ServiceApiClient, IConfiguration configuration)
+        public WorldCupController(IWorldCupServiceAPIClient ServiceApiClient)
         {
             _ServiceApiClient = ServiceApiClient;
-            _configuration = configuration;
         }
 
         public async Task<IActionResult> Index(int competitionCode = 1)
@@ -38,7 +34,7 @@ namespace SamSmithNZ.Web.Controllers
                 teams = await _ServiceApiClient.GetTournamentQualifyingTeams(tournamentCode);
             }
             List<TournamentTopGoalScorer> goals = await _ServiceApiClient.GetTournamentTopGoalScorers(tournamentCode);
-            TournamentViewModel tournamentViewModel = new TournamentViewModel
+            TournamentViewModel tournamentViewModel = new()
             {
                 Tournament = tournament,
                 IsPlacingTeams = isPlacingTeams,
@@ -73,7 +69,7 @@ namespace SamSmithNZ.Web.Controllers
             }
             List<Game> games = await _ServiceApiClient.GetGames(tournamentCode, roundNumber, roundCode);
 
-            GroupViewModel groupViewModel = new GroupViewModel(groupCodes)
+            GroupViewModel groupViewModel = new(groupCodes)
             {
                 TournamentCode = tournamentCode,
                 RoundNumber = roundNumber,
@@ -105,7 +101,7 @@ namespace SamSmithNZ.Web.Controllers
             }
             List<Game> games = await _ServiceApiClient.GetGames(tournamentCode, roundNumber, null);
 
-            GroupViewModel groupViewModel = new GroupViewModel(groupCodes)
+            GroupViewModel groupViewModel = new(groupCodes)
             {
                 TournamentCode = tournamentCode,
                 RoundNumber = roundNumber,
@@ -134,7 +130,7 @@ namespace SamSmithNZ.Web.Controllers
         {
             List<Game> games = await _ServiceApiClient.GetPlayoffGames(tournamentCode, roundNumber);
 
-            PlayoffsViewModel playoffsViewModel = new PlayoffsViewModel
+            PlayoffsViewModel playoffsViewModel = new()
             {
                 Games = games
             };
@@ -147,7 +143,7 @@ namespace SamSmithNZ.Web.Controllers
             Team team = await _ServiceApiClient.GetTeam(teamCode);
             List<Game> games = await _ServiceApiClient.GetGamesByTeam(teamCode);
 
-            TeamViewModel teamViewModel = new TeamViewModel(team, games)
+            TeamViewModel teamViewModel = new(team, games)
             {
                 Team = team
             };
@@ -296,7 +292,7 @@ namespace SamSmithNZ.Web.Controllers
         //    //    games = da.GetItems(tournamentCode);
         //    //}
         //    ////Build the header
-        //    //StringBuilder headerRow = new StringBuilder();
+        //    //StringBuilder headerRow = new();
         //    //headerRow.Append("\"quarter\",");
 
         //    ////for (int i = 0; i < 32; i++)
@@ -312,9 +308,9 @@ namespace SamSmithNZ.Web.Controllers
         //    //}
 
         //    ////Build the body
-        //    //List<string> rows = new List<string>();
+        //    //List<string> rows = new();
         //    //DateTime currentDate = DateTime.MinValue;
-        //    //StringBuilder row = new StringBuilder();
+        //    //StringBuilder row = new();
 
         //    //foreach (ImportGameOdds item in games)
         //    //{
@@ -323,7 +319,7 @@ namespace SamSmithNZ.Web.Controllers
         //    //        if (currentDate != DateTime.MinValue)
         //    //        {
         //    //            rows.Add(row.ToString().TrimEnd(','));
-        //    //            row = new StringBuilder();
+        //    //            row = new();
         //    //        }
         //    //        row.Append("\"");
         //    //        row.Append(item.Date.ToString("dd-MMM"));
@@ -339,12 +335,12 @@ namespace SamSmithNZ.Web.Controllers
         //    //rows.Add(row.ToString().TrimEnd(','));
 
         //    ////Join it all together
-        //    //List<string> finalCSVRows = new List<string>();
+        //    //List<string> finalCSVRows = new();
         //    //finalCSVRows.Add(headerRow.ToString().TrimEnd(','));
         //    //finalCSVRows.AddRange(rows);
 
         //    ////Create the CSV/JS Array
-        //    //StringBuilder sbJSArray = new StringBuilder();
+        //    //StringBuilder sbJSArray = new();
         //    //for (int i = 0; i <= finalCSVRows.Count - 1; i++)
         //    //{
         //    //    //sbJSArray.Append("[");
@@ -361,7 +357,7 @@ namespace SamSmithNZ.Web.Controllers
         //    //}
 
         //    ////Write out the CSV rows
-        //    //StringBuilder csvAnother = new StringBuilder();
+        //    //StringBuilder csvAnother = new();
         //    //System.Diagnostics.Debug.WriteLine("Starting " + oddsLimit + " max chance");
         //    //foreach (string item in finalCSVRows)
         //    //{

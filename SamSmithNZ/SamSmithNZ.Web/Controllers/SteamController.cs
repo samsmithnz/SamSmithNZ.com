@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.Models.Steam;
 using SamSmithNZ.Web.Models.Steam;
 using SamSmithNZ.Web.Services.Interfaces;
@@ -15,12 +14,10 @@ namespace SamSmithNZ.Web.Controllers
         //https://portablesteamwebapi.codeplex.com/documentation
 
         private readonly ISteamServiceAPIClient _ServiceApiClient;
-        private readonly IConfiguration _configuration;
 
-        public SteamController(ISteamServiceAPIClient serviceApiClient, IConfiguration configuration)
+        public SteamController(ISteamServiceAPIClient serviceApiClient  )
         {
             _ServiceApiClient = serviceApiClient;
-            _configuration = configuration;
         }
 
         public async Task<IActionResult> Index(string steamID)

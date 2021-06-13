@@ -1,12 +1,9 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SamSmithnNZ.Tests;
 using SamSmithNZ.Service.Controllers.GuitarTab;
 using SamSmithNZ.Service.DataAccess.GuitarTab;
 using SamSmithNZ.Service.Models.GuitarTab;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SamSmithNZ.Tests.GuitarTab
@@ -19,7 +16,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task ArtistsExistTest()
         {
             //arrange
-            ArtistController controller = new ArtistController(new ArtistDataAccess(base.Configuration));
+            ArtistController controller = new(new ArtistDataAccess(base.Configuration));
             bool includeAllItems = false;
 
             //act
@@ -34,7 +31,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task ArtistsFirstItemTest()
         {
             //arrange
-            ArtistController controller = new ArtistController(new ArtistDataAccess(base.Configuration));
+            ArtistController controller = new(new ArtistDataAccess(base.Configuration));
             bool includeAllItems = false;
 
             //act
@@ -51,7 +48,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task ArtistsFirstItemIncludeAllTest()
         {
             //arrange
-            ArtistController controller = new ArtistController(new ArtistDataAccess(base.Configuration));
+            ArtistController controller = new(new ArtistDataAccess(base.Configuration));
             bool includeAllItems = true;
 
             //act
@@ -68,7 +65,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task ArtistsIncludeAllItemsExistTest()
         {
             //arrange
-            ArtistController controller = new ArtistController(new ArtistDataAccess(base.Configuration));
+            ArtistController controller = new(new ArtistDataAccess(base.Configuration));
             bool includeAllItems = true;
 
             //act

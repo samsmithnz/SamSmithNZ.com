@@ -16,7 +16,7 @@
 //        public async Task GameGoalAssignmentsExistTest()
 //        {
 //            //arrange
-//            GameGoalAssignmentController controller = new GameGoalAssignmentController(new GameGoalAssignmentDataAccess(base.Configuration));
+//            GameGoalAssignmentController controller = new GameGoalAssignmentController(new(base.Configuration));
 //            int tournamentCode = 19;
 
 //            //act
@@ -31,7 +31,7 @@
 //        public async Task GameGoalAssignmentsFirstItemTest()
 //        {
 //            //arrange
-//            GameGoalAssignmentDataAccess da = new GameGoalAssignmentDataAccess();
+//            GameGoalAssignmentDataAccess da = new();
 //            int tournamentCode = 19;
 
 //            //act

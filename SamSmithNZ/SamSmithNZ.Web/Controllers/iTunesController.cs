@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.Models.ITunes;
 using SamSmithNZ.Web.Models.ITunes;
 using SamSmithNZ.Web.Services.Interfaces;
@@ -11,12 +10,10 @@ namespace SamSmithNZ.Web.Controllers
     public class ITunesController : Controller
     {
         private readonly IITunesServiceAPIClient _ServiceApiClient;
-        private readonly IConfiguration _configuration;
 
-        public ITunesController(IITunesServiceAPIClient ServiceApiClient, IConfiguration configuration)
+        public ITunesController(IITunesServiceAPIClient ServiceApiClient  )
         {
             _ServiceApiClient = ServiceApiClient;
-            _configuration = configuration;
         }
 
         public async Task<IActionResult> Index()

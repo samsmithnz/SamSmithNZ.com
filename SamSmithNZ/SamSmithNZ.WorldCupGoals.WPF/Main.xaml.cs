@@ -40,7 +40,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             try
             {
                 btnTournamentGames.IsEnabled = false;
-                TournamentDataAccess da = new TournamentDataAccess(_configuration);
+                TournamentDataAccess da = new(_configuration);
                 List<Tournament> tournaments = await da.GetList(null);
                 cboTournament.DataContext = tournaments;
                 cboTournament.DisplayMemberPath = "TournamentName";
@@ -56,7 +56,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private void AssignGoals_Click(object sender, RoutedEventArgs e)
         {
-            AssignGoals AGi = new AssignGoals();
+            AssignGoals AGi = new();
             AGi.ShowDialog();
         }
 
@@ -69,7 +69,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         {
             if (cboTournament.SelectedValue != null)
             {
-                Games games = new Games();
+                Games games = new();
                 await games.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
             }
             else
@@ -82,7 +82,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         {
             if (cboTournament.SelectedValue != null)
             {
-                Teams teams = new Teams();
+                Teams teams = new();
                 await teams.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
             }
             else
@@ -95,7 +95,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         {
             if (cboTournament.SelectedValue != null)
             {
-                Groups groups = new Groups();
+                Groups groups = new();
                 await groups.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
             }
             else

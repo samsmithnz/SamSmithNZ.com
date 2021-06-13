@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
 using SamSmithNZ.Service.Models.Steam;
-using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.DataAccess.Steam
 {
@@ -12,15 +10,15 @@ namespace SamSmithNZ.Service.DataAccess.Steam
     {
         public async Task<GameDetail> GetDataAsync(IRedisService redisService, string steamID, string appID, bool getStats = true, string achievementToSearch = null, bool useCache = true)
         {
-            SteamGameDetailDA da = new SteamGameDetailDA();
+            SteamGameDetailDA da = new();
             SteamGameDetail gameDetail = await da.GetDataAsync(redisService, appID, useCache);
 
             //Get the list of owned games for the user
-            SteamOwnedGamesDA da2 = new SteamOwnedGamesDA();
+            SteamOwnedGamesDA da2 = new();
             SteamOwnedGames gameOwnedGames = await da2.GetDataAsync(redisService, steamID, useCache);
 
             //Merge the two datasets into a clean gamedetail object
-            GameDetail result = new GameDetail();
+            GameDetail result = new();
             if (gameOwnedGames != null && gameOwnedGames.response != null && gameOwnedGames.response.games != null)
             {
                 foreach (Message item in gameOwnedGames.response.games)
@@ -70,8 +68,8 @@ namespace SamSmithNZ.Service.DataAccess.Steam
                 //Build Stats
                 if (getStats == true)
                 {
-                    List<string> blackList = new List<string> { "achievement", "the", "with", "one", "and", "game", "your", "all", "every", "have", "for", "than", "any", "you" };
-                    TextStats ts = new TextStats(blackList, true);
+                    List<string> blackList = new(){ "achievement", "the", "with", "one", "and", "game", "your", "all", "every", "have", "for", "than", "any", "you" };
+                    TextStats ts = new(blackList, true);
                     foreach (Achievement item in result.Achievements)
                     {
                         ts.AddItem(item.ApiName, '_');
@@ -93,7 +91,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
                             break;
                         }
                     }
-                    List<KeyValuePair<string, int>> finalSortedList = new List<KeyValuePair<string, int>>();
+                    List<KeyValuePair<string, int>> finalSortedList = new();
                     foreach (KeyValuePair<string, int> item in sortedList)
                     {
                         if (item.Value >= currentItem)
@@ -109,13 +107,13 @@ namespace SamSmithNZ.Service.DataAccess.Steam
                 }
                 else
                 {
-                    result.AchievementsStats = new List<KeyValuePair<string, int>>();
+                    result.AchievementsStats = new();
                 }
             }
             else
             {
-                result.Achievements = new List<Achievement>();
-                result.AchievementsStats = new List<KeyValuePair<string, int>>();
+                result.Achievements = new();
+                result.AchievementsStats = new();
             }
 
             return result;
@@ -166,14 +164,14 @@ namespace SamSmithNZ.Service.DataAccess.Steam
         public async Task<Tuple<List<Achievement>, string>> GetAchievementDataAsync(IRedisService redisService, string steamID, string appID, SteamGameDetail steamGameDetails, string achievementToSearch, bool useCache)
         {
             //Get the achievements for the app
-            SteamPlayerAchievementsForAppDA da = new SteamPlayerAchievementsForAppDA();
+            SteamPlayerAchievementsForAppDA da = new();
             Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> playerData = await da.GetDataAsync(redisService, steamID, appID, useCache);
 
-            List<Achievement> results = new List<Achievement>();
+            List<Achievement> results = new();
             if (playerData != null && playerData.Item1 != null)
             {
                 //Get the global achievement stats for the app
-                SteamGlobalAchievementPercentagesForAppDA da2 = new SteamGlobalAchievementPercentagesForAppDA();
+                SteamGlobalAchievementPercentagesForAppDA da2 = new();
                 SteamGlobalAchievementsForApp globalData = await da2.GetDataAsync(redisService, appID, useCache);
 
                 if (playerData.Item1.playerstats.achievements != null)
@@ -185,7 +183,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
                         //{
                         //    Console.WriteLine("here");
                         //}
-                        Achievement newItem = new Achievement();
+                        Achievement newItem = new();
                         newItem.ApiName = item.apiname;
                         newItem.Name = item.name;
                         newItem.Description = item.description;
@@ -248,7 +246,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
             return new Tuple<List<Achievement>, string>(results, error);
         }
 
-        private string GetIconURL(string apiName, List<GameAchievement> steamGameDetails)
+        private static string GetIconURL(string apiName, List<GameAchievement> steamGameDetails)
         {
             string result = null;
             foreach (GameAchievement item in steamGameDetails)
@@ -262,7 +260,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
             return result;
         }
 
-        private string GetIconGrayURL(string apiName, List<GameAchievement> steamGameDetails)
+        private static string GetIconGrayURL(string apiName, List<GameAchievement> steamGameDetails)
         {
             string result = null;
             foreach (GameAchievement item in steamGameDetails)
@@ -276,7 +274,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
             return result;
         }
 
-        private bool GetIsVisible(string apiName, List<GameAchievement> steamGameDetails)
+        private static bool GetIsVisible(string apiName, List<GameAchievement> steamGameDetails)
         {
             bool result = false;
             foreach (GameAchievement item in steamGameDetails)
@@ -290,7 +288,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
             return result;
         }
 
-        private decimal GetGlobalAchievement(string apiName, List<SteamGlobalAchievement> globalItems)
+        private static decimal GetGlobalAchievement(string apiName, List<SteamGlobalAchievement> globalItems)
         {
             decimal result = 0m;
             foreach (SteamGlobalAchievement item in globalItems)

@@ -16,7 +16,7 @@ namespace SamSmithNZ.Tests.ITunes
         public async Task PlayListTest()
         {
             //Arrange
-            PlaylistDataAccess da = new PlaylistDataAccess(base.Configuration);
+            PlaylistDataAccess da = new(base.Configuration);
 
             //Act
             List<Playlist> items = await da.GetList();
@@ -33,7 +33,7 @@ namespace SamSmithNZ.Tests.ITunes
         public async Task PlayListItemTest()
         {
             //Arrange
-            PlaylistDataAccess da = new PlaylistDataAccess(base.Configuration);
+            PlaylistDataAccess da = new(base.Configuration);
             int playlistCode = 1;
             //Act
             Playlist item = await da.GetItem(playlistCode);
@@ -48,7 +48,7 @@ namespace SamSmithNZ.Tests.ITunes
         //[TestMethod]
         //public async Task BigComplicatedPlaylistTest()
         //{
-        //    PlaylistDataAccess da = new PlaylistDataAccess(base.Configuration);
+        //    PlaylistDataAccess da = new(base.Configuration);
         //    DateTime newDate = new DateTime(2020, 1, 1);
 
         //    //Act
@@ -66,7 +66,7 @@ namespace SamSmithNZ.Tests.ITunes
         //    item = GetTestPlaylist(newDate, items);
 
         //    //Run the special track functions
-        //    TrackDataAccess da2 = new TrackDataAccess(base.Configuration);
+        //    TrackDataAccess da2 = new(base.Configuration);
 
         //    Track track = new Track
         //    {

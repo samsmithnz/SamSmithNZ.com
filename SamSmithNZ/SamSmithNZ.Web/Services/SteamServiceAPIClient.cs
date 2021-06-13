@@ -3,7 +3,6 @@ using SamSmithNZ.Service.Models.Steam;
 using SamSmithNZ.Web.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -43,7 +42,7 @@ namespace SamSmithNZ.Web.Services
             List<Game> results = await base.ReadMessageList<Game>(url);
             if (results == null)
             {
-                return new List<Game>();
+                return new();
             }
             else
             {
@@ -57,7 +56,7 @@ namespace SamSmithNZ.Web.Services
             GameDetail result = await base.ReadMessageItem<GameDetail>(url);
             if (result == null)
             {
-                return new GameDetail();
+                return new();
             }
             else
             {

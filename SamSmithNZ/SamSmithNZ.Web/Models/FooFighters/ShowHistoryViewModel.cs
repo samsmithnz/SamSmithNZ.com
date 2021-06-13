@@ -8,11 +8,11 @@ namespace SamSmithNZ.Web.Models.FooFighters
     {
         public ShowHistoryViewModel(List<Year> years)
         {
-            Years = new List<SelectListItem>();
-            Years.Add(new SelectListItem("<Select year>", "0"));
+            this.Years = new();
+            this.Years.Add(new SelectListItem("<Select year>", "0"));
             foreach (Year item in years)
             {
-                Years.Add(new SelectListItem(item.YearText, item.YearCode.ToString()));
+                this.Years.Add(new SelectListItem(item.YearText, item.YearCode.ToString()));
             }
         }
 

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SamSmithnNZ.Tests;
 using SamSmithNZ.Service.Controllers.GuitarTab;
 using SamSmithNZ.Service.DataAccess.GuitarTab;
 using SamSmithNZ.Service.Models.GuitarTab;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SamSmithNZ.Tests.GuitarTab
@@ -21,9 +19,9 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task SearchTabItemsExistTest()
         {
             //arrange
-            SearchController controller = new SearchController(new SearchDataAccess(base.Configuration));
+            SearchController controller = new(new SearchDataAccess(base.Configuration));
             string searchText = "";
-            Guid recordId = new Guid("7075FE23-B1AC-4169-AC87-D78F1E66BACB");
+            Guid recordId = new("7075FE23-B1AC-4169-AC87-D78F1E66BACB");
 
             //act
             List<Search> results = await controller.GetSearchResults(searchText, recordId);
@@ -38,9 +36,9 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task SearchTabFirstItemTest()
         {
             //arrange
-            SearchController controller = new SearchController(new SearchDataAccess(base.Configuration));
+            SearchController controller = new(new SearchDataAccess(base.Configuration));
             string searchText = "";
-            Guid recordId = new Guid("7075FE23-B1AC-4169-AC87-D78F1E66BACB");
+            Guid recordId = new("7075FE23-B1AC-4169-AC87-D78F1E66BACB");
 
             //act
             List<Search> results = await controller.GetSearchResults(searchText, recordId);
@@ -62,7 +60,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task SearchBigTest()
         {
             //arrange
-            SearchController controller = new SearchController(new SearchDataAccess(base.Configuration));
+            SearchController controller = new(new SearchDataAccess(base.Configuration));
             string searchText = "home";
 
             //act 
@@ -91,7 +89,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task SearchEncodedTextTest()
         {
             //arrange
-            SearchController controller = new SearchController(new SearchDataAccess(base.Configuration));
+            SearchController controller = new(new SearchDataAccess(base.Configuration));
             string searchText = "<foo>";
 
             //act 

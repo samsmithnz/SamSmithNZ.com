@@ -1,14 +1,10 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SamSmithNZ.Service.DataAccess.Steam;
-using SamSmithNZ.Service.Models.Steam;
-using System.Threading.Tasks;
 using SamSmithNZ.Service.Controllers.Steam;
+using SamSmithNZ.Service.Models.Steam;
 using StackExchange.Redis;
 using System.IO;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Tests.Steam
 {
@@ -21,15 +17,15 @@ namespace SamSmithNZ.Tests.Steam
         [ClassInitialize]
         public static void InitTestSuite(TestContext testContext)
         {
-            var config = new ConfigurationBuilder()
+            IConfigurationRoot config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
 
             string connectionString = config["CacheConnection"];
 
-            var cache = ConnectionMultiplexer.Connect(connectionString);
-            var db = cache.GetDatabase();
+            ConnectionMultiplexer cache = ConnectionMultiplexer.Connect(connectionString);
+            IDatabase db = cache.GetDatabase();
             _redisService = new RedisService(db);
         }
 
@@ -38,7 +34,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsSamXCOMTest()
         {
             //Arrange
-            GameDetailsController controller = new GameDetailsController(_redisService);
+            GameDetailsController controller = new(_redisService);
             string steamId = "76561197971691578";
             string appId = "200510"; //Xcom
 
@@ -69,7 +65,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsSamXCOMWithoutCacheTest()
         {
             //Arrange
-            GameDetailsController controller = new GameDetailsController(_redisService);
+            GameDetailsController controller = new(_redisService);
             string steamId = "76561197971691578";
             string appId = "200510"; //Xcom
 
@@ -99,7 +95,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsSamCiv6Test()
         {
             //Arrange
-            GameDetailsController controller = new GameDetailsController(_redisService);
+            GameDetailsController controller = new(_redisService);
             string steamId = "76561197971691578";
             string appId = "289070"; //Civ 6
 
@@ -131,7 +127,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsSamCiv6WithFilterTest()
         {
             //Arrange
-            GameDetailsController controller = new GameDetailsController(_redisService);
+            GameDetailsController controller = new(_redisService);
             string steamId = "76561197971691578";
             string appId = "289070"; //Civ 6
             string achievementToSearch = "RAF";
@@ -164,7 +160,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsAlexCiv6Test()
         {
             //Arrange
-            GameDetailsController controller = new GameDetailsController(_redisService);
+            GameDetailsController controller = new(_redisService);
             string steamId = "76561198034342716";
             string appId = "289070"; //Civ 6
 
@@ -187,13 +183,13 @@ namespace SamSmithNZ.Tests.Steam
         //public async Task GameDetailsWithFriendSamXCOMFriendWithStewTest()
         //{
         //    //Arrange
-        //    GameDetailsController controller = new GameDetailsController(_redisService);
+        //    GameDetailsController controller = new(_redisService);
         //    string steamId = "76561197971691578"; //Sam
         //    string friendSteamId = "76561197971691578"; //Stew
         //    string appId = "8930"; //HL2
 
         //    //Act
-        //    FriendsController controller2 = new FriendsController(_redisService);
+        //    FriendsController controller2 = new(_redisService);
         //    List<Friend> friends = await controller2.GetFriends(steamId);
         //    foreach (Friend item in friends)
         //    {
@@ -263,7 +259,7 @@ namespace SamSmithNZ.Tests.Steam
         //public async Task GameDetailsWithFriendSamCiv6FriendWithAlexTest()
         //{
         //    //Arrange
-        //    GameDetailsController controller = new GameDetailsController(_redisService);
+        //    GameDetailsController controller = new(_redisService);
         //    string steamId = "76561197971691578"; //Sam
         //    string friendSteamId = "76561198034342716"; //Alex
         //    string appId = "289070"; //Civ 6
@@ -323,7 +319,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsSamNoIconTest()
         {
             //Arrange
-            GameDetailsController controller = new GameDetailsController(_redisService);
+            GameDetailsController controller = new(_redisService);
             string steamId = "76561197971691578";
             string appId = "223530"; //Left For Dead 2 Beta
 
@@ -342,7 +338,7 @@ namespace SamSmithNZ.Tests.Steam
         //public async Task GameDetailsWithFriendSamCiv6FriendWithStewTest()
         //{
         //    //Arrange
-        //    GameDetailsController controller = new GameDetailsController(_redisService);
+        //    GameDetailsController controller = new(_redisService);
         //    string steamId = "76561197971691578"; //Sam
         //    string friendSteamId = "76561197990013217"; //Stew
         //    string appId = "289070"; //Civ 6
@@ -359,7 +355,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsSamCompanyOfHeroes2Test()
         {
             //Arrange
-            GameDetailsController controller = new GameDetailsController(_redisService);
+            GameDetailsController controller = new(_redisService);
             string steamId = "76561197971691578";
             string appId = "231430"; //Company of Heroes 2
 
@@ -416,7 +412,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsSamCastleStoryTest()
         {
             //Arrange
-            GameDetailsController controller = new GameDetailsController(_redisService);
+            GameDetailsController controller = new(_redisService);
             string steamId = "76561197971691578";
             string appId = "227860"; //castle Story
 
@@ -438,7 +434,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsSamGodusTest()
         {
             //Arrange
-            GameDetailsController controller = new GameDetailsController(_redisService);
+            GameDetailsController controller = new(_redisService);
             string steamId = "76561197971691578";
             string appId = "232810"; //Godus
 
@@ -461,7 +457,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsRandomUserTest()
         {
             //Arrange
-            GameDetailsController controller = new GameDetailsController(_redisService);
+            GameDetailsController controller = new(_redisService);
             string steamId = "76561198114819148";
             string appId = "296070"; //???
 
@@ -484,7 +480,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsApril24thFailTest()
         {
             //Arrange
-            GameDetailsController controller = new GameDetailsController(_redisService);
+            GameDetailsController controller = new(_redisService);
             string steamId = "76561198036907814";
             string appId = "243870"; //???
 

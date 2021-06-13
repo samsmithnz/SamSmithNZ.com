@@ -18,7 +18,7 @@ namespace SamSmithNZ.Tests.Steam
             string steamId = "76561197971691578";
 
             //Act
-            SteamPlayerAchievementsForAppDA da = new SteamPlayerAchievementsForAppDA();
+            SteamPlayerAchievementsForAppDA da = new();
             Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> result = await da.GetDataAsync(null, steamId, appId, false);
 
             //Asset
@@ -59,7 +59,7 @@ namespace SamSmithNZ.Tests.Steam
         //    string steamId = "76561198034342716";
 
         //    //Act
-        //    SteamPlayerAchievementsForAppDA da = new SteamPlayerAchievementsForAppDA();
+        //    SteamPlayerAchievementsForAppDA da = new();
         //    Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> result = await da.GetDataAsync(steamId, appId);
 
         //    //Asset

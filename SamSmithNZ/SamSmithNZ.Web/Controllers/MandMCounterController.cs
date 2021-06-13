@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Web.Models.MandMCounter;
 using SamSmithNZ.Web.Services.Interfaces;
 using System.Collections.Generic;
@@ -10,19 +9,17 @@ namespace SamSmithNZ.Web.Controllers
     public class MandMCounterController : Controller
     {
         private readonly IMandMCounterServiceAPIClient _ServiceApiClient;
-        private readonly IConfiguration _configuration;
-
-        public MandMCounterController(IMandMCounterServiceAPIClient ServiceApiClient, IConfiguration configuration)
+ 
+        public MandMCounterController(IMandMCounterServiceAPIClient ServiceApiClient)
         {
             _ServiceApiClient = ServiceApiClient;
-            _configuration = configuration;
         }
 
         public async Task<IActionResult> Index(string volumeUnit = null, float? quantity = null, float? mandMResult = null, float? peanutMandMResult = null, float? skittlesResult = null)
         {
             List<string> unitsForVolume = await _ServiceApiClient.GetUnitsForVolume();
             List<string> unitsForContainer = await _ServiceApiClient.GetUnitsForContainer();
-            IndexViewModel model = new IndexViewModel(unitsForVolume, unitsForContainer);
+            IndexViewModel model = new(unitsForVolume, unitsForContainer);
             if (volumeUnit != null)
             {
                 model.VolumeUnit = volumeUnit;

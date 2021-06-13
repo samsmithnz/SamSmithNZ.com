@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SamSmithNZ.Service.DataAccess.Steam;
 using SamSmithNZ.Service.Models.Steam;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task PlayerGamesSamTest()
         {
             //Arrange
-            PlayerGamesDA da = new PlayerGamesDA();
+            PlayerGamesDA da = new();
             string steamId = "76561197971691578";
 
             //Act
@@ -38,7 +37,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task PlayerGamesSamWithNoIconTest()
         {
             //Arrange
-            PlayerGamesDA da = new PlayerGamesDA();
+            PlayerGamesDA da = new();
             string steamId = "76561197971691578";
             string appId = "223530";
 
@@ -69,7 +68,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task PlayerGamesRandomWithNoGamesTest()
         {
             //Arrange
-            PlayerGamesDA da = new PlayerGamesDA();
+            PlayerGamesDA da = new();
             string steamId = "76561198059077520";
 
             //Act
@@ -85,7 +84,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task PlayerGamesRandomAnotherWithNoGamesTest()
         {
             //Arrange
-            PlayerGamesDA da = new PlayerGamesDA();
+            PlayerGamesDA da = new();
             string steamId = "76561198121979762";
 
             //Act

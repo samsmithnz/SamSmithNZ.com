@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.Models.FooFighters;
 using SamSmithNZ.Web.Models.FooFighters;
 using SamSmithNZ.Web.Services.Interfaces;
@@ -11,12 +10,10 @@ namespace SamSmithNZ.Web.Controllers
     public class FooFightersController : Controller
     {
         private readonly IFooFightersServiceAPIClient _ServiceApiClient;
-        private readonly IConfiguration _configuration;
 
-        public FooFightersController(IFooFightersServiceAPIClient ServiceApiClient, IConfiguration configuration)
+        public FooFightersController(IFooFightersServiceAPIClient ServiceApiClient)
         {
             _ServiceApiClient = ServiceApiClient;
-            _configuration = configuration;
         }
 
         public async Task<IActionResult> Index()

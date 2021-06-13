@@ -20,7 +20,7 @@ namespace SamSmithNZ.Web.Models.WorldCup
 
         public static GameResult GetGameResult(Game myGame)
         {
-            GameResult gameResult = new GameResult();
+            GameResult gameResult = new();
             if (myGame.Team1PenaltiesScore >= 0 && myGame.Team2PenaltiesScore >=0)
             {
                 gameResult.Team1Score = (int)(myGame.Team1NormalTimeScore + myGame.Team1ExtraTimeScore + myGame.Team1PenaltiesScore);

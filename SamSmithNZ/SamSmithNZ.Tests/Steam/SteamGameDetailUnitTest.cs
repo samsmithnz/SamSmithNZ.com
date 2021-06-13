@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SamSmithNZ.Service.DataAccess.Steam;
 using SamSmithNZ.Service.Models.Steam;
 using System.Threading.Tasks;
@@ -17,7 +16,7 @@ namespace SamSmithNZ.Tests.Steam
             string appId = "200510"; //XCOM
 
             //Act
-            SteamGameDetailDA da = new SteamGameDetailDA();
+            SteamGameDetailDA da = new();
             SteamGameDetail result = await da.GetDataAsync(null, appId, false);
 
             //Asset

@@ -17,7 +17,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task GroupsExistTest()
         {
             //arrange
-            GroupController controller = new GroupController(new GroupDataAccess(base.Configuration));
+            GroupController controller = new(new GroupDataAccess(base.Configuration));
             int tournamentCode = 19;
             int roundNumber = 1;
             string roundCode = "F";
@@ -34,7 +34,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task GroupsFirstItemTest()
         {
             //arrange
-            GroupController controller = new GroupController(new GroupDataAccess(base.Configuration));
+            GroupController controller = new(new GroupDataAccess(base.Configuration));
             int tournamentCode = 19;
             int roundNumber = 1;
             string roundCode = "F";

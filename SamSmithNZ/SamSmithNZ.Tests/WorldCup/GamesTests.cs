@@ -17,7 +17,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task GamesExistTest()
         {
             //arrange
-            GameController controller = new GameController(new GameDataAccess(base.Configuration));
+            GameController controller = new(new GameDataAccess(base.Configuration));
             int tournamentCode = 19;
             int roundNumber = 1;
             string roundCode = "F";
@@ -34,7 +34,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task GamesExist2Test()
         {
             //arrange
-            GameController controller = new GameController(new GameDataAccess(base.Configuration));
+            GameController controller = new(new GameDataAccess(base.Configuration));
             int tournamentCode = 19;
             int roundNumber = 2;
             //string roundCode = "A";
@@ -51,7 +51,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task GamesFirstItemTest()
         {
             //arrange
-            GameController controller = new GameController(new GameDataAccess(base.Configuration));
+            GameController controller = new(new GameDataAccess(base.Configuration));
             int tournamentCode = 19;
             int roundNumber = 1;
             string roundCode = "F";
@@ -76,7 +76,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task GameTest()
         {
             //arrange
-            GameController controller = new GameController(new GameDataAccess(base.Configuration));
+            GameController controller = new(new GameDataAccess(base.Configuration));
             int gameCode = 11;
 
             //act
@@ -87,7 +87,7 @@ namespace SamSmithNZ.Tests.WorldCup
             TestGame(result);
         }
 
-        private bool TestGame(Game result)
+        private static bool TestGame(Game result)
         {
             Assert.IsTrue(result.CoachFlag == null);
             Assert.IsTrue(result.CoachName == null);
@@ -126,7 +126,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task GamesGermanyPlayoffPenaltiesScoreTest()
         {
             //arrange
-            GameController controller = new GameController(new GameDataAccess(base.Configuration));
+            GameController controller = new(new GameDataAccess(base.Configuration));
             int tournamentCode = 18;
             int roundNumber = 1;
             int gameCode = 125; //WC, SF
@@ -152,7 +152,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task GamesGermanyAETScoreTest()
         {
             //arrange
-            GameController controller = new GameController(new GameDataAccess(base.Configuration));
+            GameController controller = new(new GameDataAccess(base.Configuration));
             int gameCode = 127; //WC, 3P
             int teamCode = 12; //Germany
 
@@ -207,7 +207,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task GamesGermanyNormalScoreTest()
         {
             //arrange
-            GameController controller = new GameController(new GameDataAccess(base.Configuration));
+            GameController controller = new(new GameDataAccess(base.Configuration));
             int gameCode = 125; //WC, SF
             int teamCode = 12; //Germany
 
@@ -227,7 +227,7 @@ namespace SamSmithNZ.Tests.WorldCup
             }
         }
 
-        private void TestGermany2006WorldCupSF(Game item, int gameCode, int teamCode)
+        private static void TestGermany2006WorldCupSF(Game item, int gameCode, int teamCode)
         {
             Assert.IsTrue(item.CoachFlag != null);
             Assert.IsTrue(item.CoachName != null);
@@ -267,7 +267,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task GamesGermanyPenaltiesScoreTest()
         {
             //arrange
-            GameController controller = new GameController(new GameDataAccess(base.Configuration));
+            GameController controller = new(new GameDataAccess(base.Configuration));
             int gameCode = 121; //WC, QF
             int teamCode = 12; //Germany
 
@@ -322,7 +322,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task GamesArgentinaPenaltiesScoreTest()
         {
             //arrange
-            GameController controller = new GameController(new GameDataAccess(base.Configuration));
+            GameController controller = new(new GameDataAccess(base.Configuration));
             int gameCode = 7389; //WC, SF
             int teamCode = 3; //Argentina
 
@@ -377,7 +377,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task GamesArgentinaAetScoreTest()
         {
             //arrange
-            GameController controller = new GameController(new GameDataAccess(base.Configuration));
+            GameController controller = new(new GameDataAccess(base.Configuration));
             int gameCode = 586; //WC, FF
             int teamCode = 3; //Argentina
 
@@ -432,7 +432,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public void GamesTeam2IsWayBetterELOTest()
         {
             //arrange
-            Game game = new Game();
+            Game game = new();
             game.Team1Code = 1;
             game.Team2Code = 2;
             game.Team1PreGameEloRating = 1000;
@@ -450,7 +450,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public void GamesTeamsAreEqualELOTest()
         {
             //arrange
-            Game game = new Game();
+            Game game = new();
             game.Team1Code = 1;
             game.Team2Code = 2;
             game.Team1PreGameEloRating = 2000;
@@ -468,7 +468,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public void GamesTeamsAreEqualELONoTeamsTest()
         {
             //arrange
-            Game game = new Game();
+            Game game = new();
             game.Team1PreGameEloRating = 2000;
             game.Team1PostGameEloRating = 2000;
             game.Team2PreGameEloRating = 2000;
@@ -484,7 +484,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public void Team1TotalGoalsTest()
         {
             //arrange
-            Game game = new Game();
+            Game game = new();
             game.Team1NormalTimeScore = 1;
             game.Team1ExtraTimeScore = 2;
 
@@ -498,7 +498,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public void Team2TotalGoalsTest()
         {
             //arrange
-            Game game = new Game();
+            Game game = new();
             game.Team2NormalTimeScore = 1;
             game.Team2ExtraTimeScore = 2;
 
@@ -512,7 +512,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task GamesEnglandOddsTest()
         {
             //arrange
-            GameController controller = new GameController(new GameDataAccess(base.Configuration));
+            GameController controller = new(new GameDataAccess(base.Configuration));
             int teamCode = 10; //England
             int gamesExpectedWon = 0;
             int gamesExpectedLoss = 0;
@@ -556,7 +556,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task GamesNewZealandOddsTest()
         {
             //arrange
-            GameController controller = new GameController(new GameDataAccess(base.Configuration));
+            GameController controller = new(new GameDataAccess(base.Configuration));
             int teamCode = 1; //NewZealand
             int gamesExpectedWon = 0;
             int gamesExpectedLoss = 0;
