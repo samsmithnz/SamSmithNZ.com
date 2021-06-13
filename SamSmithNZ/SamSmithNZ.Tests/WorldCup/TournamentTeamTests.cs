@@ -1,11 +1,10 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SamSmithnNZ.Tests;
 using SamSmithNZ.Service.Controllers.WorldCup;
 using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.Models.WorldCup;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Tests.WorldCup
 {
@@ -17,7 +16,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task TournamentTeamsQualifiedExistTest()
         {
             //arrange
-            TournamentTeamController controller = new TournamentTeamController(new TournamentTeamDataAccess(base.Configuration));
+            TournamentTeamController controller = new(new TournamentTeamDataAccess(base.Configuration));
             int tournamentCode = 19;
 
             //act
@@ -32,7 +31,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task TournamentTeamsQualifiedFirstItemTest()
         {
             //Act
-            TournamentTeamController controller = new TournamentTeamController(new TournamentTeamDataAccess(base.Configuration));
+            TournamentTeamController controller = new(new TournamentTeamDataAccess(base.Configuration));
             int tournamentCode = 19;
 
             //act
@@ -57,7 +56,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task TournamentTeamsPlacedExistTest()
         {
             //arrange
-            TournamentTeamController controller = new TournamentTeamController(new TournamentTeamDataAccess(base.Configuration));
+            TournamentTeamController controller = new(new TournamentTeamDataAccess(base.Configuration));
             int tournamentCode = 19;
 
             //act
@@ -72,7 +71,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task TournamentTeamsPlacedFirstItemTest()
         {
             //Act
-            TournamentTeamController controller = new TournamentTeamController(new TournamentTeamDataAccess(base.Configuration));
+            TournamentTeamController controller = new(new TournamentTeamDataAccess(base.Configuration));
             int tournamentCode = 19;
 
             //act
@@ -93,7 +92,7 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.IsTrue(found1);
         }
 
-        private void TestNewZealandTeam(TournamentTeam item)
+        private static void TestNewZealandTeam(TournamentTeam item)
         {
             Assert.IsTrue(item.TeamCode == 1);
             Assert.IsTrue(item.TeamName == "New Zealand");

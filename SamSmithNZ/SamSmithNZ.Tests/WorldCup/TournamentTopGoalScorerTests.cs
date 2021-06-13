@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SamSmithnNZ.Tests;
 using SamSmithNZ.Service.Controllers.WorldCup;
 using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.Models.WorldCup;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Tests.WorldCup
 {
@@ -16,7 +15,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task TournamentTopGoalScorerTest()
         {
             //arrange
-            TournamentTopGoalScorerController controller = new TournamentTopGoalScorerController(new TournamentTopGoalScorerDataAccess(base.Configuration));
+            TournamentTopGoalScorerController controller = new(new TournamentTopGoalScorerDataAccess(base.Configuration));
             int tournamentCode = 21;
 
             //act
