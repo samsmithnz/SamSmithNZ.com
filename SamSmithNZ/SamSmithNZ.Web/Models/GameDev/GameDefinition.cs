@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Xml;
 using System.Xml.Serialization;
 
 namespace SamSmithNZ.Web.Models.GameDev
@@ -35,9 +33,9 @@ namespace SamSmithNZ.Web.Models.GameDev
             // convert string to stream
             byte[] byteArray = Encoding.UTF8.GetBytes(fileContents);
             //byte[] byteArray = Encoding.ASCII.GetBytes(contents);
-            MemoryStream stream = new MemoryStream(byteArray);
-            StreamReader streamReader = new StreamReader(stream);
-            XmlSerializer reader = new XmlSerializer(typeof(GameDefinition));
+            MemoryStream stream = new(byteArray);
+            StreamReader streamReader = new(stream);
+            XmlSerializer reader = new(typeof(GameDefinition));
             return (GameDefinition)reader.Deserialize(streamReader);
 
         }
@@ -71,7 +69,7 @@ namespace SamSmithNZ.Web.Models.GameDev
             //║ └───────
             //╚═══╝╚═══╝
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             //sb.Append( nwCornerBorder + horizontalBorder + horizontalBorder + horizontalBorder + neCornerBorder + Environment.NewLine;
             //sb.Append( verticalBorder + space + space + space + verticalBorder + Environment.NewLine;
             //sb.Append( swCornerBorder + horizontalBorder + horizontalBorder + horizontalBorder + seCornerBorder + Environment.NewLine;
@@ -145,7 +143,7 @@ namespace SamSmithNZ.Web.Models.GameDev
             //║ └───────
             //╚═══╝╚═══╝
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             //sb.Append( nwCornerBorder + horizontalBorder + horizontalBorder + horizontalBorder + neCornerBorder + Environment.NewLine;
             //sb.Append( verticalBorder + space + space + space + verticalBorder + Environment.NewLine;
             //sb.Append( swCornerBorder + horizontalBorder + horizontalBorder + horizontalBorder + seCornerBorder + Environment.NewLine;

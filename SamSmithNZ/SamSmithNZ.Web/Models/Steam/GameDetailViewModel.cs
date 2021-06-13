@@ -12,7 +12,7 @@ namespace SamSmithNZ.Web.Models.Steam
         {
             if (gameDetail != null && gameDetail.Achievements != null)
             {
-                TotalAchievements = gameDetail.Achievements.Count;
+                this.TotalAchievements = gameDetail.Achievements.Count;
             }
 
             this.GameDetail = gameDetail;
@@ -21,7 +21,7 @@ namespace SamSmithNZ.Web.Models.Steam
             if (showCompletedAchievements == false)
             {
                 //Only show active achievements
-                List<Achievement> achievements = new List<Achievement>();
+                List<Achievement> achievements = new();
                 foreach (Achievement item in gameDetail.Achievements)
                 {
                     if (item.Achieved == false)

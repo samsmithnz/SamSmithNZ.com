@@ -1,14 +1,10 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SamSmithNZ.Service.DataAccess.FooFighters;
-using SamSmithNZ.Service.Models.FooFighters;
-using System.Threading.Tasks;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SamSmithnNZ.Tests;
 using SamSmithNZ.Service.Controllers.FooFighters;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+using SamSmithNZ.Service.DataAccess.FooFighters;
+using SamSmithNZ.Service.Models.FooFighters;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Tests.FooFighters
 {
@@ -21,7 +17,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task YearsExistTest()
         {
             //arrange
-            YearController controller = new YearController(new YearDataAccess(base.Configuration));
+            YearController controller = new(new YearDataAccess(base.Configuration));
 
             //act
             List<Year> items = await controller.GetYears();
@@ -36,7 +32,7 @@ namespace SamSmithNZ.Tests.FooFighters
         public async Task YearsTest()
         {
             //arrange
-            YearController controller = new YearController(new YearDataAccess(base.Configuration));
+            YearController controller = new(new YearDataAccess(base.Configuration));
 
             //act
             List<Year> items = await controller.GetYears();

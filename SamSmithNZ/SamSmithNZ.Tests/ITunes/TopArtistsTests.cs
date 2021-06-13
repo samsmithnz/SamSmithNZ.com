@@ -15,7 +15,7 @@ namespace SamSmithNZ.Tests.ITunes
         public async Task TopArtistsTest()
         {
             //Arrange
-            TopArtistsDataAccess da = new TopArtistsDataAccess(base.Configuration);
+            TopArtistsDataAccess da = new(base.Configuration);
             int playlistCode = 1;
             bool showJustSummary = true;
 
@@ -33,7 +33,7 @@ namespace SamSmithNZ.Tests.ITunes
         public async Task TopArtistsSummaryTest()
         {
             //Arrange
-            TopArtistsDataAccess da = new TopArtistsDataAccess(base.Configuration);
+            TopArtistsDataAccess da = new(base.Configuration);
             bool showJustSummary = true;
 
             //Act

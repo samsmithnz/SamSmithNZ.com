@@ -15,7 +15,7 @@ namespace SamSmithNZ.Tests.ITunes
         public async Task MovementTest()
         {
             //Arrange
-            MovementDataAccess da = new MovementDataAccess(base.Configuration);
+            MovementDataAccess da = new(base.Configuration);
             int playlistCode = 1;
             bool showJustSummary = true;
 
@@ -34,7 +34,7 @@ namespace SamSmithNZ.Tests.ITunes
         public async Task MovementSummaryTest()
         {
             //Arrange
-            MovementDataAccess da = new MovementDataAccess(base.Configuration);
+            MovementDataAccess da = new(base.Configuration);
             bool showJustSummary = true;
 
             //Act

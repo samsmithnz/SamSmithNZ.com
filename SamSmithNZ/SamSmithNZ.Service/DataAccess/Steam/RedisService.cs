@@ -9,7 +9,7 @@ namespace SamSmithNZ.Service.Models.Steam
 
     public class RedisService : IRedisService
     {
-        private IDatabase _database;
+        private readonly IDatabase _database;
 
         public RedisService(IDatabase database)
         {

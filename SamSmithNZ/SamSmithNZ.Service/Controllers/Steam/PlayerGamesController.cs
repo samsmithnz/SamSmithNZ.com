@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SamSmithNZ.Service.DataAccess.Steam;
 using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
 using SamSmithNZ.Service.Models.Steam;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.Controllers.Steam
 {
@@ -14,7 +11,7 @@ namespace SamSmithNZ.Service.Controllers.Steam
     [ApiController]
     public class PlayerGamesController : ControllerBase
     {
-        private IRedisService _redisService;
+        private readonly IRedisService _redisService;
 
         public PlayerGamesController(IRedisService redisService)
         {
@@ -27,7 +24,7 @@ namespace SamSmithNZ.Service.Controllers.Steam
         {
             if (string.IsNullOrEmpty(steamID) == false)
             {
-                PlayerGamesDA da = new PlayerGamesDA();
+                PlayerGamesDA da = new();
                 return await da.GetDataAsync(_redisService, steamID, useCache);
             }
             else

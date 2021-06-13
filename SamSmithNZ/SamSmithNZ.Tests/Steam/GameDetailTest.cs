@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SamSmithNZ.Service.DataAccess.Steam;
 using SamSmithNZ.Service.Models.Steam;
 using System.Threading.Tasks;
@@ -15,7 +14,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsSamXCOMTest()
         {
             //Arrange
-            GameDetailsDA da = new GameDetailsDA();
+            GameDetailsDA da = new();
             string steamId = "76561197971691578";
             string appId = "200510"; //Xcom
 
@@ -45,7 +44,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsSamCiv6Test()
         {
             //Arrange
-            GameDetailsDA da = new GameDetailsDA();
+            GameDetailsDA da = new();
             string steamId = "76561197971691578";
             string appId = "289070"; //Civ 6
 
@@ -77,7 +76,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsSamCiv6WithFilterTest()
         {
             //Arrange
-            GameDetailsDA da = new GameDetailsDA();
+            GameDetailsDA da = new();
             string steamId = "76561197971691578";
             string appId = "289070"; //Civ 6
             string achievementToSearch = "RAF";
@@ -110,7 +109,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsAlexCiv6Test()
         {
             //Arrange
-            GameDetailsDA da = new GameDetailsDA();
+            GameDetailsDA da = new();
             string steamId = "76561198034342716";
             string appId = "289070"; //Civ 6
 
@@ -133,7 +132,7 @@ namespace SamSmithNZ.Tests.Steam
         //public async Task GameDetailsWithFriendSamXCOMFriendWithStewTest()
         //{
         //    //Arrange
-        //    GameDetailsDA da = new GameDetailsDA();
+        //    GameDetailsDA da = new();
         //    string steamId = "76561197971691578"; //Sam
         //    string friendSteamId = "76561197990013217"; //Stew
         //    string appId = "200510"; //Xcom
@@ -199,7 +198,7 @@ namespace SamSmithNZ.Tests.Steam
         //public async Task GameDetailsWithFriendSamCiv6FriendWithAlexTest()
         //{
         //    //Arrange
-        //    GameDetailsDA da = new GameDetailsDA();
+        //    GameDetailsDA da = new();
         //    string steamId = "76561197971691578"; //Sam
         //    string friendSteamId = "76561198034342716"; //Alex
         //    string appId = "289070"; //Civ 6
@@ -259,7 +258,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsSamNoIconTest()
         {
             //Arrange
-            GameDetailsDA da = new GameDetailsDA();
+            GameDetailsDA da = new();
             string steamId = "76561197971691578";
             string appId = "223530"; //Left For Dead 2 Beta
 
@@ -278,7 +277,7 @@ namespace SamSmithNZ.Tests.Steam
         //public async Task GameDetailsWithFriendSamCiv6FriendWithStewTest()
         //{
         //    //Arrange
-        //    GameDetailsDA da = new GameDetailsDA();
+        //    GameDetailsDA da = new();
         //    string steamId = "76561197971691578"; //Sam
         //    string friendSteamId = "76561197990013217"; //Stew
         //    string appId = "289070"; //Civ 6
@@ -294,7 +293,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsSamCompanyOfHeroes2Test()
         {
             //Arrange
-            GameDetailsDA da = new GameDetailsDA();
+            GameDetailsDA da = new();
             string steamId = "76561197971691578";
             string appId = "231430"; //Company of Heroes 2
 
@@ -351,7 +350,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsSamCastleStoryTest()
         {
             //Arrange
-            GameDetailsDA da = new GameDetailsDA();
+            GameDetailsDA da = new();
             string steamId = "76561197971691578";
             string appId = "227860"; //castle Story
 
@@ -373,7 +372,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsSamGodusTest()
         {
             //Arrange
-            GameDetailsDA da = new GameDetailsDA();
+            GameDetailsDA da = new();
             string steamId = "76561197971691578";
             string appId = "232810"; //Godus
 
@@ -396,7 +395,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsRandomUserTest()
         {
             //Arrange
-            GameDetailsDA da = new GameDetailsDA();
+            GameDetailsDA da = new();
             string steamId = "76561198114819148";
             string appId = "296070"; //???
 
@@ -419,7 +418,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task GameDetailsApril24thFailTest()
         {
             //Arrange
-            GameDetailsDA da = new GameDetailsDA();
+            GameDetailsDA da = new();
             string steamId = "76561198036907814";
             string appId = "243870"; //???
 

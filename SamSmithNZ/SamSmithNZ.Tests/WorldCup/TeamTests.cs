@@ -1,11 +1,10 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SamSmithnNZ.Tests;
 using SamSmithNZ.Service.Controllers.WorldCup;
 using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.Models.WorldCup;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Tests.WorldCup
 {
@@ -17,7 +16,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task TeamsExistTest()
         {
             //arrange
-            TeamController controller = new TeamController(new TeamDataAccess(base.Configuration));
+            TeamController controller = new(new TeamDataAccess(base.Configuration));
 
             //act
             List<Team> results = await controller.GetTeams();
@@ -31,7 +30,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task TeamsFirstItemTest()
         {
             //Arrange
-            TeamController controller = new TeamController(new TeamDataAccess(base.Configuration));
+            TeamController controller = new(new TeamDataAccess(base.Configuration));
 
             //act
             List<Team> results = await controller.GetTeams();
@@ -55,7 +54,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task TeamGetNewZealandTest()
         {
             //arrange
-            TeamController controller = new TeamController(new TeamDataAccess(base.Configuration));
+            TeamController controller = new(new TeamDataAccess(base.Configuration));
             int TeamCode = 1;
 
             //act
@@ -67,7 +66,7 @@ namespace SamSmithNZ.Tests.WorldCup
             TestNewZealandTeam(result);
         }
 
-        private void TestNewZealandTeam(Team item)
+        private static void TestNewZealandTeam(Team item)
         {
             Assert.IsTrue(item.TeamCode == 1);
             Assert.IsTrue(item.TeamName == "New Zealand");

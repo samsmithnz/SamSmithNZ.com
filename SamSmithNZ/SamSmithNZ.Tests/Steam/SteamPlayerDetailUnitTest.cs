@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SamSmithNZ.Service.DataAccess.Steam;
 using SamSmithNZ.Service.Models.Steam;
 using System.Threading.Tasks;
@@ -17,7 +16,7 @@ namespace SamSmithNZ.Tests.Steam
             string steamId = "76561197974118008";
 
             //Act
-            SteamPlayerDetailDA da = new SteamPlayerDetailDA();
+            SteamPlayerDetailDA da = new();
             SteamPlayerDetail result = await da.GetDataAsync(null, steamId, false);
 
             //Asset

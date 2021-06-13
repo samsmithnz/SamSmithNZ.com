@@ -37,9 +37,7 @@ namespace SamSmithNZ.Web.Services
             else
             {
                 //Handle when the url is missing, preventing a 400 error.
-#pragma warning disable CS8603 // Possible null reference return.
                 return default;
-#pragma warning restore CS8603 // Possible null reference return.
             }
         }
 
@@ -61,18 +59,16 @@ namespace SamSmithNZ.Web.Services
             else
             {
                 //Handle when the url is missing, preventing a 400 error.
-#pragma warning disable CS8603 // Possible null reference return.
 #pragma warning disable CS8653 // A default expression introduces a null value for a type parameter.
                 return default;
 #pragma warning restore CS8653 // A default expression introduces a null value for a type parameter.
-#pragma warning restore CS8603 // Possible null reference return.
             }
         }
 
         public async Task<bool> SaveMessageItem<T>(Uri url, T obj)
         {
             string jsonInString = JsonSerializer.Serialize(obj);
-            StringContent content = new StringContent(jsonInString, Encoding.UTF8, "application/json");
+            StringContent content = new(jsonInString, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _client.PostAsync(url, content);
             if (response.IsSuccessStatusCode == true)
             {
@@ -81,11 +77,9 @@ namespace SamSmithNZ.Web.Services
             else
             {
                 //Handle when the url is missing, preventing a 400 error.
-#pragma warning disable CS8603 // Possible null reference return.
 #pragma warning disable CS8653 // A default expression introduces a null value for a type parameter.
                 return default;
 #pragma warning restore CS8653 // A default expression introduces a null value for a type parameter.
-#pragma warning restore CS8603 // Possible null reference return.
             }
         }
 
@@ -108,11 +102,9 @@ namespace SamSmithNZ.Web.Services
             else
             {
                 //Handle when the url is missing, preventing a 400 error.
-#pragma warning disable CS8603 // Possible null reference return.
 #pragma warning disable CS8653 // A default expression introduces a null value for a type parameter.
                 return default;
 #pragma warning restore CS8653 // A default expression introduces a null value for a type parameter.
-#pragma warning restore CS8603 // Possible null reference return.
             }
         }
 

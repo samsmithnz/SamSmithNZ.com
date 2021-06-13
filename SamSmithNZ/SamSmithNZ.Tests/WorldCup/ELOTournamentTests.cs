@@ -1,11 +1,10 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SamSmithnNZ.Tests;
 using SamSmithNZ.Service.Controllers.WorldCup;
 using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.Models.WorldCup;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Tests.WorldCup
 {
@@ -16,7 +15,7 @@ namespace SamSmithNZ.Tests.WorldCup
         //[TestMethod()]
         //public async Task ELOTournamentProcessingTest()
         //{
-        //    EloRatingDataAccess da = new EloRatingDataAccess();
+        //    EloRatingDataAccess da = new();
         //    int tournamentCode = 21;
 
         //    //act
@@ -46,7 +45,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task ELOTournamentRefresh()
         {
             //Arrange
-            TournamentController controller = new TournamentController(new TournamentDataAccess(base.Configuration));
+            TournamentController controller = new(new TournamentDataAccess(base.Configuration));
             int competitionCode = 1;
             
             //Act
@@ -57,7 +56,7 @@ namespace SamSmithNZ.Tests.WorldCup
             {
                 if (tournament.TournamentCode == 21)
                 {
-                    EloRatingDataAccess daELO = new EloRatingDataAccess(base.Configuration);
+                    EloRatingDataAccess daELO = new(base.Configuration);
                     List<TeamELORating> results = await daELO.UpdateTournamentELORatings(tournament.TournamentCode);
 
                     Assert.IsTrue(results[0].Draws >= 0);

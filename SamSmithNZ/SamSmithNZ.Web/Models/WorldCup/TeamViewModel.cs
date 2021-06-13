@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using SamSmithNZ.Service.Models.WorldCup;
+﻿using SamSmithNZ.Service.Models.WorldCup;
 using System.Collections.Generic;
-using System.Security.Permissions;
 
 namespace SamSmithNZ.Web.Models.WorldCup
 {
@@ -9,27 +7,27 @@ namespace SamSmithNZ.Web.Models.WorldCup
     {
         public TeamViewModel(Team team, List<Game> games)
         {
-            Team = team;
-            Games = games;
-            foreach (Game item in Games)
+            this.Team = team;
+            this.Games = games;
+            foreach (Game item in this.Games)
             {
                 if (team.TeamCode == item.Team1Code)
                 {
-                    GamesExpectedWon += item.Team1OddsCountExpectedWin;
-                    GamesExpectedLoss += item.Team1OddsCountExpectedLoss;
-                    GamesUnexpectedWin += item.Team1OddsCountUnexpectedWin;
-                    GamesUnexpectedLoss += item.Team1OddsCountUnexpectedLoss;
-                    GamesUnexpectedDraw += item.Team1OddsCountUnexpectedDraw;
-                    GamesUnknown += item.Team1OddsCountUnknown;
+                    this.GamesExpectedWon += item.Team1OddsCountExpectedWin;
+                    this.GamesExpectedLoss += item.Team1OddsCountExpectedLoss;
+                    this.GamesUnexpectedWin += item.Team1OddsCountUnexpectedWin;
+                    this.GamesUnexpectedLoss += item.Team1OddsCountUnexpectedLoss;
+                    this.GamesUnexpectedDraw += item.Team1OddsCountUnexpectedDraw;
+                    this.GamesUnknown += item.Team1OddsCountUnknown;
                 }
                 else if (team.TeamCode == item.Team2Code)
                 {
-                    GamesExpectedWon += item.Team2OddsCountExpectedWin;
-                    GamesExpectedLoss += item.Team2OddsCountExpectedLoss;
-                    GamesUnexpectedWin += item.Team2OddsCountUnexpectedWin;
-                    GamesUnexpectedLoss += item.Team2OddsCountUnexpectedLoss;
-                    GamesUnexpectedDraw += item.Team2OddsCountUnexpectedDraw;
-                    GamesUnknown += item.Team2OddsCountUnknown;
+                    this.GamesExpectedWon += item.Team2OddsCountExpectedWin;
+                    this.GamesExpectedLoss += item.Team2OddsCountExpectedLoss;
+                    this.GamesUnexpectedWin += item.Team2OddsCountUnexpectedWin;
+                    this.GamesUnexpectedLoss += item.Team2OddsCountUnexpectedLoss;
+                    this.GamesUnexpectedDraw += item.Team2OddsCountUnexpectedDraw;
+                    this.GamesUnknown += item.Team2OddsCountUnknown;
                 }
             }
         }
@@ -46,13 +44,13 @@ namespace SamSmithNZ.Web.Models.WorldCup
         //Style the game rows to group game details with goal details
         public string GetDidFavoriteWinStyle(int team1Code, int currentTeamCode, double team1ChanceToWin, bool? team1ResultWonGame, bool? team2ResultWonGame)
         {
-            var trStyle = "";
-            var green = "#CCFF99";
-            var red = "#FFCCCC";
-            var yellow = "lightgoldenrodyellow";
+            string trStyle;
+            string green = "#CCFF99";
+            string red = "#FFCCCC";
+            string yellow = "lightgoldenrodyellow";
 
-            var currentTeamResultWonGame = false;
-            var currentTeamChanceToWin = 0;
+            bool currentTeamResultWonGame = false;
+            int currentTeamChanceToWin = 0;
 
             if (team1Code == currentTeamCode)
             {

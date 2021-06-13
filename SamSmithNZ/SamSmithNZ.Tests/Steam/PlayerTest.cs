@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SamSmithNZ.Service.DataAccess.Steam;
 using SamSmithNZ.Service.Models.Steam;
 using System.Threading.Tasks;
@@ -15,7 +14,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task PlayerSamTest()
         {
             //Arrange
-            PlayerDA da = new PlayerDA();
+            PlayerDA da = new();
             string steamId = "76561197971691578";
 
             //Act

@@ -17,7 +17,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task TournamentsExistTest()
         {
             //arrange
-            TournamentController controller = new TournamentController(new TournamentDataAccess(base.Configuration));
+            TournamentController controller = new(new TournamentDataAccess(base.Configuration));
             int competitionCode = 1;
 
             //act
@@ -32,7 +32,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task TournamentsFirstItemTest()
         {
             //arrange
-            TournamentController controller = new TournamentController(new TournamentDataAccess(base.Configuration));
+            TournamentController controller = new(new TournamentDataAccess(base.Configuration));
             int competitionCode = 1;
 
             //act
@@ -58,7 +58,7 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task TournamentGetSouthAfricaTest()
         {
             //arrange
-            TournamentController controller = new TournamentController(new TournamentDataAccess(base.Configuration));
+            TournamentController controller = new(new TournamentDataAccess(base.Configuration));
             int tournamentCode = 19;
 
             //act
@@ -70,7 +70,7 @@ namespace SamSmithNZ.Tests.WorldCup
             TestSouthAfricaTournament(result);
         }
 
-        private void TestSouthAfricaTournament(Tournament item)
+        private static void TestSouthAfricaTournament(Tournament item)
         {
             Assert.IsTrue(item.CoHostFlagName == "");
             Assert.IsTrue(item.CoHostTeamCode == 0);

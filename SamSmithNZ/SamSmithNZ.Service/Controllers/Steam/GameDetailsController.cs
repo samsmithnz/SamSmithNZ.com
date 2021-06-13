@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SamSmithNZ.Service.DataAccess.Steam;
 using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
 using SamSmithNZ.Service.Models.Steam;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.Controllers.Steam
 {
@@ -14,7 +10,7 @@ namespace SamSmithNZ.Service.Controllers.Steam
     [ApiController]
     public class GameDetailsController : ControllerBase
     {
-        private IRedisService _redisService;
+        private readonly IRedisService _redisService;
 
         public GameDetailsController(IRedisService redisService)
         {
@@ -27,7 +23,7 @@ namespace SamSmithNZ.Service.Controllers.Steam
         {
             if (string.IsNullOrEmpty(steamID) == false && string.IsNullOrEmpty(appID) == false)
             {
-                GameDetailsDA da = new GameDetailsDA();
+                GameDetailsDA da = new();
                 return await da.GetDataAsync(_redisService, steamID, appID, getStats, achievementToSearch, useCache);
             }
             else
@@ -40,7 +36,7 @@ namespace SamSmithNZ.Service.Controllers.Steam
         //[HttpGet("GetGameWithFriendDetails")]
         //public async Task<GameDetail> GetGameWithFriendDetails(string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null, bool useCache = true)
         //{
-        //    GameDetailsDA da = new GameDetailsDA();
+        //    GameDetailsDA da = new();
         //    return await da.GetDataWithFriendAsync(_redisService, steamID, appID, friendSteamId, getStats, achievementToSearch, useCache);
         //}
     }

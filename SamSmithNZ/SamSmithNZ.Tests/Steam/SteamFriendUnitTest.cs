@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SamSmithNZ.Service.DataAccess.Steam;
 using SamSmithNZ.Service.Models.Steam;
 using System.Threading.Tasks;
@@ -17,7 +16,7 @@ namespace SamSmithNZ.Tests.Steam
             string steamId = "76561197971691578";
 
             //Act
-            SteamFriendDA da = new SteamFriendDA();
+            SteamFriendDA da = new();
             SteamFriendList result = await da.GetDataAsync(null, steamId, false);
 
             //Asset

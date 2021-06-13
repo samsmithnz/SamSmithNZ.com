@@ -83,7 +83,7 @@ namespace SamSmithNZ.Web.Services
             List<string> results = await base.ReadMessageList<string>(url);
             if (results == null)
             {
-                return new List<string>();
+                return new();
             }
             else
             {
@@ -97,7 +97,7 @@ namespace SamSmithNZ.Web.Services
             List<string> results = await base.ReadMessageList<string>(url);
             if (results == null)
             {
-                return new List<string>();
+                return new();
             }
             else
             {

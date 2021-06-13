@@ -16,7 +16,7 @@
 //        public async Task PlayersExistTest()
 //        {
 //            //arrange
-//            PlayerController controller = new PlayerController(new PlayerDataAccess(base.Configuration));
+//            PlayerController controller = new(new PlayerDataAccess(base.Configuration));
 //            int gameCode = 7328;
 
 //            //act

@@ -27,7 +27,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
             }
 
             IEnumerable<T> results;
-            SqlConnection connection = new SqlConnection(ConnectionString);
+            SqlConnection connection = new(ConnectionString);
             try
             {
                 await connection.OpenAsync();
@@ -51,7 +51,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
             }
 
             T result;
-            SqlConnection connection = new SqlConnection(ConnectionString);
+            SqlConnection connection = new(ConnectionString);
             try
             {
                 await connection.OpenAsync();
@@ -76,7 +76,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
             }
 
             R result;
-            SqlConnection connection = new SqlConnection(ConnectionString);
+            SqlConnection connection = new(ConnectionString);
             try
             {
                 await connection.OpenAsync();
@@ -101,7 +101,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
             }
 
             bool result;
-            SqlConnection connection = new SqlConnection(ConnectionString);
+            SqlConnection connection = new(ConnectionString);
             try
             {
                 await connection.OpenAsync();

@@ -134,7 +134,7 @@
 //            //string encryptedPassword = Array.Find(connectionStringItems, p => p.StartsWith("password", StringComparison.Ordinal)).Substring(9);
 //            //string decryptedPassword = Encryption.GetDecryptedString(encryptedPassword);
 //            //connectionString = connectionString.Replace(encryptedUid, decryptedUid).Replace(encryptedPassword, decryptedPassword);
-//            MySQLConnection = new SqlConnection(connectionString);
+//            MySQLConnection = new(connectionString);
 //            await MySQLConnection.OpenAsync();
 //            return MySQLConnection;
 //        }
@@ -175,7 +175,7 @@
 //        /// <returns></returns>
 //        private string CreateSQLString(string storedProcedureName, DynamicParameters parameters = null)
 //        {
-//            StringBuilder sb = new StringBuilder();
+//            StringBuilder sb = new();
 //            sb.Append("exec ");
 //            sb.Append(storedProcedureName);
 //            sb.Append(" ");

@@ -48,7 +48,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async Task LoadGrid(int tournamentCode)
         {
-            GameGoalAssignmentDataAccess da = new GameGoalAssignmentDataAccess(_configuration);
+            GameGoalAssignmentDataAccess da = new(_configuration);
             List<GameGoalAssignment> games = await da.GetList(tournamentCode);
             lstGames.DataContext = games;
         }
@@ -67,7 +67,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
             GameGoalAssignment dr = (GameGoalAssignment)lstGames.ItemContainerGenerator.ItemFromContainer(dep);
 
-            AssignScore AssignScorei = new AssignScore();
+            AssignScore AssignScorei = new();
             if (await AssignScorei.ShowForm(Convert.ToInt32(dr.GameCode)) == true)
             {
                 await LoadGrid(_tournamentCode);
@@ -90,7 +90,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             //dsWorldCup.GameListForGoalAssigningRow dr = (dsWorldCup.GameListForGoalAssigningRow)lstGames.ItemContainerGenerator.ItemFromContainer(dep);
             GameGoalAssignment dr = (GameGoalAssignment)lstGames.ItemContainerGenerator.ItemFromContainer(dep);
 
-            Goals Goalsi = new Goals();
+            Goals Goalsi = new();
             if (await Goalsi.ShowForm(_tournamentCode, Convert.ToInt32(dr.GameCode), Convert.ToInt32(dr.TotalGoalTableGoals)) == true)
             {
                 await LoadGrid(_tournamentCode);
@@ -113,9 +113,10 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             //dsWorldCup.GameListForGoalAssigningRow dr = (dsWorldCup.GameListForGoalAssigningRow)lstGames.ItemContainerGenerator.ItemFromContainer(dep);
             GameGoalAssignment dr = (GameGoalAssignment)lstGames.ItemContainerGenerator.ItemFromContainer(dep);
 
-            ShootoutGoals ShootoutGoalsi = new ShootoutGoals();
+            ShootoutGoals ShootoutGoalsi = new();
             if (await ShootoutGoalsi.ShowForm(_tournamentCode, Convert.ToInt32(dr.GameCode), Convert.ToInt32(dr.TotalPenaltyShootoutTableGoals)) == true)
-            { //Convert.ToInt32(dr["total_game_table_penalty_shootout_goals"]) -
+            { 
+                //Convert.ToInt32(dr["total_game_table_penalty_shootout_goals"]) -
                 await LoadGrid(_tournamentCode);
             }
         }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
+﻿using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
 using SamSmithNZ.Service.Models.Steam;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.DataAccess.Steam
 {
@@ -13,10 +9,10 @@ namespace SamSmithNZ.Service.DataAccess.Steam
 
         public async Task<Player> GetDataAsync(IRedisService redisService, string steamID, bool useCache)
         {
-            Player result = new Player();
+            Player result = new();
             
             //Get Player Details
-            SteamPlayerDetailDA da = new SteamPlayerDetailDA();
+            SteamPlayerDetailDA da = new();
             SteamPlayerDetail playerDetail = await da.GetDataAsync(redisService, steamID, useCache);
             if (playerDetail == null)
             {

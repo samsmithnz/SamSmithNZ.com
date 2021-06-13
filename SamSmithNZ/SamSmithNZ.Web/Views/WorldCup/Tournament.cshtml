@@ -188,11 +188,11 @@
 {
     <div class="row">
         <div class="col-md-8">
-            @if (Model.Tournament != null && Model.Tournament.TournamentCode <= 21)
+            @if (Model.Tournament != null)
             {
                 <b>Team Placing:</b>
             }
-            else if (Model.Tournament == null || Model.Tournament.TournamentCode > 21)
+            else if (Model.Tournament == null)
             {
                 <b>Qualified Teams:</b>
             }

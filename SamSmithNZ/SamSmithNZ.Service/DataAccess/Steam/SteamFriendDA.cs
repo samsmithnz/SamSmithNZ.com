@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
 using SamSmithNZ.Service.Models.Steam;
-using System.Net;
+using System;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.DataAccess.Steam
 {
@@ -16,9 +12,9 @@ namespace SamSmithNZ.Service.DataAccess.Steam
         //https://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=35D42236AAC777BEDB12CDEB625EF289&steamid=76561197971691578&relationship=friend&format=xml      
         public async Task<SteamFriendList> GetDataAsync(IRedisService redisService, string steamID, bool useCache)
         {
-            SteamFriendList friendList = null;
+            SteamFriendList friendList;
             string cacheKeyName = "friendList-" + steamID;
-            TimeSpan cacheExpirationTime = new TimeSpan(12, 0, 0);
+            TimeSpan cacheExpirationTime = new(12, 0, 0);
 
             //Check the cache
             string cachedJSON = null;

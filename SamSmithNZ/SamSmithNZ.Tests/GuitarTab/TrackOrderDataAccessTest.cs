@@ -1,12 +1,9 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SamSmithnNZ.Tests;
 using SamSmithNZ.Service.Controllers.GuitarTab;
 using SamSmithNZ.Service.DataAccess.GuitarTab;
 using SamSmithNZ.Service.Models.GuitarTab;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SamSmithNZ.Tests.GuitarTab
@@ -18,7 +15,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task TrackOrderExistTest()
         {
             //arrange
-            TrackOrderController controller = new TrackOrderController(new TrackOrderDataAccess(base.Configuration));
+            TrackOrderController controller = new(new TrackOrderDataAccess(base.Configuration));
 
             //act
             List<TrackOrder> results = await controller.GetTrackOrders();
@@ -32,7 +29,7 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task TuningsFirstItemTest()
         {
             //arrange
-            TrackOrderController controller = new TrackOrderController(new TrackOrderDataAccess(base.Configuration));
+            TrackOrderController controller = new(new TrackOrderDataAccess(base.Configuration));
 
             //act
             List<TrackOrder> results = await controller.GetTrackOrders();

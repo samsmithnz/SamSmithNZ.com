@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SamSmithNZ.Service.DataAccess.Steam;
-using SamSmithNZ.Service.Models.Steam;
-using System.Threading.Tasks;
 using SamSmithNZ.Service.Controllers.Steam;
+using SamSmithNZ.Service.Models.Steam;
 using StackExchange.Redis;
-using System.IO;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Tests.Steam
 {
@@ -37,7 +34,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task PlayerGamesSamTest()
         {
             //Arrange
-            PlayerGamesController controller = new PlayerGamesController(_redisService);            
+            PlayerGamesController controller = new(_redisService);            
             string steamId = "76561197971691578";
 
             //Act
@@ -59,7 +56,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task PlayerGamesSamWithoutCacheTest()
         {
             //Arrange
-            PlayerGamesController controller = new PlayerGamesController(_redisService);
+            PlayerGamesController controller = new(_redisService);
             string steamId = "76561197971691578";
 
             //Act
@@ -81,7 +78,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task PlayerGamesSamWithNoIconTest()
         {
             //Arrange
-            PlayerGamesController controller = new PlayerGamesController(_redisService);
+            PlayerGamesController controller = new(_redisService);
             string steamId = "76561197971691578";
             string appId = "223530";
 
@@ -112,7 +109,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task PlayerGamesRandomWithNoGamesTest()
         {
             //Arrange
-            PlayerGamesController controller = new PlayerGamesController(_redisService);
+            PlayerGamesController controller = new(_redisService);
             string steamId = "76561198059077520";
 
             //Act
@@ -128,7 +125,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task PlayerGamesRandomAnotherWithNoGamesTest()
         {
             //Arrange
-            PlayerGamesController controller = new PlayerGamesController(_redisService);
+            PlayerGamesController controller = new(_redisService);
             string steamId = "76561198121979762";
 
             //Act
