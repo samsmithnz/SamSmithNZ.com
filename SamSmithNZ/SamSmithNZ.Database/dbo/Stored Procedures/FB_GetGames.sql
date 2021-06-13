@@ -62,7 +62,7 @@ BEGIN
 		LEFT JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_1_code = te.team_code
 		LEFT JOIN wc_team t3 ON te.coach_nationality = t3.team_name
 		JOIN #TmpAlternativeTeams ate ON g.team_1_code = ate.team_code 
-		WHERE t.competition_code = 1
+		--WHERE t.competition_code = 1
 		--AND (g.team_1_code = @TeamCode OR g.team_2_code = @TeamCode)
 		--AND te.team_code = @TeamCode
 		--AND game_code = 7
@@ -110,7 +110,7 @@ BEGIN
 		LEFT JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_2_code = te.team_code
 		LEFT JOIN wc_team t3 ON te.coach_nationality = t3.team_name
 		JOIN #TmpAlternativeTeams ate ON g.team_2_code = ate.team_code
-		WHERE t.competition_code = 1
+		--WHERE t.competition_code = 1
 		--AND (g.team_1_code = @TeamCode OR g.team_2_code = @TeamCode)
 		--AND te.team_code = @TeamCode
 		--AND game_code = 7
