@@ -166,14 +166,9 @@ namespace SamSmithNZ.Web.Controllers
         [HttpPost]
         public IActionResult WCOddsPost(string maxRange = "", bool chkShowActive = true, bool chkShowEliminated = false)
         {
-            if (System.Diagnostics.Debugger.IsAttached == true)
-            {
-                return View();
-            }
-            else
-            {
-                return Redirect("https://samsmithnz2015.azurewebsites.net/WorldCup/WCOddsPost?maxRange=" + maxRange + "&chkShowActive=" + chkShowActive + "&chkShowEliminated=" + chkShowEliminated);
-            }
+            return View();
+            //return Redirect("https://samsmithnz2015.azurewebsites.net/WorldCup/WCOddsPost?maxRange=" + maxRange + "&chkShowActive=" + chkShowActive + "&chkShowEliminated=" + chkShowEliminated);
+
 
             ////return View(WCOdds(maxRange, chkShowActive, chkShowEliminated));
             //return RedirectToAction("Index", "FootballPool", new { maxRange = maxRange, chkShowActive = chkShowActive, chkShowEliminated = chkShowEliminated });
@@ -181,14 +176,8 @@ namespace SamSmithNZ.Web.Controllers
 
         public IActionResult WCOdds(string maxRange = "", bool showActive = true, bool showEliminated = false, int tournamentCode = 20)
         {
-            if (System.Diagnostics.Debugger.IsAttached == true)
-            {
-                return View();
-            }
-            else
-            {
-                return Redirect("https://samsmithnz2015.azurewebsites.net/WorldCup/WCOdds?maxRange=" + maxRange + "&showActive=" + showActive + "&showEliminated=" + showEliminated + "&tournamentCode=" + tournamentCode);
-            }
+            return View();
+            //return Redirect("https://samsmithnz2015.azurewebsites.net/WorldCup/WCOdds?maxRange=" + maxRange + "&showActive=" + showActive + "&showEliminated=" + showEliminated + "&tournamentCode=" + tournamentCode);
 
             ////Scrap the odds
             //SamSmithNZ2015.Core.WorldCup.DataAccess.ImportGameOddsDataAccess da = new SamSmithNZ2015.Core.WorldCup.DataAccess.ImportGameOddsDataAccess();
@@ -265,14 +254,9 @@ namespace SamSmithNZ.Web.Controllers
         //From https://github.com/sghall/d3-multi-series-charts       
         public IActionResult WCOddsGraph(int tournamentCode = 20)
         {
-            if (System.Diagnostics.Debugger.IsAttached == true)
-            {
-                return View();
-            }
-            else
-            {
-                return Redirect("https://samsmithnz2015.azurewebsites.net/WorldCup/WCOddsGraph?tournamentCode=" + tournamentCode);
-            }
+            return View();
+            //return Redirect("https://samsmithnz2015.azurewebsites.net/WorldCup/WCOddsGraph?tournamentCode=" + tournamentCode);
+
 
             //return View(CreateOddsGraphData(0.02, true, true, tournamentCode));
         }
