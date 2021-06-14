@@ -24,13 +24,13 @@ namespace SamSmithNZ.Web.Services
 
         public async Task<bool> RefreshTournamentELORatings(int tournamentCode)
         {
-            Uri url = new($"api/WorldCup/ELORating/RefreshTournamentELORatings?tournamentCode="+ tournamentCode, UriKind.Relative);
+            Uri url = new($"api/WorldCup/ELORating/RefreshTournamentELORatings?tournamentCode=" + tournamentCode, UriKind.Relative);
             return await base.GetMessageScalar<bool>(url);
         }
 
-        public async Task<List<Game>> GetGames(int tournamentCode, int roundNumber, string roundCode)
+        public async Task<List<Game>> GetGames(int tournamentCode, int roundNumber, string roundCode, bool includeGoals)
         {
-            Uri url = new($"api/WorldCup/Game/GetGames?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber + "&roundCode=" + roundCode, UriKind.Relative);
+            Uri url = new($"api/WorldCup/Game/GetGames?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber + "&roundCode=" + roundCode + "&includeGoals=" + includeGoals, UriKind.Relative);
             List<Game> results = await base.ReadMessageList<Game>(url);
             if (results == null)
             {
@@ -55,10 +55,10 @@ namespace SamSmithNZ.Web.Services
                 return results;
             }
         }
-      
-        public async Task<List<Game>> GetPlayoffGames(int tournamentCode, int roundNumber)
+
+        public async Task<List<Game>> GetPlayoffGames(int tournamentCode, int roundNumber, bool includeGoals)
         {
-            Uri url = new($"api/WorldCup/Game/GetPlayoffGames?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber, UriKind.Relative);
+            Uri url = new($"api/WorldCup/Game/GetPlayoffGames?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber + "&includeGoals=" + includeGoals, UriKind.Relative);
             List<Game> results = await base.ReadMessageList<Game>(url);
             if (results == null)
             {
@@ -69,11 +69,11 @@ namespace SamSmithNZ.Web.Services
                 return results;
             }
         }
-      
+
         public async Task<Game> GetGame(int gameCode)
         {
             Uri url = new($"api/WorldCup/Game/GetGame?gameCode=" + gameCode, UriKind.Relative);
-         Game results = await base.ReadMessageItem<Game>(url);
+            Game results = await base.ReadMessageItem<Game>(url);
             if (results == null)
             {
                 return new();
@@ -83,7 +83,7 @@ namespace SamSmithNZ.Web.Services
                 return results;
             }
         }
-      
+
         public async Task<List<GroupCode>> GetGroupCodes(int tournamentCode, int roundNumber)
         {
             Uri url = new($"api/WorldCup/GroupCode/GetGroupCodes?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber, UriKind.Relative);
@@ -97,7 +97,7 @@ namespace SamSmithNZ.Web.Services
                 return results;
             }
         }
-      
+
         public async Task<List<Group>> GetGroups(int tournamentCode, int roundNumber, string roundCode)
         {
             Uri url = new($"api/WorldCup/Group/GetGroups?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber + "&roundCode=" + roundCode, UriKind.Relative);
@@ -111,7 +111,7 @@ namespace SamSmithNZ.Web.Services
                 return results;
             }
         }
-       
+
         public async Task<List<Team>> GetTeams()
         {
             Uri url = new($"api/WorldCup/Team/GetTeams", UriKind.Relative);
@@ -125,7 +125,7 @@ namespace SamSmithNZ.Web.Services
                 return results;
             }
         }
-        
+
         public async Task<Team> GetTeam(int teamCode)
         {
             Uri url = new($"api/WorldCup/Team/GetTeam?teamCode=" + teamCode, UriKind.Relative);
@@ -153,7 +153,7 @@ namespace SamSmithNZ.Web.Services
                 return results;
             }
         }
-  
+
         public async Task<Tournament> GetTournament(int tournamentCode)
         {
             Uri url = new($"api/WorldCup/Tournament/GetTournament?tournamentCode=" + tournamentCode, UriKind.Relative);
@@ -167,7 +167,7 @@ namespace SamSmithNZ.Web.Services
                 return results;
             }
         }
-   
+
         public async Task<List<TournamentTeam>> GetTournamentQualifyingTeams(int tournamentCode)
         {
             Uri url = new($"api/WorldCup/TournamentTeam/GetTournamentQualifyingTeams?tournamentCode=" + tournamentCode, UriKind.Relative);
@@ -181,7 +181,7 @@ namespace SamSmithNZ.Web.Services
                 return results;
             }
         }
- 
+
         public async Task<List<TournamentTeam>> GetTournamentPlacingTeams(int tournamentCode)
         {
             Uri url = new($"api/WorldCup/TournamentTeam/GetTournamentPlacingTeams?tournamentCode=" + tournamentCode, UriKind.Relative);
@@ -195,7 +195,7 @@ namespace SamSmithNZ.Web.Services
                 return results;
             }
         }
-       
+
         public async Task<List<TournamentTopGoalScorer>> GetTournamentTopGoalScorers(int tournamentCode)
         {
             Uri url = new($"api/WorldCup/TournamentTopGoalScorer/GetTournamentTopGoalScorers?tournamentCode=" + tournamentCode, UriKind.Relative);
@@ -209,6 +209,6 @@ namespace SamSmithNZ.Web.Services
                 return results;
             }
         }
-     
+
     }
 }

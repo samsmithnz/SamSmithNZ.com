@@ -21,9 +21,10 @@ namespace SamSmithNZ.Tests.WorldCup
             int tournamentCode = 19;
             int roundNumber = 1;
             string roundCode = "F";
+            bool includeGoals = false;
 
             //act
-            List<Game> results = await controller.GetGames(tournamentCode, roundNumber, roundCode);
+            List<Game> results = await controller.GetGames(tournamentCode, roundNumber, roundCode, includeGoals);
 
             //assert
             Assert.IsTrue(results != null);
@@ -38,9 +39,10 @@ namespace SamSmithNZ.Tests.WorldCup
             int tournamentCode = 19;
             int roundNumber = 2;
             //string roundCode = "A";
+            bool includeGoals = false;
 
             //act
-            List<Game> results = await controller.GetPlayoffGames(tournamentCode, roundNumber);
+            List<Game> results = await controller.GetPlayoffGames(tournamentCode, roundNumber, includeGoals);
 
             //assert
             Assert.IsTrue(results != null);
@@ -55,9 +57,10 @@ namespace SamSmithNZ.Tests.WorldCup
             int tournamentCode = 19;
             int roundNumber = 1;
             string roundCode = "F";
+            bool includeGoals = false;
 
             //act
-            List<Game> results = await controller.GetGames(tournamentCode, roundNumber, roundCode);
+            List<Game> results = await controller.GetGames(tournamentCode, roundNumber, roundCode, includeGoals);
 
             //assert
             Assert.IsTrue(results != null);
@@ -131,9 +134,10 @@ namespace SamSmithNZ.Tests.WorldCup
             int roundNumber = 1;
             int gameCode = 125; //WC, SF
             int teamCode = 12; //Germany
+            bool includeGoals = false;
 
             //act
-            List<Game> results = await controller.GetPlayoffGames(tournamentCode, roundNumber);
+            List<Game> results = await controller.GetPlayoffGames(tournamentCode, roundNumber, includeGoals);
 
             //assert
             Assert.IsTrue(results != null);

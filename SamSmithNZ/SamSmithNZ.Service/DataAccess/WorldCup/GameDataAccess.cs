@@ -16,13 +16,13 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             base.SetupConnectionString(configuration);
         }
 
-        public async Task<List<Game>> GetList(int tournamentCode, int roundNumber, string roundCode)
+        public async Task<List<Game>> GetList(int tournamentCode, int roundNumber, string roundCode, bool includeGoals)
         {
             DynamicParameters parameters = new();
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
             parameters.Add("@RoundNumber", roundNumber, DbType.Int32);
             parameters.Add("@RoundCode", roundCode, DbType.String);
-            parameters.Add("@IncludeGoals", true, DbType.String);
+            parameters.Add("@IncludeGoals", includeGoals, DbType.String);
 
             List<Game> results = await base.GetList("FB_GetGames", parameters);
             results = ProcessGameResults(results);
@@ -39,12 +39,12 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return results;
         }
 
-        public async Task<List<Game>> GetListByPlayoff(int tournamentCode, int roundNumber)
+        public async Task<List<Game>> GetListByPlayoff(int tournamentCode, int roundNumber, bool includeGoals)
         {
             DynamicParameters parameters = new();
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
             parameters.Add("@RoundNumber", roundNumber, DbType.Int32);
-            parameters.Add("@IncludeGoals", true, DbType.String);
+            parameters.Add("@IncludeGoals", includeGoals, DbType.String);
 
             List<Game> results = await base.GetList("FB_GetGames", parameters);
             results = ProcessGameResults(results);

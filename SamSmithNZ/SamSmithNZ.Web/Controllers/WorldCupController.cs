@@ -50,37 +50,37 @@ namespace SamSmithNZ.Web.Controllers
             return View(tournamentViewModel);
         }
 
-        public async Task<IActionResult> GroupOld(int tournamentCode, int roundNumber, string roundCode)
-        {
-            List<GroupCode> groupCodes = await _ServiceApiClient.GetGroupCodes(tournamentCode, roundNumber);
-            if (string.IsNullOrEmpty(roundCode) == true && groupCodes.Count > 0)
-            {
-                roundCode = groupCodes[0].RoundCode;
-            }
-            List<Group> groups = await _ServiceApiClient.GetGroups(tournamentCode, roundNumber, roundCode);
-            bool teamWithDrew = false;
-            foreach (Group item in groups)
-            {
-                if (item.TeamWithdrew == true)
-                {
-                    teamWithDrew = true;
-                    break;
-                }
-            }
-            List<Game> games = await _ServiceApiClient.GetGames(tournamentCode, roundNumber, roundCode);
+        //public async Task<IActionResult> GroupOld(int tournamentCode, int roundNumber, string roundCode)
+        //{
+        //    List<GroupCode> groupCodes = await _ServiceApiClient.GetGroupCodes(tournamentCode, roundNumber);
+        //    if (string.IsNullOrEmpty(roundCode) == true && groupCodes.Count > 0)
+        //    {
+        //        roundCode = groupCodes[0].RoundCode;
+        //    }
+        //    List<Group> groups = await _ServiceApiClient.GetGroups(tournamentCode, roundNumber, roundCode);
+        //    bool teamWithDrew = false;
+        //    foreach (Group item in groups)
+        //    {
+        //        if (item.TeamWithdrew == true)
+        //        {
+        //            teamWithDrew = true;
+        //            break;
+        //        }
+        //    }
+        //    List<Game> games = await _ServiceApiClient.GetGames(tournamentCode, roundNumber, roundCode);
 
-            GroupViewModel groupViewModel = new(groupCodes)
-            {
-                TournamentCode = tournamentCode,
-                RoundNumber = roundNumber,
-                RoundCode = roundCode,
-                Groups = groups,
-                TeamWithdrew = teamWithDrew,
-                Games = games
-            };
+        //    GroupViewModel groupViewModel = new(groupCodes)
+        //    {
+        //        TournamentCode = tournamentCode,
+        //        RoundNumber = roundNumber,
+        //        RoundCode = roundCode,
+        //        Groups = groups,
+        //        TeamWithdrew = teamWithDrew,
+        //        Games = games
+        //    };
 
-            return View(groupViewModel);
-        }
+        //    return View(groupViewModel);
+        //}
 
         public async Task<IActionResult> Group(int tournamentCode, int roundNumber, string roundCode)
         {
@@ -99,7 +99,7 @@ namespace SamSmithNZ.Web.Controllers
                     break;
                 }
             }
-            List<Game> games = await _ServiceApiClient.GetGames(tournamentCode, roundNumber, null);
+            List<Game> games = await _ServiceApiClient.GetGames(tournamentCode, roundNumber, null, true);
 
             GroupViewModel groupViewModel = new(groupCodes)
             {
@@ -128,7 +128,7 @@ namespace SamSmithNZ.Web.Controllers
 
         public async Task<IActionResult> Playoffs(int tournamentCode, int roundNumber)
         {
-            List<Game> games = await _ServiceApiClient.GetPlayoffGames(tournamentCode, roundNumber);
+            List<Game> games = await _ServiceApiClient.GetPlayoffGames(tournamentCode, roundNumber, true);
 
             PlayoffsViewModel playoffsViewModel = new()
             {
