@@ -20,9 +20,9 @@ namespace SamSmithNZ.Service.Controllers.WorldCup
         }
 
         [HttpGet("GetGames")]
-        public async Task<List<Game>> GetGames(int tournamentCode, int roundNumber, string roundCode)
+        public async Task<List<Game>> GetGames(int tournamentCode, int roundNumber, string roundCode, bool includeGoals)
         {
-            return await _repo.GetList(tournamentCode, roundNumber, roundCode);
+            return await _repo.GetList(tournamentCode, roundNumber, roundCode, includeGoals);
         }
 
         [HttpGet("GetGamesByTeam")]
@@ -32,9 +32,9 @@ namespace SamSmithNZ.Service.Controllers.WorldCup
         }
 
         [HttpGet("GetPlayoffGames")]
-        public async Task<List<Game>> GetPlayoffGames(int tournamentCode, int roundNumber)
+        public async Task<List<Game>> GetPlayoffGames(int tournamentCode, int roundNumber, bool includeGoals)
         {
-            return await _repo.GetListByPlayoff(tournamentCode, roundNumber);
+            return await _repo.GetListByPlayoff(tournamentCode, roundNumber, includeGoals);
         }
 
         [HttpGet("GetGame")]

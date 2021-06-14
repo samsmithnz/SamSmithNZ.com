@@ -12,9 +12,9 @@ namespace SamSmithNZ.Web.Services.Interfaces
     {
 
         Task<bool> RefreshTournamentELORatings(int tournamentCode);
-        Task<List<Game>> GetGames(int tournamentCode, int roundNumber, string roundCode);
+        Task<List<Game>> GetGames(int tournamentCode, int roundNumber, string roundCode, bool includeGoals);
         Task<List<Game>> GetGamesByTeam(int teamCode);
-        Task<List<Game>> GetPlayoffGames(int tournamentCode, int roundNumber);
+        Task<List<Game>> GetPlayoffGames(int tournamentCode, int roundNumber, bool includeGoals);
         Task<Game> GetGame(int gameCode);
         Task<List<GroupCode>> GetGroupCodes(int tournamentCode, int roundNumber);
         Task<List<Group>> GetGroups(int tournamentCode, int roundNumber, string roundCode);

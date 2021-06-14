@@ -16,12 +16,17 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             base.SetupConnectionString(configuration);
         }
 
-        public async Task<List<Goal>> GetList(int gameCode)
+        public async Task<List<Goal>> GetListByGame(int gameCode)
         {
             DynamicParameters parameters = new();
             parameters.Add("@GameCode", gameCode, DbType.Int32);
 
             return await base.GetList("FB_GetGoals", parameters);
+        }
+
+        public async Task<List<Goal>> GetList()
+        {
+            return await base.GetList("FB_GetGoals");
         }
 
         public async Task<bool> SaveItem(Goal goal)

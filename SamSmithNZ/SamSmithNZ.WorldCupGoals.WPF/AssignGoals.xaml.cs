@@ -63,7 +63,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             else //it's an existing goal, load and populate the form
             {
                 GoalDataAccess da3 = new(_configuration);
-                List<Goal> goals = await da3.GetList(gameCode);
+                List<Goal> goals = await da3.GetListByGame(gameCode);
                 Goal goal = null;
                 foreach (Goal item in goals)
                 {
