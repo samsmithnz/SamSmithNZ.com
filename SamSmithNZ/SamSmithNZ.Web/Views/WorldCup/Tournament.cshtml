@@ -271,32 +271,21 @@
                 <span>(bold player name indicates the player's team is still in the tournament)</span>
             }
             <br /><br />
-            @{
-                int topGoals = 0;
-            }
             @if (Model.Goals.Count == 0)
             {
                 <span>No goals yet</span>
-            }
-            else
-            {
-                topGoals = Model.Goals[0].GoalsScored;
             }
             @foreach (TournamentTopGoalScorer item in Model.Goals)
             {
                 <div>
                     &bull;
-                    @if (item.GoalsScored == topGoals)
+                    @if (item.GoalsScored > 1)
                     {
                         <span><b>@item.GoalsScored goals</b></span>
                     }
-                    else if (item.GoalsScored > 1)
-                    {
-                        <span>@item.GoalsScored goals</span>
-                    }
                     else if (item.GoalsScored == 1)
                     {
-                        <span>@item.GoalsScored goal</span>
+                        <span><b>@item.GoalsScored goal</b></span>
                     }
                     <span>
                         <a href="/WorldCup/Team?teamCode=@item.TeamCode">
