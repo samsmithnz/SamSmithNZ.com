@@ -48,19 +48,21 @@
     const int peHeaderOffset = 60;
     const int linkerTimestampOffset = 8;
     byte[] bytes = new byte[2048];
-    using (FileStream file = new FileStream(Assembly.GetEntryAssembly()?.Location ?? "", FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+    using (FileStream file = new FileStream(Assembly.GetEntryAssembly().Location, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
     {
         file.Read(bytes, 0, bytes.Length);
     }
     Int32 headerPos = BitConverter.ToInt32(bytes, peHeaderOffset);
     Int32 secondsSince1970 = BitConverter.ToInt32(bytes, headerPos + linkerTimestampOffset);
     DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-    string appAssemblyLastBuildDate = dt.AddSeconds(secondsSince1970).ToString("dd-MMM-yyyy hh:mm:sstt");
+    DateTime dateTimeUTC = dt.AddSeconds(secondsSince1970);
+    DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(dateTimeUTC, TimeZoneInfo.Local);
+    string applicationLastBuildTime = localTime.ToString("dd-MMM-yyyy hh:mm:sstt") + " " + TimeZoneInfo.Local.Id;
 }
         
         <span><b>OS Platform:</b> @osPlatform</span><br />
         <span><b>ASP.NET Core version:</b> @aspDotnetVersion</span><br />
-        <span><b>Current application version:</b> @appVersion (Last built: @appAssemblyLastBuildDate)</span><br />
+        <span><b>Current application version:</b> @appVersion</span><br />
         There have been various versions of the site over the years on various domains.
         <ol>
             <li>1999-2002: SamSmith.co.nz: a basic HTML blog with a cgibin forum. Some static HTML pages were pre-generated with a VB6 application from an Access database</li>
