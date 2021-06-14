@@ -226,6 +226,7 @@
     <Build Include="dbo\Tables\LegoOwner.sql" />
     <Build Include="dbo\Stored Procedures\LegoGetOwnedSets.sql" />
     <Build Include="dbo\Stored Procedures\LegoGetParts.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetGoalInsights.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />
