@@ -11,21 +11,6 @@ namespace SamSmithNZ.Tests.WorldCup
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class GoalTests : BaseIntegrationTest
     {
-        [TestMethod]
-        public async Task GoalsExistTest()
-        {
-            //arrange
-            GoalDataAccess da = new(base.Configuration);
-            int gameCode = 7328;
-
-            //act
-            List<Goal> results = await da.GetListByGame(gameCode);
-
-            //assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count > 0);
-        }
-
         [TestMethod()]
         public async Task GoalsFirstItemTest()
         {

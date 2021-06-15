@@ -169,7 +169,7 @@ BEGIN
 		SELECT 
 			2 AS RowType, --2 is a player in normal/extra time
 			g.round_number AS RoundNumber, 
-			NULL AS RoundCode, 
+			g.round_code AS RoundCode, 
 			CONVERT(VARCHAR(50),'') AS RoundName,
 			g.game_code AS GameCode, 
 			g.game_number AS GameNumber, 
@@ -216,7 +216,7 @@ BEGIN
 		SELECT 
 			2 AS RowType, --2 is a player in normal/extra time
 			g.round_number AS RoundNumber, 
-			NULL AS RoundCode, 
+			g.round_code AS RoundCode, 
 			CONVERT(VARCHAR(50),'') AS RoundName,
 			g.game_code AS GameCode, 
 			g.game_number AS GameNumber, 
@@ -263,7 +263,7 @@ BEGIN
 		SELECT 
 			2 AS RowType, --2 is a player in normal/extra time
 			g.round_number AS RoundNumber, 
-			NULL AS RoundCode, 
+			g.round_code AS RoundCode, 
 			CONVERT(VARCHAR(50),'') AS RoundName,
 			g.game_code AS GameCode, 
 			g.game_number AS GameNumber, 
@@ -310,7 +310,7 @@ BEGIN
 		SELECT 
 			2 AS RowType, --2 is a player in normal/extra time
 			g.round_number AS RoundNumber, 
-			NULL AS RoundCode, 
+			g.round_code AS RoundCode, 
 			CONVERT(VARCHAR(50),'') AS RoundName,
 			g.game_code AS GameCode, 
 			g.game_number AS GameNumber, 
@@ -356,7 +356,7 @@ BEGIN
 		UNION
 		SELECT 3 AS RowType, 			
 			g.round_number AS RoundNumber, 
-			NULL AS RoundCode, 
+			g.round_code AS RoundCode, 
 			CONVERT(VARCHAR(50),'') AS RoundName,
 			g.game_code AS GameCode, 
 			g.game_number AS GameNumber, 
@@ -401,7 +401,7 @@ BEGIN
 		UNION
 		SELECT 3 AS RowType, 			
 			g.round_number AS RoundNumber, 
-			NULL AS RoundCode, 
+			g.round_code AS RoundCode, 
 			CONVERT(VARCHAR(50),'') AS RoundName,
 			g.game_code AS GameCode, 
 			g.game_number AS GameNumber, 

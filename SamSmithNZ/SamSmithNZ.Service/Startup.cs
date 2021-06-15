@@ -1,28 +1,20 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SamSmithNZ.Service.DataAccess.FooFighters;
 using SamSmithNZ.Service.DataAccess.FooFighters.Interfaces;
-using SamSmithNZ.Service.DataAccess.GuitarTab.Interfaces;
-using SamSmithNZ.Service.DataAccess.WorldCup.Interfaces;
 using SamSmithNZ.Service.DataAccess.GuitarTab;
-using SamSmithNZ.Service.DataAccess.WorldCup;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
-using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
-using SamSmithNZ.Service.Models.Steam;
-using StackExchange.Redis;
+using SamSmithNZ.Service.DataAccess.GuitarTab.Interfaces;
 using SamSmithNZ.Service.DataAccess.ITunes;
 using SamSmithNZ.Service.DataAccess.ITunes.Interfaces;
+using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
+using SamSmithNZ.Service.DataAccess.WorldCup;
+using SamSmithNZ.Service.DataAccess.WorldCup.Interfaces;
+using SamSmithNZ.Service.Models.Steam;
+using StackExchange.Redis;
 
 namespace SamSmithNZ.Service
 {
@@ -42,8 +34,7 @@ namespace SamSmithNZ.Service
             services.AddControllers()
                 .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null); //Force PascalCase (and disable camelCase)          
 
-            services.AddSwaggerGen(c =>
-            {
+            services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SamSmithNZ.Service", Version = "v1" });
             });
 
@@ -70,6 +61,7 @@ namespace SamSmithNZ.Service
             services.AddScoped<IGameDataAccess, GameDataAccess>();
             services.AddScoped<IGameGoalAssignmentDataAccess, GameGoalAssignmentDataAccess>();
             services.AddScoped<IGoalDataAccess, GoalDataAccess>();
+            services.AddScoped<IGoalInsightsDataAccess, GoalInsightsDataAccess>();
             services.AddScoped<IGroupCodeDataAccess, GroupCodeDataAccess>();
             services.AddScoped<IGroupDataAccess, GroupDataAccess>();
             services.AddScoped<IPenaltyShootoutGoalDataAccess, PenaltyShootoutGoalDataAccess>();
@@ -115,8 +107,7 @@ namespace SamSmithNZ.Service
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
+            app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });
         }
