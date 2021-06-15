@@ -44,7 +44,7 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.IsTrue(results.Count > 0);
             Assert.IsTrue(results[0].GoalCount > 0);
             Assert.IsTrue(results[0].GoalCountPercent > 0);
-            Assert.IsTrue(results[0].GoalTime == 120);
+            Assert.IsTrue(results[0].GoalTime == 91);
         }
 
     }
