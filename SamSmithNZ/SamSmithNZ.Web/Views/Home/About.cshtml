@@ -31,35 +31,35 @@
 
     <h4>History</h4>
     <div>
-@{
-    //OS platform
-    string osPlatform = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
+        @{
+            //OS platform
+            string osPlatform = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
 
-    //.NET core version
-    string? aspDotnetVersion = Assembly
-        .GetEntryAssembly()?
-        .GetCustomAttribute<System.Runtime.Versioning.TargetFrameworkAttribute>()?
-        .FrameworkName;
+            //.NET core version
+            string? aspDotnetVersion = Assembly
+            .GetEntryAssembly()?
+            .GetCustomAttribute<System.Runtime.Versioning.TargetFrameworkAttribute>()?
+            .FrameworkName;
 
-    //Application version
-    string? appVersion = Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version;
+            //Application version
+            string? appVersion = Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version;
 
-    //Last build time
-    const int peHeaderOffset = 60;
-    const int linkerTimestampOffset = 8;
-    byte[] bytes = new byte[2048];
-    using (FileStream file = new FileStream(Assembly.GetEntryAssembly().Location, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-    {
-        file.Read(bytes, 0, bytes.Length);
-    }
-    Int32 headerPos = BitConverter.ToInt32(bytes, peHeaderOffset);
-    Int32 secondsSince1970 = BitConverter.ToInt32(bytes, headerPos + linkerTimestampOffset);
-    DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-    DateTime dateTimeUTC = dt.AddSeconds(secondsSince1970);
-    DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(dateTimeUTC, TimeZoneInfo.Local);
-    string applicationLastBuildTime = localTime.ToString("dd-MMM-yyyy hh:mm:sstt") + " " + TimeZoneInfo.Local.Id;
-}
-        
+            //Last build time
+            const int peHeaderOffset = 60;
+            const int linkerTimestampOffset = 8;
+            byte[] bytes = new byte[2048];
+            using (FileStream file = new FileStream(Assembly.GetEntryAssembly().Location, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                file.Read(bytes, 0, bytes.Length);
+            }
+            Int32 headerPos = BitConverter.ToInt32(bytes, peHeaderOffset);
+            Int32 secondsSince1970 = BitConverter.ToInt32(bytes, headerPos + linkerTimestampOffset);
+            DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            DateTime dateTimeUTC = dt.AddSeconds(secondsSince1970);
+            DateTime localTime = TimeZoneInfo.ConvertTimeFromUtc(dateTimeUTC, TimeZoneInfo.Local);
+            string applicationLastBuildTime = localTime.ToString("dd-MMM-yyyy hh:mm:sstt") + " " + TimeZoneInfo.Local.Id;
+        }
+
         <span><b>OS Platform:</b> @osPlatform</span><br />
         <span><b>ASP.NET Core version:</b> @aspDotnetVersion</span><br />
         <span><b>Current application version:</b> @appVersion (Last built: @applicationLastBuildTime)</span><br />
@@ -76,7 +76,7 @@
     </div>
 
     @*<h4>Statistics</h4>
-    <div>
+        <div>
         <b>239</b> guitar tab albums<br />
         <b>3,027</b> guitar tabs<br />
         <b>48</b> international soccer/football tournaments<br />
@@ -84,7 +84,7 @@
         <b>145</b> months of iTunes listening habits<br />
         <b>1219</b> Foo Fighter shows <br />
         <b>53</b> <a href="http://projecteuler.net/" target="_blank">Project Euler</a> problems completed<br />
-    </div>*@
+        </div>*@
 
     <h4>The future?</h4>
     <img src="~/Images/Logo_Small.jpg" class="AlignedMiddle" />
