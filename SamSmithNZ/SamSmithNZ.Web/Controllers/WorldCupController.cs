@@ -365,6 +365,19 @@ namespace SamSmithNZ.Web.Controllers
         {
             return RedirectToAction("About", "Home");
         }
+        public async Task<IActionResult> Insights()
+        {
+            List<GoalInsight> regularTimeGoalInsights = await _ServiceApiClient.GetGoalInsights(false);
+            List<GoalInsight> extraTimeGoalInsights = await _ServiceApiClient.GetGoalInsights(true);
+
+            InsightsViewModel insightsViewModel = new()
+            {
+                RegularTimeGoalInsights = regularTimeGoalInsights,
+                ExtraTimeGoalInsights=extraTimeGoalInsights
+            };
+
+            return View(insightsViewModel);
+        }
 
     }
 }
