@@ -4,9 +4,9 @@
     {
         public GoalInsight() { }
 
-        public decimal GoalTime { get; set; }
+        public double GoalTime { get; set; }
         public int GoalCount { get; set; }
-        public decimal GoalCountPercent { get; set; }
+        public double GoalCountPercent { get; set; }
 
     }
 }

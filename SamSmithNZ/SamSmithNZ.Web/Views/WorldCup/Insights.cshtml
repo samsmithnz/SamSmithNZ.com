@@ -6,14 +6,39 @@
     Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
 }
 
-@*<div class="row">
-    <div class="col-md-12">
-    @Model.RegularTimeGoalInsights.Count
-    </div>
-    </div>*@
 <div class="row">
     <div class="col-md-12">
-        @Model.ExtraTimeGoalInsights.Count
+        Goals by Minute, regular time:
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>Goal time</th>
+                <th>Goal count</th>
+                <th>Goal count %</th>
+            </tr>
+            @foreach (GoalInsight item in Model.RegularTimeGoalInsights)
+            {
+                string goalTime = item.GoalTime.ToString("0");
+                if (item.GoalTime == 45.5)
+                {
+                    goalTime = "45+";
+                }
+                else if (item.GoalTime== 90.5)
+                {
+                    goalTime = "90+";
+                }
+
+                <tr>
+                    <td>@goalTime</td>
+                    <td>@item.GoalCount.ToString("0")</td>
+                    <td>@item.GoalCountPercent.ToString("0.0") %</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        Goals by Minute, extra time:
         <table class="table table-striped table-bordered">
             <tr>
                 <th>Goal time</th>
@@ -22,12 +47,21 @@
             </tr>
             @foreach (GoalInsight item in Model.ExtraTimeGoalInsights)
             {
+                string goalTime = item.GoalTime.ToString("0");
+                if (item.GoalTime == 105.5)
+                {
+                    goalTime = "105+";
+                }
+                else if (item.GoalTime == 120.5)
+                {
+                    goalTime = "120+";
+                }
                 <tr>
-                    <td>@item.GoalTime.ToString("0")</td>
+                    <td>@goalTime</td>
                     <td>@item.GoalCount.ToString("0")</td>
-                    <td>@item.GoalCountPercent.ToString("0") %</td>
+                    <td>@item.GoalCountPercent.ToString("0.0") %</td>
                 </tr>
             }
-            </table>
+        </table>
     </div>
 </div>
