@@ -13,10 +13,10 @@ namespace SamSmithNZ.Web.Models.WorldCup
             this.ShowDebugElements = showDebugElements;
         }
 
-        public List<Game> Games { get; private set; }
-        public bool IsTeamVersion { get; private set; }
-        public bool IsGroupVersion { get; private set; }
-        public bool ShowDebugElements { get; private set; }
+        public List<Game> Games { get; set; }
+        public bool IsTeamVersion { get; set; }
+        public bool IsGroupVersion { get; set; }
+        public bool ShowDebugElements { get; set; }
 
         public static GameResult GetGameResult(Game myGame)
         {

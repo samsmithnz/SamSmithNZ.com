@@ -23,7 +23,7 @@ namespace SamSmithNZ.Service
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -38,7 +38,7 @@ namespace SamSmithNZ.Service
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SamSmithNZ.Service", Version = "v1" });
             });
 
-            services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
+            services.AddApplicationInsightsTelemetry(this.Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
 
             //Foo Fighters
             services.AddScoped<SamSmithNZ.Service.DataAccess.FooFighters.Interfaces.IAlbumDataAccess, SamSmithNZ.Service.DataAccess.FooFighters.AlbumDataAccess>();
@@ -73,7 +73,7 @@ namespace SamSmithNZ.Service
 
             //Steam
             services.AddSingleton<IRedisService, RedisService>();
-            ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect(Configuration["CacheConnection"]);
+            ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect(this.Configuration["CacheConnection"]);
             if (connectionMultiplexer != null)
             {
                 IDatabase database = connectionMultiplexer.GetDatabase();

@@ -1,0 +1,33 @@
+﻿@using SamSmithNZ.Service.Models.WorldCup
+@using SamSmithNZ.Web.Models.WorldCup
+@model InsightsViewModel
+@{
+    ViewBag.Title = "Insights";
+    Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
+}
+
+@*<div class="row">
+    <div class="col-md-12">
+    @Model.RegularTimeGoalInsights.Count
+    </div>
+    </div>*@
+<div class="row">
+    <div class="col-md-12">
+        @Model.ExtraTimeGoalInsights.Count
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>Goal time</th>
+                <th>Goal count</th>
+                <th>Goal count %</th>
+            </tr>
+            @foreach (GoalInsight item in Model.ExtraTimeGoalInsights)
+            {
+                <tr>
+                    <td>@item.GoalTime.ToString("0")</td>
+                    <td>@item.GoalCount.ToString("0")</td>
+                    <td>@item.GoalCountPercent.ToString("0") %</td>
+                </tr>
+            }
+            </table>
+    </div>
+</div>

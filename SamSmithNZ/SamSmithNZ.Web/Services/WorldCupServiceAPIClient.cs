@@ -84,6 +84,20 @@ namespace SamSmithNZ.Web.Services
             }
         }
 
+        public async Task<List<GoalInsight>> GetGoalInsights(bool analyzeExtraTime)
+        {
+            Uri url = new($"api/WorldCup/Insights/GetGoalInsights?analyzeExtraTime=" + analyzeExtraTime, UriKind.Relative);
+            List<GoalInsight> results = await base.ReadMessageList<GoalInsight>(url);
+            if (results == null)
+            {
+                return new List<GoalInsight>();
+            }
+            else
+            {
+                return results;
+            }
+        }
+
         public async Task<List<GroupCode>> GetGroupCodes(int tournamentCode, int roundNumber)
         {
             Uri url = new($"api/WorldCup/GroupCode/GetGroupCodes?tournamentCode=" + tournamentCode + "&roundNumber=" + roundNumber, UriKind.Relative);
