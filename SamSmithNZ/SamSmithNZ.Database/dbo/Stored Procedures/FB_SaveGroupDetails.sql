@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[FB_SaveGroupDetails]
+﻿ALTER PROCEDURE [dbo].[FB_SaveGroupDetails]
 	@TournamentCode INT,
 	@RoundNumber INT,
 	@RoundCode VARCHAR(10)
@@ -11,11 +11,13 @@ BEGIN
 	DECLARE @TeamsFromAllGroupsThatAdvance INT
 	DECLARE @TotalNumberOfTeamsThatAdvanceFromStage INT
 	DECLARE @GroupAdvancementDifference INT
+	DECLARE @FormatCode INT
 	IF (@RoundNumber = 1)
 	BEGIN
 		SELECT @TeamsFromAllGroupsThatAdvance = (tf.r1_number_of_teams_from_group_that_advance * tf.r1_number_of_groups_in_round),
 			@TotalNumberOfTeamsThatAdvanceFromStage = tf.r1_total_number_of_teams_that_advance,
-			@TeamsFromEachGroupThatAdvance = tf.r1_number_of_teams_from_group_that_advance
+			@TeamsFromEachGroupThatAdvance = tf.r1_number_of_teams_from_group_that_advance,
+			@FormatCode = t.format_code
 		FROM wc_tournament t 
 		JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
 		WHERE t.tournament_code = @TournamentCode
@@ -24,7 +26,8 @@ BEGIN
 	BEGIN
 		SELECT @TeamsFromAllGroupsThatAdvance = (tf.r2_number_of_teams_from_group_that_advance * tf.r2_number_of_groups_in_round),
 			@TotalNumberOfTeamsThatAdvanceFromStage = tf.r2_total_number_of_teams_that_advance,
-			@TeamsFromEachGroupThatAdvance = tf.r2_number_of_teams_from_group_that_advance
+			@TeamsFromEachGroupThatAdvance = tf.r2_number_of_teams_from_group_that_advance,
+			@FormatCode = t.format_code
 		FROM wc_tournament t 
 		JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
 		WHERE t.tournament_code = @TournamentCode
@@ -33,7 +36,8 @@ BEGIN
 	BEGIN
 		SELECT @TeamsFromAllGroupsThatAdvance = (tf.r3_number_of_teams_from_group_that_advance * tf.r3_number_of_groups_in_round),
 			@TotalNumberOfTeamsThatAdvanceFromStage = tf.r3_total_number_of_teams_that_advance,
-			@TeamsFromEachGroupThatAdvance = tf.r3_number_of_teams_from_group_that_advance
+			@TeamsFromEachGroupThatAdvance = tf.r3_number_of_teams_from_group_that_advance,
+			@FormatCode = t.format_code
 		FROM wc_tournament t 
 		JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
 		WHERE t.tournament_code = @TournamentCode
@@ -144,62 +148,35 @@ BEGIN
 
 	CLOSE Cursor1
 	DEALLOCATE Cursor1
-
-	/*
-	SELECT t.team_name, gs.*
-	FROM wc_group_stage gs
-	JOIN wc_team t ON gs.team_code = t.team_code
-	WHERE tournament_code = @TournamentCode
-	AND round_number = @RoundNumber
-	AND has_qualified_for_next_round = 0
-	ORDER BY points DESC, goal_difference DESC, goals_for DESC
-	*/
-
-	IF (@TeamsFromAllGroupsThatAdvance = (SELECT COUNT(*) FROM wc_group_stage gs
-											WHERE tournament_code = @TournamentCode
-											AND round_number = @RoundNumber
-											AND group_ranking <= @TeamsFromEachGroupThatAdvance))
+	
+	--Setup any teams that have qualified for the next round in 3rd place positions
+	IF (@TeamsFromAllGroupsThatAdvance > @TotalNumberOfTeamsThatAdvanceFromStage)
 	BEGIN
-		UPDATE wc_group_stage
-		SET has_qualified_for_next_round = 0
+		SELECT @team_code = gs.team_code
+		FROM wc_group_stage gs
 		WHERE tournament_code = @TournamentCode
 		AND round_number = @RoundNumber
-		AND team_code = @team_code
-		AND group_ranking <= @TeamsFromEachGroupThatAdvance
+		AND round_code = @RoundCode
+		AND group_ranking = 3
+
+		--Don't include a team here - just delete anyone from this group
+		DELETE FROM wc_group_stage_third_placed_teams
+		WHERE tournament_code = @TournamentCode
+		AND round_number = @RoundNumber
+		AND round_code = @RoundCode
+
+		--Insert this new team into the third placed teams
+		INSERT INTO wc_group_stage_third_placed_teams
+		SELECT * FROM wc_group_stage
+		WHERE tournament_code = @TournamentCode
+		AND round_number = @RoundNumber
+		AND round_code = @RoundCode
+		AND team_code = @team_code	
+
+	END
 	
 
-		--Finally set any teams that have qualified for the next round in 3rd place positions
-		SELECT @group_ranking = 0
-		DECLARE Cursor1 CURSOR LOCAL FOR
-			SELECT gs.team_code
-			FROM wc_group_stage gs
-			WHERE tournament_code = @TournamentCode
-			AND round_number = @RoundNumber
-			AND has_qualified_for_next_round = 0
-			ORDER BY group_ranking, points DESC, goal_difference DESC, goals_for DESC
-
-		OPEN Cursor1
-
-		--loop through all the items
-		FETCH NEXT FROM Cursor1 INTO @team_code
-		WHILE (@@FETCH_STATUS <> -1 AND @group_ranking < @GroupAdvancementDifference)
-		BEGIN
-			SELECT @group_ranking = @group_ranking + 1
-		
-			UPDATE wc_group_stage
-			SET has_qualified_for_next_round = 1
-			WHERE tournament_code = @TournamentCode
-			AND round_number = @RoundNumber
-			AND team_code = @team_code
-
-			FETCH NEXT FROM Cursor1 INTO @team_code
-		END
-
-		CLOSE Cursor1
-		DEALLOCATE Cursor1
-	END
-
-	IF (@TournamentCode = 21)
+	IF (@FormatCode = 1) --Current round is 8 groups, top 2 teams from each group goes through
 	BEGIN
 		--Update the playoff's if the group is done.
 		DECLARE @GroupRanking INT
@@ -405,3 +382,10 @@ BEGIN
 
 	DROP TABLE #tmp_teams
 END
+GO
+exec FB_SaveGroupDetails 316, 1, 'A'
+exec FB_SaveGroupDetails 316, 1, 'B'
+exec FB_SaveGroupDetails 316, 1, 'C'
+exec FB_SaveGroupDetails 316, 1, 'D'
+exec FB_SaveGroupDetails 316, 1, 'E'
+exec FB_SaveGroupDetails 316, 1, 'F'
