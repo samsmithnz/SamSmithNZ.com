@@ -12,6 +12,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
         public string TeamName { get; set; }
         public string TeamFlagName { get; set; }
         public int RoundNumber { get; set; }
+        public string BaseRoundCode { get; set; } //Used for 3rd place teams in group stages
         public string RoundCode { get; set; }
         public int TournamentCode { get; set; }
         public int TeamCode { get; set; }
