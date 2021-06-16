@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[FB_SaveGroupDetails]
+﻿ALTER PROCEDURE [dbo].[FB_SaveGroupDetails]
 	@TournamentCode INT,
 	@RoundNumber INT,
 	@RoundCode VARCHAR(10)
@@ -11,11 +11,13 @@ BEGIN
 	DECLARE @TeamsFromAllGroupsThatAdvance INT
 	DECLARE @TotalNumberOfTeamsThatAdvanceFromStage INT
 	DECLARE @GroupAdvancementDifference INT
+	DECLARE @FormatCode INT
 	IF (@RoundNumber = 1)
 	BEGIN
 		SELECT @TeamsFromAllGroupsThatAdvance = (tf.r1_number_of_teams_from_group_that_advance * tf.r1_number_of_groups_in_round),
 			@TotalNumberOfTeamsThatAdvanceFromStage = tf.r1_total_number_of_teams_that_advance,
-			@TeamsFromEachGroupThatAdvance = tf.r1_number_of_teams_from_group_that_advance
+			@TeamsFromEachGroupThatAdvance = tf.r1_number_of_teams_from_group_that_advance,
+			@FormatCode = t.format_code
 		FROM wc_tournament t 
 		JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
 		WHERE t.tournament_code = @TournamentCode
@@ -24,7 +26,8 @@ BEGIN
 	BEGIN
 		SELECT @TeamsFromAllGroupsThatAdvance = (tf.r2_number_of_teams_from_group_that_advance * tf.r2_number_of_groups_in_round),
 			@TotalNumberOfTeamsThatAdvanceFromStage = tf.r2_total_number_of_teams_that_advance,
-			@TeamsFromEachGroupThatAdvance = tf.r2_number_of_teams_from_group_that_advance
+			@TeamsFromEachGroupThatAdvance = tf.r2_number_of_teams_from_group_that_advance,
+			@FormatCode = t.format_code
 		FROM wc_tournament t 
 		JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
 		WHERE t.tournament_code = @TournamentCode
@@ -33,7 +36,8 @@ BEGIN
 	BEGIN
 		SELECT @TeamsFromAllGroupsThatAdvance = (tf.r3_number_of_teams_from_group_that_advance * tf.r3_number_of_groups_in_round),
 			@TotalNumberOfTeamsThatAdvanceFromStage = tf.r3_total_number_of_teams_that_advance,
-			@TeamsFromEachGroupThatAdvance = tf.r3_number_of_teams_from_group_that_advance
+			@TeamsFromEachGroupThatAdvance = tf.r3_number_of_teams_from_group_that_advance,
+			@FormatCode = t.format_code
 		FROM wc_tournament t 
 		JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
 		WHERE t.tournament_code = @TournamentCode
@@ -105,6 +109,7 @@ BEGIN
 	--Set the Group Ranking for each group
 	DECLARE @group_ranking INT
 	SELECT @group_ranking = 0
+	SELECT @TeamsFromEachGroupThatAdvance as TeamsFromEachGroupThatAdvance
 
 	DECLARE Cursor1 CURSOR LOCAL FOR
 		SELECT gs.team_code
@@ -155,6 +160,8 @@ BEGIN
 	ORDER BY points DESC, goal_difference DESC, goals_for DESC
 	*/
 
+
+	/*
 	IF (@TeamsFromAllGroupsThatAdvance = (SELECT COUNT(*) FROM wc_group_stage gs
 											WHERE tournament_code = @TournamentCode
 											AND round_number = @RoundNumber
@@ -198,8 +205,9 @@ BEGIN
 		CLOSE Cursor1
 		DEALLOCATE Cursor1
 	END
+	*/
 
-	IF (@TournamentCode = 21)
+	IF (@FormatCode = 1) --Current round is 8 groups, top 2 teams from each group goes through
 	BEGIN
 		--Update the playoff's if the group is done.
 		DECLARE @GroupRanking INT
@@ -405,3 +413,5 @@ BEGIN
 
 	DROP TABLE #tmp_teams
 END
+GO
+FB_SaveGroupDetails 316, 1, 'A'

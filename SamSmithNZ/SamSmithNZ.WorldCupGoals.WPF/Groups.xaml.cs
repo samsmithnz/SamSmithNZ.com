@@ -43,7 +43,10 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             cboGroup.Focus();
             cboGroup.SelectedIndex = 0;
 
-            _groupCode = cboGroup.SelectedValue.ToString();
+            if (cboGroup.SelectedValue != null)
+            {
+                _groupCode = cboGroup.SelectedValue.ToString();
+            }
             await LoadGrid();
 
             ShowDialog();
