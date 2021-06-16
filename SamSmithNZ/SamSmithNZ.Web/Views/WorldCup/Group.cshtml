@@ -70,7 +70,7 @@
                             <th>ELO Rating</th>
                         </tr>
                         @{
-                            List<Group> groups = Model.Groups.Where(x => x.RoundCode == groupCode.Text).ToList();
+                            List<Group> groups = Model.Groups.Where(x => x.RoundCode == groupCode.Text && x.BaseRoundCode == groupCode.Text).ToList();
                             List<Game> games = Model.Games.Where(x => x.RoundCode == groupCode.Text).ToList();
                         }
                         @foreach (Group item in groups)
