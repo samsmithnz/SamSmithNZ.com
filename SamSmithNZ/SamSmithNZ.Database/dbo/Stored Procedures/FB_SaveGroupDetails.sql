@@ -150,7 +150,7 @@ BEGIN
 	DEALLOCATE Cursor1
 	
 	--Setup any teams that have qualified for the next round in 3rd place positions
-	IF (@TeamsFromAllGroupsThatAdvance > @TotalNumberOfTeamsThatAdvanceFromStage)
+	IF (@TeamsFromAllGroupsThatAdvance < @TotalNumberOfTeamsThatAdvanceFromStage)
 	BEGIN
 		SELECT @team_code = gs.team_code
 		FROM wc_group_stage gs
@@ -167,11 +167,62 @@ BEGIN
 
 		--Insert this new team into the third placed teams
 		INSERT INTO wc_group_stage_third_placed_teams
-		SELECT * FROM wc_group_stage
+		SELECT round_number, round_code, tournament_code, team_code, 
+			played, wins, draws, losses, goals_for, goals_against, goal_difference, 
+			points, has_qualified_for_next_round, 0 
+		FROM wc_group_stage
 		WHERE tournament_code = @TournamentCode
 		AND round_number = @RoundNumber
 		AND round_code = @RoundCode
 		AND team_code = @team_code	
+
+		SELECT @group_ranking = 0
+
+		DECLARE Cursor1 CURSOR LOCAL FOR
+		SELECT gs.team_code
+		FROM wc_group_stage_third_placed_teams gs
+		WHERE tournament_code = @TournamentCode
+		AND round_number = @RoundNumber
+		ORDER BY points DESC, goal_difference DESC, goals_for DESC
+
+		OPEN Cursor1
+
+		--loop through all the items
+		FETCH NEXT FROM Cursor1 INTO @team_code
+		WHILE (@@FETCH_STATUS <> -1)
+		BEGIN
+			SELECT @group_ranking = @group_ranking + 1
+	
+			IF (@group_ranking <= (@TotalNumberOfTeamsThatAdvanceFromStage - @TeamsFromAllGroupsThatAdvance))
+			BEGIN
+				SELECT @has_qualified_for_next_round = 1
+			END
+			ELSE
+			BEGIN
+				SELECT @has_qualified_for_next_round = 0
+			END
+
+			UPDATE wc_group_stage_third_placed_teams
+			SET group_ranking = @group_ranking, has_qualified_for_next_round = @has_qualified_for_next_round
+			WHERE tournament_code = @TournamentCode
+			AND round_number = @RoundNumber
+			AND team_code = @team_code
+
+			FETCH NEXT FROM Cursor1 INTO @team_code
+		END
+
+		CLOSE Cursor1
+		DEALLOCATE Cursor1
+
+		--Now update the original groups
+		UPDATE g
+		SET g.has_qualified_for_next_round = t.has_qualified_for_next_round
+		FROM wc_group_stage g
+		JOIN wc_group_stage_third_placed_teams t ON g.tournament_code = t.tournament_code
+			AND g.round_number = t.round_number
+			AND g.team_code = t.team_code
+		WHERE t.tournament_code = @TournamentCode
+		AND t.round_number = @RoundNumber 
 
 	END
 	
@@ -367,25 +418,15 @@ BEGIN
 		DEALLOCATE Cursor1
 	END
 
-	--
-	/*
-	SELECT * 
-	FROM wc_group_stage
-	WHERE tournament_code = @TournamentCode
-	AND round_number = @RoundNumber
-	AND round_code = @RoundCode*/
-
-	--SELECT * 
-	--FROM wc_tournament_format_round
-	--WHERE format_round_code = @format_round_code
-	--wc_tournament_format
-
 	DROP TABLE #tmp_teams
 END
 GO
+/*
 exec FB_SaveGroupDetails 316, 1, 'A'
 exec FB_SaveGroupDetails 316, 1, 'B'
 exec FB_SaveGroupDetails 316, 1, 'C'
 exec FB_SaveGroupDetails 316, 1, 'D'
 exec FB_SaveGroupDetails 316, 1, 'E'
 exec FB_SaveGroupDetails 316, 1, 'F'
+select * From wc_group_stage_third_placed_teams order by group_ranking
+*/
