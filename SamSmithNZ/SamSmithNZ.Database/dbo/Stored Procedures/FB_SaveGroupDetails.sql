@@ -214,6 +214,16 @@ BEGIN
 		CLOSE Cursor1
 		DEALLOCATE Cursor1
 
+		--Now update the original groups
+		UPDATE g
+		SET g.has_qualified_for_next_round = t.has_qualified_for_next_round
+		FROM wc_group_stage g
+		JOIN wc_group_stage_third_placed_teams t ON g.tournament_code = t.tournament_code
+			AND g.round_number = t.round_number
+			AND g.team_code = t.team_code
+		WHERE t.tournament_code = @TournamentCode
+		AND t.round_number = @RoundNumber 
+
 	END
 	
 
