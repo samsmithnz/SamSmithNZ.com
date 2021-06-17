@@ -54,7 +54,14 @@
         <div id="accordion">
             @foreach (SelectListItem groupCode in Model.GroupCodes)
             {
-                <h3>Group @groupCode.Text</h3>
+                if (groupCode.Text == "z3")
+                {
+                    <h3>Third-placed teams</h3>
+                }
+                else
+                {
+                    <h3>Group @groupCode.Text</h3>
+                }
                 <div>
                     <table class="table table-bordered">
                         <tr>
@@ -71,6 +78,10 @@
                         </tr>
                         @{
                             List<Group> groups = Model.Groups.Where(x => x.RoundCode == groupCode.Text && x.BaseRoundCode == groupCode.Text).ToList();
+                            if (groupCode.Text == "z3")
+                            {
+                                groups = Model.Groups.Where(x => x.BaseRoundCode == "3rd").ToList();
+                            }
                             List<Game> games = Model.Games.Where(x => x.RoundCode == groupCode.Text).ToList();
                         }
                         @foreach (Group item in groups)
@@ -122,22 +133,22 @@
                                     }
                                 </td>
                                 @*<td>
-                                        @if (item.RowType == 1)
-                                        {
-                                            <div>@item.RoundNumber</div>
-                                        }
+                                    @if (item.RowType == 1)
+                                    {
+                                    <div>@item.RoundNumber</div>
+                                    }
                                     </td>
                                     <td>
-                                        @if (item.RowType == 1)
-                                        {
-                                            <div>@item.RoundName</div>
-                                        }
+                                    @if (item.RowType == 1)
+                                    {
+                                    <div>@item.RoundName</div>
+                                    }
                                     </td>
                                     <td>
-                                        @if (item.RowType == 1)
-                                        {
-                                            <div>@item.RoundCode</div>
-                                        }
+                                    @if (item.RowType == 1)
+                                    {
+                                    <div>@item.RoundCode</div>
+                                    }
                                     </td>*@
                                 <td style="text-align: right;">
                                     @if (item.RowType == 1)
@@ -145,7 +156,7 @@
                                         <div>
                                             @*@if (item.Team1NormalTimeScore == null)
                                                 {
-                                                    <span>@item.Team1ChanceToWin.ToString("0")% to win</span>
+                                                <span>@item.Team1ChanceToWin.ToString("0")% to win</span>
                                                 }*@
                                             <a href="/WorldCup/Team?TeamCode=@item.Team1Code">@item.Team1Name</a>
                                             <img src="~/WorldCup/Teams/@item.Team1FlagName" Class="TeamImage" />
@@ -156,9 +167,17 @@
                                         <div>
                                             @item.Team1Name
                                             <img src="~/WorldCup/Soccerball_svg.png" /> @item.Team1NormalTimeScore' @if (item.Team1ExtraTimeScore > 0)
-                                            {<span>+@item.Team1ExtraTimeScore'</span>} @if (item.IsPenalty == true)
-                                            {<span> (pen)</span>}@if (item.IsOwnGoal == true)
-                                            {<span> (og)</span>}
+                                            {
+                                                <span>+@item.Team1ExtraTimeScore'</span>
+                                            }
+                                            @if (item.IsPenalty == true)
+                                            {
+                                                <span> (pen)</span>
+                                            }
+                                            @if (item.IsOwnGoal == true)
+                                            {
+                                                <span> (og)</span>
+                                            }
                                         </div>
                                     }
                                 </td>
@@ -197,7 +216,7 @@
                                             <a href="/WorldCup/Team?TeamCode=@item.Team2Code">@item.Team2Name</a>
                                             @*@if (item.Team2NormalTimeScore == null)
                                                 {
-                                                    <span>@item.Team2ChanceToWin.ToString("0")% to win) </span>
+                                                <span>@item.Team2ChanceToWin.ToString("0")% to win) </span>
                                                 }*@
                                         </div>
                                     }
@@ -206,9 +225,17 @@
                                         <div>
                                             @item.Team2Name
                                             <img src="~/WorldCup/Soccerball_svg.png" /> @item.Team2NormalTimeScore' @if (item.Team2ExtraTimeScore > 0)
-                                            {<span>+@item.Team2ExtraTimeScore'</span>} @if (item.IsPenalty == true)
-                                            {<span> (pen)</span>}@if (item.IsOwnGoal == true)
-                                            {<span> (og)</span>}
+                                            {
+                                                <span>+@item.Team2ExtraTimeScore'</span>
+                                            }
+                                            @if (item.IsPenalty == true)
+                                            {
+                                                <span> (pen)</span>
+                                            }
+                                            @if (item.IsOwnGoal == true)
+                                            {
+                                                <span> (og)</span>
+                                            }
                                         </div>
                                     }
                                 </td>
@@ -230,7 +257,6 @@
 
 <div class="row">
     <div class="col-md-12">
-
     </div>
 </div>
 
