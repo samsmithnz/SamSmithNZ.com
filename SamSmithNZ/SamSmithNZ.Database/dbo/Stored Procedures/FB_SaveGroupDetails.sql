@@ -1,4 +1,4 @@
-﻿ALTER PROCEDURE [dbo].[FB_SaveGroupDetails]
+﻿CREATE PROCEDURE [dbo].[FB_SaveGroupDetails]
 	@TournamentCode INT,
 	@RoundNumber INT,
 	@RoundCode VARCHAR(10)
