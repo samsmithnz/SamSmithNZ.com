@@ -52,12 +52,10 @@ jobs:
     #  run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
     #- name: 'Copy database files to: ${{ github.workspace }}'
     #  run: Copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*' '${{ github.workspace }}\Database'
-    #- name: Publish .NET 5 functional tests project
-    #  if: 0 == 1
-    #  run: dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
-    #- name: 'Copy Selenium Files to: ${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
-    #  if: 0 == 1
-    #  run: Copy 'SamSmithNZ/SamSmithNZ.FunctionalTests/bin/Release/net5.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
+    - name: Publish .NET 5 functional tests project
+      run: dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
+    - name: 'Copy Selenium Files to: ${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
+      run: Copy 'SamSmithNZ/SamSmithNZ.FunctionalTests/bin/Release/net5.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
     - name: Publish webapi Artifact
       uses: actions/upload-artifact@v2
       with:
@@ -68,11 +66,15 @@ jobs:
       with:
         name: web
         path: ${{ github.workspace }}/web
+    - name: Publish web Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: functionalTests
+        path: ${{ github.workspace }}/FunctionalTests
         
   TestDotNet:
     name: Test .NET
     runs-on: ubuntu-latest
-    if: 0 == 1
     steps:
     - uses: actions/checkout@v2
     - name: Install .Net 5 SDK
@@ -81,11 +83,11 @@ jobs:
         dotnet-version: 5.0.100
     - name: Test dotnet 5 projects
       run: dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug --logger trx --collect "Code coverage" --settings:${{ github.workspace }}/SamSmithNZ/SamSmithNZ.Tests/CodeCoverage.runsettings
-    - name: Publish coverage report to coveralls.io
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: src/AzurePipelinesToGitHubActionsConverter.Tests/TestResults/coverage.info  
+    #- name: Publish coverage report to coveralls.io
+    #  uses: coverallsapp/github-action@master
+    #  with:
+    #    github-token: ${{ secrets.GITHUB_TOKEN }}
+    #    path-to-lcov: src/AzurePipelinesToGitHubActionsConverter.Tests/TestResults/coverage.info  
       
   BuildMandMsDependency:
     name: Build MandMs dependency
@@ -109,7 +111,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
     - build
-    #- TestDotNet
+    - TestDotNet
     #- BuildMandMsDependency
     steps:
     - uses: actions/checkout@v2
@@ -182,16 +184,15 @@ jobs:
   RunSmokeTests:
     name: Run smoke tests on staging slots
     runs-on: windows-latest
-    if: 0 == 1
     needs:
     - DeployWebAppsToSlots
-    - DeploySQLDB
+    #- DeploySQLDB
     steps:
     - uses: actions/checkout@v2
     - name: Download the build artifacts
       uses: actions/download-artifact@v2
       with:
-        name: drop
+        name: functionalTests
         path: ${{ github.workspace }}
     - name: Install .Net 5 SDK
       uses: actions/setup-dotnet@v1
@@ -200,9 +201,9 @@ jobs:
     - name: Run functional smoke tests on website and web service
       run: |
         $vsTestConsoleExe = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe"
-        $targetTestDll = "**\SamSmithNZ.FunctionalTests\SamSmithNZ.FunctionalTests.dll"
-        $testRunSettings = "/Settings:`"FunctionalTests/SamSmithNZ.FunctionalTests/test.runsettings`" "
-        $parameters = " -- ServiceUrl="https://ssnz-prod-eu-service-staging.azurewebsites.net/" WebsiteUrl="https://www.samsmithnz.com/" "
+        $targetTestDll = "**\SamSmithNZ.FunctionalTests.dll"
+        $testRunSettings = "/Settings:`"test.runsettings`" "
+        $parameters = " -- ServiceUrl=""https://ssnz-prod-eu-service-staging.azurewebsites.net/"" WebsiteUrl=""https://www.samsmithnz.com/"" "
         #Note that the `" is an escape character to quote strings, and the `& is needed to start the command
         $command = "`& `"$vsTestConsoleExe`" `"$targetTestDll`" $testRunSettings $parameters "
         Write-Host "$command"
@@ -214,7 +215,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     needs:
-    #- RunSmokeTests
+    - RunSmokeTests
     - DeployWebAppsToSlots
     steps:
     - uses: actions/checkout@v2
