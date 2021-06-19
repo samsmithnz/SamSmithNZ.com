@@ -20,7 +20,8 @@ namespace SamSmithnNZ.Tests
         {
             IConfigurationBuilder config = new ConfigurationBuilder()
                .SetBasePath(AppContext.BaseDirectory)
-               .AddJsonFile("appsettings.json");
+               .AddJsonFile("appsettings.json")
+               .AddUserSecrets<BaseIntegrationTest>(true);
             Configuration = config.Build();
 
             //Setup the test server

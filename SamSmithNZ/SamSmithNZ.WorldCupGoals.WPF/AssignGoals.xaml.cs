@@ -25,8 +25,9 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             InitializeComponent();
 
             IConfigurationBuilder config = new ConfigurationBuilder()
-               .SetBasePath(AppContext.BaseDirectory)
-               .AddJsonFile("appsettings.json");
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("appsettings.json")
+                .AddUserSecrets<Main>(true);
             _configuration = config.Build();
         }
 
