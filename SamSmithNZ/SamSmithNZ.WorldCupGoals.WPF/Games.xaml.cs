@@ -1,20 +1,14 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using SamSmithNZ.Service.DataAccess.WorldCup;
+using SamSmithNZ.Service.Models.WorldCup;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Globalization;
-using SamSmithNZ.Service.DataAccess.WorldCup;
-using SamSmithNZ.Service.Models.WorldCup;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 
 namespace SamSmithNZ.WorldCupGoals.WPF
 {
@@ -31,8 +25,9 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             InitializeComponent();
 
             IConfigurationBuilder config = new ConfigurationBuilder()
-               .SetBasePath(AppContext.BaseDirectory)
-               .AddJsonFile("appsettings.json");
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("appsettings.json")
+                .AddUserSecrets<Main>(true);
             _configuration = config.Build();
         }
 
