@@ -81,6 +81,13 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.100
+    - name: Variable Substitution appsettings file for tests
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: 'SamSmithNZ/SamSmithNZ.Tests/appsettings.json'
+      env:
+        ConnectionStrings.DefaultConnectionString: "${{ secrets.SQL_CONNECTIONSTRING }}"
+        CacheConnection: "${{ secrets.REDIS_CONNECTIONSTRING }}"  
     - name: Test dotnet 5 projects
       run: dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug --logger trx --collect "Code coverage" --settings:${{ github.workspace }}/SamSmithNZ/SamSmithNZ.Tests/CodeCoverage.runsettings
     #- name: Publish coverage report to coveralls.io
@@ -132,6 +139,8 @@ jobs:
         app-name: ssnz-prod-eu-service
         package: service
         slot-name: staging
+    - name: Set service secrets
+      run: az webapp config appsettings set --name "ssnz-prod-eu-service" --resource-group "SSSandbox" --slot staging --settings "ConnectionStrings:DefaultConnectionString=${{ secrets.SQL_CONNECTIONSTRING }}" "CacheConnection=${{ secrets.REDIS_CONNECTIONSTRING }}"
     - name: 'App Service Deploy: SamSmithNZ website'
       uses: Azure/webapps-deploy@v2
       with:
