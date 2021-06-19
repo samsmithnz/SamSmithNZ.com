@@ -1,7 +1,7 @@
 ﻿<Window x:Class="SamSmithNZ.WorldCupGoals.WPF.Goals"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Games Goals" Height="300" Width="450" ShowInTaskbar="True" WindowStartupLocation="CenterScreen" Icon="/SamSmithNZ.WorldCupGoals.WPF;component/Soccer.ico">
+        Title="Games Goals" Height="300" Width="500" ShowInTaskbar="True" WindowStartupLocation="CenterScreen" Icon="/SamSmithNZ.WorldCupGoals.WPF;component/Soccer.ico">
     <Grid>
         <ListView Name="lstGoals" Margin="12,72,12,12" ItemsSource="{Binding}">
             <ListView.View>
