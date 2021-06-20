@@ -1,5 +1,4 @@
-﻿using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
-using SamSmithNZ.Service.Models.Steam;
+﻿using SamSmithNZ.Service.Models.Steam;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,14 +7,14 @@ namespace SamSmithNZ.Service.DataAccess.Steam
 {
     public class GameDetailsDA
     {
-        public async Task<GameDetail> GetDataAsync(IRedisService redisService, string steamID, string appID, bool getStats = true, string achievementToSearch = null, bool useCache = true)
+        public async Task<GameDetail> GetDataAsync(string steamID, string appID, bool getStats = true, string achievementToSearch = null)
         {
             SteamGameDetailDA da = new();
-            SteamGameDetail gameDetail = await da.GetDataAsync(redisService, appID, useCache);
+            SteamGameDetail gameDetail = await da.GetDataAsync(appID);
 
             //Get the list of owned games for the user
             SteamOwnedGamesDA da2 = new();
-            SteamOwnedGames gameOwnedGames = await da2.GetDataAsync(redisService, steamID, useCache);
+            SteamOwnedGames gameOwnedGames = await da2.GetDataAsync(steamID);
 
             //Merge the two datasets into a clean gamedetail object
             GameDetail result = new();
@@ -45,7 +44,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
             if (gameDetail != null)
             {
                 //Get the achievements
-                Tuple<List<Achievement>, string> tempResults = await GetAchievementDataAsync(redisService, steamID, appID, gameDetail, achievementToSearch, useCache);
+                Tuple<List<Achievement>, string> tempResults = await GetAchievementDataAsync(steamID, appID, gameDetail, achievementToSearch);
                 result.Achievements = tempResults.Item1;
                 result.ErrorMessage = tempResults.Item2;
 
@@ -119,10 +118,10 @@ namespace SamSmithNZ.Service.DataAccess.Steam
             return result;
         }
 
-        //public async Task<GameDetail> GetDataWithFriendAsync(IRedisService redisService, string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null, bool useCache = true)
+        //public async Task<GameDetail> GetDataWithFriendAsync(string steamID, string appID, string friendSteamId, bool getStats = true, string achievementToSearch = null)
         //{
-        //    GameDetail details = await GetDataAsync(redisService, steamID, appID, getStats, achievementToSearch, useCache);
-        //    GameDetail friendDetails = await GetDataAsync(redisService, friendSteamId, appID, getStats, achievementToSearch, useCache);
+        //    GameDetail details = await GetDataAsync(redisService, steamID, appID, getStats, achievementToSearch);
+        //    GameDetail friendDetails = await GetDataAsync(redisService, friendSteamId, appID, getStats, achievementToSearch);
 
         //    //if the friend details return correctly, (this can fail sometimes if the friend has a private project), then continue:
         //    if (friendDetails == null || friendDetails.Achievements == null || friendDetails.Achievements.Count == 0)
@@ -161,18 +160,18 @@ namespace SamSmithNZ.Service.DataAccess.Steam
         //    return result;
         //}
 
-        public async Task<Tuple<List<Achievement>, string>> GetAchievementDataAsync(IRedisService redisService, string steamID, string appID, SteamGameDetail steamGameDetails, string achievementToSearch, bool useCache)
+        public async Task<Tuple<List<Achievement>, string>> GetAchievementDataAsync(string steamID, string appID, SteamGameDetail steamGameDetails, string achievementToSearch)
         {
             //Get the achievements for the app
             SteamPlayerAchievementsForAppDA da = new();
-            Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> playerData = await da.GetDataAsync(redisService, steamID, appID, useCache);
+            Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> playerData = await da.GetDataAsync(steamID, appID);
 
             List<Achievement> results = new();
             if (playerData != null && playerData.Item1 != null)
             {
                 //Get the global achievement stats for the app
                 SteamGlobalAchievementPercentagesForAppDA da2 = new();
-                SteamGlobalAchievementsForApp globalData = await da2.GetDataAsync(redisService, appID, useCache);
+                SteamGlobalAchievementsForApp globalData = await da2.GetDataAsync(appID);
 
                 if (playerData.Item1.playerstats.achievements != null)
                 {

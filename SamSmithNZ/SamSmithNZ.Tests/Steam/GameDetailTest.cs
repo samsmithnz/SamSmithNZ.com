@@ -19,7 +19,7 @@ namespace SamSmithNZ.Tests.Steam
             string appId = "200510"; //Xcom
 
             //Act
-            GameDetail result = await da.GetDataAsync(null,steamId, appId);
+            GameDetail result = await da.GetDataAsync(steamId, appId);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -49,7 +49,7 @@ namespace SamSmithNZ.Tests.Steam
             string appId = "289070"; //Civ 6
 
             //Act
-            GameDetail result = await da.GetDataAsync(null, steamId, appId);
+            GameDetail result = await da.GetDataAsync(steamId, appId);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -82,7 +82,7 @@ namespace SamSmithNZ.Tests.Steam
             string achievementToSearch = "RAF";
 
             //Act
-            GameDetail result = await da.GetDataAsync(null, steamId, appId, true, achievementToSearch);
+            GameDetail result = await da.GetDataAsync(steamId, appId, true, achievementToSearch);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -114,7 +114,7 @@ namespace SamSmithNZ.Tests.Steam
             string appId = "289070"; //Civ 6
 
             //Act
-            GameDetail result = await da.GetDataAsync(null, steamId, appId);
+            GameDetail result = await da.GetDataAsync(steamId, appId);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -263,7 +263,7 @@ namespace SamSmithNZ.Tests.Steam
             string appId = "223530"; //Left For Dead 2 Beta
 
             //Act
-            GameDetail result = await da.GetDataAsync(null, steamId, appId, false);
+            GameDetail result = await da.GetDataAsync(steamId, appId, false);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -298,7 +298,7 @@ namespace SamSmithNZ.Tests.Steam
             string appId = "231430"; //Company of Heroes 2
 
             //Act
-            GameDetail result = await da.GetDataAsync(null, steamId, appId);
+            GameDetail result = await da.GetDataAsync(steamId, appId);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -355,7 +355,7 @@ namespace SamSmithNZ.Tests.Steam
             string appId = "227860"; //castle Story
 
             //Act
-            GameDetail result = await da.GetDataAsync(null, steamId, appId);
+            GameDetail result = await da.GetDataAsync(steamId, appId);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -377,7 +377,7 @@ namespace SamSmithNZ.Tests.Steam
             string appId = "232810"; //Godus
 
             //Act
-            GameDetail result = await da.GetDataAsync(null, steamId, appId);
+            GameDetail result = await da.GetDataAsync(steamId, appId);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -400,7 +400,7 @@ namespace SamSmithNZ.Tests.Steam
             string appId = "296070"; //???
 
             //Act
-            GameDetail result = await da.GetDataAsync(null, steamId, appId);
+            GameDetail result = await da.GetDataAsync(steamId, appId);
 
             //Assert
             Assert.IsTrue(result != null);
@@ -423,7 +423,7 @@ namespace SamSmithNZ.Tests.Steam
             string appId = "243870"; //???
 
             //Act
-            GameDetail result = await da.GetDataAsync(null, steamId, appId, false);
+            GameDetail result = await da.GetDataAsync(steamId, appId, false);
 
             //Assert
             Assert.IsTrue(result != null);

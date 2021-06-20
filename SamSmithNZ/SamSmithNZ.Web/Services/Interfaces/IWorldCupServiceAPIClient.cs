@@ -20,6 +20,6 @@ namespace SamSmithNZ.Web.Services.Interfaces
         Task<Tournament> GetTournament(int tournamentCode);
         Task<List<TournamentTeam>> GetTournamentQualifyingTeams(int tournamentCode);
         Task<List<TournamentTeam>> GetTournamentPlacingTeams(int tournamentCode);
-        Task<List<TournamentTopGoalScorer>> GetTournamentTopGoalScorers(int tournamentCode);
+        Task<List<TournamentTopGoalScorer>> GetTournamentTopGoalScorers(int tournamentCode, bool getOwnGoals);
     }
 }

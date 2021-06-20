@@ -16,11 +16,11 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             base.SetupConnectionString(configuration);
         }
 
-
-        public async Task<List<TournamentTopGoalScorer>> GetList(int tournamentCode)
+        public async Task<List<TournamentTopGoalScorer>> GetList(int tournamentCode, bool getOwnGoals)
         {
             DynamicParameters parameters = new();
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
+            parameters.Add("@GetOwnGoals", getOwnGoals, DbType.Boolean);
 
             return await base.GetList("FB_GetTournamentTopGoalScorers", parameters);
         }

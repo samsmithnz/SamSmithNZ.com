@@ -17,7 +17,7 @@ namespace SamSmithNZ.Tests.Steam
 
             //Act
             SteamGameDetailDA da = new();
-            SteamGameDetail result = await da.GetDataAsync(null, appId, false);
+            SteamGameDetail result = await da.GetDataAsync(appId);
 
             //Asset
             Assert.IsTrue(result != null);

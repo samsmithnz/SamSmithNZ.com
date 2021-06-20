@@ -18,7 +18,7 @@ namespace SamSmithNZ.Tests.Steam
             string steamId = "76561197971691578";
 
             //Act
-            Player result = await da.GetDataAsync(null, steamId, false);
+            Player result = await da.GetDataAsync(steamId);
 
             //Assert
             Assert.IsTrue(result != null);

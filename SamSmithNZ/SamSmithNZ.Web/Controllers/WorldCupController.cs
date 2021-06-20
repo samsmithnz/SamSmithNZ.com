@@ -33,13 +33,15 @@ namespace SamSmithNZ.Web.Controllers
                 isPlacingTeams = false;
                 teams = await _ServiceApiClient.GetTournamentQualifyingTeams(tournamentCode);
             }
-            List<TournamentTopGoalScorer> goals = await _ServiceApiClient.GetTournamentTopGoalScorers(tournamentCode);
+            List<TournamentTopGoalScorer> goals = await _ServiceApiClient.GetTournamentTopGoalScorers(tournamentCode, false);
+            List<TournamentTopGoalScorer> ownGoals = await _ServiceApiClient.GetTournamentTopGoalScorers(tournamentCode, true);
             TournamentViewModel tournamentViewModel = new()
             {
                 Tournament = tournament,
                 IsPlacingTeams = isPlacingTeams,
                 Teams = teams,
-                Goals = goals
+                Goals = goals,
+                OwnGoals = ownGoals
             };
 
             if (teams.Count > 0 && teams[0].ChanceToWin > 0)

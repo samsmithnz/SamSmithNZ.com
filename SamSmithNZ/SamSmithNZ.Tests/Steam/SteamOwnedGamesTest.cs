@@ -17,7 +17,7 @@ namespace SamSmithNZ.Tests.Steam
 
             //Act
             SteamOwnedGamesDA da = new();
-            SteamOwnedGames result = await da.GetDataAsync(null, steamId, false);
+            SteamOwnedGames result = await da.GetDataAsync(steamId);
 
             //Asset
             Assert.IsTrue(result != null);

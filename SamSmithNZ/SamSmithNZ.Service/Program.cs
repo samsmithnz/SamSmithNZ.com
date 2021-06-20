@@ -19,15 +19,16 @@ namespace SamSmithNZ.Service
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
-            return Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((context, configBuilder) => {
-                    //Load the appsettings.json configuration file
-                    configBuilder.AddUserSecrets<Program>(true);
-                    configBuilder.Build();
-                })
-                .ConfigureWebHostDefaults(webBuilder => {
-                    webBuilder.UseStartup<Startup>();
-                });
+            IHostBuilder host = Host.CreateDefaultBuilder(args)
+               .ConfigureAppConfiguration((context, configBuilder) => {
+                   //Load the appsettings.json configuration file
+                   configBuilder.AddUserSecrets<Program>(true);
+                   configBuilder.Build();
+               });
+
+            return host.ConfigureWebHostDefaults(webBuilder => {
+                webBuilder.UseStartup<Startup>();
+            });
         }
     }
 }

@@ -210,9 +210,9 @@ namespace SamSmithNZ.Web.Services
             }
         }
 
-        public async Task<List<TournamentTopGoalScorer>> GetTournamentTopGoalScorers(int tournamentCode)
+        public async Task<List<TournamentTopGoalScorer>> GetTournamentTopGoalScorers(int tournamentCode, bool getOwnGoals)
         {
-            Uri url = new($"api/WorldCup/TournamentTopGoalScorer/GetTournamentTopGoalScorers?tournamentCode=" + tournamentCode, UriKind.Relative);
+            Uri url = new($"api/WorldCup/TournamentTopGoalScorer/GetTournamentTopGoalScorers?tournamentCode=" + tournamentCode + "&getOwnGoals=" + getOwnGoals, UriKind.Relative);
             List<TournamentTopGoalScorer> results = await base.ReadMessageList<TournamentTopGoalScorer>(url);
             if (results == null)
             {

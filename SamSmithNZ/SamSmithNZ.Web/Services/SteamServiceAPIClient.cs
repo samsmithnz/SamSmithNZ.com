@@ -22,7 +22,7 @@ namespace SamSmithNZ.Web.Services
             base.SetupClient(client);
         }
 
-        public async Task<Player> GetPlayer(string steamID, bool useCache)
+        public async Task<Player> GetPlayer(string steamID)
         {
             Uri url = new($"api/Steam/Player/GetPlayer?SteamID=" + steamID, UriKind.Relative);
             Player result = await base.ReadMessageItem<Player>(url);
@@ -36,7 +36,7 @@ namespace SamSmithNZ.Web.Services
             }
         }
 
-        public async Task<List<Game>> GetPlayerGames(string steamID, bool useCache)
+        public async Task<List<Game>> GetPlayerGames(string steamID)
         {
             Uri url = new($"api/Steam/PlayerGames/GetPlayerGames?SteamID=" + steamID, UriKind.Relative);
             List<Game> results = await base.ReadMessageList<Game>(url);
@@ -50,7 +50,7 @@ namespace SamSmithNZ.Web.Services
             }
         }
 
-        public async Task<GameDetail> GetGameDetail(string steamID, string appID, bool useCache)
+        public async Task<GameDetail> GetGameDetail(string steamID, string appID)
         {
             Uri url = new($"api/Steam/GameDetails/GetGameDetails?SteamID=" + steamID + "&appID=" + appID, UriKind.Relative);
             GameDetail result = await base.ReadMessageItem<GameDetail>(url);
@@ -64,7 +64,7 @@ namespace SamSmithNZ.Web.Services
             }
         }
 
-        public async Task<List<Friend>> GetFriends(string steamID, bool useCache)
+        public async Task<List<Friend>> GetFriends(string steamID)
         {
             Uri url = new($"api/Steam/Friends/GetFriends?SteamID=" + steamID, UriKind.Relative);
             List<Friend> result = await base.ReadMessageList<Friend>(url);

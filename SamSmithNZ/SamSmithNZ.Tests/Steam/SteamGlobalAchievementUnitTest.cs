@@ -17,7 +17,7 @@ namespace SamSmithNZ.Tests.Steam
 
             //Act
             SteamGlobalAchievementPercentagesForAppDA da = new();
-            SteamGlobalAchievementsForApp result = await da.GetDataAsync(null, appId, false);
+            SteamGlobalAchievementsForApp result = await da.GetDataAsync(appId);
 
             //Asset
             Assert.IsTrue(result != null);

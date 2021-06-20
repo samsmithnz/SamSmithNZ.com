@@ -8,9 +8,9 @@ namespace SamSmithNZ.Web.Services.Interfaces
 {
     public interface ISteamServiceAPIClient
     {
-        Task<Player> GetPlayer(string steamID, bool useCache);
-        Task<List<Game>> GetPlayerGames(string steamID, bool useCache);
-        Task<GameDetail> GetGameDetail(string steamID, string appID, bool useCache);
-        Task<List<Friend>> GetFriends(string steamID, bool useCache);
+        Task<Player> GetPlayer(string steamID);
+        Task<List<Game>> GetPlayerGames(string steamID);
+        Task<GameDetail> GetGameDetail(string steamID, string appID);
+        Task<List<Friend>> GetFriends(string steamID);
     }
 }

@@ -104,8 +104,6 @@ BEGIN
 	CLOSE Cursor1
 	DEALLOCATE Cursor1
 
-	--select * From wc_group_stage where tournament_code = @TournamentCode
-
 	--Set the Group Ranking for each group
 	DECLARE @group_ranking INT
 	SELECT @group_ranking = 0

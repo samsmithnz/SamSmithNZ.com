@@ -10,5 +10,6 @@ namespace SamSmithNZ.Web.Models.WorldCup
         public bool IsPlacingTeams { get; set; }
         public List<TournamentTeam> Teams { get; set; }
         public List<TournamentTopGoalScorer> Goals { get; set; }
+        public List<TournamentTopGoalScorer> OwnGoals { get; set; }
     }
 }

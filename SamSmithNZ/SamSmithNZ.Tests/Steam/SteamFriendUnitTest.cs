@@ -17,7 +17,7 @@ namespace SamSmithNZ.Tests.Steam
 
             //Act
             SteamFriendDA da = new();
-            SteamFriendList result = await da.GetDataAsync(null, steamId, false);
+            SteamFriendList result = await da.GetDataAsync(steamId);
 
             //Asset
             Assert.IsTrue(result != null);
