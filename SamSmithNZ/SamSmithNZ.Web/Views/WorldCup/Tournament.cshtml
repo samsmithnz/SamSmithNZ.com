@@ -258,7 +258,16 @@
                         }
                         <td>@item.GF</td>
                         <td>@item.GA</td>
-                        <td>@item.GD</td>
+                        <td>
+                            @if (item.GD > 0)
+                            {
+                               <span>@item.GD.ToString("+0")</span>
+                            }
+                            else
+                            {
+                                <span>@item.GD</span>
+                            }
+                        </td>
                         <td>@item.RegionName</td>
                     </tr>
                 }

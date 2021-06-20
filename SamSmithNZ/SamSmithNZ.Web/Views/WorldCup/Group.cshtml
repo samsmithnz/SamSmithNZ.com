@@ -97,7 +97,16 @@
                                 <td>@item.Losses</td>
                                 <td>@item.GoalsFor</td>
                                 <td>@item.GoalsAgainst</td>
-                                <td>@item.GoalDifference</td>
+                                <td>
+                                    @if (item.GoalDifference > 0)
+                                    {
+                                        <span>@item.GoalDifference.ToString("+0")</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@item.GoalDifference</span>
+                                    }
+                                </td>
                                 <td>@item.Points</td>
                                 <td>@item.ELORating</td>
                             </tr>
