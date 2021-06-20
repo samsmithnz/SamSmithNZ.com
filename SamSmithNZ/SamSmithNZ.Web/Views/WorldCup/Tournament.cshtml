@@ -266,7 +266,8 @@
         </div>
 
         <div class="col-md-4">
-            <b>Top goal scorers:</b> @if (Model.ChanceToWin == true)
+            <b>Top goal scorers:</b>
+            @if (Model.ChanceToWin == true)
             {
                 <span>(bold player name indicates the player's team is still in the tournament)</span>
             }
@@ -314,11 +315,40 @@
                     {
                         <span>@item.PlayerName</span>
                     }
-                </div>                
+                </div>
             }
 
             <br /><br />
-
+            <b>Own goal scorers:</b>
+            @if (Model.ChanceToWin == true)
+            {
+                <span>(bold player name indicates the player's team is still in the tournament)</span>
+            }
+            <br /><br />
+            @if (Model.OwnGoals.Count == 0)
+            {
+                <span>No own goals</span>
+            }
+            @foreach (TournamentTopGoalScorer item in Model.OwnGoals)
+            {
+                <div>
+                    &bull;
+                    @if (item.GoalsScored > 1)
+                    {
+                        <span>@item.GoalsScored goals</span>
+                    }
+                    else if (item.GoalsScored == 1)
+                    {
+                        <span>@item.GoalsScored goal</span>
+                    }
+                    <span>
+                        <a href="/WorldCup/Team?teamCode=@item.TeamCode">
+                            <img src="~/WorldCup/Teams/@item.FlagName" Class="TeamImage" />
+                        </a>
+                    </span>
+                    <span>@item.PlayerName</span>
+                </div>
+            }
         </div>
     </div>
 }
