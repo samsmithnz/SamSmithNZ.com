@@ -279,13 +279,27 @@
             {
                 <div>
                     &bull;
-                    @if (item.GoalsScored > 1)
+                    @if (item.IsActive == true)
                     {
-                        <span><b>@item.GoalsScored goals</b></span>
+                        if (item.GoalsScored > 1)
+                        {
+                            <span><b>@item.GoalsScored goals</b></span>
+                        }
+                        else if (item.GoalsScored == 1)
+                        {
+                            <span><b>@item.GoalsScored goal</b></span>
+                        }
                     }
-                    else if (item.GoalsScored == 1)
+                    else
                     {
-                        <span><b>@item.GoalsScored goal</b></span>
+                        if (item.GoalsScored > 1)
+                        {
+                            <span>@item.GoalsScored goals</span>
+                        }
+                        else if (item.GoalsScored == 1)
+                        {
+                            <span>@item.GoalsScored goal</span>
+                        }
                     }
                     <span>
                         <a href="/WorldCup/Team?teamCode=@item.TeamCode">
@@ -300,33 +314,11 @@
                     {
                         <span>@item.PlayerName</span>
                     }
-                </div>
-                @*
-                    <div>
-                    @if (item.GoalsScored > 1)
-                    {
-                    <span><b>@item.GoalsScored goals</b></span>
-                    }
-                    else if (item.GoalsScored == 1)
-                    {
-                    <span><b>@item.GoalsScored goal</b></span>
-                    }
-                    <br />
-                    <div class="row">
-                    <div class="col-sm-12">
-                    <div class="col-sm-3" ng-repeat="player in item.Players">
-                    &bull;<a href="/WorldCup/Team?teamCode={{player.TeamCode">
-                    <img src="~/WorldCup/Teams/{{player.FlagName" Class="TeamImage" />
-                    </a>
-                    <span ng-if="player.IsActive"><b>&nbsp;{{player.PlayerName&nbsp;</b></span>
-                    <span ng-if="!player.IsActive">&nbsp;{{player.PlayerName&nbsp;</span>
-                    </div>
-                    </div>
-                    </div>
-                    <br />
-                    </div>
-                *@
+                </div>                
             }
+
+            <br /><br />
+
         </div>
     </div>
 }
