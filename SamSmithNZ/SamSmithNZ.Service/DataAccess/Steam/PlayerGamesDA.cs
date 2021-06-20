@@ -1,5 +1,4 @@
-﻿using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
-using SamSmithNZ.Service.Models.Steam;
+﻿using SamSmithNZ.Service.Models.Steam;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,13 +7,13 @@ namespace SamSmithNZ.Service.DataAccess.Steam
     public class PlayerGamesDA
     {
 
-        public async Task<List<Game>> GetDataAsync(IRedisService redisService, string steamID, bool useCache)
+        public async Task<List<Game>> GetDataAsync(string steamID)
         {
             List<Game> games = new();
 
             //get games for Player
             SteamOwnedGamesDA da = new();
-            SteamOwnedGames ownedGames = await da.GetDataAsync(redisService, steamID, useCache);
+            SteamOwnedGames ownedGames = await da.GetDataAsync(steamID);
 
             //Check that the player has games to process
             if (ownedGames != null && ownedGames.response != null && ownedGames.response.games != null)

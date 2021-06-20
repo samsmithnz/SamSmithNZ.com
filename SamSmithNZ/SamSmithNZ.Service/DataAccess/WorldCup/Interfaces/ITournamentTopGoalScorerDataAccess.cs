@@ -6,7 +6,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup.Interfaces
 {
     public interface ITournamentTopGoalScorerDataAccess 
     {
-        Task<List<TournamentTopGoalScorer>> GetList(int tournamentCode);
+        Task<List<TournamentTopGoalScorer>> GetList(int tournamentCode, bool getOwnGoals);
 
     }
 }

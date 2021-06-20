@@ -12,7 +12,7 @@ namespace SamSmithNZ.Tests.Steam
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class PlayerControllerTest
     {
-        private static RedisService _redisService;
+        //private static RedisService ;
 
         [ClassInitialize]
         public static void InitTestSuite(TestContext testContext)
@@ -22,11 +22,10 @@ namespace SamSmithNZ.Tests.Steam
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            string connectionString = config["CacheConnection"];
-
-            ConnectionMultiplexer cache = ConnectionMultiplexer.Connect(connectionString);
-            IDatabase db = cache.GetDatabase();
-            _redisService = new RedisService(db);
+            //string connectionString = config["CacheConnection"];
+            //ConnectionMultiplexer cache = ConnectionMultiplexer.Connect(connectionString);
+            //IDatabase db = cache.GetDatabase();
+            // = new RedisService(db);
         }
 
         //Currently runs in 688ms
@@ -34,7 +33,7 @@ namespace SamSmithNZ.Tests.Steam
         public async Task PlayerControllerSamTest()
         {
             //Arrange
-            PlayerController controller = new(_redisService);
+            PlayerController controller = new();
             string steamId = "76561197971691578";
 
             //Act
@@ -51,11 +50,11 @@ namespace SamSmithNZ.Tests.Steam
         public async Task PlayerControllerSamWithoutCacheTest()
         {
             //Arrange
-            PlayerController controller = new(_redisService);
+            PlayerController controller = new();
             string steamId = "76561197971691578";
 
             //Act
-            Player result = await controller.GetPlayer(steamId, false);
+            Player result = await controller.GetPlayer(steamId);
 
             //Assert
             Assert.IsTrue(result != null);

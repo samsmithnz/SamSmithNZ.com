@@ -19,7 +19,7 @@ namespace SamSmithNZ.Tests.Steam
 
             //Act
             SteamPlayerAchievementsForAppDA da = new();
-            Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> result = await da.GetDataAsync(null, steamId, appId, false);
+            Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError> result = await da.GetDataAsync(steamId, appId);
 
             //Asset
             Assert.IsTrue(result != null);

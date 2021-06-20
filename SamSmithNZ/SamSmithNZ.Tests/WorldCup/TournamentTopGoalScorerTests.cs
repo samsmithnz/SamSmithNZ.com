@@ -17,9 +17,10 @@ namespace SamSmithNZ.Tests.WorldCup
             //arrange
             TournamentTopGoalScorerController controller = new(new TournamentTopGoalScorerDataAccess(base.Configuration));
             int tournamentCode = 21;
+            bool getOwnGoals = false;
 
             //act
-            List<TournamentTopGoalScorer> results = await controller.GetTournamentTopGoalScorers(tournamentCode);
+            List<TournamentTopGoalScorer> results = await controller.GetTournamentTopGoalScorers(tournamentCode, getOwnGoals);
 
             //assert
             Assert.IsTrue(results != null);
@@ -30,6 +31,28 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.IsTrue(results[0].IsActive == false);
             Assert.IsTrue(results[0].TeamCode == 10);
             Assert.IsTrue(results[0].TeamName == "England");
+        }
+
+        [TestMethod]
+        public async Task TournamentTopOwnGoalScorerTest()
+        {
+            //arrange
+            TournamentTopGoalScorerController controller = new(new TournamentTopGoalScorerDataAccess(base.Configuration));
+            int tournamentCode = 21;
+            bool getOwnGoals = true;
+
+            //act
+            List<TournamentTopGoalScorer> results = await controller.GetTournamentTopGoalScorers(tournamentCode, getOwnGoals);
+
+            //assert
+            Assert.IsTrue(results != null);
+            Assert.IsTrue(results.Count > 0);
+            Assert.IsTrue(results[0].PlayerName == "Ahmed Fathy");
+            Assert.IsTrue(results[0].FlagName != "");
+            Assert.IsTrue(results[0].GoalsScored > 0);
+            Assert.IsTrue(results[0].IsActive == false);
+            Assert.IsTrue(results[0].TeamCode == 66);
+            Assert.IsTrue(results[0].TeamName == "Egypt");
         }
     }
 }

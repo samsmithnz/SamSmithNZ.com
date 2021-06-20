@@ -1,5 +1,4 @@
-﻿using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
-using SamSmithNZ.Service.Models.Steam;
+﻿using SamSmithNZ.Service.Models.Steam;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,13 +6,13 @@ namespace SamSmithNZ.Service.DataAccess.Steam
 {
     public class FriendsDA
     {
-        public async Task<List<Friend>> GetDataAsync(IRedisService redisService, string steamID, bool useCache)
+        public async Task<List<Friend>> GetDataAsync(string steamID)
         {
             List<Friend> processedFriendList = new();
 
             //Get all friends
             SteamFriendDA da = new();
-            SteamFriendList friendList = await da.GetDataAsync(redisService, steamID, useCache);
+            SteamFriendList friendList = await da.GetDataAsync(steamID);
 
             //Don't forget to add the current user to the comma seperated list
             string commaSeperatedSteamIDs = steamID.ToString();
@@ -73,7 +72,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
             {
                 //get the player details for all friends
                 SteamPlayerDetailDA da2 = new();
-                SteamPlayerDetail playerDetails = await da2.GetDataAsync(redisService, CommaSeperatedItem, useCache);
+                SteamPlayerDetail playerDetails = await da2.GetDataAsync(CommaSeperatedItem);
 
                 //Transfer the steam player details to the clean friend objects
                 if (playerDetails != null)
@@ -109,83 +108,6 @@ namespace SamSmithNZ.Service.DataAccess.Steam
             return processedFriendList;
 
         }
-
-
-        //public async Task<List<Friend>> GetFriendsWithSameGame(IRedisService redisService, string steamId, string appId, bool useCache)
-        //{
-        //    //Get all friends
-        //    SteamFriendDA da = new();
-        //    SteamFriendList friendList = await da.GetDataAsync(redisService, steamId, useCache);
-
-        //    //Search my friends to see if they have the game we are searching for
-        //    string commaSeperatedSteamIDs = "";
-        //    int i = 0;
-        //    if (friendList != null && friendList.friendslist != null)
-        //    {
-        //        foreach (SteamFriend item in friendList.friendslist.friends)
-        //        {
-        //            if (i >= 100) //This steam function accepts a maximum of 100 steam id's
-        //            {
-        //                break;
-        //            }
-        //            SteamOwnedGamesDA da2 = new();
-        //            SteamOwnedGames friendGames = await da2.GetDataAsync(redisService, item.steamid, useCache);
-        //            if (friendGames != null && friendGames.response != null && friendGames.response.games != null)
-        //            {
-        //                foreach (Message item2 in friendGames.response.games)
-        //                {
-        //                    //If my friends have the game, then yes! Add them to the comma delimited list to get more details later 
-        //                    if (item2.appid == appId)
-        //                    {
-        //                        i++;
-        //                        commaSeperatedSteamIDs += "," + item.steamid.ToString();
-        //                        break;
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    //Get the friend details for this friend that has the right game
-        //    SteamPlayerDetailDA da3 = new();
-        //    SteamPlayerDetail playerDetails = await da3.GetDataAsync(redisService, commaSeperatedSteamIDs, useCache);
-
-        //    //Transfer the steam player details to the clean friend objects
-        //    List<Friend> processedFriendList = new List<Friend>();
-        //    if (playerDetails != null)
-        //    {
-        //        foreach (SteamPlayer item in playerDetails.response.players)
-        //        {
-        //            GameDetailsDA da4 = new();
-        //            Tuple<List<Achievement>, string> tempResults = await da4.GetAchievementDataAsync(redisService, item.steamid, appId, null, null, useCache);
-        //            if (tempResults.Item2 == null)
-        //            {
-        //                Friend friend = new Friend
-        //                {
-        //                    SteamId = item.steamid,
-        //                    Name = item.personaname,
-        //                    LastLogoff = item.lastlogoff,
-        //                    ProfileURL = item.profileurl,
-        //                    Avatar = item.avatar,
-        //                    AvatarMedium = item.avatarmedium,
-        //                    AvatarFull = item.avatarfull,
-        //                    TimeCreated = item.timecreated,
-        //                    FriendSince = GetFriendSince(item.steamid, friendList.friendslist.friends)
-        //                };
-        //                processedFriendList.Add(friend);
-        //            }
-        //        }
-        //    }
-
-        //    //Sort the final list, as Steam returns the list by id, not name
-        //    processedFriendList.Sort(delegate (Friend p1, Friend p2)
-        //    {
-        //        return p1.Name.CompareTo(p2.Name);
-        //    });
-
-        //    return processedFriendList;
-
-        //}
 
         //Get the friend since information from the SteamFriend list
         private static long GetFriendSince(string steamID, List<SteamFriend> friends)

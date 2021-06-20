@@ -1,5 +1,4 @@
-﻿using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
-using SamSmithNZ.Service.Models.Steam;
+﻿using SamSmithNZ.Service.Models.Steam;
 using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.DataAccess.Steam
@@ -7,13 +6,13 @@ namespace SamSmithNZ.Service.DataAccess.Steam
     public class PlayerDA
     {
 
-        public async Task<Player> GetDataAsync(IRedisService redisService, string steamID, bool useCache)
+        public async Task<Player> GetDataAsync(string steamID)
         {
             Player result = new();
             
             //Get Player Details
             SteamPlayerDetailDA da = new();
-            SteamPlayerDetail playerDetail = await da.GetDataAsync(redisService, steamID, useCache);
+            SteamPlayerDetail playerDetail = await da.GetDataAsync(steamID);
             if (playerDetail == null)
             {
                 return null; // RedirectToAction("SteamIsDown", "Steam");

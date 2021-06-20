@@ -20,7 +20,7 @@ namespace SamSmithNZ.Tests.Steam
             string steamId = "76561197971691578";
 
             //Act
-            List<Friend> results = await da.GetDataAsync(null, steamId, false);
+            List<Friend> results = await da.GetDataAsync(steamId);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -54,7 +54,7 @@ namespace SamSmithNZ.Tests.Steam
             string steamId = "76561198034342716";
 
             //Act
-            List<Friend> results = await da.GetDataAsync(null, steamId, false);
+            List<Friend> results = await da.GetDataAsync(steamId);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -81,7 +81,7 @@ namespace SamSmithNZ.Tests.Steam
             string steamId = "76561198154034472";
 
             //Act
-            List<Friend> results = await da.GetDataAsync(null, steamId, false);
+            List<Friend> results = await da.GetDataAsync(steamId);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -96,7 +96,7 @@ namespace SamSmithNZ.Tests.Steam
             string steamId = "76561198129345768";
 
             //Act
-            List<Friend> results = await da.GetDataAsync(null, steamId, false);
+            List<Friend> results = await da.GetDataAsync(steamId);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -111,7 +111,7 @@ namespace SamSmithNZ.Tests.Steam
             string steamId = "76561198140300853";
 
             //Act
-            List<Friend> results = await da.GetDataAsync(null, steamId, false);
+            List<Friend> results = await da.GetDataAsync(steamId);
 
             //Assert
             Assert.IsTrue(results != null);

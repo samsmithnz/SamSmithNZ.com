@@ -22,9 +22,9 @@ namespace SamSmithNZ.Web.Controllers
 
         public async Task<IActionResult> Index(string steamID)
         {
-            bool useCache = true;
-            Player player = await _ServiceApiClient.GetPlayer(steamID, useCache);
-            List<Game> games = await _ServiceApiClient.GetPlayerGames(steamID, useCache);
+            
+            Player player = await _ServiceApiClient.GetPlayer(steamID);
+            List<Game> games = await _ServiceApiClient.GetPlayerGames(steamID);
 
             return View(new IndexViewModel
             {
@@ -36,9 +36,9 @@ namespace SamSmithNZ.Web.Controllers
 
         public async Task<IActionResult> GameDetails(string steamID, string appID, bool showCompletedAchievements = false)
         {
-            bool useCache = true;
-            Player player = await _ServiceApiClient.GetPlayer(steamID, useCache);
-            GameDetail gameDetail = await _ServiceApiClient.GetGameDetail(steamID, appID, useCache);
+            
+            Player player = await _ServiceApiClient.GetPlayer(steamID);
+            GameDetail gameDetail = await _ServiceApiClient.GetGameDetail(steamID, appID);
 
             return View(new GameDetailViewModel(gameDetail, showCompletedAchievements)
             {

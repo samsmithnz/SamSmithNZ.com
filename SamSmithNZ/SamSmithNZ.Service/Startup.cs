@@ -72,13 +72,6 @@ namespace SamSmithNZ.Service
             services.AddScoped<ITournamentTopGoalScorerDataAccess, TournamentTopGoalScorerDataAccess>();
 
             //Steam
-            services.AddSingleton<IRedisService, RedisService>();
-            ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect(this.Configuration["CacheConnection"]);
-            if (connectionMultiplexer != null)
-            {
-                IDatabase database = connectionMultiplexer.GetDatabase();
-                services.AddSingleton<IDatabase>(_ => database);
-            }
 
             //ITunes
             services.AddScoped<IMovementDataAccess, MovementDataAccess>();

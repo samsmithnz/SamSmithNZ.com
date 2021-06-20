@@ -19,7 +19,7 @@ namespace SamSmithNZ.Tests.Steam
             string steamId = "76561197971691578";
 
             //Act
-            List<Game> results = await da.GetDataAsync(null, steamId, false);
+            List<Game> results = await da.GetDataAsync(steamId);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -42,7 +42,7 @@ namespace SamSmithNZ.Tests.Steam
             string appId = "223530";
 
             //Act
-            List<Game> results = await da.GetDataAsync(null, steamId, false);
+            List<Game> results = await da.GetDataAsync(steamId);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -72,7 +72,7 @@ namespace SamSmithNZ.Tests.Steam
             string steamId = "76561198059077520";
 
             //Act
-            List<Game> results = await da.GetDataAsync(null, steamId, false);
+            List<Game> results = await da.GetDataAsync(steamId);
 
             //Assert
             Assert.IsTrue(results != null);
@@ -88,7 +88,7 @@ namespace SamSmithNZ.Tests.Steam
             string steamId = "76561198121979762";
 
             //Act
-            List<Game> results = await da.GetDataAsync(null, steamId, false);
+            List<Game> results = await da.GetDataAsync(steamId);
 
             //Assert
             Assert.IsTrue(results != null);

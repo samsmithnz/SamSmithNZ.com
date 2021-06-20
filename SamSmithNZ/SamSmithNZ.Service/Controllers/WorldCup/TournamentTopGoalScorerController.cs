@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.DataAccess.WorldCup.Interfaces;
 using SamSmithNZ.Service.Models.WorldCup;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.Controllers.WorldCup
 {
@@ -20,9 +18,9 @@ namespace SamSmithNZ.Service.Controllers.WorldCup
         }
 
         [HttpGet("GetTournamentTopGoalScorers")]
-        public async Task<List<TournamentTopGoalScorer>> GetTournamentTopGoalScorers(int tournamentCode)
+        public async Task<List<TournamentTopGoalScorer>> GetTournamentTopGoalScorers(int tournamentCode, bool getOwnGoals)
         {
-            return await _repo.GetList(tournamentCode);
+            return await _repo.GetList(tournamentCode, getOwnGoals);
         }
     }
 }
