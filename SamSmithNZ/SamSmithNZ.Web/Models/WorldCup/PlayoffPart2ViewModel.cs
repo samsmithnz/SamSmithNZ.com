@@ -22,7 +22,7 @@ namespace SamSmithNZ.Web.Models.WorldCup
             //int team1Score = 0;
             //int team2Score = 0;
             string alternativeText = "";
-            if (this.CurrentGame != null && this.CurrentGame.Team1Code > 0 && this.CurrentGame.Team2Code > 0)
+            if (this.CurrentGame != null && (this.CurrentGame.Team1Code > 0 || this.CurrentGame.Team2Code > 0))
             {
                 GameResult result = GameViewModel.GetGameResult(this.CurrentGame);
                 if (returnTeam1 == true)
