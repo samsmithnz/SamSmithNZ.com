@@ -150,6 +150,10 @@
             border-top: darkgray 2px solid;
             border-right: darkgray 0px solid;
         }
+
+        .Border5 {
+            border-top: darkgray 2px solid;            
+        }
     </style>
 
 
@@ -546,7 +550,7 @@
                 <td height="5" class="Col_A"></td>
                 @if (Model.ShowSemis == true)
                 {
-                    <td rowspan="23" style="border-top: black 2px solid;" class="Col_M" id="tdCol_M3">
+                    <td rowspan="23" class="Border5 Col_M" id="tdCol_M3">
                         &nbsp;
                     </td>
                 }
@@ -677,7 +681,7 @@
                 <td height="5" class="Col_A"></td>
                 @if (Model.ShowQuarters == true)
                 {
-                    <td rowspan="11" style="border-top: black 2px solid;" class="Col_I" id="tdCol_I4">
+                    <td rowspan="11" class="Border5 Col_I" id="tdCol_I4">
                         &nbsp;
                     </td>
                 }
@@ -764,14 +768,14 @@
                 <td height="5" class="Col_A"></td>
                 @if (Model.Show16s == true)
                 {
-                    <td rowspan="5" style="border-top: black 2px solid;" class="Col_E" id="tdCol_E6">
+                    <td rowspan="5" class="Border5 Col_E" id="tdCol_E6">
                         &nbsp;
                     </td>
                 }
                 @if (Model.ShowQuarters == true)
                 {
                     @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 60, showDebugElements, false, "tdCol_F18", "tdCol_G9"))
-                    <td rowspan="5" style="border-top: black 2px solid;" class="Col_H" id="tdCol_H7">
+                    <td rowspan="5" class="Border5 Col_H" id="tdCol_H7">
                         &nbsp;
                     </td>
                 }
@@ -803,7 +807,7 @@
                 @if (Model.Show16s == true)
                 {
                     @await Html.PartialAsync("~/Views/WorldCup/_PlayoffPart2Partial.cshtml", new PlayoffPart2ViewModel(Model.Games, 56, showDebugElements, false, "tdCol_B26", "tdCol_C17"))
-                    <td rowspan="2" style="border-top: black 2px solid;" class="Col_D" id="tdCol_D11">
+                    <td rowspan="2" class="Border5 Col_D" id="tdCol_D11">
                         &nbsp;
                     </td>
                 }
