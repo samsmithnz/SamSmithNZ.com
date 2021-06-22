@@ -54,6 +54,10 @@ namespace SamSmithNZ.Web.Models.WorldCup
                     case 16:
                         //Show Everything!
                         break;
+                    case 15:
+                        //Show 16 team playoff, no 3rd place
+                        Show3rdPlace = false;
+                        break;
                     case 8:
                         //Only show Quarter Finals
                         Show16s = false;
