@@ -12,7 +12,7 @@ namespace SamSmithNZ.Tests.WorldCup
     [TestClass]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class GamesTests : BaseIntegrationTest
-    {    
+    {
         [TestMethod]
         public async Task GamesExistTest()
         {
@@ -537,10 +537,13 @@ namespace SamSmithNZ.Tests.WorldCup
                     gamesUnexpectedWin += item.Team1OddsCountUnexpectedWin;
                     gamesUnexpectedLoss += item.Team1OddsCountUnexpectedLoss;
                     gamesUnexpectedDraw += item.Team1OddsCountUnexpectedDraw;
-                    gamesUnknown += item.Team1OddsCountUnknown;
                     if (item.Team1NormalTimeScore == null)
                     {
                         gamesNotPlayed++;
+                    }
+                    else
+                    {
+                        gamesUnknown += item.Team1OddsCountUnknown;
                     }
                 }
                 else if (teamCode == item.Team2Code)
@@ -550,10 +553,13 @@ namespace SamSmithNZ.Tests.WorldCup
                     gamesUnexpectedWin += item.Team2OddsCountUnexpectedWin;
                     gamesUnexpectedLoss += item.Team2OddsCountUnexpectedLoss;
                     gamesUnexpectedDraw += item.Team2OddsCountUnexpectedDraw;
-                    gamesUnknown += item.Team2OddsCountUnknown;
                     if (item.Team2NormalTimeScore == null)
                     {
                         gamesNotPlayed++;
+                    }
+                    else
+                    {
+                        gamesUnknown += item.Team2OddsCountUnknown;
                     }
                 }
             }
