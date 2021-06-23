@@ -42,5 +42,6 @@ namespace SamSmithNZ.Service.Models.WorldCup
         public int GF { get; set; }
         public int GA { get; set; }
         public int GD { get; set; }
+        public int GamesCompleted { get; set; }
     }
 }

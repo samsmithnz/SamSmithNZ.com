@@ -56,7 +56,7 @@
                     <GridViewColumn Header="Remove Team">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Remove" Click="btnRemoveTeam_Click" />
+                                <Button Content="Remove" Click="btnRemoveTeam_Click" Name="btnRemoveTeam"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
