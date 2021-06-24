@@ -45,7 +45,7 @@ BEGIN
 		and round_code = @RoundCode
 	END
 
-	IF (@TournamentCode = 21)
+	IF (@TournamentCode = 316)
 	BEGIN
 		--Update the next games
 		--Update the playoff's if the group is done.
