@@ -71,6 +71,7 @@
             </ListView.View>
         </ListView>
         <Button Content="Close" Height="25" x:Name="btnClose" Width="137.909" UseLayoutRounding="False" Margin="13,280,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="btnClose_Click"  TabIndex="5" IsDefault="True"/>
+        <Button Content="Close" x:Name="btnSave" UseLayoutRounding="False" Margin="1013,0,12,25" Click="btnSave_Click"  TabIndex="5" IsDefault="True" Height="25" VerticalAlignment="Bottom"/>
 
     </Grid>
 </Window>

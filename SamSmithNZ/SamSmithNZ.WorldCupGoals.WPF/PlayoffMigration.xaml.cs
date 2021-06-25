@@ -17,8 +17,8 @@ namespace SamSmithNZ.WorldCupGoals.WPF
     public partial class PlayoffMigration : Window
     {
         private int _tournamentCode;
-        private string _groupCode;
         private readonly IConfigurationRoot _configuration;
+        private List<PlayoffSetup> Setups;
 
         public PlayoffMigration()
         {
@@ -48,7 +48,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         {
             (int, string) gameNumber1 = (0, "");
             (int, string) gameNumber2 = (0, "");
-            List<PlayoffSetup> setups = new();
+            Setups = new();
             foreach (Game game in games)
             {
                 PlayoffSetup setup = new()
@@ -65,7 +65,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     gameNumber2 = GetGameNumber(games, "SF", game.Team2Code);
                     setup.Team1Prereq = "Winner of game " + gameNumber1.Item1.ToString();
                     setup.Team2Prereq = "Winner of game " + gameNumber2.Item1.ToString();
-                    setups.Add(setup);
+                    Setups.Add(setup);
                 }
                 else if (game.RoundCode == "3P")
                 {
@@ -73,7 +73,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     gameNumber2 = GetGameNumber(games, "SF", game.Team2Code);
                     setup.Team1Prereq = "Loser of game " + gameNumber1.Item1.ToString();
                     setup.Team2Prereq = "Loser of game " + gameNumber2.Item1.ToString();
-                    setups.Add(setup);
+                    Setups.Add(setup);
                 }
                 else if (game.RoundCode == "SF")
                 {
@@ -81,7 +81,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     gameNumber2 = GetGameNumber(games, "QF", game.Team2Code);
                     setup.Team1Prereq = "Winner of game " + gameNumber1.Item1.ToString();
                     setup.Team2Prereq = "Winner of game " + gameNumber2.Item1.ToString();
-                    setups.Add(setup);
+                    Setups.Add(setup);
                 }
                 else if (game.RoundCode == "QF")
                 {
@@ -89,7 +89,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     gameNumber2 = GetGameNumber(games, "16", game.Team2Code);
                     setup.Team1Prereq = "Winner of game " + gameNumber1.Item1.ToString();
                     setup.Team2Prereq = "Winner of game " + gameNumber2.Item1.ToString();
-                    setups.Add(setup);
+                    Setups.Add(setup);
                 }
                 else if (game.RoundCode == "16")
                 {
@@ -97,12 +97,12 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     (string, int) gameGroupNumber2 = await GetGroupDetails(game.TournamentCode, game.RoundNumber, games, "16", game.Team2Code);
                     setup.Team1Prereq = "Group " + gameGroupNumber1.Item1.ToString() + " " + gameGroupNumber1.Item2.ToString() + " place finisher";
                     setup.Team2Prereq = "Group " + gameGroupNumber2.Item1.ToString() + " " + gameGroupNumber2.Item2.ToString() + " place finisher";
-                    setups.Add(setup);
+                    Setups.Add(setup);
                 }
 
             }
 
-            lstGames.DataContext = setups;
+            lstGames.DataContext = Setups;
         }
 
         private (int, string) GetGameNumber(List<Game> games, string roundCode, int teamCode)
@@ -173,6 +173,16 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private async Task btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            PlayoffSetupDataAccess da = new(_configuration);
+
+            foreach (PlayoffSetup setup in Setups)
+            {
+                await da.SaveItem(setup);
+            }
         }
 
     }
