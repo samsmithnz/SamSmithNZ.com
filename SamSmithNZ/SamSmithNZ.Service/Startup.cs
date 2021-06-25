@@ -10,8 +10,11 @@ using SamSmithNZ.Service.DataAccess.GuitarTab;
 using SamSmithNZ.Service.DataAccess.GuitarTab.Interfaces;
 using SamSmithNZ.Service.DataAccess.ITunes;
 using SamSmithNZ.Service.DataAccess.ITunes.Interfaces;
+using SamSmithNZ.Service.DataAccess.Steam.Interfaces;
 using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.DataAccess.WorldCup.Interfaces;
+using SamSmithNZ.Service.Models.Steam;
+using StackExchange.Redis;
 
 namespace SamSmithNZ.Service
 {
