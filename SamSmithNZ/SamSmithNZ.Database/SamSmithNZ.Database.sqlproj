@@ -275,6 +275,9 @@
     <Build Include="dbo\Stored Procedures\Old\spWC_SaveGoal.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_SaveShootoutGoal.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_SetFinalTournamentPlacing.sql" />
+    <Build Include="dbo\Tables\wc_tournament_format_playoff.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetMigratePlayoffs.sql" />
+    <Build Include="dbo\Stored Procedures\FB_SaveMigratePlayoffs.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />

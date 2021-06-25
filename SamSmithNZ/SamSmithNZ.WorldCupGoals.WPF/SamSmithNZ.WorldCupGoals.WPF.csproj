@@ -30,4 +30,10 @@
     <Resource Include="Soccer.ico" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="PlayoffMigration.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
 </Project>
