@@ -282,4 +282,7 @@
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="SamSmithNZ.Database.refactorlog" />
+  </ItemGroup>
 </Project>
