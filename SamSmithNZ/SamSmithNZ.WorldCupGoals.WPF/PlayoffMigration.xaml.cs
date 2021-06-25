@@ -175,10 +175,9 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             Close();
         }
 
-        private async Task btnSave_Click(object sender, RoutedEventArgs e)
+        private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
             PlayoffSetupDataAccess da = new(_configuration);
-
             foreach (PlayoffSetup setup in Setups)
             {
                 await da.SaveItem(setup);

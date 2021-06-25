@@ -1,13 +1,14 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.DataAccess.Base;
+using SamSmithNZ.Service.DataAccess.WorldCup.Interfaces;
 using SamSmithNZ.Service.Models.WorldCup;
 using System.Data;
 using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.DataAccess.WorldCup
 {
-    public class PlayoffSetupDataAccess : BaseDataAccess<PlayoffSetup>
+    public class PlayoffSetupDataAccess : BaseDataAccess<PlayoffSetup>, IPlayoffSetupDataAccess
     {
         public PlayoffSetupDataAccess(IConfiguration configuration)
         {
