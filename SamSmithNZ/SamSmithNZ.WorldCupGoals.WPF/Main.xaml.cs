@@ -36,7 +36,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 cboTournament.DataContext = tournaments;
                 cboTournament.DisplayMemberPath = "TournamentName";
                 cboTournament.SelectedValuePath = "TournamentCode";
-                cboTournament.SelectedIndex = 2;
+                cboTournament.SelectedIndex = 3;
                 btnTournamentGames.IsEnabled = true;
             }
             catch (Exception ex)
@@ -82,12 +82,25 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             }
         }
 
-        private async void TournamentGroups_Click(object sender, RoutedEventArgs e)
+                private async void TournamentGroups_Click(object sender, RoutedEventArgs e)
         {
             if (cboTournament.SelectedValue != null)
             {
                 Groups groups = new();
                 await groups.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
+            }
+            else
+            {
+                MessageBox.Show("Tournament not selected");
+            }
+        }
+
+        private async void MigrateTournamentPlayoffss_Click(object sender, RoutedEventArgs e)
+        {
+            if (cboTournament.SelectedValue != null)
+            {
+                PlayoffMigration migration = new();
+                await migration.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
             }
             else
             {

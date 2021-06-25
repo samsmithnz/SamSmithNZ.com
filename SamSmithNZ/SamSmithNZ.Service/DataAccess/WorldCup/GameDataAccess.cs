@@ -61,6 +61,17 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return results;
         }
 
+        public async Task<List<Game>> GetMigrationPlayoffList(int tournamentCode, int roundNumber)
+        {
+            DynamicParameters parameters = new();
+            parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
+            parameters.Add("@RoundNumber", roundNumber, DbType.Int32);
+
+            List<Game> results = await base.GetList("FB_GetMigratePlayoffsGames", parameters);
+            results = ProcessGameResults(results);
+            return results;
+        }
+
         public async Task<Game> GetItem(int gameCode)
         {
             DynamicParameters parameters = new();
@@ -100,10 +111,6 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         {
             foreach (Game item in games)
             {
-                //if (item.GameCode == 121)
-                //{
-                //    int i = 4 + 4;
-                //}
                 //If the game didn't go to penalties
                 if (item.Team1ExtraTimeScore == null && item.Team1PenaltiesScore == null)
                 {
