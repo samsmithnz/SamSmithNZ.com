@@ -51,53 +51,56 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             Setups = new();
             foreach (Game game in games)
             {
-                PlayoffSetup setup = new()
+                if (game.Team1Code > 0 && game.Team2Code > 0)
                 {
-                    TournamentCode = game.TournamentCode,
-                    RoundNumber = game.RoundNumber,
-                    RoundCode = game.RoundCode,
-                    GameNumber = game.GameNumber
-                };
+                    PlayoffSetup setup = new()
+                    {
+                        TournamentCode = game.TournamentCode,
+                        RoundNumber = game.RoundNumber,
+                        RoundCode = game.RoundCode,
+                        GameNumber = game.GameNumber
+                    };
 
-                if (game.RoundCode == "FF")
-                {
-                    gameNumber1 = GetGameNumber(games, "SF", game.Team1Code);
-                    gameNumber2 = GetGameNumber(games, "SF", game.Team2Code);
-                    setup.Team1Prereq = "Winner of game " + gameNumber1.Item1.ToString();
-                    setup.Team2Prereq = "Winner of game " + gameNumber2.Item1.ToString();
-                    Setups.Add(setup);
-                }
-                else if (game.RoundCode == "3P")
-                {
-                    gameNumber1 = GetGameNumber(games, "SF", game.Team1Code);
-                    gameNumber2 = GetGameNumber(games, "SF", game.Team2Code);
-                    setup.Team1Prereq = "Loser of game " + gameNumber1.Item1.ToString();
-                    setup.Team2Prereq = "Loser of game " + gameNumber2.Item1.ToString();
-                    Setups.Add(setup);
-                }
-                else if (game.RoundCode == "SF")
-                {
-                    gameNumber1 = GetGameNumber(games, "QF", game.Team1Code);
-                    gameNumber2 = GetGameNumber(games, "QF", game.Team2Code);
-                    setup.Team1Prereq = "Winner of game " + gameNumber1.Item1.ToString();
-                    setup.Team2Prereq = "Winner of game " + gameNumber2.Item1.ToString();
-                    Setups.Add(setup);
-                }
-                else if (game.RoundCode == "QF")
-                {
-                    gameNumber1 = GetGameNumber(games, "16", game.Team1Code);
-                    gameNumber2 = GetGameNumber(games, "16", game.Team2Code);
-                    setup.Team1Prereq = "Winner of game " + gameNumber1.Item1.ToString();
-                    setup.Team2Prereq = "Winner of game " + gameNumber2.Item1.ToString();
-                    Setups.Add(setup);
-                }
-                else if (game.RoundCode == "16")
-                {
-                    (string, int) gameGroupNumber1 = await GetGroupDetails(game.TournamentCode, game.RoundNumber, games, "16", game.Team1Code);
-                    (string, int) gameGroupNumber2 = await GetGroupDetails(game.TournamentCode, game.RoundNumber, games, "16", game.Team2Code);
-                    setup.Team1Prereq = "Group " + gameGroupNumber1.Item1.ToString() + " " + gameGroupNumber1.Item2.ToString() + " place finisher";
-                    setup.Team2Prereq = "Group " + gameGroupNumber2.Item1.ToString() + " " + gameGroupNumber2.Item2.ToString() + " place finisher";
-                    Setups.Add(setup);
+                    if (game.RoundCode == "FF")
+                    {
+                        gameNumber1 = GetGameNumber(games, "SF", game.Team1Code);
+                        gameNumber2 = GetGameNumber(games, "SF", game.Team2Code);
+                        setup.Team1Prereq = "Winner of game " + gameNumber1.Item1.ToString();
+                        setup.Team2Prereq = "Winner of game " + gameNumber2.Item1.ToString();
+                        Setups.Add(setup);
+                    }
+                    else if (game.RoundCode == "3P")
+                    {
+                        gameNumber1 = GetGameNumber(games, "SF", game.Team1Code);
+                        gameNumber2 = GetGameNumber(games, "SF", game.Team2Code);
+                        setup.Team1Prereq = "Loser of game " + gameNumber1.Item1.ToString();
+                        setup.Team2Prereq = "Loser of game " + gameNumber2.Item1.ToString();
+                        Setups.Add(setup);
+                    }
+                    else if (game.RoundCode == "SF")
+                    {
+                        gameNumber1 = GetGameNumber(games, "QF", game.Team1Code);
+                        gameNumber2 = GetGameNumber(games, "QF", game.Team2Code);
+                        setup.Team1Prereq = "Winner of game " + gameNumber1.Item1.ToString();
+                        setup.Team2Prereq = "Winner of game " + gameNumber2.Item1.ToString();
+                        Setups.Add(setup);
+                    }
+                    else if (game.RoundCode == "QF")
+                    {
+                        gameNumber1 = GetGameNumber(games, "16", game.Team1Code);
+                        gameNumber2 = GetGameNumber(games, "16", game.Team2Code);
+                        setup.Team1Prereq = "Winner of game " + gameNumber1.Item1.ToString();
+                        setup.Team2Prereq = "Winner of game " + gameNumber2.Item1.ToString();
+                        Setups.Add(setup);
+                    }
+                    else if (game.RoundCode == "16")
+                    {
+                        (string, int) gameGroupNumber1 = await GetGroupDetails(game.TournamentCode, game.RoundNumber, games, "16", game.Team1Code);
+                        (string, int) gameGroupNumber2 = await GetGroupDetails(game.TournamentCode, game.RoundNumber, games, "16", game.Team2Code);
+                        setup.Team1Prereq = "Group " + gameGroupNumber1.Item1.ToString() + " " + gameGroupNumber1.Item2.ToString() + " place finisher";
+                        setup.Team2Prereq = "Group " + gameGroupNumber2.Item1.ToString() + " " + gameGroupNumber2.Item2.ToString() + " place finisher";
+                        Setups.Add(setup);
+                    }
                 }
 
             }
@@ -182,6 +185,8 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             {
                 await da.SaveItem(setup);
             }
+            MessageBox.Show("Saved successfully!");
+            Close();
         }
 
     }

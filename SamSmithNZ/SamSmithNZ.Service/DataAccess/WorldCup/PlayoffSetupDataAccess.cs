@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.DataAccess.Base;
 using SamSmithNZ.Service.DataAccess.WorldCup.Interfaces;
 using SamSmithNZ.Service.Models.WorldCup;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
@@ -14,7 +15,15 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         {
             base.SetupConnectionString(configuration);
         }
-    
+
+        public async Task<List<PlayoffSetup>> GetList(int tournamentCode)
+        {
+            DynamicParameters parameters = new();
+            parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
+
+            return await base.GetList("FB_GetMigratePlayoffs", parameters);
+        }
+
         public async Task<bool> SaveItem(PlayoffSetup setup)
         {
             DynamicParameters parameters = new();
