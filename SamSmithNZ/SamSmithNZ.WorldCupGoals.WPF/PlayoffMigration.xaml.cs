@@ -18,7 +18,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
     {
         private int _tournamentCode;
         private readonly IConfigurationRoot _configuration;
-        private List<PlayoffSetup> Setups;
+        private List<Playoff> Setups;
 
         public PlayoffMigration()
         {
@@ -53,7 +53,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             {
                 if (game.Team1Code > 0 && game.Team2Code > 0)
                 {
-                    PlayoffSetup setup = new()
+                    Playoff setup = new()
                     {
                         TournamentCode = game.TournamentCode,
                         RoundNumber = game.RoundNumber,
@@ -180,8 +180,8 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            PlayoffSetupDataAccess da = new(_configuration);
-            foreach (PlayoffSetup setup in Setups)
+            PlayoffDataAccess da = new(_configuration);
+            foreach (Playoff setup in Setups)
             {
                 await da.SaveItem(setup);
             }
