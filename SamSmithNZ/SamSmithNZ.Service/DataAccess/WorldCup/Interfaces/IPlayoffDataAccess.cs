@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.DataAccess.WorldCup.Interfaces
 {
-    public interface IPlayoffSetupDataAccess
+    public interface IPlayoffDataAccess
     {
-        Task<List<PlayoffSetup>> GetList(int tournamentCode);
-        Task<bool> SaveItem(PlayoffSetup setup);
+        Task<List<Playoff>> GetList(int tournamentCode);
+        Task<bool> SaveItem(Playoff setup);
     }
 }

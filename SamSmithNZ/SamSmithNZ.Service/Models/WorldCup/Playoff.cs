@@ -1,11 +1,10 @@
 ﻿namespace SamSmithNZ.Service.Models.WorldCup
 {
-    public class PlayoffSetup
+    public class Playoff
     {
-        public PlayoffSetup() { }
+        public Playoff() { }
 
         public int TournamentCode { get; set; }
-        public int RoundNumber { get; set; }
         public string RoundCode { get; set; }
         public int GameNumber { get; set; }
         public string Team1Prereq { get; set; }
