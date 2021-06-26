@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using SamSmithNZ.Service.Models.WorldCup;
+﻿using SamSmithNZ.Service.Models.WorldCup;
 using System.Collections.Generic;
-using System.Security.Permissions;
 
 namespace SamSmithNZ.Web.Models.WorldCup
 {
     public class PlayoffsViewModel
     {
+        public List<Playoff> Playoffs { get; set; }
+
         private List<Game> games;
 
         public List<Game> Games

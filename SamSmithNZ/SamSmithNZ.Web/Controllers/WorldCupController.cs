@@ -140,6 +140,20 @@ namespace SamSmithNZ.Web.Controllers
             return View(playoffsViewModel);
         }
 
+        public async Task<IActionResult> Playoffs2(int tournamentCode, int roundNumber)
+        {
+            List<Playoff> playoffs = await _ServiceApiClient.GetPlayoffSetup(tournamentCode);
+            List<Game> games = await _ServiceApiClient.GetPlayoffGames(tournamentCode, roundNumber, true);
+
+            PlayoffsViewModel playoffsViewModel = new()
+            {
+                Playoffs = playoffs,
+                Games = games
+            };
+
+            return View(playoffsViewModel);
+        }
+
         public async Task<IActionResult> Team(int teamCode)
         {
             Team team = await _ServiceApiClient.GetTeam(teamCode);

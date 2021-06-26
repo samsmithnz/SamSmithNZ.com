@@ -3,11 +3,8 @@ using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.Models.WorldCup;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace SamSmithNZ.WorldCupGoals.WPF
 {
@@ -56,7 +53,6 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     Playoff setup = new()
                     {
                         TournamentCode = game.TournamentCode,
-                        RoundNumber = game.RoundNumber,
                         RoundCode = game.RoundCode,
                         GameNumber = game.GameNumber
                     };
