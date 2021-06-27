@@ -3,6 +3,7 @@ using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.Models.WorldCup;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -31,6 +32,40 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         public async Task<bool> ShowForm(int tournamentCode)
         {
             _tournamentCode = tournamentCode;
+
+            //TournamentDataAccess da2 = new(_configuration);
+            //List<Tournament> tournaments = await da2.GetList(null);
+            //foreach (Tournament item in tournaments)
+            //{
+            //    int roundNumber = 2;
+            //    switch (item.TournamentCode)
+            //    {
+            //        case 10:
+            //        case 11:
+            //        case 12:
+            //            roundNumber = 3;
+            //            break;
+
+            //        case 2:
+            //        case 3:
+            //        case 201:
+            //        case 301:
+            //        case 302:
+            //        case 303:
+            //        case 304:
+            //        case 305:
+            //            roundNumber = 1;
+            //            break;
+            //    }
+            //    GameDataAccess da = new(_configuration);
+            //    List<Game> games = await da.GetMigrationPlayoffList(item.TournamentCode, roundNumber);
+
+            //    await LoadGrid(games);
+
+            //    btnSave_Click(null, null);
+            //    Debug.WriteLine("Processed tournament " + item.TournamentCode + " (" + item.TournamentYear + ")");
+            //}
+            //MessageBox.Show("Done! " + tournaments.Count + " tournaments processed!");
 
             GameDataAccess da = new(_configuration);
             List<Game> games = await da.GetMigrationPlayoffList(_tournamentCode, 2);
@@ -106,64 +141,76 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             }
 
             //Arrange the sort order
-            int adjustment = 0;
-            int totalPlayoffGames = Setups.Count;
-            if (thirdPlaceGameExists)
+            if (Setups.Count > 0)
             {
-                adjustment = 1;
+                int adjustment = 0;
+                int totalPlayoffGames = Setups.Count;
+                if (thirdPlaceGameExists)
+                {
+                    adjustment = 1;
+                }
+                SetSortOrder("3P", 0, totalPlayoffGames);
+                SetSortOrder("FF", 0, totalPlayoffGames - adjustment);
+                adjustment++; //add final game to adjustment
+
+                if (Setups.Count > 2)
+                {
+                    Playoff finalGame = FindGame("FF", 0);
+                    //Find semi-final game for final team 2 game
+                    Playoff sf2 = FindGame("SF", GetGameNumber(finalGame.Team2Prereq));
+                    //Find semi-final game for final team 1 game
+                    Playoff sf1 = FindGame("SF", GetGameNumber(finalGame.Team1Prereq));
+                    SetSortOrder("SF", sf2.GameNumber, totalPlayoffGames - adjustment);
+                    SetSortOrder("SF", sf1.GameNumber, totalPlayoffGames - adjustment - 1);
+                    adjustment += 2; //add semi-final games to adjustment
+
+                    if (Setups.Count > 4)
+                    {
+                        //Find the quarter-final games for the semi-final games
+                        //Find quarter-final game for semi final game 2, team 2 
+                        Playoff qf4 = FindGame("QF", GetGameNumber(sf2.Team2Prereq));
+                        //Find quarter-final game for semi final game 2, team 1 
+                        Playoff qf3 = FindGame("QF", GetGameNumber(sf2.Team1Prereq));
+                        //Find quarter-final game for semi final game 1, team 2 
+                        Playoff qf2 = FindGame("QF", GetGameNumber(sf1.Team2Prereq));
+                        //Find quarter-final game for semi final game 1, team 1 
+                        Playoff qf1 = FindGame("QF", GetGameNumber(sf1.Team1Prereq));
+                        SetSortOrder("QF", qf4.GameNumber, totalPlayoffGames - adjustment);
+                        SetSortOrder("QF", qf3.GameNumber, totalPlayoffGames - adjustment - 1);
+                        SetSortOrder("QF", qf2.GameNumber, totalPlayoffGames - adjustment - 2);
+                        SetSortOrder("QF", qf1.GameNumber, totalPlayoffGames - adjustment - 3);
+
+                        if (Setups.Count > 8)
+                        {
+                            //Find the top 16 games for quarter-final games
+                            //Find quarter-final game for quarter-final game 4, team 2 
+                            Playoff top168 = FindGame("16", GetGameNumber(qf4.Team2Prereq));
+                            //Find quarter-final game for quarter-final game 4, team 1 
+                            Playoff top167 = FindGame("16", GetGameNumber(qf4.Team1Prereq));
+                            //Find quarter-final game for quarter-final game 3, team 2 
+                            Playoff top166 = FindGame("16", GetGameNumber(qf3.Team2Prereq));
+                            //Find quarter-final game for quarter-final game 3, team 1 
+                            Playoff top165 = FindGame("16", GetGameNumber(qf3.Team1Prereq));
+                            //Find quarter-final game for quarter-final game 2, team 2 
+                            Playoff top164 = FindGame("16", GetGameNumber(qf2.Team2Prereq));
+                            //Find quarter-final game for quarter-final game 2, team 1 
+                            Playoff top163 = FindGame("16", GetGameNumber(qf2.Team1Prereq));
+                            //Find quarter-final game for quarter-final game 1, team 2 
+                            Playoff top162 = FindGame("16", GetGameNumber(qf1.Team2Prereq));
+                            //Find quarter-final game for quarter-final game 1, team 1 
+                            Playoff top161 = FindGame("16", GetGameNumber(qf1.Team1Prereq));
+                            SetSortOrder("16", top168.GameNumber, totalPlayoffGames - adjustment);
+                            SetSortOrder("16", top167.GameNumber, totalPlayoffGames - adjustment - 1);
+                            SetSortOrder("16", top166.GameNumber, totalPlayoffGames - adjustment - 2);
+                            SetSortOrder("16", top165.GameNumber, totalPlayoffGames - adjustment - 3);
+                            SetSortOrder("16", top164.GameNumber, totalPlayoffGames - adjustment - 4);
+                            SetSortOrder("16", top163.GameNumber, totalPlayoffGames - adjustment - 5);
+                            SetSortOrder("16", top162.GameNumber, totalPlayoffGames - adjustment - 6);
+                            SetSortOrder("16", top161.GameNumber, totalPlayoffGames - adjustment - 7);
+                        }
+                    }
+                }
             }
-            SetSortOrder("3P", 0, totalPlayoffGames);
-            SetSortOrder("FF", 0, totalPlayoffGames - adjustment);
-            adjustment++; //add final game to adjustment
-
-            Playoff finalGame = FindGame("FF", 0);
-            //Find semi-final game for final team 2 game
-            Playoff sf2 = FindGame("SF", GetGameNumber(finalGame.Team2Prereq));
-            //Find semi-final game for final team 1 game
-            Playoff sf1 = FindGame("SF", GetGameNumber(finalGame.Team1Prereq));
-            SetSortOrder("SF", sf2.GameNumber, totalPlayoffGames - adjustment);
-            SetSortOrder("SF", sf1.GameNumber, totalPlayoffGames - adjustment - 1);
-            adjustment += 2; //add semi-final games to adjustment
-
-            //Find the quarter-final games for the semi-final games
-            //Find quarter-final game for semi final game 2, team 2 
-            Playoff qf4 = FindGame("QF", GetGameNumber(sf2.Team2Prereq));
-            //Find quarter-final game for semi final game 2, team 1 
-            Playoff qf3 = FindGame("QF", GetGameNumber(sf2.Team1Prereq));
-            //Find quarter-final game for semi final game 1, team 2 
-            Playoff qf2 = FindGame("QF", GetGameNumber(sf1.Team2Prereq));
-            //Find quarter-final game for semi final game 1, team 1 
-            Playoff qf1 = FindGame("QF", GetGameNumber(sf1.Team1Prereq));
-            SetSortOrder("QF", qf4.GameNumber, totalPlayoffGames - adjustment);
-            SetSortOrder("QF", qf3.GameNumber, totalPlayoffGames - adjustment - 1);
-            SetSortOrder("QF", qf2.GameNumber, totalPlayoffGames - adjustment - 2);
-            SetSortOrder("QF", qf1.GameNumber, totalPlayoffGames - adjustment - 3);
-
-            //Find the top 16 games for quarter-final games
-            //Find quarter-final game for quarter-final game 4, team 2 
-            Playoff top168 = FindGame("16", GetGameNumber(qf4.Team2Prereq));
-            //Find quarter-final game for quarter-final game 4, team 1 
-            Playoff top167 = FindGame("16", GetGameNumber(qf4.Team1Prereq));
-            //Find quarter-final game for quarter-final game 3, team 2 
-            Playoff top166 = FindGame("16", GetGameNumber(qf3.Team2Prereq));
-            //Find quarter-final game for quarter-final game 3, team 1 
-            Playoff top165 = FindGame("16", GetGameNumber(qf3.Team1Prereq));
-            //Find quarter-final game for quarter-final game 2, team 2 
-            Playoff top164 = FindGame("16", GetGameNumber(qf2.Team2Prereq));
-            //Find quarter-final game for quarter-final game 2, team 1 
-            Playoff top163 = FindGame("16", GetGameNumber(qf2.Team1Prereq));
-            //Find quarter-final game for quarter-final game 1, team 2 
-            Playoff top162 = FindGame("16", GetGameNumber(qf1.Team2Prereq));
-            //Find quarter-final game for quarter-final game 1, team 1 
-            Playoff top161 = FindGame("16", GetGameNumber(qf1.Team1Prereq));
-            SetSortOrder("16", top168.GameNumber, totalPlayoffGames - adjustment);
-            SetSortOrder("16", top167.GameNumber, totalPlayoffGames - adjustment - 1);
-            SetSortOrder("16", top166.GameNumber, totalPlayoffGames - adjustment - 2);
-            SetSortOrder("16", top165.GameNumber, totalPlayoffGames - adjustment - 3);
-            SetSortOrder("16", top164.GameNumber, totalPlayoffGames - adjustment - 4);
-            SetSortOrder("16", top163.GameNumber, totalPlayoffGames - adjustment - 5);
-            SetSortOrder("16", top162.GameNumber, totalPlayoffGames - adjustment - 6);
-            SetSortOrder("16", top161.GameNumber, totalPlayoffGames - adjustment - 7);
 
             lstGames.DataContext = Setups;
         }
