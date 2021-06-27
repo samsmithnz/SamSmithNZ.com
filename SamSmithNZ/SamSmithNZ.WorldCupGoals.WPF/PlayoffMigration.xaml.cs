@@ -47,6 +47,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             (int, string) gameNumber2 = (0, "");
             Setups = new();
             int i = 0;
+            bool thirdPlaceGameExists = false;
             foreach (Game game in games)
             {
                 if (game.Team1Code > 0 && game.Team2Code > 0)
@@ -70,6 +71,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     }
                     else if (game.RoundCode == "3P")
                     {
+                        thirdPlaceGameExists = true;
                         gameNumber1 = GetGameNumber(games, "SF", game.Team1Code);
                         gameNumber2 = GetGameNumber(games, "SF", game.Team2Code);
                         setup.Team1Prereq = "Loser of game " + gameNumber1.Item1.ToString();
@@ -103,14 +105,73 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 }
             }
 
-            //If the last item is the final, and second to last item is 3rd place, make sure the sort order is final, then 3rd Place, to match how the data is displayed on the playoffs page
-            if (Setups[Setups.Count - 1].RoundCode == "FF" && Setups[Setups.Count - 2].RoundCode == "3P")
+            //Arrange the sort order
+            int adjustment = 0;
+            int totalPlayoffGames = Setups.Count;
+            if (thirdPlaceGameExists)
             {
-                Setups[Setups.Count - 1].SortOrder = Setups.Count - 1;
-                Setups[Setups.Count - 2].SortOrder = Setups.Count;
+                adjustment = 1;
             }
+            SetSortOrder("3P", 0, totalPlayoffGames);
+            SetSortOrder("FF", 0, totalPlayoffGames - adjustment);
+            adjustment++; //add final game to adjustment
+
+            Playoff finalGame = FindGame("FF", 0);
+            //Find semi final game for final team 2 game
+            Playoff sf2 = FindGame("SF", GetGameNumber(finalGame.Team2Prereq));
+            //Find semi final game for final team 1 game
+            Playoff sf1 = FindGame("SF", GetGameNumber(finalGame.Team1Prereq));
+            SetSortOrder("SF", sf2.GameNumber, totalPlayoffGames - adjustment);
+            SetSortOrder("SF", sf1.GameNumber, totalPlayoffGames - adjustment - 1);
+            adjustment += 2; //add semi-final games to adjustment
+
+            //Find the quarter final game for the semi-final games
+            //Find semi final game for semi final game 2, team 2 
+            Playoff qf4 = FindGame("QF", GetGameNumber(sf2.Team2Prereq));
+            //Find semi final game for semi final game 2, team 1 
+            Playoff qf3 = FindGame("QF", GetGameNumber(sf2.Team1Prereq));
+            //Find semi final game for semi final game 1, team 2 
+            Playoff qf2 = FindGame("QF", GetGameNumber(sf1.Team2Prereq));
+            //Find semi final game for semi final game 1, team 1 
+            Playoff qf1 = FindGame("QF", GetGameNumber(sf1.Team1Prereq));
+            SetSortOrder("QF", qf4.GameNumber, totalPlayoffGames - adjustment);
+            SetSortOrder("QF", qf3.GameNumber, totalPlayoffGames - adjustment - 1);
+            SetSortOrder("QF", qf2.GameNumber, totalPlayoffGames - adjustment - 2);
+            SetSortOrder("QF", qf1.GameNumber, totalPlayoffGames - adjustment - 3);
 
             lstGames.DataContext = Setups;
+        }
+
+        private void SetSortOrder(string roundCode, int gameNumber, int sortOrder)
+        {
+            foreach (Playoff item in Setups)
+            {
+                if (item.RoundCode == roundCode && (item.GameNumber == gameNumber || gameNumber == 0))
+                {
+                    item.SortOrder = sortOrder;
+                }
+            }
+        }
+
+        private int GetGameNumber(string prereq)
+        {
+            string result = prereq.Replace("Winner of game ", "");
+            int gameNumber;
+            int.TryParse(result, out gameNumber);
+            return gameNumber;
+        }
+
+        private Playoff FindGame(string roundCode, int gameNumber)
+        {
+            Playoff game = null;
+            foreach (Playoff item in Setups)
+            {
+                if (item.RoundCode == roundCode && (item.GameNumber == gameNumber || gameNumber == 0))
+                {
+                    game = item;
+                }
+            }
+            return game;
         }
 
         private (int, string) GetGameNumber(List<Game> games, string roundCode, int teamCode)
