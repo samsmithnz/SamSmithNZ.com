@@ -101,7 +101,13 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                         Setups.Add(setup);
                     }
                 }
+            }
 
+            //If the last item is the final, and second to last item is 3rd place, make sure the sort order is final, then 3rd Place, to match how the data is displayed on the playoffs page
+            if (Setups[Setups.Count - 1].RoundCode == "FF" && Setups[Setups.Count - 2].RoundCode == "3P")
+            {
+                Setups[Setups.Count - 1].SortOrder = Setups.Count - 1;
+                Setups[Setups.Count - 2].SortOrder = Setups.Count;
             }
 
             lstGames.DataContext = Setups;
