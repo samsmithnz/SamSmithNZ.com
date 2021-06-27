@@ -42,20 +42,19 @@ BEGIN
 			g.team_2_penalties_score
 		FROM wc_game g
 		WHERE tournament_code = @TournamentCode
-		and round_number = @RoundNumber
-		and round_code = @RoundCode
+		AND round_number = @RoundNumber
+		AND round_code = @RoundCode
 	END
 
 	DECLARE @Team1Score INT
 	DECLARE @Team2Score INT
-	SELECT g.round_code, 
-		SUM(g.team_1_normal_time_score) + SUM(ISNULL(g.team_1_extra_time_score,0)) + SUM(ISNULL(g.team_1_penalties_score,0)),
-		SUM(g.team_2_normal_time_score) + SUM(ISNULL(g.team_2_extra_time_score,0)) + SUM(ISNULL(g.team_2_penalties_score,0))
+	SELECT @Team1Score = SUM(g.team_1_normal_time_score) + SUM(ISNULL(g.team_1_extra_time_score,0)) + SUM(ISNULL(g.team_1_penalties_score,0)),
+		@Team2Score = SUM(g.team_2_normal_time_score) + SUM(ISNULL(g.team_2_extra_time_score,0)) + SUM(ISNULL(g.team_2_penalties_score,0))
 	FROM wc_game g
 	WHERE g.tournament_code = @TournamentCode
 	AND g.round_number = @RoundNumber
 	GROUP BY g.round_code, g.game_number
-	ORDER BY g.game_number
+	--ORDER BY g.game_number
 
 	DECLARE @WinningTeamCode INT
 	DECLARE @LosingTeamCode INT
@@ -141,7 +140,5 @@ BEGIN
 	FROM wc_tournament_team_chance_to_win c
 	WHERE c.tournament_code = @TournamentCode
 	AND c.team_code = @LosingTeamCode
-
-
 
 END
