@@ -30,10 +30,12 @@ BEGIN
 
 	DECLARE @TournamentCode INT
 	DECLARE @RoundNumber INT
+	DECLARE @GameNumber INT
 	DECLARE @RoundCode VARCHAR(10)
 	SELECT @TournamentCode = g.tournament_code,
 		@RoundNumber = g.round_number,
-		@RoundCode = g.round_code
+		@RoundCode = g.round_code,
+		@GameNumber = g.game_number
 	FROM wc_game g
 	WHERE g.game_code = @GameCode
 
@@ -43,7 +45,7 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-		EXEC FB_SavePlayoffDetails @TournamentCode = @TournamentCode, @RoundNumber = @RoundNumber, @RoundCode = @RoundCode
+		EXEC FB_SavePlayoffDetails @TournamentCode = @TournamentCode, @RoundNumber = @RoundNumber, @RoundCode = @RoundCode, @GameNumber = @GameNumber
 	END
 
 END

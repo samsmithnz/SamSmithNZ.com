@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Playoff v2 Details";
     Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
-    bool showDebugElements = false;
+    bool showDebugElements = true;
 }
 
 <div>
@@ -172,12 +172,12 @@
     <div id="divPlayoffTable2">
         <table border="0" cellpadding="0" cellspacing="0" class="PlayoffTable" style="border-collapse: separate;">
             <tr>
-                @if (showDebugElements == true)
+@*                @if (showDebugElements == true)
                 {
                     <td id="debugRows" style="vertical-align: top">
                         @await Html.PartialAsync("~/Views/WorldCup/_PlayoffDebugRowsPartial.cshtml", new PlayoffSectionViewModel(Model.Games, Model.Playoffs, new(){"16"}, showDebugElements))
                     </td>
-                }
+                }*@
                 @if (Model.Show16s == true)
                 {
                     <td id="top16" style="width:225px; vertical-align: top">

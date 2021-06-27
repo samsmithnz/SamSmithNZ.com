@@ -11,7 +11,7 @@ namespace SamSmithNZ.Web.Models.WorldCup
             List<Game> filteredGames = new();
             foreach (Game game in games)
             {
-                if (rounds.Contains(game.RoundCode) == true)
+                if (rounds.Contains(game.RoundCode) == true && game.RowType == 1)
                 {
                     filteredGames.Add(game);
                 }
