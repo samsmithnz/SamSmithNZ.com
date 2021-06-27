@@ -33,6 +33,11 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         {
             _tournamentCode = tournamentCode;
 
+            //Working for tournament code switch below
+            //select t.year, t.tournament_code, f.* from wc_tournament t
+            //join wc_tournament_format f on t.format_code = f.format_code
+            //join wc_tournament_format_round r on f.round_1_format_code = r.format_round_code and r.is_group_stage = 0
+
             //TournamentDataAccess da2 = new(_configuration);
             //List<Tournament> tournaments = await da2.GetList(null);
             //foreach (Tournament item in tournaments)
