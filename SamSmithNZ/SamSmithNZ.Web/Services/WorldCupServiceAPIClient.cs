@@ -224,5 +224,19 @@ namespace SamSmithNZ.Web.Services
             }
         }
 
+        public async Task<List<Playoff>> GetPlayoffSetup(int tournamentCode)
+        {
+            Uri url = new($"api/WorldCup/Playoff/GetPlayoffs?tournamentCode=" + tournamentCode, UriKind.Relative);
+            List<Playoff> results = await base.ReadMessageList<Playoff>(url);
+            if (results == null)
+            {
+                return new List<Playoff>();
+            }
+            else
+            {
+                return results;
+            }
+        }
+
     }
 }

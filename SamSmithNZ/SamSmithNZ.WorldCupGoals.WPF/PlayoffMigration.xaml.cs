@@ -3,11 +3,8 @@ using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.Models.WorldCup;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace SamSmithNZ.WorldCupGoals.WPF
 {
@@ -49,16 +46,18 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             (int, string) gameNumber1 = (0, "");
             (int, string) gameNumber2 = (0, "");
             Setups = new();
+            int i = 0;
             foreach (Game game in games)
             {
                 if (game.Team1Code > 0 && game.Team2Code > 0)
                 {
+                    i++;
                     Playoff setup = new()
                     {
                         TournamentCode = game.TournamentCode,
-                        RoundNumber = game.RoundNumber,
                         RoundCode = game.RoundCode,
-                        GameNumber = game.GameNumber
+                        GameNumber = game.GameNumber,
+                        SortOrder = i
                     };
 
                     if (game.RoundCode == "FF")
@@ -102,7 +101,13 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                         Setups.Add(setup);
                     }
                 }
+            }
 
+            //If the last item is the final, and second to last item is 3rd place, make sure the sort order is final, then 3rd Place, to match how the data is displayed on the playoffs page
+            if (Setups[Setups.Count - 1].RoundCode == "FF" && Setups[Setups.Count - 2].RoundCode == "3P")
+            {
+                Setups[Setups.Count - 1].SortOrder = Setups.Count - 1;
+                Setups[Setups.Count - 2].SortOrder = Setups.Count;
             }
 
             lstGames.DataContext = Setups;

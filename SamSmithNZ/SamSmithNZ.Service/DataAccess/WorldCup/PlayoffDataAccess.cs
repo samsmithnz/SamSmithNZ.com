@@ -32,6 +32,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             parameters.Add("@GameNumber", setup.GameNumber, DbType.Int32);
             parameters.Add("@Team1Prereq", setup.Team1Prereq, DbType.String);
             parameters.Add("@Team2Prereq", setup.Team2Prereq, DbType.String);
+            parameters.Add("@SortOrder", setup.SortOrder, DbType.Int32);           
 
             await base.SaveItem("FB_SaveMigratePlayoffsGames", parameters);
             return true;

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SamSmithNZ.Web.Models.WorldCup
 {
-    public class PlayoffPart2ViewModel
+    public class PlayoffGameViewModel
     {
-        public PlayoffPart2ViewModel(List<Game> games, int gameNumber, bool showDebugElements, bool returnTeam1, string extraDetailsName, string scoreDetailsName)
+        public PlayoffGameViewModel(List<Game> games, int gameNumber, bool showDebugElements, bool returnTeam1, string extraDetailsName, string scoreDetailsName)
         {
             this.ShowDebugElements = showDebugElements;
             foreach (Game item in games)

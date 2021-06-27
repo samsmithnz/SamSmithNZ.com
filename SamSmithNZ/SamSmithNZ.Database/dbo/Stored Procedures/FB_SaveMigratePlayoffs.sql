@@ -3,10 +3,11 @@
 	@RoundCode VARCHAR(10),
 	@GameNumber INT, 
 	@Team1Prereq VARCHAR(50),
-	@Team2Prereq VARCHAR(50)
+	@Team2Prereq VARCHAR(50),
+	@SortOrder INT
 AS
 BEGIN
 	INSERT INTO wc_tournament_format_playoff_setup
-	SELECT @TournamentCode, @RoundCode, @GameNumber, @Team1Prereq, @Team2Prereq
+	SELECT @TournamentCode, @RoundCode, @GameNumber, @Team1Prereq, @Team2Prereq, @SortOrder
 END
 GO

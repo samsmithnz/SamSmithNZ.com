@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Configuration;
@@ -100,13 +102,17 @@ namespace SamSmithNZ.Service.DataAccess.Base
                 throw new Exception("ConnectionString not set");
             }
 
-            bool result;
+            bool result = false;
             SqlConnection connection = new(ConnectionString);
             try
             {
                 await connection.OpenAsync();
                 await connection.ExecuteScalarAsync<bool>(query, parameters, commandType: CommandType.StoredProcedure, commandTimeout: timeOut);
                 result = true;
+            }
+            catch (Exception ex)
+            {
+                DebugSQLString(query, parameters);
             }
             finally
             {
@@ -116,6 +122,62 @@ namespace SamSmithNZ.Service.DataAccess.Base
                 }
             }
             return result;
+        }
+
+        private string DebugSQLString(string sp, DynamicParameters parameters = null)
+        {
+            StringBuilder sb = new();
+            sb.Append("exec ");
+            sb.Append(sp);
+            sb.Append(' ');
+            if (parameters != null)
+            {
+                int i = 0;
+                foreach (string name in parameters.ParameterNames)
+                {
+                    i++;
+                    dynamic value = parameters.Get<dynamic>(name);
+                    sb.Append('@');
+                    sb.Append(name);
+                    sb.Append('=');
+                    if (value == null)
+                    {
+                        sb.Append("null");
+                    }
+                    else
+                    {
+                        if (value.GetType().ToString() == "System.String" || value.GetType().ToString() == "System.Guid")
+                        {
+                            sb.Append('\'');
+                        }
+                        else if (value.GetType().ToString() == "System.Boolean")
+                        {
+                            if (value == true)
+                            {
+                                sb.Append('1');
+                            }
+                            else
+                            {
+                                sb.Append('0');
+                            }
+                        }
+                        else
+                        {
+                            sb.Append(value.ToString());
+                        }
+                        if (value.GetType().ToString() == "System.String" || value.GetType().ToString() == "System.Guid")
+                        {
+                            sb.Append('\'');
+                        }
+                    }
+                    if (parameters.ParameterNames.ToList<string>().Count > i)
+                    {
+                        sb.Append(", ");
+                    }
+                }
+            }
+            Debug.WriteLine(sb.ToString());
+            return sb.ToString();
         }
     }
 }

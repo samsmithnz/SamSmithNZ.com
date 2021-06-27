@@ -1,0 +1,18 @@
+﻿@using SamSmithNZ.Web.Models.WorldCup
+@model PlayoffSectionViewModel
+
+<table border="0" cellpadding="0" cellspacing="0" class="PlayoffTable" style="border-collapse: separate;">
+    <tr>
+        <td class="PlayoffHeader" id="1">
+            Row #
+        </td>
+    </tr>
+    @for (int i = 2; i < 50; i++)
+    {
+    <tr id="@i" class="trHeight">
+        <td>
+            &nbsp;@i.ToString()
+        </td>
+    </tr> 
+    }  
+</table>
