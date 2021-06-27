@@ -9,6 +9,7 @@
         public int GameNumber { get; set; }
         public string Team1Prereq { get; set; }
         public string Team2Prereq { get; set; }
+        public int SortOrder { get; set; }
 
     }
 }

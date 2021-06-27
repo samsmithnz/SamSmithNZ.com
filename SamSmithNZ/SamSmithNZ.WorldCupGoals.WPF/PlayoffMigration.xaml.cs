@@ -46,15 +46,18 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             (int, string) gameNumber1 = (0, "");
             (int, string) gameNumber2 = (0, "");
             Setups = new();
+            int i = 0;
             foreach (Game game in games)
             {
                 if (game.Team1Code > 0 && game.Team2Code > 0)
                 {
+                    i++;
                     Playoff setup = new()
                     {
                         TournamentCode = game.TournamentCode,
                         RoundCode = game.RoundCode,
-                        GameNumber = game.GameNumber
+                        GameNumber = game.GameNumber,
+                        SortOrder = i
                     };
 
                     if (game.RoundCode == "FF")

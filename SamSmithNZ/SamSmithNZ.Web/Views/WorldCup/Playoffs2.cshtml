@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Playoff v2 Details";
     Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
-    bool showDebugElements = true;
+    bool showDebugElements = false;
 }
 
 <div>
@@ -41,7 +41,7 @@
         }
 
         .Col_E {
-            background-color: Wheat /* Wheat*/;
+            background-color: White /* Wheat*/;
             text-align: center;
         }
 
@@ -56,12 +56,12 @@
         }
 
         .Col_H {
-            background-color: Tomato /* Tomato */;
+            background-color: White /* Tomato */;
             text-align: center;
         }
 
         .Col_I {
-            background-color: Wheat /* Wheat*/;
+            background-color: White /* Wheat*/;
             text-align: center;
         }
 
@@ -76,12 +76,12 @@
         }
 
         .Col_L {
-            background-color: Tomato /* Tomato */;
+            background-color: White /* Tomato */;
             text-align: center;
         }
 
         .Col_M {
-            background-color: Wheat /* Wheat */;
+            background-color: White /* Wheat */;
             text-align: center;
         }
 
@@ -129,7 +129,7 @@
             font-weight: bold;
         }
 
-        .Border1 {
+        .BorderBottom {
             border-bottom: darkgray 1px solid;
         }
 
@@ -151,7 +151,7 @@
             border-right: darkgray 0px solid;
         }
 
-        .Border5 {
+        .BorderTop {
             border-top: darkgray 2px solid;
         }
 
@@ -165,7 +165,7 @@
         }
 
         .trHeight {
-            height: 26px;
+            height: 13px;
         }
     </style>
 
@@ -319,30 +319,30 @@
                             <span style="color: red; font-weight: bold;">49</span>
                         }
                     </td>
-                    <td rowspan="4" class="Border1 Col_D" id="tdCol_D3">
+                    <td rowspan="4" class="BorderBottom Col_D" id="tdCol_D3">
                         &nbsp;
                     </td>
-                    <td rowspan="7" class="Border1 Col_E" id="tdCol_E2">
+                    <td rowspan="7" class="BorderBottom Col_E" id="tdCol_E2">
                         &nbsp;
                     </td>
                 }
                 @if (Model.ShowQuarters == true)
                 {
                     <td colspan="2" rowspan="3" class="Col_F" id="tdCol_F3"></td>
-                    <td rowspan="7" class="Border1 Col_H" id="tdCol_H3">
+                    <td rowspan="7" class="BorderBottom Col_H" id="tdCol_H3">
                         &nbsp;
                     </td>
-                    <td rowspan="13" class="Border1 Col_I" id="tdCol_I2">
+                    <td rowspan="13" class="BorderBottom Col_I" id="tdCol_I2">
                         &nbsp;
                     </td>
                 }
                 @if (Model.ShowSemis == true)
                 {
                     <td colspan="2" rowspan="9" class="Col_J" id="tdCol_J3"></td>
-                    <td rowspan="13" class="Border1 Col_L" id="tdCol_L3">
+                    <td rowspan="13" class="BorderBottom Col_L" id="tdCol_L3">
                         &nbsp;
                     </td>
-                    <td rowspan="25" class="Border1 Col_M" id="tdCol_M2">
+                    <td rowspan="25" class="BorderBottom Col_M" id="tdCol_M2">
                         &nbsp;
                     </td>
                 }
@@ -608,7 +608,7 @@
                 <td height="5" class="Col_A"></td>
                 @if (Model.ShowSemis == true)
                 {
-                    <td rowspan="23" class="Border5 Col_M" id="tdCol_M3">
+                    <td rowspan="23" class="BorderTop Col_M" id="tdCol_M3">
                         &nbsp;
                     </td>
                 }
@@ -739,7 +739,7 @@
                 <td height="5" class="Col_A"></td>
                 @if (Model.ShowQuarters == true)
                 {
-                    <td rowspan="11" class="Border5 Col_I" id="tdCol_I4">
+                    <td rowspan="11" class="BorderTop Col_I" id="tdCol_I4">
                         &nbsp;
                     </td>
                 }
@@ -826,14 +826,14 @@
                 <td height="5" class="Col_A"></td>
                 @if (Model.Show16s == true)
                 {
-                    <td rowspan="5" class="Border5 Col_E" id="tdCol_E6">
+                    <td rowspan="5" class="BorderTop Col_E" id="tdCol_E6">
                         &nbsp;
                     </td>
                 }
                 @if (Model.ShowQuarters == true)
                 {
                     @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, 60, showDebugElements, false, "tdCol_F18", "tdCol_G9"))
-                    <td rowspan="5" class="Border5 Col_H" id="tdCol_H7">
+                    <td rowspan="5" class="BorderTop Col_H" id="tdCol_H7">
                         &nbsp;
                     </td>
                 }
@@ -865,7 +865,7 @@
                 @if (Model.Show16s == true)
                 {
                     @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, 56, showDebugElements, false, "tdCol_B26", "tdCol_C17"))
-                    <td rowspan="2" class="Border5 Col_D" id="tdCol_D11">
+                    <td rowspan="2" class="BorderTop Col_D" id="tdCol_D11">
                         &nbsp;
                     </td>
                 }
