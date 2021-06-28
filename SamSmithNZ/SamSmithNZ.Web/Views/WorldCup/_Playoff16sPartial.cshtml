@@ -36,12 +36,12 @@
             </td>
         </tr>
         <tr id="4" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[0].GameNumber, showDebugElements, true, "tdCol_B4", "tdCol_C2"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[0].GameNumber, showDebugElements, true, "tdCol_B4", "tdCol_C2"))
         </tr>
         <tr id="5" class="trHeight">
         </tr>
         <tr id="6" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[0].GameNumber, showDebugElements, false, "tdCol_B5", "tdCol_C3"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[0].GameNumber, showDebugElements, false, "tdCol_B5", "tdCol_C3"))
             <td rowspan="6" class="Border3 Col_D" id="tdCol_D4">
                 &nbsp;
             </td>
@@ -61,11 +61,11 @@
             <td class="BorderTop Col_D"></td>
         </tr>
         <tr id="10" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[1].GameNumber, showDebugElements, true, "tdCol_B7", "tdCol_C4"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[1].GameNumber, showDebugElements, true, "tdCol_B7", "tdCol_C4"))
         </tr>
         <tr id="11" class="trHeight"></tr>
         <tr id="12" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[1].GameNumber, showDebugElements, false, "tdCol_B8", "tdCol_C5"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[1].GameNumber, showDebugElements, false, "tdCol_B8", "tdCol_C5"))
             <td rowspan="6" class="Border2 Col_D" id="tdCol_D5">
                 &nbsp;
             </td>
@@ -81,11 +81,11 @@
             </td>
         </tr>
         <tr id="16" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[2].GameNumber, showDebugElements, true, "tdCol_B10", "tdCol_C6"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[2].GameNumber, showDebugElements, true, "tdCol_B10", "tdCol_C6"))
         </tr>
         <tr id="17" class="trHeight"></tr>
         <tr id="18" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[2].GameNumber, showDebugElements, false, "tdCol_B11", "tdCol_C7"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[2].GameNumber, showDebugElements, false, "tdCol_B11", "tdCol_C7"))
             <td rowspan="6" class="Border3 Col_D" id="tdCol_D6">
                 &nbsp;
             </td>
@@ -104,11 +104,11 @@
             <td class="BorderTop Col_D"></td>
         </tr>
         <tr id="22" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[3].GameNumber, showDebugElements, true, "tdCol_B13", "tdCol_C8"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[3].GameNumber, showDebugElements, true, "tdCol_B13", "tdCol_C8"))
         </tr>
         <tr id="23" class="trHeight"></tr>
         <tr id="24" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[3].GameNumber, showDebugElements, false, "tdCol_B14", "tdCol_C9"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[3].GameNumber, showDebugElements, false, "tdCol_B14", "tdCol_C9"))
             <td rowspan="6" class="Border2 Col_D" id="tdCol_D7">
                 &nbsp;
             </td>
@@ -124,11 +124,11 @@
             </td>
         </tr>
         <tr id="28" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[4].GameNumber, showDebugElements, true, "tdCol_B16", "tdCol_C10"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[4].GameNumber, showDebugElements, true, "tdCol_B16", "tdCol_C10"))
         </tr>
         <tr id="29" class="trHeight"></tr>
         <tr id="30" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[4].GameNumber, showDebugElements, false, "tdCol_B17", "tdCol_C11"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[4].GameNumber, showDebugElements, false, "tdCol_B17", "tdCol_C11"))
             <td rowspan="6" class="Border3 Col_D" id="tdCol_D8">
                 &nbsp;
             </td>
@@ -148,11 +148,11 @@
             <td class="BorderTop Col_D"></td>
         </tr>
         <tr id="34" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[5].GameNumber, showDebugElements, true, "tdCol_B19", "tdCol_C12"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[5].GameNumber, showDebugElements, true, "tdCol_B19", "tdCol_C12"))
         </tr>
         <tr id="35" class="trHeight"></tr>
         <tr id="36" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[5].GameNumber, showDebugElements, false, "tdCol_B20", "tdCol_C13"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[5].GameNumber, showDebugElements, false, "tdCol_B20", "tdCol_C13"))
             <td rowspan="6" class="Border2 Col_D" id="tdCol_D9">
                 &nbsp;
             </td>
@@ -168,11 +168,11 @@
             </td>
         </tr>
         <tr id="40" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[6].GameNumber, showDebugElements, true, "tdCol_B22", "tdCol_C14"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[6].GameNumber, showDebugElements, true, "tdCol_B22", "tdCol_C14"))
         </tr>
         <tr id="41" class="trHeight"></tr>
         <tr id="42" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[6].GameNumber, showDebugElements, false, "tdCol_B23", "tdCol_C15"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[6].GameNumber, showDebugElements, false, "tdCol_B23", "tdCol_C15"))
             <td rowspan="6" class="Border3 Col_D" id="tdCol_D10">
                 &nbsp;
             </td>
@@ -192,11 +192,11 @@
             <td class="BorderTop Col_D"></td>
         </tr>
         <tr id="46" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[7].GameNumber, showDebugElements, true, "tdCol_B25", "tdCol_C16"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[7].GameNumber, showDebugElements, true, "tdCol_B25", "tdCol_C16"))
         </tr>
         <tr id="47" class="trHeight"></tr>
         <tr id="48" class="trHeight">
-            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs[7].GameNumber, showDebugElements, false, "tdCol_B26", "tdCol_C17"))
+            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffGamePartial.cshtml", new PlayoffGameViewModel(Model.Games, Model.Playoffs, Model.Playoffs[7].GameNumber, showDebugElements, false, "tdCol_B26", "tdCol_C17"))
             <td rowspan="2" class="BorderTop Col_D" id="tdCol_D11">
                 &nbsp;
             </td>

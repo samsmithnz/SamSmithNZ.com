@@ -1,6 +1,5 @@
 ﻿using SamSmithNZ.Service.Models.WorldCup;
 using System.Collections.Generic;
-using System;
 
 namespace SamSmithNZ.Web.Models.WorldCup
 {
