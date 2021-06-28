@@ -2,7 +2,7 @@
 @using SamSmithNZ.Web.Models.WorldCup
 @model PlayoffsViewModel
 @{
-    ViewBag.Title = "Playoff v2 Details";
+    ViewBag.Title = "Playoff Details";
     Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
     bool showDebugElements = true;
 }
@@ -167,6 +167,10 @@
         .trHeight {
             height: 13px;
         }
+
+        .tdAlignTop {
+            vertical-align: top;
+        }
     </style>
 
     <div id="divPlayoffTable2">
@@ -174,25 +178,25 @@
             <tr>
 @*                @if (showDebugElements == true)
                 {
-                    <td id="debugRows" style="vertical-align: top">
+                    <td id="debugRows" class="tdAlignTop">
                         @await Html.PartialAsync("~/Views/WorldCup/_PlayoffDebugRowsPartial.cshtml", new PlayoffSectionViewModel(Model.Games, Model.Playoffs, new(){"16"}, showDebugElements))
                     </td>
                 }*@
                 @if (Model.Show16s == true)
                 {
-                    <td id="top16" style="vertical-align: top">
+                    <td id="top16" class="tdAlignTop">
                         @await Html.PartialAsync("~/Views/WorldCup/_Playoff16sPartial.cshtml", new PlayoffSectionViewModel(Model.Games, Model.Playoffs, new(){"16"}, showDebugElements))
                     </td>
                 }
                 @if (Model.ShowQuarters == true)
                 {
-                    <td id="qfs" style="vertical-align: top">
+                    <td id="qfs" class="tdAlignTop">
                         @await Html.PartialAsync("~/Views/WorldCup/_PlayoffQFsPartial.cshtml", new PlayoffSectionViewModel(Model.Games, Model.Playoffs, new(){"QF"}, showDebugElements))
                     </td>
                 }
                 @if (Model.ShowSemis == true)
                 {
-                    <td id="sfs" style="vertical-align: top">
+                    <td id="sfs" class="tdAlignTop">
                         @await Html.PartialAsync("~/Views/WorldCup/_PlayoffSFsPartial.cshtml", new PlayoffSectionViewModel(Model.Games, Model.Playoffs, new(){"SF"}, showDebugElements))
                     </td>
                 }
@@ -207,7 +211,7 @@
                     {
                         rounds.Add("FF");
                     }
-                    <td id="finals" style="vertical-align: top">
+                    <td id="finals" class="tdAlignTop">
                         @await Html.PartialAsync("~/Views/WorldCup/_PlayoffFinalsPartial.cshtml", new PlayoffSectionViewModel(Model.Games, Model.Playoffs, rounds, showDebugElements))
                     </td>
                 }
