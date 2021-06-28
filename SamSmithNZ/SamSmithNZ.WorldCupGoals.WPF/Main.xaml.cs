@@ -31,13 +31,21 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             try
             {
                 btnTournamentGames.IsEnabled = false;
+                btnSetupTournamentGroups.IsEnabled = false;
+                btnSetupTournamentTeams.IsEnabled = false;
+                btnMigrateTournamentPlayoffs.IsEnabled = false;
+
                 TournamentDataAccess da = new(_configuration);
                 List<Tournament> tournaments = await da.GetList(null);
                 cboTournament.DataContext = tournaments;
                 cboTournament.DisplayMemberPath = "TournamentName";
                 cboTournament.SelectedValuePath = "TournamentCode";
                 cboTournament.SelectedIndex = 3;
+
                 btnTournamentGames.IsEnabled = true;
+                btnSetupTournamentGroups.IsEnabled = true;
+                btnSetupTournamentTeams.IsEnabled = true;
+                btnMigrateTournamentPlayoffs.IsEnabled = true;
             }
             catch (Exception ex)
             {
