@@ -128,7 +128,7 @@ namespace SamSmithNZ.Web.Controllers
                 });
         }
 
-        public async Task<IActionResult> Playoffs(int tournamentCode, int roundNumber)
+        public async Task<IActionResult> PlayoffsOld(int tournamentCode, int roundNumber)
         {
             List<Game> games = await _ServiceApiClient.GetPlayoffGames(tournamentCode, roundNumber, true);
 
@@ -140,7 +140,7 @@ namespace SamSmithNZ.Web.Controllers
             return View(playoffsViewModel);
         }
 
-        public async Task<IActionResult> Playoffs2(int tournamentCode, int roundNumber)
+        public async Task<IActionResult> Playoffs(int tournamentCode, int roundNumber)
         {
             List<Playoff> playoffs = await _ServiceApiClient.GetPlayoffSetup(tournamentCode);
             List<Game> games = await _ServiceApiClient.GetPlayoffGames(tournamentCode, roundNumber, true);
