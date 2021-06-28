@@ -53,12 +53,13 @@ BEGIN
 	FROM wc_game g
 	WHERE g.tournament_code = @TournamentCode
 	AND g.round_number = @RoundNumber
+	and g.game_number = @GameNumber
 	GROUP BY g.round_code, g.game_number
 	--ORDER BY g.game_number
 
 	DECLARE @WinningTeamCode INT
 	DECLARE @LosingTeamCode INT
-			
+		
 	IF (@Team1Score > @Team2Score)
 	BEGIN
 		SELECT @WinningTeamCode = g.team_1_code, @LosingTeamCode = g.team_2_code
@@ -128,7 +129,7 @@ BEGIN
 		END
 	END
 
-	--Remove the losing team	
+	--Remove the losing team from active teams and odds
 	UPDATE te
 	SET te.is_active = 0
 	FROM wc_tournament_team_entry te
@@ -141,4 +142,27 @@ BEGIN
 	WHERE c.tournament_code = @TournamentCode
 	AND c.team_code = @LosingTeamCode
 
+	--Update ELO Ratings
+	UPDATE g
+	SET team_1_pregame_elo_rating = e.elo_rating, 
+		team_1_elo_rating = e.elo_rating
+	FROM wc_game g
+	JOIN wc_tournament_team_elo_rating e ON g.tournament_code = e.tournament_code and e.team_code = g.team_1_code
+	WHERE g.tournament_code = @TournamentCode
+	AND g.round_number = @RoundNumber
+	AND g.team_1_code > 0
+	AND g.team_2_code > 0
+
+	UPDATE g
+	SET team_2_pregame_elo_rating = e.elo_rating, 
+		team_2_elo_rating = e.elo_rating
+	FROM wc_game g
+	JOIN wc_tournament_team_elo_rating e ON g.tournament_code = e.tournament_code and e.team_code = g.team_2_code
+	WHERE g.tournament_code = @TournamentCode
+	AND g.round_number = @RoundNumber
+	AND g.team_1_code > 0
+	AND g.team_2_code > 0
+
 END
+
+GO

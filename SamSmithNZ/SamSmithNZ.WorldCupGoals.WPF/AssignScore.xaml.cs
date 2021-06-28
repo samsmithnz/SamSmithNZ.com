@@ -77,7 +77,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 {
                     btnSave.IsEnabled = false;
                     Cancel.IsEnabled = false;
-                    lblStatus.Content = "Updating ELO ratings...";
+                    lblStatus.Content = "Saving game...";
                     if (txtTeam1NormalTime.Text.Length == 0 || txtTeam2NormalTime.Text.Length == 0)
                     {
                         _game.Team1NormalTimeScore = null;
@@ -116,10 +116,11 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     GameDataAccess da = new(_configuration);
                     await da.SaveItem(_game);
 
+                    lblStatus.Content = "Updating ELO ratings...";
                     EloRatingDataAccess daELO = new(_configuration);
                     await daELO.UpdateTournamentELORatings(_game.TournamentCode);
 
-                    lblStatus.Content = "Score saved...";
+                    lblStatus.Content = "Game updated...";
                     _bResult = true;
                     Close();
                 }
