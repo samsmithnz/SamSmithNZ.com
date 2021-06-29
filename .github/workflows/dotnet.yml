@@ -140,7 +140,7 @@ jobs:
         package: service
         slot-name: production #staging
     - name: Set service secrets
-      run: az webapp config appsettings set --name "ssnz-prod-eu-service" --resource-group "SSSandbox" --slot staging --settings "ConnectionStrings:DefaultConnectionString=${{ secrets.SQL_CONNECTIONSTRING }}" "CacheConnection=${{ secrets.REDIS_CONNECTIONSTRING }}"
+      run: az webapp config appsettings set --name "ssnz-prod-eu-service" --resource-group "SSSandbox" --slot production --settings "ConnectionStrings:DefaultConnectionString=${{ secrets.SQL_CONNECTIONSTRING }}" "CacheConnection=${{ secrets.REDIS_CONNECTIONSTRING }}"
     - name: 'App Service Deploy: SamSmithNZ website'
       uses: Azure/webapps-deploy@v2
       with:
@@ -191,7 +191,7 @@ jobs:
         arguments: /p:BlockOnPossibleDataLoss=true
         
   RunSmokeTests:
-    name: Run smoke tests on staging slots
+    name: Run smoke tests on prod slots
     runs-on: windows-latest
     needs:
     - DeployWebAppsToSlots
