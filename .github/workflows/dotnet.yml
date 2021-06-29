@@ -138,7 +138,7 @@ jobs:
       with:
         app-name: ssnz-prod-eu-service
         package: service
-        slot-name: staging
+        slot-name: production #staging
     - name: Set service secrets
       run: az webapp config appsettings set --name "ssnz-prod-eu-service" --resource-group "SSSandbox" --slot staging --settings "ConnectionStrings:DefaultConnectionString=${{ secrets.SQL_CONNECTIONSTRING }}" "CacheConnection=${{ secrets.REDIS_CONNECTIONSTRING }}"
     - name: 'App Service Deploy: SamSmithNZ website'
@@ -146,7 +146,7 @@ jobs:
       with:
         app-name: ssnz-prod-eu-web
         package: web
-        slot-name: staging
+        slot-name: production #staging
     #- name: 'App Service Deploy: MandMCounter web service'
     #  uses: Azure/webapps-deploy@v2
     #  with:
@@ -212,7 +212,8 @@ jobs:
         $vsTestConsoleExe = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe"
         $targetTestDll = "**\SamSmithNZ.FunctionalTests.dll"
         $testRunSettings = "/Settings:`"test.runsettings`" "
-        $parameters = " -- ServiceUrl=""https://ssnz-prod-eu-service-staging.azurewebsites.net/"" WebsiteUrl=""https://www.samsmithnz.com/"" "
+        #$parameters = " -- ServiceUrl=""https://ssnz-prod-eu-service-staging.azurewebsites.net/"" WebsiteUrl=""https://www.samsmithnz.com/"" "
+        $parameters = " -- ServiceUrl=""https://ssnz-prod-eu-service.azurewebsites.net/"" WebsiteUrl=""https://www.samsmithnz.com/"" "
         #Note that the `" is an escape character to quote strings, and the `& is needed to start the command
         $command = "`& `"$vsTestConsoleExe`" `"$targetTestDll`" $testRunSettings $parameters "
         Write-Host "$command"
@@ -222,7 +223,8 @@ jobs:
   SwapStagingSlotsToProd:
     name: Swap staging slots to prod
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: 0 == 1
+    #if: github.ref == 'refs/heads/main'
     needs:
     - RunSmokeTests
     - DeployWebAppsToSlots
