@@ -139,8 +139,8 @@ jobs:
         app-name: ssnz-prod-eu-service
         package: service
         slot-name: production #staging
-    - name: Set service secrets
-      run: az webapp config appsettings set --name "ssnz-prod-eu-service" --resource-group "SSSandbox" --slot production --settings "ConnectionStrings:DefaultConnectionString=${{ secrets.SQL_CONNECTIONSTRING }}" "CacheConnection=${{ secrets.REDIS_CONNECTIONSTRING }}"
+    - name: Set service secrets #--slot staging 
+      run: az webapp config appsettings set --name "ssnz-prod-eu-service" --resource-group "SSSandbox" --settings "ConnectionStrings:DefaultConnectionString=${{ secrets.SQL_CONNECTIONSTRING }}" "CacheConnection=${{ secrets.REDIS_CONNECTIONSTRING }}"
     - name: 'App Service Deploy: SamSmithNZ website'
       uses: Azure/webapps-deploy@v2
       with:
