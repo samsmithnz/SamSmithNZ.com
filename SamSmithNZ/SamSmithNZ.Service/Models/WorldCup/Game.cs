@@ -17,6 +17,18 @@ namespace SamSmithNZ.Service.Models.WorldCup
         public int GameCode { get; set; }
         public int GameNumber { get; set; }
         public DateTime GameTime { get; set; }
+
+        public string GameTimeString()
+        {
+            if (GameTime.TimeOfDay == new TimeSpan(0,0,0))
+            {
+                return GameTime.ToString("dd-MMM-yyyy");
+            }
+            else
+            {
+                return GameTime.ToString("dd-MMM-yyyy HH:mm");
+            }
+        }
         public int Team1Code { get; set; }
         public string Team1Name { get; set; }
         public int? Team1NormalTimeScore { get; set; }
