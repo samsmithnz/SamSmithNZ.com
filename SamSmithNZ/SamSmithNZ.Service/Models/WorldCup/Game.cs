@@ -20,7 +20,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public string GameTimeString()
         {
-            if (GameTime.TimeOfDay == new TimeSpan(0,0,0))
+            if (GameTime.TimeOfDay == new TimeSpan(0, 0, 0))
             {
                 return GameTime.ToString("dd-MMM-yyyy");
             }
@@ -34,6 +34,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
         public int? Team1NormalTimeScore { get; set; }
         public int? Team1ExtraTimeScore { get; set; }
         public int? Team1PenaltiesScore { get; set; }
+        public int? Team1EloRating { get; set; }
         public int? Team1PreGameEloRating { get; set; }
         public int? Team1PostGameEloRating { get; set; }
         public int Team2Code { get; set; }
@@ -41,6 +42,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
         public int? Team2NormalTimeScore { get; set; }
         public int? Team2ExtraTimeScore { get; set; }
         public int? Team2PenaltiesScore { get; set; }
+        public int? Team2EloRating { get; set; }
         public int? Team2PreGameEloRating { get; set; }
         public int? Team2PostGameEloRating { get; set; }
         public string Team1FlagName { get; set; }
@@ -101,7 +103,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
                 }
                 else
                 {
-                    double result = 1.0 / (Math.Pow(10, (((double)this.Team2PreGameEloRating - (double)this.Team1PreGameEloRating) / 400.0)) + 1.0) * 100;
+                    double result = 1.0 / (Math.Pow(10, (((double)this.Team2EloRating - (double)this.Team1EloRating) / 400.0)) + 1.0) * 100;
                     //System.Diagnostics.Debug.WriteLine("Calculating Team1ChanceToWin:" + result.ToString());
                     //return 1.0 / (10.0 ^ ((Team2PreGameEloRating - Team1PreGameEloRating) / 400.0) + 1.0);
                     //return  1.0 / (Math.Pow(10, (((double)Team2PreGameEloRating - (double)Team1PreGameEloRating) / 400.0)) + 1.0);
@@ -109,6 +111,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
                 }
             }
         }
+
         public double Team2ChanceToWin {
             get {
                 if (this.Team2PreGameEloRating == null || this.Team2Code == 0)
@@ -117,7 +120,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
                 }
                 else
                 {
-                    double result = 1.0 / (Math.Pow(10, (((double)this.Team1PreGameEloRating - (double)this.Team2PreGameEloRating) / 400.0)) + 1.0) * 100;
+                    double result = 1.0 / (Math.Pow(10, (((double)this.Team1EloRating - (double)this.Team2EloRating) / 400.0)) + 1.0) * 100;
                     //System.Diagnostics.Debug.WriteLine("Calculating Team2ChanceToWin:" + result.ToString());
                     //return 1.0 / (10.0 ^ ((Team2PreGameEloRating - Team1PreGameEloRating) / 400.0) + 1.0);
                     return result;

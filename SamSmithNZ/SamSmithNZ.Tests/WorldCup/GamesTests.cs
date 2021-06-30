@@ -439,8 +439,10 @@ namespace SamSmithNZ.Tests.WorldCup
             Game game = new();
             game.Team1Code = 1;
             game.Team2Code = 2;
+            game.Team1EloRating = 1000;
             game.Team1PreGameEloRating = 1000;
             game.Team1PostGameEloRating = 1000;
+            game.Team2EloRating = 2000;
             game.Team2PreGameEloRating = 2000;
             game.Team2PostGameEloRating = 2000;
 
@@ -457,8 +459,10 @@ namespace SamSmithNZ.Tests.WorldCup
             Game game = new();
             game.Team1Code = 1;
             game.Team2Code = 2;
+            game.Team1EloRating = 2000;
             game.Team1PreGameEloRating = 2000;
             game.Team1PostGameEloRating = 2000;
+            game.Team2EloRating = 2000;
             game.Team2PreGameEloRating = 2000;
             game.Team2PostGameEloRating = 2000;
 
@@ -473,8 +477,10 @@ namespace SamSmithNZ.Tests.WorldCup
         {
             //arrange
             Game game = new();
+            game.Team1EloRating = 2000;
             game.Team1PreGameEloRating = 2000;
             game.Team1PostGameEloRating = 2000;
+            game.Team2EloRating = 2000;
             game.Team2PreGameEloRating = 2000;
             game.Team2PostGameEloRating = 2000;
 
