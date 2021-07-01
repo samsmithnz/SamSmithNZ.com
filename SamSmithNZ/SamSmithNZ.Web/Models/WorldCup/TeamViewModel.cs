@@ -1,5 +1,6 @@
 ﻿using SamSmithNZ.Service.Models.WorldCup;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SamSmithNZ.Web.Models.WorldCup
 {
@@ -9,6 +10,8 @@ namespace SamSmithNZ.Web.Models.WorldCup
         {
             this.Team = team;
             this.Games = games;
+            int i = 0;
+            StringBuilder sb = new();
             foreach (Game item in this.Games)
             {
                 if (team.TeamCode == item.Team1Code)
@@ -29,11 +32,30 @@ namespace SamSmithNZ.Web.Models.WorldCup
                     this.GamesUnexpectedDraw += item.Team2OddsCountUnexpectedDraw;
                     this.GamesUnknown += item.Team2OddsCountUnknown;
                 }
+                //build record for last 5 games, filtering out games that haven't started
+                if (i < 5 && item.Team1OddsCountUnknown == 0 && item.Team2OddsCountUnknown == 0)
+                {
+                    i++;
+                    if (item.Team1OddsCountExpectedWin > 0 || item.Team1OddsCountUnexpectedWin > 0)
+                    {
+                        sb.Append('W');
+                    }
+                    else if (item.Team1OddsCountUnexpectedDraw > 0)
+                    {
+                        sb.Append('D');
+                    }
+                    else if (item.Team1OddsCountExpectedLoss > 0 || item.Team1OddsCountUnexpectedLoss > 0)
+                    {
+                        sb.Append('L');
+                    }
+                }
             }
+            this.TeamRecord = sb.ToString();
         }
 
         public Team Team { get; set; }
         public List<Game> Games { get; set; }
+        public string TeamRecord { get; set; }
         public int GamesExpectedWon { get; set; }
         public int GamesExpectedLoss { get; set; }
         public int GamesUnexpectedWin { get; set; }
