@@ -33,20 +33,43 @@ namespace SamSmithNZ.Web.Models.WorldCup
                     this.GamesUnknown += item.Team2OddsCountUnknown;
                 }
                 //build record for last 5 games, filtering out games that haven't started
-                if (i < 5 && item.Team1OddsCountUnknown == 0 && item.Team2OddsCountUnknown == 0)
+                if (i < 5 && item.Team1NormalTimeScore != null && item.Team2NormalTimeScore != null)
                 {
-                    i++;
-                    if (item.Team1OddsCountExpectedWin > 0 || item.Team1OddsCountUnexpectedWin > 0)
+                    if (item.Team1Code == team.TeamCode)
                     {
-                        sb.Append('W');
+                        if (item.Team1OddsCountExpectedWin > 0 || item.Team1OddsCountUnexpectedWin > 0)
+                        {
+                            i++;
+                            sb.Append('W');
+                        }
+                        else if (item.Team1OddsCountUnexpectedDraw > 0)
+                        {
+                            i++;
+                            sb.Append('D');
+                        }
+                        else if (item.Team1OddsCountExpectedLoss > 0 || item.Team1OddsCountUnexpectedLoss > 0)
+                        {
+                            i++;
+                            sb.Append('L');
+                        }
                     }
-                    else if (item.Team1OddsCountUnexpectedDraw > 0)
+                    else
                     {
-                        sb.Append('D');
-                    }
-                    else if (item.Team1OddsCountExpectedLoss > 0 || item.Team1OddsCountUnexpectedLoss > 0)
-                    {
-                        sb.Append('L');
+                        if (item.Team2OddsCountExpectedWin > 0 || item.Team2OddsCountUnexpectedWin > 0)
+                        {
+                            i++;
+                            sb.Append('W');
+                        }
+                        else if (item.Team2OddsCountUnexpectedDraw > 0)
+                        {
+                            i++;
+                            sb.Append('D');
+                        }
+                        else if (item.Team2OddsCountExpectedLoss > 0 || item.Team2OddsCountUnexpectedLoss > 0)
+                        {
+                            i++;
+                            sb.Append('L');
+                        }
                     }
                 }
             }
