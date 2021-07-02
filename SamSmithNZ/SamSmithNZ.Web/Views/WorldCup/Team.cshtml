@@ -4,38 +4,40 @@
 @{
     ViewBag.Title = Model.Team.TeamName + " details";
     Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
+    double totalGames = (double)(Model.GamesExpectedWon + Model.GamesExpectedLoss + Model.GamesUnexpectedWin + Model.GamesUnexpectedLoss + Model.GamesUnexpectedDraw);
 }
 
 <h2><img src="~/WorldCup/Teams/@Model.Team.FlagName" Class="TeamImage" /> @Model.Team.TeamName</h2>
 <b>Statistics:</b>
-@*<div class="row">
+<div class="row">
     <div class="col-md-4">
-    <ul>
-    <li>Games: @Model.Games.Count</li>
-    <li>Expected results: @Model.GamesExpectedWon + @Model.GamesExpectedLoss @(((@Model.GamesExpectedWon + @Model.GamesExpectedLoss) / (@Model.GamesExpectedWon + @Model.GamesExpectedLoss + @Model.GamesUnexpectedWin + @Model.GamesUnexpectedLoss + @Model.GamesUnexpectedDraw) * 100).ToString("0.00%))</li>
-    <li>Unexpected results: @Model.GamesUnexpectedWin + @Model.GamesUnexpectedLoss + @Model.GamesUnexpectedDraw @((@Model.GamesUnexpectedWin + @Model.GamesUnexpectedLoss + @Model.GamesUnexpectedDraw) / (@Model.GamesExpectedWon + @Model.GamesExpectedLoss + @Model.GamesUnexpectedWin + @Model.GamesUnexpectedLoss + @Model.GamesUnexpectedDraw) * 100).ToString("0.00%))</li>
-    <li>Unknown games: @Model.GamesUnknown</li>
-    <li>Record: @Model.GamesExpectedWon + @Model.GamesUnexpectedWin Won, @Model.GamesExpectedLoss + @Model.GamesUnexpectedLoss Lost, @Model.GamesUnexpectedDraw Drawn<span ng-if="gamesUnknown>0">, @Model.GamesUnknown Unknown</span></li>
-    </ul>
+        <ul>
+            <li>Games: @Model.Games.Count</li>
+            <li>Expected results: @(Model.GamesExpectedWon + Model.GamesExpectedLoss) (@(((double)(Model.GamesExpectedWon + Model.GamesExpectedLoss) / totalGames).ToString("0.00%")))</li>
+            <li>Unexpected results: @(Model.GamesUnexpectedWin + Model.GamesUnexpectedLoss + Model.GamesUnexpectedDraw) (@(((double)(Model.GamesUnexpectedWin + Model.GamesUnexpectedLoss + Model.GamesUnexpectedDraw) / (double)totalGames).ToString("0.00%")))</li>
+            <li>Unknown games: @Model.GamesUnknown</li>
+            <li>Record: @(Model.GamesExpectedWon + Model.GamesUnexpectedWin) Won, @(Model.GamesExpectedLoss + Model.GamesUnexpectedLoss) Lost, @(Model.GamesUnexpectedDraw) Drawn, @Model.GamesUnknown Unknown</li>
+            <li>Last five games: @Model.TeamRecord</li>
+        </ul>
     </div>
     <div class="col-md-4">
-    <ul>
-    <li>Expected wins: @Model.GamesExpectedWon ((@Model.GamesExpectedWon) / (@Model.GamesExpectedWon + @Model.GamesExpectedLoss + @Model.GamesUnexpectedWin + @Model.GamesUnexpectedLoss + @Model.GamesUnexpectedDraw) * 100 | number : 2%)</li>
-    <li>Expected losses: @Model.GamesExpectedLoss ((@Model.GamesExpectedLoss) / (@Model.GamesExpectedWon + @Model.GamesExpectedLoss + @Model.GamesUnexpectedWin + @Model.GamesUnexpectedLoss + @Model.GamesUnexpectedDraw) * 100 | number : 2%)</li>
-    <li>Unexpected wins: @Model.GamesUnexpectedWin ((@Model.GamesUnexpectedWin) / (@Model.GamesExpectedWon + @Model.GamesExpectedLoss + @Model.GamesUnexpectedWin + @Model.GamesUnexpectedLoss + @Model.GamesUnexpectedDraw) * 100 | number : 2%)</li>
-    <li>Unexpected losses: @Model.GamesUnexpectedLoss ((@Model.GamesUnexpectedLoss) / (@Model.GamesExpectedWon + @Model.GamesExpectedLoss + @Model.GamesUnexpectedWin + @Model.GamesUnexpectedLoss + @Model.GamesUnexpectedDraw) * 100 | number : 2%)</li>
-    <li>Unexpected draws: @Model.GamesUnexpectedDraw ((@Model.GamesUnexpectedDraw) / (@Model.GamesExpectedWon + @Model.GamesExpectedLoss + @Model.GamesUnexpectedWin + @Model.GamesUnexpectedLoss + @Model.GamesUnexpectedDraw) * 100 | number : 2%)</li>
-    </ul>
+        <ul>
+            <li>Expected wins: @Model.GamesExpectedWon (@(((Model.GamesExpectedWon) / totalGames).ToString("0.00%")))</li>
+            <li>Expected losses: @Model.GamesExpectedLoss (@(((Model.GamesExpectedLoss) / totalGames).ToString("0.00%")))</li>
+            <li>Unexpected wins: @Model.GamesUnexpectedWin (@(((Model.GamesUnexpectedWin) / totalGames).ToString("0.00%")))</li>
+            <li>Unexpected losses: @Model.GamesUnexpectedLoss (@(((Model.GamesUnexpectedLoss) / totalGames).ToString("0.00%")))</li>
+            <li>Unexpected draws: @Model.GamesUnexpectedDraw (@(((Model.GamesUnexpectedDraw) / totalGames).ToString("0.00%")))</li>
+        </ul>
     </div>
     <div class="col-md-4">
-    <ul>
-    <li>Wins (1pt for expected, 3 for unexpected): (@Model.GamesExpectedWon) + (@Model.GamesUnexpectedWin*3)</li>
-    <li>Losses (-1pt for expected, -3 for unexpected): (@Model.GamesExpectedLoss*-1) + (@Model.GamesUnexpectedLoss*-3)</li>
-    <li>Draws (-1pt if fav, +1pt if underdog): @Model.GamesUnexpectedDraw</li>
-    <li>Total: (@Model.GamesExpectedWon) + (@Model.GamesUnexpectedWin*3)+(@Model.GamesExpectedLoss*-1) + (@Model.GamesUnexpectedLoss*-3)+gamesUnexpectedDraw</li>
-    </ul>
+        <ul>
+            <li>Wins (+1pt for expected, +3 for unexpected): @((Model.GamesExpectedWon * 1) + (Model.GamesUnexpectedWin * 3))</li>
+            <li>Losses (-1pt for expected, -3 for unexpected): @((Model.GamesExpectedLoss * -1) + (Model.GamesUnexpectedLoss * -3))</li>
+            <li>Draws (-1pt if fav, +1pt if underdog): @(Model.GamesUnexpectedDraw)</li>
+            <li>Total: @((Model.GamesExpectedWon * 1) + (Model.GamesUnexpectedWin * 3) + (Model.GamesExpectedLoss * -1) + (Model.GamesUnexpectedLoss * -3) + Model.GamesUnexpectedDraw)</li>
+        </ul>
     </div>
-    </div>*@
+</div>
 <br />
 
 <div class="row">
@@ -58,10 +60,10 @@
                 <th>Coach</th>
                 @*
                     <th>Fifa Ranking</th>*@
-    @*            <th>Team 1 chance to win</th>
-                <th>Team 1 Elo Rating</th>
-                <th>Team 2 Elo Rating</th>
-                <th>Team 2 chance to win</th>*@
+                @*            <th>Team 1 chance to win</th>
+                    <th>Team 1 Elo Rating</th>
+                    <th>Team 2 Elo Rating</th>
+                    <th>Team 2 chance to win</th>*@
                 @*
                     <th>@Model.Team.TeamName won?</th>*@
             </tr>
@@ -143,7 +145,7 @@
                             }
                         </div>
                     </td>
-                    <td style="background-color: @Model.GetDidFavoriteWinStyle(item.Team1Code, Model.Team.TeamCode, item.Team1ChanceToWin, item.Team1ResultWonGame, item.Team2ResultWonGame);">
+                    <td style="background-color: @Model.GetIfFavoriteWonStyle(item.Team1Code, Model.Team.TeamCode, item.Team1ChanceToWin, item.Team1ResultWonGame, item.Team2ResultWonGame);">
                         @if (item.Team1ChanceToWin >= 0)
                         {
                             <div>
