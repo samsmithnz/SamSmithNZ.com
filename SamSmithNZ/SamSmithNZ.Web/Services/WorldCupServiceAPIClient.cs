@@ -154,6 +154,20 @@ namespace SamSmithNZ.Web.Services
             }
         }
 
+        public async Task<TeamStatistics> GetTeamStatistics(int teamCode)
+        {
+            Uri url = new($"api/WorldCup/TeamStatistics/GetTeamStatistics?teamCode=" + teamCode, UriKind.Relative);
+            TeamStatistics results = await base.ReadMessageItem<TeamStatistics>(url);
+            if (results == null)
+            {
+                return new TeamStatistics(new Team(),new List<Game>());
+            }
+            else
+            {
+                return results;
+            }
+        }
+
         public async Task<List<Tournament>> GetTournaments(int competitionCode = 1)
         {
             Uri url = new($"api/WorldCup/Tournament/GetTournaments?competitionCode=" + competitionCode, UriKind.Relative);

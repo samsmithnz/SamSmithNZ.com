@@ -16,6 +16,7 @@ namespace SamSmithNZ.Web.Services.Interfaces
         Task<List<Group>> GetGroups(int tournamentCode, int roundNumber, string roundCode);
         Task<List<Team>> GetTeams();
         Task<Team> GetTeam(int teamCode);
+        Task<TeamStatistics> GetTeamStatistics(int teamCode);
         Task<List<Tournament>> GetTournaments(int competitionCode = 1);
         Task<Tournament> GetTournament(int tournamentCode);
         Task<List<TournamentTeam>> GetTournamentQualifyingTeams(int tournamentCode);

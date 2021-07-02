@@ -156,13 +156,11 @@ namespace SamSmithNZ.Web.Controllers
 
         public async Task<IActionResult> Team(int teamCode)
         {
-            Team team = await _ServiceApiClient.GetTeam(teamCode);
-            List<Game> games = await _ServiceApiClient.GetGamesByTeam(teamCode);
+            //Team team = await _ServiceApiClient.GetTeam(teamCode);
+            //List<Game> games = await _ServiceApiClient.GetGamesByTeam(teamCode);
+            TeamStatistics teamStatistics = await _ServiceApiClient.GetTeamStatistics(teamCode);
 
-            TeamViewModel teamViewModel = new(team, games)
-            {
-                Team = team
-            };
+            TeamViewModel teamViewModel = new(teamStatistics);
 
             return View(teamViewModel);
         }

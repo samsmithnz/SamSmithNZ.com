@@ -2,39 +2,39 @@
 @using SamSmithNZ.Web.Models.WorldCup
 @model TeamViewModel
 @{
-    ViewBag.Title = Model.Team.TeamName + " details";
+    ViewBag.Title = Model.TeamStatistics.Team.TeamName + " details";
     Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
-    double totalGames = (double)(Model.GamesExpectedWon + Model.GamesExpectedLoss + Model.GamesUnexpectedWin + Model.GamesUnexpectedLoss + Model.GamesUnexpectedDraw);
+    double totalGames = (double)(Model.TeamStatistics.GamesExpectedWon + Model.TeamStatistics.GamesExpectedLoss + Model.TeamStatistics.GamesUnexpectedWin + Model.TeamStatistics.GamesUnexpectedLoss + Model.TeamStatistics.GamesUnexpectedDraw);
 }
 
-<h2><img src="~/WorldCup/Teams/@Model.Team.FlagName" Class="TeamImage" /> @Model.Team.TeamName</h2>
+<h2><img src="~/WorldCup/Teams/@Model.TeamStatistics.Team.FlagName" Class="TeamImage" /> @Model.TeamStatistics.Team.TeamName</h2>
 <b>Statistics:</b>
 <div class="row">
     <div class="col-md-4">
         <ul>
-            <li>Games: @Model.Games.Count</li>
-            <li>Expected results: @(Model.GamesExpectedWon + Model.GamesExpectedLoss) (@(((double)(Model.GamesExpectedWon + Model.GamesExpectedLoss) / totalGames).ToString("0.00%")))</li>
-            <li>Unexpected results: @(Model.GamesUnexpectedWin + Model.GamesUnexpectedLoss + Model.GamesUnexpectedDraw) (@(((double)(Model.GamesUnexpectedWin + Model.GamesUnexpectedLoss + Model.GamesUnexpectedDraw) / (double)totalGames).ToString("0.00%")))</li>
-            <li>Unknown games: @Model.GamesUnknown</li>
-            <li>Record: @(Model.GamesExpectedWon + Model.GamesUnexpectedWin) Won, @(Model.GamesExpectedLoss + Model.GamesUnexpectedLoss) Lost, @(Model.GamesUnexpectedDraw) Drawn, @Model.GamesUnknown Unknown</li>
-            <li>Last five games: @Model.TeamRecord</li>
+            <li>Games: @Model.TeamStatistics.Games.Count</li>
+            <li>Expected results: @(Model.TeamStatistics.GamesExpectedWon + Model.TeamStatistics.GamesExpectedLoss) (@(((double)(Model.TeamStatistics.GamesExpectedWon + Model.TeamStatistics.GamesExpectedLoss) / totalGames).ToString("0.00%")))</li>
+            <li>Unexpected results: @(Model.TeamStatistics.GamesUnexpectedWin + Model.TeamStatistics.GamesUnexpectedLoss + Model.TeamStatistics.GamesUnexpectedDraw) (@(((double)(Model.TeamStatistics.GamesUnexpectedWin + Model.TeamStatistics.GamesUnexpectedLoss + Model.TeamStatistics.GamesUnexpectedDraw) / (double)totalGames).ToString("0.00%")))</li>
+            <li>Unknown games: @Model.TeamStatistics.GamesUnknown</li>
+            <li>Record: @(Model.TeamStatistics.GamesExpectedWon + Model.TeamStatistics.GamesUnexpectedWin) Won, @(Model.TeamStatistics.GamesExpectedLoss + Model.TeamStatistics.GamesUnexpectedLoss) Lost, @(Model.TeamStatistics.GamesUnexpectedDraw) Drawn, @Model.TeamStatistics.GamesUnknown Unknown</li>
+            <li>Last five games: @Model.TeamStatistics.TeamRecord</li>
         </ul>
     </div>
     <div class="col-md-4">
         <ul>
-            <li>Expected wins: @Model.GamesExpectedWon (@(((Model.GamesExpectedWon) / totalGames).ToString("0.00%")))</li>
-            <li>Expected losses: @Model.GamesExpectedLoss (@(((Model.GamesExpectedLoss) / totalGames).ToString("0.00%")))</li>
-            <li>Unexpected wins: @Model.GamesUnexpectedWin (@(((Model.GamesUnexpectedWin) / totalGames).ToString("0.00%")))</li>
-            <li>Unexpected losses: @Model.GamesUnexpectedLoss (@(((Model.GamesUnexpectedLoss) / totalGames).ToString("0.00%")))</li>
-            <li>Unexpected draws: @Model.GamesUnexpectedDraw (@(((Model.GamesUnexpectedDraw) / totalGames).ToString("0.00%")))</li>
+            <li>Expected wins: @Model.TeamStatistics.GamesExpectedWon (@(((Model.TeamStatistics.GamesExpectedWon) / totalGames).ToString("0.00%")))</li>
+            <li>Expected losses: @Model.TeamStatistics.GamesExpectedLoss (@(((Model.TeamStatistics.GamesExpectedLoss) / totalGames).ToString("0.00%")))</li>
+            <li>Unexpected wins: @Model.TeamStatistics.GamesUnexpectedWin (@(((Model.TeamStatistics.GamesUnexpectedWin) / totalGames).ToString("0.00%")))</li>
+            <li>Unexpected losses: @Model.TeamStatistics.GamesUnexpectedLoss (@(((Model.TeamStatistics.GamesUnexpectedLoss) / totalGames).ToString("0.00%")))</li>
+            <li>Unexpected draws: @Model.TeamStatistics.GamesUnexpectedDraw (@(((Model.TeamStatistics.GamesUnexpectedDraw) / totalGames).ToString("0.00%")))</li>
         </ul>
     </div>
     <div class="col-md-4">
         <ul>
-            <li>Wins (+1pt for expected, +3 for unexpected): @((Model.GamesExpectedWon * 1) + (Model.GamesUnexpectedWin * 3))</li>
-            <li>Losses (-1pt for expected, -3 for unexpected): @((Model.GamesExpectedLoss * -1) + (Model.GamesUnexpectedLoss * -3))</li>
-            <li>Draws (-1pt if fav, +1pt if underdog): @(Model.GamesUnexpectedDraw)</li>
-            <li>Total: @((Model.GamesExpectedWon * 1) + (Model.GamesUnexpectedWin * 3) + (Model.GamesExpectedLoss * -1) + (Model.GamesUnexpectedLoss * -3) + Model.GamesUnexpectedDraw)</li>
+            <li>Wins (+1pt for expected, +3 for unexpected): @((Model.TeamStatistics.GamesExpectedWon * 1) + (Model.TeamStatistics.GamesUnexpectedWin * 3))</li>
+            <li>Losses (-1pt for expected, -3 for unexpected): @((Model.TeamStatistics.GamesExpectedLoss * -1) + (Model.TeamStatistics.GamesUnexpectedLoss * -3))</li>
+            <li>Draws (-1pt if fav, +1pt if underdog): @(Model.TeamStatistics.GamesUnexpectedDraw)</li>
+            <li>Total: @((Model.TeamStatistics.GamesExpectedWon * 1) + (Model.TeamStatistics.GamesUnexpectedWin * 3) + (Model.TeamStatistics.GamesExpectedLoss * -1) + (Model.TeamStatistics.GamesUnexpectedLoss * -3) + Model.TeamStatistics.GamesUnexpectedDraw)</li>
         </ul>
     </div>
 </div>
@@ -65,9 +65,9 @@
                     <th>Team 2 Elo Rating</th>
                     <th>Team 2 chance to win</th>*@
                 @*
-                    <th>@Model.Team.TeamName won?</th>*@
+                    <th>@Model.TeamStatistics.Team.TeamName won?</th>*@
             </tr>
-            @foreach (Game item in Model.Games)
+            @foreach (Game item in Model.TeamStatistics.Games)
             {
                 <tr>
                     <td>@item.TournamentName</td>
@@ -145,15 +145,15 @@
                             }
                         </div>
                     </td>
-                    <td style="background-color: @Model.GetIfFavoriteWonStyle(item.Team1Code, Model.Team.TeamCode, item.Team1ChanceToWin, item.Team1ResultWonGame, item.Team2ResultWonGame);">
+                    <td style="background-color: @Model.GetIfFavoriteWonStyle(item.Team1Code, Model.TeamStatistics.Team.TeamCode, item.Team1ChanceToWin, item.Team1ResultWonGame, item.Team2ResultWonGame);">
                         @if (item.Team1ChanceToWin >= 0)
                         {
                             <div>
-                                @if (item.Team1Code == Model.Team.TeamCode)
+                                @if (item.Team1Code == Model.TeamStatistics.Team.TeamCode)
                                 {
                                     <span>@item.Team1OddsStatusText</span>
                                 }
-                                @if (item.Team2Code == Model.Team.TeamCode)
+                                @if (item.Team2Code == Model.TeamStatistics.Team.TeamCode)
                                 {
                                     <span>@item.Team2OddsStatusText</span>
                                 }
