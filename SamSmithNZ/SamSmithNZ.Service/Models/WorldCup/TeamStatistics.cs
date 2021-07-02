@@ -17,9 +17,10 @@ namespace SamSmithNZ.Service.Models.WorldCup
             set {
                 int i = 0;
                 StringBuilder sb = new();
+                Games = value;
                 if (value != null)
                 {
-                    foreach (Game game in value)
+                    foreach (Game game in Games)
                     {
                         if (Team.TeamCode == game.Team1Code)
                         {
