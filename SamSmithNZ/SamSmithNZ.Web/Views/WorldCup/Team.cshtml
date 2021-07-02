@@ -145,7 +145,7 @@
                             }
                         </div>
                     </td>
-                    <td style="background-color: @Model.GetDidFavoriteWinStyle(item.Team1Code, Model.Team.TeamCode, item.Team1ChanceToWin, item.Team1ResultWonGame, item.Team2ResultWonGame);">
+                    <td style="background-color: @Model.GetIfFavoriteWonStyle(item.Team1Code, Model.Team.TeamCode, item.Team1ChanceToWin, item.Team1ResultWonGame, item.Team2ResultWonGame);">
                         @if (item.Team1ChanceToWin >= 0)
                         {
                             <div>

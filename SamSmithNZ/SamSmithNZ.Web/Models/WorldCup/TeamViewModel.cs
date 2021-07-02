@@ -87,7 +87,7 @@ namespace SamSmithNZ.Web.Models.WorldCup
         public int GamesUnknown { get; set; }
 
         //Style the game rows to group game details with goal details
-        public string GetDidFavoriteWinStyle(int team1Code, int currentTeamCode, double team1ChanceToWin, bool? team1ResultWonGame, bool? team2ResultWonGame)
+        public string GetIfFavoriteWonStyle(int team1Code, int currentTeamCode, double team1ChanceToWin, bool? team1ResultWonGame, bool? team2ResultWonGame)
         {
             string trStyle;
             string green = "#CCFF99";
