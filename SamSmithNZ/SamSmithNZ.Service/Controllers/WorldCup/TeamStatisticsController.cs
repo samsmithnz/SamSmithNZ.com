@@ -24,7 +24,12 @@ namespace SamSmithNZ.Service.Controllers.WorldCup
         {
             Team team = await _teamRepo.GetItem(teamCode);
             List<Game> games = await _gameRepo.GetListByTeam(teamCode);
-            TeamStatistics teamStatistics = new(team, games);
+            TeamStatistics teamStatistics = new()
+            {
+                Team = team,
+                Games = games
+            };
+            
             return teamStatistics;
         }
     }

@@ -160,7 +160,7 @@ namespace SamSmithNZ.Web.Services
             TeamStatistics results = await base.ReadMessageItem<TeamStatistics>(url);
             if (results == null)
             {
-                return new TeamStatistics(new Team(),new List<Game>());
+                return new TeamStatistics();
             }
             else
             {
