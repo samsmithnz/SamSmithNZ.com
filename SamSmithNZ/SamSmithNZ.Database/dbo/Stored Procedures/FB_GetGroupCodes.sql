@@ -58,16 +58,17 @@ BEGIN
 			@IsLastRound AS IsLastRound
 	END
 
-	IF ((SELECT COUNT(*) FROM #results) = 0)
-	BEGIN
-		DECLARE @NumberOfGroupsInRound INT
-		SELECT @NumberOfGroupsInRound = r.number_of_groups_in_round 
-		FROM wc_tournament t
-		JOIN wc_tournament_format tf ON t.format_code = tf.format_code
-		JOIN wc_tournament_format_round r ON tf.round_1_format_code = r.format_round_code 
+	DECLARE @NumberOfGroupsInRound INT
+	SELECT @NumberOfGroupsInRound = r.number_of_groups_in_round 
+	FROM wc_tournament t
+	JOIN wc_tournament_format tf ON t.format_code = tf.format_code
+	JOIN wc_tournament_format_round r ON tf.round_1_format_code = r.format_round_code 
 
+	IF ((SELECT COUNT(*) FROM #results) < @NumberOfGroupsInRound)
+	BEGIN
+		--Loop to dynamically build the group codes.
 		DECLARE @counter INT
-		SELECT @counter = 0
+		SELECT @counter = 0 + ISNULL((SELECT COUNT(*) FROM #results),0)
 
 		WHILE (@counter < @NumberOfGroupsInRound)
 		BEGIN  
