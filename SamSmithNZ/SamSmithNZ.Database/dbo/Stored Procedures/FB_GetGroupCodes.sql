@@ -58,7 +58,36 @@ BEGIN
 			@IsLastRound AS IsLastRound
 	END
 
+	IF ((SELECT COUNT(*) FROM #results) = 0)
+	BEGIN
+		DECLARE @NumberOfGroupsInRound INT
+		SELECT @NumberOfGroupsInRound = r.number_of_groups_in_round 
+		FROM wc_tournament t
+		JOIN wc_tournament_format tf ON t.format_code = tf.format_code
+		JOIN wc_tournament_format_round r ON tf.round_1_format_code = r.format_round_code 
+
+		DECLARE @counter INT
+		SELECT @counter = 0
+
+		WHILE (@counter < @NumberOfGroupsInRound)
+		BEGIN  
+			INSERT INTO #results
+			SELECT CHAR(65 + @Counter), 0
+			SELECT @counter = @counter + 1
+	
+			IF (@counter >= @NumberOfGroupsInRound)
+			BEGIN
+				BREAK  
+			END
+			ELSE
+			BEGIN
+				CONTINUE  
+			END
+		END 
+	END
+
 	SELECT RoundCode, IsLastRound
 	FROM #results
 	ORDER BY RoundCode
 END
+GO
