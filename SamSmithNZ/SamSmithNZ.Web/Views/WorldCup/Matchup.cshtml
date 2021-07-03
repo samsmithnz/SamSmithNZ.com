@@ -10,8 +10,8 @@
     <div class="col-md-4">
         <b>Team 1:</b> @Model.Team1Statistics.Team.TeamName
         @*<ul>
-            <li>Team 1 record: </li>
-        </ul>*@
+                <li>Team 1 record: </li>
+            </ul>*@
     </div>
     <div class="col-md-4">
 
@@ -19,8 +19,8 @@
     <div class="col-md-4">
         <b>Team 2:</b> @Model.Team2Statistics.Team.TeamName
         @*<ul>
-            <li>Team 2 record: </li>
-        </ul>*@
+                <li>Team 2 record: </li>
+            </ul>*@
     </div>
 </div>
 <br />
@@ -31,37 +31,37 @@
             <tr>
                 <th>Tournament</th>
                 @*
-            <th>Game #</th>*@
+                    <th>Game #</th>*@
                 <th>Game Time</th>
                 <th>Round</th>
                 <th>Group Name</th>
                 @*
-            <th>Round</th>*@
+                    <th>Round</th>*@
                 <th></th>
                 <th>Score</th>
                 <th></th>
                 <th>Location</th>
                 <th>Coach</th>
                 @*
-            <th>Fifa Ranking</th>*@
+                    <th>Fifa Ranking</th>*@
                 @*            <th>Team 1 chance to win</th>
-            <th>Team 1 Elo Rating</th>
-            <th>Team 2 Elo Rating</th>
-            <th>Team 2 chance to win</th>*@
+                    <th>Team 1 Elo Rating</th>
+                    <th>Team 2 Elo Rating</th>
+                    <th>Team 2 chance to win</th>*@
                 @*
-            <th>@Model.TeamStatistics.Team.TeamName won?</th>*@
+                    <th>@Model.TeamStatistics.Team.TeamName won?</th>*@
             </tr>
             @foreach (Game item in Model.Games)
             {
                 <tr>
                     <td>@item.TournamentName</td>
                     @*
-                <td>@item.GameNumber</td>*@
+                        <td>@item.GameNumber</td>*@
                     <td>@item.GameTimeString()</td>
                     <td>@item.RoundNumber</td>
                     <td>@item.RoundName</td>
                     @*
-                <td>@item.RoundCode</td>*@
+                        <td>@item.RoundCode</td>*@
                     <td style="text-align: right;">
                         <a href="/WorldCup/Team?TeamCode=@item.Team1Code">@item.Team1Name</a>
                         <img src="~/WorldCup/Teams/@item.Team1FlagName" Class="TeamImage" />
@@ -72,7 +72,7 @@
                             }
                             @if (item.Team1PostGameEloRating == null && item.Team1PreGameEloRating != null)
                             {
-                                <span>Pregame ELO: @item.Team1PreGameEloRating</span>
+                                <span>Pregame ELO: @item.Team1EloRating</span>
                             }
                             @if (item.Team1PostGameEloRating != null)
                             {
@@ -115,7 +115,7 @@
                             }
                             @if (item.Team2PostGameEloRating == null && item.Team2PreGameEloRating != null)
                             {
-                                <span>Pregame ELO: @item.Team2PreGameEloRating</span>
+                                <span>Pregame ELO: @item.Team2EloRating</span>
                             }
                             @if (item.Team2PostGameEloRating != null)
                             {
@@ -130,20 +130,20 @@
                         </div>
                     </td>
                     @*<td style="background-color: @Model.GetIfFavoriteWonStyle(item.Team1Code, Model.TeamStatistics.Team.TeamCode, item.Team1ChanceToWin, item.Team1ResultWonGame, item.Team2ResultWonGame);">
-                        @if (item.Team1ChanceToWin >= 0)
-                        {
-                            <div>
-                                @if (item.Team1Code == Model.TeamStatistics.Team.TeamCode)
-                                {
-                                    <span>@item.Team1OddsStatusText</span>
-                                }
-                                @if (item.Team2Code == Model.TeamStatistics.Team.TeamCode)
-                                {
-                                    <span>@item.Team2OddsStatusText</span>
-                                }
-                            </div>
-                        }
-                    </td>*@
+                            @if (item.Team1ChanceToWin >= 0)
+                            {
+                                <div>
+                                    @if (item.Team1Code == Model.TeamStatistics.Team.TeamCode)
+                                    {
+                                        <span>@item.Team1OddsStatusText</span>
+                                    }
+                                    @if (item.Team2Code == Model.TeamStatistics.Team.TeamCode)
+                                    {
+                                        <span>@item.Team2OddsStatusText</span>
+                                    }
+                                </div>
+                            }
+                        </td>*@
                     <td>@item.Location</td>
                     <td>
                         @if (item.CoachFlag != "")
