@@ -103,11 +103,24 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             }
         }
 
-        private async void MigrateTournamentPlayoffss_Click(object sender, RoutedEventArgs e)
+        private async void MigrateTournamentPlayoffs_Click(object sender, RoutedEventArgs e)
         {
             if (cboTournament.SelectedValue != null)
             {
                 PlayoffMigration migration = new();
+                await migration.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
+            }
+            else
+            {
+                MessageBox.Show("Tournament not selected");
+            }
+        }
+
+        private async void MigrateGames_Click(object sender, RoutedEventArgs e)
+        {
+            if (cboTournament.SelectedValue != null)
+            {
+                GamesMigration migration = new();
                 await migration.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
             }
             else
