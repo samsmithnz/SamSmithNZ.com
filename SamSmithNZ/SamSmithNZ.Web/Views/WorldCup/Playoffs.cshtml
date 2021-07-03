@@ -327,9 +327,10 @@
                             }
                             @if (item.Team1NormalTimeScore == null && item.RowType == 1 && item.Team1ChanceToWin >= 0 && item.Team2ChanceToWin > 0)
                             {
-                                <div>
-                                    @item.Team1ChanceToWin.ToString("0")% to win
-                                </div>
+                        <div>
+                            @item.Team1ChanceToWin.ToString("0")% to win<br />
+                            <a href="/WorldCup/Matchup?Team1Code=@item.Team1Code&Team2Code=@item.Team2Code">preview</a>
+                        </div>
                             }
                             @if (item.RowType == 3 && item.ShowPenaltyShootOutLabel == true)
                             {

@@ -70,6 +70,20 @@ namespace SamSmithNZ.Web.Services
             }
         }
 
+        public async Task<TeamMatchup> GetTeamMatchup(int team1Code, int team2Code)
+        {
+            Uri url = new($"api/WorldCup/TeamStatistics/GetTeamMatchup?team1Code=" + team1Code + "&team2Code=" + team2Code, UriKind.Relative);
+            TeamMatchup results = await base.ReadMessageItem<TeamMatchup>(url);
+            if (results == null)
+            {
+                return new();
+            }
+            else
+            {
+                return results;
+            }
+        }
+
         public async Task<Game> GetGame(int gameCode)
         {
             Uri url = new($"api/WorldCup/Game/GetGame?gameCode=" + gameCode, UriKind.Relative);
@@ -147,6 +161,20 @@ namespace SamSmithNZ.Web.Services
             if (results == null)
             {
                 return new Team();
+            }
+            else
+            {
+                return results;
+            }
+        }
+
+        public async Task<TeamStatistics> GetTeamStatistics(int teamCode)
+        {
+            Uri url = new($"api/WorldCup/TeamStatistics/GetTeamStatistics?teamCode=" + teamCode, UriKind.Relative);
+            TeamStatistics results = await base.ReadMessageItem<TeamStatistics>(url);
+            if (results == null)
+            {
+                return new TeamStatistics();
             }
             else
             {

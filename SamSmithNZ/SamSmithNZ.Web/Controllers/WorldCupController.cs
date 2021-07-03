@@ -156,15 +156,19 @@ namespace SamSmithNZ.Web.Controllers
 
         public async Task<IActionResult> Team(int teamCode)
         {
-            Team team = await _ServiceApiClient.GetTeam(teamCode);
-            List<Game> games = await _ServiceApiClient.GetGamesByTeam(teamCode);
+            //Team team = await _ServiceApiClient.GetTeam(teamCode);
+            //List<Game> games = await _ServiceApiClient.GetGamesByTeam(teamCode);
+            TeamStatistics teamStatistics = await _ServiceApiClient.GetTeamStatistics(teamCode);
 
-            TeamViewModel teamViewModel = new(team, games)
-            {
-                Team = team
-            };
+            TeamViewModel teamViewModel = new(teamStatistics);
 
             return View(teamViewModel);
+        }
+
+        public async Task<IActionResult> Matchup(int team1Code, int team2Code)
+        {
+            TeamMatchup teamMatchup = await _ServiceApiClient.GetTeamMatchup(team1Code, team2Code);
+            return View(teamMatchup);
         }
 
         public IActionResult ELORating() //int tournamentCode)
@@ -389,7 +393,7 @@ namespace SamSmithNZ.Web.Controllers
             InsightsViewModel insightsViewModel = new()
             {
                 RegularTimeGoalInsights = regularTimeGoalInsights,
-                ExtraTimeGoalInsights=extraTimeGoalInsights
+                ExtraTimeGoalInsights = extraTimeGoalInsights
             };
 
             return View(insightsViewModel);

@@ -213,7 +213,8 @@
                                     else if (item.Team1NormalTimeScore == null && item.RowType == 1 && item.Team1PreGameEloRating >= 0)
                                     {
                                         <div>
-                                            @item.Team1ChanceToWin.ToString("0")% to win
+                                            @item.Team1ChanceToWin.ToString("0")% to win<br />
+                                            <a href="/WorldCup/Matchup?Team1Code=@item.Team1Code&Team2Code=@item.Team2Code">preview</a>
                                         </div>
                                     }
                                 </td>

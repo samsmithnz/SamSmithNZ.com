@@ -1,41 +1,26 @@
 ﻿@using SamSmithNZ.Service.Models.WorldCup
-@using SamSmithNZ.Web.Models.WorldCup
-@model TeamViewModel
+@model TeamMatchup
 @{
-    ViewBag.Title = Model.TeamStatistics.Team.TeamName + " details";
+    ViewBag.Title = "Matchup details";
     Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
-    double totalGames = (double)(Model.TeamStatistics.GamesExpectedWon + Model.TeamStatistics.GamesExpectedLoss + Model.TeamStatistics.GamesUnexpectedWin + Model.TeamStatistics.GamesUnexpectedLoss + Model.TeamStatistics.GamesUnexpectedDraw);
 }
 
-<h2><img src="~/WorldCup/Teams/@Model.TeamStatistics.Team.FlagName" Class="TeamImage" /> @Model.TeamStatistics.Team.TeamName</h2>
-<b>Statistics:</b>
+<b>Matchup:</b>
 <div class="row">
     <div class="col-md-4">
-        <ul>
-            <li>Games: @Model.TeamStatistics.Games.Count</li>
-            <li>Expected results: @(Model.TeamStatistics.GamesExpectedWon + Model.TeamStatistics.GamesExpectedLoss) (@(((double)(Model.TeamStatistics.GamesExpectedWon + Model.TeamStatistics.GamesExpectedLoss) / totalGames).ToString("0.00%")))</li>
-            <li>Unexpected results: @(Model.TeamStatistics.GamesUnexpectedWin + Model.TeamStatistics.GamesUnexpectedLoss + Model.TeamStatistics.GamesUnexpectedDraw) (@(((double)(Model.TeamStatistics.GamesUnexpectedWin + Model.TeamStatistics.GamesUnexpectedLoss + Model.TeamStatistics.GamesUnexpectedDraw) / (double)totalGames).ToString("0.00%")))</li>
-            <li>Unknown games: @Model.TeamStatistics.GamesUnknown</li>
-            <li>Record: @(Model.TeamStatistics.GamesExpectedWon + Model.TeamStatistics.GamesUnexpectedWin) Won, @(Model.TeamStatistics.GamesExpectedLoss + Model.TeamStatistics.GamesUnexpectedLoss) Lost, @(Model.TeamStatistics.GamesUnexpectedDraw) Drawn, @Model.TeamStatistics.GamesUnknown Unknown</li>
-            <li>Last five games: @Model.TeamStatistics.TeamRecord</li>
-        </ul>
+        <b>Team 1:</b> @Model.Team1Statistics.Team.TeamName
+        @*<ul>
+                <li>Team 1 record: </li>
+            </ul>*@
     </div>
     <div class="col-md-4">
-        <ul>
-            <li>Expected wins: @Model.TeamStatistics.GamesExpectedWon (@(((Model.TeamStatistics.GamesExpectedWon) / totalGames).ToString("0.00%")))</li>
-            <li>Expected losses: @Model.TeamStatistics.GamesExpectedLoss (@(((Model.TeamStatistics.GamesExpectedLoss) / totalGames).ToString("0.00%")))</li>
-            <li>Unexpected wins: @Model.TeamStatistics.GamesUnexpectedWin (@(((Model.TeamStatistics.GamesUnexpectedWin) / totalGames).ToString("0.00%")))</li>
-            <li>Unexpected losses: @Model.TeamStatistics.GamesUnexpectedLoss (@(((Model.TeamStatistics.GamesUnexpectedLoss) / totalGames).ToString("0.00%")))</li>
-            <li>Unexpected draws: @Model.TeamStatistics.GamesUnexpectedDraw (@(((Model.TeamStatistics.GamesUnexpectedDraw) / totalGames).ToString("0.00%")))</li>
-        </ul>
+
     </div>
     <div class="col-md-4">
-        <ul>
-            <li>Wins (+1pt for expected, +3 for unexpected): @((Model.TeamStatistics.GamesExpectedWon * 1) + (Model.TeamStatistics.GamesUnexpectedWin * 3))</li>
-            <li>Losses (-1pt for expected, -3 for unexpected): @((Model.TeamStatistics.GamesExpectedLoss * -1) + (Model.TeamStatistics.GamesUnexpectedLoss * -3))</li>
-            <li>Draws (-1pt if fav, +1pt if underdog): @(Model.TeamStatistics.GamesUnexpectedDraw)</li>
-            <li>Total: @((Model.TeamStatistics.GamesExpectedWon * 1) + (Model.TeamStatistics.GamesUnexpectedWin * 3) + (Model.TeamStatistics.GamesExpectedLoss * -1) + (Model.TeamStatistics.GamesUnexpectedLoss * -3) + Model.TeamStatistics.GamesUnexpectedDraw)</li>
-        </ul>
+        <b>Team 2:</b> @Model.Team2Statistics.Team.TeamName
+        @*<ul>
+                <li>Team 2 record: </li>
+            </ul>*@
     </div>
 </div>
 <br />
@@ -55,7 +40,6 @@
                 <th></th>
                 <th>Score</th>
                 <th></th>
-                <th>Odds Analysis</th>
                 <th>Location</th>
                 <th>Coach</th>
                 @*
@@ -67,7 +51,7 @@
                 @*
                     <th>@Model.TeamStatistics.Team.TeamName won?</th>*@
             </tr>
-            @foreach (Game item in Model.TeamStatistics.Games)
+            @foreach (Game item in Model.Games)
             {
                 <tr>
                     <td>@item.TournamentName</td>
@@ -88,7 +72,7 @@
                             }
                             @if (item.Team1PostGameEloRating == null && item.Team1PreGameEloRating != null)
                             {
-                                <span>Pregame ELO: @item.Team1PreGameEloRating</span>
+                                <span>Pregame ELO: @item.Team1EloRating</span>
                             }
                             @if (item.Team1PostGameEloRating != null)
                             {
@@ -131,7 +115,7 @@
                             }
                             @if (item.Team2PostGameEloRating == null && item.Team2PreGameEloRating != null)
                             {
-                                <span>Pregame ELO: @item.Team2PreGameEloRating</span>
+                                <span>Pregame ELO: @item.Team2EloRating</span>
                             }
                             @if (item.Team2PostGameEloRating != null)
                             {
@@ -145,21 +129,21 @@
                             }
                         </div>
                     </td>
-                    <td style="background-color: @Model.GetIfFavoriteWonStyle(item.Team1Code, Model.TeamStatistics.Team.TeamCode, item.Team1ChanceToWin, item.Team1ResultWonGame, item.Team2ResultWonGame);">
-                        @if (item.Team1ChanceToWin >= 0)
-                        {
-                            <div>
-                                @if (item.Team1Code == Model.TeamStatistics.Team.TeamCode)
-                                {
-                                    <span>@item.Team1OddsStatusText</span>
-                                }
-                                @if (item.Team2Code == Model.TeamStatistics.Team.TeamCode)
-                                {
-                                    <span>@item.Team2OddsStatusText</span>
-                                }
-                            </div>
-                        }
-                    </td>
+                    @*<td style="background-color: @Model.GetIfFavoriteWonStyle(item.Team1Code, Model.TeamStatistics.Team.TeamCode, item.Team1ChanceToWin, item.Team1ResultWonGame, item.Team2ResultWonGame);">
+                            @if (item.Team1ChanceToWin >= 0)
+                            {
+                                <div>
+                                    @if (item.Team1Code == Model.TeamStatistics.Team.TeamCode)
+                                    {
+                                        <span>@item.Team1OddsStatusText</span>
+                                    }
+                                    @if (item.Team2Code == Model.TeamStatistics.Team.TeamCode)
+                                    {
+                                        <span>@item.Team2OddsStatusText</span>
+                                    }
+                                </div>
+                            }
+                        </td>*@
                     <td>@item.Location</td>
                     <td>
                         @if (item.CoachFlag != "")
