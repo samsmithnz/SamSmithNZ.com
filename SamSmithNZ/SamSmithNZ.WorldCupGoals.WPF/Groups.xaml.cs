@@ -76,26 +76,25 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
             foreach (TournamentTeam item in tournamentTeams)
             {
-                Team team = new();
-                team.TeamCode = item.TeamCode;
-                team.TeamName = item.TeamName;
+                Team team = new()
+                {
+                    TeamCode = item.TeamCode,
+                    TeamName = item.TeamName
+                };
+                teams.Add(team);
             }
 
             //display the teams popup            
             TeamsPopup teamsPopup = new();
             int? teamCode = teamsPopup.ShowForm(teams);
             Debug.WriteLine(teamCode);
-            ////process the selected team
-            //if (teamCode != null)
-            //{
-            //    TournamentTeam tournamentTeam = new TournamentTeam();
-            //    tournamentTeam.TournamentCode = _tournamentCode;
-            //    tournamentTeam.TeamCode = (int)teamCode;
-
-            //    TournamentTeamDataAccess da3 = new TournamentTeamDataAccess();
-            //    await da3.SaveItemAsync(tournamentTeam);
-            //    await LoadGrid(_tournamentCode);
-            //}
+            //process the selected team
+            if (teamCode != null)
+            {
+                GroupDataAccess da3 = new(_configuration);
+                await da3.SaveItemAsync(_tournamentCode, 1, _groupCode, (int)teamCode);
+                await LoadGrid();
+            }
         }
 
         private async void btnRemoveTeam_Click(object sender, RoutedEventArgs e)

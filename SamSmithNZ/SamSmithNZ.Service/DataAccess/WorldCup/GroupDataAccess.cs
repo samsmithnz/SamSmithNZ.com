@@ -32,6 +32,17 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 
             return await base.SaveItem("FB_DeleteGroup", parameters);
         }
+        
+        public async Task<bool> SaveItemAsync(int tournamentCode, int roundNumber, string roundCode, int teamCode)
+        {
+            DynamicParameters parameters = new();
+            parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
+            parameters.Add("@RoundNumber", roundNumber, DbType.Int32);
+            parameters.Add("@RoundCode", roundCode, DbType.String);
+            parameters.Add("@TeamCode", teamCode, DbType.Int32);
+
+            return await base.SaveItem("FB_SaveGroupDetailsTeam", parameters);
+        }
 
     }
 }

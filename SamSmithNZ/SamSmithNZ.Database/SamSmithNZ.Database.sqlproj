@@ -279,6 +279,7 @@
     <Build Include="dbo\Stored Procedures\FB_GetMigratePlayoffsGames.sql" />
     <Build Include="dbo\Stored Procedures\FB_SaveMigratePlayoffs.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetMigratePlayoffs.sql" />
+    <Build Include="dbo\Stored Procedures\FB_SaveGroupDetailsTeam.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />
