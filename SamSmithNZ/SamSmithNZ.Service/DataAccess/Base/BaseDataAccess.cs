@@ -112,6 +112,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(ex.ToString());
                 DebugSQLString(query, parameters);
             }
             finally

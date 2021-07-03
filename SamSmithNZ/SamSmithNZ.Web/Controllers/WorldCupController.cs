@@ -165,6 +165,12 @@ namespace SamSmithNZ.Web.Controllers
             return View(teamViewModel);
         }
 
+        public async Task<IActionResult> Matchup(int team1Code, int team2Code)
+        {
+            List<Game> games = await _ServiceApiClient.GetMatchUpGames(team1Code, team2Code);
+            return View();
+        }
+
         public IActionResult ELORating() //int tournamentCode)
         {
             //SamSmithNZ2015.Core.WorldCup.DataAccess.GameDataAccess da = new SamSmithNZ2015.Core.WorldCup.DataAccess.GameDataAccess();
@@ -387,7 +393,7 @@ namespace SamSmithNZ.Web.Controllers
             InsightsViewModel insightsViewModel = new()
             {
                 RegularTimeGoalInsights = regularTimeGoalInsights,
-                ExtraTimeGoalInsights=extraTimeGoalInsights
+                ExtraTimeGoalInsights = extraTimeGoalInsights
             };
 
             return View(insightsViewModel);

@@ -51,6 +51,17 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return results;
         }
 
+        public async Task<List<Game>> GetListByMatchUp(int team1Code, int team2Code)
+        {
+            DynamicParameters parameters = new();
+            parameters.Add("@Team1Code", team1Code, DbType.Int32);
+            parameters.Add("@Team2Code", team2Code, DbType.Int32);
+
+            List<Game> results = await base.GetList("FB_GetGames", parameters);
+            results = ProcessGameResults(results);
+            return results;
+        }
+
         public async Task<List<Game>> GetListByTournament(int tournamentCode)
         {
             DynamicParameters parameters = new();

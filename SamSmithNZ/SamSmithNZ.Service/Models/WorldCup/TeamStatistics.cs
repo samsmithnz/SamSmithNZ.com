@@ -5,16 +5,23 @@ namespace SamSmithNZ.Service.Models.WorldCup
 {
     public class TeamStatistics
     {
-        public TeamStatistics() { }
+        public TeamStatistics()
+        {
+            _games = new();
+        }
 
         public Team Team { get; set; }
 
         private List<Game> _games;
-        public List<Game> Games {
-            get {
+
+        public List<Game> Games
+        {
+            get
+            {
                 return _games;
             }
-            set {
+            set
+            {
                 int i = 0;
                 StringBuilder sb = new();
                 _games = value;
