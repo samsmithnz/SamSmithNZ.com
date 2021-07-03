@@ -48,8 +48,8 @@ namespace SamSmithNZ.Service.Controllers.WorldCup
             Team team2 = await _teamRepo.GetItem(team2Code);
             List<Game> team2Games = await _gameRepo.GetListByTeam(team2Code);
             TeamStatistics team2Statistics = new();
-            team1Statistics.Team = team2;
-            team1Statistics.Games = team2Games;
+            team2Statistics.Team = team2;
+            team2Statistics.Games = team2Games;
             teamMatchup.Team2Statistics = team2Statistics;
 
             //Get the games that both teams were part of

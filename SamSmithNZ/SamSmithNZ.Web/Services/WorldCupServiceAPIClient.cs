@@ -70,10 +70,10 @@ namespace SamSmithNZ.Web.Services
             }
         }
 
-        public async Task<List<Game>> GetMatchUpGames(int team1Code, int team2Code)
+        public async Task<TeamMatchup> GetTeamMatchup(int team1Code, int team2Code)
         {
-            Uri url = new($"api/WorldCup/Game/GetMatchUpGames?team1Code=" + team1Code + "&team2Code=" + team2Code, UriKind.Relative);
-            List <Game> results = await base.ReadMessageList<Game>(url);
+            Uri url = new($"api/WorldCup/TeamStatistics/GetTeamMatchup?team1Code=" + team1Code + "&team2Code=" + team2Code, UriKind.Relative);
+            TeamMatchup results = await base.ReadMessageItem<TeamMatchup>(url);
             if (results == null)
             {
                 return new();

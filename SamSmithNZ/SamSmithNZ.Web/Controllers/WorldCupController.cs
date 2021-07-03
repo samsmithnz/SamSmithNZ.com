@@ -167,8 +167,8 @@ namespace SamSmithNZ.Web.Controllers
 
         public async Task<IActionResult> Matchup(int team1Code, int team2Code)
         {
-            List<Game> games = await _ServiceApiClient.GetMatchUpGames(team1Code, team2Code);
-            return View();
+            TeamMatchup teamMatchup = await _ServiceApiClient.GetTeamMatchup(team1Code, team2Code);
+            return View(teamMatchup);
         }
 
         public IActionResult ELORating() //int tournamentCode)
