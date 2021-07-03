@@ -18,7 +18,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
                 int i = 0;
                 StringBuilder sb = new();
                 _games = value;
-                if (value != null)
+                if (_games != null)
                 {
                     foreach (Game game in _games)
                     {
