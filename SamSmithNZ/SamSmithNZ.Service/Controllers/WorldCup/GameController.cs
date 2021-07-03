@@ -35,12 +35,6 @@ namespace SamSmithNZ.Service.Controllers.WorldCup
             return await _repo.GetListByPlayoff(tournamentCode, roundNumber, includeGoals);
         }  
         
-        [HttpGet("GetMatchUpGames")]
-        public async Task<List<Game>> GetMatchUpGames(int team1Code, int team2Code)
-        {
-            return await _repo.GetListByMatchUp(team1Code, team2Code);
-        }
-
         [HttpGet("GetGame")]
         public async Task<Game> GetGame(int gameCode)
         {
