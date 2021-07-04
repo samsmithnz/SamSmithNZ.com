@@ -33,144 +33,83 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         {
             _tournamentCode = tournamentCode;
 
+            PlayerDataAccess daPlayer = new(_configuration);
             TeamDataAccess daTeam = new(_configuration);
             List<Team> teams = await daTeam.GetList();
 
-            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_2016#Group_A";
+            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_2016_squads#Group_A";
             HtmlWeb web = new();
             HtmlDocument doc = web.Load(url);
-            HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(@"//*[@class=""footballbox""]");
+            HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(@"//*[@class=""mw-headline""]");
 
-            List<Game> games = new();
-            int gameCount = 0;
-            string roundCode = "A";
-            int groupGames = 6;
-            int roundGames = 6 * 6;
-            int roundNumber = 1;
-            int top16Count = 0;
-            int qfCount = 0;
-            int sfCount = 0;
+            //span class="mw-headline": France
+            //tr class="nat-fs-player": player
 
+            List<Player> players = new();
+            string teamName = "";
             foreach (HtmlNode parent in nodes)
             {
-                gameCount++;
-                //advance the round number if we've completed the round (usually 6 games)
-                if (roundNumber == 1 && gameCount > 1 && (gameCount - 1) % groupGames == 0)
+                //Validate the team name
+                teamName = parent.InnerText;
+                int teamCode = GetTeamCode(teams, teamName);
+
+                if (teamCode > 0)
                 {
-                    roundCode = char.ConvertFromUtf32(roundCode.ToCharArray()[0] + 1);
-                }
-                if (gameCount > 1 && (gameCount - 1) % roundGames == 0)
-                {
-                    roundNumber++;
-                    roundCode = "16";
-                }
-                if (roundCode == "16" && top16Count == 8)
-                {
-                    roundCode = "QF";
-                }
-                else if (roundCode == "QF" && qfCount == 4)
-                {
-                    roundCode = "SF";
-                }
-                else if (roundCode == "SF" && sfCount == 2)
-                {
-                    roundCode = "FF";
-                }
-                if (roundNumber == 2)
-                {
-                    if (roundCode == "16")
+                    string currentXPath = parent.XPath;
+                    HtmlNode nextNode = parent.ParentNode.NextSibling;//.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling;
+                    do
                     {
-                        top16Count++;
-                    }
-                    else if (roundCode == "QF")
+                        nextNode = nextNode.NextSibling;
+                    } while (nextNode != null && nextNode.Name != "table");
+
+                    if (nextNode != null && nextNode.Name == "table")
                     {
-                        qfCount++;
-                    }
-                    else if (roundCode == "SF")
-                    {
-                        sfCount++;
+                        //Get the players from the table
+                        HtmlNodeCollection playerNodes = doc.DocumentNode.SelectNodes(nextNode.XPath + "/tbody/tr");
+                        for (int i = 1; i < playerNodes.Count; i++) //Skip row 0, it's the header
+                        {
+                            HtmlNode playerRow = playerNodes[i];
+                            string number = playerRow.SelectSingleNode(playerRow.XPath + "/td[1]")?.InnerText?.Replace("\n", "");
+                            string position = playerRow.SelectSingleNode(playerRow.XPath + "/td[2]/a")?.InnerText?.Replace("\n", "");
+                            string playerName = playerRow.SelectSingleNode(playerRow.XPath + "/th/span")?.InnerText;
+                            string playerCaptainString = playerRow.SelectSingleNode(playerRow.XPath + "/th/small")?.InnerText;
+                            bool isCaptain = false;
+                            if (playerCaptainString?.IndexOf("captain") >= 0)
+                            {
+                                isCaptain = true;
+                            }
+                            string dateOfBirthEntireString = playerRow.SelectSingleNode(playerRow.XPath + "/td[3]")?.InnerText?.Replace("\n", "");
+                            string dateOfBirth = (dateOfBirthEntireString.Trim().Substring(0, dateOfBirthEntireString.IndexOf(")"))).Replace("(", "").Replace(")", "");
+                            string club = playerRow.SelectSingleNode(playerRow.XPath + "/td[6]/a")?.InnerText?.Replace("\n", "");
+
+                            Player newPlayer = new()
+                            {
+                                TournamentCode = 315,
+                                TeamCode = teamCode,
+                                TeamName = teamName,
+                                Number = int.Parse(number),
+                                Position = position,
+                                IsCaptain = isCaptain,
+                                PlayerName = playerName,
+                                DateOfBirth = DateTime.Parse(dateOfBirth),
+                                ClubName = club
+                            };
+
+                            players.Add(newPlayer);
+                        }
                     }
                 }
-                HtmlNode dateNode = parent.ChildNodes[1];
-                DateTime gameDateTime = DateTime.Parse(dateNode.InnerText.Substring(dateNode.InnerText.IndexOf("(") + 1).Replace(")", " "));
-
-                HtmlNode game = parent.ChildNodes[2];
-                string team1Name = game.SelectSingleNode(game.XPath + "/tbody/tr[1]/th[1]/span")?.InnerText?.Replace("&#160;", "");
-                int team1Code = GetTeamCode(teams, team1Name);
-                string team2Name = game.SelectSingleNode(game.XPath + "/tbody/tr[1]/th[3]/span")?.InnerText?.Replace("&#160;", "");
-                int team2Code = GetTeamCode(teams, team2Name);
-                string score = game.SelectSingleNode(game.XPath + "/tbody/tr[1]/th[2]/a")?.InnerText;
-                string[] scores = score.Split("–");
-                int team1NormalTimeScore = int.Parse(scores[0]);
-                int team2NormalTimeScore = int.Parse(scores[1]);
-
-                HtmlNode locationNode = parent.ChildNodes[3];
-                string location = locationNode.ChildNodes[0].InnerText;
-
-                Game newGame = new()
-                {
-                    TournamentCode = 315,
-                    RoundNumber = roundNumber,
-                    RoundCode = roundCode,
-                    GameNumber = gameCount,
-                    GameTime = gameDateTime,
-                    Team1Name = team1Name,
-                    Team1Code = team1Code,
-                    Team2Name = team2Name,
-                    Team2Code = team2Code,
-                    Team1NormalTimeScore = team1NormalTimeScore,
-                    Team2NormalTimeScore = team2NormalTimeScore,
-                    Location = location
-                };
-
-                games.Add(newGame);
-
-                int gameCode = 0; //await SaveGame(game);
-                string playerName = "";
-                List<Player> players = new();
-                int goalTime = 0;
-                int injuryTime = 0;
-                bool IsPenalty = false;
-                bool IsOwnGoal = false;
-
-                HtmlNodeCollection team1Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[1]/div/ul/li");
-                HtmlNodeCollection team2Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[3]/div/ul/li");
-
-                Goal goal = new()
-                {
-                    GameCode = gameCode,
-                    GoalCode = 0,
-                    PlayerCode = GetPlayerCode(players, playerName),
-                    GoalTime = goalTime,
-                    InjuryTime = injuryTime,
-                    IsPenalty = IsPenalty,
-                    IsOwnGoal = IsOwnGoal
-                };
-
-
             }
+
+       
 
             //GameDataAccess da = new(_configuration);
             //List<Game> games = await da.GetMigrationPlayoffList(_tournamentCode, 2);
 
-            await LoadGrid(games);
+            await LoadGrid(players);
 
             ShowDialog();
             return true;
-        }
-
-        private int GetPlayerCode(List<Player> players, string playerName)
-        {
-            int result = 0;
-            foreach (Player player in players)
-            {
-                if (player.PlayerName == playerName)
-                {
-                    result = player.PlayerCode;
-                    break;
-                }
-            }
-            return result;
         }
 
         private int GetTeamCode(List<Team> teams, string teamName)
@@ -187,9 +126,9 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             return result;
         }
 
-        private async Task LoadGrid(List<Game> games)
+        private async Task LoadGrid(List<Player> players)
         {
-            lstGames.DataContext = games;
+            lstGames.DataContext = players;
         }
 
 

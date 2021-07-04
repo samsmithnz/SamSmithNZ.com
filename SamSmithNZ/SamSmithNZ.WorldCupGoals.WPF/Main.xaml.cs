@@ -34,6 +34,8 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 btnSetupTournamentGroups.IsEnabled = false;
                 btnSetupTournamentTeams.IsEnabled = false;
                 btnMigrateTournamentPlayoffs.IsEnabled = false;
+                btnMigrateGames.IsEnabled = false;
+                btnMigratePlayers.IsEnabled = false;
 
                 TournamentDataAccess da = new(_configuration);
                 List<Tournament> tournaments = await da.GetList(null);
@@ -46,6 +48,8 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 btnSetupTournamentGroups.IsEnabled = true;
                 btnSetupTournamentTeams.IsEnabled = true;
                 btnMigrateTournamentPlayoffs.IsEnabled = true;
+                btnMigrateGames.IsEnabled = true;
+                btnMigratePlayers.IsEnabled = true;
             }
             catch (Exception ex)
             {
@@ -121,6 +125,19 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             if (cboTournament.SelectedValue != null)
             {
                 GamesMigration migration = new();
+                await migration.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
+            }
+            else
+            {
+                MessageBox.Show("Tournament not selected");
+            }
+        }
+
+        private async void MigratePlayers_Click(object sender, RoutedEventArgs e)
+        {
+            if (cboTournament.SelectedValue != null)
+            {
+                TeamSquadsMigration migration = new();
                 await migration.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
             }
             else
