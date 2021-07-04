@@ -33,40 +33,128 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         {
             _tournamentCode = tournamentCode;
 
+            TeamDataAccess daTeam = new(_configuration);
+            List<Team> teams = await daTeam.GetList();
+
             string url = "https://en.wikipedia.org/wiki/UEFA_Euro_2016#Group_A";
             HtmlWeb web = new();
             HtmlDocument doc = web.Load(url);
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(@"//*[@class=""footballbox""]");
 
+            List<Game> games = new();
+            int gameCount = 0;
+            string roundCode = "A";
+            int groupGames = 6;
+            int roundGames = 6 * 6;
+            int roundNumber = 1;
+            int top16Count = 0;
+            int qfCount = 0;
+            int sfCount = 0;
+
             foreach (HtmlNode parent in nodes)
             {
+                gameCount++;
+                //advance the round number if we've completed the round (usually 6 games)
+                if (roundNumber == 1 && gameCount > 1 && (gameCount - 1) % groupGames == 0)
+                {
+                    roundCode = char.ConvertFromUtf32(roundCode.ToCharArray()[0] + 1);
+                }
+                if (gameCount > 1 && (gameCount - 1) % roundGames == 0)
+                {
+                    roundNumber++;
+                    roundCode = "16";
+                }
+                if (roundCode == "16" && top16Count == 8)
+                {
+                    roundCode = "QF";
+                }
+                else if (roundCode == "QF" && qfCount == 4)
+                {
+                    roundCode = "SF";
+                }
+                else if (roundCode == "SF" && sfCount == 2)
+                {
+                    roundCode = "FF";
+                }
+                if (roundNumber == 2)
+                {
+                    if (roundCode == "16")
+                    {
+                        top16Count++;
+                    }
+                    else if (roundCode == "QF")
+                    {
+                        qfCount++;
+                    }
+                    else if (roundCode == "SF")
+                    {
+                        sfCount++;
+                    }
+                }
                 HtmlNode dateNode = parent.ChildNodes[1];
                 DateTime gameDateTime = DateTime.Parse(dateNode.InnerText.Substring(dateNode.InnerText.IndexOf("(") + 1).Replace(")", " "));
 
                 HtmlNode game = parent.ChildNodes[2];
                 string team1Name = game.SelectSingleNode(game.XPath + "/tbody/tr[1]/th[1]/span")?.InnerText?.Replace("&#160;", "");
+                int team1Code = GetTeamCode(teams, team1Name);
                 string team2Name = game.SelectSingleNode(game.XPath + "/tbody/tr[1]/th[3]/span")?.InnerText?.Replace("&#160;", "");
+                int team2Code = GetTeamCode(teams, team2Name);
                 string score = game.SelectSingleNode(game.XPath + "/tbody/tr[1]/th[2]/a")?.InnerText;
-
-                HtmlNodeCollection team1Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[1]/div/ul/li");
-                HtmlNodeCollection team2Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[3]/div/ul/li");
+                string[] scores = score.Split("–");
+                int team1NormalTimeScore = int.Parse(scores[0]);
+                int team2NormalTimeScore = int.Parse(scores[1]);
 
                 HtmlNode locationNode = parent.ChildNodes[3];
                 string location = locationNode.ChildNodes[0].InnerText;
+
+                Game newGame = new()
+                {
+                    TournamentCode = 315,
+                    RoundNumber = roundNumber,
+                    RoundCode = roundCode,
+                    GameNumber = gameCount,
+                    GameTime = gameDateTime,
+                    Team1Name = team1Name,
+                    Team1Code = team1Code,
+                    Team2Name = team2Name,
+                    Team2Code = team2Code,
+                    Team1NormalTimeScore = team1NormalTimeScore,
+                    Team2NormalTimeScore = team2NormalTimeScore,
+                    Location = location
+                };
+
+                games.Add(newGame);
+
+                //HtmlNodeCollection team1Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[1]/div/ul/li");
+                //HtmlNodeCollection team2Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[3]/div/ul/li");
+
             }
 
             //GameDataAccess da = new(_configuration);
             //List<Game> games = await da.GetMigrationPlayoffList(_tournamentCode, 2);
 
-            //await LoadGrid(games);
+            await LoadGrid(games);
 
             ShowDialog();
             return true;
         }
 
+        private int GetTeamCode(List<Team> teams, string teamName)
+        {
+            int result = 0;
+            foreach (Team team in teams)
+            {
+                if (team.TeamName == teamName)
+                {
+                    result = team.TeamCode;
+                    break;
+                }
+            }
+            return result;
+        }
+
         private async Task LoadGrid(List<Game> games)
         {
-
             lstGames.DataContext = games;
         }
 
