@@ -16,7 +16,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
     {
         private int _tournamentCode;
         private readonly IConfigurationRoot _configuration;
-        private List<Game> Games;
+        private List<Player> _Players;
 
         public TeamSquadsMigration()
         {
@@ -33,7 +33,6 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         {
             _tournamentCode = tournamentCode;
 
-            PlayerDataAccess daPlayer = new(_configuration);
             TeamDataAccess daTeam = new(_configuration);
             List<Team> teams = await daTeam.GetList();
 
@@ -45,7 +44,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             //span class="mw-headline": France
             //tr class="nat-fs-player": player
 
-            List<Player> players = new();
+            _Players = new();
             string teamName = "";
             foreach (HtmlNode parent in nodes)
             {
@@ -95,18 +94,13 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                                 ClubName = club
                             };
 
-                            players.Add(newPlayer);
+                            _Players.Add(newPlayer);
                         }
                     }
                 }
             }
 
-       
-
-            //GameDataAccess da = new(_configuration);
-            //List<Game> games = await da.GetMigrationPlayoffList(_tournamentCode, 2);
-
-            await LoadGrid(players);
+            await LoadGrid(_Players);
 
             ShowDialog();
             return true;
@@ -139,13 +133,27 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            //PlayoffDataAccess da = new(_configuration);
-            //foreach (Playoff setup in Setups)
-            //{
-            //    await da.SaveItem(setup);
-            //}
-            //MessageBox.Show("Saved successfully!");
-            Close();
+            PlayerDataAccess da = new(_configuration);
+            int count = 0;
+            if (_Players.Count > 0)
+            {
+                List<Player> players = await da.GetPlayerByTournament(_tournamentCode, _Players[0].PlayerName);
+                count = players.Count;
+            }
+
+            if (count > 0)
+            {
+                MessageBox.Show("This player already exists in this tournament. Save not successful");
+            }
+            else
+            {
+                foreach (Player player in _Players)
+                {
+                    await da.SaveItem(player);
+                }
+                MessageBox.Show("Saved successfully!");
+                Close();
+            }
         }
 
     }
