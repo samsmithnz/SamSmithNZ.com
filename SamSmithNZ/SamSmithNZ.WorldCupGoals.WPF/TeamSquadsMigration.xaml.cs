@@ -12,13 +12,13 @@ namespace SamSmithNZ.WorldCupGoals.WPF
     /// <summary>
     /// Interaction logic for Games.xaml
     /// </summary>
-    public partial class GamesMigration : Window
+    public partial class TeamSquadsMigration : Window
     {
         private int _tournamentCode;
         private readonly IConfigurationRoot _configuration;
         private List<Game> Games;
 
-        public GamesMigration()
+        public TeamSquadsMigration()
         {
             InitializeComponent();
 

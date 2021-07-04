@@ -32,6 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="TeamSquadsMigration.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="GamesMigration.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
