@@ -24,5 +24,20 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return await base.GetList("FB_GetPlayers", parameters);
         }
 
+        public async Task<bool> SaveItem(Player player)
+        {
+            DynamicParameters parameters = new();
+            parameters.Add("@TeamCode", player.TeamCode, DbType.Int32);
+            parameters.Add("@TournamentCode", player.TournamentCode, DbType.Int32);
+            parameters.Add("@Number", player.Number, DbType.Int32);
+            parameters.Add("@Position", player.Position, DbType.String);
+            parameters.Add("@IsCaptain", player.IsCaptain, DbType.Boolean);
+            parameters.Add("@PlayerName", player.PlayerName, DbType.String);
+            parameters.Add("@DateOfBirth", player.DateOfBirth, DbType.DateTime);
+            parameters.Add("@ClubName", player.ClubName, DbType.String);
+
+            return await base.SaveItem("FB_SavePlayer", parameters);
+        }
+
     }
 }
