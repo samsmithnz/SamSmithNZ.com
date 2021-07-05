@@ -6,14 +6,19 @@
 	@RoundCode VARCHAR(10),
 	@Location VARCHAR(100),
 	@Team1Code INT,
-	@Team2Code INT
+	@Team2Code INT,
+	@Team1NormalTimeScore INT,
+	@Team2NormalTimeScore INT
 AS
 BEGIN
 	SET NOCOUNT ON
 
 	INSERT INTO wc_game
 	SELECT (SELECT MAX(game_code) + 1 FROM wc_game), @TournamentCode, @GameNumber, @GameTime, @RoundNumber, @RoundCode,
-		@Location, @Team1Code, @Team2Code, 0,0,0,0,0,0,0,0,0,0,0,0
+		@Location, @Team1Code, @Team2Code, 
+		@Team1NormalTimeScore,null,null,
+		@Team2NormalTimeScore,null,null,
+		0,0,0,0,0,0
 	
 	IF (@RoundNumber = 1)
 	BEGIN

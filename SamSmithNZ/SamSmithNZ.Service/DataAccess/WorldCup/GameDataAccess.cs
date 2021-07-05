@@ -117,6 +117,8 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             parameters.Add("@Location", game.Location, DbType.String);
             parameters.Add("@Team1Code", game.Team1Code, DbType.Int32);
             parameters.Add("@Team2Code", game.Team2Code, DbType.Int32);
+            parameters.Add("@Team1NormalTimeScore", game.Team1NormalTimeScore, DbType.Int32);
+            parameters.Add("@Team2NormalTimeScore", game.Team2NormalTimeScore, DbType.Int32);
 
             await base.SaveItem("FB_SaveMigrateGame", parameters);
             return true;
