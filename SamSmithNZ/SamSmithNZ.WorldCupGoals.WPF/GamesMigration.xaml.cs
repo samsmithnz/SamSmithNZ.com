@@ -130,8 +130,9 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
                 _Games.Add(newGame);
 
-                int gameCode = 0; //await SaveGame(game);
+                int gameCode = newGame.GameNumber; //use the game number as a proxy until we are able to save the game and get a real code
 
+                //Get team 1 goals
                 HtmlNodeCollection team1Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[1]/div/ul/li");
                 if (team1Goals != null)
                 {
@@ -144,6 +145,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                         }
                     }
                 }
+                //Get team 2 goals
                 HtmlNodeCollection team2Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[3]/div/ul/li");
                 if (team2Goals != null)
                 {
@@ -295,20 +297,32 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             }
             else
             {
-
                 int i = 0;
                 foreach (Game game in _Games)
                 {
                     i++;
-                    lblStatus.Content = "Saving game " + i.ToString() + "/" + (_Games.Count + _Goals.Count).ToString();
-                    await daGame.SaveMigrationItem(game);
+                    lblStatus.Content = "Saving game/goal " + i.ToString() + "/" + (_Games.Count + _Goals.Count).ToString();
+                    int newGameCode = await daGame.SaveMigrationItem(game);
+                    //if (game.GameNumber == 37 || newGameCode == 315)
+                    //{
+                    //    int y = 0;
+                    //}
+                    List<Goal> gameGoals = _Goals.Where(x => x.GameCode == game.GameNumber).ToList();
+                    foreach (Goal goal in gameGoals)
+                    {
+                        i++;
+                        lblStatus.Content = "Saving game/goal " + i.ToString() + "/" + (_Games.Count + _Goals.Count).ToString();
+                        //update the game code to the new version
+                        goal.GameCode = newGameCode;
+                        await daGoal.SaveItem(goal);
+                    }
                 }
-                foreach (Goal goal in _Goals)
-                {
-                    i++;
-                    lblStatus.Content = "Saving goal " + i.ToString() + "/" + (_Games.Count + _Goals.Count).ToString();
-                    await daGoal.SaveItem(goal);
-                }
+                //foreach (Goal goal in _Goals)
+                //{
+                //    i++;
+                //    lblStatus.Content = "Saving goal " + i.ToString() + "/" + (_Games.Count + _Goals.Count).ToString();
+                //    await daGoal.SaveItem(goal);
+                //}
                 MessageBox.Show("Saved successfully!");
                 Close();
             }

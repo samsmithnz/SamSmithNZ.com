@@ -22,29 +22,29 @@ BEGIN
 	and round_number = @RoundNumber
 	and round_code = @RoundCode
 
-	--If the number of games doesn't audit correctly, add some new games
-	IF (@number_of_teams_in_group / 2 <> @game_count)
-	BEGIN
-		SELECT g.tournament_code,
-			g.game_code,
-			g.game_number,
-			g.game_time,
-			g.[location],
-			g.round_code,
-			g.round_number,
-			g.team_1_code,
-			g.team_1_extra_time_score,
-			g.team_1_normal_time_score,
-			g.team_1_penalties_score,
-			g.team_2_code,
-			g.team_2_extra_time_score,
-			g.team_2_normal_time_score,
-			g.team_2_penalties_score
-		FROM wc_game g
-		WHERE tournament_code = @TournamentCode
-		AND round_number = @RoundNumber
-		AND round_code = @RoundCode
-	END
+	----If the number of games doesn't audit correctly, add some new games
+	--IF (@number_of_teams_in_group / 2 <> @game_count)
+	--BEGIN
+	--	SELECT g.tournament_code,
+	--		g.game_code,
+	--		g.game_number,
+	--		g.game_time,
+	--		g.[location],
+	--		g.round_code,
+	--		g.round_number,
+	--		g.team_1_code,
+	--		g.team_1_extra_time_score,
+	--		g.team_1_normal_time_score,
+	--		g.team_1_penalties_score,
+	--		g.team_2_code,
+	--		g.team_2_extra_time_score,
+	--		g.team_2_normal_time_score,
+	--		g.team_2_penalties_score
+	--	FROM wc_game g
+	--	WHERE tournament_code = @TournamentCode
+	--	AND round_number = @RoundNumber
+	--	AND round_code = @RoundCode
+	--END
 
 	DECLARE @Team1Score INT
 	DECLARE @Team2Score INT

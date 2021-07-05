@@ -84,6 +84,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
                 await connection.OpenAsync();
                 IEnumerable<R> results = await connection.QueryAsync<R>(query, parameters, commandType: CommandType.StoredProcedure);
                 result = results.FirstOrDefault<R>();
+                DebugSQLString(query, parameters);
             }
             finally
             {
@@ -108,6 +109,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
             {
                 await connection.OpenAsync();
                 await connection.ExecuteScalarAsync<bool>(query, parameters, commandType: CommandType.StoredProcedure, commandTimeout: timeOut);
+                DebugSQLString(query, parameters); 
                 result = true;
             }
             catch (Exception ex)
@@ -147,11 +149,11 @@ namespace SamSmithNZ.Service.DataAccess.Base
                     }
                     else
                     {
-                        if (value.GetType().ToString() == "System.String" || value.GetType().ToString() == "System.Guid")
+                        if (value.GetType().ToString() == "System.String" || value.GetType().ToString() == "System.Guid" || value.GetType().ToString() == "System.DateTime")
                         {
                             sb.Append('\'');
                         }
-                        else if (value.GetType().ToString() == "System.Boolean")
+                        if (value.GetType().ToString() == "System.Boolean")
                         {
                             if (value == true)
                             {
@@ -166,7 +168,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
                         {
                             sb.Append(value.ToString());
                         }
-                        if (value.GetType().ToString() == "System.String" || value.GetType().ToString() == "System.Guid")
+                        if (value.GetType().ToString() == "System.String" || value.GetType().ToString() == "System.Guid" || value.GetType().ToString() == "System.DateTime")
                         {
                             sb.Append('\'');
                         }
