@@ -17,6 +17,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         private int _tournamentCode;
         private readonly IConfigurationRoot _configuration;
         private List<Game> _Games;
+        private List<Goal> _Goals;
 
         public GamesMigration()
         {
@@ -35,6 +36,8 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
             TeamDataAccess daTeam = new(_configuration);
             List<Team> teams = await daTeam.GetList();
+            PlayerDataAccess daPlayer = new(_configuration);
+            List<Player> players = await daPlayer.GetPlayersByTournament(_tournamentCode);
 
             string url = "https://en.wikipedia.org/wiki/UEFA_Euro_2016#Group_A";
             HtmlWeb web = new();
@@ -42,6 +45,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(@"//*[@class=""footballbox""]");
 
             _Games = new();
+            _Goals = new();
             int gameCount = 0;
             string roundCode = "A";
             int groupGames = 6;
@@ -126,27 +130,27 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 _Games.Add(newGame);
 
                 int gameCode = 0; //await SaveGame(game);
-                string playerName = "";
-                List<Player> players = new();
+
                 int goalTime = 0;
                 int injuryTime = 0;
                 bool IsPenalty = false;
                 bool IsOwnGoal = false;
 
                 HtmlNodeCollection team1Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[1]/div/ul/li");
-                HtmlNodeCollection team2Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[3]/div/ul/li");
-
-                Goal goal = new()
+                foreach (HtmlNode item in team1Goals)
                 {
-                    GameCode = gameCode,
-                    GoalCode = 0,
-                    PlayerCode = GetPlayerCode(players, playerName),
-                    GoalTime = goalTime,
-                    InjuryTime = injuryTime,
-                    IsPenalty = IsPenalty,
-                    IsOwnGoal = IsOwnGoal
-                };
+                    Goal newGoal = ProcessGoalHTMLNode(item, players, gameCode);
+                    _Goals.Add(newGoal);
+                }
+                HtmlNodeCollection team2Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[3]/div/ul/li");
+                foreach (HtmlNode item in team1Goals)
+                {
+                    Goal newGoal = ProcessGoalHTMLNode(item, players, gameCode);
+                    _Goals.Add(newGoal);
+                }
 
+                GoalDataAccess goalDA = new(_configuration);
+                //await goalDA.SaveItem(goal);
 
             }
 
@@ -154,6 +158,30 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
             ShowDialog();
             return true;
+        }
+
+        private Goal ProcessGoalHTMLNode(HtmlNode item, List<Player> players, int gameCode)
+        {
+            string playerName = item.SelectSingleNode(item.XPath + "/a").InnerText;
+            string goalDetails = item.SelectSingleNode(item.XPath + "/small").InnerText.Replace("&#39;", " ");
+            int goalTime = 0;
+            int injuryTime = 0;
+            bool IsPenalty = false;
+            bool IsOwnGoal = false;
+            int playerCode = GetPlayerCode(players, playerName);
+
+            Goal goal = new()
+            {
+                GameCode = gameCode,
+                GoalCode = 0,
+                PlayerCode = playerCode,
+                GoalTime = goalTime,
+                InjuryTime = injuryTime,
+                IsPenalty = IsPenalty,
+                IsOwnGoal = IsOwnGoal
+            };
+
+            return goal;
         }
 
         private int GetPlayerCode(List<Player> players, string playerName)
@@ -198,15 +226,30 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
             GameDataAccess da = new(_configuration);
-            int i = 0;
-            foreach (Game game in _Games)
+            int count = 0;
+            if (_Games.Count > 0)
             {
-                i++;
-                lblStatus.Content = "Saving game " + i.ToString() + "/" + _Games.Count.ToString();
-                await da.SaveMigrationItem(game);
+                List<Game> games = await da.GetListByTournament(_tournamentCode);
+                count = games.Count;
             }
-            MessageBox.Show("Saved successfully!");
-            Close();
+
+            if (count > 0)
+            {
+                MessageBox.Show("This game already exists in this tournament. Save not successful");
+            }
+            else
+            {
+
+                int i = 0;
+                foreach (Game game in _Games)
+                {
+                    i++;
+                    lblStatus.Content = "Saving game " + i.ToString() + "/" + _Games.Count.ToString();
+                    await da.SaveMigrationItem(game);
+                }
+                MessageBox.Show("Saved successfully!");
+                Close();
+            }
         }
 
     }

@@ -7,7 +7,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup.Interfaces
     public interface IPlayerDataAccess 
     {
         Task<List<Player>> GetList(int gameCode);
-        Task<List<Player>> GetPlayerByTournament(int tournamentCode, string playerName);
+        Task<List<Player>> GetPlayersByTournament(int tournamentCode);
         Task<bool> SaveItem(Player player);
     }
 }
