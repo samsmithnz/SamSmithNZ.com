@@ -132,18 +132,18 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
                 int gameCode = 0; //await SaveGame(game);
 
-                //HtmlNodeCollection team1Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[1]/div/ul/li");
-                //if (team1Goals != null)
-                //{
-                //    foreach (HtmlNode item in team1Goals)
-                //    {
-                //        Goal newGoal = ProcessGoalHTMLNode(item, players, gameCode);
-                //        if (newGoal != null)
-                //        {
-                //            _Goals.Add(newGoal);
-                //        }
-                //    }
-                //}
+                HtmlNodeCollection team1Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[1]/div/ul/li");
+                if (team1Goals != null)
+                {
+                    foreach (HtmlNode item in team1Goals)
+                    {
+                        Goal newGoal = ProcessGoalHTMLNode(item, players, gameCode);
+                        if (newGoal != null)
+                        {
+                            _Goals.Add(newGoal);
+                        }
+                    }
+                }
                 HtmlNodeCollection team2Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[3]/div/ul/li");
                 if (team2Goals != null)
                 {
@@ -280,11 +280,12 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            GameDataAccess da = new(_configuration);
+            GameDataAccess daGame = new(_configuration);
+            GoalDataAccess daGoal = new(_configuration);
             int count = 0;
             if (_Games.Count > 0)
             {
-                List<Game> games = await da.GetListByTournament(_tournamentCode);
+                List<Game> games = await daGame.GetListByTournament(_tournamentCode);
                 count = games.Count;
             }
 
@@ -299,8 +300,14 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 foreach (Game game in _Games)
                 {
                     i++;
-                    lblStatus.Content = "Saving game " + i.ToString() + "/" + _Games.Count.ToString();
-                    await da.SaveMigrationItem(game);
+                    lblStatus.Content = "Saving game " + i.ToString() + "/" + (_Games.Count + _Goals.Count).ToString();
+                    await daGame.SaveMigrationItem(game);
+                }
+                foreach (Goal goal in _Goals)
+                {
+                    i++;
+                    lblStatus.Content = "Saving goal " + i.ToString() + "/" + (_Games.Count + _Goals.Count).ToString();
+                    await daGoal.SaveItem(goal);
                 }
                 MessageBox.Show("Saved successfully!");
                 Close();
