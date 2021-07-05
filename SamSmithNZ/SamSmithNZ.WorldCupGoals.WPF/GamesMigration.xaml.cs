@@ -16,7 +16,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
     {
         private int _tournamentCode;
         private readonly IConfigurationRoot _configuration;
-        private List<Game> Games;
+        private List<Game> _Games;
 
         public GamesMigration()
         {
@@ -41,7 +41,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             HtmlDocument doc = web.Load(url);
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(@"//*[@class=""footballbox""]");
 
-            List<Game> games = new();
+            _Games = new();
             int gameCount = 0;
             string roundCode = "A";
             int groupGames = 6;
@@ -54,7 +54,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             foreach (HtmlNode parent in nodes)
             {
                 gameCount++;
-                //advance the round number if we've completed the round (usually 6 games)
+                //advance the round number if we've completed the round (usually 6 games in a group)
                 if (roundNumber == 1 && gameCount > 1 && (gameCount - 1) % groupGames == 0)
                 {
                     roundCode = char.ConvertFromUtf32(roundCode.ToCharArray()[0] + 1);
@@ -123,7 +123,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     Location = location
                 };
 
-                games.Add(newGame);
+                _Games.Add(newGame);
 
                 int gameCode = 0; //await SaveGame(game);
                 string playerName = "";
@@ -150,10 +150,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
             }
 
-            //GameDataAccess da = new(_configuration);
-            //List<Game> games = await da.GetMigrationPlayoffList(_tournamentCode, 2);
-
-            await LoadGrid(games);
+            await LoadGrid(_Games);
 
             ShowDialog();
             return true;
@@ -200,12 +197,15 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            //PlayoffDataAccess da = new(_configuration);
-            //foreach (Playoff setup in Setups)
-            //{
-            //    await da.SaveItem(setup);
-            //}
-            //MessageBox.Show("Saved successfully!");
+            GameDataAccess da = new(_configuration);
+            int i = 0;
+            foreach (Game game in _Games)
+            {
+                i++;
+                lblStatus.Content = "Saving game " + i.ToString() + "/" + _Games.Count.ToString();
+                await da.SaveMigrationItem(game);
+            }
+            MessageBox.Show("Saved successfully!");
             Close();
         }
 

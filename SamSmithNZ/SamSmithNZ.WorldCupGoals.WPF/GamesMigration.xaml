@@ -158,6 +158,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Label x:Name="lblStatus" Content="" Margin="740,280,155,0" VerticalAlignment="Top" Height="25"/>
 
     </Grid>
 </Window>
