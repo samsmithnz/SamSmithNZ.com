@@ -70,7 +70,15 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                             HtmlNode playerRow = playerNodes[i];
                             string number = playerRow.SelectSingleNode(playerRow.XPath + "/td[1]")?.InnerText?.Replace("\n", "");
                             string position = playerRow.SelectSingleNode(playerRow.XPath + "/td[2]/a")?.InnerText?.Replace("\n", "");
-                            string playerName = playerRow.SelectSingleNode(playerRow.XPath + "/th/span")?.InnerText;
+                            //if (teamCode == 68)
+                            //{
+                            //    int j = 0;
+                            //}
+                            string playerName = playerRow.SelectSingleNode(playerRow.XPath + "/th/span")?.InnerText?.Replace("\n", "");
+                            if (playerName == null)
+                            {
+                                playerName = playerRow.SelectSingleNode(playerRow.XPath + "/th")?.InnerText?.Replace("\n", "");
+                            }
                             string playerCaptainString = playerRow.SelectSingleNode(playerRow.XPath + "/th/small")?.InnerText;
                             bool isCaptain = false;
                             if (playerCaptainString?.IndexOf("captain") >= 0)
@@ -147,8 +155,11 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             }
             else
             {
+                int i = 0;
                 foreach (Player player in _Players)
                 {
+                    i++;
+                    lblStatus.Content = "Saving player " + i.ToString() + "/" + _Players.Count.ToString();
                     await da.SaveItem(player);
                 }
                 MessageBox.Show("Saved successfully!");
