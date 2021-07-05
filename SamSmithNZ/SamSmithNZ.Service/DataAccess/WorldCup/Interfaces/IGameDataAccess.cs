@@ -13,6 +13,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup.Interfaces
         Task<List<Game>> GetListByTournament(int tournamentCode);
         Task<Game> GetItem(int gameCode);
         Task<bool> SaveItem(Game game);
+        Task<bool> SaveMigrationItem(Game game);
 
     }
 }

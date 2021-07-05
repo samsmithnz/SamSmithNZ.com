@@ -9,7 +9,9 @@
         <Button Content="Setup Tournament Teams" Height="25" HorizontalAlignment="Left" Margin="262,42,0,0" x:Name="btnSetupTournamentTeams" VerticalAlignment="Top" Width="180" Click="TournamentTeams_Click" />
         <Button Content="Setup Tournament Groups" Height="25" HorizontalAlignment="Left" Margin="262,72,0,0" x:Name="btnSetupTournamentGroups" VerticalAlignment="Top" Width="144" Click="TournamentGroups_Click" />
         <Button Content="Setup Tournament Groups" Height="25" HorizontalAlignment="Left" Margin="262,72,0,0" x:Name="btnSetupTournamentGroups_Copy" VerticalAlignment="Top" Width="180" Click="TournamentGroups_Click" />
-        <Button Content="Migrate Tournament playoffs" Height="25" HorizontalAlignment="Left" Margin="262,102,0,0" x:Name="btnMigrateTournamentPlayoffs" VerticalAlignment="Top" Width="180" Click="MigrateTournamentPlayoffss_Click" />
+        <Button Content="Migrate Tournament playoffs" Height="25" HorizontalAlignment="Left" Margin="262,102,0,0" x:Name="btnMigrateTournamentPlayoffs" VerticalAlignment="Top" Width="180" Click="MigrateTournamentPlayoffs_Click" />
+        <Button Content="Migrate games from Wikipedia" Height="25" HorizontalAlignment="Left" Margin="262,132,0,0" x:Name="btnMigrateGames" VerticalAlignment="Top" Width="180" Click="MigrateGames_Click" />
+        <Button Content="Migrate players from Wikipedia" Height="25" HorizontalAlignment="Left" Margin="262,162,0,0" x:Name="btnMigratePlayers" VerticalAlignment="Top" Width="180" Click="MigratePlayers_Click" />
     </Grid>
 </Window>
 

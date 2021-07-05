@@ -106,6 +106,24 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return true;
         }
 
+        public async Task<bool> SaveMigrationItem(Game game)
+        {
+            DynamicParameters parameters = new();
+            parameters.Add("@TournamentCode", game.TournamentCode, DbType.Int32);
+            parameters.Add("@GameNumber", game.GameNumber, DbType.Int32);
+            parameters.Add("@GameTime", game.GameTime, DbType.DateTime);
+            parameters.Add("@RoundNumber", game.RoundNumber, DbType.Int32);
+            parameters.Add("@RoundCode", game.RoundCode, DbType.String);
+            parameters.Add("@Location", game.Location, DbType.String);
+            parameters.Add("@Team1Code", game.Team1Code, DbType.Int32);
+            parameters.Add("@Team2Code", game.Team2Code, DbType.Int32);
+            parameters.Add("@Team1NormalTimeScore", game.Team1NormalTimeScore, DbType.Int32);
+            parameters.Add("@Team2NormalTimeScore", game.Team2NormalTimeScore, DbType.Int32);
+
+            await base.SaveItem("FB_SaveMigrateGame", parameters);
+            return true;
+        }
+
         //Process the game, to make it easier to process on the client side
         private static List<Game> ProcessGameResults(List<Game> games)
         {

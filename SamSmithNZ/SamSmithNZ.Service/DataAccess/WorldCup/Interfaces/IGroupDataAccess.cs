@@ -8,6 +8,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup.Interfaces
     {
         Task<List<Group>> GetList(int tournamentCode, int roundNumber, string roundCode);
         Task<bool> DeleteItemAsync(Group group);
+        Task<bool> SaveItemAsync(int tournamentCode, int roundNumber, string roundCode, int teamCode);
 
     }
 }
