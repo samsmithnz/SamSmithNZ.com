@@ -4,6 +4,7 @@ using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.Models.WorldCup;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -131,22 +132,29 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
                 int gameCode = 0; //await SaveGame(game);
 
-                int goalTime = 0;
-                int injuryTime = 0;
-                bool IsPenalty = false;
-                bool IsOwnGoal = false;
-
-                HtmlNodeCollection team1Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[1]/div/ul/li");
-                foreach (HtmlNode item in team1Goals)
-                {
-                    Goal newGoal = ProcessGoalHTMLNode(item, players, gameCode);
-                    _Goals.Add(newGoal);
-                }
+                //HtmlNodeCollection team1Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[1]/div/ul/li");
+                //if (team1Goals != null)
+                //{
+                //    foreach (HtmlNode item in team1Goals)
+                //    {
+                //        Goal newGoal = ProcessGoalHTMLNode(item, players, gameCode);
+                //        if (newGoal != null)
+                //        {
+                //            _Goals.Add(newGoal);
+                //        }
+                //    }
+                //}
                 HtmlNodeCollection team2Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[3]/div/ul/li");
-                foreach (HtmlNode item in team1Goals)
+                if (team2Goals != null)
                 {
-                    Goal newGoal = ProcessGoalHTMLNode(item, players, gameCode);
-                    _Goals.Add(newGoal);
+                    foreach (HtmlNode item in team2Goals)
+                    {
+                        Goal newGoal = ProcessGoalHTMLNode(item, players, gameCode);
+                        if (newGoal != null)
+                        {
+                            _Goals.Add(newGoal);
+                        }
+                    }
                 }
 
                 GoalDataAccess goalDA = new(_configuration);
@@ -163,23 +171,63 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         private Goal ProcessGoalHTMLNode(HtmlNode item, List<Player> players, int gameCode)
         {
             string playerName = item.SelectSingleNode(item.XPath + "/a").InnerText;
-            string goalDetails = item.SelectSingleNode(item.XPath + "/small").InnerText.Replace("&#39;", " ");
-            int goalTime = 0;
+            string goalDetails = item.SelectSingleNode(item.XPath + "/small").InnerText;
+            if (string.IsNullOrEmpty(goalDetails) == false)
+            {
+                goalDetails = goalDetails.Replace("&#39;", " ");
+            }
+            //The goal can be a variety of formats, but most often, just 90' - so we try that first (the ' is stripped off by the previous line)
             int injuryTime = 0;
             bool IsPenalty = false;
             bool IsOwnGoal = false;
-            int playerCode = GetPlayerCode(players, playerName);
-
-            Goal goal = new()
+            if (int.TryParse(goalDetails, out int goalTime) == false)
             {
-                GameCode = gameCode,
-                GoalCode = 0,
-                PlayerCode = playerCode,
-                GoalTime = goalTime,
-                InjuryTime = injuryTime,
-                IsPenalty = IsPenalty,
-                IsOwnGoal = IsOwnGoal
-            };
+                //It didn't work, let's look at the special situations
+
+                //Penalties
+                if (int.TryParse(goalDetails.Replace(" &#160;(pen.)", ""), out goalTime) == true)
+                {
+                    IsPenalty = true;
+                }
+                //Own Goals
+                else if (int.TryParse(goalDetails.Replace(" &#160;(o.g.)", ""), out goalTime) == true)
+                {
+                    IsOwnGoal = true;
+                }
+                //Extra/injury time
+                if (goalDetails.IndexOf("+") >= 0)
+                {
+                    string[] injuryTimeGoals = goalDetails.Split("+");
+                    if (injuryTimeGoals.Length == 2)
+                    {
+                        int.TryParse(injuryTimeGoals[0], out goalTime);
+                        int.TryParse(injuryTimeGoals[1], out injuryTime);
+                    }
+                    else
+                    {
+                        int x = 0;
+                    }
+                }
+            }
+            int playerCode = GetPlayerCode(players, playerName);
+            Goal goal = null;
+            if (goalTime == 0 || (playerCode == 0 && playerName.IndexOf(".") >= 0))
+            {
+                int j = 0;
+            }
+            else
+            {
+                goal = new()
+                {
+                    GameCode = gameCode,
+                    GoalCode = 0,
+                    PlayerCode = playerCode,
+                    GoalTime = goalTime,
+                    InjuryTime = injuryTime,
+                    IsPenalty = IsPenalty,
+                    IsOwnGoal = IsOwnGoal
+                };
+            }
 
             return goal;
         }
@@ -187,12 +235,19 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         private int GetPlayerCode(List<Player> players, string playerName)
         {
             int result = 0;
-            foreach (Player player in players)
+            //First search for partials
+            Player currentPlayer = players.Where(x => x.PlayerName.Contains(playerName)).FirstOrDefault();
+            if (currentPlayer != null)
             {
-                if (player.PlayerName == playerName)
+                string playerFullName = currentPlayer.PlayerName;//.Replace(" (" + currentPlayer.TeamName + ")", "");
+                                                                 //Then search for the full name. I know this could be linq too, I just hate linq. 
+                foreach (Player player in players)
                 {
-                    result = player.PlayerCode;
-                    break;
+                    if (player.PlayerName == playerFullName)
+                    {
+                        result = player.PlayerCode;
+                        break;
+                    }
                 }
             }
             return result;
