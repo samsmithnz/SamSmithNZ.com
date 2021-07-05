@@ -138,8 +138,8 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     {
                         (string, int) gameGroupNumber1 = await GetGroupDetails(game.TournamentCode, game.RoundNumber, games, "16", game.Team1Code);
                         (string, int) gameGroupNumber2 = await GetGroupDetails(game.TournamentCode, game.RoundNumber, games, "16", game.Team2Code);
-                        setup.Team1Prereq = "Group " + gameGroupNumber1.Item1.ToString() + " " + gameGroupNumber1.Item2.ToString() + " place finisher";
-                        setup.Team2Prereq = "Group " + gameGroupNumber2.Item1.ToString() + " " + gameGroupNumber2.Item2.ToString() + " place finisher";
+                        setup.Team1Prereq = "Group " + gameGroupNumber1.Item1.ToString() + " " + ConvertNumberToRank(gameGroupNumber1.Item2) + " place";
+                        setup.Team2Prereq = "Group " + gameGroupNumber2.Item1.ToString() + " " + ConvertNumberToRank(gameGroupNumber2.Item2) + " place";
                         Setups.Add(setup);
                     }
                 }
@@ -228,6 +228,30 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 {
                     item.SortOrder = sortOrder;
                 }
+            }
+        }
+
+        private string ConvertNumberToRank(int number)
+        {
+            if (number == 1)
+            {
+                return "1st";
+            }
+            else if (number == 2)
+            {
+                return "2nd";
+            }
+            else if (number == 3)
+            {
+                return "3rd";
+            }
+            else if (number == 4)
+            {
+                return "4th";
+            }
+            else
+            {
+                return number.ToString();
             }
         }
 
