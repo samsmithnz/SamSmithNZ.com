@@ -13,8 +13,11 @@ AS
 BEGIN
 	SET NOCOUNT ON
 
+	DECLARE @NewGameCode INT
+	SELECT @NewGameCode = MAX(game_code) + 1 FROM wc_game
+
 	INSERT INTO wc_game
-	SELECT (SELECT MAX(game_code) + 1 FROM wc_game), @TournamentCode, @GameNumber, @GameTime, @RoundNumber, @RoundCode,
+	SELECT @NewGameCode, @TournamentCode, @GameNumber, @GameTime, @RoundNumber, @RoundCode,
 		@Location, @Team1Code, @Team2Code, 
 		@Team1NormalTimeScore,null,null,
 		@Team2NormalTimeScore,null,null,
@@ -28,6 +31,8 @@ BEGIN
 	BEGIN
 		EXEC FB_SavePlayoffDetails @TournamentCode = @TournamentCode, @RoundNumber = @RoundNumber, @RoundCode = @RoundCode, @GameNumber = @GameNumber
 	END
+
+	SELECT @NewGameCode AS GameCode
 END
 GO
 

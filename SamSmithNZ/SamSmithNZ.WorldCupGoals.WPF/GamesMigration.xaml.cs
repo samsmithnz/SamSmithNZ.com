@@ -4,6 +4,8 @@ using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.Models.WorldCup;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -17,6 +19,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         private int _tournamentCode;
         private readonly IConfigurationRoot _configuration;
         private List<Game> _Games;
+        private List<Goal> _Goals;
 
         public GamesMigration()
         {
@@ -35,6 +38,8 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
             TeamDataAccess daTeam = new(_configuration);
             List<Team> teams = await daTeam.GetList();
+            PlayerDataAccess daPlayer = new(_configuration);
+            List<Player> players = await daPlayer.GetPlayersByTournament(_tournamentCode);
 
             string url = "https://en.wikipedia.org/wiki/UEFA_Euro_2016#Group_A";
             HtmlWeb web = new();
@@ -42,6 +47,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(@"//*[@class=""footballbox""]");
 
             _Games = new();
+            _Goals = new();
             int gameCount = 0;
             string roundCode = "A";
             int groupGames = 6;
@@ -125,28 +131,37 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
                 _Games.Add(newGame);
 
-                int gameCode = 0; //await SaveGame(game);
-                string playerName = "";
-                List<Player> players = new();
-                int goalTime = 0;
-                int injuryTime = 0;
-                bool IsPenalty = false;
-                bool IsOwnGoal = false;
+                int gameCode = newGame.GameNumber; //use the game number as a proxy until we are able to save the game and get a real code
 
+                //Get team 1 goals
                 HtmlNodeCollection team1Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[1]/div/ul/li");
-                HtmlNodeCollection team2Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[3]/div/ul/li");
-
-                Goal goal = new()
+                if (team1Goals != null)
                 {
-                    GameCode = gameCode,
-                    GoalCode = 0,
-                    PlayerCode = GetPlayerCode(players, playerName),
-                    GoalTime = goalTime,
-                    InjuryTime = injuryTime,
-                    IsPenalty = IsPenalty,
-                    IsOwnGoal = IsOwnGoal
-                };
+                    foreach (HtmlNode item in team1Goals)
+                    {
+                        List<Goal> newGoals = ProcessGoalHTMLNode(item, players, gameCode);
+                        if (newGoals != null)
+                        {
+                            _Goals.AddRange(newGoals);
+                        }
+                    }
+                }
+                //Get team 2 goals
+                HtmlNodeCollection team2Goals = game.SelectNodes(game.XPath + "/tbody/tr[2]/td[3]/div/ul/li");
+                if (team2Goals != null)
+                {
+                    foreach (HtmlNode item in team2Goals)
+                    {
+                        List<Goal> newGoals = ProcessGoalHTMLNode(item, players, gameCode);
+                        if (newGoals != null)
+                        {
+                            _Goals.AddRange(newGoals);
+                        }
+                    }
+                }
 
+                GoalDataAccess goalDA = new(_configuration);
+                //await goalDA.SaveItem(goal);
 
             }
 
@@ -156,15 +171,52 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             return true;
         }
 
+        private List<Goal> ProcessGoalHTMLNode(HtmlNode item, List<Player> players, int gameCode)
+        {
+            //Debug.WriteLine(item.SelectSingleNode(item.XPath).InnerText);
+            string playerName = item.SelectSingleNode(item.XPath + "/a").InnerText;
+            string goalText = item.SelectSingleNode(item.XPath).InnerText; //item.SelectSingleNode(item.XPath + "/small").InnerText;
+
+            GoalDataAccess da = new(_configuration);
+            List<Goal> goals = da.ProcessGoalHTML(goalText, playerName);
+            int playerCode = GetPlayerCode(players, playerName);
+
+            List<Goal> finalGoals = new();
+            foreach (Goal goal in goals)
+            {
+                if (goal.GoalTime == 0 || (playerCode == 0 && playerName.IndexOf(".") >= 0))
+                {
+                    //goal = null;
+                    int j = 0;
+                }
+                else
+                {
+                    //Add the last goal details
+                    goal.GameCode = gameCode;
+                    goal.PlayerCode = playerCode;
+                    finalGoals.Add(goal);
+                }
+            }
+
+            return finalGoals;
+        }
+
         private int GetPlayerCode(List<Player> players, string playerName)
         {
             int result = 0;
-            foreach (Player player in players)
+            //First search for partials
+            Player currentPlayer = players.Where(x => x.PlayerName.Contains(playerName)).FirstOrDefault();
+            if (currentPlayer != null)
             {
-                if (player.PlayerName == playerName)
+                string playerFullName = currentPlayer.PlayerName;//.Replace(" (" + currentPlayer.TeamName + ")", "");
+                                                                 //Then search for the full name. I know this could be linq too, I just hate linq. 
+                foreach (Player player in players)
                 {
-                    result = player.PlayerCode;
-                    break;
+                    if (player.PlayerName == playerFullName)
+                    {
+                        result = player.PlayerCode;
+                        break;
+                    }
                 }
             }
             return result;
@@ -197,16 +249,50 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            GameDataAccess da = new(_configuration);
-            int i = 0;
-            foreach (Game game in _Games)
+            GameDataAccess daGame = new(_configuration);
+            GoalDataAccess daGoal = new(_configuration);
+            int count = 0;
+            if (_Games.Count > 0)
             {
-                i++;
-                lblStatus.Content = "Saving game " + i.ToString() + "/" + _Games.Count.ToString();
-                await da.SaveMigrationItem(game);
+                List<Game> games = await daGame.GetListByTournament(_tournamentCode);
+                count = games.Count;
             }
-            MessageBox.Show("Saved successfully!");
-            Close();
+
+            if (count > 0)
+            {
+                MessageBox.Show("This game already exists in this tournament. Save not successful");
+            }
+            else
+            {
+                int i = 0;
+                foreach (Game game in _Games)
+                {
+                    i++;
+                    lblStatus.Content = "Saving game/goal " + i.ToString() + "/" + (_Games.Count + _Goals.Count).ToString();
+                    int newGameCode = await daGame.SaveMigrationItem(game);
+                    //if (game.GameNumber == 37 || newGameCode == 315)
+                    //{
+                    //    int y = 0;
+                    //}
+                    List<Goal> gameGoals = _Goals.Where(x => x.GameCode == game.GameNumber).ToList();
+                    foreach (Goal goal in gameGoals)
+                    {
+                        i++;
+                        lblStatus.Content = "Saving game/goal " + i.ToString() + "/" + (_Games.Count + _Goals.Count).ToString();
+                        //update the game code to the new version
+                        goal.GameCode = newGameCode;
+                        await daGoal.SaveItem(goal);
+                    }
+                }
+                //foreach (Goal goal in _Goals)
+                //{
+                //    i++;
+                //    lblStatus.Content = "Saving goal " + i.ToString() + "/" + (_Games.Count + _Goals.Count).ToString();
+                //    await daGoal.SaveItem(goal);
+                //}
+                MessageBox.Show("Saved successfully!");
+                Close();
+            }
         }
 
     }

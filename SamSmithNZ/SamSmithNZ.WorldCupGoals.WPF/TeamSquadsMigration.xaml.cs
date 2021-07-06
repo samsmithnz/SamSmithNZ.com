@@ -142,12 +142,8 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
             PlayerDataAccess da = new(_configuration);
-            int count = 0;
-            if (_Players.Count > 0)
-            {
-                List<Player> players = await da.GetPlayerByTournament(_tournamentCode, _Players[0].PlayerName);
-                count = players.Count;
-            }
+            List<Player> players = await da.GetPlayersByTournament(_tournamentCode);
+            int count = players.Count;
 
             if (count > 0)
             {

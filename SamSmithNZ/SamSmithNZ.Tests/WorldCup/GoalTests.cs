@@ -138,5 +138,154 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.IsTrue(results.Count > 0);
             Assert.AreEqual(0, injuryTimeGoalsNotInInjuryTime);
         }
+
+        [TestMethod]
+        public void GoalsHTMLRegularGoalTest()
+        {
+            //arrange
+            GoalDataAccess da = new(base.Configuration);
+            string goalText = "Modrić &#160;41&#39;";
+            string playerName = "Modrić";
+
+            //act
+            List<Goal> goals = da.ProcessGoalHTML(goalText, playerName);
+
+            //assert
+            Assert.AreEqual(1, goals.Count);
+            Assert.AreEqual(41, goals[0].GoalTime);
+            Assert.AreEqual(0, goals[0].InjuryTime);
+            Assert.AreEqual(false, goals[0].IsPenalty);
+            Assert.AreEqual(false, goals[0].IsOwnGoal);
+        }
+
+        [TestMethod]
+        public void GoalsHTMLInjuryTimeGoalTest()
+        {
+            //arrange
+            GoalDataAccess da = new(base.Configuration);
+            string goalText = "Payet &#160;90+6&#39;";
+            string playerName = "Payet";
+
+            //act
+            List<Goal> goals = da.ProcessGoalHTML(goalText, playerName);
+
+            //assert
+            Assert.AreEqual(1, goals.Count);
+            Assert.AreEqual(90, goals[0].GoalTime);
+            Assert.AreEqual(6, goals[0].InjuryTime);
+            Assert.AreEqual(false, goals[0].IsPenalty);
+            Assert.AreEqual(false, goals[0].IsOwnGoal);
+        }
+
+        [TestMethod]
+        public void GoalsHTMLPenaltyTimeGoalTest()
+        {
+            //arrange
+            GoalDataAccess da = new(base.Configuration);
+            string goalText = "Stancu &#160;65&#39;&#160;(pen.)";
+            string playerName = "Stancu";
+
+            //act
+            List<Goal> goals = da.ProcessGoalHTML(goalText, playerName);
+
+            //assert
+            Assert.AreEqual(1, goals.Count);
+            Assert.AreEqual(65, goals[0].GoalTime);
+            Assert.AreEqual(0, goals[0].InjuryTime);
+            Assert.AreEqual(true, goals[0].IsPenalty);
+            Assert.AreEqual(false, goals[0].IsOwnGoal);
+        }
+
+        [TestMethod]
+        public void GoalsHTMLOwnGoalTimeGoalTest()
+        {
+            //arrange
+            GoalDataAccess da = new(base.Configuration);
+            string goalText = "Clark &#160;71&#39;&#160;(o.g.)";
+            string playerName = "Clark";
+
+            //act
+            List<Goal> goals = da.ProcessGoalHTML(goalText, playerName);
+
+            //assert
+            Assert.AreEqual(1, goals.Count);
+            Assert.AreEqual(71, goals[0].GoalTime);
+            Assert.AreEqual(0, goals[0].InjuryTime);
+            Assert.AreEqual(false, goals[0].IsPenalty);
+            Assert.AreEqual(true, goals[0].IsOwnGoal);
+        }
+
+        [TestMethod]
+        public void GoalsHTMLMultipleGoalTest()
+        {
+            //arrange
+            GoalDataAccess da = new(base.Configuration);
+            string goalText = "Ronaldo &#160;50&#39;,&#160;62&#39;";
+            string playerName = "Ronaldo";
+
+            //act
+            List<Goal> goals = da.ProcessGoalHTML(goalText, playerName);
+
+            //assert
+            Assert.AreEqual(2, goals.Count);
+            Assert.AreEqual(50, goals[0].GoalTime);
+            Assert.AreEqual(0, goals[0].InjuryTime);
+            Assert.AreEqual(false, goals[0].IsPenalty);
+            Assert.AreEqual(false, goals[0].IsOwnGoal);
+            Assert.AreEqual(62, goals[1].GoalTime);
+            Assert.AreEqual(0, goals[1].InjuryTime);
+            Assert.AreEqual(false, goals[1].IsPenalty);
+            Assert.AreEqual(false, goals[1].IsOwnGoal);
+        }
+
+        [TestMethod]
+        public void GoalsHTMLMultipleHatTrickGoalTest()
+        {
+            //arrange
+            GoalDataAccess da = new(base.Configuration);
+            string goalText = "Villa 20&#39;, 44&#39;, 75&#39;";
+            string playerName = "Villa";
+
+            //act
+            List<Goal> goals = da.ProcessGoalHTML(goalText, playerName);
+
+            //assert
+            Assert.AreEqual(3, goals.Count);
+            Assert.AreEqual(20, goals[0].GoalTime);
+            Assert.AreEqual(0, goals[0].InjuryTime);
+            Assert.AreEqual(false, goals[0].IsPenalty);
+            Assert.AreEqual(false, goals[0].IsOwnGoal);
+            Assert.AreEqual(44, goals[1].GoalTime);
+            Assert.AreEqual(0, goals[1].InjuryTime);
+            Assert.AreEqual(false, goals[1].IsPenalty);
+            Assert.AreEqual(false, goals[1].IsOwnGoal);
+            Assert.AreEqual(75, goals[2].GoalTime);
+            Assert.AreEqual(0, goals[2].InjuryTime);
+            Assert.AreEqual(false, goals[2].IsPenalty);
+            Assert.AreEqual(false, goals[2].IsOwnGoal);
+        }
+
+        [TestMethod]
+        public void GoalsHTMLMultipleWithPenGoalTest()
+        {
+            //arrange
+            GoalDataAccess da = new(base.Configuration);
+            string goalText = "Griezmann &#160;45+2&#39;&#160;(pen.),&#160;72&#39;";
+            string playerName = "Griezmann";
+
+            //act
+            List<Goal> goals = da.ProcessGoalHTML(goalText, playerName);
+
+            //assert
+            Assert.AreEqual(2, goals.Count);
+            Assert.AreEqual(45, goals[0].GoalTime);
+            Assert.AreEqual(2, goals[0].InjuryTime);
+            Assert.AreEqual(true, goals[0].IsPenalty);
+            Assert.AreEqual(false, goals[0].IsOwnGoal);
+            Assert.AreEqual(72, goals[1].GoalTime);
+            Assert.AreEqual(0, goals[1].InjuryTime);
+            Assert.AreEqual(false, goals[1].IsPenalty);
+            Assert.AreEqual(false, goals[1].IsOwnGoal);
+        }
     }
 }
