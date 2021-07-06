@@ -4,6 +4,7 @@ using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.Models.WorldCup;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -138,10 +139,10 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 {
                     foreach (HtmlNode item in team1Goals)
                     {
-                        Goal newGoal = ProcessGoalHTMLNode(item, players, gameCode);
-                        if (newGoal != null)
+                        List<Goal> newGoals = ProcessGoalHTMLNode(item, players, gameCode);
+                        if (newGoals != null)
                         {
-                            _Goals.Add(newGoal);
+                            _Goals.AddRange(newGoals);
                         }
                     }
                 }
@@ -151,10 +152,10 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 {
                     foreach (HtmlNode item in team2Goals)
                     {
-                        Goal newGoal = ProcessGoalHTMLNode(item, players, gameCode);
-                        if (newGoal != null)
+                        List<Goal> newGoals = ProcessGoalHTMLNode(item, players, gameCode);
+                        if (newGoals != null)
                         {
-                            _Goals.Add(newGoal);
+                            _Goals.AddRange(newGoals);
                         }
                     }
                 }
@@ -170,68 +171,34 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             return true;
         }
 
-        private Goal ProcessGoalHTMLNode(HtmlNode item, List<Player> players, int gameCode)
+        private List<Goal> ProcessGoalHTMLNode(HtmlNode item, List<Player> players, int gameCode)
         {
+            //Debug.WriteLine(item.SelectSingleNode(item.XPath).InnerText);
             string playerName = item.SelectSingleNode(item.XPath + "/a").InnerText;
-            string goalDetails = item.SelectSingleNode(item.XPath + "/small").InnerText;
-            if (string.IsNullOrEmpty(goalDetails) == false)
-            {
-                goalDetails = goalDetails.Replace("&#39;", " ");
-            }
-            //The goal can be a variety of formats, but most often, just 90' - so we try that first (the ' is stripped off by the previous line)
-            int injuryTime = 0;
-            bool IsPenalty = false;
-            bool IsOwnGoal = false;
-            if (int.TryParse(goalDetails, out int goalTime) == false)
-            {
-                //It didn't work, let's look at the special situations
+            string goalText = item.SelectSingleNode(item.XPath).InnerText; //item.SelectSingleNode(item.XPath + "/small").InnerText;
 
-                //Penalties
-                if (int.TryParse(goalDetails.Replace(" &#160;(pen.)", ""), out goalTime) == true)
-                {
-                    IsPenalty = true;
-                }
-                //Own Goals
-                else if (int.TryParse(goalDetails.Replace(" &#160;(o.g.)", ""), out goalTime) == true)
-                {
-                    IsOwnGoal = true;
-                }
-                //Extra/injury time
-                if (goalDetails.IndexOf("+") >= 0)
-                {
-                    string[] injuryTimeGoals = goalDetails.Split("+");
-                    if (injuryTimeGoals.Length == 2)
-                    {
-                        int.TryParse(injuryTimeGoals[0], out goalTime);
-                        int.TryParse(injuryTimeGoals[1], out injuryTime);
-                    }
-                    else
-                    {
-                        int x = 0;
-                    }
-                }
-            }
+            GoalDataAccess da = new(_configuration);
+            List<Goal> goals = da.ProcessGoalHTML(goalText, playerName);
             int playerCode = GetPlayerCode(players, playerName);
-            Goal goal = null;
-            if (goalTime == 0 || (playerCode == 0 && playerName.IndexOf(".") >= 0))
+
+            List<Goal> finalGoals = new();
+            foreach (Goal goal in goals)
             {
-                int j = 0;
-            }
-            else
-            {
-                goal = new()
+                if (goal.GoalTime == 0 || (playerCode == 0 && playerName.IndexOf(".") >= 0))
                 {
-                    GameCode = gameCode,
-                    GoalCode = 0,
-                    PlayerCode = playerCode,
-                    GoalTime = goalTime,
-                    InjuryTime = injuryTime,
-                    IsPenalty = IsPenalty,
-                    IsOwnGoal = IsOwnGoal
-                };
+                    //goal = null;
+                    int j = 0;
+                }
+                else
+                {
+                    //Add the last goal details
+                    goal.GameCode = gameCode;
+                    goal.PlayerCode = playerCode;
+                    finalGoals.Add(goal);
+                }
             }
 
-            return goal;
+            return finalGoals;
         }
 
         private int GetPlayerCode(List<Player> players, string playerName)

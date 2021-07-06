@@ -84,7 +84,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
                 await connection.OpenAsync();
                 IEnumerable<R> results = await connection.QueryAsync<R>(query, parameters, commandType: CommandType.StoredProcedure);
                 result = results.FirstOrDefault<R>();
-                DebugSQLString(query, parameters);
+                //DebugSQLString(query, parameters);
             }
             finally
             {
@@ -109,7 +109,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
             {
                 await connection.OpenAsync();
                 await connection.ExecuteScalarAsync<bool>(query, parameters, commandType: CommandType.StoredProcedure, commandTimeout: timeOut);
-                DebugSQLString(query, parameters); 
+                //DebugSQLString(query, parameters); 
                 result = true;
             }
             catch (Exception ex)
