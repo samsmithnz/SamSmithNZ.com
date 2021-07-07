@@ -45,6 +45,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             TournamentTeamDataAccess da = new(_configuration);
             List<TournamentTeam> teams = await da.GetQualifiedTeams(tournamentCode);
             lstTeams.DataContext = teams;
+            lblNumberOfTeams.Content = teams.Count.ToString() + " teams added";
         }
 
         private async void AddTeam_Click(object sender, RoutedEventArgs e)

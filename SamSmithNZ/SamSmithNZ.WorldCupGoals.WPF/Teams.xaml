@@ -64,5 +64,6 @@
             </ListView.View>
         </ListView>
         <Button Content="Add _Team" HorizontalAlignment="Left" Margin="12,16,0,0" VerticalAlignment="Top" Width="75" Click="AddTeam_Click"/>
+        <Label Content="[# of teams]" Name="lblNumberOfTeams" HorizontalAlignment="Left" Margin="92,10,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

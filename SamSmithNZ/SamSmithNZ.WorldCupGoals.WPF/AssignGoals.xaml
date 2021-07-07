@@ -19,7 +19,7 @@
         <Slider Height="25" HorizontalAlignment="Left" IsSelectionRangeEnabled="False" IsSnapToTickEnabled="True" Margin="134,99,0,0" Minimum="0" Maximum="10" Name="sliInjuryTime" TickPlacement="TopLeft" VerticalAlignment="Top" Width="40" ValueChanged="sliInjuryTime_ValueChanged" />
         <Label Content="Goal Appearance:" Height="30" HorizontalAlignment="Left" Margin="11,164,0,0" Name="lblGoalAppearanceLabel" VerticalAlignment="Top" Width="Auto" />
         <Label Content="[Goal]" Height="25" Margin="107,164,12,0" Name="lblGoalAppearance" VerticalAlignment="Top" Grid.ColumnSpan="2" />
-        <Button Content="_Save" Height="25" Name="btnSave" Width="75" UseLayoutRounding="False" Margin="0,0,93,12" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" Click="btnSave_Click"  TabIndex="5"/>
+        <Button Content="_Save" Height="25" Name="btnSave" Width="75" UseLayoutRounding="False" Margin="0,0,93,12" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" Click="btnSave_Click"  TabIndex="5" IsDefault="True"/>
         <Button Content="Cancel" Height="25" Name="Cancel" Width="75" UseLayoutRounding="False" Click="Cancel_Click" Margin="0,0,12,12" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" IsTabStop="False"/>
         <Label Content="[Game]" Height="25" Margin="84,12,12,0" Name="lblGame" VerticalAlignment="Top" Grid.ColumnSpan="2" />
         <CheckBox Content="Show Extra Time" Height="16" HorizontalAlignment="Left" Margin="284,46,0,0" Name="chkShowExtraTime" VerticalAlignment="Top" Grid.Column="1" Checked="chkShowExtraTime_Checked" Unchecked="chkShowExtraTime_Unchecked" IsChecked="True" Visibility="Hidden" />
