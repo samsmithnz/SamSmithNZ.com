@@ -41,7 +41,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             PlayerDataAccess daPlayer = new(_configuration);
             List<Player> players = await daPlayer.GetPlayersByTournament(_tournamentCode);
 
-            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_2016#Group_A";
+            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_2012";
             HtmlWeb web = new();
             HtmlDocument doc = web.Load(url);
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(@"//*[@class=""footballbox""]");
@@ -50,8 +50,13 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             _Goals = new();
             int gameCount = 0;
             string roundCode = "A";
-            int groupGames = 6;
-            int roundGames = 6 * 6;
+            TournamentDataAccess daTournament = new(_configuration);
+            Tournament tournament = await daTournament.GetItem(_tournamentCode);
+
+            int groupGames = (tournament.R1NumberOfTeamsInGroup - 1) * 2;
+            int numberOfGroups = tournament.R1NumberOfGroupsInRound;
+            int numberOfTeamsInR2 = tournament.R1TotalNumberOfTeamsThatAdvance;
+            int roundGames = numberOfGroups * groupGames;
             int roundNumber = 1;
             int top16Count = 0;
             int qfCount = 0;
@@ -68,7 +73,22 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 if (gameCount > 1 && (gameCount - 1) % roundGames == 0)
                 {
                     roundNumber++;
-                    roundCode = "16";
+                    if (numberOfTeamsInR2 == 16)
+                    {
+                        roundCode = "16";
+                    }
+                    else if (numberOfTeamsInR2 == 8)
+                    {
+                        roundCode = "QF";
+                    }
+                    else if (numberOfTeamsInR2 == 4)
+                    {
+                        roundCode = "SF";
+                    }
+                    else if (numberOfTeamsInR2 == 2)
+                    {
+                        roundCode = "FF";
+                    }
                 }
                 if (roundCode == "16" && top16Count == 8)
                 {
@@ -98,7 +118,13 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     }
                 }
                 HtmlNode dateNode = parent.ChildNodes[1];
-                DateTime gameDateTime = DateTime.Parse(dateNode.InnerText.Substring(dateNode.InnerText.IndexOf("(") + 1).Replace(")", " "));
+                string dateText = dateNode.InnerText.Substring(dateNode.InnerText.IndexOf("(") + 1);
+                dateText = dateText.Replace(")", " ").Replace("CEST", "").Replace("EEST", "").Replace("00 &#91;note 1&#93;", "");
+                if (dateText == "2012-06-15 22:")
+                {
+                    dateText = "2012-06-15 22:00";
+                }
+                DateTime gameDateTime = DateTime.Parse(dateText);
 
                 HtmlNode game = parent.ChildNodes[2];
                 string team1Name = game.SelectSingleNode(game.XPath + "/tbody/tr[1]/th[1]/span")?.InnerText?.Replace("&#160;", "");
@@ -115,7 +141,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
                 Game newGame = new()
                 {
-                    TournamentCode = 315,
+                    TournamentCode = _tournamentCode,
                     RoundNumber = roundNumber,
                     RoundCode = roundCode,
                     GameNumber = gameCount,
