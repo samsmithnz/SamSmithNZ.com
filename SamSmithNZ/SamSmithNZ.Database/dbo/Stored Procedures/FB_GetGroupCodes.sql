@@ -63,6 +63,7 @@ BEGIN
 	FROM wc_tournament t
 	JOIN wc_tournament_format tf ON t.format_code = tf.format_code
 	JOIN wc_tournament_format_round r ON tf.round_1_format_code = r.format_round_code 
+	WHERE t.tournament_code = @TournamentCode
 
 	IF ((SELECT COUNT(*) FROM #results) < @NumberOfGroupsInRound)
 	BEGIN
