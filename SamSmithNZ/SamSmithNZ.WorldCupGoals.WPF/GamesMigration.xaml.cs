@@ -4,7 +4,6 @@ using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.Models.WorldCup;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -41,7 +40,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             PlayerDataAccess daPlayer = new(_configuration);
             List<Player> players = await daPlayer.GetPlayersByTournament(_tournamentCode);
 
-            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_2012";
+            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_2008";
             HtmlWeb web = new();
             HtmlDocument doc = web.Load(url);
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(@"//*[@class=""footballbox""]");
