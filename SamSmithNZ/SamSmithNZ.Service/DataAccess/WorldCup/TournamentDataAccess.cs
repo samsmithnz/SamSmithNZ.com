@@ -32,5 +32,13 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return await base.GetItem("FB_GetTournaments", parameters);
         }
 
+        public async Task<bool> ResetTournament(int tournamentCode)
+        {
+            DynamicParameters parameters = new();
+            parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
+
+            return await base.SaveItem("FB_ResetTournament", parameters);
+        }
+
     }
 }
