@@ -8,7 +8,8 @@ SELECT g.goal_code AS GoalCode,
 	ISNULL(g.goal_time,0) AS GoalTime, 
 	ISNULL(g.injury_time,0) AS InjuryTime, 
 	g.is_penalty AS IsPenalty, 
-	g.is_own_goal AS IsOwnGoal
+	g.is_own_goal AS IsOwnGoal,
+	g.is_golden_goal AS IsGoldenGoal
 FROM wc_goal g
 LEFT JOIN wc_player p ON g.player_code = p.player_code
 WHERE (game_code = @GameCode OR @GameCode IS NULL)
