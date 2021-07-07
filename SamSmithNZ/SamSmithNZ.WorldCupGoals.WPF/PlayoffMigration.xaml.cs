@@ -33,45 +33,6 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         {
             _tournamentCode = tournamentCode;
 
-            //Working for tournament code switch below
-            //select t.year, t.tournament_code, f.* from wc_tournament t
-            //join wc_tournament_format f on t.format_code = f.format_code
-            //join wc_tournament_format_round r on f.round_1_format_code = r.format_round_code and r.is_group_stage = 0
-
-            //TournamentDataAccess da2 = new(_configuration);
-            //List<Tournament> tournaments = await da2.GetList(null);
-            //foreach (Tournament item in tournaments)
-            //{
-            //    int roundNumber = 2;
-            //    switch (item.TournamentCode)
-            //    {
-            //        case 10:
-            //        case 11:
-            //        case 12:
-            //            roundNumber = 3;
-            //            break;
-
-            //        case 2:
-            //        case 3:
-            //        case 201:
-            //        case 301:
-            //        case 302:
-            //        case 303:
-            //        case 304:
-            //        case 305:
-            //            roundNumber = 1;
-            //            break;
-            //    }
-            //    GameDataAccess da = new(_configuration);
-            //    List<Game> games = await da.GetMigrationPlayoffList(item.TournamentCode, roundNumber);
-
-            //    await LoadGrid(games);
-
-            //    btnSave_Click(null, null);
-            //    Debug.WriteLine("Processed tournament " + item.TournamentCode + " (" + item.TournamentYear + ")");
-            //}
-            //MessageBox.Show("Done! " + tournaments.Count + " tournaments processed!");
-
             GameDataAccess da = new(_configuration);
             List<Game> games = await da.GetMigrationPlayoffList(_tournamentCode, 2);
 
@@ -83,6 +44,25 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async Task LoadGrid(List<Game> games)
         {
+            bool top16Exists = false;
+            bool qfExists = false;
+            bool sfExists = false;
+            foreach (Game item in games)
+            {
+                if (item.RoundCode == "16")
+                {
+                    top16Exists = true;
+                }
+                else if (item.RoundCode == "QF")
+                {
+                    qfExists = true;
+                }
+                else if (item.RoundCode == "SF")
+                {
+                    sfExists = true;
+                }
+            }
+
             (int, string) gameNumber1 = (0, "");
             (int, string) gameNumber2 = (0, "");
             Setups = new();
@@ -120,19 +100,41 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     }
                     else if (game.RoundCode == "SF")
                     {
-                        gameNumber1 = GetGameNumber(games, "QF", game.Team1Code);
-                        gameNumber2 = GetGameNumber(games, "QF", game.Team2Code);
-                        setup.Team1Prereq = "Winner of game " + gameNumber1.Item1.ToString();
-                        setup.Team2Prereq = "Winner of game " + gameNumber2.Item1.ToString();
-                        Setups.Add(setup);
+                        if (qfExists == true)
+                        {
+                            gameNumber1 = GetGameNumber(games, "QF", game.Team1Code);
+                            gameNumber2 = GetGameNumber(games, "QF", game.Team2Code);
+                            setup.Team1Prereq = "Winner of game " + gameNumber1.Item1.ToString();
+                            setup.Team2Prereq = "Winner of game " + gameNumber2.Item1.ToString();
+                            Setups.Add(setup);
+                        }
+                        else
+                        {
+                            (string, int) gameGroupNumber1 = await GetGroupDetails(game.TournamentCode, game.RoundNumber, games, "SF", game.Team1Code);
+                            (string, int) gameGroupNumber2 = await GetGroupDetails(game.TournamentCode, game.RoundNumber, games, "SF", game.Team2Code);
+                            setup.Team1Prereq = "Group " + gameGroupNumber1.Item1.ToString() + " " + ConvertNumberToRank(gameGroupNumber1.Item2) + " place";
+                            setup.Team2Prereq = "Group " + gameGroupNumber2.Item1.ToString() + " " + ConvertNumberToRank(gameGroupNumber2.Item2) + " place";
+                            Setups.Add(setup);
+                        }
                     }
                     else if (game.RoundCode == "QF")
                     {
-                        gameNumber1 = GetGameNumber(games, "16", game.Team1Code);
-                        gameNumber2 = GetGameNumber(games, "16", game.Team2Code);
-                        setup.Team1Prereq = "Winner of game " + gameNumber1.Item1.ToString();
-                        setup.Team2Prereq = "Winner of game " + gameNumber2.Item1.ToString();
-                        Setups.Add(setup);
+                        if (top16Exists == true)
+                        {
+                            gameNumber1 = GetGameNumber(games, "16", game.Team1Code);
+                            gameNumber2 = GetGameNumber(games, "16", game.Team2Code);
+                            setup.Team1Prereq = "Winner of game " + gameNumber1.Item1.ToString();
+                            setup.Team2Prereq = "Winner of game " + gameNumber2.Item1.ToString();
+                            Setups.Add(setup);
+                        }
+                        else
+                        {
+                            (string, int) gameGroupNumber1 = await GetGroupDetails(game.TournamentCode, game.RoundNumber, games, "QF", game.Team1Code);
+                            (string, int) gameGroupNumber2 = await GetGroupDetails(game.TournamentCode, game.RoundNumber, games, "QF", game.Team2Code);
+                            setup.Team1Prereq = "Group " + gameGroupNumber1.Item1.ToString() + " " + ConvertNumberToRank(gameGroupNumber1.Item2) + " place";
+                            setup.Team2Prereq = "Group " + gameGroupNumber2.Item1.ToString() + " " + ConvertNumberToRank(gameGroupNumber2.Item2) + " place";
+                            Setups.Add(setup);
+                        }
                     }
                     else if (game.RoundCode == "16")
                     {

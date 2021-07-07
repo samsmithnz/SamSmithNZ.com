@@ -36,7 +36,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             TeamDataAccess daTeam = new(_configuration);
             List<Team> teams = await daTeam.GetList();
 
-            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_2016_squads#Group_A";
+            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_2008_squads";
             HtmlWeb web = new();
             HtmlDocument doc = web.Load(url);
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(@"//*[@class=""mw-headline""]");
@@ -91,7 +91,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
                             Player newPlayer = new()
                             {
-                                TournamentCode = 315,
+                                TournamentCode = _tournamentCode,
                                 TeamCode = teamCode,
                                 TeamName = teamName,
                                 Number = int.Parse(number),

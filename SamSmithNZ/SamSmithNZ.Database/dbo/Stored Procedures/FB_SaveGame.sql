@@ -45,6 +45,28 @@ BEGIN
 	END
 	ELSE
 	BEGIN
+		--Clean up Round 1
+		CREATE TABLE #tmp_Teams_in_this_round (team_code INT)
+		INSERT INTO #tmp_Teams_in_this_round
+		SELECT g.team_1_code 
+		FROM wc_game g
+		WHERE g.tournament_code = @TournamentCode
+		AND g.round_number = @RoundNumber
+		UNION
+		SELECT g.team_2_code 
+		FROM wc_game g
+		WHERE g.tournament_code = @TournamentCode
+		AND g.round_number = @RoundNumber
+		
+		--Not set all teams that are not this team to inactive in group
+		UPDATE t
+		SET is_active = 0
+		FROM wc_tournament_team_entry t
+		WHERE t.tournament_code = @TournamentCode
+		AND t.team_code NOT IN (SELECT team_code FROM #tmp_Teams_in_this_round)
+
+		DROP TABLE #tmp_Teams_in_this_round
+
 		EXEC FB_SavePlayoffDetails @TournamentCode = @TournamentCode, @RoundNumber = @RoundNumber, @RoundCode = @RoundCode, @GameNumber = @GameNumber
 	END
 

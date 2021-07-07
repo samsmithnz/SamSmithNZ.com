@@ -8,6 +8,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup.Interfaces
     {
         Task<List<Tournament>> GetList(int? competitionCode);
         Task<Tournament> GetItem(int tournamentCode);
+        Task<bool> ResetTournament(int tournamentCode);
 
     }
 }

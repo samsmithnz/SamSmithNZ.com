@@ -78,6 +78,26 @@ BEGIN
 		WHERE g.tournament_code = @TournamentCode
 		AND g.round_code = '3P'
 		AND g.team_2_normal_time_score IS NULL
+		UNION
+		SELECT 4, 'Knocked out in semi finals', 
+			g.team_1_code
+		FROM wc_game g
+		JOIN vWC_GameScoreSummary ss ON g.tournament_code = ss.tournament_code AND g.game_code = ss.game_code
+		WHERE g.tournament_code = @TournamentCode
+		AND g.round_code = 'SF'
+		AND ss.team_1_goals < ss.team_2_goals 
+		AND NOT EXISTS (SELECT 1 FROM wc_game g2 WHERE g2.tournament_code = g.tournament_code AND g2.round_code = '3P')
+		UNION
+		SELECT 4, 'Knocked out in semi finals', 
+			g.team_2_code
+		FROM wc_game g
+		JOIN vWC_GameScoreSummary ss ON g.tournament_code = ss.tournament_code AND g.game_code = ss.game_code
+		WHERE g.tournament_code = @TournamentCode
+		AND g.round_code = 'SF'
+		AND ss.team_1_goals > ss.team_2_goals 
+		AND NOT EXISTS (SELECT 1 FROM wc_game g2 WHERE g2.tournament_code = g.tournament_code AND g2.round_code = '3P')
+
+		--SELECT NOT EXISTS (select * from wc_game g2 WHERE g2.round_code = '3P' and tournament_code = 19)
 
 		--Top 4
 		INSERT INTO #tmp_final_placing 

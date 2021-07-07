@@ -146,5 +146,22 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             }
         }
 
+        private async void ResetTournament_Click(object sender, RoutedEventArgs e)
+        {
+            if (cboTournament.SelectedValue != null)
+            {
+                TeamSquadsMigration migration = new();
+                if (MessageBox.Show("Are you sure you want to delete players, games, goals, etc?","Are you sure?",MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                {
+                    TournamentDataAccess da = new(_configuration);
+                    da.ResetTournament(Convert.ToInt32(cboTournament.SelectedValue));
+                }
+            }
+            else
+            {
+                MessageBox.Show("Tournament not selected");
+            }
+        }
+
     }
 }
