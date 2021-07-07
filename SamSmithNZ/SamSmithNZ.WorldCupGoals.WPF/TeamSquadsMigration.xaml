@@ -96,6 +96,7 @@
             </ListView.View>
         </ListView>
         <Label Name="lblStatus" Content="" Margin="740,280,155,0" VerticalAlignment="Top" Height="25"/>
+        <Label Name="lblURL" Content="Wikipedia URL" HorizontalAlignment="Left" Margin="169,279,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
