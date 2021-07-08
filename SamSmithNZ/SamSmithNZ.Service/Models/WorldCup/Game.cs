@@ -63,6 +63,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
         //Player properties
         public bool IsPenalty { get; set; }
         public bool IsOwnGoal { get; set; }
+        public bool IsGoldenGoal { get; set; }
 
         public int? Team1TotalGoals {
             get {
