@@ -36,7 +36,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             TeamDataAccess daTeam = new(_configuration);
             List<Team> teams = await daTeam.GetList();
 
-            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_1992_squads";
+            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_1988_squads";
             lblURL.Content = url; 
             HtmlWeb web = new();
             HtmlDocument doc = web.Load(url);
@@ -85,6 +85,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                             if (playerCaptainString?.IndexOf("captain") >= 0)
                             {
                                 isCaptain = true;
+                                playerName = playerName.Replace("(captain)", "").Trim();
                             }
                             string dateOfBirthEntireString = playerRow.SelectSingleNode(playerRow.XPath + "/td[3]")?.InnerText?.Replace("\n", "");
                             string dateOfBirth = (dateOfBirthEntireString.Trim().Substring(0, dateOfBirthEntireString.IndexOf(")"))).Replace("(", "").Replace(")", "");
