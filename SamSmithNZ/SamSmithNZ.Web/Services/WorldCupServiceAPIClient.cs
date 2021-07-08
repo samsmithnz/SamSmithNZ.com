@@ -182,9 +182,14 @@ namespace SamSmithNZ.Web.Services
             }
         }
 
-        public async Task<List<Tournament>> GetTournaments(int competitionCode = 1)
+        public async Task<List<Tournament>> GetTournaments(int? competitionCode)
         {
-            Uri url = new($"api/WorldCup/Tournament/GetTournaments?competitionCode=" + competitionCode, UriKind.Relative);
+            string urlString = $"api/WorldCup/Tournament/GetTournaments";
+            if (competitionCode != null)
+            {
+                urlString += "?competitionCode=" + competitionCode;
+            }
+            Uri url = new(urlString, UriKind.Relative);
             List<Tournament> results = await base.ReadMessageList<Tournament>(url);
             if (results == null)
             {
