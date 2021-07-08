@@ -39,6 +39,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             parameters.Add("@InjuryTime", goal.InjuryTime, DbType.Int32);
             parameters.Add("@IsPenalty", goal.IsPenalty, DbType.Boolean);
             parameters.Add("@IsOwnGoal", goal.IsOwnGoal, DbType.Boolean);
+            parameters.Add("@IsGoldenGoal", goal.IsGoldenGoal, DbType.Boolean);
 
             return await base.SaveItem("FB_SaveGoal", parameters);
         }

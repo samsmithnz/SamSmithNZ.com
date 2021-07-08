@@ -40,7 +40,8 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             PlayerDataAccess daPlayer = new(_configuration);
             List<Player> players = await daPlayer.GetPlayersByTournament(_tournamentCode);
 
-            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_2008";
+            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_2000";
+            lblURL.Content = url;
             HtmlWeb web = new();
             HtmlDocument doc = web.Load(url);
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(@"//*[@class=""footballbox""]");

@@ -228,15 +228,6 @@
     <Build Include="dbo\Stored Procedures\LegoGetParts.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetGoalInsights.sql" />
     <Build Include="dbo\Tables\wc_group_stage_third_placed_teams.sql" />
-    <Build Include="dbo\Stored Procedures\Old\spIFB_GetGameList.sql" />
-    <Build Include="dbo\Stored Procedures\Old\spIFB_GetGameListForTeam.sql" />
-    <Build Include="dbo\Stored Procedures\Old\spIFB_GetGroupDetails.sql" />
-    <Build Include="dbo\Stored Procedures\Old\spIFB_GetGroupList.sql" />
-    <Build Include="dbo\Stored Procedures\Old\spIFB_GetPlayoffGameList.sql" />
-    <Build Include="dbo\Stored Procedures\Old\spIFB_GetTeamList.sql" />
-    <Build Include="dbo\Stored Procedures\Old\spIFB_GetTournaments.sql" />
-    <Build Include="dbo\Stored Procedures\Old\spIFB_GetTournamentTeams.sql" />
-    <Build Include="dbo\Stored Procedures\Old\spIFB_GetTournamentTeamsPlacing.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_AddMissingTeamOdds.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_AddOddsForOldTournament.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_AddTeamOdds.sql" />
@@ -258,7 +249,6 @@
     <Build Include="dbo\Stored Procedures\Old\spWC_GetPlayerName.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_GetPlayoffGameList.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_GetQualifiedTeamsForTournament.sql" />
-    <Build Include="dbo\Stored Procedures\Old\spWC_GetStats_FinalTournamentPlacing.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_GetStats_TotalGoalsByTournament.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_GetStats_TournamentStatistics.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_GetTeamDetails.sql" />

@@ -55,6 +55,7 @@ BEGIN
 			ISNULL(t3.flag_name,'') AS CoachFlag,
 			NULL AS IsPenalty, 
 			NULL AS IsOwnGoal, 
+			NULL AS IsGoldenGoal,
 			1 AS SortOrder 
 		FROM wc_game g
 		JOIN wc_team t1 ON g.team_1_code = t1.team_code
@@ -105,6 +106,7 @@ BEGIN
 			ISNULL(t3.flag_name,'') AS CoachFlag,
 			NULL AS IsPenalty, 
 			NULL AS IsOwnGoal, 
+			NULL AS IsGoldenGoal,
 			1 AS SortOrder 
 		FROM wc_game g
 		JOIN wc_team t1 ON g.team_1_code = t1.team_code
@@ -159,6 +161,7 @@ BEGIN
 			NULL AS CoachFlag,
 			NULL AS IsPenalty, 
 			NULL AS IsOwnGoal, 
+			NULL AS IsGoldenGoal,
 			1 AS SortOrder
 		FROM wc_game g
 		JOIN wc_team t1 ON g.team_1_code = t1.team_code
@@ -207,6 +210,7 @@ BEGIN
 			'' AS CoachFlag, 
 			gl.is_penalty AS IsPenalty, 
 			gl.is_own_goal AS IsOwnGoal, 
+			gl.is_golden_goal AS IsGoldenGoal,
 			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS SortOrder
 		FROM wc_game g 
 		--JOIN wc_team t ON g.team_1_code = t.team_code
@@ -256,6 +260,7 @@ BEGIN
 			'' AS CoachFlag, 
 			gl.is_penalty AS IsPenalty, 
 			gl.is_own_goal AS IsOwnGoal, 
+			gl.is_golden_goal AS IsGoldenGoal,
 			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS SortOrder
 		FROM wc_game g 
 		--JOIN wc_team t ON g.team_1_code = t.team_code
@@ -305,6 +310,7 @@ BEGIN
 			'' AS CoachFlag, 
 			gl.is_penalty AS IsPenalty, 
 			gl.is_own_goal AS IsOwnGoal, 
+			gl.is_golden_goal AS IsGoldenGoal,
 			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS sort_order
 		FROM wc_game g 
 		--JOIN wc_team t ON g.team_1_code = t.team_code
@@ -354,6 +360,7 @@ BEGIN
 			'' AS CoachFlag, 
 			gl.is_penalty AS IsPenalty, 
 			gl.is_own_goal AS IsOwnGoal, 
+			gl.is_golden_goal AS IsGoldenGoal,
 			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS sort_order
 		FROM wc_game g 
 		--JOIN wc_team t ON g.team_1_code = t.team_code
@@ -402,6 +409,7 @@ BEGIN
 			'' AS CoachFlag, 
 			0 AS IsPenalty, 
 			0 AS IsOwnGoal,  
+			0 AS IsGoldenGoal,
 			penalty_order AS sort_order
 		FROM wc_game g 
 		JOIN wc_penalty_shootout ps ON ps.game_code = g.game_code
@@ -449,6 +457,7 @@ BEGIN
 			'' AS CoachFlag, 
 			0 AS IsPenalty, 
 			0 AS IsOwnGoal,  
+			0 AS IsGoldenGoal,
 			penalty_order AS sort_order
 		FROM wc_game g 
 		JOIN wc_penalty_shootout ps ON ps.game_code = g.game_code

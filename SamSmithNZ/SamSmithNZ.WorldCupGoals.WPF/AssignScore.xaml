@@ -8,7 +8,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Label Content="Normal Time Score:" Height="25" HorizontalAlignment="Left" Margin="14,55,0,0" Name="label4" VerticalAlignment="Top" Width="Auto" />
-        <Button Content="_Save" Name="btnSave" UseLayoutRounding="False" Margin="0,155.399,10,90.601" Click="btnSave_Click"  TabIndex="7" HorizontalAlignment="Right" Width="75"/>
+        <Button Content="_Save" Name="btnSave" UseLayoutRounding="False" Margin="0,155.399,10,90.601" Click="btnSave_Click"  TabIndex="7" HorizontalAlignment="Right" Width="75" IsDefault="True"/>
         <Button Content="Cancel" Height="25" Name="Cancel" UseLayoutRounding="False" Click="Cancel_Click" Margin="10,155.399,224,0" VerticalAlignment="Top" Grid.Column="1" IsTabStop="False"/>
         <Label Content="[Game]" Height="25" Margin="14,28,10,0" Name="lblGame" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Grid.ColumnSpan="2" Width="593" />
         <Label Content="Extra Time Score:" Height="25" HorizontalAlignment="Left" Margin="14,81,0,0" x:Name="label4_Copy" VerticalAlignment="Top" Width="Auto" />

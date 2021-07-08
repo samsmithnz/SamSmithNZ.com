@@ -159,6 +159,7 @@
             </ListView.View>
         </ListView>
         <Label x:Name="lblStatus" Content="" Margin="740,280,155,0" VerticalAlignment="Top" Height="25"/>
+        <Label Name="lblURL" Content="URL" HorizontalAlignment="Left" Margin="156,280,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

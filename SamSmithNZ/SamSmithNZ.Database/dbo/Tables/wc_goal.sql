@@ -6,6 +6,7 @@
     [injury_time] INT NULL,
     [is_penalty]  BIT      NOT NULL,
     [is_own_goal] BIT      NOT NULL,
+    [is_golden_goal] BIT NULL, 
     CONSTRAINT [PK_wc_goal] PRIMARY KEY CLUSTERED ([goal_code] ASC)
 );
 

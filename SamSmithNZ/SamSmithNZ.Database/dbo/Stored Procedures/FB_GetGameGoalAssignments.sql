@@ -24,6 +24,7 @@ BEGIN
 		coach_name VARCHAR(50), coach_flag VARCHAR(100), 
 		isPen BIT, 
 		isOg BIT, 
+		isGoldenGoal BIT,
 		sortOrder int)
 
 	INSERT INTO #tmp_games_for_assigning
@@ -34,7 +35,7 @@ BEGIN
 	INSERT INTO #tmp_goals
 	SELECT ga.game_code, ISNULL(COUNT(gl.goal_code),0)
 	FROM #tmp_games_for_assigning ga
-	LEFT JOIN wc_goal gl ON ga.game_code = gl.game_code
+	LEFT JOIN wc_goal gl ON ga.game_code = gl.game_code AND gl.player_code > 0
 	GROUP BY ga.game_code
 
 	CREATE TABLE #tmp_penalty_shootout_goals (game_code INT, total_penalties INT)
