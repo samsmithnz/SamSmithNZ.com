@@ -131,7 +131,7 @@ jobs:
     #- name: Deploy infrastructure with ARM templates
     #  uses: azure/cli@v1.0.0
     #  with:
-    #    inlineScript: EnvironmentARMTemplate\PowerShell\DeployInfrastructureWebService.ps1 -appPrefix "samsapp" -environment "prod" -webAppEnvironment "prod" -resourceGroupName "SSSandbox" -resourceGroupLocation "East US" -resourceGroupLocationShort "eu" -dataKeyVaultName "tbd" -templatesLocation "${{ github.workspace }}\drop\EnvironmentARMTemplate\Templates" -sqlDatabaseName "ssnzdb" -sqlAdministratorLoginUser "" -sqlAdministratorLoginPassword ""
+    #    inlineScript: EnvironmentARMTemplate\PowerShell\DeployInfrastructureWebService.ps1 -appPrefix "samsapp" -environment "prod" -webAppEnvironment "prod" -resourceGroupName "SamSmithNZ.com" -resourceGroupLocation "East US" -resourceGroupLocationShort "eu" -dataKeyVaultName "tbd" -templatesLocation "${{ github.workspace }}\drop\EnvironmentARMTemplate\Templates" -sqlDatabaseName "ssnzdb" -sqlAdministratorLoginUser "" -sqlAdministratorLoginPassword ""
     #    azcliversion: latest
     - name: 'App Service Deploy: SamSmithNZ web service'
       uses: Azure/webapps-deploy@v2
@@ -140,7 +140,7 @@ jobs:
         package: service
         slot-name: production #staging
     - name: Set service secrets #--slot staging 
-      run: az webapp config appsettings set --name "ssnz-prod-eu-service" --resource-group "SSSandbox" --settings "ConnectionStrings:DefaultConnectionString=${{ secrets.SQL_CONNECTIONSTRING }}" "CacheConnection=${{ secrets.REDIS_CONNECTIONSTRING }}"
+      run: az webapp config appsettings set --name "ssnz-prod-eu-service" --resource-group "SamSmithNZ.com" --settings "ConnectionStrings:DefaultConnectionString=${{ secrets.SQL_CONNECTIONSTRING }}" "CacheConnection=${{ secrets.REDIS_CONNECTIONSTRING }}"
     - name: 'App Service Deploy: SamSmithNZ website'
       uses: Azure/webapps-deploy@v2
       with:
@@ -237,9 +237,9 @@ jobs:
     - name: 'Swap Slots: web service'
       uses: Azure/cli@v1.0.0
       with:
-        inlineScript: az webapp deployment slot swap --resource-group SSSandbox --name ssnz-prod-eu-service --slot staging --target-slot production
+        inlineScript: az webapp deployment slot swap --resource-group SamSmithNZ.com --name ssnz-prod-eu-service --slot staging --target-slot production
     - name: 'Swap Slots: web'
       uses: Azure/cli@v1.0.0
       with:
-        inlineScript: az webapp deployment slot swap --resource-group SSSandbox --name ssnz-prod-eu-web --slot staging --target-slot production
+        inlineScript: az webapp deployment slot swap --resource-group SamSmithNZ.com --name ssnz-prod-eu-web --slot staging --target-slot production
                     
