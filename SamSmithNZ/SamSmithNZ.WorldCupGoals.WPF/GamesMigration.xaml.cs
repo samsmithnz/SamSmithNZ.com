@@ -40,7 +40,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             PlayerDataAccess daPlayer = new(_configuration);
             List<Player> players = await daPlayer.GetPlayersByTournament(_tournamentCode);
 
-            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_1988";
+            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_1964";
             lblURL.Content = url; 
             HtmlWeb web = new();
             HtmlDocument doc = web.Load(url);

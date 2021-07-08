@@ -36,7 +36,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             TeamDataAccess daTeam = new(_configuration);
             List<Team> teams = await daTeam.GetList();
 
-            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_1988_squads";
+            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_1964_squads";
             lblURL.Content = url; 
             HtmlWeb web = new();
             HtmlDocument doc = web.Load(url);
