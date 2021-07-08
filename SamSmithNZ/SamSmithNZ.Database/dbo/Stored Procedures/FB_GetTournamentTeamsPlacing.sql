@@ -17,19 +17,21 @@ BEGIN
 	BEGIN
 		--1st Place
 		INSERT INTO #tmp_final_placing 
-		SELECT 1, '1st', 
+		SELECT TOP 1 1, '1st', --We need top as sometimes the final is a replay
 			CASE WHEN g.team_1_normal_time_score IS NULL THEN NULL ELSE CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) > g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN g.team_1_code ELSE g.team_2_code END END
 		FROM wc_game g
 		WHERE g.tournament_code = @TournamentCode
 		AND g.round_code = 'FF'
+		ORDER BY g.game_time DESC
  
 		--2nd Place
 		INSERT INTO #tmp_final_placing 
-		SELECT 2, '2nd', 
+		SELECT TOP 1 2, '2nd', --We need top as sometimes the final is a replay
 			CASE WHEN g.team_1_normal_time_score IS NULL THEN NULL ELSE CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) < g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN g.team_1_code ELSE g.team_2_code END END
 		FROM wc_game g
 		WHERE g.tournament_code = @TournamentCode
 		AND g.round_code = 'FF'
+		ORDER BY g.game_time DESC
 
 		--Final
 		INSERT INTO #tmp_final_placing 
