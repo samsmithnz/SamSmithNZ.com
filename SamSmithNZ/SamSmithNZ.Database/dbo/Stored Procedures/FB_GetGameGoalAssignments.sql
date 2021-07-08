@@ -24,6 +24,7 @@ BEGIN
 		coach_name VARCHAR(50), coach_flag VARCHAR(100), 
 		isPen BIT, 
 		isOg BIT, 
+		isGoldenGoal BIT,
 		sortOrder int)
 
 	INSERT INTO #tmp_games_for_assigning

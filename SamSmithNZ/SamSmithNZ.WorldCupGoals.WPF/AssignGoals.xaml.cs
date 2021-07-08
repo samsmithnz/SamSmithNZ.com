@@ -80,6 +80,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 sliInjuryTime.Value = goal.InjuryTime;
                 chkIsPenalty.IsChecked = goal.IsPenalty;
                 chkIsOwnGoal.IsChecked = goal.IsOwnGoal;
+                chkIsGoldenGoal.IsChecked = goal.IsGoldenGoal;
             }
 
             cboPlayer.Focus();
@@ -193,6 +194,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             {
                 bool isPenalty = Convert.ToBoolean(chkIsPenalty.IsChecked);
                 bool isOwnGoal = Convert.ToBoolean(chkIsOwnGoal.IsChecked);
+                bool isGoldenGoal = Convert.ToBoolean(chkIsGoldenGoal.IsChecked);
 
                 Goal goal = new();
                 goal.GoalCode = _goalCode;
@@ -202,6 +204,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 goal.InjuryTime = Convert.ToInt32(sliInjuryTime.Value);
                 goal.IsPenalty = isPenalty;
                 goal.IsOwnGoal = isOwnGoal;
+                goal.IsGoldenGoal = isGoldenGoal;
 
                 GoalDataAccess da = new(_configuration);
                 await da.SaveItem(goal);
