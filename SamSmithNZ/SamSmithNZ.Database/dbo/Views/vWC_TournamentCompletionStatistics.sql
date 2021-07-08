@@ -9,8 +9,8 @@ SELECT DISTINCT t.tournament_code,
 											WHEN t.tournament_code = 3 THEN 298 --Lots of players in lots of different teams
 											WHEN t.tournament_code = 2 THEN 333 --Lots of players in lots of different teams
 											WHEN t.tournament_code = 1 THEN 241 --Lots of players in lots of different teams
-											ELSE tf.total_number_of_teams * CASE WHEN t.tournament_code > 16 THEN 23 
-																				 WHEN t.tournament_code = 12 THEN 20 																		 
+											ELSE tf.total_number_of_teams * CASE WHEN t.tournament_code > 16 AND t.competition_code = 1 THEN 23 
+																				 WHEN t.tournament_code = 12 AND t.competition_code = 1 THEN 20 																		 
 																				 ELSE 22 END 
 											END)) AS player_percent,
 	CASE WHEN tg.total_goals = 0 THEN 0 ELSE CONVERT(decimal(6,2),pg.player_goal_count) / CONVERT(decimal(6,2),tg.total_goals) END AS goals_percent,
