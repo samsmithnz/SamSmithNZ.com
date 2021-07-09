@@ -48,10 +48,10 @@ jobs:
    #   run: |
    #     dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
    #     dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-    - name: Build database project
-      run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
-    - name: 'Copy database files to: ${{ github.workspace }}'
-      run: Copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*' '${{ github.workspace }}\Database'
+   # - name: Build database project
+   #   run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
+   # - name: 'Copy database files to: ${{ github.workspace }}'
+   #   run: Copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*' '${{ github.workspace }}\Database'
     - name: Publish .NET 5 functional tests project
       run: dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
     - name: 'Copy Selenium Files to: ${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
@@ -218,6 +218,7 @@ jobs:
   DeploySQLDB:
     name: Deploy SQL database
     runs-on: windows-latest
+    if: 0 == 1
     needs:
     - build
     - TestDotNet
@@ -243,7 +244,7 @@ jobs:
     runs-on: windows-latest
     needs:
     - DeployWebAppsToSlots
-    - DeploySQLDB
+    #- DeploySQLDB
     steps:
     - uses: actions/checkout@v2
     - name: Download the build artifacts
