@@ -65,10 +65,6 @@ BEGIN
 		LEFT JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_1_code = te.team_code
 		LEFT JOIN wc_team t3 ON te.coach_nationality = t3.team_name
 		JOIN #TmpAlternativeTeams ate ON g.team_1_code = ate.team_code 
-		--WHERE t.competition_code = 1
-		--AND (g.team_1_code = @TeamCode OR g.team_2_code = @TeamCode)
-		--AND te.team_code = @TeamCode
-		--AND game_code = 7
 
 		UNION
 
@@ -116,10 +112,6 @@ BEGIN
 		LEFT JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_2_code = te.team_code
 		LEFT JOIN wc_team t3 ON te.coach_nationality = t3.team_name
 		JOIN #TmpAlternativeTeams ate ON g.team_2_code = ate.team_code
-		--WHERE t.competition_code = 1
-		--AND (g.team_1_code = @TeamCode OR g.team_2_code = @TeamCode)
-		--AND te.team_code = @TeamCode
-		--AND game_code = 7
 
 		ORDER BY g.game_time DESC, g.game_number, SortOrder--, gl.goal_time, ISNULL(gl.injury_time,0)
 
@@ -213,7 +205,6 @@ BEGIN
 			gl.is_golden_goal AS IsGoldenGoal,
 			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS SortOrder
 		FROM wc_game g 
-		--JOIN wc_team t ON g.team_1_code = t.team_code
 		JOIN wc_goal gl ON gl.game_code = g.game_code
 		JOIN wc_player p ON p.player_code = gl.player_code AND g.team_1_code = p.team_code AND gl.is_own_goal = 0
 		LEFT JOIN wc_round r ON g.round_code = r.round_code
@@ -263,7 +254,6 @@ BEGIN
 			gl.is_golden_goal AS IsGoldenGoal,
 			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS SortOrder
 		FROM wc_game g 
-		--JOIN wc_team t ON g.team_1_code = t.team_code
 		JOIN wc_goal gl ON gl.game_code = g.game_code
 		JOIN wc_player p ON p.player_code = gl.player_code AND g.team_2_code = p.team_code AND gl.is_own_goal = 1
 		LEFT JOIN wc_round r ON g.round_code = r.round_code
@@ -313,7 +303,6 @@ BEGIN
 			gl.is_golden_goal AS IsGoldenGoal,
 			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS sort_order
 		FROM wc_game g 
-		--JOIN wc_team t ON g.team_1_code = t.team_code
 		JOIN wc_goal gl ON gl.game_code = g.game_code
 		JOIN wc_player p ON p.player_code = gl.player_code AND g.team_2_code = p.team_code AND gl.is_own_goal = 0
 		LEFT JOIN wc_round r ON g.round_code = r.round_code
@@ -363,7 +352,6 @@ BEGIN
 			gl.is_golden_goal AS IsGoldenGoal,
 			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS sort_order
 		FROM wc_game g 
-		--JOIN wc_team t ON g.team_1_code = t.team_code
 		JOIN wc_goal gl ON gl.game_code = g.game_code
 		JOIN wc_player p ON p.player_code = gl.player_code AND g.team_1_code = p.team_code AND gl.is_own_goal = 1
 		LEFT JOIN wc_round r ON g.round_code = r.round_code

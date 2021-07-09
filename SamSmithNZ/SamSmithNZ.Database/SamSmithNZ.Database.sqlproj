@@ -235,7 +235,6 @@
     <Build Include="dbo\Stored Procedures\Old\spWC_CalculateRanking.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_GetGameGoalList.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_GetGameList.sql" />
-    <Build Include="dbo\Stored Procedures\Old\spWC_GetGameList2.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_GetGameListForGoalAssigning.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_GetGameShootoutGoalList.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_GetGroupDetails.sql" />

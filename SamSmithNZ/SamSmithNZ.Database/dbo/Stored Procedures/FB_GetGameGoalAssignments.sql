@@ -25,7 +25,7 @@ BEGIN
 		isPen BIT, 
 		isOg BIT, 
 		isGoldenGoal BIT,
-		sortOrder int)
+		sortOrder INT)
 
 	INSERT INTO #tmp_games_for_assigning
 	exec [FB_GetGames] @TournamentCode = @TournamentCode
@@ -66,16 +66,6 @@ BEGIN
 	JOIN #tmp_goals g ON ga.game_code = g.game_code
 	JOIN #tmp_penalty_shootout_goals pso ON pso.game_code = g.game_code
 	--WHERE ga.game_code = 65
-	/*GROUP BY ga.game_code, ga.game_number, ga.game_time, ga.team_1_name, ga.team_2_name,
-		CONVERT(VARCHAR(3),ga.team_1_normal_time_score+ISNULL(ga.team_1_extra_time_score,'')) + ' - ' + 
-		CONVERT(VARCHAR(3),ga.team_2_normal_time_score+ISNULL(ga.team_2_extra_time_score,'')) + 
-		CASE WHEN not ga.team_1_extra_time_score is NULL THEN CASE WHEN ga.team_1_penalties_score is NULL THEN ' (et)' ELSE '' END ELSE '' END + 
-		CASE WHEN not ga.team_1_penalties_score is NULL THEN ' (' + CONVERT(VARCHAR(3),ga.team_1_penalties_score) + ' - ' + CONVERT(VARCHAR(3),ga.team_2_penalties_score) + ' pens)' ELSE '' END,
-		ISNULL(ga.team_1_normal_time_score,0)+ISNULL(ga.team_1_extra_time_score,0)+
-		ISNULL(ga.team_2_normal_time_score,0)+ISNULL(ga.team_2_extra_time_score,0),
-		(ISNULL(ga.team_1_normal_time_score,0)+ISNULL(ga.team_1_extra_time_score,0)+
-		ISNULL(ga.team_2_normal_time_score,0)+ISNULL(ga.team_2_extra_time_score,0)),
-		ISNULL(ga.team_1_penalties_score,0) + ISNULL(ga.team_2_penalties_score,0)*/
 
 	DROP TABLE #tmp_games_for_assigning
 	DROP TABLE #tmp_penalty_shootout_goals
