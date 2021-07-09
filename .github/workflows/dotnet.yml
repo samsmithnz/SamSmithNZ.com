@@ -93,7 +93,7 @@ jobs:
         CacheConnection: "${{ secrets.REDIS_CONNECTIONSTRING }}"  
     - name: Test dotnet 5 projects
       run: dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug--nologo -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=lcov 
-    - run: dir ${{ github.workspace }}/*coverage.info /s 
+    - run: dir ${{ github.workspace }}\*coverage.info /s 
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
