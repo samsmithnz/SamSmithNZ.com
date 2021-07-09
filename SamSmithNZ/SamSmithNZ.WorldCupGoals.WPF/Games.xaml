@@ -46,6 +46,13 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn Header="Round" DisplayMemberBinding="{Binding Path=RoundCode}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Game Time" DisplayMemberBinding="{Binding Path=GameTime}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

@@ -48,6 +48,7 @@ BEGIN
 
 	SELECT ga.game_code AS GameCode, 
 		ga.game_number AS GameNumber, 
+		ga.round_code AS RoundCode,
 		ga.game_time AS GameTime, 
 		ga.team_1_name AS Team1Name, 
 		ga.team_2_name AS Team2Name,
