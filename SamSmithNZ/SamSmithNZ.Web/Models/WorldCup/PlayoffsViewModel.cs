@@ -68,19 +68,19 @@ namespace SamSmithNZ.Web.Models.WorldCup
                         Show16s = false;
                         ShowQuarters = false;
                         break;
-                    case 3: //Show Semis and Finals, hide 3rd Place
+                    case 3: //semis, finals, hide 3rd Place
                         Show16s = false;
                         ShowQuarters = false;
                         Show3rdPlace = false;
                         break;
                     case 2:
-                        //Show Finals & 3rd place
+                        //finals, & 3rd place
                         Show16s = false;
                         ShowQuarters = false;
                         ShowSemis = false;
                         break;
                     case 1:
-                        //Only show Finals
+                        //finals, hide 3rd place
                         Show16s = false;
                         ShowQuarters = false;
                         ShowSemis = false;
