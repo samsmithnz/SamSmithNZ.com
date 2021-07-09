@@ -67,6 +67,7 @@ namespace SamSmithNZ.Web.Models.WorldCup
                         Show16s = false;
                         Show3rdPlace = false;
                         break;
+                    case 5:
                     case 4:
                         //Only show Semis
                         Show16s = false;

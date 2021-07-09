@@ -3,6 +3,7 @@ using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.Models.WorldCup;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -70,96 +71,145 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
         private async void TournamentGames_Click(object sender, RoutedEventArgs e)
         {
-            if (cboTournament.SelectedValue != null)
+            try
             {
-                Games games = new();
-                await games.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
+                if (cboTournament.SelectedValue != null)
+                {
+                    Games games = new();
+                    await games.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
+                }
+                else
+                {
+                    MessageBox.Show("Tournament not selected");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Tournament not selected");
+                Debug.WriteLine(ex.ToString());
             }
         }
 
         private async void TournamentTeams_Click(object sender, RoutedEventArgs e)
         {
-            if (cboTournament.SelectedValue != null)
+            try
             {
-                Teams teams = new();
-                await teams.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
+                if (cboTournament.SelectedValue != null)
+                {
+                    Teams teams = new();
+                    await teams.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
+                }
+                else
+                {
+                    MessageBox.Show("Tournament not selected");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Tournament not selected");
+                Debug.WriteLine(ex.ToString());
             }
         }
 
-                private async void TournamentGroups_Click(object sender, RoutedEventArgs e)
+        private async void TournamentGroups_Click(object sender, RoutedEventArgs e)
         {
-            if (cboTournament.SelectedValue != null)
+            try
             {
-                Groups groups = new();
-                await groups.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
+                if (cboTournament.SelectedValue != null)
+                {
+                    Groups groups = new();
+                    await groups.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
+                }
+                else
+                {
+                    MessageBox.Show("Tournament not selected");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Tournament not selected");
+                Debug.WriteLine(ex.ToString());
             }
         }
 
         private async void MigrateTournamentPlayoffs_Click(object sender, RoutedEventArgs e)
         {
-            if (cboTournament.SelectedValue != null)
+            try
             {
-                PlayoffMigration migration = new();
-                await migration.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
+                if (cboTournament.SelectedValue != null)
+                {
+                    PlayoffMigration migration = new();
+                    await migration.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
+                }
+                else
+                {
+                    MessageBox.Show("Tournament not selected");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Tournament not selected");
+                Debug.WriteLine(ex.ToString());
             }
         }
 
         private async void MigrateGames_Click(object sender, RoutedEventArgs e)
         {
-            if (cboTournament.SelectedValue != null)
+            try
             {
-                GamesMigration migration = new();
-                await migration.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
+                if (cboTournament.SelectedValue != null)
+                {
+                    GamesMigration migration = new();
+                    await migration.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
+                }
+                else
+                {
+                    MessageBox.Show("Tournament not selected");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Tournament not selected");
+                Debug.WriteLine(ex.ToString());
             }
         }
 
         private async void MigratePlayers_Click(object sender, RoutedEventArgs e)
         {
-            if (cboTournament.SelectedValue != null)
+            try
             {
-                TeamSquadsMigration migration = new();
-                await migration.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
+                if (cboTournament.SelectedValue != null)
+                {
+                    TeamSquadsMigration migration = new();
+                    await migration.ShowForm(Convert.ToInt32(cboTournament.SelectedValue));
+                }
+                else
+                {
+                    MessageBox.Show("Tournament not selected");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Tournament not selected");
+                Debug.WriteLine(ex.ToString());
             }
         }
 
         private async void ResetTournament_Click(object sender, RoutedEventArgs e)
         {
-            if (cboTournament.SelectedValue != null)
+            try
             {
-                TeamSquadsMigration migration = new();
-                if (MessageBox.Show("Are you sure you want to delete players, games, goals, etc?","Are you sure?",MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                if (cboTournament.SelectedValue != null)
                 {
-                    TournamentDataAccess da = new(_configuration);
-                    da.ResetTournament(Convert.ToInt32(cboTournament.SelectedValue));
+                    TeamSquadsMigration migration = new();
+                    if (MessageBox.Show("Are you sure you want to delete players, games, goals, etc?", "Are you sure?", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                    {
+                        TournamentDataAccess da = new(_configuration);
+                        await da.ResetTournament(Convert.ToInt32(cboTournament.SelectedValue));
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Tournament not selected");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Tournament not selected");
+                Debug.WriteLine(ex.ToString());
             }
         }
 

@@ -16,7 +16,7 @@ namespace SamSmithNZ.Web.Controllers
             _ServiceApiClient = ServiceApiClient;
         }
 
-        public async Task<IActionResult> Index(int competitionCode = 1)
+        public async Task<IActionResult> Index(int? competitionCode = null)
         {
             List<Tournament> tournaments = await _ServiceApiClient.GetTournaments(competitionCode);
 

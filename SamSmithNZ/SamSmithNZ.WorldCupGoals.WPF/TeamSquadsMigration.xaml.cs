@@ -36,8 +36,8 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             TeamDataAccess daTeam = new(_configuration);
             List<Team> teams = await daTeam.GetList();
 
-            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_2000_squads";
-            lblURL.Content = url;
+            string url = "https://en.wikipedia.org/wiki/1960_European_Nations%27_Cup_squads";
+            lblURL.Content = url; 
             HtmlWeb web = new();
             HtmlDocument doc = web.Load(url);
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(@"//*[@class=""mw-headline""]");
@@ -69,7 +69,8 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                         for (int i = 1; i < playerNodes.Count; i++) //Skip row 0, it's the header
                         {
                             HtmlNode playerRow = playerNodes[i];
-                            string number = playerRow.SelectSingleNode(playerRow.XPath + "/td[1]")?.InnerText?.Replace("\n", "");
+                            string numberString = playerRow.SelectSingleNode(playerRow.XPath + "/td[1]")?.InnerText?.Replace("\n", "");
+                            int.TryParse(numberString, out int number);
                             string position = playerRow.SelectSingleNode(playerRow.XPath + "/td[2]/a")?.InnerText?.Replace("\n", "");
                             //if (teamCode == 68)
                             //{
@@ -85,17 +86,18 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                             if (playerCaptainString?.IndexOf("captain") >= 0)
                             {
                                 isCaptain = true;
+                                playerName = playerName.Replace("(captain)", "").Trim();
                             }
                             string dateOfBirthEntireString = playerRow.SelectSingleNode(playerRow.XPath + "/td[3]")?.InnerText?.Replace("\n", "");
                             string dateOfBirth = (dateOfBirthEntireString.Trim().Substring(0, dateOfBirthEntireString.IndexOf(")"))).Replace("(", "").Replace(")", "");
-                            string club = playerRow.SelectSingleNode(playerRow.XPath + "/td[6]/a")?.InnerText?.Replace("\n", "");
+                            string club = playerRow.SelectSingleNode(playerRow.XPath + "/td[6]/a")?.InnerText?.Replace("\n", "");                            
 
                             Player newPlayer = new()
                             {
                                 TournamentCode = _tournamentCode,
                                 TeamCode = teamCode,
                                 TeamName = teamName,
-                                Number = int.Parse(number),
+                                Number = number,
                                 Position = position,
                                 IsCaptain = isCaptain,
                                 PlayerName = playerName,
