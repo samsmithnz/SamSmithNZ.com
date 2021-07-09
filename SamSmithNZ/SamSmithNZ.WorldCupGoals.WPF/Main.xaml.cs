@@ -32,7 +32,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             try
             {
                 btnTournamentGames.IsEnabled = false;
-                btnSetupTournamentGroups.IsEnabled = false;
+                //btnSetupTournamentGroups.IsEnabled = false;
                 btnSetupTournamentTeams.IsEnabled = false;
                 btnMigrateTournamentPlayoffs.IsEnabled = false;
                 btnMigrateGames.IsEnabled = false;
@@ -43,10 +43,10 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 cboTournament.DataContext = tournaments;
                 cboTournament.DisplayMemberPath = "TournamentName";
                 cboTournament.SelectedValuePath = "TournamentCode";
-                cboTournament.SelectedIndex = 3;
+                cboTournament.SelectedIndex = 2;
 
                 btnTournamentGames.IsEnabled = true;
-                btnSetupTournamentGroups.IsEnabled = true;
+                //btnSetupTournamentGroups.IsEnabled = true;
                 btnSetupTournamentTeams.IsEnabled = true;
                 btnMigrateTournamentPlayoffs.IsEnabled = true;
                 btnMigrateGames.IsEnabled = true;

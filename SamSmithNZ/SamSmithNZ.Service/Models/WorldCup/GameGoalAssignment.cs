@@ -8,6 +8,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public int GameCode { get; set; }
         public int GameNumber { get; set; }
+        public string RoundCode { get; set; }
         public DateTime GameTime { get; set; }
         public string Team1Name { get; set; }
         public string Team2Name { get; set; }

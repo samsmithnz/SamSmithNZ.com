@@ -12,42 +12,7 @@ namespace SamSmithNZ.Tests.WorldCup
     [TestClass]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class GamesTests : BaseIntegrationTest
-    {
-        [TestMethod]
-        public async Task GamesExistTest()
-        {
-            //arrange
-            GameController controller = new(new GameDataAccess(base.Configuration));
-            int tournamentCode = 19;
-            int roundNumber = 1;
-            string roundCode = "F";
-            bool includeGoals = false;
-
-            //act
-            List<Game> results = await controller.GetGames(tournamentCode, roundNumber, roundCode, includeGoals);
-
-            //assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count > 0);
-        }
-
-        [TestMethod]
-        public async Task GamesExist2Test()
-        {
-            //arrange
-            GameController controller = new(new GameDataAccess(base.Configuration));
-            int tournamentCode = 19;
-            int roundNumber = 2;
-            //string roundCode = "A";
-            bool includeGoals = false;
-
-            //act
-            List<Game> results = await controller.GetPlayoffGames(tournamentCode, roundNumber, includeGoals);
-
-            //assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count > 0);
-        }
+    {      
 
         [TestMethod()]
         public async Task GamesFirstItemTest()

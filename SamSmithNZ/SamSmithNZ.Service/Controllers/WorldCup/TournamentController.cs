@@ -20,7 +20,7 @@ namespace SamSmithNZ.Service.Controllers.WorldCup
         }
 
         [HttpGet("GetTournaments")]
-        public async Task<List<Tournament>> GetTournaments(int competitionCode = 1)
+        public async Task<List<Tournament>> GetTournaments(int? competitionCode = null)
         {
             return await _repo.GetList(competitionCode);
         }

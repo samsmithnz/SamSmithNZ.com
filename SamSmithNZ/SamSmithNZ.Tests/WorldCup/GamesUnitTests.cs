@@ -34,6 +34,25 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.AreEqual(14, results[0].TournamentCode);
         }
 
+
+        [TestMethod]
+        public void GameTimeUnitTest()
+        {
+            //arrange
+            Game gameWithTime = new();
+            gameWithTime.GameTime = new(2021, 10, 14, 10, 24, 10);
+            Game gameNoTime = new();
+            gameNoTime.GameTime = new(2021, 10, 14, 0, 0, 0);
+
+            //act
+            string gameWithTimeString = gameWithTime.GameTimeString();
+            string gameNoTimeString = gameNoTime.GameTimeString();
+
+            //assert
+            Assert.AreEqual("14-Oct-2021 10:24", gameWithTimeString);
+            Assert.AreEqual("14-Oct-2021", gameNoTimeString);
+        }
+
         private List<Game> GetGamesTestData()
         {
             return new List<Game>() {

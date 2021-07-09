@@ -1,29 +1,29 @@
-﻿CREATE PROCEDURE [dbo].[spWC_CalculateAllRankings]
-AS
+﻿--CREATE PROCEDURE [dbo].[spWC_CalculateAllRankings]
+--AS
 
-DECLARE @year_code INT
+--DECLARE @year_code INT
 
-DECLARE Cursor1 CURSOR LOCAL FOR
-	SELECT DISTINCT [year]
-	FROM wc_tournament
-	ORDER BY [year]
+--DECLARE Cursor1 CURSOR LOCAL FOR
+--	SELECT DISTINCT [year]
+--	FROM wc_tournament
+--	ORDER BY [year]
 
-OPEN Cursor1
+--OPEN Cursor1
 
---loop through all the items
-FETCH NEXT FROM Cursor1 INTO @year_code
-WHILE (@@FETCH_STATUS <> -1)
-BEGIN
+----loop through all the items
+--FETCH NEXT FROM Cursor1 INTO @year_code
+--WHILE (@@FETCH_STATUS <> -1)
+--BEGIN
 
-	--DO SOMETHING	
-	DECLARE @year_date datetime
-	SELECT @year_date = CONVERT(datetime,CONVERT(VARCHAR(10),@year_code) + '-12-31')
-	exec spWC_CalculateRanking @year_date
+--	--DO SOMETHING	
+--	DECLARE @year_date datetime
+--	SELECT @year_date = CONVERT(datetime,CONVERT(VARCHAR(10),@year_code) + '-12-31')
+--	exec spWC_CalculateRanking @year_date
 
-	FETCH NEXT FROM Cursor1 INTO @year_code
-END
+--	FETCH NEXT FROM Cursor1 INTO @year_code
+--END
 
-CLOSE Cursor1
-DEALLOCATE Cursor1
+--CLOSE Cursor1
+--DEALLOCATE Cursor1
 
---exec spWC_CalculateAllRankings
+----exec spWC_CalculateAllRankings

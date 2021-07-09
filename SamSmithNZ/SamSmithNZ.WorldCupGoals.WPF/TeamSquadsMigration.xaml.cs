@@ -50,12 +50,11 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             foreach (HtmlNode parent in nodes)
             {
                 //Validate the team name
-                teamName = parent.InnerText;
-                int teamCode = GetTeamCode(teams, teamName);
+                int teamCode = GetTeamCode(teams, parent.InnerText);
 
                 if (teamCode > 0)
                 {
-                    string currentXPath = parent.XPath;
+                    //string currentXPath = parent.XPath;
                     HtmlNode nextNode = parent.ParentNode.NextSibling;//.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling;
                     do
                     {
@@ -70,7 +69,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                         {
                             HtmlNode playerRow = playerNodes[i];
                             string numberString = playerRow.SelectSingleNode(playerRow.XPath + "/td[1]")?.InnerText?.Replace("\n", "");
-                            int.TryParse(numberString, out int number);
+                            _ = int.TryParse(numberString, out int number);
                             string position = playerRow.SelectSingleNode(playerRow.XPath + "/td[2]/a")?.InnerText?.Replace("\n", "");
                             //if (teamCode == 68)
                             //{
@@ -111,13 +110,13 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 }
             }
 
-            await LoadGrid(_Players);
+            LoadGrid(_Players);
 
             ShowDialog();
             return true;
         }
 
-        private int GetTeamCode(List<Team> teams, string teamName)
+        private static int GetTeamCode(List<Team> teams, string teamName)
         {
             int result = 0;
             foreach (Team team in teams)
@@ -131,18 +130,18 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             return result;
         }
 
-        private async Task LoadGrid(List<Player> players)
+        private void LoadGrid(List<Player> players)
         {
             lstGames.DataContext = players;
         }
 
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
+        private void Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private async void btnSave_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
             PlayerDataAccess da = new(_configuration);
             List<Player> players = await da.GetPlayersByTournament(_tournamentCode);

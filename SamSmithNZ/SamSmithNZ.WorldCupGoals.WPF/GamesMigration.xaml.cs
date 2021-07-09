@@ -191,7 +191,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
             }
 
-            await LoadGrid(_Games);
+            LoadGrid(_Games);
 
             ShowDialog();
             return true;
@@ -213,7 +213,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 if (goal.GoalTime == 0 || (playerCode == 0 && playerName.IndexOf(".") >= 0))
                 {
                     //goal = null;
-                    int j = 0;
+                    //int j = 0;
                 }
                 else
                 {
@@ -227,7 +227,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             return finalGoals;
         }
 
-        private int GetPlayerCode(List<Player> players, string playerName)
+        private static int GetPlayerCode(List<Player> players, string playerName)
         {
             int result = 0;
             //First search for partials
@@ -248,7 +248,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             return result;
         }
 
-        private int GetTeamCode(List<Team> teams, string teamName)
+        private static int GetTeamCode(List<Team> teams, string teamName)
         {
             int result = 0;
             foreach (Team team in teams)
@@ -262,18 +262,18 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             return result;
         }
 
-        private async Task LoadGrid(List<Game> games)
+        private void LoadGrid(List<Game> games)
         {
             lstGames.DataContext = games;
         }
 
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
+        private void Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private async void btnSave_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
             GameDataAccess daGame = new(_configuration);
             GoalDataAccess daGoal = new(_configuration);

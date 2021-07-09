@@ -66,6 +66,7 @@ BEGIN
 	JOIN vWC_TournamentCompletionStatistics tcs ON t.tournament_code = tcs.tournament_code 
 	WHERE (t.tournament_code = @TournamentCode OR @TournamentCode IS NULL)
 	AND (t.competition_code = @CompetitionCode OR @CompetitionCode IS NULL)
+	AND t.competition_code != 4
 	GROUP BY t.competition_code, 
 		t.tournament_code, 
 		[year] , 
