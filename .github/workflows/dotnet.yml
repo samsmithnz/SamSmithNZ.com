@@ -75,7 +75,7 @@ jobs:
         
   TestDotNet:
     name: Test .NET
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
       with:
@@ -148,7 +148,6 @@ jobs:
   BuildMandMsDependency:
     name: Build MandMs dependency
     runs-on: windows-latest
-    if: 0 == 1
     steps:
     - uses: actions/checkout@v2
       with:
@@ -168,7 +167,7 @@ jobs:
     needs:
     - build
     - TestDotNet
-    #- BuildMandMsDependency
+    - BuildMandMsDependency
     steps:
     - uses: actions/checkout@v2
     - name: Azure Login
@@ -218,7 +217,6 @@ jobs:
   DeploySQLDB:
     name: Deploy SQL database
     runs-on: windows-latest
-    if: 0 == 1
     needs:
     - build
     - TestDotNet
@@ -244,7 +242,7 @@ jobs:
     runs-on: windows-latest
     needs:
     - DeployWebAppsToSlots
-    #- DeploySQLDB
+    - DeploySQLDB
     steps:
     - uses: actions/checkout@v2
     - name: Download the build artifacts
