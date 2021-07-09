@@ -102,12 +102,8 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
                             string[] injuryTimeGoals = goalItemText.Split("+");
                             if (injuryTimeGoals.Length == 2)
                             {
-                                int.TryParse(injuryTimeGoals[0], out goalTime);
-                                int.TryParse(injuryTimeGoals[1], out injuryTime);
-                            }
-                            else
-                            {
-                                int x = 0;
+                                _ = int.TryParse(injuryTimeGoals[0], out goalTime);
+                                _ = int.TryParse(injuryTimeGoals[1], out injuryTime);
                             }
                         }
                     }

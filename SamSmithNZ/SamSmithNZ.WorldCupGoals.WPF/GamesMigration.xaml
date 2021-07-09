@@ -37,8 +37,8 @@
     </Window.Resources>
 
     <Grid>
-        <Button Content="Close" Height="25" x:Name="btnClose" Width="137.909" UseLayoutRounding="False" Margin="13,0,0,25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="btnClose_Click"  TabIndex="5" IsDefault="True"/>
-        <Button Content="Save" x:Name="btnSave" UseLayoutRounding="False" Margin="1013,0,12,25" Click="btnSave_Click"  TabIndex="5" IsDefault="True" Height="25" VerticalAlignment="Bottom"/>
+        <Button Content="Close" Height="25" x:Name="btnClose" Width="137.909" UseLayoutRounding="False" Margin="13,0,0,25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="Close_Click"  TabIndex="5" IsDefault="True"/>
+        <Button Content="Save" x:Name="btnSave" UseLayoutRounding="False" Margin="1013,0,12,25" Click="Save_Click"  TabIndex="5" IsDefault="True" Height="25" VerticalAlignment="Bottom"/>
 
         <ListView Margin="13,10,11,73" x:Name="lstGames" ItemsSource="{Binding}" ItemContainerStyle="{StaticResource ItemContStyle}" >
             <ListView.View>
