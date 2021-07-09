@@ -92,7 +92,7 @@ jobs:
         ConnectionStrings.DefaultConnectionString: "${{ secrets.SQL_CONNECTIONSTRING }}"
         CacheConnection: "${{ secrets.REDIS_CONNECTIONSTRING }}"  
     - name: Test dotnet 5 projects
-      run: dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug --logger trx --collect "Code coverage" --settings:${{ github.workspace }}/SamSmithNZ/SamSmithNZ.Tests/CodeCoverage.runsettings  --nologo -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=lcov 
+      run: dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug--nologo -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=lcov 
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
