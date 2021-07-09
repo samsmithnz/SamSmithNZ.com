@@ -13,23 +13,8 @@ namespace SamSmithNZ.Tests.WorldCup
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class TournamentTests : BaseIntegrationTest
     {
-        [TestMethod]
-        public async Task TournamentsExistTest()
-        {
-            //arrange
-            TournamentController controller = new(new TournamentDataAccess(base.Configuration));
-            int competitionCode = 1;
-
-            //act
-            List<Tournament> results = await controller.GetTournaments(competitionCode);
-
-            //assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count > 0);
-        }
-
         [TestMethod()]
-        public async Task TournamentsFirstItemTest()
+        public async Task TournamentsListTest()
         {
             //arrange
             TournamentController controller = new(new TournamentDataAccess(base.Configuration));
@@ -125,28 +110,5 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.IsTrue(item.TotalPenalties == 9);
         }
 
-        //[TestMethod()]
-        //public async Task AlbumsTCATSTest()
-        //{
-        //    //arrange
-        //    AlbumDataAccess da = new AlbumDataAccess();
-        //    int albumCode = 14; //The Colour And The Shape
-
-        //    //act
-        //    List<Album> results = await da.GetListAsync(true);
-
-        //    //assert
-        //    bool foundTCATS = false;
-        //    foreach (Album result in results)
-        //    {
-        //        if (result.AlbumCode == albumCode)
-        //        {
-        //            TestTCATS(result);
-        //            foundTCATS = true;
-        //            break;
-        //        }
-        //    }
-        //    Assert.IsTrue(foundTCATS == true);
-        //}
     }
 }
