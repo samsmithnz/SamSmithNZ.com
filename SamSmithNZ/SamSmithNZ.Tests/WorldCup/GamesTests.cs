@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace SamSmithNZ.Tests.WorldCup
 {
     [TestClass]
+    [TestCategory("L1")]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class GamesTests : BaseIntegrationTest
     {      
@@ -397,91 +398,6 @@ namespace SamSmithNZ.Tests.WorldCup
             }
         }
 
-        [TestMethod]
-        public void GamesTeam2IsWayBetterELOTest()
-        {
-            //arrange
-            Game game = new();
-            game.Team1Code = 1;
-            game.Team2Code = 2;
-            game.Team1EloRating = 1000;
-            game.Team1PreGameEloRating = 1000;
-            game.Team1PostGameEloRating = 1000;
-            game.Team2EloRating = 2000;
-            game.Team2PreGameEloRating = 2000;
-            game.Team2PostGameEloRating = 2000;
-
-            //act
-
-            //assert
-            Assert.IsTrue(game.Team1ChanceToWin < game.Team2ChanceToWin);
-        }
-
-        [TestMethod]
-        public void GamesTeamsAreEqualELOTest()
-        {
-            //arrange
-            Game game = new();
-            game.Team1Code = 1;
-            game.Team2Code = 2;
-            game.Team1EloRating = 2000;
-            game.Team1PreGameEloRating = 2000;
-            game.Team1PostGameEloRating = 2000;
-            game.Team2EloRating = 2000;
-            game.Team2PreGameEloRating = 2000;
-            game.Team2PostGameEloRating = 2000;
-
-            //act
-
-            //assert
-            Assert.IsTrue(game.Team1ChanceToWin == game.Team2ChanceToWin);
-        }
-
-        [TestMethod]
-        public void GamesTeamsAreEqualELONoTeamsTest()
-        {
-            //arrange
-            Game game = new();
-            game.Team1EloRating = 2000;
-            game.Team1PreGameEloRating = 2000;
-            game.Team1PostGameEloRating = 2000;
-            game.Team2EloRating = 2000;
-            game.Team2PreGameEloRating = 2000;
-            game.Team2PostGameEloRating = 2000;
-
-            //act
-
-            //assert
-            Assert.IsTrue(game.Team1ChanceToWin == game.Team2ChanceToWin && game.Team1ChanceToWin == -1);
-        }
-
-        [TestMethod]
-        public void Team1TotalGoalsTest()
-        {
-            //arrange
-            Game game = new();
-            game.Team1NormalTimeScore = 1;
-            game.Team1ExtraTimeScore = 2;
-
-            //act
-
-            //assert
-            Assert.IsTrue(game.Team1TotalGoals == 3);
-        }
-
-        [TestMethod]
-        public void Team2TotalGoalsTest()
-        {
-            //arrange
-            Game game = new();
-            game.Team2NormalTimeScore = 1;
-            game.Team2ExtraTimeScore = 2;
-
-            //act
-
-            //assert
-            Assert.IsTrue(game.Team2TotalGoals == 3);
-        }
 
         [TestMethod]
         public async Task GamesEnglandOddsTest()

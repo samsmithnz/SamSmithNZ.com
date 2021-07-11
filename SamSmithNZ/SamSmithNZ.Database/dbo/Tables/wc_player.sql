@@ -11,4 +11,8 @@
     [club_country_name] NVARCHAR(200) NULL,
     CONSTRAINT [PK_wc_player] PRIMARY KEY CLUSTERED ([player_code] ASC)
 );
+GO
+CREATE NONCLUSTERED INDEX IX_Player_TournamentCode
+    ON dbo.wc_player (tournament_code);  
+GO
 
