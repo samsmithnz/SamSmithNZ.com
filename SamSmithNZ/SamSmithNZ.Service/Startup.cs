@@ -65,6 +65,7 @@ namespace SamSmithNZ.Service
             services.AddScoped<IPlayerDataAccess, PlayerDataAccess>();
             services.AddScoped<ITeamDataAccess, TeamDataAccess>();
             services.AddScoped<ITournamentDataAccess, TournamentDataAccess>();
+            services.AddScoped<ITournamentImportStatusDataAccess, TournamentImportStatusDataAccess>();
             services.AddScoped<ITournamentTeamDataAccess, TournamentTeamDataAccess>();
             services.AddScoped<ITournamentTopGoalScorerDataAccess, TournamentTopGoalScorerDataAccess>();
             services.AddScoped<IPlayoffDataAccess, PlayoffDataAccess>();

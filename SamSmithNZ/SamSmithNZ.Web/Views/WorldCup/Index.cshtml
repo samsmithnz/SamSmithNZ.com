@@ -1,23 +1,16 @@
 ﻿@using SamSmithNZ.Service.Models.WorldCup
 @using SamSmithNZ.Web.Models.WorldCup
-@model List<Tournament>
+@model IndexViewModel
 @{
     ViewBag.Title = "";
     Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
 }
 
-@*@if (Model != null && Model.Count > 0 && Model[0].CompetitionCode != 3)
-{
-    <span style="color: red">New!</span> <a href="~/WorldCup/index?competitioncode=3">Euro 2020</a>
-    <br />
-    <br />
-}*@
-
 <div class="row">
     <div class="col-md-12">
         <table class="table table-striped table-bordered">
             <tr>
-                @if (Model != null && Model.Count > 0 && Model[0].CompetitionCode == 1)
+                @if (Model != null && Model.Tournaments.Count > 0 && Model.Tournaments[0].CompetitionCode == 1)
                 {
                     <th>World Cup</th>
                 }
@@ -35,8 +28,9 @@
                 @*<th>% Data Loaded</th>*@
                 <th>Data Missing</th>
             </tr>
-            @foreach (Tournament item in Model)
+            @for (int i = 0; i < Model.Tournaments.Count - 1; i++)
             {
+                Tournament item = Model.Tournaments[i];
                 <tr>
                     <td>
                         <img src="~/WorldCup/teams/@item.HostFlagName" />
@@ -51,31 +45,31 @@
                         <a href="/WorldCup/Tournament?tournamentCode=@item.TournamentCode">@item.TournamentName</a>
                     </td>
                     <td>
-                        @if (item.GameCount > 0 && item.R1FormatRoundCode > 0 && item.R1IsGroupStage == true)
+                        @if (Model.TournamentsImportStatus[i].TotalGames > 0 && item.R1FormatRoundCode > 0 && item.R1IsGroupStage == true)
                         {
                             <a href="/WorldCup/Group?tournamentCode=@item.TournamentCode&roundNumber=1">Group Stage</a>
                         }
-                        else if (item.GameCount > 0 && item.R1FormatRoundCode > 0 && item.R1IsGroupStage == false)
+                        else if (Model.TournamentsImportStatus[i].TotalGames > 0 && item.R1FormatRoundCode > 0 && item.R1IsGroupStage == false)
                         {
                             <a href="/WorldCup/Playoffs?tournamentCode=@item.TournamentCode&roundNumber=1">Playoffs</a>
                         }
                     </td>
                     <td>
-                        @if (item.GameCount > 0 && item.R2FormatRoundCode > 0 && item.R2IsGroupStage == true)
+                        @if (Model.TournamentsImportStatus[i].TotalGames > 0 && item.R2FormatRoundCode > 0 && item.R2IsGroupStage == true)
                         {
                             <a href="/WorldCup/Group?tournamentCode=@item.TournamentCode&roundNumber=2">Group Stage</a>
                         }
-                        else if (item.GameCount > 0 && item.R2FormatRoundCode > 0 && item.R2IsGroupStage == false)
+                        else if (Model.TournamentsImportStatus[i].TotalGames > 0 && item.R2FormatRoundCode > 0 && item.R2IsGroupStage == false)
                         {
                             <a href="/WorldCup/Playoffs?tournamentCode=@item.TournamentCode&roundNumber=2">Playoffs</a>
                         }
                     </td>
                     <td>
-                        @if (item.GameCount > 0 && item.R3FormatRoundCode > 0 && item.R3IsGroupStage == true)
+                        @if (Model.TournamentsImportStatus[i].TotalGames > 0 && item.R3FormatRoundCode > 0 && item.R3IsGroupStage == true)
                         {
                             <a href="/WorldCup/Group?tournamentCode=@item.TournamentCode&roundNumber=3">Group Stage</a>
                         }
-                        else if (item.GameCount > 0 && item.R3FormatRoundCode > 0 && item.R3IsGroupStage == false)
+                        else if (Model.TournamentsImportStatus[i].TotalGames > 0 && item.R3FormatRoundCode > 0 && item.R3IsGroupStage == false)
                         {
                             <a href="/WorldCup/Playoffs?tournamentCode=@item.TournamentCode&roundNumber=3">Playoffs</a>
                         }
@@ -83,29 +77,29 @@
                     <td>
                         @if (item.MinGameTime != null)
                         {
-                            <span>@(((float)item.TotalGoals/ (float)item.GamesCompleteCount).ToString("0.00"))</span>
+                            <span>@(((float)Model.TournamentsImportStatus[i].TotalGoals / (float)Model.TournamentsImportStatus[i].TotalGamesCompleted).ToString("0.00"))</span>
                         }
-                        @if (item.GameCount > item.GamesCompleteCount && item.GamesCompleteCount > 0)
+                        @if (Model.TournamentsImportStatus[i].TotalGames > Model.TournamentsImportStatus[i].TotalGamesCompleted && Model.TournamentsImportStatus[i].TotalGamesCompleted > 0)
                         {
-                            <span> (@item.GamesCompleteCount/@item.GameCount games completed)</span>
-                        }
-                    </td>
-                    <td>
-                        @if (item.MinGameTime != null)
-                        {
-                            <span>@item.TotalGoals</span>
+                    <span> (@Model.TournamentsImportStatus[i].TotalGamesCompleted/@Model.TournamentsImportStatus[i].TotalGames games completed)</span>
                         }
                     </td>
                     <td>
                         @if (item.MinGameTime != null)
                         {
-                            <span>@item.TotalPenalties</span>
+                            <span>@Model.TournamentsImportStatus[i].TotalGoals</span>
                         }
                     </td>
                     <td>
                         @if (item.MinGameTime != null)
                         {
-                            <span>@item.GameCount</span>
+                            <span>@Model.TournamentsImportStatus[i].TotalPenalties</span>
+                        }
+                    </td>
+                    <td>
+                        @if (item.MinGameTime != null)
+                        {
+                            <span>@Model.TournamentsImportStatus[i].TotalGames</span>
                         }
                     </td>
                     @*                    <td><span ng-if="item.MinGameTime != null">@item.TotalShootoutGoals</span></td>
@@ -114,28 +108,26 @@
                         @if (item.MinGameTime != null)
                         {
                             <span>
-                                @if (item.ImportingTeamPercent < 1)
+                                @if (Model.TournamentsImportStatus[i].ImportingTeamPercent < 1)
                                 {
-                                    <span>Teams Missing: @(((1 - item.ImportingTeamPercent)).ToString("0.00%"))</span>
+                                    <span>Teams Missing: @(((1 - Model.TournamentsImportStatus[i].ImportingTeamPercent)).ToString("0.00%"))</span>
                                 }
-                                @if (item.ImportingGamePercent < 1)
+                                @if (Model.TournamentsImportStatus[i].ImportingGamePercent < 1)
                                 {
-                                    <span>Games Missing: @(((1 - item.ImportingGamePercent)).ToString("0.00%"))</span>
+                                    <span>Games Missing: @(((1 - Model.TournamentsImportStatus[i].ImportingGamePercent)).ToString("0.00%"))</span>
                                 }
-                                @if (item.ImportingPlayerPercent < 1)
+                                @if (Model.TournamentsImportStatus[i].ImportingPlayerPercent < 1)
                                 {
-                                    <span>Team Rosters Missing: @(((1 - item.ImportingPlayerPercent)).ToString("0.00%"))</span>
+                                    <span>Team Rosters Missing: @(((1 - Model.TournamentsImportStatus[i].ImportingPlayerPercent)).ToString("0.00%"))</span>
                                 }
-                                @if (item.ImportingGoalsPercent < 1)
+                                @if (Model.TournamentsImportStatus[i].ImportingGoalsPercent < 1)
                                 {
-                                    <span>Player Goal Assignments Missing: @(((1 - item.ImportingGoalsPercent)).ToString("0.00%"))</span>
+                                    <span>Player Goal Assignments Missing: @(((1 - Model.TournamentsImportStatus[i].ImportingGoalsPercent)).ToString("0.00%"))</span>
                                 }
-                                @if (item.ImportingPenaltyShootoutGoalsPercent < 1)
+                                @if (Model.TournamentsImportStatus[i].ImportingPenaltyShootoutGoalsPercent < 1)
                                 {
-                                    <span>Player Penalty Shootouts Assignments Missing: @(((1 - item.ImportingPenaltyShootoutGoalsPercent)).ToString("0.00%"))</span>
-                                }
-                                @*<span ng-if="item.ImportingPlayerPercent < 1 && item.ImportingGoalsPercent < 1 && item.ImportingPenaltyShootoutGoalsPercent < 1">Team Rosters & Player Goal Assignments</span>
-                                    <span ng-if="item.ImportingGoalsPercent < 1 && item.ImportingPenaltyShootoutGoalsPercent < 1">All Player Goal Assignments</span>*@
+                                    <span>Player Penalty Shootouts Assignments Missing: @(((1 - Model.TournamentsImportStatus[i].ImportingPenaltyShootoutGoalsPercent)).ToString("0.00%"))</span>
+                                }                                
                             </span>
                         }
                         else

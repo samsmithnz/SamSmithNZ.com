@@ -22,7 +22,6 @@ BEGIN
 		CONVERT(VARCHAR(8000),t.notes) AS Notes, 
 		t.logo_image AS LogoImage, 
 		t.qualification_image AS QualificationImage,	
-		(SELECT COUNT(g4.game_code) FROM wc_game g4 WHERE g4.tournament_code = t.tournament_code AND g4.game_time <= @CurrentTime) AS GamesCompleteCount,
 		ISNULL((SELECT MIN(ga1.game_time) FROM wc_game ga1 WHERE ga1.tournament_code = t.tournament_code),NULL) AS MinGameTime,
 		ISNULL((SELECT MAX(ga2.game_time) FROM wc_game ga2 WHERE ga2.tournament_code = t.tournament_code),NULL) AS MaxGameTime,
 		tf.format_code AS FormatCode,

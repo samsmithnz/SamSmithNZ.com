@@ -23,7 +23,6 @@ namespace SamSmithNZ.Tests.WorldCup
             //act
             List<Tournament> results = await controller.GetTournaments(competitionCode);
 
-
             //assert
             Assert.IsTrue(results != null);
             Assert.IsTrue(results.Count > 0);
@@ -65,17 +64,9 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.IsTrue(item.CoHostTeamName2 == null);
             Assert.IsTrue(item.CompetitionCode == 1);
             Assert.IsTrue(item.FormatCode == 1);
-            Assert.IsTrue(item.GameCount == 64);
-            Assert.IsTrue(item.GamesCompleteCount == 64);
             Assert.IsTrue(item.HostFlagName == "22px-Flag_of_South_Africa_svg.png");
             Assert.IsTrue(item.HostTeamCode == 27);
             Assert.IsTrue(item.HostTeamName == "South Africa");
-            Assert.IsTrue(item.ImportingGamePercent == 1);
-            Assert.IsTrue(item.ImportingGoalsPercent == 1);
-            Assert.IsTrue(item.ImportingPenaltyShootoutGoalsPercent == 1);
-            Assert.IsTrue(item.ImportingPlayerPercent == 1);
-            Assert.IsTrue(item.ImportingTeamPercent == 1);
-            Assert.IsTrue(item.ImportingTotalPercentComplete == 1);
             Assert.IsTrue(item.LogoImage == "200px-2010_FIFA_World_Cup_logo_svg.png");
             Assert.IsTrue(item.MaxGameTime > DateTime.MinValue);
             Assert.IsTrue(item.MinGameTime > DateTime.MinValue);
@@ -105,9 +96,6 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.IsTrue(item.TournamentCode == 19);
             Assert.IsTrue(item.TournamentName == "South Africa 2010");
             Assert.IsTrue(item.TournamentYear == 2010);
-            Assert.IsTrue(item.TotalGoals == 145);
-            Assert.IsTrue(item.TotalShootoutGoals == 14);
-            Assert.IsTrue(item.TotalPenalties == 9);
         }
 
     }
