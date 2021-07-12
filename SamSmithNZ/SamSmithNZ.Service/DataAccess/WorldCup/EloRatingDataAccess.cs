@@ -38,16 +38,18 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             GameDataAccess da = new(_configuration);
             List<Game> gameList = await da.GetListByTournament(tournamentCode);
 
-            TeamDataAccess da2 = new(_configuration);
-            List<Team> teamList = await da2.GetList();
+            //TeamDataAccess da2 = new(_configuration);
+            //List<Team> teamList = await da2.GetList();
 
             TournamentTeamDataAccess da3 = new(_configuration);
             List<TournamentTeam> tournamentTeams = await da3.GetQualifiedTeams(tournamentCode);
-            //Update and refresh all of the tournament team ELO ratings
+
+            //Update all of the tournament team ELO ratings
             foreach (TournamentTeam tournamentTeam in tournamentTeams)
             {
                 await SaveTeamELORatingAsync(tournamentCode, tournamentTeam.TeamCode, tournamentTeam.StartingEloRating);
             }
+            //refresh tournament ELO ratings
             tournamentTeams = await da3.GetQualifiedTeams(tournamentCode);
 
             List<TeamELORating> teamRatingList = new();
@@ -57,10 +59,10 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
                 int? team2StartingEloRating = GetTournamentTeamCurrentEloRanking(game.Team2Code, tournamentTeams);
                 bool gameIsDirty = false;
 
-                if (game.Team1Code == 10 || game.Team2Code == 10)
-                {
-                    System.Diagnostics.Debug.WriteLine("Game: " + game.GameNumber + ", Team1: " + game.Team1Name + ", Team1Elo: " + game.Team1PreGameEloRating + ", Team2: " + game.Team2Name + ", Team2Elo: " + game.Team2PreGameEloRating);
-                }
+                //if (game.Team1Code == 10 || game.Team2Code == 10)
+                //{
+                //    System.Diagnostics.Debug.WriteLine("Game: " + game.GameNumber + ", Team1: " + game.Team1Name + ", Team1Elo: " + game.Team1PreGameEloRating + ", Team2: " + game.Team2Name + ", Team2Elo: " + game.Team2PreGameEloRating);
+                //}
 
                 if (game.Team1PreGameEloRating == team1StartingEloRating || game.Team2PreGameEloRating != team2StartingEloRating)
                 {
@@ -77,12 +79,9 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
                 match.User2Score = team2.ELORating;
                 int? result = WhoWon(game);
                 kRating = CalculateKFactor(game);
-                if (result == null)
+                if (result != null)
                 {
-                    //the game hasn't started yet, do nothing
-                }
-                else
-                {
+                    //the game has started yet, we can process the game
                     if (result == 1)
                     {
                         EloRating.UpdateEloRatingScores(match, true, false, diff, kRating);

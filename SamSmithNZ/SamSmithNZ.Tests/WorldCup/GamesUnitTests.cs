@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace SamSmithNZ.Tests.WorldCup
 {
     [TestClass]
+    [TestCategory("L0")]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class GamesUnitTests
     {
@@ -32,6 +33,58 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.IsTrue(results.Count > 0);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual(14, results[0].TournamentCode);
+        }
+
+        [TestMethod]
+        public async Task GameUnitTest()
+        {
+            //arrange
+            Game game = new()
+            {
+                TournamentCode = 1,
+                TournamentName = "MyTournament",
+                RoundNumber = 1,
+                RoundCode = "A",
+                RoundName = "Group A",
+                GameNumber = 1,
+                GameCode = 1,
+                GameTime = new(2021, 7, 9, 8, 52, 0),
+                Location = "Boston, MA",
+                RowType = 1,
+                CoachFlag = "ABC",
+                CoachName = "DEF",
+                Team1Code = 10,
+                Team1Name = "England",
+                Team1FlagName = "Union Jack",
+                Team1NormalTimeScore = 3,
+                Team1ExtraTimeScore = null,
+                Team1PenaltiesScore = null,
+                Team1EloRating = 1050,
+                Team1PreGameEloRating = 1000,
+                Team1PostGameEloRating = 1100,
+                Team1ResultWonGame = true,
+                Team1Withdrew = false,
+                Team2Code = 12,
+                Team2Name = "France",
+                Team2FlagName = "FrenchFlag",
+                Team2NormalTimeScore = 1,
+                Team2ExtraTimeScore = null,
+                Team2PenaltiesScore = null,
+                Team2EloRating = 950,
+                Team2PreGameEloRating = 1000,
+                Team2PostGameEloRating = 900,
+                Team2ResultWonGame = true,
+                Team2Withdrew = false,
+                IsOwnGoal = false,
+                IsPenalty = false,
+                IsGoldenGoal = false,
+                ShowPenaltyShootOutLabel = false
+            };
+
+            //act
+
+            //assert
+            Assert.IsTrue(game != null);
         }
 
 
@@ -60,6 +113,93 @@ namespace SamSmithNZ.Tests.WorldCup
                 TournamentCode = 14,
                 TournamentName = "Test tournament 14"
             } };
+        }
+
+
+        [TestMethod]
+        public void GamesTeam2IsWayBetterELOTest()
+        {
+            //arrange
+            Game game = new();
+            game.Team1Code = 1;
+            game.Team2Code = 2;
+            game.Team1EloRating = 1000;
+            game.Team1PreGameEloRating = 1000;
+            game.Team1PostGameEloRating = 1000;
+            game.Team2EloRating = 2000;
+            game.Team2PreGameEloRating = 2000;
+            game.Team2PostGameEloRating = 2000;
+
+            //act
+
+            //assert
+            Assert.IsTrue(game.Team1ChanceToWin < game.Team2ChanceToWin);
+        }
+
+        [TestMethod]
+        public void GamesTeamsAreEqualELOTest()
+        {
+            //arrange
+            Game game = new();
+            game.Team1Code = 1;
+            game.Team2Code = 2;
+            game.Team1EloRating = 2000;
+            game.Team1PreGameEloRating = 2000;
+            game.Team1PostGameEloRating = 2000;
+            game.Team2EloRating = 2000;
+            game.Team2PreGameEloRating = 2000;
+            game.Team2PostGameEloRating = 2000;
+
+            //act
+
+            //assert
+            Assert.IsTrue(game.Team1ChanceToWin == game.Team2ChanceToWin);
+        }
+
+        [TestMethod]
+        public void GamesTeamsAreEqualELONoTeamsTest()
+        {
+            //arrange
+            Game game = new();
+            game.Team1EloRating = 2000;
+            game.Team1PreGameEloRating = 2000;
+            game.Team1PostGameEloRating = 2000;
+            game.Team2EloRating = 2000;
+            game.Team2PreGameEloRating = 2000;
+            game.Team2PostGameEloRating = 2000;
+
+            //act
+
+            //assert
+            Assert.IsTrue(game.Team1ChanceToWin == game.Team2ChanceToWin && game.Team1ChanceToWin == -1);
+        }
+
+        [TestMethod]
+        public void Team1TotalGoalsTest()
+        {
+            //arrange
+            Game game = new();
+            game.Team1NormalTimeScore = 1;
+            game.Team1ExtraTimeScore = 2;
+
+            //act
+
+            //assert
+            Assert.IsTrue(game.Team1TotalGoals == 3);
+        }
+
+        [TestMethod]
+        public void Team2TotalGoalsTest()
+        {
+            //arrange
+            Game game = new();
+            game.Team2NormalTimeScore = 1;
+            game.Team2ExtraTimeScore = 2;
+
+            //act
+
+            //assert
+            Assert.IsTrue(game.Team2TotalGoals == 3);
         }
 
     }

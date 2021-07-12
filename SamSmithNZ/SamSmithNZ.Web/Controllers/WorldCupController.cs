@@ -19,8 +19,15 @@ namespace SamSmithNZ.Web.Controllers
         public async Task<IActionResult> Index(int? competitionCode = null)
         {
             List<Tournament> tournaments = await _ServiceApiClient.GetTournaments(competitionCode);
+            List<TournamentImportStatus> tournamentsImportStatus = await _ServiceApiClient.GetTournamentsImportStatus(competitionCode);
 
-            return View(tournaments);
+            IndexViewModel indexViewModel = new()
+            {
+                Tournaments = tournaments,
+                TournamentsImportStatus = tournamentsImportStatus
+            };
+
+            return View(indexViewModel);
         }
 
         public async Task<IActionResult> Tournament(int tournamentCode)

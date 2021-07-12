@@ -6,5 +6,5 @@ This website is a place for me to learn, experiment and play with new technologi
 [![Coverage Status](https://coveralls.io/repos/github/samsmithnz/SamSmithNZ.com/badge.svg?branch=main)](https://coveralls.io/github/samsmithnz/SamSmithNZ.com?branch=main)
 ![Current Release](https://img.shields.io/github/release/samsmithnz/SamSmithNZ.com/all.svg)
 
-My personal website at [https://samsmithnz.com](https://samsmithnz.com)
+My personal website is hosted at: [https://samsmithnz.com](https://samsmithnz.com)
 

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SamSmithNZ.Service.Models.WorldCup
 {
@@ -22,8 +19,6 @@ namespace SamSmithNZ.Service.Models.WorldCup
         public int CoHostTeamCode2 { get; set; }
         public string CoHostTeamName2 { get; set; }
         public string CoHostFlagName2 { get; set; }
-        public int GameCount { get; set; }
-        public int GamesCompleteCount { get; set; }
         public DateTime? MinGameTime { get; set; }
         public DateTime? MaxGameTime { get; set; }
         public int FormatCode { get; set; }
@@ -48,18 +43,9 @@ namespace SamSmithNZ.Service.Models.WorldCup
         public int R3NumberOfTeamsFromGroupThatAdvance { get; set; }
         public int R3TotalNumberOfTeamsThatAdvance { get; set; }
         public string R3FirstGroupCode { get; set; }
-        public decimal ImportingTotalPercentComplete { get; set; }
-        public decimal ImportingTeamPercent { get; set; }
-        public decimal ImportingGamePercent { get; set; }
-        public decimal ImportingPlayerPercent { get; set; }
-        public decimal ImportingGoalsPercent { get; set; }
-        public decimal ImportingPenaltyShootoutGoalsPercent { get; set; }
         public string Notes { get; set; }
         public string LogoImage { get; set; }
         public string QualificationImage { get; set; }
-        public int TotalGoals { get; set; }
-        public int TotalPenalties { get; set; }
-        public int TotalShootoutGoals { get; set; }
 
     }
 }

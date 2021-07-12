@@ -51,42 +51,36 @@ namespace SamSmithNZ.Web.Models.WorldCup
                 ShowFinals = true;
                 switch (gameCount)
                 {
-                    case 16:
-                        //Show Everything!
+                    case 16: //top 16 teams, quarter Finals, semis, finals, and 3rd place games
                         break;
-                    case 15:
-                        //Show 16 team playoff, no 3rd place
+                    case 15: //top 16 teams, quarter Finals, semis, finals, but hide 3rd place games
                         Show3rdPlace = false;
                         break;
-                    case 8:
-                        //Only show Quarter Finals
+                    case 8: //quarter finals, semis, finals, and 3rd place games
                         Show16s = false;
                         break;
-                    case 7:
-                        //Show Quarter Finals, hide 3rd place
+                    case 7: //quarter finals, semis, finals, hide 3rd place
                         Show16s = false;
                         Show3rdPlace = false;
                         break;
-                    case 5:
-                    case 4:
-                        //Only show Semis
+                    case 5: //semis, finals, and 3rd place games
+                    case 4: //semis, finals, and 3rd place games
                         Show16s = false;
                         ShowQuarters = false;
                         break;
-                    case 3:
-                        //Show Semis and Finals, hide 3rd Place
+                    case 3: //semis, finals, hide 3rd Place
                         Show16s = false;
                         ShowQuarters = false;
                         Show3rdPlace = false;
                         break;
                     case 2:
-                        //Show Finals & 3rd place
+                        //finals, & 3rd place
                         Show16s = false;
                         ShowQuarters = false;
                         ShowSemis = false;
                         break;
                     case 1:
-                        //Only show Finals
+                        //finals, hide 3rd place
                         Show16s = false;
                         ShowQuarters = false;
                         ShowSemis = false;

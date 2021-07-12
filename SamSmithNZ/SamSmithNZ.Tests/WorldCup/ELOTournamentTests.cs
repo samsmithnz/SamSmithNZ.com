@@ -47,7 +47,7 @@ namespace SamSmithNZ.Tests.WorldCup
             //Arrange
             TournamentController controller = new(new TournamentDataAccess(base.Configuration));
             int competitionCode = 1;
-            
+
             //Act
             List<Tournament> tournaments = await controller.GetTournaments(competitionCode);
 
@@ -67,6 +67,10 @@ namespace SamSmithNZ.Tests.WorldCup
                     Assert.IsTrue(results[0].TeamName != "");
                     Assert.IsTrue(results[0].TournamentCode >= 0);
                     Assert.IsTrue(results[0].Wins >= 0);
+
+                    Assert.AreEqual(2240, results[0].ELORating);
+                    Assert.AreEqual(1965, results[5].ELORating);
+                    Assert.AreEqual(1519, results[results.Count - 1].ELORating);
                 }
             }
         }

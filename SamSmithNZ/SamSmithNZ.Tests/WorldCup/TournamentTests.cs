@@ -13,23 +13,8 @@ namespace SamSmithNZ.Tests.WorldCup
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class TournamentTests : BaseIntegrationTest
     {
-        [TestMethod]
-        public async Task TournamentsExistTest()
-        {
-            //arrange
-            TournamentController controller = new(new TournamentDataAccess(base.Configuration));
-            int competitionCode = 1;
-
-            //act
-            List<Tournament> results = await controller.GetTournaments(competitionCode);
-
-            //assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count > 0);
-        }
-
         [TestMethod()]
-        public async Task TournamentsFirstItemTest()
+        public async Task TournamentsListTest()
         {
             //arrange
             TournamentController controller = new(new TournamentDataAccess(base.Configuration));
@@ -37,7 +22,6 @@ namespace SamSmithNZ.Tests.WorldCup
 
             //act
             List<Tournament> results = await controller.GetTournaments(competitionCode);
-
 
             //assert
             Assert.IsTrue(results != null);
@@ -80,17 +64,9 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.IsTrue(item.CoHostTeamName2 == null);
             Assert.IsTrue(item.CompetitionCode == 1);
             Assert.IsTrue(item.FormatCode == 1);
-            Assert.IsTrue(item.GameCount == 64);
-            Assert.IsTrue(item.GamesCompleteCount == 64);
             Assert.IsTrue(item.HostFlagName == "22px-Flag_of_South_Africa_svg.png");
             Assert.IsTrue(item.HostTeamCode == 27);
             Assert.IsTrue(item.HostTeamName == "South Africa");
-            Assert.IsTrue(item.ImportingGamePercent == 1);
-            Assert.IsTrue(item.ImportingGoalsPercent == 1);
-            Assert.IsTrue(item.ImportingPenaltyShootoutGoalsPercent == 1);
-            Assert.IsTrue(item.ImportingPlayerPercent == 1);
-            Assert.IsTrue(item.ImportingTeamPercent == 1);
-            Assert.IsTrue(item.ImportingTotalPercentComplete == 1);
             Assert.IsTrue(item.LogoImage == "200px-2010_FIFA_World_Cup_logo_svg.png");
             Assert.IsTrue(item.MaxGameTime > DateTime.MinValue);
             Assert.IsTrue(item.MinGameTime > DateTime.MinValue);
@@ -120,33 +96,7 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.IsTrue(item.TournamentCode == 19);
             Assert.IsTrue(item.TournamentName == "South Africa 2010");
             Assert.IsTrue(item.TournamentYear == 2010);
-            Assert.IsTrue(item.TotalGoals == 145);
-            Assert.IsTrue(item.TotalShootoutGoals == 14);
-            Assert.IsTrue(item.TotalPenalties == 9);
         }
 
-        //[TestMethod()]
-        //public async Task AlbumsTCATSTest()
-        //{
-        //    //arrange
-        //    AlbumDataAccess da = new AlbumDataAccess();
-        //    int albumCode = 14; //The Colour And The Shape
-
-        //    //act
-        //    List<Album> results = await da.GetListAsync(true);
-
-        //    //assert
-        //    bool foundTCATS = false;
-        //    foreach (Album result in results)
-        //    {
-        //        if (result.AlbumCode == albumCode)
-        //        {
-        //            TestTCATS(result);
-        //            foundTCATS = true;
-        //            break;
-        //        }
-        //    }
-        //    Assert.IsTrue(foundTCATS == true);
-        //}
     }
 }
