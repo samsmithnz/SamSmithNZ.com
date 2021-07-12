@@ -22,4 +22,7 @@
 	[team_2_postgame_elo_rating] INT NULL,
 	CONSTRAINT [PK_wc_game] PRIMARY KEY CLUSTERED ([game_code] ASC)
 );
-
+GO
+CREATE NONCLUSTERED INDEX IX_Game_TournamentCode
+    ON dbo.wc_game (tournament_code);  
+GO
