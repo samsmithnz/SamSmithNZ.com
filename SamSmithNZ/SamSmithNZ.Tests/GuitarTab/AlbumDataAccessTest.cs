@@ -1,7 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using SamSmithnNZ.Tests;
 using SamSmithNZ.Service.Controllers.GuitarTab;
+using SamSmithNZ.Service.Controllers.WorldCup;
 using SamSmithNZ.Service.DataAccess.GuitarTab;
+using SamSmithNZ.Service.DataAccess.GuitarTab.Interfaces;
+using SamSmithNZ.Service.DataAccess.WorldCup.Interfaces;
 using SamSmithNZ.Service.Models.GuitarTab;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,7 +21,9 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task AlbumsExistTest()
         {
             //arrange
-            AlbumController controller = new(new AlbumDataAccess(base.Configuration));
+            Mock<IAlbumDataAccess> mock = new();
+            mock.Setup(repo => repo.GetList(It.IsAny<bool>())).Returns(Task.FromResult(GetAlbumsTestData()));
+            AlbumController controller = new(mock.Object);
 
             //act
             List<Album> results = await controller.GetAlbums(true);
@@ -128,6 +134,26 @@ namespace SamSmithNZ.Tests.GuitarTab
             Assert.IsTrue(item.IsBassTab == false);
             Assert.IsTrue(item.IsMiscCollectionAlbum == false);
             Assert.IsTrue(item.IsNewAlbum == false);
+        }
+
+        private List<Album> GetAlbumsTestData()
+        {
+            return new List<Album>() {
+            new Album{
+                AlbumCode = 14,
+                AlbumName = "The Colour And The Shape",
+                ArtistName = "Foo Fighters",
+                ArtistNameTrimed = "FooFighters",
+                AlbumYear = 1997,
+                IncludeInIndex = true,
+                IncludeOnWebsite = true,
+                IsBassTab = false,
+                IsMiscCollectionAlbum = false,
+                IsNewAlbum = false,
+                IsLeadArtist = false,
+                AverageRating = 5M,
+                BassAlbumCode = 102
+            } };
         }
     }
 }

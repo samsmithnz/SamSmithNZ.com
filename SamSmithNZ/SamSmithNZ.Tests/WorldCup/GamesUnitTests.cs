@@ -36,7 +36,7 @@ namespace SamSmithNZ.Tests.WorldCup
         }
 
         [TestMethod]
-        public async Task GameUnitTest()
+        public void GameUnitTest()
         {
             //arrange
             Game game = new()
