@@ -5,11 +5,15 @@ registries:
     url: https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json
     username: samsmithnz@gmail.com
     password: ${{ secrets.PACKAGE_PAT_TOKEN }}
+  nuget-org:
+    type: nuget-feed
+    url: https://api.nuget.org/v3/index.json
 updates:
 - package-ecosystem: nuget
   directory: "/SamSmithNZ/SamSmithNZ.Service"
   registries:
     - nuget-github
+    - nuget-org
   schedule:
     interval: daily
     time: "06:00"
@@ -21,6 +25,7 @@ updates:
   directory: "/SamSmithNZ/SamSmithNZ.Web"
   registries:
     - nuget-github
+    - nuget-org
   schedule:
     interval: daily
     time: "06:00"
@@ -32,6 +37,7 @@ updates:
   directory: "/SamSmithNZ/SamSmithNZ.Tests"
   registries:
     - nuget-github
+    - nuget-org
   schedule:
     interval: daily
     time: "06:00"
@@ -43,6 +49,7 @@ updates:
   directory: "/SamSmithNZ/SamSmithNZ.FunctionalTests"
   registries:
     - nuget-github
+    - nuget-org
   schedule:
     interval: daily
     time: "06:00"
