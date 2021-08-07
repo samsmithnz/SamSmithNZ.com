@@ -155,28 +155,28 @@ namespace SamSmithNZ.Tests.Steam
             Assert.IsTrue(result.AchievementsStats.Count >= 0);
         }
 
-        [TestMethod]
-        public async Task GameDetailsAlexCiv6Test()
-        {
-            //Arrange
-            GameDetailsController controller = new();
-            string steamId = "76561198034342716";
-            string appId = "289070"; //Civ 6
+        //[TestMethod]
+        //public async Task GameDetailsAlexCiv6Test()
+        //{
+        //    //Arrange
+        //    GameDetailsController controller = new();
+        //    string steamId = "76561198034342716";
+        //    string appId = "289070"; //Civ 6
 
-            //Act
-            GameDetail result = await controller.GetGameDetails(steamId, appId);
+        //    //Act
+        //    GameDetail result = await controller.GetGameDetails(steamId, appId);
 
-            //Assert
-            Assert.IsTrue(result != null);
-            Assert.IsTrue(result.AppID == "289070");
-            Assert.IsTrue(result.GameName == "Sid Meier's Civilization VI");
-            Assert.IsTrue(result.IconURL == "9dc914132fec244adcede62fb8e7524a72a7398c");
-            Assert.IsTrue(result.LogoURL == "356443a094f8e20ce21293039d7226eac3d3b4d9");
-            Assert.IsTrue(result.PercentAchieved >= 0m);
-            Assert.IsTrue(result.TotalAchieved >= 0);
-            Assert.IsTrue(result.Achievements.Count == 0);
-            Assert.IsTrue(result.ErrorMessage == null);
-        }
+        //    //Assert
+        //    Assert.IsTrue(result != null);
+        //    Assert.IsTrue(result.AppID == "289070");
+        //    Assert.IsTrue(result.GameName == "Sid Meier's Civilization VI");
+        //    Assert.IsTrue(result.IconURL == "9dc914132fec244adcede62fb8e7524a72a7398c");
+        //    Assert.IsTrue(result.LogoURL == "356443a094f8e20ce21293039d7226eac3d3b4d9");
+        //    Assert.IsTrue(result.PercentAchieved >= 0m);
+        //    Assert.IsTrue(result.TotalAchieved >= 0);
+        //    Assert.IsTrue(result.Achievements.Count == 0);
+        //    Assert.IsTrue(result.ErrorMessage == null);
+        //}
 
         //[TestMethod]
         //public async Task GameDetailsWithFriendSamXCOMFriendWithStewTest()
