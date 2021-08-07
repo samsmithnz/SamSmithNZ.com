@@ -94,7 +94,10 @@ jobs:
         ConnectionStrings.DefaultConnectionString: "${{ secrets.SQL_CONNECTIONSTRING }}"
         CacheConnection: "${{ secrets.REDIS_CONNECTIONSTRING }}"  
     - name: Test dotnet 5 projects
-      run: dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug--nologo -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=lcov 
+      run: |
+        dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.GITHUB_TOKEN }}"
+        dotnet restore SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj
+        dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug--nologo -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=lcov 
     - run: |
         Get-Childitem –Path ${{ github.workspace }} -Include *coverage.info* -File -Recurse -ErrorAction SilentlyContinue  
         Get-Childitem –Path ${{ github.workspace }} -Include *soccer.jpg* -File -Recurse -ErrorAction SilentlyContinue  
