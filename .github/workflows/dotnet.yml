@@ -86,8 +86,8 @@ jobs:
       run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
     - name: 'Copy database files to: ${{ github.workspace }}'
       run: |
-        copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*.*' '${{ github.workspace }}\Database'
-        dir '${{ github.workspace }}\Database /s'
+        copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*.*' '${{ github.workspace }}/Database'
+        dir '${{ github.workspace }}/Database /s'
         dir '${{ github.workspace }} /s'
     - name: Publish database objects
       uses: actions/upload-artifact@v2
