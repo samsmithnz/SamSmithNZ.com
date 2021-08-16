@@ -73,6 +73,11 @@ jobs:
       with:
         name: functionalTests
         path: ${{ github.workspace }}/FunctionalTests
+    - name: Publish database objects
+      uses: actions/upload-artifact@v2
+      with:
+        name: database
+        path: ${{ github.workspace }}/Database
         
   TestDotNet:
     name: Test .NET
@@ -148,8 +153,7 @@ jobs:
           dotnet restore SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
           dotnet build SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
- 
-          
+     
   DeployWebAppsToSlots:
     name: Deploy web apps
     runs-on: ubuntu-latest
