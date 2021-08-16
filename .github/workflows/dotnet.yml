@@ -23,7 +23,6 @@ jobs:
         fetch-depth: 0 #fetch-depth is needed for GitVersion
         
     #Install and calculate the new version with GitVersion  
-    #Install and calculate the new version with GitVersion  
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.7
       with:
@@ -51,10 +50,10 @@ jobs:
    #   run: |
    #     dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
    #     dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-   # - name: Build database project
-   #   run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
-   # - name: 'Copy database files to: ${{ github.workspace }}'
-   #   run: Copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*' '${{ github.workspace }}\Database'
+    - name: Build database project
+      run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
+    - name: 'Copy database files to: ${{ github.workspace }}'
+      run: Copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*' '${{ github.workspace }}\Database'
     - name: Publish .NET 5 functional tests project
       run: dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
     - name: 'Copy Selenium Files to: ${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
@@ -116,18 +115,15 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
-
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
           path: ~\sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-
       - name: Cache SonarCloud scanner
         id: cache-sonar-scanner
         uses: actions/cache@v1
@@ -135,7 +131,6 @@ jobs:
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
-
       - name: Install SonarCloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
@@ -153,7 +148,8 @@ jobs:
           dotnet restore SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
           dotnet build SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-                
+ 
+          
   DeployWebAppsToSlots:
     name: Deploy web apps
     runs-on: ubuntu-latest
@@ -187,11 +183,6 @@ jobs:
         app-name: ssnz-prod-eu-web
         package: web
         slot-name: production #staging
-    #- name: 'App Service Deploy: MandMCounter web service'
-    #  uses: Azure/webapps-deploy@v2
-    #  with:
-    #    app-name: mandm-prod-eu-service
-    #    package: MandMCounter.Service.zip   
     - name: Display GitVersion outputs
       run: |
         echo "Version: ${{ needs.build.outputs.Version }}" 
@@ -209,7 +200,6 @@ jobs:
   DeploySQLDB:
     name: Deploy SQL database
     runs-on: windows-latest
-    if: 0 == 1
     needs:
     - build
     - TestDotNet
@@ -234,7 +224,7 @@ jobs:
     runs-on: windows-latest
     needs:
     - DeployWebAppsToSlots
-    #- DeploySQLDB
+    - DeploySQLDB
     steps:
     - uses: actions/checkout@v2
     - name: Download the build artifacts
