@@ -54,7 +54,7 @@ jobs:
     #functional tests
     - name: Publish .NET 5 functional tests project
       run: dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
-    - name: 'Copy Selenium Files to: ${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
+    - name: 'Copy Selenium Files to artifacts folder'
       run: Copy 'SamSmithNZ/SamSmithNZ.FunctionalTests/bin/Release/net5.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
     #Publish all artifacts
     - name: Publish webapi Artifact
@@ -84,17 +84,17 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
     - name: Build database project
       run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
-    - name: 'Copy database files to: ${{ github.workspace }}'
+    - name: 'Copy database files to artifacts folder'
       run: | 
         #copy "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*" "${{ github.workspace }}\Database"
-        dir "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output"
-        Copy-Item -Path "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output" -Destination "${{ github.workspace }}\Database"
-        dir "${{ github.workspace }}\Database\" 
+        dir "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output" 
+        Copy-Item -Path "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output" -Destination "${{ github.workspace }}\Database" 
+        dir "${{ github.workspace }}\Database" 
     - name: Publish database objects
       uses: actions/upload-artifact@v2
       with:
         name: database
-        path: ${{ github.workspace }}/Database
+        path: ${{ github.workspace }}\Database
 
   testDotNet:
     name: Test .NET
