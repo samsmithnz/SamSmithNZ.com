@@ -87,8 +87,8 @@ jobs:
     - name: 'Copy database files to: ${{ github.workspace }}'
       run: |
         dir ${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output /s
-        copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*' '${{ github.workspace }}/Database'
-        dir ${{ github.workspace }}/Database /s
+        copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*.*' '${{ github.workspace }}/Database'
+        REM dir ${{ github.workspace }}/Database /s
         dir ${{ github.workspace }} /s
     - name: Publish database objects
       uses: actions/upload-artifact@v2
