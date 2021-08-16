@@ -12,7 +12,7 @@ env:
 jobs:
 
   build:
-    name: Build .NET
+    name: Build .NET 5 projects
     runs-on: windows-latest
     outputs: # https://stackoverflow.com/questions/59175332/using-output-from-a-previous-job-in-a-new-one-in-a-github-action
       Version: ${{ steps.gitversion.outputs.SemVer }}
@@ -50,14 +50,13 @@ jobs:
    #   run: |
    #     dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
    #     dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-    - name: Build database project
-      run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
-    - name: 'Copy database files to: ${{ github.workspace }}'
-      run: Copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*' '${{ github.workspace }}\Database'
+
+    #functional tests
     - name: Publish .NET 5 functional tests project
       run: dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
     - name: 'Copy Selenium Files to: ${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
       run: Copy 'SamSmithNZ/SamSmithNZ.FunctionalTests/bin/Release/net5.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
+    #Publish all artifacts
     - name: Publish webapi Artifact
       uses: actions/upload-artifact@v2
       with:
@@ -73,13 +72,25 @@ jobs:
       with:
         name: functionalTests
         path: ${{ github.workspace }}/FunctionalTests
+  
+  buildDatabase:
+    name: Build database
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Build database project
+      run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
+    - name: 'Copy database files to: ${{ github.workspace }}'
+      run: Copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*' '${{ github.workspace }}\Database'
     - name: Publish database objects
       uses: actions/upload-artifact@v2
       with:
         name: database
         path: ${{ github.workspace }}/Database
-        
-  TestDotNet:
+
+  testDotNet:
     name: Test .NET
     runs-on: windows-latest
     steps:
@@ -111,7 +122,7 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: SamSmithNZ/SamSmithNZ.Tests/TestResults/coverage.info  
 
-  SonarCloud:
+  sonarCloud:
     name: SonarCloud
     runs-on: windows-latest
     needs: build
@@ -154,12 +165,13 @@ jobs:
           dotnet build SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
      
-  DeployWebAppsToSlots:
+  deployWebAppsToSlots:
     name: Deploy web apps
     runs-on: ubuntu-latest
     needs:
     - build
-    - TestDotNet
+    - buildDatabase
+    - testDotNet
     steps:
     - uses: actions/checkout@v2
     - name: Azure Login
@@ -201,12 +213,13 @@ jobs:
         tag_name: ${{ needs.build.outputs.Version }}
         release_name: Release ${{ needs.build.outputs.Version }}
         
-  DeploySQLDB:
+  deploySQLDB:
     name: Deploy SQL database
     runs-on: windows-latest
     needs:
     - build
-    - TestDotNet
+    - buildDatabase
+    - testDotNet
     steps:
     - uses: actions/checkout@v2
     - name: Azure Login
@@ -223,12 +236,12 @@ jobs:
         dacpac-package: Database/SamSmithNZ.Database.dacpac
         arguments: /p:BlockOnPossibleDataLoss=true
         
-  RunSmokeTests:
+  runSmokeTests:
     name: Run smoke tests on prod slots
     runs-on: windows-latest
     needs:
-    - DeployWebAppsToSlots
-    - DeploySQLDB
+    - deployWebAppsToSlots
+    - deploySQLDB
     steps:
     - uses: actions/checkout@v2
     - name: Download the build artifacts
@@ -253,14 +266,14 @@ jobs:
         Invoke-Expression $command
       shell: powershell
       
-  SwapStagingSlotsToProd:
+  swapStagingSlotsToProd:
     name: Swap staging slots to prod
     runs-on: ubuntu-latest
     if: 0 == 1
     #if: github.ref == 'refs/heads/main'
     needs:
-    - RunSmokeTests
-    - DeployWebAppsToSlots
+    - runSmokeTests
+    - deployWebAppsToSlots
     steps:
     - uses: actions/checkout@v2
     - name: Azure Login
