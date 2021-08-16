@@ -87,9 +87,9 @@ jobs:
     - name: 'Copy database files to artifacts folder'
       run: | 
         #copy "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*" "${{ github.workspace }}\Database"
-        dir "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output" 
+        #dir "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output" 
         Copy-Item -Path "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output" -Destination "${{ github.workspace }}\Database" 
-        dir "${{ github.workspace }}\Database" 
+        #dir "${{ github.workspace }}\Database" 
     - name: Publish database objects
       uses: actions/upload-artifact@v2
       with:
