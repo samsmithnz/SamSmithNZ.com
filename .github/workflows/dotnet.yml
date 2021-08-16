@@ -225,7 +225,7 @@ jobs:
     - name: Azure Login
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_SP }}
+        creds: ${{ secrets.DB_AZURE_SP }}
     - name: Download the build artifacts
       uses: actions/download-artifact@v2
     - name: Azure SQL dacpac publish
