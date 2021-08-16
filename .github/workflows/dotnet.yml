@@ -239,11 +239,12 @@ jobs:
         arguments: /p:BlockOnPossibleDataLoss=true
         
   runSmokeTests:
-    name: Run smoke tests on prod slots
+    name: Run smoke tests on slots
     runs-on: windows-latest
     needs:
     - deployWebAppsToSlots
     - deploySQLDB
+    - sonarCloud
     steps:
     - uses: actions/checkout@v2
     - name: Download the build artifacts
@@ -275,7 +276,6 @@ jobs:
     #if: github.ref == 'refs/heads/main'
     needs:
     - runSmokeTests
-    - deployWebAppsToSlots
     steps:
     - uses: actions/checkout@v2
     - name: Azure Login
