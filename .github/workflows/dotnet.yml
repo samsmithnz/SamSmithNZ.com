@@ -34,8 +34,6 @@ jobs:
       run: |
         echo "Version: ${{ steps.gitversion.outputs.SemVer }}"
         echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
-        
-    #- uses: microsoft/setup-msbuild@v1.0.2
     - name: Install .Net 5 SDK
       uses: actions/setup-dotnet@v1
       with:
@@ -87,14 +85,14 @@ jobs:
     - name: check directory
       run: dir "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output"         
     - name: 'Copy database files to artifacts folder'
-      run: Copy-Item -Path "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*.dacpac" -Destination "${{ github.workspace }}\Database"         
+      run: Copy-Item -Path "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\SamSmithNZ.Database.dacpac" -Destination "${{ github.workspace }}\Database"         
     - name: check directory
-      run: dir "${{ github.workspace }}\Database\*"
+      run: dir "${{ github.workspace }}/Database"
     - name: Publish database objects
       uses: actions/upload-artifact@v2
       with:
         name: database
-        path: ${{ github.workspace }}\Database
+        path: ${{ github.workspace }}/Database
 
   testDotNet:
     name: Test .NET
