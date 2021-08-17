@@ -12,7 +12,7 @@ env:
 jobs:
 
   build:
-    name: Build .NET
+    name: Build web service
     runs-on: windows-latest
     outputs: # https://stackoverflow.com/questions/59175332/using-output-from-a-previous-job-in-a-new-one-in-a-github-action
       Version: ${{ steps.gitversion.outputs.SemVer }}
@@ -20,9 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        fetch-depth: 0 #fetch-depth is needed for GitVersion
-        
-    #Install and calculate the new version with GitVersion  
+        fetch-depth: 0 #fetch-depth is needed for GitVersion   
     #Install and calculate the new version with GitVersion  
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.7
@@ -35,8 +33,6 @@ jobs:
       run: |
         echo "Version: ${{ steps.gitversion.outputs.SemVer }}"
         echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
-        
-    #- uses: microsoft/setup-msbuild@v1.0.2
     - name: Install .Net 5 SDK
       uses: actions/setup-dotnet@v1
       with:
@@ -51,32 +47,84 @@ jobs:
    #   run: |
    #     dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
    #     dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-   # - name: Build database project
-   #   run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
-   # - name: 'Copy database files to: ${{ github.workspace }}'
-   #   run: Copy '${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*' '${{ github.workspace }}\Database'
-    - name: Publish .NET 5 functional tests project
-      run: dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
-    - name: 'Copy Selenium Files to: ${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
-      run: Copy 'SamSmithNZ/SamSmithNZ.FunctionalTests/bin/Release/net5.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
+    #Publish all artifacts
     - name: Publish webapi Artifact
       uses: actions/upload-artifact@v2
       with:
         name: service
         path: ${{ github.workspace }}/service
+
+
+  buildWebsite:
+    name: Build website
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install .Net 5 SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.100
+    - name: Publish dotnet 5 web projects
+      run: |
+        dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.GITHUB_TOKEN }}"
+        dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web
     - name: Publish web Artifact
       uses: actions/upload-artifact@v2
       with:
         name: web
         path: ${{ github.workspace }}/web
+
+
+  buildFunctionalTests:
+    name: Build functional tests
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install .Net 5 SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.100
+    - name: Publish .NET 5 functional tests project
+      run: |
+        dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.GITHUB_TOKEN }}"
+        dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
+    - name: 'Copy Selenium Files to artifacts folder'
+      run: Copy 'SamSmithNZ/SamSmithNZ.FunctionalTests/bin/Release/net5.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
     - name: Publish web Artifact
       uses: actions/upload-artifact@v2
       with:
         name: functionalTests
         path: ${{ github.workspace }}/FunctionalTests
-        
-  TestDotNet:
-    name: Test .NET
+
+    
+  buildDatabase:
+    name: Build database
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Download the build artifacts
+      uses: actions/download-artifact@v2
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Build database project
+      run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'         
+    - name: check directory
+      run: dir "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output"         
+    - name: 'Copy database files to artifacts folder'
+      run: |
+        mkdir "${{ github.workspace }}\Database" 
+        Copy-Item -Path "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\SamSmithNZ.Database.dacpac" -Destination "${{ github.workspace }}\Database"         
+    - name: check directory
+      run: dir "${{ github.workspace }}/Database"
+    - name: Publish database objects
+      uses: actions/upload-artifact@v2
+      with:
+        name: database
+        path: ${{ github.workspace }}/Database
+
+
+  testDotNet:
+    name: Run automated tests
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -107,27 +155,24 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: SamSmithNZ/SamSmithNZ.Tests/TestResults/coverage.info  
 
-  SonarCloud:
-    name: SonarCloud
+
+  sonarCloud:
+    name: Run SonarCloud analysis
     runs-on: windows-latest
-    needs: build
     steps:
       - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
-
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
           path: ~\sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-
       - name: Cache SonarCloud scanner
         id: cache-sonar-scanner
         uses: actions/cache@v1
@@ -135,7 +180,6 @@ jobs:
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
-
       - name: Install SonarCloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
@@ -153,13 +197,18 @@ jobs:
           dotnet restore SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
           dotnet build SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-                
-  DeployWebAppsToSlots:
+     
+
+  deployWebAppsToSlots:
     name: Deploy web apps
     runs-on: ubuntu-latest
     needs:
     - build
-    - TestDotNet
+    - buildWebsite
+    - buildFunctionalTests
+    - buildDatabase
+    - testDotNet
+    - sonarCloud
     steps:
     - uses: actions/checkout@v2
     - name: Azure Login
@@ -187,11 +236,6 @@ jobs:
         app-name: ssnz-prod-eu-web
         package: web
         slot-name: production #staging
-    #- name: 'App Service Deploy: MandMCounter web service'
-    #  uses: Azure/webapps-deploy@v2
-    #  with:
-    #    app-name: mandm-prod-eu-service
-    #    package: MandMCounter.Service.zip   
     - name: Display GitVersion outputs
       run: |
         echo "Version: ${{ needs.build.outputs.Version }}" 
@@ -205,20 +249,24 @@ jobs:
       with:
         tag_name: ${{ needs.build.outputs.Version }}
         release_name: Release ${{ needs.build.outputs.Version }}
+     
         
-  DeploySQLDB:
+  deploySQLDB:
     name: Deploy SQL database
     runs-on: windows-latest
-    if: 0 == 1
     needs:
     - build
-    - TestDotNet
+    - buildWebsite
+    - buildFunctionalTests
+    - buildDatabase
+    - testDotNet
+    - sonarCloud
     steps:
     - uses: actions/checkout@v2
     - name: Azure Login
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_SP }}
+        creds: ${{ secrets.DB_AZURE_SP }}
     - name: Download the build artifacts
       uses: actions/download-artifact@v2
     - name: Azure SQL dacpac publish
@@ -229,12 +277,13 @@ jobs:
         dacpac-package: Database/SamSmithNZ.Database.dacpac
         arguments: /p:BlockOnPossibleDataLoss=true
         
-  RunSmokeTests:
-    name: Run smoke tests on prod slots
+
+  runSmokeTests:
+    name: Run smoke tests on staging slots
     runs-on: windows-latest
     needs:
-    - DeployWebAppsToSlots
-    #- DeploySQLDB
+    - deployWebAppsToSlots
+    - deploySQLDB
     steps:
     - uses: actions/checkout@v2
     - name: Download the build artifacts
@@ -259,14 +308,13 @@ jobs:
         Invoke-Expression $command
       shell: powershell
       
-  SwapStagingSlotsToProd:
+  swapStagingSlotsToProd:
     name: Swap staging slots to prod
     runs-on: ubuntu-latest
     if: 0 == 1
     #if: github.ref == 'refs/heads/main'
     needs:
-    - RunSmokeTests
-    - DeployWebAppsToSlots
+    - runSmokeTests
     steps:
     - uses: actions/checkout@v2
     - name: Azure Login
