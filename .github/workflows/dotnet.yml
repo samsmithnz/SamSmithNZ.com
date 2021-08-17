@@ -12,7 +12,7 @@ env:
 jobs:
 
   build:
-    name: Build .NET 5 Service
+    name: Build web service
     runs-on: windows-latest
     outputs: # https://stackoverflow.com/questions/59175332/using-output-from-a-previous-job-in-a-new-one-in-a-github-action
       Version: ${{ steps.gitversion.outputs.SemVer }}
@@ -20,8 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        fetch-depth: 0 #fetch-depth is needed for GitVersion
-        
+        fetch-depth: 0 #fetch-depth is needed for GitVersion   
     #Install and calculate the new version with GitVersion  
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.7
@@ -125,7 +124,7 @@ jobs:
 
 
   testDotNet:
-    name: Test .NET
+    name: Run automated tests
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -158,7 +157,7 @@ jobs:
 
 
   sonarCloud:
-    name: SonarCloud
+    name: Run SonarCloud analysis
     runs-on: windows-latest
     steps:
       - name: Set up JDK 11
@@ -278,8 +277,9 @@ jobs:
         dacpac-package: Database/SamSmithNZ.Database.dacpac
         arguments: /p:BlockOnPossibleDataLoss=true
         
+
   runSmokeTests:
-    name: Run smoke tests on slots
+    name: Run smoke tests on staging slots
     runs-on: windows-latest
     needs:
     - deployWebAppsToSlots
