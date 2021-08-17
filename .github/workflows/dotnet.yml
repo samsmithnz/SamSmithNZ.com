@@ -84,7 +84,9 @@ jobs:
       with:
         dotnet-version: 5.0.100
     - name: Publish .NET 5 functional tests project
-      run: dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
+      run: |
+        dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.GITHUB_TOKEN }}"
+        dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64
     - name: 'Copy Selenium Files to artifacts folder'
       run: Copy 'SamSmithNZ/SamSmithNZ.FunctionalTests/bin/Release/net5.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
     - name: Publish web Artifact
