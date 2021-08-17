@@ -809,20 +809,6 @@
         "denyEncryptionScopeOverride": false,
         "publicAccess": "None"
       }
-    },
-    {
-      "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
-      "apiVersion": "2021-04-01",
-      "name": "[concat(parameters('storageAccounts_ssnzdbserverlogstorage_name'), '/default/csvfiles')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts/fileServices', parameters('storageAccounts_ssnzdbserverlogstorage_name'), 'default')]",
-        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_ssnzdbserverlogstorage_name'))]"
-      ],
-      "properties": {
-        "accessTier": "TransactionOptimized",
-        "shareQuota": 1,
-        "enabledProtocols": "SMB"
-      }
     }
   ]
 }
