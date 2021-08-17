@@ -263,12 +263,17 @@ jobs:
     - sonarCloud
     steps:
     - uses: actions/checkout@v2
+    - name: Download the build artifacts
+      uses: actions/download-artifact@v2
     - name: Azure Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.DB_AZURE_SP }}
-    - name: Download the build artifacts
-      uses: actions/download-artifact@v2
+    - uses: azure/arm-deploy@v1
+      with:
+        resourceGroupName: SamSmithNZ.com
+        template: ./SamSmithNZ.IaC/azuredeployDB.json
+        parameters: ./SamSmithNZ.IaC/azuredeployDB.parameters.json servers_ssnzdbserver_name="ssnzdbserver"
     - name: Azure SQL dacpac publish
       uses: azure/sql-action@v1
       with:

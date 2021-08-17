@@ -1,0 +1,759 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "servers_ssnzdbserver_name": {
+      "defaultValue": "ssnzdbserver",
+      "type": "String"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.Sql/servers",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[parameters('servers_ssnzdbserver_name')]",
+      "location": "eastus",
+      "kind": "v12.0",
+      "properties": {
+        "administratorLogin": "ssnzadmin",
+        "version": "12.0",
+        "publicNetworkAccess": "Enabled",
+        "restrictOutboundNetworkAccess": "Disabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/advisors",
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/CreateIndex')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "autoExecuteValue": "Enabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/advisors",
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/DbParameterization')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "autoExecuteValue": "Disabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/advisors",
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/DefragmentIndex')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "autoExecuteValue": "Disabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/advisors",
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/DropIndex')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "autoExecuteValue": "Disabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/advisors",
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/ForceLastGoodPlan')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "autoExecuteValue": "Disabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/auditingPolicies",
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/Default')]",
+      "location": "East US",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "auditingState": "Disabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/auditingSettings",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/Default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "retentionDays": 30,
+        "auditActionsAndGroups": [
+          "SUCCESSFUL_DATABASE_AUTHENTICATION_GROUP",
+          "FAILED_DATABASE_AUTHENTICATION_GROUP",
+          "BATCH_COMPLETED_GROUP"
+        ],
+        "isStorageSecondaryKeyInUse": false,
+        "isAzureMonitorTargetEnabled": false,
+        "state": "Enabled",
+        "storageEndpoint": "https://ssnzdbserverlogstorage.blob.core.windows.net/",
+        "storageAccountSubscriptionId": "65b8d298-e5bd-4735-912e-8b9c510c4e00"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB')]",
+      "location": "eastus",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "sku": {
+        "name": "Basic",
+        "tier": "Basic",
+        "capacity": 5
+      },
+      "kind": "v12.0,user",
+      "properties": {
+        "collation": "SQL_Latin1_General_CP1_CI_AS",
+        "maxSizeBytes": 2147483648,
+        "catalogCollation": "SQL_Latin1_General_CP1_CI_AS",
+        "zoneRedundant": false,
+        "readScale": "Disabled",
+        "requestedBackupStorageRedundancy": "Geo",
+        "maintenanceConfigurationId": "/subscriptions/0da7aeb1-1dde-4073-8a7c-1c72d33e3a93/providers/Microsoft.Maintenance/publicMaintenanceConfigurations/SQL_Default",
+        "isLedgerOn": false
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/auditingPolicies",
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/master/Default')]",
+      "location": "East US",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "auditingState": "Disabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/auditingSettings",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/master/Default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "retentionDays": 0,
+        "auditActionsAndGroups": [],
+        "isStorageSecondaryKeyInUse": false,
+        "isAzureMonitorTargetEnabled": false,
+        "state": "Disabled",
+        "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/extendedAuditingSettings",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/master/Default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "retentionDays": 0,
+        "auditActionsAndGroups": [],
+        "isStorageSecondaryKeyInUse": false,
+        "isAzureMonitorTargetEnabled": false,
+        "state": "Disabled",
+        "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/geoBackupPolicies",
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/master/Default')]",
+      "location": "East US",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "state": "Enabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/ledgerDigestUploads",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/master/Current')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/securityAlertPolicies",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/master/Default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "state": "Disabled",
+        "disabledAlerts": [
+          ""
+        ],
+        "emailAddresses": [
+          ""
+        ],
+        "emailAccountAdmins": false,
+        "retentionDays": 0
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/transparentDataEncryption",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/master/Current')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "state": "Disabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/vulnerabilityAssessments",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/master/Default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "recurringScans": {
+          "isEnabled": false,
+          "emailSubscriptionAdmins": true
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/devOpsAuditingSettings",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/Default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "isAzureMonitorTargetEnabled": false,
+        "state": "Disabled",
+        "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/encryptionProtector",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/current')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "kind": "servicemanaged",
+      "properties": {
+        "serverKeyName": "ServiceManaged",
+        "serverKeyType": "ServiceManaged",
+        "autoRotationEnabled": false
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/extendedAuditingSettings",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/Default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "retentionDays": 30,
+        "auditActionsAndGroups": [
+          "SUCCESSFUL_DATABASE_AUTHENTICATION_GROUP",
+          "FAILED_DATABASE_AUTHENTICATION_GROUP",
+          "BATCH_COMPLETED_GROUP"
+        ],
+        "isStorageSecondaryKeyInUse": false,
+        "isAzureMonitorTargetEnabled": false,
+        "state": "Enabled",
+        "storageEndpoint": "https://ssnzdbserverlogstorage.blob.core.windows.net/",
+        "storageAccountSubscriptionId": "65b8d298-e5bd-4735-912e-8b9c510c4e00"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/150SouthPoint')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "157.58.214.1",
+        "endIpAddress": "157.58.214.255"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/58RedSpringRd')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "24.147.166.1",
+        "endIpAddress": "24.147.166.255"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/AllowAllWindowsAzureIps')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "0.0.0.0",
+        "endIpAddress": "0.0.0.0"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/ClientIPAddress_2018-10-31_16-29-9')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "205.153.95.177",
+        "endIpAddress": "205.153.95.177"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/ClientIPAddress_2018-11-13_12:14:35')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "50.226.60.146",
+        "endIpAddress": "50.226.60.146"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/ClientIPAddress_2018-11-13_8-19-31')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "167.220.148.251",
+        "endIpAddress": "167.220.148.251"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/ClientIPAddress_2018-11-14_03:33:19')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "167.220.148.35",
+        "endIpAddress": "167.220.148.35"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/ClientIPAddress_2018-11-21_01:38:44')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "167.220.148.128",
+        "endIpAddress": "167.220.148.128"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/ClientIPAddress_2018-11-21_01:46:56')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "167.220.149.128",
+        "endIpAddress": "167.220.149.128"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/ClientIPAddress_2018-11-24_03:51:11')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "174.62.193.13",
+        "endIpAddress": "174.62.193.13"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/ClientIPAddress_2018-11-26_02:34:24')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "96.237.112.134",
+        "endIpAddress": "96.237.112.134"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/ClientIPAddress_2018-12-31_8-57-39')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "204.13.47.215",
+        "endIpAddress": "204.13.47.215"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/ClientIPAddress_2020-10-22_20-46-9')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "157.58.212.1",
+        "endIpAddress": "157.58.212.255"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/ClientIPAddress_2020-10-23_8-29-11')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "72.74.50.1",
+        "endIpAddress": "72.74.50.255"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/ClientIPAddress_2020-11-25_12-57-53')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "96.237.112.20",
+        "endIpAddress": "96.237.112.20"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/ClientIPAddress_2021-7-2_16-22-8')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "71.235.107.1",
+        "endIpAddress": "71.235.107.255"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/FullMoonCafe')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "167.220.148.0",
+        "endIpAddress": "167.220.148.255"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/FullMoonCafe2')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "167.220.149.0",
+        "endIpAddress": "167.220.149.255"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/firewallRules",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/MasterShin')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "startIpAddress": "71.184.204.1",
+        "endIpAddress": "71.184.204.255"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/keys",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/ServiceManaged')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "kind": "servicemanaged",
+      "properties": {
+        "serverKeyType": "ServiceManaged"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/securityAlertPolicies",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/Default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "state": "Disabled",
+        "disabledAlerts": [
+          ""
+        ],
+        "emailAddresses": [
+          ""
+        ],
+        "emailAccountAdmins": false,
+        "retentionDays": 0
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/advisors",
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB/CreateIndex')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ssnzdbserver_name'), 'SSNZDB')]",
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "autoExecuteValue": "Enabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/advisors",
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB/DbParameterization')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ssnzdbserver_name'), 'SSNZDB')]",
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "autoExecuteValue": "Disabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/advisors",
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB/DefragmentIndex')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ssnzdbserver_name'), 'SSNZDB')]",
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "autoExecuteValue": "Disabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/advisors",
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB/DropIndex')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ssnzdbserver_name'), 'SSNZDB')]",
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "autoExecuteValue": "Enabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/advisors",
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB/ForceLastGoodPlan')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ssnzdbserver_name'), 'SSNZDB')]",
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "autoExecuteValue": "Enabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/auditingPolicies",
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB/Default')]",
+      "location": "East US",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ssnzdbserver_name'), 'SSNZDB')]",
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "auditingState": "Disabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/auditingSettings",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB/Default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ssnzdbserver_name'), 'SSNZDB')]",
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "retentionDays": 0,
+        "auditActionsAndGroups": [],
+        "isStorageSecondaryKeyInUse": false,
+        "isAzureMonitorTargetEnabled": false,
+        "state": "Disabled",
+        "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/backupLongTermRetentionPolicies",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB/default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ssnzdbserver_name'), 'SSNZDB')]",
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "weeklyRetention": "P4W",
+        "monthlyRetention": "P6M",
+        "yearlyRetention": "PT0S",
+        "weekOfYear": 0
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/backupShortTermRetentionPolicies",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB/default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ssnzdbserver_name'), 'SSNZDB')]",
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "retentionDays": 7
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/extendedAuditingSettings",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB/Default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ssnzdbserver_name'), 'SSNZDB')]",
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "retentionDays": 0,
+        "auditActionsAndGroups": [],
+        "isStorageSecondaryKeyInUse": false,
+        "isAzureMonitorTargetEnabled": false,
+        "state": "Disabled",
+        "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/geoBackupPolicies",
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB/Default')]",
+      "location": "East US",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ssnzdbserver_name'), 'SSNZDB')]",
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "state": "Enabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/ledgerDigestUploads",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB/Current')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ssnzdbserver_name'), 'SSNZDB')]",
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/securityAlertPolicies",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB/Default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ssnzdbserver_name'), 'SSNZDB')]",
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "state": "Disabled",
+        "disabledAlerts": [
+          ""
+        ],
+        "emailAddresses": [
+          ""
+        ],
+        "emailAccountAdmins": false,
+        "retentionDays": 0
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/transparentDataEncryption",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB/Current')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ssnzdbserver_name'), 'SSNZDB')]",
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "state": "Enabled"
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers/databases/vulnerabilityAssessments",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('servers_ssnzdbserver_name'), '/SSNZDB/Default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_ssnzdbserver_name'), 'SSNZDB')]",
+        "[resourceId('Microsoft.Sql/servers', parameters('servers_ssnzdbserver_name'))]"
+      ],
+      "properties": {
+        "recurringScans": {
+          "isEnabled": false,
+          "emailSubscriptionAdmins": true
+        }
+      }
+    }
+  ]
+}
