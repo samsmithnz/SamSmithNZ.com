@@ -253,6 +253,8 @@ jobs:
     runs-on: windows-latest
     needs:
     - build
+    - buildWebsite
+    - buildFunctionalTests
     - buildDatabase
     - testDotNet
     - sonarCloud
