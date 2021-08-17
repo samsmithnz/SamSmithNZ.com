@@ -709,26 +709,6 @@
       }
     },
     {
-      "type": "Microsoft.Storage/storageAccounts/fileServices",
-      "apiVersion": "2021-04-01",
-      "name": "[concat(parameters('storageAccounts_ssnzdbserverlogstorage_name'), '/default')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_ssnzdbserverlogstorage_name'))]"
-      ],
-      "sku": {
-        "name": "Standard_LRS",
-        "tier": "Standard"
-      },
-      "properties": {
-        "protocolSettings": {
-          "smb": {}
-        },
-        "cors": {
-          "corsRules": []
-        }
-      }
-    },
-    {
       "type": "Microsoft.Storage/storageAccounts/queueServices",
       "apiVersion": "2021-04-01",
       "name": "[concat(parameters('storageAccounts_ssnzdbserverlogstorage_name'), '/default')]",
