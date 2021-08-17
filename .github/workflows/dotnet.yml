@@ -83,13 +83,13 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
     - name: Build database project
-      run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'
+      run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'         
+    - name: check directory
+      run: dir "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output"         
     - name: 'Copy database files to artifacts folder'
-      run: | 
-        #copy "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*" "${{ github.workspace }}\Database"
-        #dir "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output" 
-        Copy-Item -Path "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output" -Destination "${{ github.workspace }}\Database" 
-        #dir "${{ github.workspace }}\Database" 
+      run: Copy-Item -Path "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output" -Destination "${{ github.workspace }}\Database"         
+    - name: check directory
+      run: dir "${{ github.workspace }}\Database"
     - name: Publish database objects
       uses: actions/upload-artifact@v2
       with:
