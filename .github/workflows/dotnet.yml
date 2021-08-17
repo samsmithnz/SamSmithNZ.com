@@ -87,7 +87,7 @@ jobs:
     - name: check directory
       run: dir "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output"         
     - name: 'Copy database files to artifacts folder'
-      run: Copy-Item -Path "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*" -Destination "${{ github.workspace }}\Database"         
+      run: Copy-Item -Path "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\*.dacpac" -Destination "${{ github.workspace }}\Database"         
     - name: check directory
       run: dir "${{ github.workspace }}\Database"
     - name: Publish database objects
