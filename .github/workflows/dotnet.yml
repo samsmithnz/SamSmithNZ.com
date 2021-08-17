@@ -264,7 +264,8 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.DB_AZURE_SP }}
-    - uses: azure/arm-deploy@v1
+    - name: deploy database infrastructure as code
+      uses: azure/arm-deploy@v1
       with:
         resourceGroupName: SamSmithNZ.com
         template: SamSmithNZ/SamSmithNZ.IaC/azuredeployDB.json
