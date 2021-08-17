@@ -217,6 +217,12 @@ jobs:
         creds: ${{ secrets.ORG_AZURE_SP }}
     - name: Download the build artifacts
       uses: actions/download-artifact@v2
+    - name: deploy website infrastructure as code
+      uses: azure/arm-deploy@v1
+      with:
+        resourceGroupName: SamSmithNZ.com
+        template: SamSmithNZ/SamSmithNZ.IaC/azuredeploy.json
+        #parameters: SamSmithNZ/SamSmithNZ.IaC/azuredeploy.parameters.json servers_ssnzdbserver_name="ssnzdbserver"
     - name: 'App Service Deploy: SamSmithNZ web service'
       uses: Azure/webapps-deploy@v2
       with:
