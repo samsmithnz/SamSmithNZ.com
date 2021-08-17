@@ -472,75 +472,75 @@
         "minimumElasticInstanceCount": 0
       }
     },
-    {
-      "type": "Microsoft.Web/sites/hostNameBindings",
-      "apiVersion": "2021-01-15",
-      "name": "[concat(parameters('sites_mandm_prod_eu_service_name'), '/', parameters('sites_mandm_prod_eu_service_name'), '.azurewebsites.net')]",
-      "location": "East US",
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/sites', parameters('sites_mandm_prod_eu_service_name'))]"
-      ],
-      "properties": {
-        "siteName": "mandm-prod-eu-service",
-        "hostNameType": "Verified"
-      }
-    },
-    {
-      "type": "Microsoft.Web/sites/hostNameBindings",
-      "apiVersion": "2021-01-15",
-      "name": "[concat(parameters('sites_ssnz_prod_eu_web_name'), '/samsmithnz.com')]",
-      "location": "East US",
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/sites', parameters('sites_ssnz_prod_eu_web_name'))]"
-      ],
-      "properties": {
-        "siteName": "ssnz-prod-eu-web",
-        "hostNameType": "Verified",
-        "sslState": "SniEnabled",
-        "thumbprint": "3DDAD621152BC15EEEBB819CEEA518733020D124"
-      }
-    },
-    {
-      "type": "Microsoft.Web/sites/hostNameBindings",
-      "apiVersion": "2021-01-15",
-      "name": "[concat(parameters('sites_ssnz_prod_eu_service_name'), '/', parameters('sites_ssnz_prod_eu_service_name'), '.azurewebsites.net')]",
-      "location": "East US",
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/sites', parameters('sites_ssnz_prod_eu_service_name'))]"
-      ],
-      "properties": {
-        "siteName": "ssnz-prod-eu-service",
-        "hostNameType": "Verified"
-      }
-    },
-    {
-      "type": "Microsoft.Web/sites/hostNameBindings",
-      "apiVersion": "2021-01-15",
-      "name": "[concat(parameters('sites_ssnz_prod_eu_web_name'), '/', parameters('sites_ssnz_prod_eu_web_name'), '.azurewebsites.net')]",
-      "location": "East US",
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/sites', parameters('sites_ssnz_prod_eu_web_name'))]"
-      ],
-      "properties": {
-        "siteName": "ssnz-prod-eu-web",
-        "hostNameType": "Verified"
-      }
-    },
-    {
-      "type": "Microsoft.Web/sites/hostNameBindings",
-      "apiVersion": "2021-01-15",
-      "name": "[concat(parameters('sites_ssnz_prod_eu_web_name'), '/www.samsmithnz.com')]",
-      "location": "East US",
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/sites', parameters('sites_ssnz_prod_eu_web_name'))]"
-      ],
-      "properties": {
-        "siteName": "ssnz-prod-eu-web",
-        "hostNameType": "Verified",
-        "sslState": "SniEnabled",
-        "thumbprint": "6F3048B10BDE4AA954BEE53B72C5FC8A00AA7E67"
-      }
-    },
+    //{
+    //  "type": "Microsoft.Web/sites/hostNameBindings",
+    //  "apiVersion": "2021-01-15",
+    //  "name": "[concat(parameters('sites_mandm_prod_eu_service_name'), '/', parameters('sites_mandm_prod_eu_service_name'), '.azurewebsites.net')]",
+    //  "location": "East US",
+    //  "dependsOn": [
+    //    "[resourceId('Microsoft.Web/sites', parameters('sites_mandm_prod_eu_service_name'))]"
+    //  ],
+    //  "properties": {
+    //    "siteName": "mandm-prod-eu-service",
+    //    "hostNameType": "Verified"
+    //  }
+    //},
+    //{
+    //  "type": "Microsoft.Web/sites/hostNameBindings",
+    //  "apiVersion": "2021-01-15",
+    //  "name": "[concat(parameters('sites_ssnz_prod_eu_web_name'), '/samsmithnz.com')]",
+    //  "location": "East US",
+    //  "dependsOn": [
+    //    "[resourceId('Microsoft.Web/sites', parameters('sites_ssnz_prod_eu_web_name'))]"
+    //  ],
+    //  "properties": {
+    //    "siteName": "ssnz-prod-eu-web",
+    //    "hostNameType": "Verified",
+    //    "sslState": "SniEnabled",
+    //    "thumbprint": "3DDAD621152BC15EEEBB819CEEA518733020D124"
+    //  }
+    //},
+    //{
+    //  "type": "Microsoft.Web/sites/hostNameBindings",
+    //  "apiVersion": "2021-01-15",
+    //  "name": "[concat(parameters('sites_ssnz_prod_eu_service_name'), '/', parameters('sites_ssnz_prod_eu_service_name'), '.azurewebsites.net')]",
+    //  "location": "East US",
+    //  "dependsOn": [
+    //    "[resourceId('Microsoft.Web/sites', parameters('sites_ssnz_prod_eu_service_name'))]"
+    //  ],
+    //  "properties": {
+    //    "siteName": "ssnz-prod-eu-service",
+    //    "hostNameType": "Verified"
+    //  }
+    //},
+    //{
+    //  "type": "Microsoft.Web/sites/hostNameBindings",
+    //  "apiVersion": "2021-01-15",
+    //  "name": "[concat(parameters('sites_ssnz_prod_eu_web_name'), '/', parameters('sites_ssnz_prod_eu_web_name'), '.azurewebsites.net')]",
+    //  "location": "East US",
+    //  "dependsOn": [
+    //    "[resourceId('Microsoft.Web/sites', parameters('sites_ssnz_prod_eu_web_name'))]"
+    //  ],
+    //  "properties": {
+    //    "siteName": "ssnz-prod-eu-web",
+    //    "hostNameType": "Verified"
+    //  }
+    //},
+    //{
+    //  "type": "Microsoft.Web/sites/hostNameBindings",
+    //  "apiVersion": "2021-01-15",
+    //  "name": "[concat(parameters('sites_ssnz_prod_eu_web_name'), '/www.samsmithnz.com')]",
+    //  "location": "East US",
+    //  "dependsOn": [
+    //    "[resourceId('Microsoft.Web/sites', parameters('sites_ssnz_prod_eu_web_name'))]"
+    //  ],
+    //  "properties": {
+    //    "siteName": "ssnz-prod-eu-web",
+    //    "hostNameType": "Verified",
+    //    "sslState": "SniEnabled",
+    //    "thumbprint": "6F3048B10BDE4AA954BEE53B72C5FC8A00AA7E67"
+    //  }
+    //},
     {
       "type": "Microsoft.KeyVault/vaults",
       "apiVersion": "2021-04-01-preview",
