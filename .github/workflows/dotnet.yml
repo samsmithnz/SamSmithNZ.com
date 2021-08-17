@@ -217,11 +217,6 @@ jobs:
         creds: ${{ secrets.ORG_AZURE_SP }}
     - name: Download the build artifacts
       uses: actions/download-artifact@v2
-    #- name: Deploy infrastructure with ARM templates
-    #  uses: azure/cli@v1.0.0
-    #  with:
-    #    inlineScript: EnvironmentARMTemplate\PowerShell\DeployInfrastructureWebService.ps1 -appPrefix "samsapp" -environment "prod" -webAppEnvironment "prod" -resourceGroupName "SamSmithNZ.com" -resourceGroupLocation "East US" -resourceGroupLocationShort "eu" -dataKeyVaultName "tbd" -templatesLocation "${{ github.workspace }}\drop\EnvironmentARMTemplate\Templates" -sqlDatabaseName "ssnzdb" -sqlAdministratorLoginUser "" -sqlAdministratorLoginPassword ""
-    #    azcliversion: latest
     - name: 'App Service Deploy: SamSmithNZ web service'
       uses: Azure/webapps-deploy@v2
       with:
@@ -272,8 +267,8 @@ jobs:
     - uses: azure/arm-deploy@v1
       with:
         resourceGroupName: SamSmithNZ.com
-        template: ./SamSmithNZ.IaC/azuredeployDB.json
-        parameters: ./SamSmithNZ.IaC/azuredeployDB.parameters.json servers_ssnzdbserver_name="ssnzdbserver"
+        template: SamSmithNZ/SamSmithNZ.IaC/azuredeployDB.json
+        parameters: SamSmithNZ/SamSmithNZ.IaC/azuredeployDB.parameters.json servers_ssnzdbserver_name="ssnzdbserver"
     - name: Azure SQL dacpac publish
       uses: azure/sql-action@v1
       with:
