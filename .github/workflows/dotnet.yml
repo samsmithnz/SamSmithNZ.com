@@ -12,7 +12,7 @@ env:
 jobs:
 
   build:
-    name: Build .NET 5 projects
+    name: Build .NET 5 Service
     runs-on: windows-latest
     outputs: # https://stackoverflow.com/questions/59175332/using-output-from-a-previous-job-in-a-new-one-in-a-github-action
       Version: ${{ steps.gitversion.outputs.SemVer }}
@@ -48,13 +48,25 @@ jobs:
    #   run: |
    #     dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
    #     dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-
     #Publish all artifacts
     - name: Publish webapi Artifact
       uses: actions/upload-artifact@v2
       with:
         name: service
         path: ${{ github.workspace }}/service
+
+
+  buildWebsite:
+    name: Build website
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install .Net 5 SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.100
+    - name: Publish dotnet 5 web projects
+      run: dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web
     - name: Publish web Artifact
       uses: actions/upload-artifact@v2
       with:
@@ -63,7 +75,7 @@ jobs:
 
 
   buildFunctionalTests:
-    name: Build database
+    name: Build functional tests
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -187,6 +199,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
     - build
+    - buildWebsite
     - buildFunctionalTests
     - buildDatabase
     - testDotNet
@@ -231,6 +244,7 @@ jobs:
       with:
         tag_name: ${{ needs.build.outputs.Version }}
         release_name: Release ${{ needs.build.outputs.Version }}
+     
         
   deploySQLDB:
     name: Deploy SQL database
