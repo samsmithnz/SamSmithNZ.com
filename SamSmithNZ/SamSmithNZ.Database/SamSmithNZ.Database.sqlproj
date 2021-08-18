@@ -49,6 +49,7 @@
     <WarningLevel>4</WarningLevel>
     <RunSqlCodeAnalysis>True</RunSqlCodeAnalysis>
     <SqlCodeAnalysisRules>-Microsoft.Rules.Data.SR0007</SqlCodeAnalysisRules>
+    <TreatTSqlWarningsAsErrors>True</TreatTSqlWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
@@ -274,6 +275,7 @@
     <Build Include="dbo\Stored Procedures\FB_GetPlayersByTournament.sql" />
     <Build Include="dbo\Stored Procedures\FB_ResetTournament.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetTournamentsImportStatus.sql" />
+    <Build Include="dbo\Stored Procedures\GetSamsName.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />
