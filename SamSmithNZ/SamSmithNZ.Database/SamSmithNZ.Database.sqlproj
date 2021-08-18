@@ -49,6 +49,7 @@
     <WarningLevel>4</WarningLevel>
     <RunSqlCodeAnalysis>True</RunSqlCodeAnalysis>
     <SqlCodeAnalysisRules>-Microsoft.Rules.Data.SR0007</SqlCodeAnalysisRules>
+    <TreatTSqlWarningsAsErrors>True</TreatTSqlWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>

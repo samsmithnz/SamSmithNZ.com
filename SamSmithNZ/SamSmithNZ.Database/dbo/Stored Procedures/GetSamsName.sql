@@ -1,6 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[GetSamsName]
-	@param1 int = 0,
-	@param2 int
 AS
-	SELECT "Sam Smith"
-RETURN 0
+BEGIN
+	SELECT 'Sam Smith' AS MyName
+END
