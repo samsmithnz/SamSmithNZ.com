@@ -275,7 +275,6 @@
     <Build Include="dbo\Stored Procedures\FB_GetPlayersByTournament.sql" />
     <Build Include="dbo\Stored Procedures\FB_ResetTournament.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetTournamentsImportStatus.sql" />
-    <Build Include="dbo\Stored Procedures\GetSamsName.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />
