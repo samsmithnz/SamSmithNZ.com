@@ -14,6 +14,33 @@ jobs:
   build:
     name: Build web service
     runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install .Net 5 SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.100
+    - name: Publish dotnet 5 web projects
+      run: |
+        dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.GITHUB_TOKEN }}"
+        dotnet restore SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
+        dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/service -p:Version='${{ steps.gitversion.outputs.SemVer }}' #--runtime ${{env.runtimeTarget}} 
+   #dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web -p:Version='${{ steps.gitversion.outputs.SemVer }}' #--runtime ${{env.runtimeTarget}} 
+   # - name: Build utility dotnet 5 projects
+   #   run: |
+   #     dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+   #     dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+    #Publish all artifacts
+    - name: Publish webapi Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: service
+        path: ${{ github.workspace }}/service
+
+
+  buildWebsite:
+    name: Build website
+    runs-on: windows-latest
     outputs: # https://stackoverflow.com/questions/59175332/using-output-from-a-previous-job-in-a-new-one-in-a-github-action
       Version: ${{ steps.gitversion.outputs.SemVer }}
       CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}  
@@ -40,34 +67,7 @@ jobs:
     - name: Publish dotnet 5 web projects
       run: |
         dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.GITHUB_TOKEN }}"
-        dotnet restore SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
-        dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/service -p:Version='${{ steps.gitversion.outputs.SemVer }}' #--runtime ${{env.runtimeTarget}} 
-        dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web -p:Version='${{ steps.gitversion.outputs.SemVer }}' #--runtime ${{env.runtimeTarget}} 
-   # - name: Build utility dotnet 5 projects
-   #   run: |
-   #     dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-   #     dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-    #Publish all artifacts
-    - name: Publish webapi Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: service
-        path: ${{ github.workspace }}/service
-
-
-  buildWebsite:
-    name: Build website
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Install .Net 5 SDK
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.100
-    - name: Publish dotnet 5 web projects
-      run: |
-        dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.GITHUB_TOKEN }}"
-        dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web
+        dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web -p:Version=${{ steps.gitversion.outputs.nuGetVersionV2 }}
     - name: Publish web Artifact
       uses: actions/upload-artifact@v2
       with:
@@ -239,17 +239,17 @@ jobs:
         slot-name: production #staging
     - name: Display GitVersion outputs
       run: |
-        echo "Version: ${{ needs.build.outputs.Version }}" 
-        echo "CommitsSinceVersionSource: ${{ needs.build.outputs.CommitsSinceVersionSource }}" 
+        echo "Version: ${{ needs.buildWebsite.outputs.Version }}" 
+        echo "CommitsSinceVersionSource: ${{ needs.buildWebsite.outputs.CommitsSinceVersionSource }}" 
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
-      if: github.ref == 'refs/heads/main' && needs.build.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
+      if: github.ref == 'refs/heads/main' && needs.buildWebsite.outputs.CommitsSinceVersionSource > 0 #Only create a release if there has been a commit/version change
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: ${{ needs.build.outputs.Version }}
-        release_name: Release ${{ needs.build.outputs.Version }}
+        tag_name: ${{ needs.buildWebsite.outputs.Version }}
+        release_name: Release ${{ needs.buildWebsite.outputs.Version }}
      
         
   deploySQLDB:
