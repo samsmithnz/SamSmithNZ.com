@@ -256,7 +256,7 @@
           "index.php",
           "hostingstart.html"
         ],
-        "netFrameworkVersion": "v5.0",
+        "netFrameworkVersion": "v6.0",
         "requestTracingEnabled": false,
         "remoteDebuggingEnabled": false,
         "httpLoggingEnabled": false,
@@ -335,7 +335,7 @@
           "index.php",
           "hostingstart.html"
         ],
-        "netFrameworkVersion": "v4.0",
+        "netFrameworkVersion": "v6.0",
         "requestTracingEnabled": false,
         "remoteDebuggingEnabled": false,
         "httpLoggingEnabled": false,
@@ -414,7 +414,7 @@
           "index.php",
           "hostingstart.html"
         ],
-        "netFrameworkVersion": "v4.0",
+        "netFrameworkVersion": "v6.0",
         "requestTracingEnabled": false,
         "remoteDebuggingEnabled": false,
         "httpLoggingEnabled": false,
