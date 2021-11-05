@@ -271,7 +271,7 @@ jobs:
     - buildFunctionalTests
     - buildDatabase
     - testDotNet
-    - sonarCloud
+    #- sonarCloud
     steps:
     - uses: actions/checkout@v2
     - name: Download the build artifacts
