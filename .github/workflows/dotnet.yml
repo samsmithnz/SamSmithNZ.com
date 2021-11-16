@@ -292,7 +292,7 @@ jobs:
 
   runSmokeTests:
     name: Run smoke tests on staging slots
-    runs-on: windows-latest
+    runs-on: windows-2022
     needs:
     - deployWebAppsToSlots
     - deploySQLDB
@@ -309,7 +309,7 @@ jobs:
         dotnet-version: 6.0.x
     - name: Run functional smoke tests on website and web service
       run: |
-        $vsTestConsoleExe = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe"
+        $vsTestConsoleExe = "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE\\Extensions\\TestPlatform\\vstest.console.exe"
         $targetTestDll = "**\SamSmithNZ.FunctionalTests.dll"
         $testRunSettings = "/Settings:`"test.runsettings`" "
         #$parameters = " -- ServiceUrl=""https://ssnz-prod-eu-service-staging.azurewebsites.net/"" WebsiteUrl=""https://www.samsmithnz.com/"" "
