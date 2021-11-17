@@ -11,6 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Create Pull Request
+      if: github.event.pull_request.title != ''
       uses: peter-evans/create-pull-request@v3.10.1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
