@@ -8,9 +8,10 @@ on:
 jobs:
   createPR:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.title != ''
     steps:
     - uses: actions/checkout@v2
-    - name: Create Pull Request
+    - name: Create Pull Request      
       uses: peter-evans/create-pull-request@v3.10.1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
