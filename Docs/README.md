@@ -1,4 +1,4 @@
-Process to add a new tournament to world cup
+## Process to add a new tournament to world cup
 
 1. Tournament dates and format decided 
     1. Create tournament + adding details + round formats (not automated)
