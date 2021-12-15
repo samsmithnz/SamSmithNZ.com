@@ -126,8 +126,7 @@ jobs:
   testDotNet:
     name: Run automated tests
     runs-on: windows-latest
-    permissions:
-      actions: read 
+    permissions: read-all 
     steps:
     - uses: actions/checkout@v2
       with:
