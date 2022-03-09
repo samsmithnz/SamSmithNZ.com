@@ -28,7 +28,7 @@ namespace SamSmithNZ.Tests.Steam
             Assert.IsTrue(results[1].GameName == "Assassin's Creed");
             Assert.IsTrue(results[1].CommunityIsVisible == false);
             Assert.IsTrue(results[1].IconURL == "cd8f7a795e34e16449f7ad8d8190dce521967917");
-            Assert.IsTrue(results[1].LogoURL == "5450218e6f8ea246272cddcb2ab9a453b0ca7ef5");
+            //Assert.IsTrue(results[1].LogoURL == "5450218e6f8ea246272cddcb2ab9a453b0ca7ef5");
             Assert.IsTrue(results[1].TotalMinutesPlayed == 185);
             Assert.IsTrue(results[1].TotalTimeString == "3 hrs");
         }
