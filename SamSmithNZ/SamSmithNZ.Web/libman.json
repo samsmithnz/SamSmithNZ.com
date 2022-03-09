@@ -3,12 +3,24 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
-      "library": "twitter-bootstrap@4.5.3",
-      "destination": "wwwroot/twitter-bootstrap/"
+      "library": "twitter-bootstrap@4.3.1",
+      "destination": "wwwroot/bootstrap/"
+    },
+    {
+      "library": "jquery@3.5.1",
+      "destination": "wwwroot/lib/jquery/"
     },
     {
       "library": "jqueryui@1.12.1",
       "destination": "wwwroot/lib/jqueryui/"
+    },
+    {
+      "library": "jquery-validate@1.19.3",
+      "destination": "wwwroot/lib/jquery-validation/"
+    },
+    {
+      "library": "jquery-validation-unobtrusive@3.2.12",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive/"
     }
   ]
 }
