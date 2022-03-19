@@ -65,7 +65,7 @@ jobs:
       if: matrix.language == 'csharp'
       run: |
         dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.GITHUB_TOKEN }}" --store-password-in-clear-text
-        dotnet restore SamSmithNZ/SamSmithNZ.sln
+        #dotnet restore SamSmithNZ/SamSmithNZ.sln
         dotnet build SamSmithNZ/SamSmithNZ.sln --configuration Debug 
 
 
