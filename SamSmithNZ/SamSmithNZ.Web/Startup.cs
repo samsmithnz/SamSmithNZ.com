@@ -58,10 +58,10 @@ namespace SamSmithNZ.Web
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {
-                //Capture any spam calls to wp-login.php
-                endpoints.MapControllerRoute(name: "wpspam",
-                    pattern: "wp-login.php",
-                    defaults: new { controller = "Spam", action = "Index" });
+                ////Capture any spam calls to wp-login.php
+                //endpoints.MapControllerRoute(name: "wpspam",
+                //    pattern: "wp-login.php",
+                //    defaults: new { controller = "Spam", action = "Index" });
 
                 ////Capture any old calls to IntFootball and redirect to worldcup
                 //endpoints.MapControllerRoute(name: "intfootball",
