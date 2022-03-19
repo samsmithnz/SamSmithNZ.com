@@ -39,10 +39,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-    - name: Install .NET 6 SDK
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: 6.0.x
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
@@ -57,7 +53,21 @@ jobs:
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
     - name: Autobuild
+      if: matrix.language == 'javascript'
       uses: github/codeql-action/autobuild@v1
+
+    - name: Install .NET 6 SDK
+      if: matrix.language == 'csharp'
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Build dotnet 6 web projects
+      if: matrix.language == 'csharp'
+      run: |
+        dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.GITHUB_TOKEN }}" --store-password-in-clear-text
+        #dotnet restore SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
+        dotnet build SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration Debug /p:UseSharedCompilation=false
+
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 https://git.io/JvXDl
