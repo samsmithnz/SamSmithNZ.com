@@ -9,7 +9,7 @@ namespace SamSmithNZ.Web.Controllers
     public class MandMCounterController : Controller
     {
         private readonly IMandMCounterServiceAPIClient _ServiceApiClient;
- 
+
         public MandMCounterController(IMandMCounterServiceAPIClient ServiceApiClient)
         {
             _ServiceApiClient = ServiceApiClient;
@@ -104,9 +104,9 @@ namespace SamSmithNZ.Web.Controllers
             {
                 volumeUnit = VolumeUnit,
                 quantity = txtQuantity,
-                mandMResult = mandMResult.ToString("0.0"),
-                peanutMandMResult = peanutMandMResult.ToString("0.0"),
-                skittlesResult = skittlesResult.ToString("0.0")
+                mandMResult = mandMResult,
+                peanutMandMResult = peanutMandMResult,
+                skittlesResult = skittlesResult
             });
         }
 
@@ -134,9 +134,9 @@ namespace SamSmithNZ.Web.Controllers
                 height = txtHeight,
                 width = txtWidth,
                 length = txtLength,
-                mandMResult = mandMResult.ToString("0.0"),
-                peanutMandMResult = peanutMandMResult.ToString("0.0"),
-                skittlesResult = skittlesResult.ToString("0.0")
+                mandMResult = mandMResult,
+                peanutMandMResult = peanutMandMResult,
+                skittlesResult = skittlesResult
             });
         }
 
@@ -161,9 +161,9 @@ namespace SamSmithNZ.Web.Controllers
                 containerUnit = ContainerUnit,
                 height = txtHeight,
                 radius = txtRadius,
-                mandMResult = mandMResult.ToString("0.0"),
-                peanutMandMResult = peanutMandMResult.ToString("0.0"),
-                skittlesResult = skittlesResult.ToString("0.0")
+                mandMResult = mandMResult,
+                peanutMandMResult = peanutMandMResult,
+                skittlesResult = skittlesResult
             });
         }
 
