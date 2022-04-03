@@ -5,32 +5,52 @@
     Layout = "~/Views/Shared/_LayoutMandMCounter.cshtml";
 }
 
+<script>
+    //https://jqueryui.com/accordion/#default
+    //Set the starting div
+    $(function () {
+        $("#accordion").accordion({
+            heightStyle: "content",
+            active: @Model.ActiveTab
+        });
+    });
+</script>
+
 <h2>M&amp;M counter</h2>
-<hr />
-<br />
+<hr /><br />
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-controller="MandMCounter" asp-action="RunVolumeCalculation" method="post">
-            <h4>For unit</h4>
-            <span>Volume units: </span><select asp-for="VolumeUnit" asp-items="Model.UnitsForVolume" class="form-control"></select><br />
-            <input id="txtQuantity" name="txtQuantity" type="text" class="form-control" value="@Model.Quantity"/><br />
-            <input type="submit" value="Calculate unit volume" />
-        </form>
+        <div id="accordion">
+            <h3>For unit</h3>
+            <div>
+                <form asp-controller="MandMCounter" asp-action="RunVolumeCalculation" method="post">
+                    <span>Volume units: </span><select asp-for="VolumeUnit" asp-items="Model.UnitsForVolume" class="form-control"></select><br />
+                    Quantity: <input id="txtQuantity" name="txtQuantity" type="text" class="form-control" value="@Model.Quantity" /><br />
+                    <input type="submit" value="Calculate unit volume" />
+                </form>
+            </div>
+            <h3>For rectangle</h3>
+            <div>
+                <form asp-controller="MandMCounter" asp-action="RunRectangleCalculation" method="post">
+                    <span>Container units: </span><select asp-for="ContainerUnit" asp-items="Model.UnitsForContainer" class="form-control"></select><br />
+                    Height: <input id="txtHeight" name="txtHeight" type="text" class="form-control" value="@Model.Height" /><br />
+                    Width: <input id="txtWidth" name="txtWidth" type="text" class="form-control" value="@Model.Width" /><br />
+                    Length: <input id="txtLength" name="txtLengthest" type="text" class="form-control" value="@Model.Length" /><br />
+                    <input type="submit" value="Calculate rectangle volume" />
+                </form>
+            </div>
+            <h3>For cylinder</h3>
+            <div>
+                <form asp-controller="MandMCounter" asp-action="RunCylinderCalculation" method="post">
+                    <span>Container units: </span><select asp-for="ContainerUnit" asp-items="Model.UnitsForContainer" class="form-control"></select><br />
+                    Height: <input id="txtHeight" name="txtHeight" type="text" class="form-control" value="@Model.Height" /><br />
+                    Radius: <input id="txtRadius" name="txtRadius" type="text" class="form-control" value="@Model.Radius" /><br />
+                    <input type="submit" value="Calculate cylinder volume" />
+                </form>
+            </div>
+        </div>
     </div>
-    @*<div class="col-md-4">
-        <h4>For rectangle</h4>
-        <span>Container units: </span><select asp-for="ContainerUnit" asp-items="Model.UnitsForContainer" class="form-control"></select><br />
-        <input id="txtHeight" type="text"  class="form-control"/><br />
-        <input id="txtWidth" type="text"  class="form-control"/><br />
-        <input id="txtLength" type="text"  class="form-control"/><br />
-    </div>
-    <div class="col-md-4">
-        <h4>For cylinder</h4>
-        <span>Container units: </span><select asp-for="ContainerUnit" asp-items="Model.UnitsForContainer" class="form-control"></select><br />
-        <input id="txtHeight" type="text"  class="form-control"/><br />
-        <input id="txtRadius" type="text"  class="form-control"/><br />
-    </div>*@
 </div>
 <div class="row">
     <div class="col-md-12">

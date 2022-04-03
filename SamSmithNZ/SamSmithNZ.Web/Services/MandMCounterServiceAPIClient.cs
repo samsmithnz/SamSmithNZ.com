@@ -39,7 +39,6 @@ namespace SamSmithNZ.Web.Services
             return await base.GetMessageScalar<float>(url);
         }
 
-
         public async Task<float> GetPeanutMandMDataForUnit(string unit, float quantity)
         {
             Uri url = new($"api/PeanutMandMCounter/GetDataForUnit?unit=" + unit + "&quantity=" + quantity, UriKind.Relative);

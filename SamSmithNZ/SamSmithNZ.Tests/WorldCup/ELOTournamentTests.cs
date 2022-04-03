@@ -68,8 +68,8 @@ namespace SamSmithNZ.Tests.WorldCup
                     Assert.IsTrue(results[0].TournamentCode >= 0);
                     Assert.IsTrue(results[0].Wins >= 0);
 
-                    Assert.AreEqual(2240, results[0].ELORating);
-                    Assert.AreEqual(1965, results[5].ELORating);
+                    Assert.AreEqual(2239, results[0].ELORating);
+                    Assert.AreEqual(1964, results[5].ELORating);
                     Assert.AreEqual(1519, results[results.Count - 1].ELORating);
                 }
             }

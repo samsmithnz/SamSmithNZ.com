@@ -19,7 +19,7 @@ namespace SamSmithNZ.Web.Models.MandMCounter
             foreach (string item in unitsForContainer)
             {
                 UnitsForContainer.Add(new SelectListItem(item, item));
-            }           
+            }
         }
 
         public List<SelectListItem> UnitsForVolume { get; set; }
@@ -34,5 +34,6 @@ namespace SamSmithNZ.Web.Models.MandMCounter
         public float MandMResult { get; set; }
         public float PeanutMandMResult { get; set; }
         public float SkittlesResult { get; set; }
+        public string ActiveTab { get; set; }
     }
 }
