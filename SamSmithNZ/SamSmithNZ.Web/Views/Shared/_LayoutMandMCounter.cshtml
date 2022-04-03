@@ -6,7 +6,13 @@
     <title>M&amp;M Counter</title>
     <link rel="shortcut icon" sizes="32x32" href="~/MandMCounter/favicon.ico">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jqueryui/jquery-ui.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </head>
 <body style="padding-top:0px;">
     <div class="headerandlogo">
@@ -38,9 +44,5 @@
             &copy; 2000- @DateTime.Now.Year - SamSmithNZ.com
         </div>
     </footer>
-    <script src="~/lib/jquery/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
