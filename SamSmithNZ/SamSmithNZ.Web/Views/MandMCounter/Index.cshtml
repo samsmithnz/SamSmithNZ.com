@@ -34,9 +34,9 @@
             <div>
                 <form asp-controller="MandMCounter" asp-action="RunRectangleCalculation" method="post">
                     <span>Container units: </span><select asp-for="ContainerUnit" asp-items="Model.UnitsForContainer" class="form-control"></select><br />
-                    Height: <input id="txtHeight" type="text" class="form-control" /><br />
-                    Width: <input id="txtWidth" type="text" class="form-control" /><br />
-                    Length: <input id="txtLength" type="text" class="form-control" /><br />
+                    Height: <input id="txtHeight" name="txtHeight" type="text" class="form-control" value="@Model.Height" /><br />
+                    Width: <input id="txtWidth" name="txtWidth" type="text" class="form-control" value="@Model.Width" /><br />
+                    Length: <input id="txtLength" name="txtLengthest" type="text" class="form-control" value="@Model.Length" /><br />
                     <input type="submit" value="Calculate rectangle volume" />
                 </form>
             </div>
@@ -44,8 +44,8 @@
             <div>
                 <form asp-controller="MandMCounter" asp-action="RunCylinderCalculation" method="post">
                     <span>Container units: </span><select asp-for="ContainerUnit" asp-items="Model.UnitsForContainer" class="form-control"></select><br />
-                    Height: <input id="txtHeight" type="text" class="form-control" /><br />
-                    Radius: <input id="txtRadius" type="text" class="form-control" /><br />
+                    Height: <input id="txtHeight" name="txtHeight" type="text" class="form-control" value="@Model.Height" /><br />
+                    Radius: <input id="txtRadius" name="txtRadius" type="text" class="form-control" value="@Model.Radius" /><br />
                     <input type="submit" value="Calculate cylinder volume" />
                 </form>
             </div>

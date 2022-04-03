@@ -26,9 +26,12 @@ namespace SamSmithNZ.Web.Controllers
             float? peanutMandMResult = null, 
             float? skittlesResult = null)
         {
+            //Get the dropdown values
             List<string> unitsForVolume = await _ServiceApiClient.GetUnitsForVolume();
             List<string> unitsForContainer = await _ServiceApiClient.GetUnitsForContainer();
             IndexViewModel model = new(unitsForVolume, unitsForContainer);
+            
+            //Load in the model values
             if (volumeUnit != null)
             {
                 model.VolumeUnit = volumeUnit;
@@ -69,6 +72,7 @@ namespace SamSmithNZ.Web.Controllers
             {
                 model.SkittlesResult = (float)skittlesResult;
             }
+            //Select the target active tab
             model.ActiveTab = "0";
             if (radius != null)
             {
@@ -82,6 +86,7 @@ namespace SamSmithNZ.Web.Controllers
             return View(model);
         }
 
+        [HttpPost("RunVolumeCalculation")]
         public async Task<IActionResult> RunVolumeCalculation(string VolumeUnit, string txtQuantity)
         {
             float mandMResult = 0f;
@@ -105,6 +110,7 @@ namespace SamSmithNZ.Web.Controllers
             });
         }
 
+        [HttpPost("RunRectangleCalculation")]
         public async Task<IActionResult> RunRectangleCalculation(string ContainerUnit, string txtHeight, string txtWidth, string txtLength)
         {
             float mandMResult = 0f;
@@ -134,6 +140,7 @@ namespace SamSmithNZ.Web.Controllers
             });
         }
 
+        [HttpPost("RunCylinderCalculation")]
         public async Task<IActionResult> RunCylinderCalculation(string ContainerUnit, string txtHeight, string txtRadius)
         {
             float mandMResult = 0f;
