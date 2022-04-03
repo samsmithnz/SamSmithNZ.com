@@ -9,7 +9,6 @@ namespace SamSmithNZ.Web.Controllers
     public class MandMCounterController : Controller
     {
         private readonly IMandMCounterServiceAPIClient _ServiceApiClient;
-        private const string NumberFormat = "#,###,##0.0";
 
         public MandMCounterController(IMandMCounterServiceAPIClient ServiceApiClient)
         {
@@ -105,9 +104,9 @@ namespace SamSmithNZ.Web.Controllers
             {
                 volumeUnit = VolumeUnit,
                 quantity = txtQuantity,
-                mandMResult = mandMResult.ToString(NumberFormat),
-                peanutMandMResult = peanutMandMResult.ToString(NumberFormat),
-                skittlesResult = skittlesResult.ToString(NumberFormat)
+                mandMResult = mandMResult,
+                peanutMandMResult = peanutMandMResult,
+                skittlesResult = skittlesResult
             });
         }
 
@@ -135,9 +134,9 @@ namespace SamSmithNZ.Web.Controllers
                 height = txtHeight,
                 width = txtWidth,
                 length = txtLength,
-                mandMResult = mandMResult.ToString(NumberFormat),
-                peanutMandMResult = peanutMandMResult.ToString(NumberFormat),
-                skittlesResult = skittlesResult.ToString(NumberFormat)
+                mandMResult = mandMResult,
+                peanutMandMResult = peanutMandMResult,
+                skittlesResult = skittlesResult
             });
         }
 
@@ -162,9 +161,9 @@ namespace SamSmithNZ.Web.Controllers
                 containerUnit = ContainerUnit,
                 height = txtHeight,
                 radius = txtRadius,
-                mandMResult = mandMResult.ToString(NumberFormat),
-                peanutMandMResult = peanutMandMResult.ToString(NumberFormat),
-                skittlesResult = skittlesResult.ToString(NumberFormat)
+                mandMResult = mandMResult,
+                peanutMandMResult = peanutMandMResult,
+                skittlesResult = skittlesResult
             });
         }
 
