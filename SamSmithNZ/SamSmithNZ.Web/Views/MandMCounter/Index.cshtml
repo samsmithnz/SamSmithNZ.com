@@ -36,7 +36,7 @@
                     <span>Container units: </span><select asp-for="ContainerUnit" asp-items="Model.UnitsForContainer" class="form-control"></select><br />
                     Height: <input id="txtHeight" name="txtHeight" type="text" class="form-control" value="@Model.Height" /><br />
                     Width: <input id="txtWidth" name="txtWidth" type="text" class="form-control" value="@Model.Width" /><br />
-                    Length: <input id="txtLength" name="txtLengthest" type="text" class="form-control" value="@Model.Length" /><br />
+                    Length: <input id="txtLength" name="txtLength" type="text" class="form-control" value="@Model.Length" /><br />
                     <input type="submit" value="Calculate rectangle volume" />
                 </form>
             </div>
@@ -55,8 +55,8 @@
 <div class="row">
     <div class="col-md-12">
         <hr />
-        M&Ms: @Model.MandMResult.ToString("0.0") <br />
-        Peanut M&Ms: @Model.PeanutMandMResult.ToString("0.0") <br />
-        Skittles: @Model.SkittlesResult.ToString("0.0") <br />
+        M&Ms: @Model.MandMResult.ToString("#,###,##0.0") <br />
+        Peanut M&Ms: @Model.PeanutMandMResult.ToString("#,###,##0.0") <br />
+        Skittles: @Model.SkittlesResult.ToString("#,###,##0.0") <br />
     </div>
 </div>
