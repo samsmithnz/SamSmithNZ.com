@@ -161,9 +161,9 @@ namespace SamSmithNZ.Web.Controllers
                 containerUnit = ContainerUnit,
                 height = txtHeight,
                 radius = txtRadius,
-                mandMResult = mandMResult.ToString("0.0"),
-                peanutMandMResult = peanutMandMResult.ToString("0.0"),
-                skittlesResult = skittlesResult.ToString("0.0")
+                mandMResult = mandMResult.ToString("#,##0.0"),
+                peanutMandMResult = peanutMandMResult.ToString("#,##0.0"),
+                skittlesResult = skittlesResult.ToString("#,##0.0")
             });
         }
 
