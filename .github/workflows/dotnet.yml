@@ -103,7 +103,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Download the build artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
     - name: Build database project
@@ -222,7 +222,7 @@ jobs:
       with:
         creds: ${{ secrets.ORG_AZURE_SP }}
     - name: Download the build artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
     - name: deploy website infrastructure as code
       uses: azure/arm-deploy@v1
       with:
@@ -272,7 +272,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Download the build artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
     - name: Azure Login
       uses: azure/login@v1
       with:
@@ -302,7 +302,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Download the build artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: functionalTests
         path: ${{ github.workspace }}
