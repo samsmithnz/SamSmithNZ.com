@@ -145,7 +145,7 @@ jobs:
       run: |
         dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.GITHUB_TOKEN }}" --store-password-in-clear-text
         dotnet restore SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj
-        dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug--nologo -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=lcov 
+        dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug--nologo -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=lcov -l:"trx;LogFileName=${{ github.workspace }}/TestOutput.xml"
     - run: |
         Get-Childitem –Path ${{ github.workspace }} -Include *coverage.info* -File -Recurse -ErrorAction SilentlyContinue  
         Get-Childitem –Path ${{ github.workspace }} -Include *soccer.jpg* -File -Recurse -ErrorAction SilentlyContinue  
@@ -154,7 +154,9 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: SamSmithNZ/SamSmithNZ.Tests/TestResults/coverage.info  
-
+    - uses: samsmithnz/DotNetTestResults@0.1.0
+      with:
+        fileName: ${{ github.workspace }}/TestOutput.xml
 
   sonarCloud:
     name: Run SonarCloud analysis
