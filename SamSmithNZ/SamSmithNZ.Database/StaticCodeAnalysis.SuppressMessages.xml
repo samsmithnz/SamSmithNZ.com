@@ -72,4 +72,7 @@
   <SuppressedFile FilePath="dbo\Functions\fnWC_CalculateRanking_OppositionStrength.sql">
     <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0014" />
   </SuppressedFile>
+  <SuppressedFile FilePath="dbo\Stored Procedures\FB_SaveGame.sql">
+    <SuppressedRule Category="Microsoft.Rules.Data" RuleId="SR0004" />
+  </SuppressedFile>
 </StaticCodeAnalysis>
