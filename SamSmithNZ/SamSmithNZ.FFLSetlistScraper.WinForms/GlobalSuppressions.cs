@@ -7,3 +7,4 @@ using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Style", "IDE0040:Add accessibility modifiers", Justification = "<Pending>", Scope = "member", Target = "~M:SamSmithNZ.FFLSetlistScraper.WinForms.Program.Main")]
 [assembly: SuppressMessage("Style", "IDE0040:Add accessibility modifiers", Justification = "<Pending>", Scope = "type", Target = "~T:SamSmithNZ.FFLSetlistScraper.WinForms.Program")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "type", Target = "~T:SamSmithNZ.FFLSetlistScraper.WinForms.frmMain")]

@@ -91,16 +91,16 @@ namespace SamSmithNZ.Tests.ITunes
         //    //No Asserts. Just run the code and don't crash...
         //}
 
-        private static Playlist GetTestPlaylist(DateTime newDate, List<Playlist> items)
-        {
-            foreach (Playlist item in items)
-            {
-                if (item.PlaylistDate == newDate)
-                {
-                    return item;
-                }
-            }
-            return null;
-        }
+        //private static Playlist GetTestPlaylist(DateTime newDate, List<Playlist> items)
+        //{
+        //    foreach (Playlist item in items)
+        //    {
+        //        if (item.PlaylistDate == newDate)
+        //        {
+        //            return item;
+        //        }
+        //    }
+        //    return null;
+        //}
     }
 }

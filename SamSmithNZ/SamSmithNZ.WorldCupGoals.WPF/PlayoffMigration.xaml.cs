@@ -63,8 +63,8 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 //}
             }
 
-            (int, string) gameNumber1 = (0, "");
-            (int, string) gameNumber2 = (0, "");
+            (int, string) gameNumber1;
+            (int, string) gameNumber2;
             Setups = new();
             int i = 0;
             bool thirdPlaceGameExists = false;
@@ -233,7 +233,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             }
         }
 
-        private string ConvertNumberToRank(int number)
+        private static string ConvertNumberToRank(int number)
         {
             if (number == 1)
             {
@@ -257,11 +257,11 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             }
         }
 
-        private int GetGameNumber(string prereq)
+        private static int GetGameNumber(string prereq)
         {
             string result = prereq.Replace("Winner of game ", "");
             int gameNumber;
-            int.TryParse(result, out gameNumber);
+            _ = int.TryParse(result, out gameNumber);
             return gameNumber;
         }
 
@@ -278,7 +278,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             return game;
         }
 
-        private (int, string) GetGameNumber(List<Game> games, string roundCode, int teamCode)
+        private static (int, string) GetGameNumber(List<Game> games, string roundCode, int teamCode)
         {
             int gameNumberResult = 0;
             string roundCodeResult = "";

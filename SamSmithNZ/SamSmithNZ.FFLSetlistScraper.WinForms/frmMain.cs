@@ -66,7 +66,7 @@ namespace SamSmithNZ.FFLSetlistScraper.WinForms
                     }
 
                     int percent = Convert.ToInt32((Convert.ToDecimal(i + 1) / Convert.ToDecimal(shows.Count) * Convert.ToDecimal(100)));
-                    UpdateProgress("Processing show", percent, "");
+                    UpdateProgress("Processing show", percent);
                     i++;
                 }
                 MessageBox.Show("All done!");
@@ -204,7 +204,7 @@ namespace SamSmithNZ.FFLSetlistScraper.WinForms
             return 0;
         }
 
-        private void UpdateProgress(string status, int percent, string something)
+        private void UpdateProgress(string status, int percent)
         {
             lblStatus.Text = status + " " + percent.ToString() + "%";
             prgStatus.Value = percent;

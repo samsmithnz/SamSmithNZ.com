@@ -19,7 +19,7 @@ namespace SamSmithNZ.Tests.Steam
         [ClassInitialize]
         public static void InitTestSuite(TestContext testContext)
         {
-            IConfigurationRoot config = new ConfigurationBuilder()
+            _ = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();

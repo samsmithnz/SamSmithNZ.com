@@ -14,7 +14,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
             SteamGameDetail gameDetail;
 
             //Make a request to the steam API
-            SteamGameDetailDA da = new();
+            //SteamGameDetailDA da = new();
             string jsonRequestString = "https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=" + Utility.MySteamWebAPIKey + "&appid=" + appID.ToString() + "&l=en";
             string jsonResult = await Utility.GetPageAsStringAsync(new Uri(jsonRequestString));
 
