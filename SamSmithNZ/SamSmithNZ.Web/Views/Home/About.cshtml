@@ -36,6 +36,7 @@
             string osPlatform = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
 
             //.NET core version
+            #nullable enable // From: https://stackoverflow.com/questions/55492214/the-annotation-for-nullable-reference-types-should-only-be-used-in-code-within-a
             string? aspDotnetVersion = Assembly
             .GetEntryAssembly()?
             .GetCustomAttribute<System.Runtime.Versioning.TargetFrameworkAttribute>()?
@@ -43,6 +44,7 @@
 
             //Application version
             string? appVersion = Assembly.GetEntryAssembly()?.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version;
+            #nullable disable
 
             //Last build time
             const int peHeaderOffset = 60;

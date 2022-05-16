@@ -75,7 +75,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         private async void btnGoalEdit_Click(object sender, RoutedEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;
-            while ((dep != null) && !(dep is ListViewItem))
+            while ((dep != null) && (dep is not ListViewItem))
             {
                 dep = VisualTreeHelper.GetParent(dep);
             }

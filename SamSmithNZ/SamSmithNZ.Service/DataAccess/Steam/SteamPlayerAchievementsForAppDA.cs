@@ -12,13 +12,13 @@ namespace SamSmithNZ.Service.DataAccess.Steam
         public async Task<Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError>> GetDataAsync(string steamID, string appID)
         {
             SteamPlayerAchievementsForAppError errorResult = null;
-            SteamPlayerAchievementsForApp playerAchievements = null;
+            SteamPlayerAchievementsForApp playerAchievements;
 
             string jsonRequestString = "https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=" + appID.ToString() + "&key=" + Utility.MySteamWebAPIKey + "&steamid=" + steamID + "&l=en";
             string jsonResult = await Utility.GetPageAsStringAsync(new Uri(jsonRequestString));
 
             //If the Json returned an error, process it into a AppError object
-            if (jsonResult.IndexOf("{\n\t\"playerstats\": {\n\t\t\"error\"") >= 0)
+            if (jsonResult.Contains("{\n\t\"playerstats\": {\n\t\t\"error\"", StringComparison.CurrentCulture))
             {
                 errorResult = JsonConvert.DeserializeObject<SteamPlayerAchievementsForAppError>(jsonResult);
                 return new Tuple<SteamPlayerAchievementsForApp, SteamPlayerAchievementsForAppError>(null, errorResult);

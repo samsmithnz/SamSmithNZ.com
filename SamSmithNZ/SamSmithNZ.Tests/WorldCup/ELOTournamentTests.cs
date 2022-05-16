@@ -70,7 +70,7 @@ namespace SamSmithNZ.Tests.WorldCup
 
                     Assert.AreEqual(2239, results[0].ELORating);
                     Assert.AreEqual(1964, results[5].ELORating);
-                    Assert.AreEqual(1519, results[results.Count - 1].ELORating);
+                    Assert.AreEqual(1519, results[^1].ELORating);
                 }
             }
         }

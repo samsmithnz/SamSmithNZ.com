@@ -51,7 +51,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         private async void btnGameScoreEdit_Click(object sender, RoutedEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;
-            while ((dep != null) && !(dep is ListViewItem))
+            while ((dep != null) && (dep is not ListViewItem))
             {
                 dep = VisualTreeHelper.GetParent(dep);
             }
@@ -73,7 +73,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         private async void btnGameEdit_Click(object sender, RoutedEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;
-            while ((dep != null) && !(dep is ListViewItem))
+            while ((dep != null) && (dep is not ListViewItem))
             {
                 dep = VisualTreeHelper.GetParent(dep);
             }
@@ -96,7 +96,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         private async void btnGameShootoutEdit_Click(object sender, RoutedEventArgs e)
         {
             DependencyObject dep = (DependencyObject)e.OriginalSource;
-            while ((dep != null) && !(dep is ListViewItem))
+            while ((dep != null) && (dep is not ListViewItem))
             {
                 dep = VisualTreeHelper.GetParent(dep);
             }

@@ -116,17 +116,17 @@ namespace SamSmithNZ.Web.Models.GameDev
             //4.1. Add campaign tiles if required
             if (isCampaign == true)
             {
-                int blueHeight = 0;
-                int redHeight = 0;
+                int blueHeight;
+                //int redHeight;
                 if (levelHeight % 2 == 0)
                 {
                     blueHeight = levelHeight / 2;
-                    redHeight = blueHeight;
+                    //redHeight = blueHeight;
                 }
                 else
                 {
                     blueHeight = (int)(((float)levelHeight / 2f) - 0.5f);
-                    redHeight = (int)(((float)levelHeight / 2f) + 0.5f);
+                    //redHeight = (int)(((float)levelHeight / 2f) + 0.5f);
                 }
                 LevelPiece bluePiece = null;
                 foreach (LevelPiece item in levelPiecePoolWithoutRivers)

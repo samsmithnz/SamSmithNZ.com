@@ -32,10 +32,10 @@ namespace SamSmithNZ.FFLSetlistScraper.WinForms
 
             try
             {
-                ShowDataAccess da = new ShowDataAccess(_configuration);
+                ShowDataAccess da = new(_configuration);
                 List<Show> shows = AsyncHelper.RunSync<List<Show>>(() => da.GetListByFFLCode());
 
-                SongDataAccess da2 = new SongDataAccess(_configuration);
+                SongDataAccess da2 = new(_configuration);
                 List<Song> songs = AsyncHelper.RunSync<List<Song>>(() => da2.GetList());
 
                 int i = 0;
@@ -85,7 +85,7 @@ namespace SamSmithNZ.FFLSetlistScraper.WinForms
         {
             bool processingShowSuccessful = true;
             bool processingSetlistSuccessful = true;
-            HtmlWeb htmlWeb = new HtmlWeb();
+            HtmlWeb htmlWeb = new();
             HtmlAgilityPack.HtmlDocument doc = htmlWeb.Load(item.FFLURL);
 
             //<h1 class="show-hero-venue">The Belly Up</h1>
@@ -137,7 +137,7 @@ namespace SamSmithNZ.FFLSetlistScraper.WinForms
             //<div class="center"><p>No setlist data available for this performance.</p><p>Please <a href="#">contact us</a> if you can help.</p></div>      </ol>
 
             HtmlNodeCollection setlistHTML = doc.DocumentNode.SelectNodes("//ol[contains(@class, 'setlist-entry')]");
-            List<int> setListSongs = new List<int>();
+            List<int> setListSongs = new();
             if (setlistHTML.Count > 0 && setlistHTML[0].ChildNodes.Count > 0)
             {
                 foreach (HtmlNode nodeItem in setlistHTML[0].ChildNodes)
