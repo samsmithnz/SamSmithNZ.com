@@ -46,7 +46,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
         {
             bool top16Exists = false;
             bool qfExists = false;
-            bool sfExists = false;
+            //bool sfExists = false;
             foreach (Game item in games)
             {
                 if (item.RoundCode == "16")
@@ -57,10 +57,10 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 {
                     qfExists = true;
                 }
-                else if (item.RoundCode == "SF")
-                {
-                    sfExists = true;
-                }
+                //else if (item.RoundCode == "SF")
+                //{
+                //    sfExists = true;
+                //}
             }
 
             (int, string) gameNumber1 = (0, "");
