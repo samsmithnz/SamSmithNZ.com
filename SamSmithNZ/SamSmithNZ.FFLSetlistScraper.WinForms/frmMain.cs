@@ -216,9 +216,9 @@ namespace SamSmithNZ.FFLSetlistScraper.WinForms
 
 
 
-internal static class AsyncHelper
+static internal class AsyncHelper
 {
-    private static readonly TaskFactory _myTaskFactory = new(
+    private readonly static TaskFactory _myTaskFactory = new(
         CancellationToken.None,
         TaskCreationOptions.None,
         TaskContinuationOptions.None,
