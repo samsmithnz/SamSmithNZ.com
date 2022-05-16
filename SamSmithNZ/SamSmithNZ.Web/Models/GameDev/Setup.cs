@@ -117,16 +117,16 @@ namespace SamSmithNZ.Web.Models.GameDev
             if (isCampaign == true)
             {
                 int blueHeight;
-                int redHeight;
+                //int redHeight;
                 if (levelHeight % 2 == 0)
                 {
                     blueHeight = levelHeight / 2;
-                    redHeight = blueHeight;
+                    //redHeight = blueHeight;
                 }
                 else
                 {
                     blueHeight = (int)(((float)levelHeight / 2f) - 0.5f);
-                    redHeight = (int)(((float)levelHeight / 2f) + 0.5f);
+                    //redHeight = (int)(((float)levelHeight / 2f) + 0.5f);
                 }
                 LevelPiece bluePiece = null;
                 foreach (LevelPiece item in levelPiecePoolWithoutRivers)
