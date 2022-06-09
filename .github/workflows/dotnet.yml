@@ -211,6 +211,7 @@ jobs:
   deployWebAppsToSlots:
     name: Deploy web apps
     runs-on: ubuntu-latest
+    permissions: write-all
     needs:
     - build
     - buildWebsite
