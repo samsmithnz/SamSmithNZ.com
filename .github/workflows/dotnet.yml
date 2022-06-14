@@ -9,6 +9,8 @@ env:
   dotNetVersion: net6.0
   dotNetConfiguration: Release
   runtimeTarget: win-x64
+permissions:
+  id-token: write
 jobs:
 
   build:
@@ -209,6 +211,7 @@ jobs:
   deployWebAppsToSlots:
     name: Deploy web apps
     runs-on: ubuntu-latest
+    permissions: write-all
     needs:
     - build
     - buildWebsite
@@ -222,7 +225,10 @@ jobs:
     - name: Azure Login
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.ORG_AZURE_SP }}
+        #creds: ${{ secrets.ORG_AZURE_SP }}
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }} 
     - name: Download the build artifacts
       uses: actions/download-artifact@v3
     - name: deploy website infrastructure as code
