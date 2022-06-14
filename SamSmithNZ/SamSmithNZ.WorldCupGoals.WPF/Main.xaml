@@ -10,7 +10,7 @@
                   ,259,10">
             <StackPanel Orientation="Vertical">
                 <Button Content="1. Setup Tournament Teams" Height="25" HorizontalAlignment="Left" Margin="20,20,0,0" x:Name="btnSetupTournamentTeams" Width="210" Click="TournamentTeams_Click" />
-                <Button Content="2. Setup Tournament Groups" Height="25" HorizontalAlignment="Left" Margin="20,10,0,0" x:Name="btnSetupTournamentGroups" Width="210" Click="TournamentGroups_Click" RenderTransformOrigin="0.5,0.5" IsEnabled="False" />
+                <Button Content="2. Setup Tournament Groups" Height="25" HorizontalAlignment="Left" Margin="20,10,0,0" x:Name="btnSetupTournamentGroups" Width="210" Click="TournamentGroups_Click" RenderTransformOrigin="0.5,0.5" IsEnabled="true" />
                 <Button Content="3. Migrate players from Wikipedia" Height="25" HorizontalAlignment="Left" Margin="20,10,0,0" x:Name="btnMigratePlayers" VerticalAlignment="Top" Width="210" Click="MigratePlayers_Click" />
                 <Button Content="4. Migrate games from Wikipedia" Height="25" HorizontalAlignment="Left" Margin="20,10,0,0" x:Name="btnMigrateGames" VerticalAlignment="Top" Width="210" Click="MigrateGames_Click" />
                 <Button Content="5. Migrate Tournament playoffs" Height="25" HorizontalAlignment="Left" Margin="20,10,0,0" x:Name="btnMigrateTournamentPlayoffs" VerticalAlignment="Top" Width="210" Click="MigrateTournamentPlayoffs_Click" />
