@@ -190,7 +190,7 @@ namespace SamSmithNZ.Tests.GuitarTab
 
             //assert part 4: check that the tracks have all been deleted
             Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count == 0);
+            Assert.AreEqual(0, results.Count);
         }
 
     }

@@ -40,7 +40,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             PlayerDataAccess daPlayer = new(_configuration);
             List<Player> players = await daPlayer.GetPlayersByTournament(_tournamentCode);
 
-            string url = "https://en.wikipedia.org/wiki/1960_European_Nations%27_Cup";
+            string url = "https://en.wikipedia.org/wiki/2022_FIFA_World_Cup";
             lblURL.Content = url; 
             HtmlWeb web = new();
             HtmlDocument doc = web.Load(url);
