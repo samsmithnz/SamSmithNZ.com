@@ -289,7 +289,7 @@ jobs:
         template: SamSmithNZ/SamSmithNZ.IaC/azuredeployDB.json
         parameters: SamSmithNZ/SamSmithNZ.IaC/azuredeployDB.parameters.json servers_ssnzdbserver_name="ssnzdbserver"
     - name: Azure SQL dacpac publish
-      uses: azure/sql-action@v1
+      uses: azure/sql-action@v2
       with:
         server-name: ssnzdbserver.database.windows.net
         connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
