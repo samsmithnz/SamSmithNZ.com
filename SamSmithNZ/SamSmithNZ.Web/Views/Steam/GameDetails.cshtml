@@ -21,7 +21,7 @@
     }
     @if (Model.GameDetail != null)
     {
-        <img src="http://media.steampowered.com/steamcommunity/public/images/apps/@(Model.GameDetail.AppID)/@(Model.GameDetail.LogoURL).jpg" @*src="~/Steam/steam32by32.png"*@ />
+        <img src="@Model.GetImagePath(Model.GameDetail.AppID, Model.GameDetail.IconURL)" @*src="~/Steam/steam32by32.png"*@ />
         <br />
     }
 </div>
