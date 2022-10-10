@@ -40,6 +40,17 @@ namespace SamSmithNZ.Web.Models.Steam
         public GameDetail GameDetail { get; set; }
         public int TotalAchievements { get; set; }
         public bool ShowCompletedAchievements { get; set; }
+        public string GetImagePath(string appID, string iconURL)
+        {
+            if (string.IsNullOrEmpty(iconURL) == true)
+            {
+                return "~/Steam/steam32by32.png";
+            }
+            else
+            {
+                return "http://media.steampowered.com/steamcommunity/public/images/apps/" + appID + "/" + iconURL + ".jpg";
+            }
+        }
 
     }
 }
