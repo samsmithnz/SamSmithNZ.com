@@ -291,9 +291,9 @@ jobs:
     - name: Azure SQL dacpac publish
       uses: azure/sql-action@v2
       with:
-        server-name: ssnzdbserver.database.windows.net
         connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        dacpac-package: Database/SamSmithNZ.Database.dacpac
+        path: Database/SamSmithNZ.Database.dacpac
+        action: Publish
         arguments: /p:BlockOnPossibleDataLoss=true
         
 
