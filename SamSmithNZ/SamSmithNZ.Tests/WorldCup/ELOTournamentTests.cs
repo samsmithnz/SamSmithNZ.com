@@ -17,7 +17,9 @@ namespace SamSmithNZ.Tests.WorldCup
         //public async Task RefreshELORatingsTest()
         //{
         //    //arrange
-        //    ELORatingController controller = new(new EloRatingDataAccess(base.Configuration));
+        //    ELORatingController controller = new(
+        //        new EloRatingDataAccess(base.Configuration), 
+        //        new GameDataAccess(base.Configuration));
         //    int tournamentCode = 22;
 
         //    //act
