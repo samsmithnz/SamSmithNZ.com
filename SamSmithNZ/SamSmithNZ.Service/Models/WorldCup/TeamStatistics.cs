@@ -93,18 +93,27 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
                 this.GamesTotal = GamesExpectedWon + GamesExpectedLoss + GamesUnexpectedWin + GamesUnexpectedLoss + GamesUnexpectedDraw;
                 this.ExpectedResultTotal = GamesExpectedWon + GamesExpectedLoss;
-                this.ExpectedResultPercent = (double)ExpectedResultTotal / (double)GamesTotal;
+                if (GamesTotal > 0)
+                {
+                    this.ExpectedResultPercent = (double)ExpectedResultTotal / (double)GamesTotal;
+                }
                 this.UnexpectedResultTotal = GamesUnexpectedWin + GamesUnexpectedLoss + GamesUnexpectedDraw;
-                this.UnexpectedResultPercent = (double)UnexpectedResultTotal / (double)GamesTotal;
+                if (GamesTotal > 0)
+                {
+                    this.UnexpectedResultPercent = (double)UnexpectedResultTotal / (double)GamesTotal;
+                }
 
                 this.GamesWonTotal = GamesExpectedWon + GamesUnexpectedWin;
                 this.GamesLostTotal = GamesExpectedLoss + GamesUnexpectedLoss;
 
-                this.GamesExpectedWinPercent = (double)GamesExpectedWon / (double)GamesTotal;
-                this.GamesExpectedLossPercent = (double)GamesExpectedLoss / (double)GamesTotal;
-                this.GamesUnexpectedWinPercent = (double)GamesUnexpectedWin / (double)GamesTotal;
-                this.GamesUnexpectedLossPercent = (double)GamesUnexpectedLoss / (double)GamesTotal;
-                this.GamesUnexpectedDrawPercent = (double)GamesUnexpectedDraw / (double)GamesTotal;
+                if (GamesTotal > 0)
+                {
+                    this.GamesExpectedWinPercent = (double)GamesExpectedWon / (double)GamesTotal;
+                    this.GamesExpectedLossPercent = (double)GamesExpectedLoss / (double)GamesTotal;
+                    this.GamesUnexpectedWinPercent = (double)GamesUnexpectedWin / (double)GamesTotal;
+                    this.GamesUnexpectedLossPercent = (double)GamesUnexpectedLoss / (double)GamesTotal;
+                    this.GamesUnexpectedDrawPercent = (double)GamesUnexpectedDraw / (double)GamesTotal;
+                }
             }
         }
         public string TeamRecord { get; set; }
