@@ -54,7 +54,7 @@ BEGIN
 	JOIN vWC_TournamentFormats tf ON t.format_code = tf.format_code
 	WHERE (t.tournament_code = @TournamentCode OR @TournamentCode IS NULL)
 	AND (t.competition_code = @CompetitionCode OR @CompetitionCode IS NULL)
-	AND t.competition_code != 4
+	AND t.competition_code != 4 AND t.competition_code != 2 -- filter out asian cup and confed cup
 	GROUP BY t.competition_code, 
 		t.tournament_code, 
 		[year] , 
