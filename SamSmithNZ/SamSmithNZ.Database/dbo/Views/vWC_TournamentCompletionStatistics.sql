@@ -3,8 +3,8 @@ AS
 SELECT DISTINCT t.tournament_code, 
 	CONVERT(decimal(6,2),qt.qualified_teams_count/tf.total_number_of_teams) AS team_percent, 
 	CONVERT(decimal(6,2),CASE WHEN g.game_count > 0 THEN 1 ELSE 0 END) AS game_percent, 
-	CONVERT(decimal(6,2),CASE WHEN t.competition_code = 1 AND t.tournament_code < 21 THEN 1 
-							  WHEN t.competition_code = 3 AND t.tournament_code < 316 THEN 1
+	CONVERT(decimal(6,2),CASE WHEN t.competition_code = 1 AND t.tournament_code <= 21 THEN 1 
+							  WHEN t.competition_code = 3 AND t.tournament_code <= 316 THEN 1
 							  WHEN t.competition_code = 1 AND t.tournament_code = 22 THEN CONVERT(decimal(6,2),p.player_count) / CONVERT(decimal(6,2),((tf.total_number_of_teams * 26)-2)) -- 2 teams only had 25 players, not 26
 							  ELSE p.player_count / tf.total_number_of_teams * 23 
 							  END) AS player_percent,
