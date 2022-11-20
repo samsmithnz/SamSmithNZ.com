@@ -78,7 +78,7 @@
                         @if (item.MinGameTime != null && Model.TournamentsImportStatus[i].TotalGamesCompleted > 0)
                         {
                             <span>@(((float)Model.TournamentsImportStatus[i].TotalGoals / (float)Model.TournamentsImportStatus[i].TotalGamesCompleted).ToString("0.00"))</span>
-                        }
+                        }ixe
                         @if (Model.TournamentsImportStatus[i].TotalGames > Model.TournamentsImportStatus[i].TotalGamesCompleted && Model.TournamentsImportStatus[i].TotalGamesCompleted > 0)
                         {
                             <span> (@Model.TournamentsImportStatus[i].TotalGamesCompleted/@Model.TournamentsImportStatus[i].TotalGames games completed)</span>
