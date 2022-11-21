@@ -9,15 +9,15 @@
 
 <div>
     @*    @if (showDebugElements == true)
-        {
-            <div>
-                show16s: @Model.Show16s<br />
-                showQuarters: @Model.ShowQuarters<br />
-                showSemis: @Model.ShowSemis<br />
-                show3rdPlace: @Model.Show3rdPlace<br />
-                showFinals: @Model.ShowFinals<br />
-            </div>
-        }*@
+    {
+    <div>
+    show16s: @Model.Show16s<br />
+    showQuarters: @Model.ShowQuarters<br />
+    showSemis: @Model.ShowSemis<br />
+    show3rdPlace: @Model.Show3rdPlace<br />
+    showFinals: @Model.ShowFinals<br />
+    </div>
+    }*@
 
     <style type="text/css">
         .Col_A {
@@ -177,11 +177,11 @@
         <table border="0" cellpadding="0" cellspacing="0" class="PlayoffTable" style="border-collapse: separate;">
             <tr>
                 @*                @if (showDebugElements == true)
-                    {
-                        <td id="debugRows" class="tdAlignTop">
-                            @await Html.PartialAsync("~/Views/WorldCup/_PlayoffDebugRowsPartial.cshtml", new PlayoffSectionViewModel(Model.Games, Model.Playoffs, new(){"16"}, showDebugElements))
-                        </td>
-                    }*@
+                {
+                <td id="debugRows" class="tdAlignTop">
+                @await Html.PartialAsync("~/Views/WorldCup/_PlayoffDebugRowsPartial.cshtml", new PlayoffSectionViewModel(Model.Games, Model.Playoffs, new(){"16"}, showDebugElements))
+                </td>
+                }*@
                 @if (Model.Show16s == true)
                 {
                     <td id="top16" class="tdAlignTop">
@@ -263,8 +263,15 @@
                             @if (item.RowType == 1 && item.Team1Code > 0)
                             {
                                 <div>
-                                    <a href="/WorldCup/Team?TeamCode=@item.Team1Code">@item.Team1Name</a>
-                                    <img src="~/WorldCup/Teams/@item.Team1FlagName" Class="TeamImage" />
+                                    <span style="white-space: nowrap;">
+                                        <a href="/WorldCup/Team?TeamCode=@item.Team1Code">@item.Team1Name</a>
+                                        <img src="~/WorldCup/Teams/@item.Team1FlagName" Class="TeamImage" />
+                                    </span>
+                                    @if (item.Team1NormalTimeScore == null)
+                                    {
+                                        <br />
+                                        <span style="font-size:12px;">@item.Team1ChanceToWin.ToString("0")% to win</span>
+                                    }
                                 </div>
                             }
                             else if (item.RowType >= 2)
@@ -272,29 +279,33 @@
                                 <div>
                                     @if (item.RowType == 2 && item.Team1NormalTimeScore != null)
                                     {
-                                    <div>
-                                        @item.Team1Name
-                                        @if (item.IsGoldenGoal == true)
-                                        {
-                                            <img src="~/WorldCup/Soccerball_gold.svg.jpg" style="width:16px;" /><span> @item.Team1NormalTimeScore'</span>
-                                        }
-                                        else
-                                        {
-                                            <img src="~/WorldCup/Soccerball_svg.png" style="width:16px;" /><span> @item.Team1NormalTimeScore'</span>
-                                                            }
-                                        @if (item.Team1ExtraTimeScore > 0)
-                                        {
-                                            <span>+@item.Team1ExtraTimeScore'</span>
-                                        }
-                                        @if (item.IsPenalty == true)
-                                        {
-                                            <span> (pen)</span>
-                                        }
-                                        @if (item.IsOwnGoal == true)
-                                        {
-                                            <span> (og)</span>
-                                        }
-                                    </div>
+                                        <div>
+                                            @item.Team1Name
+                                            @if (item.IsGoldenGoal == true)
+                                            {
+                                                <img src="~/WorldCup/Soccerball_gold.svg.jpg" style="width:16px;" />
+
+                                                <span> @item.Team1NormalTimeScore'</span>
+                                            }
+                                            else
+                                            {
+                                                <img src="~/WorldCup/Soccerball_svg.png" style="width:16px;" />
+
+                                                <span> @item.Team1NormalTimeScore'</span>
+                                            }
+                                            @if (item.Team1ExtraTimeScore > 0)
+                                            {
+                                                <span>+@item.Team1ExtraTimeScore'</span>
+                                            }
+                                            @if (item.IsPenalty == true)
+                                            {
+                                                <span> (pen)</span>
+                                            }
+                                            @if (item.IsOwnGoal == true)
+                                            {
+                                                <span> (og)</span>
+                                            }
+                                        </div>
                                     }
                                     @if (item.RowType == 3 && item.Team1PenaltiesScore >= 0)
                                     {
@@ -335,8 +346,7 @@
                             @if (item.Team1NormalTimeScore == null && item.RowType == 1 && item.Team1ChanceToWin >= 0 && item.Team2ChanceToWin > 0)
                             {
                                 <div>
-                                    @item.Team1ChanceToWin.ToString("0")% to win<br />
-                                    <a href="/WorldCup/Matchup?Team1Code=@item.Team1Code&Team2Code=@item.Team2Code">preview</a>
+                                    <a href="/WorldCup/Matchup?Team1Code=@item.Team1Code&Team2Code=@item.Team2Code" style="white-space: nowrap;"><img src="~/WorldCup/office-glass-magnify.svg" style="width:12px;"> matchup</a>
                                 </div>
                             }
                             @if (item.RowType == 3 && item.ShowPenaltyShootOutLabel == true)
@@ -350,8 +360,15 @@
                             @if (item.RowType == 1 && item.Team2Code > 0)
                             {
                                 <div>
-                                    <img src="~/WorldCup/Teams/@item.Team2FlagName" Class="TeamImage" />
-                                    <a href="/WorldCup/Team?TeamCode=@item.Team2Code">@item.Team2Name</a>
+                                    <span style="white-space: nowrap;">
+                                        <img src="~/WorldCup/Teams/@item.Team2FlagName" Class="TeamImage" />
+                                        <a href="/WorldCup/Team?TeamCode=@item.Team2Code">@item.Team2Name</a>
+                                    </span>
+                                    @if (item.Team2NormalTimeScore == null)
+                                    {
+                                        <br />
+                                        <span style="font-size:12px;">@item.Team2ChanceToWin.ToString("0")% to win</span>
+                                    }
                                 </div>
                             }
                             else if (item.RowType >= 2)
@@ -359,25 +376,29 @@
                                 <div>
                                     @if (item.RowType == 2 && item.Team2NormalTimeScore != null)
                                     {
-                                    <div>
-                                        @item.Team2Name
-                                        @if (item.IsGoldenGoal == true)
-                                        {
-                                            <img src="~/WorldCup/Soccerball_gold.svg.jpg" style="width:16px;" /><span> @item.Team2NormalTimeScore'</span>
-                                        }
-                                        else
-                                        {
-                                            <img src="~/WorldCup/Soccerball_svg.png" style="width:16px;" /><span> @item.Team2NormalTimeScore'</span>
-                                        }
-                                        @if (item.IsPenalty == true)
-                                        {
-                                            <span> (pen)</span>
-                                        }
-                                        @if (item.IsOwnGoal == true)
-                                        {
-                                            <span> (og)</span>
-                                        }
-                                    </div>
+                                        <div>
+                                            @item.Team2Name
+                                            @if (item.IsGoldenGoal == true)
+                                            {
+                                                <img src="~/WorldCup/Soccerball_gold.svg.jpg" style="width:16px;" />
+
+                                                <span> @item.Team2NormalTimeScore'</span>
+                                            }
+                                            else
+                                            {
+                                                <img src="~/WorldCup/Soccerball_svg.png" style="width:16px;" />
+
+                                                <span> @item.Team2NormalTimeScore'</span>
+                                            }
+                                            @if (item.IsPenalty == true)
+                                            {
+                                                <span> (pen)</span>
+                                            }
+                                            @if (item.IsOwnGoal == true)
+                                            {
+                                                <span> (og)</span>
+                                            }
+                                        </div>
                                     }
                                     @if (item.RowType == 3 && item.Team2PenaltiesScore >= 0)
                                     {

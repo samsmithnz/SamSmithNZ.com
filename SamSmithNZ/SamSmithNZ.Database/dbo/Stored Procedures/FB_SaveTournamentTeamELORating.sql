@@ -20,7 +20,7 @@ BEGIN
 	WHERE g.tournament_code = @TournamentCode
 	AND g.team_1_code = @TeamCode
 
-		UPDATE g
+	UPDATE g
 	SET g.team_2_elo_rating = @ELORating
 	FROM wc_game g
 	WHERE g.tournament_code = @TournamentCode

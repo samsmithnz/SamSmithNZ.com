@@ -12,32 +12,21 @@ namespace SamSmithNZ.Tests.WorldCup
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class ELOTournamentTests : BaseIntegrationTest
     {
+
         //[TestMethod()]
-        //public async Task ELOTournamentProcessingTest()
+        //public async Task RefreshELORatingsTest()
         //{
-        //    EloRatingDataAccess da = new();
-        //    int tournamentCode = 21;
+        //    //arrange
+        //    ELORatingController controller = new(
+        //        new EloRatingDataAccess(base.Configuration), 
+        //        new GameDataAccess(base.Configuration));
+        //    int tournamentCode = 22;
 
         //    //act
-        //    List<TeamELORating> results = await da.CalculateEloForTournamentAsync(tournamentCode);
+        //    bool result = await controller.RefreshTournamentELORatings(tournamentCode);
 
         //    //assert
-        //    Assert.IsTrue(results != null);
-        //    Assert.IsTrue(results.Count > 0);
-        //    foreach (TeamELORating item in results)
-        //    {
-        //        //System.Diagnostics.Debug.WriteLine(item.TeamName + ": " + item.Rating);
-        //        Assert.IsTrue(item.TournamentCode == tournamentCode);
-        //        Assert.IsTrue(item.TeamCode > 0);
-        //        Assert.IsTrue(item.TeamName != "");
-        //        Assert.IsTrue(item.GameCount > 0);
-        //        Assert.IsTrue(item.ELORating > 0);
-        //        Assert.IsTrue(item.Wins >= 0);
-        //        Assert.IsTrue(item.Losses >= 0);
-        //        Assert.IsTrue(item.Draws >= 0);
-        //        break;
-        //    }
-        //    //System.Diagnostics.Debug.WriteLine("Done!");
+        //    Assert.IsTrue(result);
         //}
 
         //team_a_win_prob = 1.0/(10.0^((team_b - team_a)/400.0) + 1.0)
