@@ -20,7 +20,7 @@
         $("#accordion").accordion({
             heightStyle: "content",
             active: @groupCounter
-            });
+                    });
     });
 </script>
 <div class="row">
@@ -163,12 +163,15 @@
                                     @if (item.RowType == 1)
                                     {
                                         <div>
+                                            <span style="white-space: nowrap;">
+                                                <a href="/WorldCup/Team?TeamCode=@item.Team1Code">@item.Team1Name</a>
+                                                <img src="~/WorldCup/Teams/@item.Team1FlagName" Class="TeamImage" />
+                                            </span>
                                             @if (item.Team1NormalTimeScore == null)
                                             {
-                                                <span>@item.Team1ChanceToWin.ToString("0")% to win</span>
+                                                <br />
+                                                <span style="font-size:12px;">@item.Team1ChanceToWin.ToString("0")% to win</span>
                                             }
-                                            <a href="/WorldCup/Team?TeamCode=@item.Team1Code">@item.Team1Name</a>
-                                            <img src="~/WorldCup/Teams/@item.Team1FlagName" Class="TeamImage" />
                                         </div>
                                     }
                                     else if (item.RowType >= 2 && item.Team1NormalTimeScore != null)
@@ -213,7 +216,6 @@
                                     else if (item.Team1NormalTimeScore == null && item.RowType == 1 && item.Team1PreGameEloRating >= 0)
                                     {
                                         <div>
-                                            @item.Team1ChanceToWin.ToString("0")% to win<br />
                                             <a href="/WorldCup/Matchup?Team1Code=@item.Team1Code&Team2Code=@item.Team2Code" style="white-space: nowrap;"><img src="~/WorldCup/office-glass-magnify.svg" style="width:12px;"> matchup</a>
                                         </div>
                                     }
@@ -222,11 +224,14 @@
                                     @if (item.RowType == 1)
                                     {
                                         <div>
-                                            <img src="~/WorldCup/Teams/@item.Team2FlagName" Class="TeamImage" />
-                                            <a href="/WorldCup/Team?TeamCode=@item.Team2Code">@item.Team2Name</a>
+                                            <span style="white-space: nowrap;">
+                                                <img src="~/WorldCup/Teams/@item.Team2FlagName" Class="TeamImage" />
+                                                <a href="/WorldCup/Team?TeamCode=@item.Team2Code">@item.Team2Name</a>
+                                            </span>
                                             @if (item.Team2NormalTimeScore == null)
                                             {
-                                                <span>@item.Team2ChanceToWin.ToString("0")% to win) </span>
+                                                <br />
+                                                <span style="font-size:12px;">@item.Team2ChanceToWin.ToString("0")% to win</span>
                                             }
                                         </div>
                                     }
