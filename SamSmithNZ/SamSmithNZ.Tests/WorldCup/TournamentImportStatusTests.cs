@@ -28,7 +28,7 @@ namespace SamSmithNZ.Tests.WorldCup
                     item.TournamentCode != 23 && //WC 2026
                     item.TournamentCode != 317) //Euro 2024
                 {
-                    Assert.AreEqual(1.0, item.ImportingTotalPercentComplete);
+                    Assert.AreEqual(1.0M, item.ImportingTotalPercentComplete);
                 }
             }
         }
