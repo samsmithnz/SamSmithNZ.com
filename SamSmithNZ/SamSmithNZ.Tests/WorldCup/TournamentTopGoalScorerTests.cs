@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace SamSmithNZ.Tests.WorldCup
 {
     [TestClass]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class TournamentTopGoalScorerTests : BaseIntegrationTest
     {
         [TestMethod]

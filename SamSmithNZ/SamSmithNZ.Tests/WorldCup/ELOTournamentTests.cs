@@ -35,33 +35,27 @@ namespace SamSmithNZ.Tests.WorldCup
         {
             //Arrange
             TournamentController controller = new(new TournamentDataAccess(base.Configuration));
-            int competitionCode = 1;
+            int tournamentCode = 21;
 
             //Act
-            List<Tournament> tournaments = await controller.GetTournaments(competitionCode);
+            Tournament tournament = await controller.GetTournament(tournamentCode);
 
             //Assert
-            foreach (Tournament tournament in tournaments)
-            {
-                if (tournament.TournamentCode == 21)
-                {
-                    EloRatingDataAccess daELO = new(base.Configuration);
-                    List<TeamELORating> results = await daELO.UpdateTournamentELORatings(tournament.TournamentCode);
+            EloRatingDataAccess daELO = new(base.Configuration);
+            List<TeamELORating> results = await daELO.UpdateTournamentELORatings(tournament.TournamentCode);
 
-                    Assert.IsTrue(results[0].Draws >= 0);
-                    Assert.IsTrue(results[0].ELORating >= 0);
-                    Assert.IsTrue(results[0].GameCount >= 0);
-                    Assert.IsTrue(results[0].Losses >= 0);
-                    Assert.IsTrue(results[0].TeamCode > 0);
-                    Assert.IsTrue(results[0].TeamName != "");
-                    Assert.IsTrue(results[0].TournamentCode >= 0);
-                    Assert.IsTrue(results[0].Wins >= 0);
+            Assert.IsTrue(results[0].Draws >= 0);
+            Assert.IsTrue(results[0].ELORating >= 0);
+            Assert.IsTrue(results[0].GameCount >= 0);
+            Assert.IsTrue(results[0].Losses >= 0);
+            Assert.IsTrue(results[0].TeamCode > 0);
+            Assert.IsTrue(results[0].TeamName != "");
+            Assert.IsTrue(results[0].TournamentCode >= 0);
+            Assert.IsTrue(results[0].Wins >= 0);
 
-                    Assert.AreEqual(2239, results[0].ELORating);
-                    Assert.AreEqual(1964, results[5].ELORating);
-                    Assert.AreEqual(1519, results[^1].ELORating);
-                }
-            }
+            Assert.AreEqual(2239, results[0].ELORating);
+            Assert.AreEqual(1964, results[5].ELORating);
+            Assert.AreEqual(1519, results[^1].ELORating);
         }
 
     }
