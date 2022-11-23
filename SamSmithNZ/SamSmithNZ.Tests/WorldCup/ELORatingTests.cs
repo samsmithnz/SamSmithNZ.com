@@ -39,8 +39,8 @@ namespace SamSmithNZ.Tests.WorldCup
 
             //assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(1016, result.Item1);
-            Assert.AreEqual(984, result.Item2);
+            Assert.AreEqual(1050, result.Item1);
+            Assert.AreEqual(950, result.Item2);
         }
 
         [TestMethod()]
