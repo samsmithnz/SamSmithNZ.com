@@ -17,7 +17,7 @@ namespace SamSmithNZ.Tests.WorldCup
     {
 
         [TestMethod()]
-        public async Task EvenTeamsELORatingsTest()
+        public void EvenTeamsELORatingsTest()
         {
             //arrange
             EloRating eloRating = new();
@@ -44,7 +44,7 @@ namespace SamSmithNZ.Tests.WorldCup
         }
 
         [TestMethod()]
-        public async Task GermanyJapan2022ELORatingsTest()
+        public void GermanyJapan2022ELORatingsTest()
         {
             //arrange
             EloRating eloRating = new();

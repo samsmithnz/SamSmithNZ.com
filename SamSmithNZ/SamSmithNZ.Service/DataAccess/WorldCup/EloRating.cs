@@ -5,7 +5,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
 {
     public class EloRating
     {
-        //These never change for me - so constants they are.
+        //These rarely change - so constants they are - at least for the defaults
         private const double _diff = 400;
         private const double _kFactor = 32;
 
@@ -14,8 +14,8 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         /// </summary>
         /// <param name="team1Score">The team 1 ELO rating</param>
         /// <param name="team2Score">The team 2 ELO rating</param>
-        /// <param name="user1WonMatch">Whether team 1 was the winner (if both team 1 and team 2 are false, it's a draw)</param>
-        /// <param name="user2WonMatch">Whether team 2 was the winner</param>
+        /// <param name="team1Won">Whether team 1 was the winner (if both team 1 and team 2 are false, it's a draw)</param>
+        /// <param name="team2Won">Whether team 2 was the winner</param>
         /// <param name="diff">The desired Diff, currently a constant of 400</param>
         /// <param name="kFactor">The K factor. My K factor currently takes into account the type of game and the goals difference</param>
         /// <returns></returns>
