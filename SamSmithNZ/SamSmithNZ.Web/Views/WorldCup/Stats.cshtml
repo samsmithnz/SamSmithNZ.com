@@ -1,0 +1,178 @@
+﻿@using SamSmithNZ.Service.Models.WorldCup
+@using SamSmithNZ.Web.Models.WorldCup
+@model TeamViewModel
+@{
+    ViewBag.Title = "World cup stats";
+    Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
+}
+
+<h2>World cup stats</h2>
+Quickest goal
+Latest goal
+
+<h2><img src="~/WorldCup/Teams/@Model.TeamStatistics.Team.FlagName" Class="TeamImage" /> @Model.TeamStatistics.Team.TeamName</h2>
+<b>Statistics:</b>
+<div class="row">
+    <div class="col-md-4">
+        <ul>
+            <li>Games: @Model.TeamStatistics.Games.Count</li>
+            <li>Expected results: @(Model.TeamStatistics.GamesExpectedWon + Model.TeamStatistics.GamesExpectedLoss) (@(((double)(Model.TeamStatistics.GamesExpectedWon + Model.TeamStatistics.GamesExpectedLoss) / totalGames).ToString("0.00%")))</li>
+            <li>Unexpected results: @(Model.TeamStatistics.GamesUnexpectedWin + Model.TeamStatistics.GamesUnexpectedLoss + Model.TeamStatistics.GamesUnexpectedDraw) (@(((double)(Model.TeamStatistics.GamesUnexpectedWin + Model.TeamStatistics.GamesUnexpectedLoss + Model.TeamStatistics.GamesUnexpectedDraw) / (double)totalGames).ToString("0.00%")))</li>
+            <li>Unknown games: @Model.TeamStatistics.GamesUnknown</li>
+            <li>Record: @(Model.TeamStatistics.GamesExpectedWon + Model.TeamStatistics.GamesUnexpectedWin) Won, @(Model.TeamStatistics.GamesExpectedLoss + Model.TeamStatistics.GamesUnexpectedLoss) Lost, @(Model.TeamStatistics.GamesUnexpectedDraw) Drawn, @Model.TeamStatistics.GamesUnknown Unknown</li>
+            <li>Last five games: @Model.TeamStatistics.TeamRecord</li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <ul>
+            <li>Expected wins: @Model.TeamStatistics.GamesExpectedWon (@(((Model.TeamStatistics.GamesExpectedWon) / totalGames).ToString("0.00%")))</li>
+            <li>Expected losses: @Model.TeamStatistics.GamesExpectedLoss (@(((Model.TeamStatistics.GamesExpectedLoss) / totalGames).ToString("0.00%")))</li>
+            <li>Unexpected wins: @Model.TeamStatistics.GamesUnexpectedWin (@(((Model.TeamStatistics.GamesUnexpectedWin) / totalGames).ToString("0.00%")))</li>
+            <li>Unexpected losses: @Model.TeamStatistics.GamesUnexpectedLoss (@(((Model.TeamStatistics.GamesUnexpectedLoss) / totalGames).ToString("0.00%")))</li>
+            <li>Unexpected draws: @Model.TeamStatistics.GamesUnexpectedDraw (@(((Model.TeamStatistics.GamesUnexpectedDraw) / totalGames).ToString("0.00%")))</li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <ul>
+            <li>Wins (+1pt for expected, +3 for unexpected): @((Model.TeamStatistics.GamesExpectedWon * 1) + (Model.TeamStatistics.GamesUnexpectedWin * 3))</li>
+            <li>Losses (-1pt for expected, -3 for unexpected): @((Model.TeamStatistics.GamesExpectedLoss * -1) + (Model.TeamStatistics.GamesUnexpectedLoss * -3))</li>
+            <li>Draws (-1pt if fav, +1pt if underdog): @(Model.TeamStatistics.GamesUnexpectedDraw)</li>
+            <li>Total: @((Model.TeamStatistics.GamesExpectedWon * 1) + (Model.TeamStatistics.GamesUnexpectedWin * 3) + (Model.TeamStatistics.GamesExpectedLoss * -1) + (Model.TeamStatistics.GamesUnexpectedLoss * -3) + Model.TeamStatistics.GamesUnexpectedDraw)</li>
+        </ul>
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>Tournament</th>
+                @*
+                    <th>Game #</th>*@
+                <th>Game Time</th>
+                <th>Round</th>
+                <th>Group Name</th>
+                @*
+                    <th>Round</th>*@
+                <th></th>
+                <th>Score</th>
+                <th></th>
+                <th>Odds Analysis</th>
+                <th>Location</th>
+                <th>Coach</th>
+                @*
+                    <th>Fifa Ranking</th>*@
+                @*            <th>Team 1 chance to win</th>
+                    <th>Team 1 Elo Rating</th>
+                    <th>Team 2 Elo Rating</th>
+                    <th>Team 2 chance to win</th>*@
+                @*
+                    <th>@Model.TeamStatistics.Team.TeamName won?</th>*@
+            </tr>
+            @foreach (Game item in Model.TeamStatistics.Games)
+            {
+                <tr>
+                    <td>@item.TournamentName</td>
+                    @*
+                        <td>@item.GameNumber</td>*@
+                    <td>@item.GameTimeString()</td>
+                    <td>@item.RoundNumber</td>
+                    <td>@item.RoundName</td>
+                    @*
+                        <td>@item.RoundCode</td>*@
+                    <td style="text-align: right;">
+                        <a href="/WorldCup/Team?TeamCode=@item.Team1Code">@item.Team1Name</a>
+                        <img src="~/WorldCup/Teams/@item.Team1FlagName" Class="TeamImage" />
+                        <div style="font-size: 10px; font-weight: bold;">
+                            @if (item.Team1ChanceToWin >= 0)
+                            {
+                                <span>Prob to win: @item.Team1ChanceToWin.ToString("0.00")%</span><br />
+                            }
+                            @if (item.Team1PostGameEloRating == null && item.Team1PreGameEloRating != null)
+                            {
+                                <span>Pregame ELO: @item.Team1PreGameEloRating</span>
+                            }
+                            @if (item.Team1PostGameEloRating != null)
+                            {
+                                <span>
+                                    Game ELO: @item.Team1PreGameEloRating -> @item.Team1PostGameEloRating (@if (item.Team1PostGameEloRating - item.Team1PreGameEloRating >= 0)
+                                    {
+                                        <span>+</span>
+                                    }
+                                    @(item.Team1PostGameEloRating-item.Team1PreGameEloRating))
+                                </span>
+                            }
+                        </div>
+                    </td>
+                    <td style="text-align: center;">
+                        @if (item.Team1NormalTimeScore >= 0)
+                        {
+                            <div>
+                                @if (item.Team1PenaltiesScore == null)
+                                {
+                                    <span>@item.Team1ResultRegulationTimeScore - @item.Team2ResultRegulationTimeScore @item.Team1ResultInformation@item.Team2ResultInformation</span>
+                                }
+                                @if (item.Team1PenaltiesScore != null && item.Team1PenaltiesScore >= 0)
+                                {
+                                    <div>
+                                        <span>@item.Team1ResultRegulationTimeScore - @item.Team2ResultRegulationTimeScore (aet)</span>
+                                        <br />
+                                        @item.Team1PenaltiesScore - @item.Team2PenaltiesScore @item.Team1ResultInformation@item.Team2ResultInformation
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </td>
+                    <td style="text-align: left;">
+                        <img src="~/WorldCup/Teams/@item.Team2FlagName" Class="TeamImage" />
+                        <a href="/WorldCup/Team?TeamCode=@item.Team2Code">@item.Team2Name</a>
+                        <div style="font-size: 10px; font-weight: bold;">
+                            @if (item.Team2ChanceToWin >= 0)
+                            {
+                                <span>Prob to win: @item.Team2ChanceToWin.ToString("0.00")%</span><br />
+                            }
+                            @if (item.Team2PostGameEloRating == null && item.Team2PreGameEloRating != null)
+                            {
+                                <span>Pregame ELO: @item.Team2PreGameEloRating</span>
+                            }
+                            @if (item.Team2PostGameEloRating != null)
+                            {
+                                <span>
+                                    Game ELO: @item.Team2PreGameEloRating -> @item.Team2PostGameEloRating (@if (item.Team2PostGameEloRating - item.Team2PreGameEloRating >= 0)
+                                    {
+                                        <span>+</span>
+                                    }
+                                    @(item.Team2PostGameEloRating-item.Team2PreGameEloRating))
+                                </span>
+                            }
+                        </div>
+                    </td>
+                    <td style="background-color: @Model.GetIfFavoriteWonStyle(item.Team1Code, Model.TeamStatistics.Team.TeamCode, item.Team1ChanceToWin, item.Team1ResultWonGame, item.Team2ResultWonGame);">
+                        @if (item.Team1ChanceToWin >= 0)
+                        {
+                            <div>
+                                @if (item.Team1Code == Model.TeamStatistics.Team.TeamCode)
+                                {
+                                    <span>@item.Team1OddsStatusText</span>
+                                }
+                                @if (item.Team2Code == Model.TeamStatistics.Team.TeamCode)
+                                {
+                                    <span>@item.Team2OddsStatusText</span>
+                                }
+                            </div>
+                        }
+                    </td>
+                    <td>@item.Location</td>
+                    <td>
+                        @if (item.CoachFlag != "")
+                        {
+                            <img src="~/WorldCup/Teams/@item.CoachFlag" Class="TeamImage" /> @item.CoachName
+                        }
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </div>
+</div>
