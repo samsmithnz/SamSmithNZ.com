@@ -29,8 +29,28 @@ namespace SamSmithNZ.Tests.WorldCup
 
             //assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(1000, result.Item1);
-            Assert.AreEqual(1000, result.Item2);
+            Assert.AreEqual(1016, result.Item1);
+            Assert.AreEqual(984, result.Item2);
+        }
+
+        [TestMethod()]
+        public async Task GermanyJapan2022ELORatingsTest()
+        {
+            //arrange
+            EloRating eloRating = new();
+            int team1ELORating = 1963;
+            int team2ELORating = 1798;
+            bool team1Won = false;
+            bool team2Won = true;
+
+            //act
+            (int,int) result = eloRating.GetEloRatingScoresForMatchUp(team1ELORating, team2ELORating, 
+                team1Won, team2Won);
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1891, result.Item1);
+            Assert.AreEqual(1870, result.Item2);
         }
         
 
