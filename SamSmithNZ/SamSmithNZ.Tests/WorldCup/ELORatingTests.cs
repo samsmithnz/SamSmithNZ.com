@@ -2,9 +2,12 @@
 using SamSmithnNZ.Tests;
 using SamSmithNZ.Service.Controllers.WorldCup;
 using SamSmithNZ.Service.DataAccess.WorldCup;
+using SamSmithNZ.Service.Models.GuitarTab;
+using SamSmithNZ.Service.Models.Steam;
 using SamSmithNZ.Service.Models.WorldCup;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static SamSmithNZ.Service.DataAccess.WorldCup.EloRating;
 
 namespace SamSmithNZ.Tests.WorldCup
 {
@@ -19,13 +22,20 @@ namespace SamSmithNZ.Tests.WorldCup
             //arrange
             EloRating eloRating = new();
             int team1ELORating = 1000;
-            int team2ELORating = 1000;
-            bool team1Won = true;
-            bool team2Won = false;
+            int team2ELORating = 1000; 
+            Service.Models.WorldCup.Game game = new()
+            {
+                Team1NormalTimeScore = 1,
+                Team2NormalTimeScore = 0
+            };
 
             //act
-            (int,int) result = eloRating.GetEloRatingScoresForMatchUp(team1ELORating, team2ELORating, 
-                team1Won, team2Won);
+            WhoWonEnum? whoWonGame = eloRating.WhoWon(game);
+            double kFactor = eloRating.CalculateKFactor(game);
+            (int, int) result = eloRating.GetEloRatingScoresForMatchUp(team1ELORating, team2ELORating,
+                whoWonGame == WhoWonEnum.Team1,
+                whoWonGame == WhoWonEnum.Team2,
+                kFactor);
 
             //assert
             Assert.IsNotNull(result);
@@ -40,19 +50,26 @@ namespace SamSmithNZ.Tests.WorldCup
             EloRating eloRating = new();
             int team1ELORating = 1963;
             int team2ELORating = 1798;
-            bool team1Won = false;
-            bool team2Won = true;
+            Service.Models.WorldCup.Game game = new()
+            {
+                Team1NormalTimeScore = 1,
+                Team2NormalTimeScore = 2
+            };
 
             //act
-            (int,int) result = eloRating.GetEloRatingScoresForMatchUp(team1ELORating, team2ELORating, 
-                team1Won, team2Won);
+            WhoWonEnum? whoWonGame = eloRating.WhoWon(game);
+            double kFactor = eloRating.CalculateKFactor(game);
+            (int, int) result = eloRating.GetEloRatingScoresForMatchUp(team1ELORating, team2ELORating,
+                whoWonGame == WhoWonEnum.Team1, 
+                whoWonGame == WhoWonEnum.Team2,
+                kFactor);
 
             //assert
             Assert.IsNotNull(result);
             Assert.AreEqual(1891, result.Item1);
             Assert.AreEqual(1870, result.Item2);
         }
-        
+
 
     }
 }

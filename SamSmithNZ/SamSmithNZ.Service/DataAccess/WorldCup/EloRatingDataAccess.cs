@@ -34,7 +34,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         public async Task<List<TeamELORating>> CalculateEloForTournamentAsync(int tournamentCode)
         {
             double diff = 400;
-            double kRating = 32;
+            double kFactor = 32;
 
             GameDataAccess da = new(_configuration);
             List<Game> gameList = await da.GetListByTournament(tournamentCode);
@@ -77,26 +77,26 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
                 TeamELORating team2 = GetTeamELORating(tournamentCode, game.Team2Code, game.Team2Name, team2StartingEloRating, teamRatingList);
                 EloRating eloRating = new();
                 WhoWonEnum? result = eloRating.WhoWon(game);
-                kRating = eloRating.CalculateKFactor(game);
+                kFactor = eloRating.CalculateKFactor(game);
                 if (result != null)
                 {
                     (int, int) eloResult;
                     //the game has started yet, we can process the game
                     if (result == WhoWonEnum.Team1)
                     {
-                        eloResult = eloRating.GetEloRatingScoresForMatchUp(team1.ELORating, team2.ELORating, true, false, diff, kRating);
+                        eloResult = eloRating.GetEloRatingScoresForMatchUp(team1.ELORating, team2.ELORating, true, false, kFactor, diff);
                         team1.Wins++;
                         team2.Losses++;
                     }
                     else if (result == WhoWonEnum.Team2)
                     {
-                        eloResult = eloRating.GetEloRatingScoresForMatchUp(team1.ELORating, team2.ELORating, false, true, diff, kRating);
+                        eloResult = eloRating.GetEloRatingScoresForMatchUp(team1.ELORating, team2.ELORating, false, true, kFactor, diff);
                         team1.Losses++;
                         team2.Wins++;
                     }
                     else
                     {
-                        eloResult = eloRating.GetEloRatingScoresForMatchUp(team1.ELORating, team2.ELORating, false, false, diff, kRating);
+                        eloResult = eloRating.GetEloRatingScoresForMatchUp(team1.ELORating, team2.ELORating, false, false, kFactor, diff);
                         team1.Draws++;
                         team2.Draws++;
                     }

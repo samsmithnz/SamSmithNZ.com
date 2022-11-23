@@ -20,8 +20,9 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         /// <param name="kFactor">The K factor. My K factor currently takes into account the type of game and the goals difference</param>
         /// <returns></returns>
         public (int, int) GetEloRatingScoresForMatchUp(int team1Score, int team2Score,
-            bool team1Won, bool team2Won,
-            double diff = _diff, double kFactor = _kFactor)
+            bool team1Won, bool team2Won, 
+            double kFactor = _kFactor,
+            double diff = _diff)
         {
             // player A rating
             double user1ScoreDouble = Convert.ToDouble(team1Score);
