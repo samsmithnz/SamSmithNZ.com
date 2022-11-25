@@ -2,7 +2,7 @@
 	@TournamentCode INT = NULL
 AS
 BEGIN
-	SELECT top 10 * 
+	SELECT TOP 10 * 
 	FROM wc_goal gl
 	JOIN wc_game ga ON gl.game_code = ga.game_code
 	WHERE (@TournamentCode IS NULL OR ga.tournament_code = @TournamentCode)
