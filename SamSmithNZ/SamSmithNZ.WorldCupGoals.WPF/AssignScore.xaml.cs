@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.DataAccess.WorldCup;
-using SamSmithNZ.Service.Models.Steam;
 using SamSmithNZ.Service.Models.WorldCup;
 using System;
 using System.Diagnostics;
@@ -19,7 +18,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
     public partial class AssignScore : Window
     {
         private bool _bResult;
-        private Game _game;
+        private Service.Models.WorldCup.Game _game;
         private readonly IConfigurationRoot _configuration;
 
         public AssignScore()
@@ -119,15 +118,15 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     GameDataAccess da = new(_configuration);
                     //Get the ELO rating updates
                     EloRating eloRating = new();
-                    //WhoWonEnum? whoWonGame = eloRating.WhoWon(_game);
-                    //double kFactor = eloRating.CalculateKFactor(_game);
-                    //(int, int) newEloRatings = eloRating.GetEloRatingScoresForMatchUp(_game.Team1PreGameEloRating,
-                    //    _game.Team2PreGameEloRating,
-                    //    whoWonGame == WhoWonEnum.Team1,
-                    //    whoWonGame == WhoWonEnum.Team2,
-                    //    kFactor);
-                    //_game.Team1PostGameEloRating = newEloRatings.Item1;
-                    //_game.Team2PostGameEloRating = newEloRatings.Item2;
+                    WhoWonEnum? whoWonGame = eloRating.WhoWon(_game);
+                    double kFactor = eloRating.CalculateKFactor(_game);
+                    (int, int) newEloRatings = eloRating.GetEloRatingScoresForMatchUp((int)_game.Team1PreGameEloRating,
+                        (int)_game.Team2PreGameEloRating,
+                        whoWonGame == WhoWonEnum.Team1,
+                        whoWonGame == WhoWonEnum.Team2,
+                        kFactor);
+                    _game.Team1PostGameEloRating = newEloRatings.Item1;
+                    _game.Team2PostGameEloRating = newEloRatings.Item2;
                     //Save the game
                     await da.SaveItem(_game);
 
