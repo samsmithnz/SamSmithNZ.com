@@ -8,3 +8,6 @@ This website is a place for me to learn, experiment and play with new technologi
 
 My personal website is hosted at: [https://samsmithnz.com](https://samsmithnz.com)
 
+### World Cup database diagram:
+
+![image](https://user-images.githubusercontent.com/8389039/204087354-1ee24084-c5a5-48ab-b374-03163999cc9a.png)
