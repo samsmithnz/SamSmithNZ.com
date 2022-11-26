@@ -6,13 +6,11 @@ AS
 BEGIN
 	SET NOCOUNT ON
 
-	DELETE 
-	FROM wc_tournament_team_elo_rating 
-	WHERE tournament_code = @TournamentCode 
-	AND team_code = @TeamCode
-
-	INSERT INTO wc_tournament_team_elo_rating 
-	SELECT @TournamentCode, @TeamCode, @ELORating 
+	UPDATE te
+	SET te.current_elo_rating = @ELORating
+	FROM wc_tournament_team_entry te
+	WHERE te.tournament_code = @TournamentCode
+	AND te.team_code = @TeamCode
 
 	UPDATE g
 	SET g.team_1_elo_rating = @ELORating

@@ -6,7 +6,8 @@
     [coach_name]        VARCHAR (200) NULL,
     [coach_nationality] VARCHAR (200) NULL,
 	[is_active]			BIT NULL, 
-    [starting_elo_rating] INT NULL
+    [starting_elo_rating] INT NULL, 
+    [current_elo_rating] INT NULL
 );
 
 
