@@ -144,7 +144,7 @@ BEGIN
 
 	--Update ELO Ratings
 	UPDATE g
-	SET team_1_pregame_elo_rating = e.current_elo_rating, 
+	SET --team_1_pregame_elo_rating = e.current_elo_rating, 
 		team_1_elo_rating = e.current_elo_rating
 	FROM wc_game g
 	JOIN wc_tournament_team_entry e ON g.tournament_code = e.tournament_code and e.team_code = g.team_1_code
@@ -154,7 +154,7 @@ BEGIN
 	AND g.team_2_code > 0
 
 	UPDATE g
-	SET team_2_pregame_elo_rating = e.current_elo_rating, 
+	SET --team_2_pregame_elo_rating = e.current_elo_rating, 
 		team_2_elo_rating = e.current_elo_rating
 	FROM wc_game g
 	JOIN wc_tournament_team_entry e ON g.tournament_code = e.tournament_code and e.team_code = g.team_1_code
