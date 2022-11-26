@@ -22,11 +22,11 @@ BEGIN
 		gs.team_code AS TeamCode, 
 		gs.tournament_code AS TournamentCode, 
 		gs.wins AS Wins,
-		e.elo_rating AS ELORating,
+		e.current_elo_rating AS ELORating,
 		CASE WHEN gs.played < 0 THEN 1 ELSE 0 END AS TeamWithdrew
 	FROM wc_group_stage gs
 	JOIN wc_team t ON gs.team_code = t.team_code
-	LEFT JOIN wc_tournament_team_elo_rating e ON gs.tournament_code = e.tournament_code AND gs.team_code = e.team_code
+	JOIN wc_tournament_team_entry e ON gs.tournament_code = e.tournament_code AND gs.team_code = e.team_code
 	WHERE gs.tournament_code = @TournamentCode
 	AND gs.round_number = @RoundNumber
 	AND (gs.round_code = @RoundCode OR @RoundCode IS NULL)
@@ -49,11 +49,11 @@ BEGIN
 		gs.team_code AS TeamCode, 
 		gs.tournament_code AS TournamentCode, 
 		gs.wins AS Wins,
-		e.elo_rating AS ELORating,
+		e.current_elo_rating AS ELORating,
 		CASE WHEN gs.played < 0 THEN 1 ELSE 0 END AS TeamWithdrew
 	FROM wc_group_stage_third_placed_teams gs
 	JOIN wc_team t ON gs.team_code = t.team_code
-	LEFT JOIN wc_tournament_team_elo_rating e ON gs.tournament_code = e.tournament_code AND gs.team_code = e.team_code
+	JOIN wc_tournament_team_entry e ON gs.tournament_code = e.tournament_code AND gs.team_code = e.team_code
 	WHERE gs.tournament_code = @TournamentCode
 	AND gs.round_number = @RoundNumber
 	AND (gs.round_code = @RoundCode OR @RoundCode IS NULL)

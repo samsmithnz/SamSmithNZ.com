@@ -234,7 +234,7 @@ BEGIN
 		ISNULL(te.starting_elo_rating,0) AS StartingEloRating,
 		te.coach_name AS CoachName, 
 		ISNULL(ct.flag_name,'') AS CoachNationalityFlagName,
-		e.elo_rating AS ELORating,
+		te.current_elo_rating AS ELORating,
 		te.is_active AS IsActive,
 		fp.SortOrder,
 		ISNULL(cw.chance_to_win,0) * CONVERT(DECIMAL(8,4), 100) AS ChanceToWin,
@@ -246,7 +246,6 @@ BEGIN
 	JOIN wc_tournament_team_entry te ON te.team_code = t.team_code
 	JOIN wc_region r ON t.region_code = r.region_code
 	LEFT JOIN wc_team ct ON ct.team_name = te.coach_nationality
-	LEFT JOIN wc_tournament_team_elo_rating e ON te.tournament_code = e.tournament_code AND te.team_code = e.team_code
 	LEFT JOIN wc_tournament_team_chance_to_win cw ON te.tournament_code = cw.tournament_code AND te.team_code = cw.team_code
 	JOIN #TeamRecord tr ON tr.TeamCode = fp.TeamCode
 	WHERE te.tournament_code = @TournamentCode
