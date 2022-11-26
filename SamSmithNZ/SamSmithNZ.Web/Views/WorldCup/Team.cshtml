@@ -92,12 +92,14 @@
                             }
                             @if (item.Team1PostGameEloRating != null)
                             {
+                                string rating = "";
+                                @if (item.Team1PostGameEloRating - item.Team1PreGameEloRating >= 0)
+                                {
+                                    rating = "+";
+                                }
+                                rating += (item.Team1PostGameEloRating - item.Team1PreGameEloRating).ToString();
                                 <span>
-                                    Game ELO: @item.Team1PreGameEloRating -> @item.Team1PostGameEloRating (@if (item.Team1PostGameEloRating - item.Team1PreGameEloRating >= 0)
-                                    {
-                                        <span>+</span>
-                                    }
-                                    @(item.Team1PostGameEloRating-item.Team1PreGameEloRating))
+                                    Game ELO: @item.Team1PreGameEloRating -> @item.Team1PostGameEloRating (@rating)
                                 </span>
                             }
                         </div>
@@ -135,12 +137,14 @@
                             }
                             @if (item.Team2PostGameEloRating != null)
                             {
+                                string rating = "";
+                                @if (item.Team2PostGameEloRating - item.Team2PreGameEloRating >= 0)
+                                {
+                                    rating = "+";
+                                }
+                                rating += (item.Team2PostGameEloRating - item.Team2PreGameEloRating).ToString();
                                 <span>
-                                    Game ELO: @item.Team2PreGameEloRating -> @item.Team2PostGameEloRating (@if (item.Team2PostGameEloRating - item.Team2PreGameEloRating >= 0)
-                                    {
-                                        <span>+</span>
-                                    }
-                                    @(item.Team2PostGameEloRating-item.Team2PreGameEloRating))
+                                    Game ELO: @item.Team2PreGameEloRating -> @item.Team2PostGameEloRating (@rating)
                                 </span>
                             }
                         </div>
