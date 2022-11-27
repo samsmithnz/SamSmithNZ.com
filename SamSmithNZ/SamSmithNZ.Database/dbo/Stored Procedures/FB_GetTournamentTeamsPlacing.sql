@@ -260,13 +260,13 @@ BEGIN
 		ISNULL(te.starting_elo_rating,0),
 		te.coach_name, 
 		ISNULL(ct.flag_name,''),
-		e.elo_rating,
+		te.current_elo_rating,
 		te.is_active,
 		fp.SortOrder,
 		ISNULL(cw.chance_to_win,0) * CONVERT(DECIMAL(8,4), 100)
 	ORDER BY ISNULL(cw.chance_to_win,0) * CONVERT(DECIMAL(8,4), 100) DESC,
 		fp.SortOrder, 
-		e.elo_rating DESC, 
+		te.current_elo_rating DESC, 
 		t.team_name
 
 	DROP TABLE #tmp_final_placing

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Xml.Linq;
+using static SamSmithNZ.Service.DataAccess.WorldCup.EloRating;
 
 namespace SamSmithNZ.WorldCupGoals.WPF
 {
@@ -16,7 +18,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
     public partial class AssignScore : Window
     {
         private bool _bResult;
-        private Game _game;
+        private Service.Models.WorldCup.Game _game;
         private readonly IConfigurationRoot _configuration;
 
         public AssignScore()
@@ -114,6 +116,18 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     }
 
                     GameDataAccess da = new(_configuration);
+                    //Get the ELO rating updates
+                    EloRating eloRating = new();
+                    WhoWonEnum? whoWonGame = eloRating.WhoWon(_game);
+                    double kFactor = eloRating.CalculateKFactor(_game);
+                    (int, int) newEloRatings = eloRating.GetEloRatingScoresForMatchUp((int)_game.Team1PreGameEloRating,
+                        (int)_game.Team2PreGameEloRating,
+                        whoWonGame == WhoWonEnum.Team1,
+                        whoWonGame == WhoWonEnum.Team2,
+                        kFactor);
+                    _game.Team1PostGameEloRating = newEloRatings.Item1;
+                    _game.Team2PostGameEloRating = newEloRatings.Item2;
+                    //Save the game
                     await da.SaveItem(_game);
 
                     lblStatus.Content = "Updating ELO ratings...";

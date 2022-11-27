@@ -4,6 +4,7 @@ using SamSmithNZ.Service.Controllers.WorldCup;
 using SamSmithNZ.Service.DataAccess.WorldCup;
 using SamSmithNZ.Service.Models.WorldCup;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SamSmithNZ.Tests.WorldCup
@@ -58,5 +59,62 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.AreEqual(1519, results[^1].ELORating);
         }
 
+
+        [TestMethod()]
+        public async Task Spain2010ELOTournamentRefreshTest()
+        {
+            //Arrange
+            GameDataAccess da = new(base.Configuration);
+            int tournamentCode = 19;
+            int spainTeamCode = 29;
+
+            //Act
+            List<Game> games = await da.GetListByTournament(tournamentCode);
+            games = games.OrderBy(o => o.GameTime).ToList();
+
+            //Assert
+            int i = 0;
+            foreach (Game game in games)
+            {
+                //look for every spain game, and check the ELO rating for each game
+                if (game.Team1Code == spainTeamCode || game.Team2Code == spainTeamCode)
+                {
+                    int? eloRating = null;
+                    if (game.Team1Code == spainTeamCode)
+                    {
+                        eloRating = game.Team1PreGameEloRating;
+                    }
+                    else if (game.Team2Code == spainTeamCode)
+                    {
+                        eloRating = game.Team2PreGameEloRating;
+                    }
+                    i++;
+                    switch (i)
+                    {
+                        case 1:
+                            Assert.AreEqual(2112, eloRating);
+                            break;
+                        case 2:
+                            Assert.AreEqual(2024, eloRating);
+                            break;
+                        case 3:
+                            Assert.AreEqual(2043, eloRating);
+                            break;
+                        case 4:
+                            Assert.AreEqual(2081, eloRating);
+                            break;
+                        case 5:
+                            Assert.AreEqual(2111, eloRating);
+                            break;
+                        case 6:
+                            Assert.AreEqual(2132, eloRating);
+                            break;
+                        case 7:
+                            Assert.AreEqual(2199, eloRating);
+                            break;
+                    }
+                }
+            }            
+        }
     }
 }
