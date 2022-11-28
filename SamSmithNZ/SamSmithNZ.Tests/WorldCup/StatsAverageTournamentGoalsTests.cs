@@ -34,7 +34,7 @@ namespace SamSmithNZ.Tests.WorldCup
                     found19 = true;
                     Assert.AreEqual(64, item.TotalGamesCompleted);
                     Assert.AreEqual(145, item.TotalGoals);
-                    Assert.AreEqual(2.27, item.AverageGoalsPerGame);
+                    Assert.AreEqual(2.27M, item.AverageGoalsPerGame);
                 }
             }
             Assert.IsTrue(found19);
@@ -55,7 +55,7 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.IsTrue(item != null);
             Assert.AreEqual(64, item.TotalGamesCompleted);
             Assert.AreEqual(145, item.TotalGoals);
-            Assert.AreEqual(2.27, item.AverageGoalsPerGame);
+            Assert.AreEqual(2.27M, item.AverageGoalsPerGame);
         }
 
     }
