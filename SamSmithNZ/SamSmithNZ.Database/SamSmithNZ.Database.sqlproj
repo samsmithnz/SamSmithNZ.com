@@ -279,6 +279,7 @@
     <Build Include="dbo\Stored Procedures\FB_GetStatsLatestGoal.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetStatsGoalDistribution.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetStatsMostPlayersFromClub.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetStatsAverageTournamentGoals.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />
