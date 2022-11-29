@@ -21,12 +21,11 @@ namespace SamSmithNZ.Service.Models.WorldCup
         public int CurrentEloRating { get; set; }
         public string CoachName { get; set; }
         public string CoachNationalityFlagName { get; set; }
-        public int ELORating { get; set; }
         public string ELORatingDifference
         {
             get
             {
-                int result = ELORating - StartingEloRating;
+                int result = CurrentEloRating - StartingEloRating;
                 if (result > 0)
                 {
                     return "+" + result.ToString();
