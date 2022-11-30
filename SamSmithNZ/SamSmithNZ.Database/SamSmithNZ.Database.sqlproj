@@ -283,6 +283,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />
+    <None Include="dbo\Stored Procedures\MovingFromGroupToPlayoffs.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SamSmithNZ.Database.refactorlog" />

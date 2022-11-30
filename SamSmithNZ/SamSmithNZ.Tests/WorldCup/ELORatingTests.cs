@@ -70,6 +70,33 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.AreEqual(1870, result.Item2);
         }
 
+        [TestMethod()]
+        public void FrancePolandTop162022ELORatingsTest()
+        {
+            //arrange
+            EloRating eloRating = new();
+            int team1ELORating = 1983;
+            int team2ELORating = 1835;
+            Service.Models.WorldCup.Game game = new()
+            {
+                Team1NormalTimeScore = 1,
+                Team2NormalTimeScore = 2
+            };
+
+            //act
+            WhoWonEnum? whoWonGame = eloRating.WhoWon(game);
+            double kFactor = eloRating.CalculateKFactor(game);
+            (int, int) result = eloRating.GetEloRatingScoresForMatchUp(team1ELORating, team2ELORating,
+                whoWonGame == WhoWonEnum.Team1, 
+                whoWonGame == WhoWonEnum.Team2,
+                kFactor);
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1891, result.Item1);
+            Assert.AreEqual(1870, result.Item2);
+        }
+
 
     }
 }
