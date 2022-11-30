@@ -79,42 +79,52 @@ namespace SamSmithNZ.Tests.WorldCup
                 //look for every spain game, and check the ELO rating for each game
                 if (game.Team1Code == spainTeamCode || game.Team2Code == spainTeamCode)
                 {
-                    int? eloRating = null;
+                    int? eloPreGameRating = null;
+                    int? eloPostGameRating = null;
                     if (game.Team1Code == spainTeamCode)
                     {
-                        eloRating = game.Team1PreGameEloRating;
+                        eloPreGameRating = game.Team1PreGameEloRating;
+                        eloPostGameRating = game.Team1PostGameEloRating;
                     }
                     else if (game.Team2Code == spainTeamCode)
                     {
-                        eloRating = game.Team2PreGameEloRating;
+                        eloPreGameRating = game.Team2PreGameEloRating;
+                        eloPostGameRating = game.Team2PostGameEloRating;
                     }
                     i++;
                     switch (i)
                     {
                         case 1:
-                            Assert.AreEqual(2112, eloRating);
+                            Assert.AreEqual(2112, eloPreGameRating);
+                            Assert.AreEqual(2024, eloPostGameRating);
                             break;
                         case 2:
-                            Assert.AreEqual(2024, eloRating);
+                            Assert.AreEqual(2024, eloPreGameRating);
+                            Assert.AreEqual(2043, eloPostGameRating);
                             break;
                         case 3:
-                            Assert.AreEqual(2043, eloRating);
+                            Assert.AreEqual(2043, eloPreGameRating);
+                            Assert.AreEqual(2081, eloPostGameRating);
                             break;
                         case 4:
-                            Assert.AreEqual(2081, eloRating);
+                            Assert.AreEqual(2081, eloPreGameRating);
+                            Assert.AreEqual(2111, eloPostGameRating);
                             break;
                         case 5:
-                            Assert.AreEqual(2111, eloRating);
+                            Assert.AreEqual(2111, eloPreGameRating);
+                            Assert.AreEqual(2132, eloPostGameRating);
                             break;
                         case 6:
-                            Assert.AreEqual(2132, eloRating);
+                            Assert.AreEqual(2132, eloPreGameRating);
+                            Assert.AreEqual(2199, eloPostGameRating);
                             break;
                         case 7:
-                            Assert.AreEqual(2199, eloRating);
+                            Assert.AreEqual(2199, eloPreGameRating);
+                            Assert.AreEqual(2247, eloPostGameRating);
                             break;
                     }
                 }
-            }            
+            }
         }
     }
 }
