@@ -5,6 +5,11 @@ BEGIN
 	SET NOCOUNT ON
 
 	CREATE TABLE #tmp_final_placing (SortOrder int, FinalPlacing VARCHAR(50), TeamCode INT)
+	DECLARE @ActiveTeams INT
+	SELECT @ActiveTeams = COUNT(*)
+	FROM wc_tournament_team_entry
+	WHERE tournament_code = @TournamentCode
+	AND is_active = 1
 
 	IF (@TournamentCode <= 19)
 	BEGIN
@@ -235,8 +240,8 @@ BEGIN
 		te.coach_name AS CoachName, 
 		ISNULL(ct.flag_name,'') AS CoachNationalityFlagName,
 		te.current_elo_rating AS ELORating,
-		te.is_active AS IsActive,
-		fp.SortOrder,
+		CASE WHEN @ActiveTeams > 0 THEN te.is_active ELSE 0 END AS IsActive,
+		CASE WHEN @ActiveTeams = 0 THEN fp.SortOrder ELSE 0 END AS SortOrder,
 		ISNULL(cw.chance_to_win,0) * CONVERT(DECIMAL(8,4), 100) AS ChanceToWin,
 		SUM(tr.GF) AS GF,
 		SUM(tr.GA) AS GA,		
@@ -261,11 +266,12 @@ BEGIN
 		te.coach_name, 
 		ISNULL(ct.flag_name,''),
 		te.current_elo_rating,
-		te.is_active,
-		fp.SortOrder,
+		CASE WHEN @ActiveTeams > 0 THEN te.is_active ELSE 0 END,
+		CASE WHEN @ActiveTeams = 0 THEN fp.SortOrder ELSE 0 END,
 		ISNULL(cw.chance_to_win,0) * CONVERT(DECIMAL(8,4), 100)
 	ORDER BY ISNULL(cw.chance_to_win,0) * CONVERT(DECIMAL(8,4), 100) DESC,
-		fp.SortOrder, 		
+		CASE WHEN @ActiveTeams > 0 THEN te.is_active ELSE 0 END DESC, 
+		CASE WHEN @ActiveTeams = 0 THEN fp.SortOrder ELSE 0 END, 		
 		te.current_elo_rating DESC, 
 		t.team_name
 
