@@ -90,6 +90,18 @@ namespace SamSmithNZ.Tests.WorldCup
                 }
             }
             Assert.IsTrue(found1);
+
+            //Test the order
+            Assert.AreEqual("Spain", results[0].TeamName);
+            Assert.AreEqual("Netherlands", results[1].TeamName);
+            Assert.AreEqual("Germany", results[2].TeamName);
+            Assert.AreEqual("Uruguay", results[3].TeamName);
+            Assert.AreEqual("Argentina", results[4].TeamName);
+            Assert.AreEqual("Brazil", results[5].TeamName);
+            Assert.AreEqual("Ghana", results[6].TeamName);
+            Assert.AreEqual("Paraguay", results[7].TeamName);
+            Assert.AreEqual("Chile", results[8].TeamName);
+            Assert.AreEqual("England", results[9].TeamName);
         }
 
         private static void TestNewZealandTeam(TournamentTeam item)
