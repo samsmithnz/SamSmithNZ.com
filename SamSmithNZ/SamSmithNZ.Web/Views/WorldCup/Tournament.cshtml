@@ -211,7 +211,7 @@
                     {
                         <th>Starting ELO Rating</th>
                     }
-                    @if (Model.Teams.Count > 0 && Model.Teams[0].ELORating > 0)
+                    @if (Model.Teams.Count > 0 && Model.Teams[0].CurrentEloRating > 0)
                     {
                         <th>Current ELO Rating</th>
                     }
@@ -252,9 +252,9 @@
                         {
                             <td>@item.StartingEloRating</td>
                         }
-                        @if (item.ELORating > 0)
+                        @if (item.CurrentEloRating > 0)
                         {
-                            <td>@item.ELORating (@item.ELORatingDifference)</td>
+                            <td>@item.CurrentEloRating (@item.ELORatingDifference)</td>
                         }
                         <td>@item.GF</td>
                         <td>@item.GA</td>
