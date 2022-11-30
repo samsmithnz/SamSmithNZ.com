@@ -265,8 +265,7 @@ BEGIN
 		fp.SortOrder,
 		ISNULL(cw.chance_to_win,0) * CONVERT(DECIMAL(8,4), 100)
 	ORDER BY ISNULL(cw.chance_to_win,0) * CONVERT(DECIMAL(8,4), 100) DESC,
-		te.is_active DESC,
-		--fp.SortOrder, 
+		fp.SortOrder, 		
 		te.current_elo_rating DESC, 
 		t.team_name
 
