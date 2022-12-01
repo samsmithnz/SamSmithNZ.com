@@ -178,6 +178,20 @@ namespace SamSmithNZ.Web.Controllers
             return View(teamMatchup);
         }
 
+        public async Task<IActionResult> Stats(int tournamentCode)
+        {
+            //List<Playoff> playoffs = await _ServiceApiClient.GetPlayoffSetup(tournamentCode);
+            //List<Game> games = await _ServiceApiClient.GetPlayoffGames(tournamentCode, roundNumber, true);
+
+            //PlayoffsViewModel playoffsViewModel = new()
+            //{
+            //    Playoffs = playoffs,
+            //    Games = games
+            //};
+
+            return View();// playoffsViewModel);
+        }
+
         public IActionResult ELORating() //int tournamentCode)
         {
             //SamSmithNZ2015.Core.WorldCup.DataAccess.GameDataAccess da = new SamSmithNZ2015.Core.WorldCup.DataAccess.GameDataAccess();
@@ -392,6 +406,7 @@ namespace SamSmithNZ.Web.Controllers
         {
             return RedirectToAction("About", "Home");
         }
+        
         public async Task<IActionResult> Insights()
         {
             List<GoalInsight> regularTimeGoalInsights = await _ServiceApiClient.GetGoalInsights(false);
