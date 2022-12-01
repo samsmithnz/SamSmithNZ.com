@@ -503,22 +503,5 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.IsTrue(gamesUnexpectedDraw >= 3);
         }
 
-        [TestMethod]
-        public async Task GamesFranceOddsTest()
-        {
-            //arrange
-            GameController controller = new(new GameDataAccess(base.Configuration));
-            int teamCode = 43; //France
-
-            //act
-            List<Game> results = await controller.GetGamesByTeam(teamCode);        
-
-            //assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count > 0);
-            Assert.AreEqual(99.65M, results[0].Team1ChanceToWin);
-
-        }
-
     }
 }
