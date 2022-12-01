@@ -5,6 +5,11 @@ BEGIN
 	SET NOCOUNT ON
 
 	CREATE TABLE #tmp_final_placing (SortOrder int, FinalPlacing VARCHAR(50), TeamCode INT)
+	DECLARE @ActiveTeams INT
+	SELECT @ActiveTeams = COUNT(*)
+	FROM wc_tournament_team_entry
+	WHERE tournament_code = @TournamentCode
+	AND is_active = 1
 
 	IF (@TournamentCode <= 19)
 	BEGIN
@@ -104,7 +109,7 @@ BEGIN
 		--Top 4
 		INSERT INTO #tmp_final_placing 
 		SELECT 4, 
-			CASE WHEN te.is_active = 1 THEN 'Active' END,
+			CASE WHEN te.is_active = 1 THEN 'Active in SF' END,
 			g.team_1_code
 			--CASE WHEN g.team_1_normal_time_score IS NULL THEN g.team_1_code ELSE 
 			--	CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) > g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN g.team_1_code ELSE 0 END
@@ -117,7 +122,7 @@ BEGIN
 		--AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
 		INSERT INTO #tmp_final_placing 
 		SELECT 4, 
-			CASE WHEN te.is_active = 1 THEN 'Active' END,
+			CASE WHEN te.is_active = 1 THEN 'Active in SF' END,
 			g.team_2_code
 			--CASE WHEN g.team_2_normal_time_score IS NULL THEN g.team_2_code ELSE 
 			--	CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) < g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN 0 ELSE g.team_2_code END
@@ -132,7 +137,7 @@ BEGIN
 		--5th - 8th Place
 		INSERT INTO #tmp_final_placing 
 		SELECT CASE WHEN te.is_active = 1 THEN 5 ELSE 6 END, 
-			CASE WHEN te.is_active = 1 THEN 'Active' ELSE 'Knocked out in quarter finals' END,
+			CASE WHEN te.is_active = 1 THEN 'Active in QF' ELSE 'Knocked out in quarter finals' END,
 			g.team_1_code
 			--CASE WHEN g.team_1_normal_time_score IS NULL THEN g.team_1_code ELSE 
 			--	CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) > g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN g.team_1_code ELSE 0 END
@@ -145,7 +150,7 @@ BEGIN
 		--AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
 		INSERT INTO #tmp_final_placing 
 		SELECT CASE WHEN te.is_active = 1 THEN 5 ELSE 6 END, 
-			CASE WHEN te.is_active = 1 THEN 'Active' ELSE 'Knocked out in quarter finals' END,
+			CASE WHEN te.is_active = 1 THEN 'Active in QF' ELSE 'Knocked out in quarter finals' END,
 			g.team_2_code
 			--CASE WHEN g.team_2_normal_time_score IS NULL THEN g.team_2_code ELSE 
 			--	CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) < g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN 0 ELSE g.team_2_code END
@@ -160,7 +165,7 @@ BEGIN
 		--9th - 16th Place
 		INSERT INTO #tmp_final_placing 
 		SELECT CASE WHEN te.is_active = 1 THEN 9 ELSE 10 END AS SortOrder,  
-			CASE WHEN te.is_active = 1 THEN 'Active' ELSE 'Knocked out in top 16' END AS info,
+			CASE WHEN te.is_active = 1 THEN 'Active in top 16' ELSE 'Knocked out in top 16' END AS info,
 			g.team_1_code
 			--CASE WHEN g.team_1_normal_time_score IS NULL THEN g.team_1_code ELSE 
 			--	CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) > g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN g.team_1_code ELSE 0 END 
@@ -173,7 +178,7 @@ BEGIN
 		--AND g.team_2_code NOT IN (SELECT TeamCode FROM #tmp_final_placing WHERE NOT TeamCode IS NULL)
 		INSERT INTO #tmp_final_placing 
 		SELECT CASE WHEN te.is_active = 1 THEN 9 ELSE 10 END, 
-			CASE WHEN te.is_active = 1 THEN 'Active' ELSE 'Knocked out in top 16' END,
+			CASE WHEN te.is_active = 1 THEN 'Active in top 16' ELSE 'Knocked out in top 16' END,
 			g.team_2_code
 			--CASE WHEN g.team_2_normal_time_score IS NULL THEN g.team_2_code ELSE 
 			--	CASE WHEN g.team_1_normal_time_score + ISNULL(g.team_1_extra_time_score,0) + ISNULL(g.team_1_penalties_score,0) < g.team_2_normal_time_score + ISNULL(g.team_2_extra_time_score,0) + ISNULL(g.team_2_penalties_score,0) THEN 0 ELSE g.team_2_code END 
@@ -188,7 +193,7 @@ BEGIN
 		--17th - 32nd Place
 		INSERT INTO #tmp_final_placing 
 		SELECT DISTINCT CASE WHEN te.is_active = 1 THEN 17 ELSE 18 END,  
-			CASE WHEN te.is_active = 1 THEN 'Active' ELSE 'Knocked out in group stage' END, 
+			CASE WHEN te.is_active = 1 THEN 'Active in group' ELSE 'Knocked out in group stage' END, 
 			g.team_1_code
 		FROM wc_game g
 		JOIN wc_tournament_team_entry te ON g.tournament_code = te.tournament_code AND g.team_1_code = te.team_code
@@ -235,8 +240,8 @@ BEGIN
 		te.coach_name AS CoachName, 
 		ISNULL(ct.flag_name,'') AS CoachNationalityFlagName,
 		te.current_elo_rating AS ELORating,
-		te.is_active AS IsActive,
-		fp.SortOrder,
+		CASE WHEN @ActiveTeams > 0 THEN te.is_active ELSE 0 END AS IsActive,
+		CASE WHEN @ActiveTeams = 0 THEN fp.SortOrder ELSE 0 END AS SortOrder,
 		ISNULL(cw.chance_to_win,0) * CONVERT(DECIMAL(8,4), 100) AS ChanceToWin,
 		SUM(tr.GF) AS GF,
 		SUM(tr.GA) AS GA,		
@@ -261,11 +266,12 @@ BEGIN
 		te.coach_name, 
 		ISNULL(ct.flag_name,''),
 		te.current_elo_rating,
-		te.is_active,
-		fp.SortOrder,
+		CASE WHEN @ActiveTeams > 0 THEN te.is_active ELSE 0 END,
+		CASE WHEN @ActiveTeams = 0 THEN fp.SortOrder ELSE 0 END,
 		ISNULL(cw.chance_to_win,0) * CONVERT(DECIMAL(8,4), 100)
 	ORDER BY ISNULL(cw.chance_to_win,0) * CONVERT(DECIMAL(8,4), 100) DESC,
-		fp.SortOrder, 
+		CASE WHEN @ActiveTeams > 0 THEN te.is_active ELSE 0 END DESC, 
+		CASE WHEN @ActiveTeams = 0 THEN fp.SortOrder ELSE 0 END, 		
 		te.current_elo_rating DESC, 
 		t.team_name
 

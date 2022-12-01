@@ -90,6 +90,18 @@ namespace SamSmithNZ.Tests.WorldCup
                 }
             }
             Assert.IsTrue(found1);
+
+            //Test the order
+            Assert.AreEqual("Spain", results[0].TeamName);
+            Assert.AreEqual("Netherlands", results[1].TeamName);
+            Assert.AreEqual("Germany", results[2].TeamName);
+            Assert.AreEqual("Uruguay", results[3].TeamName);
+            Assert.AreEqual("Argentina", results[4].TeamName);
+            Assert.AreEqual("Brazil", results[5].TeamName);
+            Assert.AreEqual("Ghana", results[6].TeamName);
+            Assert.AreEqual("Paraguay", results[7].TeamName);
+            Assert.AreEqual("Chile", results[8].TeamName);
+            Assert.AreEqual("England", results[9].TeamName);
         }
 
         private static void TestNewZealandTeam(TournamentTeam item)
@@ -99,7 +111,7 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.IsTrue(item.FlagName == "22px-Flag_of_New_Zealand_svg.png");
             Assert.IsTrue(item.CoachName == "Ricki Herbert");
             Assert.IsTrue(item.CoachNationalityFlagName == "22px-Flag_of_New_Zealand_svg.png");
-            Assert.IsTrue(item.ELORating >= 0);
+            Assert.IsTrue(item.CurrentEloRating >= 0);
             Assert.IsTrue(item.FifaRanking == 0);
             Assert.IsTrue(item.Placing != "");
             Assert.IsTrue(item.RegionCode == 5);

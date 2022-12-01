@@ -70,6 +70,5 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.AreEqual(1870, result.Item2);
         }
 
-
     }
 }

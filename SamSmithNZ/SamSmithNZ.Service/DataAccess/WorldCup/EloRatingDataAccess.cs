@@ -132,7 +132,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             {
                 if (item.TeamCode == teamCode)
                 {
-                    result = item.ELORating;
+                    result = item.CurrentEloRating;
                     break;
                 }
             }
@@ -145,7 +145,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             {
                 if (item.TeamCode == teamCode)
                 {
-                    item.ELORating = eloRating;
+                    item.CurrentEloRating = eloRating;
                     break;
                 }
             }

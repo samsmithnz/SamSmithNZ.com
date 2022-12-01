@@ -265,7 +265,7 @@
     <Build Include="dbo\Stored Procedures\Old\spWC_SaveGoal.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_SaveShootoutGoal.sql" />
     <Build Include="dbo\Stored Procedures\Old\spWC_SetFinalTournamentPlacing.sql" />
-    <Build Include="dbo\Tables\wc_tournament_format_playoff.sql" />
+    <Build Include="dbo\Tables\wc_tournament_format_playoff_setup.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetMigratePlayoffsGames.sql" />
     <Build Include="dbo\Stored Procedures\FB_SaveMigratePlayoffs.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetMigratePlayoffs.sql" />
@@ -279,9 +279,11 @@
     <Build Include="dbo\Stored Procedures\FB_GetStatsLatestGoal.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetStatsGoalDistribution.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetStatsMostPlayersFromClub.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetStatsAverageTournamentGoals.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />
+    <None Include="dbo\Stored Procedures\MovingFromGroupToPlayoffs.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SamSmithNZ.Database.refactorlog" />
