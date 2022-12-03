@@ -239,7 +239,7 @@ BEGIN
 		ISNULL(te.starting_elo_rating,0) AS StartingEloRating,
 		te.coach_name AS CoachName, 
 		ISNULL(ct.flag_name,'') AS CoachNationalityFlagName,
-		te.current_elo_rating AS ELORating,
+		te.current_elo_rating AS CurrentEloRating,
 		CASE WHEN @ActiveTeams > 0 THEN te.is_active ELSE 0 END AS IsActive,
 		CASE WHEN @ActiveTeams = 0 THEN fp.SortOrder ELSE 0 END AS SortOrder,
 		ISNULL(cw.chance_to_win,0) * CONVERT(DECIMAL(8,4), 100) AS ChanceToWin,
