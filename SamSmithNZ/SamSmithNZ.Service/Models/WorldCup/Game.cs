@@ -102,15 +102,15 @@ namespace SamSmithNZ.Service.Models.WorldCup
         {
             get
             {
-                if (this.Team1PreGameEloRating == null || this.Team1Code == 0)
+                if (this.Team1PreGameEloRating == null || this.Team2PreGameEloRating == null)
                 {
                     return -1;
                 }
                 else
                 {
                     //team_a_win_prob = 1.0/(10.0^((team_b - team_a)/400.0) + 1.0)
-                    double result = 1.0 / (Math.Pow(10, (((double)this.Team2EloRating - (double)this.Team1EloRating) / 400.0)) + 1.0) * 100;
-                    return result;
+                    double result = 1.0 / (Math.Pow(10, (((double)this.Team2PreGameEloRating - (double)this.Team1PreGameEloRating) / 400.0)) + 1.0) * 100;
+                    return Math.Round(result,2);
                 }
             }
         }
@@ -119,15 +119,15 @@ namespace SamSmithNZ.Service.Models.WorldCup
         {
             get
             {
-                if (this.Team2PreGameEloRating == null || this.Team2Code == 0)
+                if (this.Team1PreGameEloRating == null || this.Team2PreGameEloRating == null)
                 {
                     return -1;
                 }
                 else
                 {
                     //team_a_win_prob = 1.0/(10.0^((team_b - team_a)/400.0) + 1.0)
-                    double result = 1.0 / (Math.Pow(10, (((double)this.Team1EloRating - (double)this.Team2EloRating) / 400.0)) + 1.0) * 100;
-                    return result;
+                    double result = 1.0 / (Math.Pow(10, (((double)this.Team1PreGameEloRating - (double)this.Team2PreGameEloRating) / 400.0)) + 1.0) * 100;
+                    return Math.Round(result, 2);
                 }
             }
         }
