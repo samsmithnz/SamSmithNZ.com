@@ -1,22 +1,38 @@
 ﻿@using SamSmithNZ.Service.Models.WorldCup
 @using SamSmithNZ.Web.Models.WorldCup
-@model TeamViewModel
+@model StatsViewModel
 @{
     ViewBag.Title = "World cup stats";
     Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
 }
 
-<h2>World cup stats</h2>
+<br />
+<br />
+<b>Average number of goals scored:</b>
+@{
+    int i = 0;
+    foreach (StatsAverageTournamentGoals item in Model.StatsAverageTournamentGoalsList)
+    {
+        i++;
+        if (item.TournamentCode == Model.TournamentCode)
+        {
+            <li><b>@i: @item.TournamentName: @item.AverageGoalsPerGame.ToString("0.00") (@item.TotalGoals goals scored in @item.TotalGamesCompleted games)</b></li>
+        }
+        else
+        {
+            <li>@i: @item.TournamentName: @item.AverageGoalsPerGame.ToString("0.00") (@item.TotalGoals goals scored in @item.TotalGamesCompleted games)</li>
+        }
+    }
+}
 
-<br />
-<br />
+<!--
 Quickest goal: 16 goals have been scored in the first minute
 
 <br />
 <br />
 <b>Latest goal:</b>
-Qatar World Cup 2022: 
-England 6 - 2 Iran 
+Qatar World Cup 2022:
+England 6 - 2 Iran
 Scorer: Mehdi Taremi  90' +13' (pen)
 
 <br />
@@ -36,7 +52,7 @@ Group with least number of points (12 is theorical minimum with all games being 
 
 <br />
 <br />
-Number of players with the same birthday. 
+Number of players with the same birthday.
 Youngest player/team
 Oldest player/team
 
@@ -47,3 +63,4 @@ Biggest upsets
 
 <br />
 <br />
+-->

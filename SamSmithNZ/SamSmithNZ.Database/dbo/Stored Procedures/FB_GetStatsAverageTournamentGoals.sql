@@ -18,6 +18,7 @@ BEGIN
 	AND (t.competition_code = @CompetitionCode OR @CompetitionCode IS NULL)
 	AND t.competition_code != 4	AND t.competition_code != 2
 	GROUP BY t.tournament_code, t.[name]
+	HAVING SUM(g.team_1_normal_time_score) + SUM(ISNULL(g.team_1_extra_time_score,0)) + SUM(g.team_2_normal_time_score) + SUM(ISNULL(g.team_2_extra_time_score,0)) > 0	
 	ORDER BY AverageGoalsPerGame DESC
 END
 GO

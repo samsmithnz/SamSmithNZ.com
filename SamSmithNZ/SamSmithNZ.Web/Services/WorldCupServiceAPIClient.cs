@@ -290,5 +290,19 @@ namespace SamSmithNZ.Web.Services
             }
         }
 
+        public async Task<List<StatsAverageTournamentGoals>> GetStatsAverageTournamentGoalsList(int competitionCode)
+        {
+            Uri url = new($"api/WorldCup/StatsAverageTournamentGoals/GetStatsAverageTournamentGoalsList?competitionCode=" + competitionCode, UriKind.Relative);
+            List<StatsAverageTournamentGoals> results = await base.ReadMessageList<StatsAverageTournamentGoals>(url);
+            if (results == null)
+            {
+                return new List<StatsAverageTournamentGoals>();
+            }
+            else
+            {
+                return results;
+            }
+        }
+
     }
 }

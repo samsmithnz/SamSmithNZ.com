@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 
 namespace SamSmithNZ.Service.Models.WorldCup
 {
@@ -24,6 +23,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
             set
             {
                 _games = new();
+                //Filter games to only return games that have both team1 and team2
                 foreach (Game game in value)
                 {
                     if ((game.Team1Code == Team1Statistics.Team.TeamCode && game.Team2Code == Team2Statistics.Team.TeamCode) ||

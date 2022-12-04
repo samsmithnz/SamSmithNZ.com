@@ -18,6 +18,7 @@ namespace SamSmithNZ.Web.Controllers
 
         public async Task<IActionResult> Index(int? competitionCode = null)
         {
+            competitionCode = 1;
             List<Tournament> tournaments = await _ServiceApiClient.GetTournaments(competitionCode);
             List<TournamentImportStatus> tournamentsImportStatus = await _ServiceApiClient.GetTournamentsImportStatus(competitionCode);
 
@@ -176,6 +177,20 @@ namespace SamSmithNZ.Web.Controllers
         {
             TeamMatchup teamMatchup = await _ServiceApiClient.GetTeamMatchup(team1Code, team2Code);
             return View(teamMatchup);
+        }
+
+        public async Task<IActionResult> Stats(int tournamentCode)
+        {
+            int competitionCode = 1;
+            List<StatsAverageTournamentGoals> goalsPerGame = await _ServiceApiClient.GetStatsAverageTournamentGoalsList(competitionCode);
+
+            StatsViewModel statsViewModel = new()
+            {
+                TournamentCode = tournamentCode,
+                StatsAverageTournamentGoalsList = goalsPerGame
+            };
+
+            return View(statsViewModel);
         }
 
         public IActionResult ELORating() //int tournamentCode)
@@ -392,6 +407,7 @@ namespace SamSmithNZ.Web.Controllers
         {
             return RedirectToAction("About", "Home");
         }
+        
         public async Task<IActionResult> Insights()
         {
             List<GoalInsight> regularTimeGoalInsights = await _ServiceApiClient.GetGoalInsights(false);

@@ -45,7 +45,7 @@
             <td colspan="2" class="PlayoffTimeLocation" id="tdCol_N4">
                 @if (showDebugElements == true)
                 {
-                    <span style="color: red; font-weight: bold;">@Model.Playoffs[0].GameNumber</span>
+                    <span style="color: red; font-weight: bold;">Game @Model.Playoffs[0].GameNumber</span>
                 }
             </td>
         </tr>
@@ -83,7 +83,7 @@
                 {
                     if (Model.Playoffs.Count > 1)
                     {
-                        <span style="color: red; font-weight: bold;">@Model.Playoffs[1].GameNumber</span>
+                        <span style="color: red; font-weight: bold;">Game @Model.Playoffs[1].GameNumber</span>
                     }
                 }
             </td>
