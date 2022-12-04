@@ -153,7 +153,7 @@ jobs:
         Get-Childitem –Path ${{ github.workspace }} -Include *soccer.jpg* -File -Recurse -ErrorAction SilentlyContinue  
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
-      if: 0 == 1
+      if: 1 == 1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: SamSmithNZ/SamSmithNZ.Tests/TestResults/coverage.info  
