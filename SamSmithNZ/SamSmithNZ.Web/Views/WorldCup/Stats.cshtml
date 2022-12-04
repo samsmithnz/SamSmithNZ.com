@@ -10,7 +10,18 @@
 
 <br />
 <br />
-Average number of goals scored. 
+<b>Average number of goals scored:</b>
+@foreach (StatsAverageTournamentGoals item in Model.StatsAverageTournamentGoalsList)
+{
+    if (item.TournamentCode == Model.TournamentCode)
+    {
+        <li><b>@item.TournamentName: @item.AverageGoalsPerGame</b></li>
+    }
+    else
+    {
+        <li>@item.TournamentName: @item.AverageGoalsPerGame</li>
+    }
+}
 
 <!--
 Quickest goal: 16 goals have been scored in the first minute
@@ -18,8 +29,8 @@ Quickest goal: 16 goals have been scored in the first minute
 <br />
 <br />
 <b>Latest goal:</b>
-Qatar World Cup 2022: 
-England 6 - 2 Iran 
+Qatar World Cup 2022:
+England 6 - 2 Iran
 Scorer: Mehdi Taremi  90' +13' (pen)
 
 <br />
@@ -39,7 +50,7 @@ Group with least number of points (12 is theorical minimum with all games being 
 
 <br />
 <br />
-Number of players with the same birthday. 
+Number of players with the same birthday.
 Youngest player/team
 Oldest player/team
 

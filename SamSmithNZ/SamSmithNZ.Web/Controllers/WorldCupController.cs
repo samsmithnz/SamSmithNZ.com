@@ -181,8 +181,8 @@ namespace SamSmithNZ.Web.Controllers
 
         public async Task<IActionResult> Stats(int tournamentCode)
         {
-
-            List<StatsAverageTournamentGoals> goalsPerGame = await _ServiceApiClient.GetStatsAverageTournamentGoalsList();
+            int competitionCode = 1;
+            List<StatsAverageTournamentGoals> goalsPerGame = await _ServiceApiClient.GetStatsAverageTournamentGoalsList(competitionCode);
 
             StatsViewModel statsViewModel = new()
             {
