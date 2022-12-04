@@ -52,7 +52,7 @@ namespace SamSmithNZ.Service.Controllers.WorldCup
             team2Statistics.Games = team2Games;
             teamMatchup.Team2Statistics = team2Statistics;
 
-            //Get the games that both teams were part of
+            //Get the games that both teams were part of (Games property filters)
             teamMatchup.Games = team1Games;
 
             return teamMatchup;
