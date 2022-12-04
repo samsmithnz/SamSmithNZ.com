@@ -147,7 +147,7 @@ jobs:
       run: |
         dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.PackagesReadPAT_Token }}" --store-password-in-clear-text
         dotnet restore SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj
-        dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug--nologo -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=lcov #-l:"trx;LogFileName=${{ github.workspace }}/TestOutput.xml"
+        dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug--nologo -p:CollectCoverage=true -p:CoverletOutput=${{ github.workspace }}/TestResults/ -p:CoverletOutputFormat=lcov #-l:"trx;LogFileName=${{ github.workspace }}/TestOutput.xml"
     - run: |
         Get-Childitem –Path ${{ github.workspace }} -Include *coverage.info* -File -Recurse -ErrorAction SilentlyContinue  
         Get-Childitem –Path ${{ github.workspace }} -Include *soccer.jpg* -File -Recurse -ErrorAction SilentlyContinue  
@@ -156,7 +156,7 @@ jobs:
       if: true
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: SamSmithNZ/SamSmithNZ.Tests/TestResults/coverage.info  
+        path-to-lcov: ${{ github.workspace }}/TestResults/coverage.info #SamSmithNZ/SamSmithNZ.Tests/TestResults/coverage.info  
     - uses: samsmithnz/DotNetTestResults@0.1.3
       if: false
       with:
