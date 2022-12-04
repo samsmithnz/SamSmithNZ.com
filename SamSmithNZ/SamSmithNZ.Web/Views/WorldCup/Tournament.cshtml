@@ -36,7 +36,7 @@
             Dates:
             @if (Model.Tournament.MinGameTime != null)
             {
-                <span>@Model.Tournament.MinGameTime?.ToString("dd-MMMM-yyyy") to @Model.Tournament.MaxGameTime?.ToString("dd-MMMM-yyyy")</span>
+                <span>@Model.Tournament.MinGameTime?.ToString("d-MMMM-yyyy") to @Model.Tournament.MaxGameTime?.ToString("d-MMMM-yyyy")</span>
             }
             else
             {

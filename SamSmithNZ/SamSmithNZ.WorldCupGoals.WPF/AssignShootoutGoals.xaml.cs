@@ -50,7 +50,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             PlayerDataAccess da2 = new(_configuration);
             List<Player> players = await da2.GetList(gameCode);
 
-            lblGame.Content = "#" + game.GameNumber + ": " + game.GameTime.ToString("dd-MMM-yyyy hh:mm:sstt") + "   " + game.Team1Name + " vs " + game.Team2Name + ": " + Utility.GetGameScore(game);
+            lblGame.Content = "#" + game.GameNumber + ": " + game.GameTime.ToString("d-MMM-yyyy hh:mm:sstt") + "   " + game.Team1Name + " vs " + game.Team2Name + ": " + Utility.GetGameScore(game);
 
             cboPlayer.DataContext = players;
             cboPlayer.DisplayMemberPath = "PlayerName";
