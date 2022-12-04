@@ -182,15 +182,15 @@ namespace SamSmithNZ.Web.Controllers
         public async Task<IActionResult> Stats(int tournamentCode)
         {
 
-            //List<Playoff> playoffs = await _ServiceApiClient.GetPlayoffSetup(tournamentCode);
-            List<StatsAverageTournamentGoals> goalsPerGame = await _ServiceApiClient.GetStatsAverageTournamentGoals();
+            List<StatsAverageTournamentGoals> goalsPerGame = await _ServiceApiClient.GetStatsAverageTournamentGoalsList();
 
             StatsViewModel statsViewModel = new()
             {
-                GoalsPerGame = goalsPerGame
+                TournamentCode = tournamentCode,
+                StatsAverageTournamentGoalsList = goalsPerGame
             };
 
-            return View();// playoffsViewModel);
+            return View(statsViewModel);
         }
 
         public IActionResult ELORating() //int tournamentCode)
