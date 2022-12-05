@@ -37,7 +37,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             GameDataAccess da = new(_configuration);
             _game = await da.GetItem(gameCode);
 
-            lblGameHeader.Content = "#" + _game.GameNumber + ": " + _game.GameTime.ToString("dd-MMM-yyyy hh:mm:sstt");
+            lblGameHeader.Content = "#" + _game.GameNumber + ": " + _game.GameTime.ToString("d-MMM-yyyy hh:mm:sstt");
             lblGame.Content = _game.Team1Name + " vs " + _game.Team2Name;
             lblStatus.Content = "";
 
@@ -132,7 +132,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
                     lblStatus.Content = "Updating ELO ratings...";
                     EloRatingDataAccess daELO = new(_configuration);
-                    await daELO.UpdateTournamentELORatings(_game.TournamentCode);
+                    await daELO.UpdateTournamentELORatings(_game.TournamentCode);                                        
 
                     lblStatus.Content = "Game updated...";
                     _bResult = true;

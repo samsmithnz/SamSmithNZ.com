@@ -107,10 +107,14 @@ BEGIN
 
 		IF (NOT @NewGameNumber IS NULL)
 		BEGIN
-			UPDATE wc_game
-			SET team_1_code = @WinningTeamCode
-			WHERE tournament_code = @TournamentCode
-			AND game_number = @NewGameNumber
+			UPDATE g
+			SET team_1_code = @WinningTeamCode--,
+				--team_1_pregame_elo_rating = e.current_elo_rating, 
+				--team_1_elo_rating = e.current_elo_rating
+			FROM wc_game g
+			--JOIN wc_tournament_team_entry e ON g.tournament_code = e.tournament_code and e.team_code = g.team_1_code	
+			WHERE g.tournament_code = @TournamentCode
+			AND g.game_number = @NewGameNumber
 		END
 		ELSE
 		BEGIN
@@ -121,10 +125,14 @@ BEGIN
 
 			IF (NOT @NewGameNumber IS NULL)
 			BEGIN
-				UPDATE wc_game
-				SET team_2_code = @WinningTeamCode
-				WHERE tournament_code = @TournamentCode
-				AND game_number = @NewGameNumber
+				UPDATE g
+				SET team_2_code = @WinningTeamCode--,
+					--team_2_pregame_elo_rating = e.current_elo_rating, 
+					--team_2_elo_rating = e.current_elo_rating
+				FROM wc_game g
+				--JOIN wc_tournament_team_entry e ON g.tournament_code = e.tournament_code and e.team_code = g.team_2_code				
+				WHERE g.tournament_code = @TournamentCode
+				AND g.game_number = @NewGameNumber
 			END
 		END
 	END
@@ -144,7 +152,7 @@ BEGIN
 
 	----Update ELO Ratings
 	--UPDATE g
-	--SET --team_1_pregame_elo_rating = e.current_elo_rating, 
+	--SET team_1_pregame_elo_rating = e.current_elo_rating, 
 	--	team_1_elo_rating = e.current_elo_rating
 	--FROM wc_game g
 	--JOIN wc_tournament_team_entry e ON g.tournament_code = e.tournament_code and e.team_code = g.team_1_code
@@ -152,9 +160,10 @@ BEGIN
 	--AND g.round_number = @RoundNumber
 	--AND g.team_1_code > 0
 	--AND g.team_2_code > 0
+	--AND team_1_pregame_elo_rating IS NULL
 
 	--UPDATE g
-	--SET --team_2_pregame_elo_rating = e.current_elo_rating, 
+	--SET team_2_pregame_elo_rating = e.current_elo_rating, 
 	--	team_2_elo_rating = e.current_elo_rating
 	--FROM wc_game g
 	--JOIN wc_tournament_team_entry e ON g.tournament_code = e.tournament_code and e.team_code = g.team_1_code
@@ -162,6 +171,7 @@ BEGIN
 	--AND g.round_number = @RoundNumber
 	--AND g.team_1_code > 0
 	--AND g.team_2_code > 0
+	--AND team_2_pregame_elo_rating IS NULL
 
 END
 

@@ -22,30 +22,8 @@ namespace SamSmithNZ.Service.Controllers.WorldCup
         [HttpGet("RefreshTournamentELORatings")]
         public async Task<bool> RefreshTournamentELORatings(int tournamentCode)
         {
-            //Update the current team ELO ratings, saving them in a dictonary for part 2
-            List<TeamELORating> teams = await _repo.CalculateEloForTournamentAsync(tournamentCode);
-            Dictionary<int, int> teamEloRatins = new();
-            foreach (TeamELORating team in teams)
-            {
-                await _repo.SaveTeamELORatingAsync(team.TournamentCode, team.TeamCode, team.ELORating);
-                if (teamEloRatins.ContainsKey(team.TeamCode))
-                {
-                    teamEloRatins[team.TeamCode] = team.ELORating;
-                }
-                else
-                {
-                    teamEloRatins.Add(team.TeamCode, team.ELORating);
-                }
-            }
-            //Update the ELO ratings for each game
-            List<Game> games = await _gamesRepo.GetListByTournament(tournamentCode);
-            foreach (Game game in games)
-            {
-                game.Team1PreGameEloRating = teamEloRatins[game.Team1Code];
-                game.Team2PreGameEloRating = teamEloRatins[game.Team2Code];
-                await _gamesRepo.SaveItem(game);
-            }
-            return true;
+            //Update the target tournament ELO ratings
+            return await _repo.UpdateTournamentELORatings(tournamentCode);
         }
     }
 }

@@ -6,9 +6,8 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup.Interfaces
 {
     public interface IEloRatingDataAccess
     {
-        Task<List<TeamELORating>> UpdateTournamentELORatings(int tournamentCode);
-        Task<List<TeamELORating>> CalculateEloForTournamentAsync(int tournamentCode);
+        Task<bool> UpdateTournamentELORatings(int tournamentCode);
+        Task<bool> UpdateGameELORating(int tournamentCode, int gameCode);
         Task<bool> SaveTeamELORatingAsync(int tournamentCode, int teamCode, int eloRating);
-
     }
 }

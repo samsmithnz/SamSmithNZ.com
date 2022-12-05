@@ -79,8 +79,10 @@
                     @*
                         <td>@item.RoundCode</td>*@
                     <td style="text-align: right;">
-                        <a href="/WorldCup/Team?TeamCode=@item.Team1Code">@item.Team1Name</a>
-                        <img src="~/WorldCup/Teams/@item.Team1FlagName" Class="TeamImage" />
+                        <div style="overflow: hidden; white-space: nowrap;">
+                            <a href="/WorldCup/Team?TeamCode=@item.Team1Code">@item.Team1Name</a>
+                            <img src="~/WorldCup/Teams/@item.Team1FlagName" Class="TeamImage" />
+                        </div>
                         <div style="font-size: 10px; font-weight: bold;">
                             @if (item.Team1ChanceToWin >= 0)
                             {
@@ -99,8 +101,8 @@
                                 }
                                 rating += (item.Team1PostGameEloRating - item.Team1PreGameEloRating).ToString();
                                 <span>
-                                    Game ELO: @item.Team1PreGameEloRating -> @item.Team1PostGameEloRating (@rating)
-                                </span>
+                                    Game ELO: @item.Team1PreGameEloRating <br />-> @item.Team1PostGameEloRating (@rating)
+                                </span>                                
                             }
                         </div>
                     </td>
@@ -124,8 +126,10 @@
                         }
                     </td>
                     <td style="text-align: left;">
-                        <img src="~/WorldCup/Teams/@item.Team2FlagName" Class="TeamImage" />
-                        <a href="/WorldCup/Team?TeamCode=@item.Team2Code">@item.Team2Name</a>
+                        <div style="overflow: hidden; white-space: nowrap;">
+                            <img src="~/WorldCup/Teams/@item.Team2FlagName" Class="TeamImage" />
+                            <a href="/WorldCup/Team?TeamCode=@item.Team2Code">@item.Team2Name</a>
+                        </div>
                         <div style="font-size: 10px; font-weight: bold;">
                             @if (item.Team2ChanceToWin >= 0)
                             {
@@ -144,7 +148,7 @@
                                 }
                                 rating += (item.Team2PostGameEloRating - item.Team2PreGameEloRating).ToString();
                                 <span>
-                                    Game ELO: @item.Team2PreGameEloRating -> @item.Team2PostGameEloRating (@rating)
+                                    Game ELO: @item.Team2PreGameEloRating <br />-> @item.Team2PostGameEloRating (@rating)
                                 </span>
                             }
                         </div>

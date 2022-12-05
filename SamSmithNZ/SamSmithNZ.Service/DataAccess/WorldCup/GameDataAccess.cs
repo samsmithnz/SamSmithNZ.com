@@ -78,6 +78,25 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             parameters.Add("@GameCode", gameCode, DbType.Int32);
 
             Game result = await base.GetItem("FB_GetGames", parameters);
+            //Process the single game - which requires a list
+            List<Game> results = new()
+            {
+                result
+            };
+            results = ProcessGameResults(results);
+
+            return results[0];
+        }
+
+        public async Task<Game> GetNextGame(int tournamentCode, int gameCode, int teamCode)
+        {
+            DynamicParameters parameters = new();
+            parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
+            parameters.Add("@GameCode", gameCode, DbType.Int32);
+            parameters.Add("@TeamCode", teamCode, DbType.Int32);
+
+            Game result = await base.GetItem("FB_GetNextGame", parameters);
+            //Process the single game - which requires a list
             List<Game> results = new()
             {
                 result
