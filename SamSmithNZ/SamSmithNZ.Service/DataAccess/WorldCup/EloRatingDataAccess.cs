@@ -19,111 +19,243 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             base.SetupConnectionString(configuration);
         }
 
-        public async Task<List<TeamELORating>> UpdateTournamentELORatings(int tournamentCode)
+        public async Task<bool> UpdateTournamentELORatings(int tournamentCode)
         {
-            List<TeamELORating> results = await CalculateEloForTournamentAsync(tournamentCode);
-
-            foreach (TeamELORating item in results)
+            GameDataAccess da = new(_configuration);
+            List<Game> games = await da.GetListByTournament(tournamentCode);
+            foreach (Game game in games)
             {
-                await SaveTeamELORatingAsync(tournamentCode, item.TeamCode, item.ELORating);
+                if (game.Team1NormalTimeScore != null || game.Team2NormalTimeScore != null)
+                {
+                    await UpdateGameELORating(tournamentCode, game.GameCode);
+                }
             }
 
-            return results;
+            return true;
+            //List<TeamELORating> results = await CalculateEloForTournamentAsync(tournamentCode);
+
+            //foreach (TeamELORating item in results)
+            //{
+            //    await SaveTeamELORatingAsync(tournamentCode, item.TeamCode, item.ELORating);
+            //}
+
+            //return results;
         }
 
-        public async Task<List<TeamELORating>> CalculateEloForTournamentAsync(int tournamentCode)
+        public async Task<bool> UpdateGameELORating(int tournamentCode,
+            int gameCode)
         {
             double diff = 400;
-            double kFactor = 32;
 
+            //1. If updating a game, pass in the game code and tournament code to get the pre-elo-ratings
             GameDataAccess da = new(_configuration);
-            List<Game> gameList = await da.GetListByTournament(tournamentCode);
+            Game game = await da.GetItem(gameCode);
 
-            //TeamDataAccess da2 = new(_configuration);
-            //List<Team> teamList = await da2.GetList();
+            //2. Retrieve the pre-ELO rating, either from the tournament or the previous game
+            GamePreELORatingDataAccess da2 = new(_configuration);
+            GamePreELORating gamePreELORating = await da2.GetGamePreELORatings(tournamentCode, game.GameCode);
+            game.Team1PreGameEloRating = gamePreELORating.Team1PreELORating;
+            game.Team2PreGameEloRating = gamePreELORating.Team2PreELORating;
 
-            TournamentTeamDataAccess da3 = new(_configuration);
-            List<TournamentTeam> tournamentTeams = await da3.GetQualifiedTeams(tournamentCode);
-
-            //Update all of the tournament team ELO ratings
-            foreach (TournamentTeam tournamentTeam in tournamentTeams)
-            {
-                await SaveTeamELORatingAsync(tournamentCode, tournamentTeam.TeamCode, tournamentTeam.StartingEloRating);
-            }
-            //refresh tournament ELO ratings
-            tournamentTeams = await da3.GetQualifiedTeams(tournamentCode);
-
+            //3. Calculate the new ELO ratings, and save them back to the game
             List<TeamELORating> teamRatingList = new();
-            foreach (Game game in gameList)
+            TeamELORating team1 = GetTeamELORating(tournamentCode, game.Team1Code, game.Team1Name, game.Team1PreGameEloRating, teamRatingList);
+            TeamELORating team2 = GetTeamELORating(tournamentCode, game.Team2Code, game.Team2Name, game.Team2PreGameEloRating, teamRatingList);
+            EloRating eloRating = new();
+            WhoWonEnum? result = eloRating.WhoWon(game);
+            double kFactor = eloRating.CalculateKFactor(game);
+            if (result != null)
             {
-                int? team1StartingEloRating = GetTournamentTeamCurrentEloRanking(game.Team1Code, tournamentTeams);
-                int? team2StartingEloRating = GetTournamentTeamCurrentEloRanking(game.Team2Code, tournamentTeams);
-                bool gameIsDirty = false;
-
-                //if (game.Team1Code == 10 || game.Team2Code == 10)
-                //{
-                //    System.Diagnostics.Debug.WriteLine("Game: " + game.GameNumber + ", Team1: " + game.Team1Name + ", Team1Elo: " + game.Team1PreGameEloRating + ", Team2: " + game.Team2Name + ", Team2Elo: " + game.Team2PreGameEloRating);
-                //}
-
-                if (game.Team1PreGameEloRating == team1StartingEloRating || game.Team2PreGameEloRating != team2StartingEloRating)
+                (int, int) eloResult;
+                //the game has started yet, we can process the game
+                if (result == WhoWonEnum.Team1)
                 {
-                    game.Team1PreGameEloRating = team1StartingEloRating;
-                    game.Team2PreGameEloRating = team2StartingEloRating;
-                    gameIsDirty = true;
+                    eloResult = eloRating.GetEloRatingScoresForMatchUp((int)game.Team1PreGameEloRating, (int)game.Team2PreGameEloRating, true, false, kFactor, diff);
+                    team1.Wins++;
+                    team2.Losses++;
                 }
-                //Calculate the ELO rating for each team, adding it to the teamRatingList object if it's not already in there
-                //TODO: Change this so that it saves ELO updates PER game, instead of just the final ELO rating
-                TeamELORating team1 = GetTeamELORating(tournamentCode, game.Team1Code, game.Team1Name, team1StartingEloRating, teamRatingList);
-                TeamELORating team2 = GetTeamELORating(tournamentCode, game.Team2Code, game.Team2Name, team2StartingEloRating, teamRatingList);
-                EloRating eloRating = new();
-                WhoWonEnum? result = eloRating.WhoWon(game);
-                kFactor = eloRating.CalculateKFactor(game);
-                if (result != null)
+                else if (result == WhoWonEnum.Team2)
                 {
-                    (int, int) eloResult;
-                    //the game has started yet, we can process the game
-                    if (result == WhoWonEnum.Team1)
-                    {
-                        eloResult = eloRating.GetEloRatingScoresForMatchUp(team1.ELORating, team2.ELORating, true, false, kFactor, diff);
-                        team1.Wins++;
-                        team2.Losses++;
-                    }
-                    else if (result == WhoWonEnum.Team2)
-                    {
-                        eloResult = eloRating.GetEloRatingScoresForMatchUp(team1.ELORating, team2.ELORating, false, true, kFactor, diff);
-                        team1.Losses++;
-                        team2.Wins++;
-                    }
-                    else
-                    {
-                        eloResult = eloRating.GetEloRatingScoresForMatchUp(team1.ELORating, team2.ELORating, false, false, kFactor, diff);
-                        team1.Draws++;
-                        team2.Draws++;
-                    }
-                    team1.ELORating = eloResult.Item1;
-                    team1.GameCount++;
-                    team2.ELORating = eloResult.Item2;
-                    team2.GameCount++;
-                    if (gameIsDirty == true || game.Team1PostGameEloRating != team1.ELORating || game.Team2PostGameEloRating != team2.ELORating)
-                    {
-                        game.Team1PostGameEloRating = team1.ELORating;
-                        game.Team2PostGameEloRating = team2.ELORating;
-                        SetTournamentTeamCurrentEloRanking(game.Team1Code, tournamentTeams, team1.ELORating);
-                        SetTournamentTeamCurrentEloRanking(game.Team2Code, tournamentTeams, team2.ELORating);
-                        await da.SaveItem(game);
-                    }
+                    eloResult = eloRating.GetEloRatingScoresForMatchUp((int)game.Team1PreGameEloRating, (int)game.Team2PreGameEloRating, false, true, kFactor, diff);
+                    team1.Losses++;
+                    team2.Wins++;
+                }
+                else
+                {
+                    eloResult = eloRating.GetEloRatingScoresForMatchUp((int)game.Team1PreGameEloRating, (int)game.Team2PreGameEloRating, false, false, kFactor, diff);
+                    team1.Draws++;
+                    team2.Draws++;
+                }
+                team1.ELORating = eloResult.Item1;
+                team1.GameCount++;
+                team2.ELORating = eloResult.Item2;
+                team2.GameCount++;
+                game.Team1PostGameEloRating = team1.ELORating;
+                game.Team2PostGameEloRating = team2.ELORating;
+                if (game.Team1PostGameEloRating != team1.ELORating || game.Team2PostGameEloRating != team2.ELORating)
+                {
+                    await da.SaveItem(game);
                 }
             }
 
-            //Sort the teas
-            teamRatingList.Sort((x, y) => y.ELORating.CompareTo(x.ELORating));
+            //3. Save the new ELO ratings to the database
+            TournamentTeamDataAccess da3 = new(_configuration);
+            TournamentTeam tournamentTeam1 = await da3.GetTournamentTeamAsync(tournamentCode, game.Team1Code);
+            if (game.Team1PostGameEloRating == null)
+            {
+                int i = 0;
+            }
+            if (tournamentTeam1.CurrentEloRating != (int)game.Team1PostGameEloRating)
+            {
+                tournamentTeam1.CurrentEloRating = (int)game.Team1PostGameEloRating;
+                await da3.SaveItem(tournamentTeam1);
+            }
+            TournamentTeam tournamentTeam2 = await da3.GetTournamentTeamAsync(tournamentCode, game.Team2Code);
+            if (tournamentTeam2.CurrentEloRating != (int)game.Team2PostGameEloRating)
+            {
+                tournamentTeam2.CurrentEloRating = (int)game.Team2PostGameEloRating;
+                await da3.SaveItem(tournamentTeam2);
+            }
 
-            //Update the team ratings 
-            //TournamentTeamDataAccess da3 = new TournamentTeamDataAccess();
-            //da3.SaveItem();
+            //4. Push the ELO ratings to the next game
+            Game nextGameTeam1 = await da.GetNextGame(tournamentCode, gameCode, game.Team1Code);
+            Game nextGameTeam2 = await da.GetNextGame(tournamentCode, gameCode, game.Team2Code);
+            if (nextGameTeam1 != null)
+            {
+                bool isDirty = false;
+                if (nextGameTeam1.Team1Code == game.Team1Code &&
+                    nextGameTeam1.Team1PreGameEloRating != team1.ELORating)
+                {
+                    nextGameTeam1.Team1PreGameEloRating = team1.ELORating;
+                    isDirty = true;
+                }
+                else if (nextGameTeam1.Team2Code == game.Team1Code &&
+                    nextGameTeam1.Team2PreGameEloRating != team1.ELORating)
+                {
+                    nextGameTeam1.Team2PreGameEloRating = team1.ELORating;
+                    isDirty = true;
+                }
+                if (isDirty == true)
+                {
+                    await da.SaveItem(nextGameTeam1);
+                }
+            }
+            if (nextGameTeam2 != null)
+            {
+                bool isDirty = false;
+                if (nextGameTeam2.Team1Code == game.Team2Code &&
+                    nextGameTeam2.Team1PreGameEloRating != team2.ELORating)
+                {
+                    nextGameTeam2.Team1PreGameEloRating = team2.ELORating;
+                }
+                else if (nextGameTeam2.Team2Code == game.Team2Code &&
+                    nextGameTeam2.Team2PreGameEloRating != team2.ELORating)
+                {
+                    nextGameTeam2.Team2PreGameEloRating = team2.ELORating;
+                    isDirty = true;
+                }
+                if (isDirty == true)
+                {
+                    await da.SaveItem(nextGameTeam2);
+                }
+            }
 
-            return teamRatingList;
+            return true;
         }
+
+        //public async Task<List<TeamELORating>> CalculateEloForTournamentAsync(int tournamentCode)
+        //{
+        //    double diff = 400;
+        //    double kFactor = 32;
+
+        //    GameDataAccess da = new(_configuration);
+        //    List<Game> gameList = await da.GetListByTournament(tournamentCode);
+
+        //    //TeamDataAccess da2 = new(_configuration);
+        //    //List<Team> teamList = await da2.GetList();
+
+        //    TournamentTeamDataAccess da3 = new(_configuration);
+        //    List<TournamentTeam> tournamentTeams = await da3.GetQualifiedTeams(tournamentCode);
+
+        //    //Update all of the tournament team ELO ratings with starting ratings
+        //    foreach (TournamentTeam tournamentTeam in tournamentTeams)
+        //    {
+        //        await SaveTeamELORatingAsync(tournamentCode, tournamentTeam.TeamCode, tournamentTeam.StartingEloRating);
+        //    }
+        //    //refresh tournament ELO ratings
+        //    tournamentTeams = await da3.GetQualifiedTeams(tournamentCode);
+
+        //    List<TeamELORating> teamRatingList = new();
+        //    foreach (Game game in gameList)
+        //    {
+        //        int? team1StartingEloRating = GetTournamentTeamCurrentEloRanking(game.Team1Code, tournamentTeams);
+        //        int? team2StartingEloRating = GetTournamentTeamCurrentEloRanking(game.Team2Code, tournamentTeams);
+        //        bool gameIsDirty = false;
+
+        //        //if (game.Team1Code == 10 || game.Team2Code == 10)
+        //        //{
+        //        //    System.Diagnostics.Debug.WriteLine("Game: " + game.GameNumber + ", Team1: " + game.Team1Name + ", Team1Elo: " + game.Team1PreGameEloRating + ", Team2: " + game.Team2Name + ", Team2Elo: " + game.Team2PreGameEloRating);
+        //        //}
+
+        //        if (game.Team1PreGameEloRating == team1StartingEloRating || game.Team2PreGameEloRating != team2StartingEloRating)
+        //        {
+        //            game.Team1PreGameEloRating = team1StartingEloRating;
+        //            game.Team2PreGameEloRating = team2StartingEloRating;
+        //            gameIsDirty = true;
+        //        }
+        //        //Calculate the ELO rating for each team, adding it to the teamRatingList object if it's not already in there
+        //        //TODO: Change this so that it saves ELO updates PER game, instead of just the final ELO rating
+        //        TeamELORating team1 = GetTeamELORating(tournamentCode, game.Team1Code, game.Team1Name, team1StartingEloRating, teamRatingList);
+        //        TeamELORating team2 = GetTeamELORating(tournamentCode, game.Team2Code, game.Team2Name, team2StartingEloRating, teamRatingList);
+        //        EloRating eloRating = new();
+        //        WhoWonEnum? result = eloRating.WhoWon(game);
+        //        kFactor = eloRating.CalculateKFactor(game);
+        //        if (result != null)
+        //        {
+        //            (int, int) eloResult;
+        //            //the game has started yet, we can process the game
+        //            if (result == WhoWonEnum.Team1)
+        //            {
+        //                eloResult = eloRating.GetEloRatingScoresForMatchUp(team1.ELORating, team2.ELORating, true, false, kFactor, diff);
+        //                team1.Wins++;
+        //                team2.Losses++;
+        //            }
+        //            else if (result == WhoWonEnum.Team2)
+        //            {
+        //                eloResult = eloRating.GetEloRatingScoresForMatchUp(team1.ELORating, team2.ELORating, false, true, kFactor, diff);
+        //                team1.Losses++;
+        //                team2.Wins++;
+        //            }
+        //            else
+        //            {
+        //                eloResult = eloRating.GetEloRatingScoresForMatchUp(team1.ELORating, team2.ELORating, false, false, kFactor, diff);
+        //                team1.Draws++;
+        //                team2.Draws++;
+        //            }
+        //            team1.ELORating = eloResult.Item1;
+        //            team1.GameCount++;
+        //            team2.ELORating = eloResult.Item2;
+        //            team2.GameCount++;
+        //            if (gameIsDirty == true || game.Team1PostGameEloRating != team1.ELORating || game.Team2PostGameEloRating != team2.ELORating)
+        //            {
+        //                game.Team1PostGameEloRating = team1.ELORating;
+        //                game.Team2PostGameEloRating = team2.ELORating;
+        //                SetTournamentTeamCurrentEloRanking(game.Team1Code, tournamentTeams, team1.ELORating);
+        //                SetTournamentTeamCurrentEloRanking(game.Team2Code, tournamentTeams, team2.ELORating);
+        //                await da.SaveItem(game);
+        //            }
+        //        }
+        //    }
+
+        //    //Sort the teams
+        //    teamRatingList.Sort((x, y) => y.ELORating.CompareTo(x.ELORating));
+
+        //    //Update the team ratings 
+        //    //TournamentTeamDataAccess da3 = new TournamentTeamDataAccess();
+        //    //da3.SaveItem();
+
+        //    return teamRatingList;
+        //}
 
         private static int GetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams)
         {
@@ -139,18 +271,18 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return result;
         }
 
-        private static bool SetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams, int eloRating)
-        {
-            foreach (TournamentTeam item in tournamentTeams)
-            {
-                if (item.TeamCode == teamCode)
-                {
-                    item.CurrentEloRating = eloRating;
-                    break;
-                }
-            }
-            return true;
-        }
+        //private static bool SetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams, int eloRating)
+        //{
+        //    foreach (TournamentTeam item in tournamentTeams)
+        //    {
+        //        if (item.TeamCode == teamCode)
+        //        {
+        //            item.CurrentEloRating = eloRating;
+        //            break;
+        //        }
+        //    }
+        //    return true;
+        //}
 
         public async Task<bool> SaveTeamELORatingAsync(int tournamentCode, int teamCode, int eloRating)
         {

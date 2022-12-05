@@ -132,7 +132,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
 
                     lblStatus.Content = "Updating ELO ratings...";
                     EloRatingDataAccess daELO = new(_configuration);
-                    await daELO.UpdateTournamentELORatings(_game.TournamentCode);
+                    await daELO.UpdateTournamentELORatings(_game.TournamentCode);                                        
 
                     lblStatus.Content = "Game updated...";
                     _bResult = true;
