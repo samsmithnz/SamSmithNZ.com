@@ -48,7 +48,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     break;
                 }
             }
-            lblGame.Content = "#" + game.GameNumber + ": " + game.GameTime.ToString("dd-MMM-yyyy hh:mm:sstt") + "   " + game.Team1Name + " vs " + game.Team2Name + ": " + Utility.GetGameScore(game);
+            lblGame.Content = "#" + game.GameNumber + ": " + game.GameTime.ToString("d-MMM-yyyy hh:mm:sstt") + "   " + game.Team1Name + " vs " + game.Team2Name + ": " + Utility.GetGameScore(game);
 
             await LoadGoals(gameCode);
 

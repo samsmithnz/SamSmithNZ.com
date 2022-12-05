@@ -206,7 +206,6 @@
     <Build Include="dbo\Stored Procedures\FB_SaveGroupDetails.sql" />
     <Build Include="dbo\Stored Procedures\FB_SavePlayoffDetails.sql" />
     <Build Include="dbo\Stored Procedures\FB_SaveGame.sql" />
-    <Build Include="dbo\Tables\wc_tournament_team_elo_rating.sql" />
     <Build Include="dbo\Stored Procedures\FB_SaveTournamentTeamELORating.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetTournamentTopGoalScorers.sql" />
     <Build Include="dbo\Tables\wc_tournament_team_chance_to_win.sql" />
@@ -280,6 +279,8 @@
     <Build Include="dbo\Stored Procedures\FB_GetStatsGoalDistribution.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetStatsMostPlayersFromClub.sql" />
     <Build Include="dbo\Stored Procedures\FB_GetStatsAverageTournamentGoals.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetGameELORatings.sql" />
+    <Build Include="dbo\Stored Procedures\FB_GetNextGame.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StaticCodeAnalysis.SuppressMessages.xml" />

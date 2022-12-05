@@ -6,7 +6,6 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup.Interfaces
 {
     public interface IGameDataAccess
     {
-
         Task<List<Game>> GetList(int tournamentCode, int roundNumber, string roundCode, bool includeGoals);
         Task<List<Game>> GetListByTeam(int teamCode);
         Task<List<Game>> GetListByPlayoff(int tournamentCode, int roundNumber, bool includeGoals);

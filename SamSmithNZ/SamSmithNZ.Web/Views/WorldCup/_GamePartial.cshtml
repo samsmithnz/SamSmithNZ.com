@@ -50,8 +50,10 @@
                     <td class="cellborders">@item.RoundCode</td>
                 }
                 <td class="cellborders" style="text-align: right;">
-                    <a href="@Url.Action("Team", "WorldCup", new { teamCode = @item.Team1Code })">@item.Team1Name</a>
-                    <img src="~/WorldCup/Teams/@item.Team1FlagName" CssClass="TeamImage" />
+                    <div style="overflow: hidden; white-space: nowrap;">
+                        <a href="@Url.Action("Team", "WorldCup", new { teamCode = @item.Team1Code })">@item.Team1Name</a>
+                        <img src="~/WorldCup/Teams/@item.Team1FlagName" CssClass="TeamImage" />
+                    </div>
                 </td>
                 <td class="cellborders" style="text-align: center;">
                     <span id="lblScore">@result.TeamScoresText</span>
@@ -71,8 +73,10 @@
                     }
                 </td>
                 <td class="cellborders" style="text-align: left;">
-                    <img src="~/WorldCup/Teams/@item.Team2FlagName" CssClass="TeamImage" />
-                    <a href="@Url.Action("Team", "WorldCup", new { teamCode = @item.Team2Code })">@item.Team2Name</a>
+                    <div style="overflow: hidden; white-space: nowrap;">
+                        <img src="~/WorldCup/Teams/@item.Team2FlagName" CssClass="TeamImage" />
+                        <a href="@Url.Action("Team", "WorldCup", new { teamCode = @item.Team2Code })">@item.Team2Name</a>
+                    </div>
                 </td>
                 <td class="cellborders">@item.Location</td>
                 @if (Model.IsGroupVersion == false)

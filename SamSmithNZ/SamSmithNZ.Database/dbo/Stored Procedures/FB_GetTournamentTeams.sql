@@ -1,5 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[FB_GetTournamentTeams]
-	@TournamentCode INT
+	@TournamentCode INT,
+	@TeamCode INT = NULL
 AS
 BEGIN
 	SELECT 0 AS Placing, 
@@ -20,6 +21,7 @@ BEGIN
 	JOIN wc_region r ON t.region_code = r.region_code
 	LEFT JOIN wc_team ct ON ct.team_name = te.coach_nationality
 	WHERE te.tournament_code = @TournamentCode
+	AND (@TeamCode IS NULL OR te.team_code = @TeamCode)
 	ORDER BY t.team_name
 END
 GO

@@ -163,10 +163,10 @@
                                     @if (item.RowType == 1)
                                     {
                                         <div>
-                                            <span style="white-space: nowrap;">
+                                            <div style="overflow: hidden; white-space: nowrap;">
                                                 <a href="/WorldCup/Team?TeamCode=@item.Team1Code">@item.Team1Name</a>
                                                 <img src="~/WorldCup/Teams/@item.Team1FlagName" Class="TeamImage" />
-                                            </span>
+                                            </div>
                                             @if (item.Team1NormalTimeScore == null)
                                             {
                                                 <br />
@@ -224,7 +224,7 @@
                                     @if (item.RowType == 1)
                                     {
                                         <div>
-                                            <span style="white-space: nowrap;">
+                                            <span style="overflow: hidden; white-space: nowrap;">
                                                 <img src="~/WorldCup/Teams/@item.Team2FlagName" Class="TeamImage" />
                                                 <a href="/WorldCup/Team?TeamCode=@item.Team2Code">@item.Team2Name</a>
                                             </span>

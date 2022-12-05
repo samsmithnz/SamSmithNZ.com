@@ -22,11 +22,11 @@ namespace SamSmithNZ.Service.Models.WorldCup
         {
             if (GameTime.TimeOfDay == new TimeSpan(0, 0, 0))
             {
-                return GameTime.ToString("dd-MMM-yyyy");
+                return GameTime.ToString("d-MMM-yyyy");
             }
             else
             {
-                return GameTime.ToString("dd-MMM-yyyy HH:mm");
+                return GameTime.ToString("d-MMM-yyyy HH:mm");
             }
         }
         public int Team1Code { get; set; }

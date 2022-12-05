@@ -868,7 +868,7 @@
                             <td style="text-align: right;">
                             @if (item.RowType == 1 && item.Team1Code > 0)
                             {
-                                        <div>
+                                <div style="overflow: hidden; white-space: nowrap;">
                                             <a href="/WorldCup/Team?TeamCode=@item.Team1Code">@item.Team1Name</a>
                                             <img src="~/WorldCup/Teams/@item.Team1FlagName" Class="TeamImage" />
                                         </div>
@@ -947,7 +947,7 @@
                             <td style="text-align: left;">
                             @if (item.RowType == 1 && item.Team2Code > 0)
                             {
-                                        <div>
+                                <div style="overflow: hidden; white-space: nowrap;">
                                             <img src="~/WorldCup/Teams/@item.Team2FlagName" Class="TeamImage" />
                                             <a href="/WorldCup/Team?TeamCode=@item.Team2Code">@item.Team2Name</a>
                                         </div>
