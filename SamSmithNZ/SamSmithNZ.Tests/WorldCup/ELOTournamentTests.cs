@@ -127,15 +127,15 @@ namespace SamSmithNZ.Tests.WorldCup
                             break;
                         case 5:
                             Assert.AreEqual(2111, eloPreGameRating);
-                            Assert.AreEqual(2132, eloPostGameRating);
+                            Assert.AreEqual(2130, eloPostGameRating);
                             break;
                         case 6:
-                            Assert.AreEqual(2132, eloPreGameRating);
-                            Assert.AreEqual(2199, eloPostGameRating);
+                            Assert.AreEqual(2130, eloPreGameRating);
+                            Assert.AreEqual(2197, eloPostGameRating);
                             break;
                         case 7:
-                            Assert.AreEqual(2199, eloPreGameRating);
-                            Assert.AreEqual(2247, eloPostGameRating);
+                            Assert.AreEqual(2197, eloPreGameRating);
+                            Assert.AreEqual(2245, eloPostGameRating);
                             break;
                     }
                 }
