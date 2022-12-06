@@ -116,23 +116,24 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     }
 
                     GameDataAccess da = new(_configuration);
-                    //Get the ELO rating updates
-                    EloRating eloRating = new();
-                    WhoWonEnum? whoWonGame = eloRating.WhoWon(_game);
-                    double kFactor = eloRating.CalculateKFactor(_game);
-                    (int, int) newEloRatings = eloRating.GetEloRatingScoresForMatchUp((int)_game.Team1PreGameEloRating,
-                        (int)_game.Team2PreGameEloRating,
-                        whoWonGame == WhoWonEnum.Team1,
-                        whoWonGame == WhoWonEnum.Team2,
-                        kFactor);
-                    _game.Team1PostGameEloRating = newEloRatings.Item1;
-                    _game.Team2PostGameEloRating = newEloRatings.Item2;
+                    ////Get the ELO rating updates
+                    //EloRating eloRating = new();
+                    //WhoWonEnum? whoWonGame = eloRating.WhoWon(_game);
+                    //double kFactor = eloRating.CalculateKFactor(_game);
+                    //(int, int) newEloRatings = eloRating.GetEloRatingScoresForMatchUp((int)_game.Team1PreGameEloRating,
+                    //    (int)_game.Team2PreGameEloRating,
+                    //    whoWonGame == WhoWonEnum.Team1,
+                    //    whoWonGame == WhoWonEnum.Team2,
+                    //    kFactor);
+                    //_game.Team1PostGameEloRating = newEloRatings.Item1;
+                    //_game.Team2PostGameEloRating = newEloRatings.Item2;
                     //Save the game
                     await da.SaveItem(_game);
 
                     lblStatus.Content = "Updating ELO ratings...";
                     EloRatingDataAccess daELO = new(_configuration);
-                    await daELO.UpdateTournamentELORatings(_game.TournamentCode);                                        
+                    //await daELO.UpdateTournamentELORatings(_game.TournamentCode);
+                    await daELO.UpdateGameELORating(_game.TournamentCode, _game.GameCode);
 
                     lblStatus.Content = "Game updated...";
                     _bResult = true;

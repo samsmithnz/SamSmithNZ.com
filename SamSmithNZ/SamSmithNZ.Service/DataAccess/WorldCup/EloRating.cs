@@ -149,8 +149,10 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
                 int? team2Score = 0;
                 if (item.Team1PenaltiesScore >= 0)
                 {
-                    team1Score = team1Score + item.Team1NormalTimeScore + item.Team1ExtraTimeScore.GetValueOrDefault() + item.Team1PenaltiesScore.GetValueOrDefault();
-                    team2Score = team2Score + item.Team2NormalTimeScore + item.Team2ExtraTimeScore.GetValueOrDefault() + item.Team2PenaltiesScore.GetValueOrDefault();
+                    //Always return 1 for PK's - it's fluke and we don't want to over reward a winner by multiple goals vs 1.
+                    return 1;
+                    //team1Score = team1Score + item.Team1NormalTimeScore + item.Team1ExtraTimeScore.GetValueOrDefault() + item.Team1PenaltiesScore.GetValueOrDefault();
+                    //team2Score = team2Score + item.Team2NormalTimeScore + item.Team2ExtraTimeScore.GetValueOrDefault() + item.Team2PenaltiesScore.GetValueOrDefault();
                     //if (item.Team1PenaltiesScore > item.Team2PenaltiesScore)
                     //{
                     //    return 1;
