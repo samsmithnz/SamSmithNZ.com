@@ -95,12 +95,16 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
                 team1.GameCount++;
                 team2.ELORating = eloResult.Item2;
                 team2.GameCount++;
-                if (gamePreELORatingIsDirty == true || game.Team1PostGameEloRating != team1.ELORating || game.Team2PostGameEloRating != team2.ELORating)
+                if (gamePreELORatingIsDirty == true || game.Team1PostGameEloRating == null || game.Team2PostGameEloRating == null || game.Team1PostGameEloRating != team1.ELORating || game.Team2PostGameEloRating != team2.ELORating)
                 {
                     game.Team1PostGameEloRating = team1.ELORating;
                     game.Team2PostGameEloRating = team2.ELORating;
                     await da.SaveItem(game);
                 }
+            }
+            else
+            {
+                int i = 90;
             }
 
             //3. Save the new ELO ratings to the database

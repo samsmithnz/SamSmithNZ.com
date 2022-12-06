@@ -20,7 +20,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         /// <param name="kFactor">The K factor. My K factor currently takes into account the type of game and the goals difference</param>
         /// <returns></returns>
         public (int, int) GetEloRatingScoresForMatchUp(int team1Score, int team2Score,
-            bool team1Won, bool team2Won, 
+            bool team1Won, bool team2Won,
             double kFactor = _kFactor,
             double diff = _diff)
         {
@@ -106,14 +106,25 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="game"></param>
         /// <returns>1 if team 1 won, 2 if team 2 won, 0 if draw</returns>
-        public WhoWonEnum? WhoWon(Game item)
+        public WhoWonEnum? WhoWon(Game game)
         {
-            int? goals = CalculateGoalDifference(item);
+            int? goals = CalculateGoalDifference(game);
             if (goals == null)
             {
-                return null; //the game hasn't started yet
+                if (game.Team1Withdrew == true)
+                {
+                    return WhoWonEnum.Team2;
+                }
+                else if (game.Team2Withdrew == true)
+                {
+                    return WhoWonEnum.Team1;
+                }
+                else
+                {
+                    return null; //the game hasn't started yet
+                }
             }
             else if (goals > 0)
             {
