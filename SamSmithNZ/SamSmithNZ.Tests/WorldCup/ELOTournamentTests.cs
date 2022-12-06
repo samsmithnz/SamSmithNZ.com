@@ -14,21 +14,21 @@ namespace SamSmithNZ.Tests.WorldCup
     public class ELOTournamentTests : BaseIntegrationTest
     {
 
-        [TestMethod()]
-        public async Task RefreshELORatingsTest()
-        {
-            //arrange
-            ELORatingController controller = new(
-                new EloRatingDataAccess(base.Configuration),
-                new GameDataAccess(base.Configuration));
-            int tournamentCode = 22;
+        //[TestMethod()]
+        //public async Task RefreshELORatingsTest()
+        //{
+        //    //arrange
+        //    ELORatingController controller = new(
+        //        new EloRatingDataAccess(base.Configuration),
+        //        new GameDataAccess(base.Configuration));
+        //    int tournamentCode = 22;
 
-            //act
-            bool result = await controller.RefreshTournamentELORatings(tournamentCode);
+        //    //act
+        //    bool result = await controller.RefreshTournamentELORatings(tournamentCode);
 
-            //assert
-            Assert.IsTrue(result);
-        }
+        //    //assert
+        //    Assert.IsTrue(result);
+        //}
 
         //team_a_win_prob = 1.0/(10.0^((team_b - team_a)/400.0) + 1.0)
         [TestMethod()]
