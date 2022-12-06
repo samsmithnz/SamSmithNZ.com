@@ -101,10 +101,6 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             //3. Save the new ELO ratings to the database
             TournamentTeamDataAccess da3 = new(_configuration);
             TournamentTeam tournamentTeam1 = await da3.GetTournamentTeamAsync(tournamentCode, game.Team1Code);
-            if (game.Team1PostGameEloRating == null)
-            {
-                int i = 0;
-            }
             if (tournamentTeam1.CurrentEloRating != (int)game.Team1PostGameEloRating)
             {
                 tournamentTeam1.CurrentEloRating = (int)game.Team1PostGameEloRating;
@@ -257,19 +253,19 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
         //    return teamRatingList;
         //}
 
-        private static int GetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams)
-        {
-            int result = 0;
-            foreach (TournamentTeam item in tournamentTeams)
-            {
-                if (item.TeamCode == teamCode)
-                {
-                    result = item.CurrentEloRating;
-                    break;
-                }
-            }
-            return result;
-        }
+        //private static int GetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams)
+        //{
+        //    int result = 0;
+        //    foreach (TournamentTeam item in tournamentTeams)
+        //    {
+        //        if (item.TeamCode == teamCode)
+        //        {
+        //            result = item.CurrentEloRating;
+        //            break;
+        //        }
+        //    }
+        //    return result;
+        //}
 
         //private static bool SetTournamentTeamCurrentEloRanking(int teamCode, List<TournamentTeam> tournamentTeams, int eloRating)
         //{
