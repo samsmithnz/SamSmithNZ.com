@@ -102,11 +102,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
                     await da.SaveItem(game);
                 }
             }
-            else
-            {
-                int i = 90;
-            }
-
+            
             //3. Save the new ELO ratings to the database
             TournamentTeamDataAccess da3 = new(_configuration);
             TournamentTeam tournamentTeam1 = await da3.GetTournamentTeamAsync(tournamentCode, game.Team1Code);

@@ -170,11 +170,11 @@ namespace SamSmithNZ.Tests.WorldCup
                     Assert.IsTrue(item.Team2ResultWonGame == false);
                     //ELO
                     Assert.AreEqual(2143, item.Team1EloRating);
-                    Assert.AreEqual(2083, item.Team1PreGameEloRating);
-                    Assert.AreEqual(2143, item.Team1PostGameEloRating);
+                    Assert.AreEqual(2040, item.Team1PreGameEloRating);
+                    Assert.AreEqual(2099, item.Team1PostGameEloRating);
                     Assert.AreEqual(1995, item.Team2EloRating);
-                    Assert.AreEqual(2070, item.Team2PreGameEloRating);
-                    Assert.AreEqual(1995, item.Team2PostGameEloRating);
+                    Assert.AreEqual(1965, item.Team2PreGameEloRating);
+                    Assert.AreEqual(1906, item.Team2PostGameEloRating);
                     break;
                 }
             }
