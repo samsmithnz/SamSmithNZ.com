@@ -13,36 +13,33 @@ namespace SamSmithNZ.Tests.WorldCup
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class ELOTournamentTests : BaseIntegrationTest
     {
-
         [TestMethod()]
-        public async Task RefreshELORatingsTest()
+        public async Task RefreshELORatingsForEntireCompetitonTest()
         {
             //arrange
             ELORatingController controller = new(
                 new EloRatingDataAccess(base.Configuration),
                 new GameDataAccess(base.Configuration));
-            //int tournamentCode = 22;
+            int competitionCode = 1;
             TournamentController controllerT = new(new TournamentDataAccess(base.Configuration));
 
             //act
-            //bool result = await controller.RefreshTournamentELORatings(tournamentCode);
-            List<Tournament> tournaments = await controllerT.GetTournaments(1);
+            List<Tournament> tournaments = await controllerT.GetTournaments(competitionCode);
             foreach (Tournament item in tournaments)
             {
-                if (item.TournamentCode < 4)
+                //Only process tournaments that have started
+                if (item.MinGameTime != null)
                 {
                     bool result = await controller.RefreshTournamentELORatings(item.TournamentCode);
-                    if (result != true)
+
+                    //assert
+                    if (result == false)
                     {
                         Assert.AreEqual(0, item.TournamentCode);
                     }
                     Assert.IsTrue(result);
                 }
             }
-
-
-            //assert
-            //Assert.IsTrue(result);
         }
 
         //team_a_win_prob = 1.0/(10.0^((team_b - team_a)/400.0) + 1.0)
