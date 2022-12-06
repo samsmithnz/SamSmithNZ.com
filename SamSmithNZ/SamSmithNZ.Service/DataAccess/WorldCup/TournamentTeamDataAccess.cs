@@ -50,6 +50,16 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return await base.SaveItem("FB_SaveTournamentTeam", parameters);
         }
 
+        public async Task<bool> SaveELOItem(TournamentTeam tournamentTeam)
+        {
+            DynamicParameters parameters = new();
+            parameters.Add("@TournamentCode", tournamentTeam.TournamentCode, DbType.Int32);
+            parameters.Add("@TeamCode", tournamentTeam.TeamCode, DbType.Int32);
+            parameters.Add("@ELORating", tournamentTeam.CurrentEloRating, DbType.Int32);
+
+            return await base.SaveItem("FB_SaveTournamentTeamELORating", parameters);
+        }
+
         public async Task<bool> DeleteItem(TournamentTeam tournamentTeam)
         {
             DynamicParameters parameters = new();

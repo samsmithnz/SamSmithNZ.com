@@ -13,22 +13,34 @@ namespace SamSmithNZ.Tests.WorldCup
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class ELOTournamentTests : BaseIntegrationTest
     {
+        //[TestMethod()]
+        //public async Task RefreshELORatingsForEntireCompetitonTest()
+        //{
+        //    //arrange
+        //    ELORatingController controller = new(
+        //        new EloRatingDataAccess(base.Configuration),
+        //        new GameDataAccess(base.Configuration));
+        //    int competitionCode = 1;
+        //    TournamentController controllerT = new(new TournamentDataAccess(base.Configuration));
 
-        [TestMethod()]
-        public async Task RefreshELORatingsTest()
-        {
-            //arrange
-            ELORatingController controller = new(
-                new EloRatingDataAccess(base.Configuration),
-                new GameDataAccess(base.Configuration));
-            int tournamentCode = 22;
+        //    //act
+        //    List<Tournament> tournaments = await controllerT.GetTournaments(competitionCode);
+        //    foreach (Tournament item in tournaments)
+        //    {
+        //        //Only process tournaments that have started
+        //        if (item.MinGameTime != null)
+        //        {
+        //            bool result = await controller.RefreshTournamentELORatings(item.TournamentCode);
 
-            //act
-            bool result = await controller.RefreshTournamentELORatings(tournamentCode);
-
-            //assert
-            Assert.IsTrue(result);
-        }
+        //            //assert
+        //            if (result == false)
+        //            {
+        //                Assert.AreEqual(0, item.TournamentCode);
+        //            }
+        //            Assert.IsTrue(result);
+        //        }
+        //    }
+        //}
 
         //team_a_win_prob = 1.0/(10.0^((team_b - team_a)/400.0) + 1.0)
         [TestMethod()]
@@ -115,15 +127,15 @@ namespace SamSmithNZ.Tests.WorldCup
                             break;
                         case 5:
                             Assert.AreEqual(2111, eloPreGameRating);
-                            Assert.AreEqual(2132, eloPostGameRating);
+                            Assert.AreEqual(2130, eloPostGameRating);
                             break;
                         case 6:
-                            Assert.AreEqual(2132, eloPreGameRating);
-                            Assert.AreEqual(2199, eloPostGameRating);
+                            Assert.AreEqual(2130, eloPreGameRating);
+                            Assert.AreEqual(2197, eloPostGameRating);
                             break;
                         case 7:
-                            Assert.AreEqual(2199, eloPreGameRating);
-                            Assert.AreEqual(2247, eloPostGameRating);
+                            Assert.AreEqual(2197, eloPreGameRating);
+                            Assert.AreEqual(2245, eloPostGameRating);
                             break;
                     }
                 }

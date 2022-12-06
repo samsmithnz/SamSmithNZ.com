@@ -52,7 +52,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return await base.SaveItem("FB_DeleteGoal", parameters);
         }
 
-        public List<Goal> ProcessGoalHTML(string goalText, string playerName)
+        public List<Goal> ProcessGoalHTMLMigration(string goalText, string playerName)
         {
             List<Goal> results = new();
             if (string.IsNullOrEmpty(goalText) == false)
