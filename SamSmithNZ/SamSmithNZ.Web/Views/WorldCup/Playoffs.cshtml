@@ -263,10 +263,10 @@
                             @if (item.RowType == 1 && item.Team1Code > 0)
                             {
                                 <div>
-                                    <div style="overflow: hidden; white-space: nowrap;">
+                                    <span style="overflow: hidden; white-space: nowrap;">
                                         <a href="/WorldCup/Team?TeamCode=@item.Team1Code">@item.Team1Name</a>
                                         <img src="~/WorldCup/Teams/@item.Team1FlagName" Class="TeamImage" />
-                                    </div>
+                                    </span>
                                     @if (item.Team1NormalTimeScore == null && item.Team1Code > 0 && item.Team2Code > 0)
                                     {
                                         <br />
