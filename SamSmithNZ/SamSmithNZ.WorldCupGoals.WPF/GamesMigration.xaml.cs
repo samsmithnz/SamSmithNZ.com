@@ -204,7 +204,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             string goalText = item.SelectSingleNode(item.XPath).InnerText; //item.SelectSingleNode(item.XPath + "/small").InnerText;
 
             GoalDataAccess da = new(_configuration);
-            List<Goal> goals = da.ProcessGoalHTML(goalText, playerName);
+            List<Goal> goals = da.ProcessGoalHTMLMigration(goalText, playerName);
             int playerCode = GetPlayerCode(players, playerName);
 
             List<Goal> finalGoals = new();
