@@ -14,7 +14,10 @@ BEGIN
 	AND (g.team_1_code = @TeamCode OR g.team_2_code = @TeamCode)
 	ORDER BY g.game_time ASC
 
-	--Return the new game
-	EXEC FB_GetGames @GameCode = @NextGameCode 
+	IF (@NextGameCode IS NOT NULL)
+	BEGIN
+		--Return the new game
+		EXEC FB_GetGames @GameCode = @NextGameCode 
+	END
 END
 GO

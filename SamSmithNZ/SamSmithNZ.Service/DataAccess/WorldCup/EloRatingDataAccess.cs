@@ -119,8 +119,8 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             }
 
             //4. Push the ELO ratings to the next game
-            Game nextGameTeam1 = await da.GetNextGame(tournamentCode, gameCode, game.Team1Code);
-            Game nextGameTeam2 = await da.GetNextGame(tournamentCode, gameCode, game.Team2Code);
+            Game? nextGameTeam1 = await da.GetNextGame(tournamentCode, gameCode, game.Team1Code);
+            Game? nextGameTeam2 = await da.GetNextGame(tournamentCode, gameCode, game.Team2Code);
             if (nextGameTeam1 != null)
             {
                 bool isDirty = false;
@@ -148,6 +148,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
                     nextGameTeam2.Team1PreGameEloRating != team2.ELORating)
                 {
                     nextGameTeam2.Team1PreGameEloRating = team2.ELORating;
+                    isDirty = true;
                 }
                 else if (nextGameTeam2.Team2Code == game.Team2Code &&
                     nextGameTeam2.Team2PreGameEloRating != team2.ELORating)
