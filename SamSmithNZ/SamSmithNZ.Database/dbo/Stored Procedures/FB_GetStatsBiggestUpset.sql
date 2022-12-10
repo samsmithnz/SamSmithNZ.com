@@ -14,6 +14,10 @@ BEGIN
 		THEN (team_1_pregame_elo_rating - team_2_pregame_elo_rating) * -1 
 		ELSE team_1_pregame_elo_rating - team_2_pregame_elo_rating END DESC
 */
+/*
+1. Need to get difference between starting elo ratings
+2. For teams that were expected to win, but then lost or drew
+*/
 	;WITH cte AS
 	(
 	SELECT *,
