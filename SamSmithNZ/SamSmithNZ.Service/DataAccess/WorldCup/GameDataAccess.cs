@@ -88,7 +88,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             return results[0];
         }
 
-        public async Task<Game> GetNextGame(int tournamentCode, int gameCode, int teamCode)
+        public async Task<Game?> GetNextGame(int tournamentCode, int gameCode, int teamCode)
         {
             DynamicParameters parameters = new();
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
@@ -96,14 +96,20 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             parameters.Add("@TeamCode", teamCode, DbType.Int32);
 
             Game result = await base.GetItem("FB_GetNextGame", parameters);
-            //Process the single game - which requires a list
-            List<Game> results = new()
+            if (result == null)
             {
-                result
-            };
-            results = ProcessGameResults(results);
-
-            return results[0];
+                return null;
+            }
+            else
+            {
+                //Process the single game - which requires a list
+                List<Game> results = new()
+                {
+                    result
+                };
+                results = ProcessGameResults(results);
+                return results[0];
+            }
         }
 
         public async Task<bool> SaveItem(Game game)
