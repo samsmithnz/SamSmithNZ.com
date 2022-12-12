@@ -22,7 +22,7 @@ namespace SamSmithNZ.Tests.WorldCup
             //arrange
             EloRating eloRating = new();
             int team1ELORating = 1000;
-            int team2ELORating = 1000; 
+            int team2ELORating = 1000;
             Service.Models.WorldCup.Game game = new()
             {
                 Team1NormalTimeScore = 1,
@@ -60,7 +60,41 @@ namespace SamSmithNZ.Tests.WorldCup
             WhoWonEnum? whoWonGame = eloRating.WhoWon(game);
             double kFactor = eloRating.CalculateKFactor(game);
             (int, int) result = eloRating.GetEloRatingScoresForMatchUp(team1ELORating, team2ELORating,
-                whoWonGame == WhoWonEnum.Team1, 
+                whoWonGame == WhoWonEnum.Team1,
+                whoWonGame == WhoWonEnum.Team2,
+                kFactor);
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1891, result.Item1);
+            Assert.AreEqual(1870, result.Item2);
+        }
+
+
+        [TestMethod()]
+        public void SemiFinal2022ELORatingsAndOddsTest()
+        {
+            //arrange
+            int argentina = 2072; // 63.47%
+            int croatia = 1976; // 36.53%
+            int france = 2120; // 59.52%
+            int morrocco = 2053; // 40.48%
+
+
+            EloRating eloRating = new();
+            int team1ELORating = 1963;
+            int team2ELORating = 1798;
+            Service.Models.WorldCup.Game game = new()
+            {
+                Team1NormalTimeScore = 1,
+                Team2NormalTimeScore = 2
+            };
+
+            //act
+            WhoWonEnum? whoWonGame = eloRating.WhoWon(game);
+            double kFactor = eloRating.CalculateKFactor(game);
+            (int, int) result = eloRating.GetEloRatingScoresForMatchUp(team1ELORating, team2ELORating,
+                whoWonGame == WhoWonEnum.Team1,
                 whoWonGame == WhoWonEnum.Team2,
                 kFactor);
 
