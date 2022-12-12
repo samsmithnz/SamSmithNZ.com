@@ -75,33 +75,71 @@ namespace SamSmithNZ.Tests.WorldCup
         public void SemiFinal2022ELORatingsAndOddsTest()
         {
             //arrange
+            EloRating eloRating = new();
             int argentina = 2072; // 63.47%
             int croatia = 1976; // 36.53%
             int france = 2120; // 59.52%
             int morrocco = 2053; // 40.48%
-
-
-            EloRating eloRating = new();
-            int team1ELORating = 1963;
-            int team2ELORating = 1798;
             Service.Models.WorldCup.Game game = new()
             {
                 Team1NormalTimeScore = 1,
-                Team2NormalTimeScore = 2
+                Team2NormalTimeScore = 0
             };
 
             //act
-            WhoWonEnum? whoWonGame = eloRating.WhoWon(game);
-            double kFactor = eloRating.CalculateKFactor(game);
-            (int, int) result = eloRating.GetEloRatingScoresForMatchUp(team1ELORating, team2ELORating,
-                whoWonGame == WhoWonEnum.Team1,
-                whoWonGame == WhoWonEnum.Team2,
-                kFactor);
+            Service.Models.WorldCup.Game game1 = new();
+            game1.Team1PreGameEloRating = argentina;
+            game1.Team2PreGameEloRating = croatia;
+            double argentinaChanceToWin1 = game1.Team1ChanceToWin;
+            Assert.AreEqual(63.47, argentinaChanceToWin1);
 
-            //assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(1891, result.Item1);
-            Assert.AreEqual(1870, result.Item2);
+            Service.Models.WorldCup.Game game2 = new();
+            game2.Team1PreGameEloRating = argentina;
+            game2.Team2PreGameEloRating = france;
+            double argentinaChanceToWin2 = game2.Team1ChanceToWin;
+            Assert.AreEqual(43.14, argentinaChanceToWin2);
+
+            Service.Models.WorldCup.Game game3 = new();
+            game3.Team1PreGameEloRating = argentina;
+            game3.Team2PreGameEloRating = morrocco;
+            double argentinaChanceToWin3 = game3.Team1ChanceToWin;
+            Assert.AreEqual(52.73, argentinaChanceToWin3);
+
+            Service.Models.WorldCup.Game game4 = new();
+            game4.Team1PreGameEloRating = france;
+            game4.Team2PreGameEloRating = croatia;
+            double franceChanceToWin4 = game4.Team1ChanceToWin;
+            Assert.AreEqual(69.61, franceChanceToWin4);
+
+            Service.Models.WorldCup.Game game5 = new();
+            game5.Team1PreGameEloRating = france;
+            game5.Team2PreGameEloRating = morrocco;
+            double franceChanceToWin5 = game5.Team1ChanceToWin;
+            Assert.AreEqual(59.52, franceChanceToWin5);
+
+            Service.Models.WorldCup.Game game6 = new();
+            game6.Team1PreGameEloRating = croatia;
+            game6.Team2PreGameEloRating = morrocco;
+            double croatiaChanceToWin6 = game6.Team1ChanceToWin;
+            Assert.AreEqual(39.1, croatiaChanceToWin6);
+
+
+            //SF1 (2 paths)
+            //SF2 (2 paths)
+            //Final (2 paths)
+
+            //(int, int) result = eloRating.GetEloRatingScoresForMatchUp(argentina, croatia,
+            //WhoWonEnum? whoWonGame = eloRating.WhoWon(game);
+            //double kFactor = eloRating.CalculateKFactor(game);
+            //(int, int) result = eloRating.GetEloRatingScoresForMatchUp(team1ELORating, team2ELORating,
+            //    whoWonGame == WhoWonEnum.Team1,
+            //    whoWonGame == WhoWonEnum.Team2,
+            //    kFactor);
+
+            ////assert
+            //Assert.IsNotNull(result);
+            //Assert.AreEqual(1891, result.Item1);
+            //Assert.AreEqual(1870, result.Item2);
         }
 
     }
