@@ -148,7 +148,7 @@ jobs:
       run: |
         dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.PackagesReadPAT_Token }}" --store-password-in-clear-text
         dotnet restore SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj
-        dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug--nologo -e:CollectCoverage=true -e:CoverletOutput=TestResults/ -e:CoverletOutputFormat=lcov #-l:"trx;LogFileName=${{ github.workspace }}/TestOutput.xml"
+        dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug --nologo -e:CollectCoverage=true -e:CoverletOutput=TestResults/ -e:CoverletOutputFormat=lcov #-l:"trx;LogFileName=${{ github.workspace }}/TestOutput.xml"
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
@@ -162,7 +162,6 @@ jobs:
   sonarCloud:
     name: Run SonarCloud analysis
     runs-on: windows-latest
-    if: 1 == 1 #Disabling until .NET 7 supported
     steps:
       - name: Set up JDK 11
         uses: actions/setup-java@v1
