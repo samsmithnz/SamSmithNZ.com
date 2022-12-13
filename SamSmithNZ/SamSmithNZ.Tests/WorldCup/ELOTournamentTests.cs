@@ -48,7 +48,7 @@ namespace SamSmithNZ.Tests.WorldCup
         {
             //Arrange
             TournamentController controller = new(new TournamentDataAccess(base.Configuration));
-            int tournamentCode = 21;
+            int tournamentCode = 22;
 
             //Act
             Tournament tournament = await controller.GetTournament(tournamentCode);

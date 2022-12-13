@@ -160,44 +160,25 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
                 int? team2Score = 0;
                 if (item.Team1PenaltiesScore >= 0)
                 {
-                    //Always return 1 for PK's - it's fluke and we don't want to over reward a winner by multiple goals vs 1.
-                    return 1;
-                    //team1Score = team1Score + item.Team1NormalTimeScore + item.Team1ExtraTimeScore.GetValueOrDefault() + item.Team1PenaltiesScore.GetValueOrDefault();
-                    //team2Score = team2Score + item.Team2NormalTimeScore + item.Team2ExtraTimeScore.GetValueOrDefault() + item.Team2PenaltiesScore.GetValueOrDefault();
-                    //if (item.Team1PenaltiesScore > item.Team2PenaltiesScore)
-                    //{
-                    //    return 1;
-                    //}
-                    //else if (item.Team1PenaltiesScore < item.Team2PenaltiesScore)
-                    //{
-                    //    return 2;
-                    //}
+                    //Always return 1 or -1 for PK's - it's fluke and we don't want to over reward a winner by multiple goals vs 1.
+                     if (item.Team1PenaltiesScore > item.Team2PenaltiesScore)
+                    {
+                        return 1;
+                    }
+                    else if (item.Team1PenaltiesScore < item.Team2PenaltiesScore)
+                    {
+                        return -1;
+                    }
                 }
                 else if (item.Team1ExtraTimeScore >= 0)
                 {
                     team1Score = team1Score + item.Team1NormalTimeScore + item.Team1ExtraTimeScore.GetValueOrDefault();
                     team2Score = team2Score + item.Team2NormalTimeScore + item.Team2ExtraTimeScore.GetValueOrDefault();
-                    //if (item.Team1ExtraTimeScore > item.Team2ExtraTimeScore)
-                    //{
-                    //    return 1;
-                    //}
-                    //else if (item.Team1ExtraTimeScore < item.Team2ExtraTimeScore)
-                    //{
-                    //    return 2;
-                    //}
                 }
                 else if (item.Team1NormalTimeScore >= 0)
                 {
                     team1Score += item.Team1NormalTimeScore;
                     team2Score += item.Team2NormalTimeScore;
-                    //if (item.Team1NormalTimeScore > item.Team2NormalTimeScore)
-                    //{
-                    //    return 1;
-                    //}
-                    //else if (item.Team1NormalTimeScore < item.Team2NormalTimeScore)
-                    //{
-                    //    return 2;
-                    //}
                 }
                 return (int)team1Score - (int)team2Score;
             }
