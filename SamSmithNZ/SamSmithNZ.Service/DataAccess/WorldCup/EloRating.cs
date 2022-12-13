@@ -174,27 +174,11 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
                 {
                     team1Score = team1Score + item.Team1NormalTimeScore + item.Team1ExtraTimeScore.GetValueOrDefault();
                     team2Score = team2Score + item.Team2NormalTimeScore + item.Team2ExtraTimeScore.GetValueOrDefault();
-                    //if (item.Team1ExtraTimeScore > item.Team2ExtraTimeScore)
-                    //{
-                    //    return 1;
-                    //}
-                    //else if (item.Team1ExtraTimeScore < item.Team2ExtraTimeScore)
-                    //{
-                    //    return 2;
-                    //}
                 }
                 else if (item.Team1NormalTimeScore >= 0)
                 {
                     team1Score += item.Team1NormalTimeScore;
                     team2Score += item.Team2NormalTimeScore;
-                    //if (item.Team1NormalTimeScore > item.Team2NormalTimeScore)
-                    //{
-                    //    return 1;
-                    //}
-                    //else if (item.Team1NormalTimeScore < item.Team2NormalTimeScore)
-                    //{
-                    //    return 2;
-                    //}
                 }
                 return (int)team1Score - (int)team2Score;
             }
