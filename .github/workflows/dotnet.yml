@@ -166,7 +166,7 @@ jobs:
     if: github.ref == 'refs/heads/main' 
     steps:
       - name: Run Sonarcloud test
-        uses: samsmithnz/SamsDotNetSonarCloudAction@1.1.0
+        uses: samsmithnz/SamsDotNetSonarCloudAction@1.1.1
         with:
           pre-project-steps: 'dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.PackagesReadPAT_Token }}",dotnet restore SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj'
           projects: 'SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj,SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj,SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj,SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj,SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj,SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj'
