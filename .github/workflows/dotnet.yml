@@ -203,6 +203,11 @@ jobs:
           dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.PackagesReadPAT_Token }}"
           dotnet restore SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
           dotnet build SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
+          dotnet build SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj
+          dotnet build SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj
+          dotnet build SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj
+          dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj
+          dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
 
