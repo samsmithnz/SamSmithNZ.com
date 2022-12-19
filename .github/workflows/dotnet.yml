@@ -165,15 +165,49 @@ jobs:
     runs-on: windows-latest
     if: github.ref == 'refs/heads/main' 
     steps:
-      - name: Run Sonarcloud test
-        uses: samsmithnz/SamsDotNetSonarCloudAction@1.1.1
-        with:
-          pre-project-steps: 'dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.PackagesReadPAT_Token }}",dotnet restore SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj'
-          projects: 'SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj,SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj,SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj,SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj,SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj,SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj'
-          dotnet-version: '7.0.x'
-          sonarcloud-organization: samsmithnz-github
-          sonarcloud-project: samsmithnz_SamSmithNZ.com
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.11
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+    - name: Install .NET 7 SDK
+      uses: actions/setup-dotnet@v3.0.3
+      with:
+        dotnet-version: 7.0.x
+    - name: Cache SonarCloud packages
+      uses: actions/cache@v3
+      with:
+        path: ~/sonar/cache
+        key: ${{ runner.os }}-sonar
+        restore-keys: ${{ runner.os }}-sonar
+    - name: Cache SonarCloud scanner
+      id: cache-sonar-scanner
+      uses: actions/cache@v3
+      with:
+        path: ./.sonar/scanner
+        key: ${{ runner.os }}-sonar-scanner
+        restore-keys: ${{ runner.os }}-sonar-scanner
+    - name: Install SonarCloud scanner
+      if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+      shell: pwsh
+      run: |
+        New-Item -Path ./.sonar/scanner -ItemType Directory
+        dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
+    - name: Build and analyze
+      shell: pwsh
+      run: |
+        ./.sonar/scanner/dotnet-sonarscanner begin /k:"samsmithnz_SamSmithNZ.com" /o:"samsmithnz-github" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+        dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.PackagesReadPAT_Token }}"
+        dotnet restore SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
+        dotnet build SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
+        dotnet build SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj
+        dotnet build SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj
+        dotnet build SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj
+        dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj
+        dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj
+        ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ inputs.SONAR_TOKEN }}"
           
 
   deployWebAppsToSlots:
