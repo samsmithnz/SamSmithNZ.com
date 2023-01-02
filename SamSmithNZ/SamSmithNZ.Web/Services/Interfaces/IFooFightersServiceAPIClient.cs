@@ -1,14 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
-using SamSmithNZ.Service.Models.FooFighters;
-using System;
+﻿using SamSmithNZ.Service.Models.FooFighters;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SamSmithNZ.Web.Services.Interfaces
 {
-    public interface IFooFightersServiceAPIClient
+    public interface IFooFightersServiceApiClient
+
     {
 
         Task<List<Album>> GetAlbums();

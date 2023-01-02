@@ -29,7 +29,7 @@ namespace SamSmithNZ.Web
             services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
 
             //Add DI for the service api client 
-            services.AddScoped<IFooFightersServiceAPIClient, FooFightersServiceApiClient>();
+            services.AddScoped<IFooFightersServiceApiClient, FooFightersServiceApiClient>();
             services.AddScoped<IGuitarTabServiceAPIClient, GuitarTabServiceApiClient>();
             services.AddScoped<IWorldCupServiceAPIClient, WorldCupServiceApiClient>();
             services.AddScoped<ISteamServiceAPIClient, SteamServiceApiClient>();
