@@ -1,5 +1,7 @@
-﻿using SamSmithNZ.Service.Models.Steam;
+﻿using Microsoft.Extensions.Primitives;
+using SamSmithNZ.Service.Models.Steam;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.DataAccess.Steam
@@ -15,7 +17,8 @@ namespace SamSmithNZ.Service.DataAccess.Steam
             SteamFriendList friendList = await da.GetDataAsync(steamID);
 
             //Don't forget to add the current user to the comma seperated list
-            string commaSeperatedSteamIDs = steamID.ToString();
+            StringBuilder commaSeperatedSteamIDs = new();
+            commaSeperatedSteamIDs.Append(steamID.ToString());
             List<string> commaSeperatedSteamIDsArray = new();
 
             //Build the comma seperated list for all friends
@@ -26,7 +29,7 @@ namespace SamSmithNZ.Service.DataAccess.Steam
                 {
                     foreach (SteamFriend item in friendList.friendslist.friends)
                     {
-                        commaSeperatedSteamIDs += "," + item.steamid.ToString();
+                        commaSeperatedSteamIDs.Append("," + item.steamid.ToString());
                     }
                 }
                 else
@@ -46,26 +49,26 @@ namespace SamSmithNZ.Service.DataAccess.Steam
                             {
                                 if (arrayCount == 0)
                                 {
-                                    commaSeperatedSteamIDs = steamID.ToString();
+                                    commaSeperatedSteamIDs.Append(steamID.ToString());
                                 }
                                 else
                                 {
-                                    commaSeperatedSteamIDs += friendList.friendslist.friends[arrayCount + itemCount].steamid.ToString();
+                                    commaSeperatedSteamIDs.Append(friendList.friendslist.friends[arrayCount + itemCount].steamid.ToString());
                                 }
                             }
                             else
                             {
-                                commaSeperatedSteamIDs += "," + friendList.friendslist.friends[arrayCount + itemCount].steamid.ToString();
+                                commaSeperatedSteamIDs.Append("," + friendList.friendslist.friends[arrayCount + itemCount].steamid.ToString());
                             }
                             if (itemCount == 99)
                             {
-                                commaSeperatedSteamIDsArray.Add(commaSeperatedSteamIDs);
-                                commaSeperatedSteamIDs = "";
+                                commaSeperatedSteamIDsArray.Add(commaSeperatedSteamIDs.ToString());
+                                commaSeperatedSteamIDs = new();
                             }
                         }
                     }
                 }
-                commaSeperatedSteamIDsArray.Add(commaSeperatedSteamIDs);
+                commaSeperatedSteamIDsArray.Add(commaSeperatedSteamIDs.ToString());
             }
 
             foreach (string CommaSeperatedItem in commaSeperatedSteamIDsArray)
