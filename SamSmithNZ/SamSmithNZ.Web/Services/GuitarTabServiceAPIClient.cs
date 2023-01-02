@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Web.Services
 {
-    public class GuitarTabServiceAPIClient : BaseServiceAPIClient, IGuitarTabServiceAPIClient
+    public class GuitarTabServiceAPIClient : BaseServiceApiClient, IGuitarTabServiceAPIClient
     {
         private readonly IConfiguration _configuration;
 

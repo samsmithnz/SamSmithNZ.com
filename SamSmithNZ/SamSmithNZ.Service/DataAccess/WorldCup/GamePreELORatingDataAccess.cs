@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.DataAccess.WorldCup
 {
-    public class GamePreEloRatingDataAccess : BaseDataAccess<GamePreELORating>, IGamePreELORatingDataAccess
+    public class GamePreEloRatingDataAccess : BaseDataAccess<GamePreEloRating>, IGamePreELORatingDataAccess
     {
         public GamePreEloRatingDataAccess(IConfiguration configuration)
         {
             base.SetupConnectionString(configuration);
         }
 
-        public async Task<GamePreELORating> GetGamePreELORatings(int tournamentCode, int gameCode)
+        public async Task<GamePreEloRating> GetGamePreELORatings(int tournamentCode, int gameCode)
         {
             DynamicParameters parameters = new();
             parameters.Add("@TournamentCode", tournamentCode, DbType.Int32);
             parameters.Add(name: "@GameCode", gameCode, DbType.Int32);
 
-            GamePreELORating results = await base.GetItem("FB_GetGamePreELORatings", parameters);
+            GamePreEloRating results = await base.GetItem("FB_GetGamePreELORatings", parameters);
             return results;
         }        
         

@@ -5,6 +5,6 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup.Interfaces
 {
     public interface IGamePreELORatingDataAccess
     {
-        Task<GamePreELORating> GetGamePreELORatings(int tournamentCode, int gameCode);
+        Task<GamePreEloRating> GetGamePreELORatings(int tournamentCode, int gameCode);
     }
 }

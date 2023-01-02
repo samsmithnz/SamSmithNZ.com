@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Web.Services
 {
-    public class FooFightersServiceAPIClient : BaseServiceAPIClient, IFooFightersServiceAPIClient
+    public class FooFightersServiceAPIClient : BaseServiceApiClient, IFooFightersServiceAPIClient
     {
         private readonly IConfiguration _configuration;
 

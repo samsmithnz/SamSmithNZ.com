@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Web.Services
 {
-    public class WorldCupServiceAPIClient : BaseServiceAPIClient, IWorldCupServiceAPIClient
+    public class WorldCupServiceAPIClient : BaseServiceApiClient, IWorldCupServiceAPIClient
     {
         private readonly IConfiguration _configuration;
 

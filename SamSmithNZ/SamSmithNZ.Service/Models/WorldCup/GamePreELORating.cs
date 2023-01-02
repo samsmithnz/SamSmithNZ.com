@@ -1,6 +1,6 @@
 ﻿namespace SamSmithNZ.Service.Models.WorldCup
 {
-    public class GamePreELORating
+    public class GamePreEloRating
     {
         public int Team1Code { get; set; }
         public int Team1PreELORating { get; set; }
