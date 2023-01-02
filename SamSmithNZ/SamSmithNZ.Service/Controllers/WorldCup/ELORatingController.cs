@@ -9,12 +9,10 @@ namespace SamSmithNZ.Service.Controllers.WorldCup
     public class EloRatingController : ControllerBase
     {
         private readonly IEloRatingDataAccess _repo;
-        private readonly IGameDataAccess _gamesRepo;
-
+        
         public EloRatingController(IEloRatingDataAccess repo, IGameDataAccess gamesRepo)
         {
             _repo = repo;
-            _gamesRepo = gamesRepo;
         }
 
         [HttpGet("RefreshTournamentELORatings")]

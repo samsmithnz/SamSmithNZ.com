@@ -14,7 +14,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class BaseDataAccess<T>
     {
-        public string ConnectionString;
+        public string ConnectionString { get; set; }
 
         public void SetupConnectionString(IConfiguration configuration)
         {
