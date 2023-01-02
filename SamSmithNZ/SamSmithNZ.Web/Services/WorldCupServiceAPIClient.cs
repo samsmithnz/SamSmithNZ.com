@@ -10,14 +10,11 @@ namespace SamSmithNZ.Web.Services
 {
     public class WorldCupServiceApiClient : BaseServiceApiClient, IWorldCupServiceApiClient
     {
-        private readonly IConfiguration _configuration;
-
         public WorldCupServiceApiClient(IConfiguration configuration)
         {
-            _configuration = configuration;
             HttpClient client = new()
             {
-                BaseAddress = new(_configuration["AppSettings:WebServiceURL"])
+                BaseAddress = new(configuration["AppSettings:WebServiceURL"])
             };
             base.SetupClient(client);
         }
