@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Web.Services
 {
-    public class WorldCupServiceAPIClient : BaseServiceApiClient, IWorldCupServiceAPIClient
+    public class WorldCupServiceApiClient : BaseServiceApiClient, IWorldCupServiceAPIClient
     {
         private readonly IConfiguration _configuration;
 
-        public WorldCupServiceAPIClient(IConfiguration configuration)
+        public WorldCupServiceApiClient(IConfiguration configuration)
         {
             _configuration = configuration;
             HttpClient client = new()
