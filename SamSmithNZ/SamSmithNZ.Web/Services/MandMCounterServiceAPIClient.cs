@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Web.Services
 {
-    public class MandMCounterServiceApiClient : BaseServiceApiClient, IMandMCounterServiceAPIClient
+    public class MandMCounterServiceApiClient : BaseServiceApiClient, IMandMCounterServiceApiClient
     {
         private readonly IConfiguration _configuration;
 
