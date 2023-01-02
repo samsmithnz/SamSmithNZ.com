@@ -33,7 +33,7 @@ namespace SamSmithNZ.Web
             services.AddScoped<IGuitarTabServiceAPIClient, GuitarTabServiceApiClient>();
             services.AddScoped<IWorldCupServiceAPIClient, WorldCupServiceAPIClient>();
             services.AddScoped<ISteamServiceAPIClient, SteamServiceAPIClient>();
-            services.AddScoped<IITunesServiceAPIClient, ITunesServiceAPIClient>();
+            services.AddScoped<IITunesServiceAPIClient, ITunesServiceApiClient>();
             services.AddScoped<IMandMCounterServiceAPIClient, MandMCounterServiceAPIClient>();
         }
 
