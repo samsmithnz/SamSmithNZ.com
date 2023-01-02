@@ -9,9 +9,9 @@ namespace SamSmithNZ.Web.Controllers
 {
     public class ITunesController : Controller
     {
-        private readonly IITunesServiceAPIClient _ServiceApiClient;
+        private readonly IITunesServiceApiClient _ServiceApiClient;
 
-        public ITunesController(IITunesServiceAPIClient ServiceApiClient  )
+        public ITunesController(IITunesServiceApiClient ServiceApiClient  )
         {
             _ServiceApiClient = ServiceApiClient;
         }

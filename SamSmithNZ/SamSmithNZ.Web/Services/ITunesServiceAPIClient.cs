@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Web.Services
 {
-    public class ITunesServiceAPIClient : BaseServiceAPIClient, IITunesServiceAPIClient
+    public class ITunesServiceApiClient : BaseServiceApiClient, IITunesServiceApiClient
     {
         private readonly IConfiguration _configuration;
 
-        public ITunesServiceAPIClient(IConfiguration configuration)
+        public ITunesServiceApiClient(IConfiguration configuration)
         {
             _configuration = configuration;
             HttpClient client = new()

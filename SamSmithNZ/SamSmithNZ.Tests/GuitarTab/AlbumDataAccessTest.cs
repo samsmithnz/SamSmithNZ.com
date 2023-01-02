@@ -136,7 +136,7 @@ namespace SamSmithNZ.Tests.GuitarTab
             Assert.IsTrue(item.IsNewAlbum == false);
         }
 
-        private List<Album> GetAlbumsTestData()
+        private static List<Album> GetAlbumsTestData()
         {
             return new List<Album>() {
             new Album{

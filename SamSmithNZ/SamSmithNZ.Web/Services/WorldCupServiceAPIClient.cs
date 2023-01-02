@@ -8,16 +8,13 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Web.Services
 {
-    public class WorldCupServiceAPIClient : BaseServiceAPIClient, IWorldCupServiceAPIClient
+    public class WorldCupServiceApiClient : BaseServiceApiClient, IWorldCupServiceApiClient
     {
-        private readonly IConfiguration _configuration;
-
-        public WorldCupServiceAPIClient(IConfiguration configuration)
+        public WorldCupServiceApiClient(IConfiguration configuration)
         {
-            _configuration = configuration;
             HttpClient client = new()
             {
-                BaseAddress = new(_configuration["AppSettings:WebServiceURL"])
+                BaseAddress = new(configuration["AppSettings:WebServiceURL"])
             };
             base.SetupClient(client);
         }

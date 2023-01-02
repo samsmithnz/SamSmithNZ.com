@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Web.Services.Interfaces
 {
-    public interface IMandMCounterServiceAPIClient
+    public interface IMandMCounterServiceApiClient
     {
 
         Task<float> GetMandMDataForUnit(string unit, float quantity);

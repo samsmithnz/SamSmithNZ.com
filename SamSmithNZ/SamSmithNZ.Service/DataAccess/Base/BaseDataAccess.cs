@@ -14,7 +14,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class BaseDataAccess<T>
     {
-        public string ConnectionString;
+        public string ConnectionString { get; set; }
 
         public void SetupConnectionString(IConfiguration configuration)
         {
@@ -127,7 +127,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
             return result;
         }
 
-        private string DebugSQLString(string sp, DynamicParameters parameters = null)
+        private static string DebugSQLString(string sp, DynamicParameters parameters = null)
         {
             StringBuilder sb = new();
             sb.Append("exec ");

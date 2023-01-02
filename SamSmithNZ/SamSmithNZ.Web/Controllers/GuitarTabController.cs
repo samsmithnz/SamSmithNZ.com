@@ -10,9 +10,9 @@ namespace SamSmithNZ.Web.Controllers
 {
     public class GuitarTabController : Controller
     {
-        private readonly IGuitarTabServiceAPIClient _ServiceApiClient;
+        private readonly IGuitarTabServiceApiClient _ServiceApiClient;
 
-        public GuitarTabController(IGuitarTabServiceAPIClient ServiceApiClient)
+        public GuitarTabController(IGuitarTabServiceApiClient ServiceApiClient)
         {
             _ServiceApiClient = ServiceApiClient;
         }

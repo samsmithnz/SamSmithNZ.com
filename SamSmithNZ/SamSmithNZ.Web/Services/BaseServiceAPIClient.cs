@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Web.Services
 {
-    public class BaseServiceAPIClient
+    public class BaseServiceApiClient
     {
         private HttpClient _client;
         public void SetupClient(HttpClient client)

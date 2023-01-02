@@ -13,9 +13,9 @@ namespace SamSmithNZ.Web.Controllers
         //https://developer.valvesoftware.com/wiki/Steam_Web_API#GetPlayerSummaries_.2v0001.29
         //https://portablesteamwebapi.codeplex.com/documentation
 
-        private readonly ISteamServiceAPIClient _ServiceApiClient;
+        private readonly ISteamServiceApiClient _ServiceApiClient;
 
-        public SteamController(ISteamServiceAPIClient serviceApiClient  )
+        public SteamController(ISteamServiceApiClient serviceApiClient  )
         {
             _ServiceApiClient = serviceApiClient;
         }

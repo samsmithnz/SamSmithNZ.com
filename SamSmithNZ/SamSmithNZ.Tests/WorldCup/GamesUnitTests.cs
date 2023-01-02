@@ -106,7 +106,7 @@ namespace SamSmithNZ.Tests.WorldCup
             Assert.AreEqual("14-Oct-2021", gameNoTimeString);
         }
 
-        private List<Game> GetGamesTestData()
+        private static List<Game> GetGamesTestData()
         {
             return new List<Game>() {
             new Game{

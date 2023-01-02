@@ -29,12 +29,12 @@ namespace SamSmithNZ.Web
             services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
 
             //Add DI for the service api client 
-            services.AddScoped<IFooFightersServiceAPIClient, FooFightersServiceAPIClient>();
-            services.AddScoped<IGuitarTabServiceAPIClient, GuitarTabServiceAPIClient>();
-            services.AddScoped<IWorldCupServiceAPIClient, WorldCupServiceAPIClient>();
-            services.AddScoped<ISteamServiceAPIClient, SteamServiceAPIClient>();
-            services.AddScoped<IITunesServiceAPIClient, ITunesServiceAPIClient>();
-            services.AddScoped<IMandMCounterServiceAPIClient, MandMCounterServiceAPIClient>();
+            services.AddScoped<IFooFightersServiceApiClient, FooFightersServiceApiClient>();
+            services.AddScoped<IGuitarTabServiceApiClient, GuitarTabServiceApiClient>();
+            services.AddScoped<IWorldCupServiceApiClient, WorldCupServiceApiClient>();
+            services.AddScoped<ISteamServiceApiClient, SteamServiceApiClient>();
+            services.AddScoped<IITunesServiceApiClient, ITunesServiceApiClient>();
+            services.AddScoped<IMandMCounterServiceApiClient, MandMCounterServiceApiClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

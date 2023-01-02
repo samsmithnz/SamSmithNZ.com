@@ -8,9 +8,9 @@ namespace SamSmithNZ.Web.Controllers
 {
     public class MandMCounterController : Controller
     {
-        private readonly IMandMCounterServiceAPIClient _ServiceApiClient;
+        private readonly IMandMCounterServiceApiClient _ServiceApiClient;
 
-        public MandMCounterController(IMandMCounterServiceAPIClient ServiceApiClient)
+        public MandMCounterController(IMandMCounterServiceApiClient ServiceApiClient)
         {
             _ServiceApiClient = ServiceApiClient;
         }

@@ -9,9 +9,9 @@ namespace SamSmithNZ.Web.Controllers
 {
     public class WorldCupController : Controller
     {
-        private readonly IWorldCupServiceAPIClient _ServiceApiClient;
+        private readonly IWorldCupServiceApiClient _ServiceApiClient;
 
-        public WorldCupController(IWorldCupServiceAPIClient ServiceApiClient)
+        public WorldCupController(IWorldCupServiceApiClient ServiceApiClient)
         {
             _ServiceApiClient = ServiceApiClient;
         }

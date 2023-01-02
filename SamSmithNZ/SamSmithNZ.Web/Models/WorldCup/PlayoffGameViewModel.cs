@@ -59,7 +59,7 @@ namespace SamSmithNZ.Web.Models.WorldCup
             this.ScoreDetailsTDName = scoreDetailsName;
         }
 
-        private Playoff GetPlayoff(int gameNumber, List<Playoff> playoffs)
+        private static Playoff GetPlayoff(int gameNumber, List<Playoff> playoffs)
         {
             Playoff result = null;
             foreach (Playoff playoff in playoffs)

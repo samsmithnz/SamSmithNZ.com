@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Web.Services.Interfaces
 {
-    public interface IGuitarTabServiceAPIClient
+    public interface IGuitarTabServiceApiClient
     {
 
         Task<List<Album>> GetAlbums(bool isAdmin);

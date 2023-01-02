@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Web.Services.Interfaces
 {
-    public interface IITunesServiceAPIClient
+    public interface IITunesServiceApiClient
     {
         Task<List<Movement>> GetMovementsByPlaylist(int playlistCode, bool showJustSummary);
         Task<List<Movement>> GetMovementsSummary(bool showJustSummary);

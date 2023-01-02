@@ -9,9 +9,9 @@ namespace SamSmithNZ.Web.Controllers
 {
     public class FooFightersController : Controller
     {
-        private readonly IFooFightersServiceAPIClient _ServiceApiClient;
+        private readonly IFooFightersServiceApiClient _ServiceApiClient;
 
-        public FooFightersController(IFooFightersServiceAPIClient ServiceApiClient)
+        public FooFightersController(IFooFightersServiceApiClient ServiceApiClient)
         {
             _ServiceApiClient = ServiceApiClient;
         }
