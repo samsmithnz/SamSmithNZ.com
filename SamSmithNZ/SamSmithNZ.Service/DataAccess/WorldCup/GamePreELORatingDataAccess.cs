@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.DataAccess.WorldCup
 {
-    public class GamePreELORatingDataAccess : BaseDataAccess<GamePreELORating>, IGamePreELORatingDataAccess
+    public class GamePreEloRatingDataAccess : BaseDataAccess<GamePreELORating>, IGamePreELORatingDataAccess
     {
-        public GamePreELORatingDataAccess(IConfiguration configuration)
+        public GamePreEloRatingDataAccess(IConfiguration configuration)
         {
             base.SetupConnectionString(configuration);
         }

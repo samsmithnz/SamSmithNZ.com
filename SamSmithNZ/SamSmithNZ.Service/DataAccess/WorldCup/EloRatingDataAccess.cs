@@ -57,7 +57,7 @@ namespace SamSmithNZ.Service.DataAccess.WorldCup
             }
 
             //2. Retrieve the pre-ELO rating, either from the tournament or the previous game
-            GamePreELORatingDataAccess da2 = new(_configuration);
+            GamePreEloRatingDataAccess da2 = new(_configuration);
             GamePreELORating gamePreELORating = await da2.GetGamePreELORatings(tournamentCode, game.GameCode);
             game.Team1PreGameEloRating = gamePreELORating.Team1PreELORating;
             game.Team2PreGameEloRating = gamePreELORating.Team2PreELORating;
