@@ -127,7 +127,7 @@ namespace SamSmithNZ.Service.DataAccess.Base
             return result;
         }
 
-        private string DebugSQLString(string sp, DynamicParameters parameters = null)
+        private static string DebugSQLString(string sp, DynamicParameters parameters = null)
         {
             StringBuilder sb = new();
             sb.Append("exec ");
