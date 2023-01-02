@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Web.Services
 {
-    public class SteamServiceApiClient : BaseServiceApiClient, ISteamServiceAPIClient
+    public class SteamServiceApiClient : BaseServiceApiClient, ISteamServiceApiClient
     {
         private readonly IConfiguration _configuration;
 

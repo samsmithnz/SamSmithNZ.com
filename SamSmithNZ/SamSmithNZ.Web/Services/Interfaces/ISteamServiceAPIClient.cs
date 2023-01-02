@@ -6,7 +6,7 @@ using SamSmithNZ.Service.Models.Steam;
 
 namespace SamSmithNZ.Web.Services.Interfaces
 {
-    public interface ISteamServiceAPIClient
+    public interface ISteamServiceApiClient
     {
         Task<Player> GetPlayer(string steamID);
         Task<List<Game>> GetPlayerGames(string steamID);
