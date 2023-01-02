@@ -1,19 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SamSmithNZ.Service.DataAccess.WorldCup.Interfaces;
-using SamSmithNZ.Service.Models.WorldCup;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SamSmithNZ.Service.Controllers.WorldCup
 {
     [Route("api/WorldCup/[controller]")]
     [ApiController]
-    public class ELORatingController : ControllerBase
+    public class EloRatingController : ControllerBase
     {
         private readonly IEloRatingDataAccess _repo;
         private readonly IGameDataAccess _gamesRepo;
 
-        public ELORatingController(IEloRatingDataAccess repo, IGameDataAccess gamesRepo)
+        public EloRatingController(IEloRatingDataAccess repo, IGameDataAccess gamesRepo)
         {
             _repo = repo;
             _gamesRepo = gamesRepo;
