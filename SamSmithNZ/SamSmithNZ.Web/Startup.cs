@@ -31,7 +31,7 @@ namespace SamSmithNZ.Web
             //Add DI for the service api client 
             services.AddScoped<IFooFightersServiceApiClient, FooFightersServiceApiClient>();
             services.AddScoped<IGuitarTabServiceApiClient, GuitarTabServiceApiClient>();
-            services.AddScoped<IWorldCupServiceAPIClient, WorldCupServiceApiClient>();
+            services.AddScoped<IWorldCupServiceApiClient, WorldCupServiceApiClient>();
             services.AddScoped<ISteamServiceApiClient, SteamServiceApiClient>();
             services.AddScoped<IITunesServiceApiClient, ITunesServiceApiClient>();
             services.AddScoped<IMandMCounterServiceApiClient, MandMCounterServiceApiClient>();

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SamSmithNZ.Web.Services.Interfaces
 {
-    public interface IWorldCupServiceAPIClient
+    public interface IWorldCupServiceApiClient
     {
         Task<bool> RefreshTournamentELORatings(int tournamentCode);
         Task<List<Game>> GetGames(int tournamentCode, int roundNumber, string roundCode, bool includeGoals);
