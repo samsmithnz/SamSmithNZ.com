@@ -49,7 +49,15 @@ namespace SamSmithNZ.Web.Services
             //This is to disguise the isadmin from logs unless it's being used (avoid isadmin=false)
             if (isAdmin == true)
             {
-                urlPath += "?isAdmin=" + isAdmin;
+                if (urlPath.IndexOf("?")>=0)
+                {
+                    urlPath += "&";
+                }
+                else
+                {
+                    urlPath += "?";
+                }
+                urlPath += "isAdmin=" + isAdmin;
             }
 
             Uri url = new(urlPath, UriKind.Relative);
