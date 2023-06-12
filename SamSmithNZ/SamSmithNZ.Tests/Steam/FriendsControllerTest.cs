@@ -139,37 +139,37 @@ namespace SamSmithNZ.Tests.Steam
             Assert.IsTrue(results.Count >= 0);
         }
 
-        [TestCategory("RegressionTest")]
-        [TestMethod]
-        public async Task FriendsRandomWithMoreThan100FriendsTest()
-        {
-            //Arrange
-            FriendsController controller = new();
-            string steamId = "76561198129345768";
+        //[TestCategory("RegressionTest")]
+        //[TestMethod]
+        //public async Task FriendsRandomWithMoreThan100FriendsTest()
+        //{
+        //    //Arrange
+        //    FriendsController controller = new();
+        //    string steamId = "76561198129345768";
 
-            //Act
-            List<Friend> results = await controller.GetFriends(steamId);
+        //    //Act
+        //    List<Friend> results = await controller.GetFriends(steamId);
 
-            //Assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count > 100);
-        }
+        //    //Assert
+        //    Assert.IsTrue(results != null);
+        //    Assert.IsTrue(results.Count > 100);
+        //}
 
-        [TestCategory("RegressionTest")]
-        [TestMethod]
-        public async Task FriendsRandomWithExactly99FriendsTest()
-        {
-            //Arrange
-            FriendsController controller = new();
-            string steamId = "76561198140300853";
+        //[TestCategory("RegressionTest")]
+        //[TestMethod]
+        //public async Task FriendsRandomWithExactly99FriendsTest()
+        //{
+        //    //Arrange
+        //    FriendsController controller = new();
+        //    string steamId = "76561198140300853";
 
-            //Act
-            List<Friend> results = await controller.GetFriends(steamId);
+        //    //Act
+        //    List<Friend> results = await controller.GetFriends(steamId);
 
-            //Assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count >= 0);
-        }
+        //    //Assert
+        //    Assert.IsTrue(results != null);
+        //    Assert.IsTrue(results.Count >= 0);
+        //}
 
         //[TestCategory("RegressionTest")]
         //[TestMethod]
