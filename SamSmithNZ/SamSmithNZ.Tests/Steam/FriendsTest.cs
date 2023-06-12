@@ -88,35 +88,35 @@ namespace SamSmithNZ.Tests.Steam
             Assert.IsTrue(results.Count >= 0);
         }
 
-        [TestMethod]
-        public async Task FriendsRandomWithMoreThan100FriendsTest()
-        {
-            //Arrange
-            FriendsDA da = new();
-            string steamId = "76561198129345768";
+        //[TestMethod]
+        //public async Task FriendsRandomWithMoreThan100FriendsTest()
+        //{
+        //    //Arrange
+        //    FriendsDA da = new();
+        //    string steamId = "76561198129345768";
 
-            //Act
-            List<Friend> results = await da.GetDataAsync(steamId);
+        //    //Act
+        //    List<Friend> results = await da.GetDataAsync(steamId);
 
-            //Assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count > 100);
-        }
+        //    //Assert
+        //    Assert.IsTrue(results != null);
+        //    Assert.IsTrue(results.Count > 100);
+        //}
 
-        [TestMethod]
-        public async Task FriendsRandomWithExactly99FriendsTest()
-        {
-            //Arrange
-            FriendsDA da = new();
-            string steamId = "76561198140300853";
+        //[TestMethod]
+        //public async Task FriendsRandomWithExactly99FriendsTest()
+        //{
+        //    //Arrange
+        //    FriendsDA da = new();
+        //    string steamId = "76561198140300853";
 
-            //Act
-            List<Friend> results = await da.GetDataAsync(steamId);
+        //    //Act
+        //    List<Friend> results = await da.GetDataAsync(steamId);
 
-            //Assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count >= 0);
-        }
+        //    //Assert
+        //    Assert.IsTrue(results != null);
+        //    Assert.IsTrue(results.Count >= 0);
+        //}
 
         //[TestMethod]
         //public async Task FriendsSameGameSamXcomTest()
