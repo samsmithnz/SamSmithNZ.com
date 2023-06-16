@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.Extensions.Configuration;
+
 namespace SamSmithNZ.ExportGuitarTab.Console
 {
     internal class Program
@@ -13,6 +15,12 @@ namespace SamSmithNZ.ExportGuitarTab.Console
                 Directory.CreateDirectory(targetDirectory);
             }
 
+            //Load the appsettings.json configuration file
+            IConfigurationBuilder? builder = new ConfigurationBuilder()
+                 .SetBasePath(Directory.GetCurrentDirectory())
+                 .AddJsonFile("appsettings.json", optional: false)
+                 .AddUserSecrets<Program>(true);
+            IConfigurationRoot configuration = builder.Build();
 
 
             TimeSpan timeSpan = DateTime.Now - startTime;
