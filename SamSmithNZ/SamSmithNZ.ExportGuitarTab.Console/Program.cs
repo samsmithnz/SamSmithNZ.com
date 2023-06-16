@@ -24,9 +24,7 @@ namespace SamSmithNZ.ExportGuitarTab.Console
             IConfigurationRoot configuration = builder.Build();
 
             //Get all artists and their albums
-            //ArtistDataAccess artistDataAccess = new(configuration);
             AlbumDataAccess albumDataAccess = new(configuration);
-            //List<Artist> artists = await artistDataAccess.GetList(true, true);
             List<Album> albums = await albumDataAccess.GetList(true);
 
             foreach (Album album in albums)
