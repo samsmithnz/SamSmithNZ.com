@@ -1,13 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using SamSmithNZ.Service.DataAccess.GuitarTab;
-using SamSmithNZ.Service.DataAccess.ITunes;
 using SamSmithNZ.Service.Models.GuitarTab;
 
 namespace SamSmithNZ.ExportGuitarTab.Console
 {
     internal class Program
     {
-        static async Task Main(string[] args)
+        private async static Task Main()
         {
             DateTime startTime = DateTime.Now;
             string targetDirectory = @"c:\temp\GuitarTab";
@@ -83,7 +82,7 @@ namespace SamSmithNZ.ExportGuitarTab.Console
             }
 
             TimeSpan timeSpan = DateTime.Now - startTime;
-            System.Console.WriteLine($"Processing completed in {timeSpan.TotalSeconds.ToString()} seconds");
+            System.Console.WriteLine($"Processing completed in {timeSpan.TotalSeconds} seconds");
         }
 
         private static string StripOutInvalidWindowsNaming(string name)
