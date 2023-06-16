@@ -40,7 +40,12 @@ namespace SamSmithNZ.ExportGuitarTab.Console
                 //strip out invalid file name characters
                 string artistName = StripOutInvalidWindowsNaming(album.ArtistName);
                 string albumName = StripOutInvalidWindowsNaming(album.AlbumName);
-                string albumDirectory = targetDirectory + "\\" + artistName + "\\" + albumName;
+                string isBassAlbum = "";
+                if (album.IsBassTab == true)
+                {
+                    isBassAlbum = "_Bass";
+                }
+                string albumDirectory = targetDirectory + "\\" + artistName + "\\" + albumName + isBassAlbum;
                 if (Directory.Exists(albumDirectory) == false)
                 {
                     System.Console.WriteLine($"Creating new directory '{albumDirectory}'");
