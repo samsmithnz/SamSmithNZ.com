@@ -73,7 +73,7 @@ namespace SamSmithNZ.ExportGuitarTab.Console
                     {
                         //Compare the existing file contents with the database contents
                         string existingFileContents = File.ReadAllText(tabFileName);
-                        if (existingFileContents != tab.TabText)
+                        if (existingFileContents != tab.TabText + "\r\n")
                         {
                             System.Console.WriteLine($"Updating file '{tabFileName}'");
                             using (StreamWriter sw = File.CreateText(tabFileName))
