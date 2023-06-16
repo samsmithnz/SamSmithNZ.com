@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamSmithNZ.FFLSetlistScrape
 EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "SamSmithNZ.IaC", "SamSmithNZ.IaC\SamSmithNZ.IaC.deployproj", "{54FF8914-567D-4F04-A30E-869823A55B3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamSmithNZ.ExportGuitarTab.Console", "SamSmithNZ.ExportGuitarTab.Console\SamSmithNZ.ExportGuitarTab.Console.csproj", "{ACC46946-6BAE-4306-8F7E-557B9D93BDFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{54FF8914-567D-4F04-A30E-869823A55B3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54FF8914-567D-4F04-A30E-869823A55B3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54FF8914-567D-4F04-A30E-869823A55B3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACC46946-6BAE-4306-8F7E-557B9D93BDFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC46946-6BAE-4306-8F7E-557B9D93BDFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC46946-6BAE-4306-8F7E-557B9D93BDFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC46946-6BAE-4306-8F7E-557B9D93BDFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +88,7 @@ Global
 		{1155A141-3DF8-4D40-A12B-F28A781C1762} = {A58047F7-CD2E-4F21-B9C7-E5AC3C55EC96}
 		{2EDCE773-4E2F-49B7-BDC3-9BD0C2074F70} = {4D139C7C-B27B-4913-8E69-6CBE51CCC09E}
 		{569CBCC3-301D-4558-A003-4E6CF9414B1B} = {A58047F7-CD2E-4F21-B9C7-E5AC3C55EC96}
+		{ACC46946-6BAE-4306-8F7E-557B9D93BDFA} = {A58047F7-CD2E-4F21-B9C7-E5AC3C55EC96}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4EEAC4BE-79C5-466F-A449-1A01011EBC93}
