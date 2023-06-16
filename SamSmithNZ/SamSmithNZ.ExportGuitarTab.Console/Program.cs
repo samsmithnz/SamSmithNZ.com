@@ -1,10 +1,22 @@
-﻿namespace SamSmithNZ.ExportGuitarTab.Console
+﻿
+namespace SamSmithNZ.ExportGuitarTab.Console
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            DateTime startTime = DateTime.Now;
+            string targetDirectory = @"c:\temp\GuitarTab";
+            if (Directory.Exists(targetDirectory) == false)
+            {
+                System.Console.WriteLine($"Creating new directory '{targetDirectory}'");
+                Directory.CreateDirectory(targetDirectory);
+            }
+
+
+
+            TimeSpan timeSpan = DateTime.Now - startTime;
+            System.Console.WriteLine($"Processing completed in {timeSpan.TotalSeconds.ToString()} seconds");
         }
     }
 }
