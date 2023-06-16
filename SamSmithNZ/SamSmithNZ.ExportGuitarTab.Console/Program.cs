@@ -1,11 +1,13 @@
-﻿
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
+using SamSmithNZ.Service.DataAccess.GuitarTab;
+using SamSmithNZ.Service.DataAccess.ITunes;
+using SamSmithNZ.Service.Models.GuitarTab;
 
 namespace SamSmithNZ.ExportGuitarTab.Console
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             DateTime startTime = DateTime.Now;
             string targetDirectory = @"c:\temp\GuitarTab";
@@ -22,6 +24,68 @@ namespace SamSmithNZ.ExportGuitarTab.Console
                  .AddUserSecrets<Program>(true);
             IConfigurationRoot configuration = builder.Build();
 
+            //Get all artists and their albums
+            //ArtistDataAccess artistDataAccess = new(configuration);
+            AlbumDataAccess albumDataAccess = new(configuration);
+            TabDataAccess tabDataAccess = new(configuration);
+            //List<Artist> artists = await artistDataAccess.GetList(true, true);
+            List<Album> albums = await albumDataAccess.GetList(true);
+
+            foreach (Album album in albums)
+            {
+                System.Console.WriteLine($"Processing album {album.AlbumName}");
+                //Get the tabs in order of track number
+                List<Tab> tabs = await tabDataAccess.GetList(album.AlbumCode, 0);
+
+                //Create the album directory if it doesn't exist
+                string albumDirectory = targetDirectory + "\\" + album.ArtistName + "\\" + album.AlbumName;
+                if (Directory.Exists(albumDirectory) == false)
+                {
+                    System.Console.WriteLine($"Creating new directory '{albumDirectory}'");
+                    Directory.CreateDirectory(albumDirectory);
+                }
+
+                //Create a file for each tab
+                foreach (Tab tab in tabs)
+                {
+                    string tabName = tab.TabName;      
+                    //strip out invalid file name characters
+                    tabName = tabName.Replace(":", "");
+                    tabName = tabName.Replace("?", "");
+                    tabName = tabName.Replace("\"", "");
+                    tabName = tabName.Replace("/", "");
+                    tabName = tabName.Replace("\\", "");
+                    tabName = tabName.Replace("*", "");
+                    tabName = tabName.Replace("<", "");
+                    tabName = tabName.Replace(">", "");
+                    tabName = tabName.Replace("|", "");
+                    string tabFileName = albumDirectory + "\\" + tab.TabOrder.ToString("00") + "." +tabName + ".txt";
+
+                    if (File.Exists(tabFileName) == false)
+                    {
+                        System.Console.WriteLine($"Creating new file '{tabFileName}'");
+                        using (StreamWriter sw = File.CreateText(tabFileName))
+                        {
+                            sw.WriteLine(tab.TabText);
+                        }
+                    }
+                    else
+                    {
+                        //Compare the existing file contents with the database contents
+                        string existingFileContents = File.ReadAllText(tabFileName);
+                        if (existingFileContents != tab.TabText)
+                        {
+                            System.Console.WriteLine($"Updating file '{tabFileName}'");
+                            using (StreamWriter sw = File.CreateText(tabFileName))
+                            {
+                                sw.WriteLine(tab.TabText);
+                            }
+                        }
+                    }
+
+                }
+
+            }
 
             TimeSpan timeSpan = DateTime.Now - startTime;
             System.Console.WriteLine($"Processing completed in {timeSpan.TotalSeconds.ToString()} seconds");
