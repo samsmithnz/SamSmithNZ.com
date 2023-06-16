@@ -31,16 +31,14 @@ namespace SamSmithNZ.ExportGuitarTab.Console
 
             foreach (Album album in albums)
             {
-                if (album.ArtistName == "Foo Fighters")
+                System.Console.WriteLine($"Processing album {album.AlbumName}");
+                await ProcessAlbum(targetDirectory, album, configuration);
+                if (album.BassAlbumCode != 0)
                 {
-                    System.Console.WriteLine($"Processing album {album.AlbumName}");
-                    await ProcessAlbum(targetDirectory, album, configuration);
-                    if (album.BassAlbumCode != 0)
-                    {
-                        System.Console.WriteLine($"Processing bass album {album.AlbumName}");
-                        Album baseAlbum = await albumDataAccess.GetItem(album.BassAlbumCode, true);
-                        await ProcessAlbum(targetDirectory, baseAlbum, configuration);
-                    }
+                    System.Console.WriteLine($"Processing bass album {album.AlbumName}");
+                    Album baseAlbum = await albumDataAccess.GetItem(album.BassAlbumCode, true);
+                    baseAlbum.IsBassTab = true;
+                    await ProcessAlbum(targetDirectory, baseAlbum, configuration);
                 }
             }
 
