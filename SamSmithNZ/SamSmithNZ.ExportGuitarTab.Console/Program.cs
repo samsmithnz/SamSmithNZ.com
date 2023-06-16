@@ -38,7 +38,10 @@ namespace SamSmithNZ.ExportGuitarTab.Console
                 List<Tab> tabs = await tabDataAccess.GetList(album.AlbumCode, 0);
 
                 //Create the album directory if it doesn't exist
-                string albumDirectory = targetDirectory + "\\" + album.ArtistName + "\\" + album.AlbumName;
+                //strip out invalid file name characters
+                string artistName = StripOutInvalidWindowsNaming(album.ArtistName);
+                string albumName = StripOutInvalidWindowsNaming(album.AlbumName);
+                string albumDirectory = targetDirectory + "\\" + artistName + "\\" + albumName;
                 if (Directory.Exists(albumDirectory) == false)
                 {
                     System.Console.WriteLine($"Creating new directory '{albumDirectory}'");
@@ -48,18 +51,10 @@ namespace SamSmithNZ.ExportGuitarTab.Console
                 //Create a file for each tab
                 foreach (Tab tab in tabs)
                 {
-                    string tabName = tab.TabName;      
+                    string tabName = tab.TabName;
                     //strip out invalid file name characters
-                    tabName = tabName.Replace(":", "");
-                    tabName = tabName.Replace("?", "");
-                    tabName = tabName.Replace("\"", "");
-                    tabName = tabName.Replace("/", "");
-                    tabName = tabName.Replace("\\", "");
-                    tabName = tabName.Replace("*", "");
-                    tabName = tabName.Replace("<", "");
-                    tabName = tabName.Replace(">", "");
-                    tabName = tabName.Replace("|", "");
-                    string tabFileName = albumDirectory + "\\" + tab.TabOrder.ToString("00") + "." +tabName + ".txt";
+                    tabName = StripOutInvalidWindowsNaming(tabName);
+                    string tabFileName = albumDirectory + "\\" + tab.TabOrder.ToString("00") + "." + tabName + ".txt";
 
                     if (File.Exists(tabFileName) == false)
                     {
@@ -89,6 +84,20 @@ namespace SamSmithNZ.ExportGuitarTab.Console
 
             TimeSpan timeSpan = DateTime.Now - startTime;
             System.Console.WriteLine($"Processing completed in {timeSpan.TotalSeconds.ToString()} seconds");
+        }
+
+        private static string StripOutInvalidWindowsNaming(string name)
+        {
+            name = name.Replace(":", "");
+            name = name.Replace("?", "");
+            name = name.Replace("\"", "");
+            name = name.Replace("/", "");
+            name = name.Replace("\\", "");
+            name = name.Replace("*", "");
+            name = name.Replace("<", "");
+            name = name.Replace(">", "");
+            name = name.Replace("|", "");
+            return name;
         }
     }
 }
