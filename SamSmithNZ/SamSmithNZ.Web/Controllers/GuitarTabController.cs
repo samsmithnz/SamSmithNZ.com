@@ -60,18 +60,19 @@ namespace SamSmithNZ.Web.Controllers
 
             return View(new SearchViewModel
             {
-                SearchResults = searchResults
+                SearchResults = searchResults,
+                IsAdmin = isAdmin
             });
         }
 
         [HttpPost]
         public IActionResult SearchPost(string txtSearch, bool isAdmin = false)
         {
-            return RedirectToAction("SearchResults",
-               new
-               {
-                   searchText = txtSearch
-               });
+            return RedirectToAction("SearchResults", new
+            {
+                searchText = txtSearch,
+                isAdmin = isAdmin
+            });
         }
 
         public async Task<IActionResult> EditAlbum(int albumCode, bool isAdmin = false)
@@ -82,14 +83,15 @@ namespace SamSmithNZ.Web.Controllers
             return View(new AlbumTabsViewModel
             {
                 Album = album,
-                Tabs = tabs
+                Tabs = tabs,
+                IsAdmin = isAdmin
             });
         }
 
         [HttpPost]
         public async Task<IActionResult> SaveAlbum(int albumCode, string txtArtist, string txtAlbumName, string txtYear,
             bool chkIsBassTab, bool chkIncludeInIndex, bool chkIncludeOnWebsite, bool chkIsMiscCollectionAlbum, bool isAdmin = false)
-            //string txtTrackList)
+        //string txtTrackList)
         {
             Album album = new()
             {
@@ -108,7 +110,7 @@ namespace SamSmithNZ.Web.Controllers
             return RedirectToAction("Album", new
             {
                 albumCode = album.AlbumCode,
-                isAdmin = true
+                isAdmin = isAdmin
             });
         }
 
@@ -123,7 +125,8 @@ namespace SamSmithNZ.Web.Controllers
             {
                 Tab = tab,
                 Rating = tab.Rating == null ? "" : tab.Rating.ToString(),
-                Tuning = tab.TuningCode.ToString()
+                Tuning = tab.TuningCode.ToString(),
+                IsAdmin = isAdmin
             });
         }
 
@@ -145,7 +148,7 @@ namespace SamSmithNZ.Web.Controllers
             return RedirectToAction("EditAlbum", new
             {
                 albumCode = albumCode,
-                isAdmin = true
+                isAdmin = isAdmin
             });
         }
 
@@ -169,7 +172,7 @@ namespace SamSmithNZ.Web.Controllers
             return RedirectToAction("EditAlbum", new
             {
                 albumCode = albumCode,
-                isAdmin = true
+                isAdmin = isAdmin
             });
         }
 
@@ -180,7 +183,7 @@ namespace SamSmithNZ.Web.Controllers
             return RedirectToAction("EditAlbum", new
             {
                 albumCode = albumCode,
-                isAdmin = true
+                isAdmin = isAdmin
             });
         }
 

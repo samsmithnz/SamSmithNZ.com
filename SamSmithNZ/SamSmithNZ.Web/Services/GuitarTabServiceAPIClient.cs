@@ -49,7 +49,7 @@ namespace SamSmithNZ.Web.Services
             //This is to disguise the isadmin from logs unless it's being used (avoid isadmin=false)
             if (isAdmin == true)
             {
-                if (urlPath.IndexOf("?")>=0)
+                if (urlPath.Contains('?', StringComparison.CurrentCulture))
                 {
                     urlPath += "&";
                 }

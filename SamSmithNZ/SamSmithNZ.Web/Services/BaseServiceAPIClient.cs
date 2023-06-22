@@ -91,7 +91,7 @@ namespace SamSmithNZ.Web.Services
                 string responseString = await response.Content.ReadAsStringAsync();
                 if (responseString != null)
                 {
-                    dynamic? jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(responseString);
+                    dynamic jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(responseString);
                     result = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(jsonObj?.ToString());
                 }
             }
