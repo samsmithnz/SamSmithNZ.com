@@ -54,27 +54,28 @@ namespace SamSmithNZ.Web.Controllers
             });
         }
 
-        public async Task<IActionResult> SearchResults(string searchText)
+        public async Task<IActionResult> SearchResults(string searchText, bool isAdmin = false)
         {
             List<Search> searchResults = await _ServiceApiClient.GetSearchResults(searchText);
 
             return View(new SearchViewModel
             {
-                SearchResults = searchResults
+                SearchResults = searchResults,
+                IsAdmin = isAdmin
             });
         }
 
         [HttpPost]
-        public IActionResult SearchPost(string txtSearch)
+        public IActionResult SearchPost(string txtSearch, bool isAdmin = false)
         {
-            return RedirectToAction("SearchResults",
-               new
-               {
-                   searchText = txtSearch
-               });
+            return RedirectToAction("SearchResults", new
+            {
+                searchText = txtSearch,
+                isAdmin = isAdmin
+            });
         }
 
-        public async Task<IActionResult> EditAlbum(int albumCode)
+        public async Task<IActionResult> EditAlbum(int albumCode, bool isAdmin = false)
         {
             Album album = await _ServiceApiClient.GetAlbum(albumCode, true);
             List<Tab> tabs = await _ServiceApiClient.GetTabs(albumCode);
@@ -82,14 +83,15 @@ namespace SamSmithNZ.Web.Controllers
             return View(new AlbumTabsViewModel
             {
                 Album = album,
-                Tabs = tabs
+                Tabs = tabs,
+                IsAdmin = isAdmin
             });
         }
 
         [HttpPost]
         public async Task<IActionResult> SaveAlbum(int albumCode, string txtArtist, string txtAlbumName, string txtYear,
-            bool chkIsBassTab, bool chkIncludeInIndex, bool chkIncludeOnWebsite, bool chkIsMiscCollectionAlbum)
-            //string txtTrackList)
+            bool chkIsBassTab, bool chkIncludeInIndex, bool chkIncludeOnWebsite, bool chkIsMiscCollectionAlbum, bool isAdmin = false)
+        //string txtTrackList)
         {
             Album album = new()
             {
@@ -103,16 +105,16 @@ namespace SamSmithNZ.Web.Controllers
                 IsMiscCollectionAlbum = chkIsMiscCollectionAlbum
             };
 
-            await _ServiceApiClient.SaveAlbum(album);
+            album = await _ServiceApiClient.SaveAlbum(album);
 
             return RedirectToAction("Album", new
             {
-                albumCode = albumCode,
-                isAdmin = true
+                albumCode = album.AlbumCode,
+                isAdmin = isAdmin
             });
         }
 
-        public async Task<IActionResult> EditTab(int tabCode)
+        public async Task<IActionResult> EditTab(int tabCode, bool isAdmin = false)
         {
 
             Tab tab = await _ServiceApiClient.GetTab(tabCode);
@@ -123,12 +125,13 @@ namespace SamSmithNZ.Web.Controllers
             {
                 Tab = tab,
                 Rating = tab.Rating == null ? "" : tab.Rating.ToString(),
-                Tuning = tab.TuningCode.ToString()
+                Tuning = tab.TuningCode.ToString(),
+                IsAdmin = isAdmin
             });
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveTab(int tabCode, int albumCode, string txtTabName, string txtTabText, string txtOrder, string cboRating, string cboTuning)
+        public async Task<IActionResult> SaveTab(int tabCode, int albumCode, string txtTabName, string txtTabText, string txtOrder, string cboRating, string cboTuning, bool isAdmin = false)
         {
             Tab tab = new()
             {
@@ -145,11 +148,11 @@ namespace SamSmithNZ.Web.Controllers
             return RedirectToAction("EditAlbum", new
             {
                 albumCode = albumCode,
-                isAdmin = true
+                isAdmin = isAdmin
             });
         }
 
-        public async Task<IActionResult> AddNewTrack(int albumCode)
+        public async Task<IActionResult> AddNewTrack(int albumCode, bool isAdmin = false)
         {
             //Get the current list of tabs, to establish the last position of the new tab
             List<Tab> tabs = await _ServiceApiClient.GetTabs(albumCode);
@@ -169,18 +172,18 @@ namespace SamSmithNZ.Web.Controllers
             return RedirectToAction("EditAlbum", new
             {
                 albumCode = albumCode,
-                isAdmin = true
+                isAdmin = isAdmin
             });
         }
 
-        public async Task<IActionResult> DeleteTab(int albumCode, int tabCode)
+        public async Task<IActionResult> DeleteTab(int albumCode, int tabCode, bool isAdmin = false)
         {
             await _ServiceApiClient.DeleteTab(tabCode);
 
             return RedirectToAction("EditAlbum", new
             {
                 albumCode = albumCode,
-                isAdmin = true
+                isAdmin = isAdmin
             });
         }
 

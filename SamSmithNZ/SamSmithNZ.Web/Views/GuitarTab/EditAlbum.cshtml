@@ -21,6 +21,11 @@
     {
         year = Model.Album.AlbumYear.ToString();
     }
+    string isAdminString = "";
+    if (Model.IsAdmin == true)
+    {
+        isAdminString = "&IsAdmin=true";
+    }
 }
 
 
@@ -89,11 +94,11 @@
                                             {
                                                 <img src="~/GuitarTab/rating_star0@(item.Rating).gif">
                                             }
-                                            <a href="~/GuitarTab/EditTab?TabCode=@item.TabCode">
+                                            <a href="~/GuitarTab/EditTab?TabCode=@item.TabCode@isAdminString">
                                                 <img src="~/guitartab/pencil.gif" alt="" style="height: 12px; border-width:0;" />
                                             </a>
                                             <span>&nbsp; &nbsp; &nbsp;</span>
-                                            <a href="~/GuitarTab/DeleteTab?AlbumCode=@Model.Album.AlbumCode&TabCode=@item.TabCode" style="text-decoration:none;">
+                                            <a href="~/GuitarTab/DeleteTab?AlbumCode=@Model.Album.AlbumCode&TabCode=@item.TabCode@isAdminString" style="text-decoration:none;">
                                                 <img src="~/guitartab/delete.png" alt="" style="height: 12px;border-width:0;" />
                                             </a>
                                         </li>

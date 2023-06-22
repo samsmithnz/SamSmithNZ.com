@@ -49,7 +49,7 @@ namespace SamSmithNZ.Web.Services
             //This is to disguise the isadmin from logs unless it's being used (avoid isadmin=false)
             if (isAdmin == true)
             {
-                if (urlPath.IndexOf("?")>=0)
+                if (urlPath.Contains('?', StringComparison.CurrentCulture))
                 {
                     urlPath += "&";
                 }
@@ -72,10 +72,10 @@ namespace SamSmithNZ.Web.Services
             }
         }
 
-        public async Task<bool> SaveAlbum(Album item)
+        public async Task<Album> SaveAlbum(Album item)
         {
             Uri url = new($"api/GuitarTab/Album/SaveAlbum", UriKind.Relative);
-            bool result = await base.SaveMessageItem<Album>(url, item);
+            Album result = await base.SaveAndReturnMessageItem<Album>(url, item);
             return result;
         }
 
