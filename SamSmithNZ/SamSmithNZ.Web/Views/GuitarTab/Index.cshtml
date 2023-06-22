@@ -4,6 +4,11 @@
 @{
     ViewBag.Title = "Album List";
     Layout = "~/Views/Shared/_LayoutGuitarTab.cshtml";
+    string isAdminString = "";
+    if (Model.IsAdmin == true)
+    {
+        isAdminString = "&IsAdmin=true";
+    }
 }
 
 <div>
@@ -21,22 +26,22 @@
                         {
                             Album album = artistAlbums[i];
                             <span>
-                                <a href="~/GuitarTab/Album?AlbumCode=@album.AlbumCode">@album.AlbumName</a>
+                                <a href="~/GuitarTab/Album?AlbumCode=@album.AlbumCode@isAdminString">@album.AlbumName</a>
                                 @if (Model.IsAdmin == true)
                                 {
-                                    <a href="~/GuitarTab/EditAlbum?AlbumCode=@album.AlbumCode">
+                                    <a href="~/GuitarTab/EditAlbum?AlbumCode=@album.AlbumCode&IsAdmin=true">
                                         <img src="~/guitartab/pencil.gif" alt="" style="height: 12px; border-width: 0;" />
                                     </a>
                                 }
                                 @if (album.BassAlbumCode > 0)
                                 {
-                                    <a href="~/GuitarTab/Album?AlbumCode=@album.BassAlbumCode">&nbsp;(Bass)</a>
+                                    <a href="~/GuitarTab/Album?AlbumCode=@album.BassAlbumCode@isAdminString">&nbsp;(Bass)</a>
                                 }
                                 @if (Model.IsAdmin == true)
                                 {
                                     if (album.BassAlbumCode > 0)
                                     {
-                                        <a href="~/GuitarTab/EditAlbum?AlbumCode=@album.BassAlbumCode">
+                                        <a href="~/GuitarTab/EditAlbum?AlbumCode=@album.BassAlbumCode&IsAdmin=true">
                                             <img src="~/guitartab/pencil.gif" alt="" style="height: 12px; border-width: 0;" />
                                         </a>
                                     }
