@@ -107,11 +107,21 @@ namespace SamSmithNZ.Web.Controllers
 
             album = await _ServiceApiClient.SaveAlbum(album);
 
-            return RedirectToAction("Album", new
+            if (albumCode == 0)
             {
-                albumCode = album.AlbumCode,
-                isAdmin = isAdmin
-            });
+                return RedirectToAction("Index", new
+                {
+                    isAdmin = isAdmin
+                });
+            }
+            else
+            {
+                return RedirectToAction("Album", new
+                {
+                    albumCode = album.AlbumCode,
+                    isAdmin = isAdmin
+                });
+            }
         }
 
         public async Task<IActionResult> EditTab(int tabCode, bool isAdmin = false)

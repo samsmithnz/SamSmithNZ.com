@@ -104,7 +104,7 @@
                                         </li>
 
                                     }
-                                    <li class="tableofcontentsitem">@Html.ActionLink("Add new track", "AddNewTrack", new { albumCode = @Model.Album.AlbumCode })</li>
+                                    <li class="tableofcontentsitem">@Html.ActionLink("Add new track", "AddNewTrack", new { albumCode = @Model.Album.AlbumCode, isAdmin = @Model.IsAdmin })</li>
                                 </ul>
                             </td>
                         </tr>
