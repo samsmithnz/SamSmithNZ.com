@@ -12,6 +12,11 @@
 }
 
 <div>
+    @if (Model.IsAdmin == true)
+    {
+        <a href="~/GuitarTab/EditAlbum?AlbumCode=0&IsAdmin=true">Add New Album</a>
+    }
+
     <table id="theTable">
         <tbody>
             @foreach (KeyValuePair<Artist, List<Album>> item in Model.ArtistAlbums)
