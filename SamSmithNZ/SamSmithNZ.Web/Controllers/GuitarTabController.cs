@@ -103,11 +103,11 @@ namespace SamSmithNZ.Web.Controllers
                 IsMiscCollectionAlbum = chkIsMiscCollectionAlbum
             };
 
-            await _ServiceApiClient.SaveAlbum(album);
+            album = await _ServiceApiClient.SaveAlbum(album);
 
             return RedirectToAction("Album", new
             {
-                albumCode = albumCode,
+                albumCode = album.AlbumCode,
                 isAdmin = true
             });
         }

@@ -1,9 +1,6 @@
-﻿using SamSmithNZ.Service.Models.FooFighters;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -81,6 +78,24 @@ namespace SamSmithNZ.Web.Services
                 return default;
 #pragma warning restore CS8653 // A default expression introduces a null value for a type parameter.
             }
+        }
+
+        public async Task<T> SaveAndReturnMessageItem<T>(Uri url, T obj)
+        {
+            T result = default;
+            string jsonInString = JsonSerializer.Serialize(obj);
+            StringContent content = new(jsonInString, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _client.PostAsync(url, content);
+            if (response.IsSuccessStatusCode == true)
+            {
+                string responseString = await response.Content.ReadAsStringAsync();
+                if (responseString != null)
+                {
+                    dynamic? jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(responseString);
+                    result = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(jsonObj?.ToString());
+                }
+            }
+            return result;
         }
 
         //The type, R, is different than T. For example, if T is an Album, R is typically a string or int.

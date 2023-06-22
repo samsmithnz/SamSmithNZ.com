@@ -9,7 +9,7 @@ namespace SamSmithNZ.Web.Services.Interfaces
 
         Task<List<Album>> GetAlbums(bool isAdmin);
         Task<Album> GetAlbum(int albumCode, bool isAdmin);
-        Task<bool> SaveAlbum(Album item);
+        Task<Album> SaveAlbum(Album item);
         Task<List<Artist>> GetArtists(bool isAdmin);
         Task<List<Rating>> GetRatings();
         Task<List<Search>> GetSearchResults(string searchText);
