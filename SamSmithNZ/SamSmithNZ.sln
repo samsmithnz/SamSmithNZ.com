@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamSmithNZ.FFLSetlistScrape
 EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "SamSmithNZ.IaC", "SamSmithNZ.IaC\SamSmithNZ.IaC.deployproj", "{54FF8914-567D-4F04-A30E-869823A55B3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamSmithNZ.ExportGuitarTab.Console", "SamSmithNZ.ExportGuitarTab.Console\SamSmithNZ.ExportGuitarTab.Console.csproj", "{ACC46946-6BAE-4306-8F7E-557B9D93BDFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamSmithNZ.ExportGuitarTab.Console", "SamSmithNZ.ExportGuitarTab.Console\SamSmithNZ.ExportGuitarTab.Console.csproj", "{ACC46946-6BAE-4306-8F7E-557B9D93BDFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
