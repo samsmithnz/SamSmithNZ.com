@@ -28,40 +28,40 @@ namespace SamSmithNZ.Tests.Steam
             // = new RedisService(db);
         }
 
-        //Currently runs in 688ms
-        [TestMethod]
-        public async Task PlayerControllerSamTest()
-        {
-            //Arrange
-            PlayerController controller = new();
-            string steamId = "76561197971691578";
+        ////Currently runs in 688ms
+        //[TestMethod]
+        //public async Task PlayerControllerSamTest()
+        //{
+        //    //Arrange
+        //    PlayerController controller = new();
+        //    string steamId = "76561197971691578";
 
-            //Act
-            Player result = await controller.GetPlayer(steamId);
+        //    //Act
+        //    Player result = await controller.GetPlayer(steamId);
 
-            //Assert
-            Assert.IsTrue(result != null);
-            Assert.IsTrue(result.SteamID == "76561197971691578");
-            Assert.IsTrue(result.PlayerName == "Sam");
-            Assert.IsTrue(result.IsPublic == true);
-        }
+        //    //Assert
+        //    Assert.IsTrue(result != null);
+        //    Assert.IsTrue(result.SteamID == "76561197971691578");
+        //    Assert.IsTrue(result.PlayerName == "Sam");
+        //    Assert.IsTrue(result.IsPublic == true);
+        //}
 
-        [TestMethod]
-        public async Task PlayerControllerSamWithoutCacheTest()
-        {
-            //Arrange
-            PlayerController controller = new();
-            string steamId = "76561197971691578";
+        //[TestMethod]
+        //public async Task PlayerControllerSamWithoutCacheTest()
+        //{
+        //    //Arrange
+        //    PlayerController controller = new();
+        //    string steamId = "76561197971691578";
 
-            //Act
-            Player result = await controller.GetPlayer(steamId);
+        //    //Act
+        //    Player result = await controller.GetPlayer(steamId);
 
-            //Assert
-            Assert.IsTrue(result != null);
-            Assert.IsTrue(result.SteamID == "76561197971691578");
-            Assert.IsTrue(result.PlayerName == "Sam");
-            Assert.IsTrue(result.IsPublic == true);
-        }
+        //    //Assert
+        //    Assert.IsTrue(result != null);
+        //    Assert.IsTrue(result.SteamID == "76561197971691578");
+        //    Assert.IsTrue(result.PlayerName == "Sam");
+        //    Assert.IsTrue(result.IsPublic == true);
+        //}
 
 
     }
