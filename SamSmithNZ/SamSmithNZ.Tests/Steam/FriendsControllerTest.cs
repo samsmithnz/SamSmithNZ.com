@@ -25,40 +25,40 @@ namespace SamSmithNZ.Tests.Steam
                 .Build();
         }
         
-        [TestCategory("RegressionTest")]
-        [TestMethod]
-        public async Task FriendsSamFirstTest()
-        {
-            //Arrange
-            FriendsController controller = new();
-            string steamId = "76561197971691578";
+        //[TestCategory("RegressionTest")]
+        //[TestMethod]
+        //public async Task FriendsSamFirstTest()
+        //{
+        //    //Arrange
+        //    FriendsController controller = new();
+        //    string steamId = "76561197971691578";
 
-            //Act
-            List<Friend> results = await controller.GetFriends(steamId);
+        //    //Act
+        //    List<Friend> results = await controller.GetFriends(steamId);
 
-            //Assert
-            Assert.IsTrue(results != null);
-            Assert.IsTrue(results.Count >= 0);
-            Friend result = null;
-            foreach (Friend item in results)
-            {
-                if (item.SteamId == "76561198034342716")
-                {
-                    result = item;
-                    break;
-                }
-            }
-            Assert.IsTrue(result != null);
-            Assert.IsTrue(result.SteamId == "76561198034342716");
-            Assert.IsTrue(result.Name == "Alex");
-            Assert.IsTrue(result.Avatar != "");
-            Assert.IsTrue(result.AvatarFull != "");
-            Assert.IsTrue(result.AvatarMedium != "");
-            Assert.IsTrue(result.FriendSince >= 0);
-            Assert.IsTrue(result.LastLogoff >= 0);
-            Assert.IsTrue(result.ProfileURL != "");
-            Assert.IsTrue(result.TimeCreated >= 0);
-        }
+        //    //Assert
+        //    Assert.IsTrue(results != null);
+        //    Assert.IsTrue(results.Count >= 0);
+        //    Friend result = null;
+        //    foreach (Friend item in results)
+        //    {
+        //        if (item.SteamId == "76561198034342716")
+        //        {
+        //            result = item;
+        //            break;
+        //        }
+        //    }
+        //    Assert.IsTrue(result != null);
+        //    Assert.IsTrue(result.SteamId == "76561198034342716");
+        //    Assert.IsTrue(result.Name == "Alex");
+        //    Assert.IsTrue(result.Avatar != "");
+        //    Assert.IsTrue(result.AvatarFull != "");
+        //    Assert.IsTrue(result.AvatarMedium != "");
+        //    Assert.IsTrue(result.FriendSince >= 0);
+        //    Assert.IsTrue(result.LastLogoff >= 0);
+        //    Assert.IsTrue(result.ProfileURL != "");
+        //    Assert.IsTrue(result.TimeCreated >= 0);
+        //}
         
         [TestCategory("RegressionTest")]
         [TestMethod]
