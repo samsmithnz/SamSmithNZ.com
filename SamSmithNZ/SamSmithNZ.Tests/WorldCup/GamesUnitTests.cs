@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using NSubstitute;
 using SamSmithNZ.Service.Controllers.WorldCup;
 using SamSmithNZ.Service.DataAccess.WorldCup.Interfaces;
 using SamSmithNZ.Service.Models.WorldCup;
@@ -17,9 +17,9 @@ namespace SamSmithNZ.Tests.WorldCup
         public async Task GamesUnitTest()
         {
             //arrange
-            Mock<IGameDataAccess> mock = new();
-            mock.Setup(repo => repo.GetList(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<bool>())).Returns(Task.FromResult(GetGamesTestData()));
-            GameController controller = new(mock.Object);
+            IGameDataAccess mock = Substitute.For<IGameDataAccess>();
+            mock.GetList(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<string>(), Arg.Any<bool>()).Returns(Task.FromResult(GetGamesTestData()));
+            GameController controller = new(mock);
             int tournamentCode = 19;
             int roundNumber = 1;
             string roundCode = "F";

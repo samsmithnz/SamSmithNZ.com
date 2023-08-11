@@ -1,11 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using NSubstitute;
 using SamSmithnNZ.Tests;
 using SamSmithNZ.Service.Controllers.GuitarTab;
-using SamSmithNZ.Service.Controllers.WorldCup;
 using SamSmithNZ.Service.DataAccess.GuitarTab;
 using SamSmithNZ.Service.DataAccess.GuitarTab.Interfaces;
-using SamSmithNZ.Service.DataAccess.WorldCup.Interfaces;
 using SamSmithNZ.Service.Models.GuitarTab;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -21,9 +19,9 @@ namespace SamSmithNZ.Tests.GuitarTab
         public async Task AlbumsExistTest()
         {
             //arrange
-            Mock<IAlbumDataAccess> mock = new();
-            mock.Setup(repo => repo.GetList(It.IsAny<bool>())).Returns(Task.FromResult(GetAlbumsTestData()));
-            AlbumController controller = new(mock.Object);
+            IAlbumDataAccess mock = Substitute.For<IAlbumDataAccess>();
+            mock.GetList(Arg.Any<bool>()).Returns(Task.FromResult(GetAlbumsTestData()));
+            AlbumController controller = new(mock);
 
             //act
             List<Album> results = await controller.GetAlbums(true);
