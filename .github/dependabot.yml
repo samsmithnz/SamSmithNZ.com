@@ -21,6 +21,10 @@ updates:
   open-pull-requests-limit: 10
   assignees:
     - "samsmithnz"
+  groups:
+    service: 
+      patterns: ["*"]
+      update-types: ["minor","patch"]
 - package-ecosystem: nuget
   directory: "/SamSmithNZ/SamSmithNZ.Web"
   registries:
@@ -33,6 +37,10 @@ updates:
   open-pull-requests-limit: 10
   assignees:
     - "samsmithnz"
+  groups:
+    web: 
+      patterns: ["*"]
+      update-types: ["minor","patch"]
 - package-ecosystem: nuget
   directory: "/SamSmithNZ/SamSmithNZ.Tests"
   registries:
@@ -45,6 +53,10 @@ updates:
   open-pull-requests-limit: 10
   assignees:
     - "samsmithnz"
+  groups:
+    tests: 
+      patterns: ["*"]
+      update-types: ["minor","patch"]
 - package-ecosystem: nuget
   directory: "/SamSmithNZ/SamSmithNZ.FunctionalTests"
   registries:
@@ -57,11 +69,21 @@ updates:
   open-pull-requests-limit: 10
   assignees:
     - "samsmithnz"
+  groups:
+    functionalTests: 
+      patterns: ["*"]
+      update-types: ["minor","patch"]
 # Maintain dependencies for GitHub Actions
 - package-ecosystem: "github-actions"
   directory: "/"
   schedule:
     interval: "daily"
+    time: "06:00"
+    timezone: America/New_York
   open-pull-requests-limit: 10
   assignees:
   - "samsmithnz"
+  groups:
+    actions: 
+      patterns: ["*"]
+      update-types: ["minor","patch"]
