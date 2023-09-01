@@ -199,6 +199,8 @@ jobs:
         dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
     - name: Build and analyze
       shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
       run: |
         ./.sonar/scanner/dotnet-sonarscanner begin /k:"samsmithnz_SamSmithNZ.com" /o:"samsmithnz-github" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
         dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.PackagesReadPAT_Token }}"
