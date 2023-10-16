@@ -242,7 +242,7 @@ jobs:
         template: SamSmithNZ/SamSmithNZ.IaC/azuredeploy.json
         #parameters: SamSmithNZ/SamSmithNZ.IaC/azuredeploy.parameters.json servers_ssnzdbserver_name="ssnzdbserver"
     - name: 'App Service Deploy: SamSmithNZ web service'
-      uses: Azure/webapps-deploy@v2
+      uses: Azure/webapps-deploy@v3
       with:
         app-name: ssnz-prod-eu-service
         package: service
@@ -250,7 +250,7 @@ jobs:
     - name: Set service secrets #--slot staging 
       run: az webapp config appsettings set --name "ssnz-prod-eu-service" --resource-group "SamSmithNZ.com" --settings "ConnectionStrings:DefaultConnectionString=${{ secrets.SQL_CONNECTIONSTRING }}" "CacheConnection=${{ secrets.REDIS_CONNECTIONSTRING }}"
     - name: 'App Service Deploy: SamSmithNZ website'
-      uses: Azure/webapps-deploy@v2
+      uses: Azure/webapps-deploy@v3
       with:
         app-name: ssnz-prod-eu-web
         package: web
