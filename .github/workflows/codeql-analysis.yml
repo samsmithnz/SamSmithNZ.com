@@ -56,11 +56,11 @@ jobs:
       if: matrix.language == 'javascript'
       uses: github/codeql-action/autobuild@v2
 
-    - name: Install .NET 7 SDK
+    - name: Install .NET SDK
       if: matrix.language == 'csharp'
       uses: actions/setup-dotnet@v3.2.0
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: Build web projects
       if: matrix.language == 'csharp'
       run: |

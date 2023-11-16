@@ -10,7 +10,7 @@ registries:
     url: https://api.nuget.org/v3/index.json
 updates:
 - package-ecosystem: nuget
-  directory: "/SamSmithNZ/SamSmithNZ.Service"
+  directory: "/src/SamSmithNZ.Service"
   registries:
     - nuget-github
     - nuget-org
@@ -26,7 +26,7 @@ updates:
       patterns: ["*"]
       update-types: ["minor","patch"]
 - package-ecosystem: nuget
-  directory: "/SamSmithNZ/SamSmithNZ.Web"
+  directory: "/src/SamSmithNZ.Web"
   registries:
     - nuget-github
     - nuget-org
@@ -42,7 +42,7 @@ updates:
       patterns: ["*"]
       update-types: ["minor","patch"]
 - package-ecosystem: nuget
-  directory: "/SamSmithNZ/SamSmithNZ.Tests"
+  directory: "/src/SamSmithNZ.Tests"
   registries:
     - nuget-github
     - nuget-org
@@ -58,7 +58,7 @@ updates:
       patterns: ["*"]
       update-types: ["minor","patch"]
 - package-ecosystem: nuget
-  directory: "/SamSmithNZ/SamSmithNZ.FunctionalTests"
+  directory: "/src/SamSmithNZ.FunctionalTests"
   registries:
     - nuget-github
     - nuget-org

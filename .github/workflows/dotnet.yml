@@ -8,7 +8,7 @@ on:
   merge_group:
   workflow_dispatch:
 env:
-  dotNetVersion: net7.0
+  dotNetVersion: net8.0
   dotNetConfiguration: Release
   runtimeTarget: win-x64
 permissions:
@@ -20,20 +20,20 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Install .NET 7 SDK
+    - name: Install .NET SDK
       uses: actions/setup-dotnet@v3.2.0
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: Publish web projects
       run: |
         dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.PackagesReadPAT_Token }}" --store-password-in-clear-text
-        dotnet restore SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
-        dotnet publish SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/service #--runtime ${{env.runtimeTarget}} 
-   #dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web -p:Version='${{ steps.gitversion.outputs.SemVer }}' #--runtime ${{env.runtimeTarget}} 
+        dotnet restore src/SamSmithNZ.Service/SamSmithNZ.Service.csproj
+        dotnet publish src/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/service #--runtime ${{env.runtimeTarget}} 
+   #dotnet publish src/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web -p:Version='${{ steps.gitversion.outputs.SemVer }}' #--runtime ${{env.runtimeTarget}} 
    # - name: Build utility dotnet projects
    #   run: |
-   #     dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
-   #     dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+   #     dotnet build src/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
+   #     dotnet build src/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
     #Publish all artifacts
     - name: Publish webapi Artifact
       uses: actions/upload-artifact@v3
@@ -64,14 +64,14 @@ jobs:
       run: |
         echo "Version: ${{ steps.gitversion.outputs.SemVer }}"
         echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
-    - name: Install .NET 7 SDK
+    - name: Install .NET SDK
       uses: actions/setup-dotnet@v3.2.0
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: Publish web projects
       run: |
         dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.PackagesReadPAT_Token }}" --store-password-in-clear-text
-        dotnet publish SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web -p:Version=${{ steps.gitversion.outputs.SemVer }}
+        dotnet publish src/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web -p:Version=${{ steps.gitversion.outputs.SemVer }}
     - name: Publish web Artifact
       uses: actions/upload-artifact@v3
       with:
@@ -84,16 +84,16 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Install .NET 7 SDK
+    - name: Install .NET SDK
       uses: actions/setup-dotnet@v3.2.0
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: Publish functional tests project
       run: |
         dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.PackagesReadPAT_Token }}" --store-password-in-clear-text
-        dotnet publish SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64 --no-self-contained
+        dotnet publish src/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64 --no-self-contained
     - name: 'Copy Selenium Files to artifacts folder'
-      run: Copy 'SamSmithNZ/SamSmithNZ.FunctionalTests/bin/Release/net7.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
+      run: Copy 'src/SamSmithNZ.FunctionalTests/bin/Release/net8.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
     - name: Publish web Artifact
       uses: actions/upload-artifact@v3
       with:
@@ -111,13 +111,13 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.3.1
     - name: Build database project
-      run: msbuild 'SamSmithNZ/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'         
+      run: msbuild 'src/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'         
     - name: check directory
-      run: dir "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output"         
+      run: dir "${{ github.workspace }}\src\SamSmithNZ.Database\bin\Output"         
     - name: 'Copy database files to artifacts folder'
       run: |
         mkdir "${{ github.workspace }}\Database" 
-        Copy-Item -Path "${{ github.workspace }}\SamSmithNZ\SamSmithNZ.Database\bin\Output\SamSmithNZ.Database.dacpac" -Destination "${{ github.workspace }}\Database"         
+        Copy-Item -Path "${{ github.workspace }}\src\SamSmithNZ.Database\bin\Output\SamSmithNZ.Database.dacpac" -Destination "${{ github.workspace }}\Database"         
     - name: check directory
       run: dir "${{ github.workspace }}/Database"
     - name: Publish database objects
@@ -134,27 +134,27 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-    - name: Install .NET 7 SDK
+    - name: Install .NET SDK
       uses: actions/setup-dotnet@v3.2.0
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: Variable Substitution appsettings file for tests
       uses: microsoft/variable-substitution@v1
       with:
-        files: 'SamSmithNZ/SamSmithNZ.Tests/appsettings.json'
+        files: 'src/SamSmithNZ.Tests/appsettings.json'
       env:
         ConnectionStrings.DefaultConnectionString: "${{ secrets.SQL_CONNECTIONSTRING }}"
         CacheConnection: "${{ secrets.REDIS_CONNECTIONSTRING }}"  
     - name: Test projects
       run: |
         dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.PackagesReadPAT_Token }}" --store-password-in-clear-text
-        dotnet restore SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj
-        dotnet test SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug --nologo -e:CollectCoverage=true -e:CoverletOutput=TestResults/ -e:CoverletOutputFormat=lcov #-l:"trx;LogFileName=${{ github.workspace }}/TestOutput.xml"
+        dotnet restore src/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj
+        dotnet test src/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj --configuration debug --nologo -e:CollectCoverage=true -e:CoverletOutput=TestResults/ -e:CoverletOutputFormat=lcov #-l:"trx;LogFileName=${{ github.workspace }}/TestOutput.xml"
     - name: Publish coverage report to coveralls.io
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: SamSmithNZ/SamSmithNZ.Tests/TestResults/coverage.info  
+        path-to-lcov: src/SamSmithNZ.Tests/TestResults/coverage.info  
     - uses: samsmithnz/DotNetTestResults@0.1.5 
       if: false
       with:
@@ -174,10 +174,10 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-    - name: Install .NET 7 SDK
+    - name: Install .NET SDK
       uses: actions/setup-dotnet@v3.2.0
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: Cache SonarCloud packages
       uses: actions/cache@v3
       with:
@@ -204,14 +204,14 @@ jobs:
       run: |
         ./.sonar/scanner/dotnet-sonarscanner begin /k:"samsmithnz_SamSmithNZ.com" /o:"samsmithnz-github" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
         dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.PackagesReadPAT_Token }}"
-        dotnet restore SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
-        dotnet build SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
-        dotnet build SamSmithNZ/SamSmithNZ.Web/SamSmithNZ.Web.csproj
-        dotnet build SamSmithNZ/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj
-        dotnet build SamSmithNZ/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj
-        dotnet build SamSmithNZ/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj
-        dotnet build SamSmithNZ/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj
-        dotnet build SamSmithNZ/SamSmithNZ.ExportGuitarTab.Console/SamSmithNZ.ExportGuitarTab.Console.csproj
+        dotnet restore src/SamSmithNZ.Service/SamSmithNZ.Service.csproj
+        dotnet build src/SamSmithNZ.Service/SamSmithNZ.Service.csproj
+        dotnet build src/SamSmithNZ.Web/SamSmithNZ.Web.csproj
+        dotnet build src/SamSmithNZ.Tests/SamSmithNZ.Tests.csproj
+        dotnet build src/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj
+        dotnet build src/SamSmithNZ.WorldCupGoals.WPF/SamSmithNZ.WorldCupGoals.WPF.csproj
+        dotnet build src/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj
+        dotnet build src/SamSmithNZ.ExportGuitarTab.Console/SamSmithNZ.ExportGuitarTab.Console.csproj
         ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
           
 
@@ -239,8 +239,8 @@ jobs:
       uses: azure/arm-deploy@v1
       with:
         resourceGroupName: SamSmithNZ.com
-        template: SamSmithNZ/SamSmithNZ.IaC/azuredeploy.json
-        #parameters: SamSmithNZ/SamSmithNZ.IaC/azuredeploy.parameters.json servers_ssnzdbserver_name="ssnzdbserver"
+        template: src/SamSmithNZ.IaC/azuredeploy.json
+        #parameters: src/SamSmithNZ.IaC/azuredeploy.parameters.json servers_ssnzdbserver_name="ssnzdbserver"
     - name: 'App Service Deploy: SamSmithNZ web service'
       uses: Azure/webapps-deploy@v3
       with:
@@ -293,8 +293,8 @@ jobs:
       uses: azure/arm-deploy@v1
       with:
         resourceGroupName: SamSmithNZ.com
-        template: SamSmithNZ/SamSmithNZ.IaC/azuredeployDB.json
-        parameters: SamSmithNZ/SamSmithNZ.IaC/azuredeployDB.parameters.json servers_ssnzdbserver_name="ssnzdbserver"
+        template: src/SamSmithNZ.IaC/azuredeployDB.json
+        parameters: src/SamSmithNZ.IaC/azuredeployDB.parameters.json servers_ssnzdbserver_name="ssnzdbserver"
     - name: Azure SQL dacpac publish
       uses: azure/sql-action@v2
       with:
@@ -318,10 +318,10 @@ jobs:
       with:
         name: functionalTests
         path: ${{ github.workspace }}
-    - name: Install .NET 7 SDK
+    - name: Install .NET SDK
       uses: actions/setup-dotnet@v3.2.0
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: Run functional smoke tests on website and web service
       run: |
         $vsTestConsoleExe = "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\Common7\\IDE\\Extensions\\TestPlatform\\vstest.console.exe"
