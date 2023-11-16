@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <UserSecretsId>0654185c-b0c0-4dcd-9535-adde55d3f3d6</UserSecretsId>
   </PropertyGroup>
