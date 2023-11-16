@@ -66,7 +66,7 @@ jobs:
       run: |
         dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.PackagesReadPAT_Token }}" --store-password-in-clear-text
         #dotnet restore SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj
-        dotnet build SamSmithNZ/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration Debug /p:UseSharedCompilation=false
+        dotnet build src/SamSmithNZ.Service/SamSmithNZ.Service.csproj --configuration Debug /p:UseSharedCompilation=false
 
 
     # ℹ️ Command-line programs to run using the OS shell.
