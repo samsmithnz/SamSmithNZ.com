@@ -36,7 +36,7 @@ jobs:
    #     dotnet build src/SamSmithNZ.FFLSetlistScraper.WinForms/SamSmithNZ.FFLSetlistScraper.WinForms.csproj --configuration Release --output ${{ github.workspace }} --runtime win-x64
     #Publish all artifacts
     - name: Publish webapi Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: service
         path: ${{ github.workspace }}/service
@@ -73,7 +73,7 @@ jobs:
         dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.PackagesReadPAT_Token }}" --store-password-in-clear-text
         dotnet publish src/SamSmithNZ.Web/SamSmithNZ.Web.csproj --configuration ${{ env.dotNetConfiguration }} --output ${{ github.workspace }}/web -p:Version=${{ steps.gitversion.outputs.SemVer }}
     - name: Publish web Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: web
         path: ${{ github.workspace }}/web
@@ -95,7 +95,7 @@ jobs:
     - name: 'Copy Selenium Files to artifacts folder'
       run: Copy 'src/SamSmithNZ.FunctionalTests/bin/Release/net8.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
     - name: Publish web Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: functionalTests
         path: ${{ github.workspace }}/FunctionalTests
@@ -107,9 +107,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Download the build artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.3.2
+      uses: microsoft/setup-msbuild@v2.0.0
     - name: Build database project
       run: msbuild 'src/SamSmithNZ.Database/SamSmithNZ.Database.sqlproj' /p:configuration='Release' /p:platform='Any CPU'         
     - name: check directory
@@ -121,7 +121,7 @@ jobs:
     - name: check directory
       run: dir "${{ github.workspace }}/Database"
     - name: Publish database objects
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: database
         path: ${{ github.workspace }}/Database
@@ -179,14 +179,14 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Cache SonarCloud packages
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/sonar/cache
         key: ${{ runner.os }}-sonar
         restore-keys: ${{ runner.os }}-sonar
     - name: Cache SonarCloud scanner
       id: cache-sonar-scanner
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ./.sonar/scanner
         key: ${{ runner.os }}-sonar-scanner
@@ -234,7 +234,7 @@ jobs:
       with:
         creds: ${{ secrets.ORG_AZURE_SP }}
     - name: Download the build artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
     - name: deploy website infrastructure as code
       uses: azure/arm-deploy@v1
       with:
@@ -284,7 +284,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Download the build artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
     - name: Azure Login
       uses: azure/login@v1
       with:
@@ -314,7 +314,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Download the build artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: functionalTests
         path: ${{ github.workspace }}
