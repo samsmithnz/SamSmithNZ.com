@@ -54,11 +54,11 @@ jobs:
         fetch-depth: 0 #fetch-depth is needed for GitVersion   
     #Install and calculate the new version with GitVersion  
     - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v0.12.0
+      uses: gittools/actions/gitversion/setup@v1.1.1
       with:
         versionSpec: 5.x
     - name: Determine Version
-      uses: gittools/actions/gitversion/execute@v0.12.0
+      uses: gittools/actions/gitversion/execute@v1.1.1
       id: gitversion # step id used as reference for output values
     - name: Display GitVersion outputs
       run: |
@@ -230,13 +230,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Azure Login
-      uses: azure/login@v1
+      uses: azure/login@v2
       with:
         creds: ${{ secrets.ORG_AZURE_SP }}
     - name: Download the build artifacts
       uses: actions/download-artifact@v4
     - name: deploy website infrastructure as code
-      uses: azure/arm-deploy@v1
+      uses: azure/arm-deploy@v2
       with:
         resourceGroupName: SamSmithNZ.com
         template: src/SamSmithNZ.IaC/azuredeploy.json
@@ -286,7 +286,7 @@ jobs:
     - name: Download the build artifacts
       uses: actions/download-artifact@v4
     - name: Azure Login
-      uses: azure/login@v1
+      uses: azure/login@v2
       with:
         creds: ${{ secrets.ORG_AZURE_SP }}
     - name: deploy database infrastructure as code
@@ -345,15 +345,15 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Azure Login
-      uses: azure/login@v1
+      uses: azure/login@v2
       with:
         creds: ${{ secrets.ORG_AZURE_SP }}
     - name: 'Swap Slots: web service'
-      uses: Azure/cli@v1.0.9
+      uses: Azure/cli@v2.0.0
       with:
         inlineScript: az webapp deployment slot swap --resource-group SamSmithNZ.com --name ssnz-prod-eu-service --slot staging --target-slot production
     - name: 'Swap Slots: web'
-      uses: Azure/cli@v1.0.9
+      uses: Azure/cli@v2.0.0
       with:
         inlineScript: az webapp deployment slot swap --resource-group SamSmithNZ.com --name ssnz-prod-eu-web --slot staging --target-slot production
                     
