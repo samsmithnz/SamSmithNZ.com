@@ -290,7 +290,7 @@ jobs:
       with:
         creds: ${{ secrets.ORG_AZURE_SP }}
     - name: deploy database infrastructure as code
-      uses: azure/arm-deploy@v1
+      uses: azure/arm-deploy@v2
       with:
         resourceGroupName: SamSmithNZ.com
         template: src/SamSmithNZ.IaC/azuredeployDB.json
