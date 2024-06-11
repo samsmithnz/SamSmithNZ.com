@@ -5,12 +5,16 @@
     ViewBag.Title = "";
     Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
 }
-
+<a href="~/WorldCup/Index?CompetitionCode=1">World Cup</a><br />
+<a href="~/WorldCup/Index?CompetitionCode=3">Euros</a><br />
+<a href="~/WorldCup/Index?CompetitionCode=null">All competitions</a><br />
+<br />
 <div class="row">
     <div class="col-md-12">
         <table class="table table-striped table-bordered">
             <tr>
-                @if (Model != null && Model.Tournaments.Count > 0 && Model.Tournaments[0].CompetitionCode == 1)
+                @if (Model != null && Model.Tournaments.Count > 0 && Model.Tournaments[0].CompetitionCode == 1 && 
+                     Model.Tournaments.Count > 1 && Model.Tournaments[1].CompetitionCode == 1)
                 {
                     <th>World Cup</th>
                 }
