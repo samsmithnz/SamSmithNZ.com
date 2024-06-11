@@ -18,7 +18,7 @@ namespace SamSmithNZ.Web.Controllers
 
         public async Task<IActionResult> Index(int? competitionCode = null)
         {
-            competitionCode = 1;
+            //competitionCode = 3;
             List<Tournament> tournaments = await _ServiceApiClient.GetTournaments(competitionCode);
             List<TournamentImportStatus> tournamentsImportStatus = await _ServiceApiClient.GetTournamentsImportStatus(competitionCode);
 
