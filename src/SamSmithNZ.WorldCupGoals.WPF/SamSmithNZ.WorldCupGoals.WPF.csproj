@@ -5,6 +5,7 @@
     <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <UserSecretsId>0654185c-b0c0-4dcd-9535-adde55d3f3d6</UserSecretsId>
+    <ApplicationIcon>Soccer.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +21,7 @@
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Soccer.ico" />
   </ItemGroup>
 
   <ItemGroup>
