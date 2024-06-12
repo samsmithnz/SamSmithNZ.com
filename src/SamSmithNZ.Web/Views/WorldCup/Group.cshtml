@@ -169,7 +169,7 @@
                                             </div>
                                             @if (item.Team1NormalTimeScore == null)
                                             {
-                                                <br />
+                                                @* <br />  we don't need this BR - even though the team 2 has it - it adds an EXTRA new line*@
                                                 <span style="font-size:12px;">@item.Team1ChanceToWin.ToString("0")% to win</span>
                                             }
                                         </div>
