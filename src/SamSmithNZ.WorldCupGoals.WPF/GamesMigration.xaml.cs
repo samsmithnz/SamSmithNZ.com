@@ -40,8 +40,8 @@ namespace SamSmithNZ.WorldCupGoals.WPF
             PlayerDataAccess daPlayer = new(_configuration);
             List<Player> players = await daPlayer.GetPlayersByTournament(_tournamentCode);
 
-            string url = "https://en.wikipedia.org/wiki/2022_FIFA_World_Cup";
-            lblURL.Content = url; 
+            string url = "https://en.wikipedia.org/wiki/UEFA_Euro_2024";
+            lblURL.Content = url;
             HtmlWeb web = new();
             HtmlDocument doc = web.Load(url);
             HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(@"//*[@class=""footballbox""]");
@@ -120,10 +120,10 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 HtmlNode dateNode = parent.ChildNodes[1];
                 string dateText = dateNode.InnerText.Substring(dateNode.InnerText.IndexOf("(") + 1);
                 dateText = dateText.Replace(")", " ").Replace("CEST", "").Replace("EEST", "").Replace("00 &#91;note 1&#93;", "");
-                if (dateText == "2012-06-15 22:")
-                {
-                    dateText = "2012-06-15 22:00";
-                }
+                //if (dateText == "2012-06-15 22:")
+                //{
+                //    dateText = "2012-06-15 22:00";
+                //}
                 DateTime gameDateTime = DateTime.Parse(dateText);
 
                 HtmlNode game = parent.ChildNodes[2];
@@ -133,9 +133,14 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                 int team2Code = GetTeamCode(teams, team2Name);
                 string score = game.SelectSingleNode(game.XPath + "/tbody/tr[1]/th[2]/a")?.InnerText;
                 string[] scores = score.Split("–");
-                int team1NormalTimeScore = int.Parse(scores[0]);
-                int team2NormalTimeScore = int.Parse(scores[1]);
 
+                int? team1NormalTimeScore = null;
+                int? team2NormalTimeScore = null;
+                if (scores.Length == 2)
+                {
+                    team1NormalTimeScore = int.Parse(scores[0]);
+                    team2NormalTimeScore = int.Parse(scores[1]);
+                }
                 HtmlNode locationNode = parent.ChildNodes[3];
                 string location = locationNode.ChildNodes[0].InnerText;
 
@@ -154,7 +159,6 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     Team2NormalTimeScore = team2NormalTimeScore,
                     Location = location
                 };
-
                 _Games.Add(newGame);
 
                 int gameCode = newGame.GameNumber; //use the game number as a proxy until we are able to save the game and get a real code
@@ -186,7 +190,7 @@ namespace SamSmithNZ.WorldCupGoals.WPF
                     }
                 }
 
-                GoalDataAccess goalDA = new(_configuration);
+                //GoalDataAccess goalDA = new(_configuration);
                 //await goalDA.SaveItem(goal);
 
             }
