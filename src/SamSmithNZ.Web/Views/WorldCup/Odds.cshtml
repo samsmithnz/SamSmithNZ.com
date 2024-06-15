@@ -1,0 +1,32 @@
+@model SamSmithNZ.Web.Models.WorldCup.OddsViewModel
+
+@{
+    ViewData["Title"] = "Tournament Odds";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model.Odds != null && Model.Odds.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Team</th>
+                <th>Odds to Win</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Odds)
+            {
+                <tr>
+                    <td>@item.TeamName</td>
+                    <td>@item.CalculatedOdds</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No odds data available.</p>
+}

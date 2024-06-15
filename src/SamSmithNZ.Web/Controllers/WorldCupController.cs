@@ -422,5 +422,17 @@ namespace SamSmithNZ.Web.Controllers
             return View(insightsViewModel);
         }
 
+        public async Task<IActionResult> Odds(int tournamentCode)
+        {
+            List<Odds> odds = await _ServiceApiClient.GetOddsForTournament(tournamentCode);
+
+            OddsViewModel viewModel = new()
+            {
+                Odds = odds
+            };
+
+            return View(viewModel);
+        }
+
     }
 }
