@@ -726,7 +726,33 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public bool ShowPenaltyShootOutLabel { get; set; }
 
-        public bool GameCanEndInADraw { get; set; }
+        private bool? _gameCanEndInDraw = false;
+        public bool GameCanEndInADraw
+        {
+            get
+            {
+                if (_gameCanEndInDraw == null)
+                {
+                    if (RoundCode == "16" ||
+                        RoundCode == "QF" ||
+                        RoundCode == "SF" ||
+                        RoundCode == "3P" ||
+                        RoundCode == "FF")
+                    {
+                        _gameCanEndInDraw = true;
+                    }
+                    else
+                    {
+                        _gameCanEndInDraw = false;
+                    }
+                }
+                return (bool)_gameCanEndInDraw;
+            }
+            set
+            {
+                _gameCanEndInDraw = value;
+            }
+        }
 
     }
 }

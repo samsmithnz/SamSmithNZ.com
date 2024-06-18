@@ -167,6 +167,7 @@ namespace SamSmithNZ.Tests.WorldCup
             game.Team2EloRating = 2000;
             game.Team2PreGameEloRating = 2000;
             game.Team2PostGameEloRating = 2000;
+            game.GameCanEndInADraw = true;
 
             //act
 
