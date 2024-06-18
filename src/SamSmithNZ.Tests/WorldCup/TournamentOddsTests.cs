@@ -53,7 +53,7 @@ namespace SamSmithNZ.Tests.WorldCup
                 }
                 Debug.WriteLine(game.Team1Name + " won " + team1Won + " times, for " + ((double)team1Won / (double)sampleSize).ToString("0.00%") + " of the time against " + game.Team2Name);
                 Debug.WriteLine(game.Team1Name + " drew " + teamDraw + " times, for " + ((double)teamDraw / (double)sampleSize).ToString("0.00%") + " of the time against " + game.Team2Name);
-                Debug.WriteLine(game.Team1Name + " lost " + teamDraw + " times, for " + ((double)team2Won / (double)sampleSize).ToString("0.00%") + " of the time against " + game.Team2Name);
+                Debug.WriteLine(game.Team1Name + " lost " + team2Won + " times, for " + ((double)team2Won / (double)sampleSize).ToString("0.00%") + " of the time against " + game.Team2Name);
                 break;
             }
 
