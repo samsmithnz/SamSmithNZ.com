@@ -31,7 +31,8 @@ namespace SamSmithNZ.Tests.WorldCup
                 int sampleSize = 10000;
                 double team1ChanceToWin = game.Team1ChanceToWin;
                 double team2ChanceToWin = game.Team2ChanceToWin;
-                Debug.WriteLine(game.Team1Name + " has a " + team1ChanceToWin + "% chance to win against " + game.Team2Name);
+                double teamChanceToDraw = game.TeamChanceToDraw;
+                Debug.WriteLine(game.Team1Name + " has a " + team1ChanceToWin + "% chance to win against " + game.Team2Name + ", with a " + teamChanceToDraw + "%chance to draw");
                 for (int i = 0; i < sampleSize; i++)
                 {
                     if (Utility.GenerateRandomNumber(0, 100) < (team1ChanceToWin / 100))

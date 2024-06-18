@@ -188,8 +188,12 @@ namespace SamSmithNZ.Service.Models.WorldCup
                 //_team2ChanceToWin= Math.Round(team2Result, 2);
 
                 double k = 0.2;
-                double drawResult = k / (1 + Math.Pow(10, Math.Abs((double)this.Team1PreGameEloRating - (double)this.Team2PreGameEloRating) / 400.0)) * 100;
-                //_teamChanceToDraw = Math.Round(drawResult, 2);
+                double drawResult = 0;
+                if (this.GameCanEndInADraw == true)
+                {
+                    drawResult = k / (1 + Math.Pow(10, Math.Abs((double)this.Team1PreGameEloRating - (double)this.Team2PreGameEloRating) / 400.0)) * 100;
+                    //_teamChanceToDraw = Math.Round(drawResult, 2);
+                }
 
                 //Normalize the results
                 _team1ChanceToWin = Math.Round(team1Result / (team1Result + team2Result + drawResult) * 100, 2);
@@ -721,6 +725,8 @@ namespace SamSmithNZ.Service.Models.WorldCup
         }
 
         public bool ShowPenaltyShootOutLabel { get; set; }
+
+        public bool GameCanEndInADraw { get; set; }
 
     }
 }
