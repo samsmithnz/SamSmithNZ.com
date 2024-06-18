@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SamSmithNZ.Service.Models.GuitarTab;
+using System;
 
 namespace SamSmithNZ.Service.Models.WorldCup
 {
@@ -102,15 +103,17 @@ namespace SamSmithNZ.Service.Models.WorldCup
         {
             get
             {
-                if (this.Team1PreGameEloRating == null || this.Team2PreGameEloRating == null)
+                if (this.Team1PreGameEloRating != null && this.Team2PreGameEloRating != null)
                 {
-                    return -1;
+                    if (_team1ChanceToWin == -1 || _team2ChanceToWin == -1)
+                    {
+                        CalculateOdds();
+                    }
+                    return _team1ChanceToWin;
                 }
                 else
                 {
-                    //team_a_win_prob = 1.0/(10.0^((team_b - team_a)/400.0) + 1.0)
-                    double result = 1.0 / (Math.Pow(10, (((double)this.Team2PreGameEloRating - (double)this.Team1PreGameEloRating) / 400.0)) + 1.0) * 100;
-                    return Math.Round(result,2);
+                    return -1;
                 }
             }
         }
@@ -119,16 +122,79 @@ namespace SamSmithNZ.Service.Models.WorldCup
         {
             get
             {
-                if (this.Team1PreGameEloRating == null || this.Team2PreGameEloRating == null)
+                if (this.Team1PreGameEloRating != null && this.Team2PreGameEloRating != null)
                 {
-                    return -1;
+                    if (_team1ChanceToWin == -1 || _team2ChanceToWin == -1)
+                    {
+                        CalculateOdds();
+                    }
+                    return _team2ChanceToWin;
                 }
                 else
                 {
-                    //team_a_win_prob = 1.0/(10.0^((team_b - team_a)/400.0) + 1.0)
-                    double result = 1.0 / (Math.Pow(10, (((double)this.Team1PreGameEloRating - (double)this.Team2PreGameEloRating) / 400.0)) + 1.0) * 100;
-                    return Math.Round(result, 2);
+                    return -1;
                 }
+                //if (this.Team1PreGameEloRating == null || this.Team2PreGameEloRating == null)
+                //{
+                //    return -1;
+                //}
+                //else
+                //{
+                //    //team_a_win_prob = 1.0/(10.0^((team_b - team_a)/400.0) + 1.0)
+                //    double result = 1.0 / (Math.Pow(10, (((double)this.Team1PreGameEloRating - (double)this.Team2PreGameEloRating) / 400.0)) + 1.0) * 100;
+                //    return Math.Round(result, 2);
+                //}
+            }
+        }
+
+        public double TeamChanceToDraw
+        {
+            get
+            {
+                if (this.Team1PreGameEloRating != null && this.Team2PreGameEloRating != null)
+                {
+                    if (_team1ChanceToWin == -1 || _team2ChanceToWin == -1)
+                    {
+                        CalculateOdds();
+                    }
+                    return _teamChanceToDraw;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+
+        private double _team1ChanceToWin = -1;
+        private double _team2ChanceToWin = -1;
+        private double _teamChanceToDraw = -1;
+        private void CalculateOdds()
+        {
+            if (this.Team1PreGameEloRating == null || this.Team2PreGameEloRating == null)
+            {
+                _team1ChanceToWin = -1;
+                _team2ChanceToWin = -1;
+                _teamChanceToDraw = -1;
+            }
+            else
+            {
+                //team_a_win_prob = 1.0/(10.0^((team_b - team_a)/400.0) + 1.0)
+                double team1Result = 1.0 / (1 + Math.Pow(10, (((double)this.Team2PreGameEloRating - (double)this.Team1PreGameEloRating) / 400.0))) * 100;
+                //_team1ChanceToWin= Math.Round(team1Result, 2);
+
+                //team_a_win_prob = 1.0/(10.0^((team_b - team_a)/400.0) + 1.0)
+                double team2Result = 1.0 / (1 + Math.Pow(10, (((double)this.Team1PreGameEloRating - (double)this.Team2PreGameEloRating) / 400.0))) * 100;
+                //_team2ChanceToWin= Math.Round(team2Result, 2);
+
+                double k = 0.2;
+                double drawResult = k / (1 + Math.Pow(10, Math.Abs((double)this.Team1PreGameEloRating - (double)this.Team2PreGameEloRating) / 400.0)) * 100;
+                //_teamChanceToDraw = Math.Round(drawResult, 2);
+
+                //Normalize the results
+                _team1ChanceToWin = Math.Round(team1Result / (team1Result + team2Result + drawResult) * 100, 2);
+                _team2ChanceToWin = Math.Round(team2Result / (team1Result + team2Result + drawResult) * 100, 2);
+                _teamChanceToDraw = Math.Round(drawResult / (team1Result + team2Result + drawResult) * 100, 2);
             }
         }
 
