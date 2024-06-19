@@ -173,8 +173,9 @@ namespace SamSmithNZ.Tests.WorldCup
 
             //assert
             Assert.AreEqual(game.Team1ChanceToWin, game.Team2ChanceToWin);
-            Assert.AreEqual(45.45, game.Team1ChanceToWin);
-            Assert.AreEqual(9.09, game.TeamChanceToDraw);
+            Assert.AreEqual(43.48, game.Team1ChanceToWin);
+            Assert.AreEqual(43.48, game.Team2ChanceToWin);
+            Assert.AreEqual(13.04, game.TeamChanceToDraw);
         }
 
         [TestMethod]
