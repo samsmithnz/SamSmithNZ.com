@@ -6,19 +6,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
     public class Game
     {
         public Game() {
-            //If it's a playoff round, the game can't end in a draw
-            if (RoundCode == "16" ||
-                RoundCode == "QF" ||
-                RoundCode == "SF" ||
-                RoundCode == "3P" ||
-                RoundCode == "FF")
-            {
-                GameCanEndInADraw = false;
-            }
-            else
-            {
-                GameCanEndInADraw = true;
-            }
+            CalculateOdds();
         }
 
         public int RowType { get; set; }
@@ -185,6 +173,19 @@ namespace SamSmithNZ.Service.Models.WorldCup
         private double _teamChanceToDraw = -1;
         private void CalculateOdds()
         {
+            //If it's a playoff round, the game can't end in a draw
+            if (RoundCode == "16" ||
+                RoundCode == "QF" ||
+                RoundCode == "SF" ||
+                RoundCode == "3P" ||
+                RoundCode == "FF")
+            {
+                GameCanEndInADraw = false;
+            }
+            else
+            {
+                GameCanEndInADraw = true;
+            }
             if (this.Team1PreGameEloRating == null || this.Team2PreGameEloRating == null)
             {
                 _team1ChanceToWin = -1;
