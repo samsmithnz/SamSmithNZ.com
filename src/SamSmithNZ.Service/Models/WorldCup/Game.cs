@@ -733,17 +733,18 @@ namespace SamSmithNZ.Service.Models.WorldCup
             {
                 if (_gameCanEndInDraw == null)
                 {
+                    //If it's a playoff round, the game can't end in a draw
                     if (RoundCode == "16" ||
                         RoundCode == "QF" ||
                         RoundCode == "SF" ||
                         RoundCode == "3P" ||
                         RoundCode == "FF")
                     {
-                        _gameCanEndInDraw = true;
+                        _gameCanEndInDraw = false;
                     }
                     else
                     {
-                        _gameCanEndInDraw = false;
+                        _gameCanEndInDraw = true;
                     }
                 }
                 return (bool)_gameCanEndInDraw;
