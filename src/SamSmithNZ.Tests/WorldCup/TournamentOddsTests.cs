@@ -28,15 +28,23 @@ namespace SamSmithNZ.Tests.WorldCup
             {
                 int team1Won = 0;
                 int team2Won = 0;
+                int teamDraw = 0;
                 int sampleSize = 10000;
+                game.GameCanEndInADraw = true;
                 double team1ChanceToWin = game.Team1ChanceToWin;
                 double team2ChanceToWin = game.Team2ChanceToWin;
-                Debug.WriteLine(game.Team1Name + " has a " + team1ChanceToWin + "% chance to win against " + game.Team2Name);
+                double teamChanceToDraw = game.TeamChanceToDraw;
+                Debug.WriteLine(game.Team1Name + " has a " + team1ChanceToWin + "% chance to win against " + game.Team2Name + ", with a " + teamChanceToDraw + "% chance to draw");
                 for (int i = 0; i < sampleSize; i++)
                 {
-                    if (Utility.GenerateRandomNumber(0, 100) < (team1ChanceToWin / 100))
+                    double randomNumber = Utility.GenerateRandomNumber(0, 100);
+                    if (randomNumber < team1ChanceToWin )
                     {
                         team1Won++;
+                    }
+                    else if (randomNumber < (team1ChanceToWin + teamChanceToDraw ))
+                    {
+                        teamDraw++;
                     }
                     else
                     {
@@ -44,6 +52,8 @@ namespace SamSmithNZ.Tests.WorldCup
                     }
                 }
                 Debug.WriteLine(game.Team1Name + " won " + team1Won + " times, for " + ((double)team1Won / (double)sampleSize).ToString("0.00%") + " of the time against " + game.Team2Name);
+                Debug.WriteLine(game.Team1Name + " drew " + teamDraw + " times, for " + ((double)teamDraw / (double)sampleSize).ToString("0.00%") + " of the time against " + game.Team2Name);
+                Debug.WriteLine(game.Team1Name + " lost " + team2Won + " times, for " + ((double)team2Won / (double)sampleSize).ToString("0.00%") + " of the time against " + game.Team2Name);
                 break;
             }
 

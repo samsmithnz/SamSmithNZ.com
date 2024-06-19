@@ -90,38 +90,44 @@ namespace SamSmithNZ.Tests.WorldCup
             Service.Models.WorldCup.Game game1 = new();
             game1.Team1PreGameEloRating = argentina;
             game1.Team2PreGameEloRating = croatia;
+            game1.GameCanEndInADraw = false;
             double argentinaChanceToWin1 = game1.Team1ChanceToWin;
-            Assert.AreEqual(59.15, argentinaChanceToWin1);
+            Assert.AreEqual(63.47, argentinaChanceToWin1);
 
             Service.Models.WorldCup.Game game2 = new();
             game2.Team1PreGameEloRating = argentina;
             game2.Team2PreGameEloRating = france;
+            game2.GameCanEndInADraw = false;
             double argentinaChanceToWin2 = game2.Team1ChanceToWin;
-            Assert.AreEqual(39.71, argentinaChanceToWin2);
+            Assert.AreEqual(43.14, argentinaChanceToWin2);
 
             Service.Models.WorldCup.Game game3 = new();
             game3.Team1PreGameEloRating = argentina;
             game3.Team2PreGameEloRating = morrocco;
+            game3.GameCanEndInADraw = false;
             double argentinaChanceToWin3 = game3.Team1ChanceToWin;
-            Assert.AreEqual(48.18, argentinaChanceToWin3);
+            Assert.AreEqual(52.73, argentinaChanceToWin3);
 
             Service.Models.WorldCup.Game game4 = new();
             game4.Team1PreGameEloRating = france;
             game4.Team2PreGameEloRating = croatia;
+            game4.GameCanEndInADraw = false;
             double franceChanceToWin4 = game4.Team1ChanceToWin;
-            Assert.AreEqual(65.62, franceChanceToWin4);
+            Assert.AreEqual(69.61, franceChanceToWin4);
 
             Service.Models.WorldCup.Game game5 = new();
             game5.Team1PreGameEloRating = france;
             game5.Team2PreGameEloRating = morrocco;
+            game5.GameCanEndInADraw = false;
             double franceChanceToWin5 = game5.Team1ChanceToWin;
-            Assert.AreEqual(55.07, franceChanceToWin5);
+            Assert.AreEqual(59.52, franceChanceToWin5);
 
             Service.Models.WorldCup.Game game6 = new();
             game6.Team1PreGameEloRating = croatia;
             game6.Team2PreGameEloRating = morrocco;
+            game6.GameCanEndInADraw = false;
             double croatiaChanceToWin6 = game6.Team1ChanceToWin;
-            Assert.AreEqual(36.26, croatiaChanceToWin6);
+            Assert.AreEqual(39.1, croatiaChanceToWin6);
 
 
             //SF1 (2 paths)

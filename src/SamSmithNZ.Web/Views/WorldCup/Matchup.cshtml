@@ -10,7 +10,7 @@
     <div class="col-md-12">
         <b>@Model.Team1Statistics.Team.TeamName</b> vs <b>@Model.Team2Statistics.Team.TeamName</b>
         @*<ul>
-            <li>Team 1 record: </li>
+        <li>Team 1 record: </li>
         </ul>*@
     </div>
 </div>
@@ -22,37 +22,37 @@
             <tr>
                 <th>Tournament</th>
                 @*
-                    <th>Game #</th>*@
+                <th>Game #</th>*@
                 <th>Game Time</th>
                 <th>Round</th>
                 <th>Group Name</th>
                 @*
-                    <th>Round</th>*@
+                <th>Round</th>*@
                 <th></th>
                 <th>Score</th>
                 <th></th>
                 <th>Location</th>
                 <th>Coach</th>
                 @*
-                    <th>Fifa Ranking</th>*@
+                <th>Fifa Ranking</th>*@
                 @*            <th>Team 1 chance to win</th>
-                    <th>Team 1 Elo Rating</th>
-                    <th>Team 2 Elo Rating</th>
-                    <th>Team 2 chance to win</th>*@
+                <th>Team 1 Elo Rating</th>
+                <th>Team 2 Elo Rating</th>
+                <th>Team 2 chance to win</th>*@
                 @*
-                    <th>@Model.TeamStatistics.Team.TeamName won?</th>*@
+                <th>@Model.TeamStatistics.Team.TeamName won?</th>*@
             </tr>
             @foreach (Game item in Model.Games)
             {
                 <tr>
                     <td>@item.TournamentName</td>
                     @*
-                        <td>@item.GameNumber</td>*@
+                <td>@item.GameNumber</td>*@
                     <td>@item.GameTimeString()</td>
                     <td>@item.RoundNumber</td>
                     <td>@item.RoundName</td>
                     @*
-                        <td>@item.RoundCode</td>*@
+                <td>@item.RoundCode</td>*@
                     <td style="text-align: right;">
                         <div style="overflow: hidden; white-space: nowrap;">
                             <a href="/WorldCup/Team?TeamCode=@item.Team1Code">@item.Team1Name</a>
@@ -62,6 +62,10 @@
                             @if (item.Team1ChanceToWin >= 0)
                             {
                                 <span>Prob to win: @item.Team1ChanceToWin.ToString("0.00")%</span><br />
+                                @if (item.GameCanEndInADraw == true) 
+                                {
+                                    <span>Prob to draw: @item.TeamChanceToDraw.ToString("0.00")%</span><br />
+                                }                    
                             }
                             @if (item.Team1PostGameEloRating == null && item.Team1PreGameEloRating != null)
                             {
@@ -74,7 +78,7 @@
                                     {
                                         <span>+</span>
                                     }
-                                    @(item.Team1PostGameEloRating-item.Team1PreGameEloRating))
+                                    @(item.Team1PostGameEloRating - item.Team1PreGameEloRating))
                                 </span>
                             }
                         </div>
@@ -107,6 +111,10 @@
                             @if (item.Team2ChanceToWin >= 0)
                             {
                                 <span>Prob to win: @item.Team2ChanceToWin.ToString("0.00")%</span><br />
+                                @if (item.GameCanEndInADraw == true) 
+                                {
+                                    <span>Prob to draw: @item.TeamChanceToDraw.ToString("0.00")%</span><br />
+                                }
                             }
                             @if (item.Team2PostGameEloRating == null && item.Team2PreGameEloRating != null)
                             {
@@ -119,26 +127,26 @@
                                     {
                                         <span>+</span>
                                     }
-                                    @(item.Team2PostGameEloRating-item.Team2PreGameEloRating))
+                                    @(item.Team2PostGameEloRating - item.Team2PreGameEloRating))
                                 </span>
                             }
                         </div>
                     </td>
                     @*<td style="background-color: @Model.GetIfFavoriteWonStyle(item.Team1Code, Model.TeamStatistics.Team.TeamCode, item.Team1ChanceToWin, item.Team1ResultWonGame, item.Team2ResultWonGame);">
-                            @if (item.Team1ChanceToWin >= 0)
-                            {
-                                <div>
-                                    @if (item.Team1Code == Model.TeamStatistics.Team.TeamCode)
-                                    {
-                                        <span>@item.Team1OddsStatusText</span>
-                                    }
-                                    @if (item.Team2Code == Model.TeamStatistics.Team.TeamCode)
-                                    {
-                                        <span>@item.Team2OddsStatusText</span>
-                                    }
-                                </div>
-                            }
-                        </td>*@
+                @if (item.Team1ChanceToWin >= 0)
+                {
+                <div>
+                @if (item.Team1Code == Model.TeamStatistics.Team.TeamCode)
+                {
+                <span>@item.Team1OddsStatusText</span>
+                }
+                @if (item.Team2Code == Model.TeamStatistics.Team.TeamCode)
+                {
+                <span>@item.Team2OddsStatusText</span>
+                }
+                </div>
+                }
+                </td>*@
                     <td>@item.Location</td>
                     <td>
                         @if (item.CoachFlag != "")
