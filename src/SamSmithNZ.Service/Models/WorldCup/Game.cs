@@ -5,7 +5,21 @@ namespace SamSmithNZ.Service.Models.WorldCup
 {
     public class Game
     {
-        public Game() { }
+        public Game() {
+            //If it's a playoff round, the game can't end in a draw
+            if (RoundCode == "16" ||
+                RoundCode == "QF" ||
+                RoundCode == "SF" ||
+                RoundCode == "3P" ||
+                RoundCode == "FF")
+            {
+                GameCanEndInADraw = false;
+            }
+            else
+            {
+                GameCanEndInADraw = true;
+            }
+        }
 
         public int RowType { get; set; }
         public int RoundNumber { get; set; }
@@ -187,7 +201,7 @@ namespace SamSmithNZ.Service.Models.WorldCup
                 double team2Result = 1.0 / (1 + Math.Pow(10, (((double)this.Team1PreGameEloRating - (double)this.Team2PreGameEloRating) / 400.0))) * 100;
                 //_team2ChanceToWin= Math.Round(team2Result, 2);
 
-                double k = 0.2;
+                double k = 0.3;
                 double drawResult = 0;
                 if (this.GameCanEndInADraw == true)
                 {
@@ -726,34 +740,8 @@ namespace SamSmithNZ.Service.Models.WorldCup
 
         public bool ShowPenaltyShootOutLabel { get; set; }
 
-        private bool? _gameCanEndInDraw = false;
-        public bool GameCanEndInADraw
-        {
-            get
-            {
-                if (_gameCanEndInDraw == null)
-                {
-                    //If it's a playoff round, the game can't end in a draw
-                    if (RoundCode == "16" ||
-                        RoundCode == "QF" ||
-                        RoundCode == "SF" ||
-                        RoundCode == "3P" ||
-                        RoundCode == "FF")
-                    {
-                        _gameCanEndInDraw = false;
-                    }
-                    else
-                    {
-                        _gameCanEndInDraw = true;
-                    }
-                }
-                return (bool)_gameCanEndInDraw;
-            }
-            set
-            {
-                _gameCanEndInDraw = value;
-            }
-        }
+        public bool GameCanEndInADraw { get; set; }
+
 
     }
 }
