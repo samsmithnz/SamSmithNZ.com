@@ -73,13 +73,18 @@
                             }
                             @if (item.Team1PostGameEloRating != null)
                             {
-                                <span>
-                                    Game ELO: @item.Team1PreGameEloRating -> @item.Team1PostGameEloRating (@if (item.Team1PostGameEloRating - item.Team1PreGameEloRating >= 0)
-                                    {
-                                        <span>+</span>
-                                    }
-                                    @(item.Team1PostGameEloRating - item.Team1PreGameEloRating))
-                                </span>
+                                @if (item.Team1PreGameEloRating == null || item.Team1PreGameEloRating == 0)
+                                {
+                                    <span>Game ELO: @item.Team1PostGameEloRating</span>
+                                }
+                                else if (item.Team1PostGameEloRating > 0)
+                                {
+                                    <span>Game ELO: @item.Team1PreGameEloRating -> @item.Team1PostGameEloRating (@if (item.Team1PostGameEloRating - item.Team1PreGameEloRating >= 0){<span>+</span>}@(item.Team1PostGameEloRating - item.Team1PreGameEloRating))</span>
+                                }
+                                else
+                                {
+                                    <span>Game ELO: @item.Team1PreGameEloRating</span>                              
+                                }
                             }
                         </div>
                     </td>
@@ -122,16 +127,24 @@
                             }
                             @if (item.Team2PostGameEloRating != null)
                             {
-                                <span>
-                                    Game ELO: @item.Team2PreGameEloRating -> @item.Team2PostGameEloRating (@if (item.Team2PostGameEloRating - item.Team2PreGameEloRating >= 0)
-                                    {
-                                        <span>+</span>
-                                    }
-                                    @(item.Team2PostGameEloRating - item.Team2PreGameEloRating))
-                                </span>
+                                @if (item.Team2PreGameEloRating == null || item.Team2PreGameEloRating == 0)
+                                {
+                                    <span>Game ELO: @item.Team2PostGameEloRating</span>
+                                }
+                                else if (item.Team2PostGameEloRating > 0)
+                                {
+                                    <span>Game ELO: @item.Team2PreGameEloRating -> @item.Team2PostGameEloRating (@if (item.Team2PostGameEloRating - item.Team2PreGameEloRating >= 0){<span>+</span>}@(item.Team2PostGameEloRating - item.Team2PreGameEloRating))</span>
+                                } 
+                                else
+                                {
+                                    <span>Game ELO: @item.Team2PreGameEloRating</span>
+                                }
                             }
                         </div>
                     </td>
+
+
+
                     @*<td style="background-color: @Model.GetIfFavoriteWonStyle(item.Team1Code, Model.TeamStatistics.Team.TeamCode, item.Team1ChanceToWin, item.Team1ResultWonGame, item.Team2ResultWonGame);">
                 @if (item.Team1ChanceToWin >= 0)
                 {
