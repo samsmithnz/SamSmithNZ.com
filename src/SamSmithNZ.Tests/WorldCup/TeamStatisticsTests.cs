@@ -57,7 +57,7 @@ namespace SamSmithNZ.Tests.WorldCup
                     Assert.IsTrue(game.GameCanEndInADraw);
                     Assert.AreEqual(89.12, game.Team1ChanceToWin);
                     Assert.AreEqual(8.37, game.Team2ChanceToWin);
-                    Assert.AreEqual(2.5, game.TeamChanceToDraw);
+                    Assert.AreEqual(2.51, game.TeamChanceToDraw);
                 }
 
             }
