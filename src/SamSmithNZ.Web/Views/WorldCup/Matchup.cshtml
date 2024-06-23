@@ -5,13 +5,80 @@
     Layout = "~/Views/Shared/_LayoutWorldCup.cshtml";
 }
 
-<b>Matchup:</b>
 <div class="row">
     <div class="col-md-12">
-        <b>@Model.Team1Statistics.Team.TeamName</b> vs <b>@Model.Team2Statistics.Team.TeamName</b>
-        @*<ul>
-        <li>Team 1 record: </li>
-        </ul>*@
+        <b>@Model.Team1Statistics.Team.TeamName</b> vs <b>@Model.Team2Statistics.Team.TeamName</b> (@Model.Games.Count games)
+        @{
+            int team1Code = 0;
+            string team1Name = "";
+            int team2Code = 0;
+            string team2Name = "";
+            int team1Wins = 0;
+            int team2Wins = 0;
+            int teamDraws = 0;
+            int gamesNotPlayed = 0;
+            if (Model.Games.Count > 0)
+            {
+                if (Model.Team1Statistics.Team.TeamCode == Model.Games[0].Team1Code)
+                {
+                    team1Code = Model.Games[0].Team1Code;
+                    team1Name = Model.Games[0].Team1Name;
+                    team2Code = Model.Games[0].Team2Code;
+                    team2Name = Model.Games[0].Team2Name;
+                }
+                else
+                {
+                    team1Code = Model.Games[0].Team2Code;
+                    team1Name = Model.Games[0].Team2Name;
+                    team2Code = Model.Games[0].Team1Code;
+                    team2Name = Model.Games[0].Team1Name;
+                }
+            }
+        }
+        @foreach (Game item in Model.Games)
+        {
+            if (item.Team1ResultWonGame == true && item.Team1Code == team1Code)
+            {
+                team1Wins++;
+                System.Diagnostics.Debug.WriteLine("Tournament team1 " + team1Name + " wins: " + item.TournamentName + "-" + item.Team1ResultWonGame);
+            }
+            else if (item.Team1ResultWonGame == true && item.Team2Code == team1Code)
+            {
+                team2Wins++;
+                System.Diagnostics.Debug.WriteLine("Tournament team1 " + team1Name + " wins: " + item.TournamentName + "-" + item.Team1ResultWonGame);
+            }
+            else if (item.Team2ResultWonGame == true && item.Team2Code == team2Code)
+            {
+                team2Wins++;
+                System.Diagnostics.Debug.WriteLine("Tournament  team2 " + team2Name + " wins: " + item.TournamentName + "-" + item.Team2ResultWonGame);
+            }
+            else if (item.Team2ResultWonGame == true && item.Team2Code == team1Code)
+            {
+                team1Wins++;
+                System.Diagnostics.Debug.WriteLine("Tournament  team2 " + team2Name + " wins: " + item.TournamentName + "-" + item.Team2ResultWonGame);
+            }
+            else if (item.Team1NormalTimeScore == null)
+            {
+                gamesNotPlayed++;
+            }
+            else
+            {
+                teamDraws++;
+                System.Diagnostics.Debug.WriteLine("Tournament c: " + item.TournamentName);
+            }
+        }
+        @if (Model.Games.Count > 0)
+        {
+            <ul>
+                <li>@team1Name: @team1Wins wins</li>
+                <li>@team2Name: @team2Wins wins</li>
+                <li>@teamDraws draws</li>
+                @if (gamesNotPlayed > 0)
+                {
+                    <li>@gamesNotPlayed game not played</li>
+                }
+            </ul>
+        }
     </div>
 </div>
 <br />
@@ -61,11 +128,15 @@
                         <div style="font-size: 10px; font-weight: bold;">
                             @if (item.Team1ChanceToWin >= 0)
                             {
-                                <span>Prob to win: @item.Team1ChanceToWin.ToString("0.00")%</span><br />
-                                @if (item.GameCanEndInADraw == true) 
+                                <span>Prob to win: @item.Team1ChanceToWin.ToString("0.00")%</span>
+
+                                <br />
+                                @if (item.GameCanEndInADraw == true)
                                 {
-                                    <span>Prob to draw: @item.TeamChanceToDraw.ToString("0.00")%</span><br />
-                                }                    
+                                    <span>Prob to draw: @item.TeamChanceToDraw.ToString("0.00")%</span>
+
+                                    <br />
+                                }
                             }
                             @if (item.Team1PostGameEloRating == null && item.Team1PreGameEloRating != null)
                             {
@@ -73,13 +144,23 @@
                             }
                             @if (item.Team1PostGameEloRating != null)
                             {
-                                <span>
-                                    Game ELO: @item.Team1PreGameEloRating -> @item.Team1PostGameEloRating (@if (item.Team1PostGameEloRating - item.Team1PreGameEloRating >= 0)
-                                    {
-                                        <span>+</span>
-                                    }
-                                    @(item.Team1PostGameEloRating - item.Team1PreGameEloRating))
-                                </span>
+                                @if (item.Team1PreGameEloRating == null || item.Team1PreGameEloRating == 0)
+                                {
+                                    <span>Game ELO: @item.Team1PostGameEloRating</span>
+                                }
+                                else if (item.Team1PostGameEloRating > 0)
+                                {
+                                    <span>
+                                        Game ELO: @item.Team1PreGameEloRating -> @item.Team1PostGameEloRating (@if (item.Team1PostGameEloRating - item.Team1PreGameEloRating >= 0)
+                                        {
+                                            <span>+</span>
+                                        }@(item.Team1PostGameEloRating - item.Team1PreGameEloRating))
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span>Game ELO: @item.Team1PreGameEloRating</span>
+                                }
                             }
                         </div>
                     </td>
@@ -110,10 +191,14 @@
                         <div style="font-size: 10px; font-weight: bold;">
                             @if (item.Team2ChanceToWin >= 0)
                             {
-                                <span>Prob to win: @item.Team2ChanceToWin.ToString("0.00")%</span><br />
-                                @if (item.GameCanEndInADraw == true) 
+                                <span>Prob to win: @item.Team2ChanceToWin.ToString("0.00")%</span>
+
+                                <br />
+                                @if (item.GameCanEndInADraw == true)
                                 {
-                                    <span>Prob to draw: @item.TeamChanceToDraw.ToString("0.00")%</span><br />
+                                    <span>Prob to draw: @item.TeamChanceToDraw.ToString("0.00")%</span>
+
+                                    <br />
                                 }
                             }
                             @if (item.Team2PostGameEloRating == null && item.Team2PreGameEloRating != null)
@@ -122,16 +207,29 @@
                             }
                             @if (item.Team2PostGameEloRating != null)
                             {
-                                <span>
-                                    Game ELO: @item.Team2PreGameEloRating -> @item.Team2PostGameEloRating (@if (item.Team2PostGameEloRating - item.Team2PreGameEloRating >= 0)
-                                    {
-                                        <span>+</span>
-                                    }
-                                    @(item.Team2PostGameEloRating - item.Team2PreGameEloRating))
-                                </span>
+                                @if (item.Team2PreGameEloRating == null || item.Team2PreGameEloRating == 0)
+                                {
+                                    <span>Game ELO: @item.Team2PostGameEloRating</span>
+                                }
+                                else if (item.Team2PostGameEloRating > 0)
+                                {
+                                    <span>
+                                        Game ELO: @item.Team2PreGameEloRating -> @item.Team2PostGameEloRating (@if (item.Team2PostGameEloRating - item.Team2PreGameEloRating >= 0)
+                                        {
+                                            <span>+</span>
+                                        }@(item.Team2PostGameEloRating - item.Team2PreGameEloRating))
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span>Game ELO: @item.Team2PreGameEloRating</span>
+                                }
                             }
                         </div>
                     </td>
+
+
+
                     @*<td style="background-color: @Model.GetIfFavoriteWonStyle(item.Team1Code, Model.TeamStatistics.Team.TeamCode, item.Team1ChanceToWin, item.Team1ResultWonGame, item.Team2ResultWonGame);">
                 @if (item.Team1ChanceToWin >= 0)
                 {
