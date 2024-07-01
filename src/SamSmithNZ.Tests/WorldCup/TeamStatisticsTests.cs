@@ -51,8 +51,8 @@ namespace SamSmithNZ.Tests.WorldCup
                 {
                     Assert.AreEqual(2085, game.Team1PreGameEloRating);
                     Assert.AreEqual(1674, game.Team2PreGameEloRating);
-                    Assert.AreEqual(0, game.Team1PostGameEloRating);
-                    Assert.AreEqual(0, game.Team2PostGameEloRating);
+                    Assert.AreEqual(2044, game.Team1PostGameEloRating);
+                    Assert.AreEqual(1715, game.Team2PostGameEloRating);
                     Assert.AreEqual("D", game.RoundCode);
                     Assert.IsTrue(game.GameCanEndInADraw);
                     Assert.AreEqual(89.12, game.Team1ChanceToWin);
