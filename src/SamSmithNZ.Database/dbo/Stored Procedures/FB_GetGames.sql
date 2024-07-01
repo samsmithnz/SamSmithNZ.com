@@ -203,7 +203,7 @@ BEGIN
 			gl.is_penalty AS IsPenalty, 
 			gl.is_own_goal AS IsOwnGoal, 
 			gl.is_golden_goal AS IsGoldenGoal,
-			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS SortOrder
+			(ISNULL(gl.goal_time,0) * 100) + ISNULL(gl.injury_time,0) AS SortOrder
 		FROM wc_game g 
 		JOIN wc_goal gl ON gl.game_code = g.game_code
 		JOIN wc_player p ON p.player_code = gl.player_code AND g.team_1_code = p.team_code AND gl.is_own_goal = 0
@@ -252,7 +252,7 @@ BEGIN
 			gl.is_penalty AS IsPenalty, 
 			gl.is_own_goal AS IsOwnGoal, 
 			gl.is_golden_goal AS IsGoldenGoal,
-			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS SortOrder
+			(ISNULL(gl.goal_time,0) * 100) + ISNULL(gl.injury_time,0) AS SortOrder
 		FROM wc_game g 
 		JOIN wc_goal gl ON gl.game_code = g.game_code
 		JOIN wc_player p ON p.player_code = gl.player_code AND g.team_2_code = p.team_code AND gl.is_own_goal = 1
@@ -301,7 +301,7 @@ BEGIN
 			gl.is_penalty AS IsPenalty, 
 			gl.is_own_goal AS IsOwnGoal, 
 			gl.is_golden_goal AS IsGoldenGoal,
-			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS sort_order
+			(ISNULL(gl.goal_time,0) * 100) + ISNULL(gl.injury_time,0) AS SortOrder
 		FROM wc_game g 
 		JOIN wc_goal gl ON gl.game_code = g.game_code
 		JOIN wc_player p ON p.player_code = gl.player_code AND g.team_2_code = p.team_code AND gl.is_own_goal = 0
@@ -350,7 +350,7 @@ BEGIN
 			gl.is_penalty AS IsPenalty, 
 			gl.is_own_goal AS IsOwnGoal, 
 			gl.is_golden_goal AS IsGoldenGoal,
-			ISNULL(gl.goal_time,0) + ISNULL(gl.injury_time,0) AS sort_order
+			(ISNULL(gl.goal_time,0) * 100) + ISNULL(gl.injury_time,0) AS SortOrder
 		FROM wc_game g 
 		JOIN wc_goal gl ON gl.game_code = g.game_code
 		JOIN wc_player p ON p.player_code = gl.player_code AND g.team_1_code = p.team_code AND gl.is_own_goal = 1
@@ -398,7 +398,7 @@ BEGIN
 			0 AS IsPenalty, 
 			0 AS IsOwnGoal,  
 			0 AS IsGoldenGoal,
-			penalty_order AS sort_order
+			penalty_order AS SortOrder
 		FROM wc_game g 
 		JOIN wc_penalty_shootout ps ON ps.game_code = g.game_code
 		JOIN wc_player p ON p.player_code = ps.player_code AND g.team_1_code = p.team_code
@@ -446,7 +446,7 @@ BEGIN
 			0 AS IsPenalty, 
 			0 AS IsOwnGoal,  
 			0 AS IsGoldenGoal,
-			penalty_order AS sort_order
+			penalty_order AS SortOrder
 		FROM wc_game g 
 		JOIN wc_penalty_shootout ps ON ps.game_code = g.game_code
 		JOIN wc_player p ON p.player_code = ps.player_code AND g.team_2_code = p.team_code
@@ -460,4 +460,3 @@ BEGIN
 		ORDER BY g.game_time, g.game_number, g.game_code, RowType, SortOrder
 	END
 END
-GO
