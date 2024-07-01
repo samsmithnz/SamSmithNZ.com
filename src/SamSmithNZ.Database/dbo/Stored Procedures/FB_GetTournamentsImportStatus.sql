@@ -14,6 +14,7 @@ BEGIN
 		SUM(g.team_1_normal_time_score) + SUM(ISNULL(g.team_1_extra_time_score,0)) + SUM(g.team_2_normal_time_score) + SUM(ISNULL(g.team_2_extra_time_score,0)) AS TotalGoals,
 		(SELECT COUNT(g5.goal_code) FROM wc_goal g5 JOIN wc_game g6 ON g5.game_code = g6.game_code WHERE g6.tournament_code = t.tournament_code AND g5.is_penalty = 1) AS TotalPenalties,
 		SUM(ISNULL(g.team_1_penalties_score,0)) + SUM(ISNULL(g.team_2_penalties_score,0)) AS TotalShootoutGoals,
+		(SELECT COUNT(g7.goal_code) FROM wc_goal g7 JOIN wc_game g8 ON g7.game_code = g8.game_code WHERE g8.tournament_code = t.tournament_code AND g7.is_own_goal = 1) AS TotalOwnGoals,
 		((tcs.team_percent * 0.25) + (tcs.game_percent * 0.25) + (tcs.player_percent * 0.25) + (tcs.goals_percent * 0.20) + (tcs.penalty_shootout_goals_percent * 0.05)) AS ImportingTotalPercentComplete,
 		tcs.team_percent AS ImportingTeamPercent, 
 		tcs.game_percent AS ImportingGamePercent, 
