@@ -25,9 +25,9 @@
                 <th>Round 1</th>
                 <th>Round 2</th>
                 <th>Round 3</th>
-                <th>Goals per game</th>
                 <th>Goals</th>
                 <th>PK Goals</th>
+                <th>Own Goals</th>
                 <th>Games</th>
                 @*<th>% Data Loaded</th>*@
                 <th>Data Missing</th>
@@ -79,19 +79,17 @@
                         }
                     </td>
                     <td>
-                        @if (item.MinGameTime != null && Model.TournamentsImportStatus[i].TotalGamesCompleted > 0)
-                        {
-                            <span>@(((float)Model.TournamentsImportStatus[i].TotalGoals / (float)Model.TournamentsImportStatus[i].TotalGamesCompleted).ToString("0.00"))</span>
-                        }
-                        @if (Model.TournamentsImportStatus[i].TotalGames > Model.TournamentsImportStatus[i].TotalGamesCompleted && Model.TournamentsImportStatus[i].TotalGamesCompleted > 0)
-                        {
-                            <span> (@Model.TournamentsImportStatus[i].TotalGamesCompleted/@Model.TournamentsImportStatus[i].TotalGames games completed)</span>
-                        }
-                    </td>
-                    <td>
                         @if (item.MinGameTime != null)
                         {
-                            <span>@Model.TournamentsImportStatus[i].TotalGoals</span>
+                            <span>@Model.TournamentsImportStatus[i].TotalGoals goals</span><br />
+                            @if (item.MinGameTime != null && Model.TournamentsImportStatus[i].TotalGamesCompleted > 0)
+                            {
+                                <span>@(((float)Model.TournamentsImportStatus[i].TotalGoals / (float)Model.TournamentsImportStatus[i].TotalGamesCompleted).ToString("0.00")) per game</span>
+                            }
+                            @if (Model.TournamentsImportStatus[i].TotalGames > Model.TournamentsImportStatus[i].TotalGamesCompleted && Model.TournamentsImportStatus[i].TotalGamesCompleted > 0)
+                            {
+                                <span> (@Model.TournamentsImportStatus[i].TotalGamesCompleted/@Model.TournamentsImportStatus[i].TotalGames games completed)</span>
+                            }
                         }
                     </td>
                     <td>
@@ -100,6 +98,7 @@
                             <span>@Model.TournamentsImportStatus[i].TotalPenalties</span>
                         }
                     </td>
+                    <td></td>
                     <td>
                         @if (item.MinGameTime != null)
                         {

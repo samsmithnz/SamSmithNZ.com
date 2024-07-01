@@ -12,6 +12,7 @@
         public int TotalGoals { get; set; }
         public int TotalPenalties { get; set; }
         public int TotalShootoutGoals { get; set; }
+        public int TotalOwnGoals { get; set; }
         public decimal ImportingTotalPercentComplete { get; set; }
         public decimal ImportingTeamPercent { get; set; }
         public decimal ImportingGamePercent { get; set; }
