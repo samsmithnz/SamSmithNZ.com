@@ -8,7 +8,7 @@ on:
   merge_group:
   workflow_dispatch:
 env:
-  dotNetVersion: net8.0
+  dotNetVersion: net9.0
   dotNetConfiguration: Release
   runtimeTarget: win-x64
 permissions:
@@ -93,7 +93,7 @@ jobs:
         dotnet nuget add source "https://nuget.pkg.github.com/SamSmithNZ-dotcom/index.json" --name "githubfeed" --username "samsmithnz@gmail.com" --password "${{ secrets.PackagesReadPAT_Token }}" --store-password-in-clear-text
         dotnet publish src/SamSmithNZ.FunctionalTests/SamSmithNZ.FunctionalTests.csproj --configuration Release --output ${{ github.workspace }}/FunctionalTests --runtime win-x64 --no-self-contained
     - name: 'Copy Selenium Files to artifacts folder'
-      run: Copy 'src/SamSmithNZ.FunctionalTests/bin/Release/net8.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
+      run: Copy 'src/SamSmithNZ.FunctionalTests/bin/Release/net9.0/*chromedriver.exe*' '${{ github.workspace }}/FunctionalTests/SamSmithNZ.FunctionalTests'
     - name: Publish web Artifact
       uses: actions/upload-artifact@v4
       with:
