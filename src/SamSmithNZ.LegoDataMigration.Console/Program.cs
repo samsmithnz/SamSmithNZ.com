@@ -30,15 +30,16 @@ namespace SamSmithNZ.LegoDataMigration.Console
                 string zippedPartsContainerName = "zippedparts";
                 string partsContainerName = "partimages";
 
-                bool uploadCSVFiles = true; //This should normally be on
+                bool uploadCSVFiles = false; //This should normally be on
+                bool downloadPartZips = false; //This should normally be on
                 bool uploadNewPartZips = true; //This should normally be on
                 bool unzipPartsWithHTTPFunction = false; //This should normally be off, it's for debugging
 
 
                 //Confirm that the temp folder can be accessed and is clear
                 if ((uploadCSVFiles == true && LocalFileManagement.DeleteAllSubFoldersInTargetFolder(tempFolderLocationCSVFiles) == false) ||
-                    (uploadNewPartZips == true && LocalFileManagement.DeleteAllSubFoldersInTargetFolder(tempFolderLocationParts) == false) ||
-                    (uploadNewPartZips == true && LocalFileManagement.DeleteAllSubFoldersInTargetFolder(tempFolderLocationPartsUnZipped) == false))
+                    (downloadPartZips == true && uploadNewPartZips == true && LocalFileManagement.DeleteAllSubFoldersInTargetFolder(tempFolderLocationParts) == false) ||
+                    (downloadPartZips == true && uploadNewPartZips == true && LocalFileManagement.DeleteAllSubFoldersInTargetFolder(tempFolderLocationPartsUnZipped) == false))
                 {
                     PressAKeyToExit("Temp folder preparation failed - process aborted");
                 }
@@ -61,17 +62,22 @@ namespace SamSmithNZ.LegoDataMigration.Console
                         await AzureBlobManagement.UploadFilesToStorageAccountBlobs(storageConnectionString, "csvfiles", tempFolderLocationCSVFiles, csvFileNames, false, partsContainerName);
                     }
 
-                    if (uploadNewPartZips == true)
+                    if (uploadNewPartZips == true || downloadPartZips == true)
                     {
                         //Get list of colors from database
                         List<string> colorFiles = GetColorFiles();
 
-                        //Download all files from URL to temp folder
-                        await LocalFileManagement.DownloadFilesToTempFolder(partFilesToDownloadURL, tempFolderLocationParts, colorFiles);
+                        if (downloadPartZips)
+                        {
+                            //Download all files from URL to temp folder
+                            await LocalFileManagement.DownloadFilesToTempFolder(partFilesToDownloadURL, tempFolderLocationParts, colorFiles);
+                        }
 
-                        //Upload zipped files to Azure Blob
-                        await AzureBlobManagement.UploadFilesToStorageAccountBlobs(storageConnectionString, zippedPartsContainerName, tempFolderLocationParts, colorFiles, false, partsContainerName);
-
+                        if (uploadNewPartZips)
+                        {
+                            //Upload zipped files to Azure Blob
+                            await AzureBlobManagement.UploadFilesToStorageAccountBlobs(storageConnectionString, zippedPartsContainerName, tempFolderLocationParts, colorFiles, false, partsContainerName);
+                        }
                     }
 
                     if (unzipPartsWithHTTPFunction == true)
@@ -122,6 +128,17 @@ namespace SamSmithNZ.LegoDataMigration.Console
             csvColorsFile.StringColumns.Add(3);
             csvColorsFile.BooleanColumns.Add(4);
             csvFiles.Add(csvColorsFile);
+
+            //elements.csv
+            CSVFile csvElementsFile = new CSVFile
+            {
+                NumberOfColumns = 4,
+                FileName = "elements.csv",
+            };
+            csvColorsFile.StringColumns.Add(2);
+            csvColorsFile.StringColumns.Add(3);
+            csvColorsFile.BooleanColumns.Add(4);
+            csvFiles.Add(csvElementsFile);
 
             //inventories.csv
             CSVFile csvInventoriesFile = new CSVFile
