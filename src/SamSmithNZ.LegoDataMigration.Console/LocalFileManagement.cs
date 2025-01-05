@@ -72,10 +72,12 @@ namespace SamSmithNZ.LegoDataMigration.Console
                     string colorId = zipFile.Replace("parts_", "").Replace(".zip", "");
                     string tempFolderUnZippedLocationColorId = tempFolderUnZippedLocation + @"\" + colorId;
                     Directory.CreateDirectory(tempFolderUnZippedLocationColorId);
-                    //This line isn't required, but gives us more information for the console, and speed isn't a requirement here.
-                    ZipArchive zip = ZipFile.OpenRead(tempFolderLocation + @"\" + zipFile);
-                    System.Console.WriteLine("Unzipping " + zip.Entries.Count.ToString() + " files from zip '" + zipFile + "' to '" + tempFolderUnZippedLocationColorId + "'");
-                    ZipFile.ExtractToDirectory(tempFolderLocation + @"\" + zipFile, tempFolderUnZippedLocationColorId, true);
+                    //This line isn't required, but gives us more information to output to the console, and speed isn't a requirement here.
+                    using (ZipArchive zip = ZipFile.OpenRead(tempFolderLocation + @"\" + zipFile))
+                    {
+                        System.Console.WriteLine("Unzipping " + zip.Entries.Count.ToString() + " files from zip '" + zipFile + "' to '" + tempFolderUnZippedLocationColorId + "'");
+                        ZipFile.ExtractToDirectory(tempFolderLocation + @"\" + zipFile, tempFolderUnZippedLocationColorId, true);
+                    }
                 }
                 else
                 {
