@@ -221,17 +221,17 @@ namespace SamSmithNZ.LegoDataMigration.Console
             //Get a list of zip files in the blob
             List<string> files = await AzureBlobManagement.ListBlobs(storageConnectionString, sourceContainerName);
 
-            //Call the function
-            foreach (string file in files)
-            {
-                HttpClient client = new HttpClient
-                {
-                    BaseAddress = new Uri(functionURL)
-                };
-                HttpResponseMessage response = await client.GetAsync("/api/UnzipFileInBlob?code=pXUChJoDKFGZ9esg8RFMapWp/9YB1Fq4MTCMcsdfBt7n6QNmIoaDfw==&source=" + sourceContainerName + "&destination=" + destinationContainerName + "&file=" + file);
-                response.EnsureSuccessStatusCode();
-                System.Console.WriteLine(file + " processed with code: " + response.StatusCode);
-            }
+            ////Call the function
+            //foreach (string file in files)
+            //{
+            //    HttpClient client = new HttpClient
+            //    {
+            //        BaseAddress = new Uri(functionURL)
+            //    };
+            //    HttpResponseMessage response = await client.GetAsync("/api/UnzipFileInBlob?code=pXUChJoDKFGZ9esg8RFMapWp/9YB1Fq4MTCMcsdfBt7n6QNmIoaDfw==&source=" + sourceContainerName + "&destination=" + destinationContainerName + "&file=" + file);
+            //    response.EnsureSuccessStatusCode();
+            //    System.Console.WriteLine(file + " processed with code: " + response.StatusCode);
+            //}
 
         }
     }
