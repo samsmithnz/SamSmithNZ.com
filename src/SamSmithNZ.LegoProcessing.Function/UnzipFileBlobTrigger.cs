@@ -10,7 +10,7 @@ namespace SamSmithNZ.LegoProcessing.Function
     {
         [FunctionName("UnzipFileBlobTrigger")]
         public static async Task Run([BlobTrigger("zippedparts/{name}",
-            Connection = "storageConnectionString")]Stream myBlob, string name, ILogger log)
+                Connection = "storageConnectionString")] Stream myBlob, string name, ILogger log)
         {
             if (myBlob != null)
             {
@@ -36,6 +36,5 @@ namespace SamSmithNZ.LegoProcessing.Function
             double elapsedSeconds = watch.Elapsed.TotalSeconds;
             log.LogInformation($"Zip file '" + name + "' successfully processed " + totalImages + " files from " + sourceContainerName + " to " + destinationContainerName + " in " + elapsedSeconds.ToString() + " seconds.");
         }
-
     }
 }
