@@ -32,7 +32,7 @@ namespace SamSmithNZ.LegoDataMigration.Console
 
                 bool uploadCSVFiles = false; //This should normally be on
                 bool downloadPartZips = false; //This should normally be on
-                bool uploadNewPartZips = true; //This should normally be on
+                bool uploadNewPartZips = false; //This should normally be on
                 bool unzipPartsWithHTTPFunction = false; //This should normally be off, it's for debugging
 
 
